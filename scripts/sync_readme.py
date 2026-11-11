@@ -124,9 +124,11 @@ def render_catalog_block(catalog: dict) -> str:
         for g in guides:
             pdf_url = _encode_rel_path(g["pdf"])
             src_url = _encode_rel_path(g["source_dir"])
-            eco = cat_titles.get(g["category"], g["category"])
+            eco = cat_titles.get(g["category"], g["category"]).replace("|", r"\|")
+            g_title = g["title"].replace("|", r"\|")
+            g_sub = g.get("subtitle", "").replace("|", r"\|")
             sections.append(
-                f"| **{g['title']}** — {g.get('subtitle', '')} | {eco} | `v{g.get('version', '1.0')}` | `{g.get('updated', '')}` | {g.get('pages', 12)} | [PDF]({pdf_url}) &middot; [Source]({src_url}) |"
+                f"| **{g_title}** — {g_sub} | {eco} | `v{g.get('version', '1.0')}` | `{g.get('updated', '')}` | {g.get('pages', 12)} | [PDF]({pdf_url}) &middot; [Source]({src_url}) |"
             )
 
     return "\n".join(sections).strip()

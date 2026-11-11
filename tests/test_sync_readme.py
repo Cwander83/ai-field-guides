@@ -97,6 +97,47 @@ class SyncReadmeTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             update_readme_text(bad, {"categories": [], "guides": []})
 
+    def test_pipe_and_html_escaping_plus_multi_category_jumps(self):
+        catalog = {
+            "categories": [
+                {"id": "google", "title": "Google & Labs", "description": "G"},
+                {"id": "anthropic", "title": "Anthropic Tools", "description": "A"},
+            ],
+            "guides": [
+                {
+                    "id": "google/a",
+                    "category": "google",
+                    "title": "Flow | Studio <Pro>",
+                    "subtitle": "Fast | Clean & Crisp",
+                    "pdf": "guides/google/a/a.pdf",
+                    "cover": "guides/google/a/cover.png",
+                    "source_dir": "guides/google/a",
+                    "pages": 12,
+                    "version": "1.0",
+                    "updated": "2026-11",
+                    "tags": ["A&B"],
+                },
+                {
+                    "id": "anthropic/b",
+                    "category": "anthropic",
+                    "title": "Claude Code",
+                    "subtitle": "CLI Agent",
+                    "pdf": "guides/anthropic/b/b.pdf",
+                    "cover": "guides/anthropic/b/cover.png",
+                    "source_dir": "guides/anthropic/b",
+                    "pages": 12,
+                    "version": "1.0",
+                    "updated": "2026-11",
+                    "tags": ["CLI"],
+                },
+            ],
+        }
+        block = render_catalog_block(catalog)
+        self.assertIn("**Jump to Ecosystem:** [Google & Labs](#google--labs) &bull; [Anthropic Tools](#anthropic-tools)", block)
+        self.assertIn("Flow | Studio &lt;Pro&gt;", block)
+        self.assertIn("<code>A&amp;B</code>", block)
+        self.assertIn(r"**Flow \| Studio <Pro>** — Fast \| Clean & Crisp", block)
+
 
 class BuildScriptValidationTests(unittest.TestCase):
     def setUp(self):
@@ -176,6 +217,25 @@ class BuildScriptValidationTests(unittest.TestCase):
             )
             self.assertNotEqual(proc.returncode, 0)
             self.assertIn("backtick", (proc.stdout + proc.stderr).lower())
+
+    def test_empty_catalog_build_all_succeeds(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            cat_file = tmp_path / "catalog.json"
+            cat_file.write_text(
+                json.dumps({"categories": [], "guides": []}), encoding="utf-8"
+            )
+            (tmp_path / "README.md").write_text(SAMPLE_README, encoding="utf-8")
+            env = os.environ.copy()
+            env["CATALOG_FILE"] = str(cat_file)
+            env["REPO_ROOT_OVERRIDE"] = str(tmp_path)
+            proc = subprocess.run(
+                [str(self.build_sh), "--all"],
+                capture_output=True,
+                text=True,
+                env=env,
+            )
+            self.assertEqual(proc.returncode, 0, msg=proc.stdout + proc.stderr)
 
 
 if __name__ == "__main__":

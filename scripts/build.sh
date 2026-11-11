@@ -158,6 +158,7 @@ PY
 if [[ "$1" == "--all" ]]; then
   guide_ids=("${(@f)$(python3 -c 'import json,sys; print("\n".join(g["id"] for g in json.load(open(sys.argv[1]))["guides"]))' "$CATALOG_PATH")}")
   for gid in "${guide_ids[@]}"; do
+    [[ -z "$gid" ]] && continue
     build_single_guide "$gid" ""
   done
   python3 "$SCRIPT_DIR/sync_readme.py" --catalog "$CATALOG_PATH" --readme "$README_PATH"
