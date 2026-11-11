@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Antigravity &amp; Jules: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">Google AI Ultra Builder Series &bull; Late 2026 Edition</div>
+    <h1>Mastering <span>Antigravity &amp; Jules</span></h1>
+    <p class="cover-sub">
+      The complete visual handbook to Google's agent-first software studio—covering Antigravity 2.0, the IDE, CLI, Subagent Swarms, Customizations, and the Jules Async Workflow.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Antigravity 2.0 Desktop App</span>
+      <span class="cover-badge">Antigravity IDE (Tab &amp; Cmd+I)</span>
+      <span class="cover-badge">Jules Async GitHub Workflows</span>
+      <span class="cover-badge">Subagents &amp; Parallel Swarms</span>
+      <span class="cover-badge">Rules, Skills, Plugins &amp; MCP</span>
+      <span class="cover-badge">CLI (<code>agy</code>) &amp; Python SDK</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Google Antigravity and Autonomous Coding Agents Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Four Unified Surfaces</div>
+      <div class="cover-stat-desc">Work seamlessly across the Desktop App, VS Code-based IDE, Terminal CLI (<code>agy</code>), and Python SDK.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Jules DNA Built Right In</div>
+      <div class="cover-stat-desc">Includes the complete late-2026 Jules-to-Antigravity migration map for async branches, PRs, and cron runs.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Powered by AI Ultra</div>
+      <div class="cover-stat-desc">Unlock 5x–20x frontier Gemini quotas so multi-agent swarms and overnight <code>/goal</code> runs never stall.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & OVERVIEW ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Ecosystem Foundations</span>
+    <span>Google Antigravity &amp; Jules Complete Guide</span>
+  </div>
+
+  <h2 class="page-title">The Big Picture: Antigravity + Jules in One Studio</h2>
+  <p class="page-lead">
+    <strong>Google Antigravity</strong> (<code>antigravity.google</code>) is Google's flagship agent-first software creation platform—designed not just to autocomplete lines of code, but to plan, build, test, browse, and ship entire projects alongside you.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Antigravity + Jules Overview</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Jules Guide &amp; 2026 Consolidation</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Setup, Surfaces &amp; AI Ultra Perks</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Subagents, Worktrees &amp; Swarms</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Antigravity 2.0 App UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Customizations</strong> (Rules, Skills, MCP)</span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Antigravity IDE</strong> (Tab, Cmd+I, Agent)</span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. CLI (<code>agy</code>), Python SDK &amp; Browser</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Slash Commands &amp; <code>@</code> Context</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Security Sandbox &amp; Cheat Sheet</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. End-to-End Feature Build Walkthrough</strong></span><span class="toc-pg">p. 7</span></div>
+  </div>
+
+  <h3>Visualization: Four Ways to Drive One Shared Agent Brain</h3>
+  <div class="figure-box" style="background:#0f172a; padding:13px 15px;">
+    <svg viewBox="0 0 700 182" width="100%" height="182" xmlns="http://www.w3.org/2000/svg">
+      <!-- 4 Top Surface Cards -->
+      <rect x="10" y="10" width="160" height="96" rx="9" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1.4"/>
+      <text x="22" y="30" fill="#93c5fd" font-size="8.8" font-weight="700">SURFACE 1 &bull; DESKTOP</text>
+      <text x="22" y="48" fill="#ffffff" font-size="12.5" font-weight="800">Antigravity 2.0 App</text>
+      <text x="22" y="65" fill="#dbeafe" font-size="9.2">Mission control for</text>
+      <text x="22" y="78" fill="#dbeafe" font-size="9.2">chat, artifacts, swarms</text>
+      <text x="22" y="91" fill="#dbeafe" font-size="9.2">&amp; cron automations.</text>
+
+      <rect x="183" y="10" width="160" height="96" rx="9" fill="#4c1d95" stroke="#a78bfa" stroke-width="1.4"/>
+      <text x="195" y="30" fill="#ddd6fe" font-size="8.8" font-weight="700">SURFACE 2 &bull; EDITOR</text>
+      <text x="195" y="48" fill="#ffffff" font-size="12.5" font-weight="800">Antigravity IDE</text>
+      <text x="195" y="65" fill="#ede9fe" font-size="9.2">VS Code-based editor</text>
+      <text x="195" y="78" fill="#ede9fe" font-size="9.2">with Supercomplete Tab,</text>
+      <text x="195" y="91" fill="#ede9fe" font-size="9.2">Cmd+I &amp; visual diffs.</text>
+
+      <rect x="356" y="10" width="160" height="96" rx="9" fill="#065f46" stroke="#34d399" stroke-width="1.4"/>
+      <text x="368" y="30" fill="#a7f3d0" font-size="8.8" font-weight="700">SURFACE 3 &bull; TERMINAL</text>
+      <text x="368" y="48" fill="#ffffff" font-size="12.5" font-weight="800">Antigravity CLI (agy)</text>
+      <text x="368" y="65" fill="#d1fae5" font-size="9.2">Lightning-fast TUI</text>
+      <text x="368" y="78" fill="#d1fae5" font-size="9.2">inside any local or SSH</text>
+      <text x="368" y="91" fill="#d1fae5" font-size="9.2">shell session.</text>
+
+      <rect x="529" y="10" width="161" height="96" rx="9" fill="#9a3412" stroke="#fb923c" stroke-width="1.4"/>
+      <text x="541" y="30" fill="#fed7aa" font-size="8.8" font-weight="700">SURFACE 4 &bull; CODE</text>
+      <text x="541" y="48" fill="#ffffff" font-size="12.5" font-weight="800">Python SDK</text>
+      <text x="541" y="65" fill="#ffedd5" font-size="9.2">pip install library</text>
+      <text x="541" y="78" fill="#ffedd5" font-size="9.2">to spawn &amp; stream</text>
+      <text x="541" y="91" fill="#ffedd5" font-size="9.2">agents in scripts/CI.</text>
+
+      <!-- Connectors -->
+      <path d="M90 106 L90 128 M263 106 L263 128 M436 106 L436 128 M609 106 L609 128" stroke="#38bdf8" stroke-width="2"/>
+      <rect x="10" y="128" width="680" height="44" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="350" y="147" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="800">
+        Shared Antigravity Engine (Gemini Frontier Models + Jules Async Primitives)
+      </text>
+      <text x="350" y="163" text-anchor="middle" fill="#94a3b8" font-size="9.3">
+        Reads the exact same AGENTS.md / GEMINI.md rules, .agents/skills/, Plugins, MCP servers &amp; Sandbox policies
+      </text>
+    </svg>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">Important Late-2026 Update: Jules Is Now Folding Into Antigravity!</div>
+    Google's standalone asynchronous GitHub agent, <strong>Jules</strong> (<code>jules.google</code>), pioneered background cloud-VM bug fixing and automated Pull Requests. In late 2026 (read-only <strong>Nov 11, 2026</strong>; full sunset <strong>Dec 31, 2026</strong>), Google consolidated Jules's best async capabilities—branched background subagents, scheduled cron tasks, <code>AGENTS.md</code> memory, and GitHub PR automation—directly into <strong>Google Antigravity</strong>. Page 8 covers both Jules's workflow and your exact migration map!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, SURFACES & ULTRA PERKS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; AI Ultra</span>
+    <span>Getting Started, Choosing a Surface &amp; Ultra Benefits</span>
+  </div>
+
+  <h2 class="page-title">First-Time Setup &amp; Your Google AI Ultra Advantage</h2>
+  <p class="page-lead">
+    You don't need to be a senior software engineer to use Antigravity. Non-coders use <strong>Antigravity 2.0</strong> to generate guides, websites, and automations, while engineers pair it with the <strong>IDE</strong> and <strong>CLI</strong>.
+  </p>
+
+  <h3>3-Step Setup (Under 3 Minutes)</h3>
+  <div class="grid-3" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Install Your Surface</div>
+      <p>Download <strong>Antigravity 2.0</strong> or <strong>Antigravity IDE</strong> from <code>antigravity.google</code>, or install the terminal CLI (<code>agy</code>) and Python SDK.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Sign In w/ AI Ultra</div>
+      <p>Authenticate with the Google account tied to your <strong>Google AI Ultra</strong> plan to unlock frontier models and 5x–20x rate limits automatically.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">3</span> Open or Import Config</div>
+      <p>Select a workspace folder. Coming from Cursor, Claude Code, or Codex? Ask the agent: <em>"Migrate my agent settings into a plugin."</em></p>
+    </div>
+  </div>
+
+  <h3>Which Antigravity Surface Should You Open Today?</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Surface</th>
+        <th style="width:26%;">Best For</th>
+        <th style="width:52%;">Everyday Superpower</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Antigravity 2.0</strong><br/><span style="color:#64748b;font-size:7.8pt;">Desktop App</span></td>
+        <td>Creators, PMs, researchers &amp; multi-agent orchestrators</td>
+        <td>Clean workspace without code clutter. Delegate research, build apps from scratch, inspect rich Markdown/HTML <strong>Artifacts</strong>, and schedule daily cron jobs.</td>
+      </tr>
+      <tr>
+        <td><strong>Antigravity IDE</strong><br/><span style="color:#64748b;font-size:7.8pt;">Standalone Editor</span></td>
+        <td>Hands-on coding, refactoring &amp; debugging</td>
+        <td>Full VS Code compatibility plus single-keystroke <strong>Tab Supercomplete</strong>, <code>Cmd+I</code> inline edits, inline Code Lenses, and red/green visual diff review.</td>
+      </tr>
+      <tr>
+        <td><strong>Antigravity CLI</strong><br/><span style="color:#64748b;font-size:7.8pt;"><code>agy</code> in Terminal</span></td>
+        <td>Terminal lovers, SSH servers &amp; quick repo tasks</td>
+        <td>Type <code>agy</code> inside any folder to launch an interactive terminal agent with full slash commands and subagent support (<code>~/.gemini/antigravity-cli/settings.json</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Python SDK</strong><br/><span style="color:#64748b;font-size:7.8pt;"><code>google-antigravity</code></span></td>
+        <td>Custom automation pipelines &amp; CI test suites</td>
+        <td>Spawn programmable <code>Agent()</code> instances inside Python scripts, stream live thought/tool events, and wire custom local tools.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>What Your Google AI Ultra Plan Unlocks Here</h3>
+  <div class="grid-2">
+    <div class="callout emerald" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">1. Unthrottled Multi-Agent &amp; Swarm Runs</div>
+      Features like <code>/teamwork</code> (parallel agent swarms), <code>/boost</code> (multi-perspective deep verification), and <code>/goal</code> (long overnight runs) consume heavy tokens. AI Ultra's <strong>5x–20x quota multiplier</strong> keeps them humming without hitting mid-task caps.
+    </div>
+    <div class="callout" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">2. Frontier Models + Cloud Developer Credits</div>
+      Ultra gives you priority access to flagship reasoning models (Gemini Pro / Carbon / Deep Think) inside the Model Selector, plus <strong>Google Developer Program Premium</strong> monthly Google Cloud &amp; Gemini API credits for deploying what you build.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANTIGRAVITY 2.0 APP UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Desktop Studio</span>
+    <span>Touring the Antigravity 2.0 Interface</span>
+  </div>
+
+  <h2 class="page-title">Antigravity 2.0 Desktop App: Annotated Visual Tour</h2>
+  <p class="page-lead">
+    <strong>Antigravity 2.0</strong> separates high-level thinking from raw code files. You converse in the center <strong>Chat Canvas</strong> while live subagents, terminals, artifacts, and file diffs update in the right-hand <strong>Auxiliary Pane</strong>.
+  </p>
+
+  <!-- Annotated Dark-Mode Antigravity 2.0 UI Mockup -->
+  <div class="ui-window" style="margin-bottom:11px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">Antigravity 2.0</span>
+        <span style="color:#64748b;">&bull;</span>
+        <span style="color:#38bdf8; font-weight:600;">Workspace: acme-web-app</span>
+      </div>
+      <div style="display:flex; gap:7px; align-items:center;">
+        <span class="callout-pin">2</span>
+        <span style="background:#1e293b; border:1px solid #334155; padding:2px 8px; border-radius:6px; color:#e2e8f0;">Model: Gemini 4 Carbon</span>
+        <span style="background:#065f46; padding:2px 8px; border-radius:6px; color:#a7f3d0; font-weight:700;">Sandbox: ON</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 138px 1fr 205px; gap:1px; background:#1f2937;">
+      <!-- Left Sidebar -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+          <span style="font-size:7pt; font-weight:700; color:#94a3b8;">NAVIGATION</span>
+          <span class="callout-pin">1</span>
+        </div>
+        <div style="background:#2563eb; color:#fff; padding:4px 7px; border-radius:5px; font-weight:700;">+ New Chat</div>
+        <div style="color:#cbd5e1; padding:3px 6px;">Projects (4)</div>
+        <div style="color:#cbd5e1; padding:3px 6px;">Scheduled Tasks</div>
+        <div style="color:#cbd5e1; padding:3px 6px;">Plugins &amp; Skills</div>
+        <div style="color:#cbd5e1; padding:3px 6px;">Settings &amp; Policy</div>
+      </div>
+
+      <!-- Center Chat Canvas -->
+      <div style="background:#0b0f19; padding:9px; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="background:#1e293b; border-radius:6px; padding:6px 8px; margin-bottom:7px; color:#e2e8f0;">
+            <strong>You:</strong> <span style="color:#38bdf8;">/plan</span> Add Stripe checkout &amp; verify mobile layout in <span style="color:#a78bfa;">@src/checkout</span>
+          </div>
+          <!-- Artifact Plan Card -->
+          <div style="background:#111827; border:1px solid #38bdf8; border-radius:7px; padding:7px 9px; margin-bottom:8px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <span style="color:#7dd3fc; font-weight:700;">ARTIFACT &bull; implementation_plan.md</span>
+              <span class="callout-pin">3</span>
+            </div>
+            <div style="color:#cbd5e1; font-size:7.1pt; margin-bottom:6px;">
+              1. Create webhook route in <code>api/stripe/route.ts</code><br/>
+              2. Launch Browser Subagent to verify checkout UI
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:6px;">
+              <span style="background:#1f2937; padding:2px 7px; border-radius:4px; color:#cbd5e1;">Comment</span>
+              <span style="background:#059669; padding:2px 9px; border-radius:4px; color:#fff; font-weight:700;">Proceed &rarr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Composer -->
+        <div style="background:#111827; border:1px solid #374151; border-radius:7px; padding:6px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; color:#94a3b8;">
+            <span>Type <code>/</code> for commands, <code>@</code> to attach files/MCP, or drop screenshots...</span>
+            <span class="callout-pin">4</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Auxiliary Pane -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; gap:4px; font-size:6.8pt; border-bottom:1px solid #1e293b; padding-bottom:5px;">
+          <span style="background:#1e293b; color:#38bdf8; padding:2px 5px; border-radius:4px; font-weight:700;">Subagents (2)</span>
+          <span style="color:#94a3b8; padding:2px 4px;">Tasks</span>
+          <span style="color:#94a3b8; padding:2px 4px;">Diffs (3)</span>
+        </div>
+
+        <div style="background:#1e293b; border-left:3px solid #a78bfa; border-radius:5px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between;">
+            <strong style="color:#f8fafc;">Browser Agent</strong><span class="callout-pin">5</span>
+          </div>
+          <div style="color:#94a3b8; font-size:6.9pt;">Testing localhost:3000/checkout</div>
+        </div>
+
+        <div style="background:#1e293b; border-left:3px solid #34d399; border-radius:5px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between;">
+            <strong style="color:#f8fafc;">Bg Task: <code>npm test</code></strong><span class="callout-pin">6</span>
+          </div>
+          <div style="color:#a7f3d0; font-size:6.9pt;">18/18 passed (1.4s)</div>
+        </div>
+
+        <div style="background:#1e293b; border-left:3px solid #fb923c; border-radius:5px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between;">
+            <strong style="color:#f8fafc;">Files Changed (3)</strong><span class="callout-pin">7</span>
+          </div>
+          <div style="color:#cbd5e1; font-size:6.9pt;"><code>+84 -12</code> across 3 TypeScript files</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Interface Reference</h3>
+  <div class="grid-2" style="gap:7px 14px; font-size:8.7pt;">
+    <div><span class="callout-pin">1</span> <strong>Left Sidebar:</strong> Switch workspaces, start fresh chats, manage cron <em>Scheduled Tasks</em>, toggle <em>Plugins &amp; Skills</em>, or tune security rules.</div>
+    <div><span class="callout-pin">2</span> <strong>Model &amp; Sandbox Bar:</strong> Pick Gemini Flash (speed), Pro/Carbon (deep coding), and inspect active terminal sandbox status.</div>
+    <div><span class="callout-pin">3</span> <strong>Interactive Artifacts:</strong> Plans, reports, Mermaid diagrams, and diffs open as rich documents—click <strong>Proceed</strong> to approve execution.</div>
+    <div><span class="callout-pin">4</span> <strong>Smart Composer:</strong> Trigger workflows with <code>/</code>, pull exact context with <code>@</code>, or drag UI mockups and PDFs straight into chat.</div>
+    <div><span class="callout-pin">5</span> <strong>Subagents &amp; Swarm Monitor:</strong> Watch parallel research, coding, or live Webview Browser agents work without cluttering main chat.</div>
+    <div><span class="callout-pin">6</span> <strong>Background Tasks &amp; Terminals:</strong> Dev servers and long test suites run asynchronously and automatically wake the agent when done.</div>
+  </div>
+  <div style="margin-top:5px; font-size:8.7pt;">
+    <span class="callout-pin">7</span> <strong>Files Changed &amp; Sidecars:</strong> Inspect every added/deleted line across your repo, or open plugin UI panels (like Android Device Hub or Compose Preview).
+  </div>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: ANTIGRAVITY IDE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; In-Editor Coding</span>
+    <span>Mastering Antigravity IDE (Tab, Cmd+I &amp; Agent Mode)</span>
+  </div>
+
+  <h2 class="page-title">Antigravity IDE: Three Speeds of AI Pair Programming</h2>
+  <p class="page-lead">
+    Built on VS Code so all your favorite extensions and themes carry over, <strong>Antigravity IDE</strong> gives you three distinct gears depending on whether you are editing one line, one function, or twenty files.
+  </p>
+
+  <!-- 3 Modalities Visual Diagram -->
+  <div class="grid-3" style="margin-bottom:10px;">
+    <div class="card" style="border-top:4px solid #0284c7;">
+      <div class="card-title" style="color:#0369a1;">Gear 1: Passive (<code>Tab</code>)</div>
+      <p style="font-size:8.5pt;"><strong>Millisecond Flow State.</strong> Predicts your next edit, multi-line diff (<em>Supercomplete</em>), missing import, or next cursor jump.</p>
+      <div style="background:#0f172a; color:#bae6fd; padding:6px 8px; border-radius:6px; font-family:monospace; font-size:7.6pt;">
+        Press <strong>Tab</strong> to accept<br/>
+        Press <strong>Cmd+&rarr;</strong> word-by-word<br/>
+        Press <strong>Tab</strong> again to jump!
+      </div>
+    </div>
+
+    <div class="card" style="border-top:4px solid #7c3aed;">
+      <div class="card-title" style="color:#6d28d9;">Gear 2: Inline (<code>Cmd+I</code>)</div>
+      <p style="font-size:8.5pt;"><strong>Surgical Single-Block Edit.</strong> Highlight a function, press <code>Cmd+I</code> (<code>Ctrl+I</code>), and ask for a refactor, docstring, or type fix.</p>
+      <div style="background:#0f172a; color:#ddd6fe; padding:6px 8px; border-radius:6px; font-family:monospace; font-size:7.6pt;">
+        Edits <em>only</em> highlighted lines.<br/>
+        Shows red/green inline diff.<br/>
+        Zero risk to rest of file.
+      </div>
+    </div>
+
+    <div class="card" style="border-top:4px solid #ea580c;">
+      <div class="card-title" style="color:#c2410c;">Gear 3: Sidebar Agent</div>
+      <p style="font-size:8.5pt;"><strong>Multi-File Autonomous Builder.</strong> Reads codebase, edits across folders, runs tests, checks browser, and fixes errors.</p>
+      <div style="background:#0f172a; color:#fed7aa; padding:6px 8px; border-radius:6px; font-family:monospace; font-size:7.6pt;">
+        Toggle <strong>Planning Mode</strong> first<br/>
+        for complex architecture<br/>
+        before touching code.
+      </div>
+    </div>
+  </div>
+
+  <h3>Essential Antigravity IDE Features &amp; Shortcuts</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:26%;">Feature / Action</th>
+        <th style="width:24%;">Shortcut (macOS / Win)</th>
+        <th style="width:50%;">How to Use It Effectively</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Supercomplete &amp; Tab-to-Jump</strong></td>
+        <td><code>Tab</code> / <code>Esc</code></td>
+        <td>After renaming a prop or parameter, wait 0.2s—Antigravity highlights the next callsite and lets you teleport there with <code>Tab</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Tab-to-Import</strong></td>
+        <td><code>Tab</code></td>
+        <td>Type a component or utility name from another file; pressing <code>Tab</code> automatically inserts the clean top-of-file <code>import</code> statement.</td>
+      </tr>
+      <tr>
+        <td><strong>Inline Command</strong></td>
+        <td><code>Cmd+I</code> / <code>Ctrl+I</code></td>
+        <td>Place cursor on an empty line to generate a new helper from scratch, or select messy code and type <em>"Extract into pure async helper."</em></td>
+      </tr>
+      <tr>
+        <td><strong>Inline Code Lenses</strong></td>
+        <td>Click lens above symbol</td>
+        <td>One-click buttons floating above classes and functions: <em>Explain</em>, <em>Refactor</em>, or <em>Write Unit Tests</em> scoped to that exact symbol.</td>
+      </tr>
+      <tr>
+        <td><strong>Diagnostic Auto-Fix</strong></td>
+        <td>Hover red squiggle / Problems</td>
+        <td>Click <em>Fix with Antigravity</em> on any TypeScript, Python, Rust, or linter error to patch root causes using surrounding context.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald">
+    <div class="callout-title">Pro Workflow: Run Antigravity IDE + Antigravity 2.0 Side by Side</div>
+    Both apps share the exact same workspace and <code>.agents/</code> rules! Many Ultra users keep <strong>Antigravity 2.0</strong> running long research or multi-agent swarms on a second monitor while making fast <code>Tab</code> and <code>Cmd+I</code> tweaks inside <strong>Antigravity IDE</strong>.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: SLASH COMMANDS & @ CONTEXT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Power Steering</span>
+    <span>Slash Commands (<code>/</code>), <code>@</code> Mentions &amp; Artifacts</span>
+  </div>
+
+  <h2 class="page-title">Steering Agents with <code>/</code> Slash Commands &amp; <code>@</code> Mentions</h2>
+  <p class="page-lead">
+    Typing a single slash command at the start of your prompt shifts Antigravity into specialized operating modes—from interactive design interviews to unstoppable overnight execution.
+  </p>
+
+  <h3>Complete Built-In Slash Command Cheat Sheet</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Command</th>
+        <th style="width:32%;">What Mode It Activates</th>
+        <th style="width:50%;">When to Reach for It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>/plan</code></td>
+        <td>Step-by-Step Blueprint Mode</td>
+        <td>Before any multi-file feature or refactor. Writes a reviewable plan artifact before editing code.</td>
+      </tr>
+      <tr>
+        <td><code>/grill-me</code></td>
+        <td>Interactive Design Interview</td>
+        <td>When your idea is still fuzzy—the agent interviews you on edge cases and trade-offs until aligned.</td>
+      </tr>
+      <tr>
+        <td><code>/goal</code></td>
+        <td>Relentless Autonomous Mode</td>
+        <td>Long or overnight tasks (e.g., <em>"Get test coverage to 90% and fix all build errors"</em>)—won't stop early.</td>
+      </tr>
+      <tr>
+        <td><code>/boost</code></td>
+        <td>Deep Multi-Perspective Mode</td>
+        <td>Hard architecture bugs or research requiring deep reasoning, competing hypotheses, and strict proof.</td>
+      </tr>
+      <tr>
+        <td><code>/teamwork</code></td>
+        <td>Multi-Agent Swarm Mode</td>
+        <td>Large projects where independent slices (frontend, API, tests, review) can be built in parallel.</td>
+      </tr>
+      <tr>
+        <td><code>/browser</code></td>
+        <td>Live Webview Browser Agent</td>
+        <td>Testing <code>localhost</code> web apps, clicking through UI flows, or interacting with live JS-rendered sites.</td>
+      </tr>
+      <tr>
+        <td><code>/schedule</code></td>
+        <td>Recurring Cron Automation</td>
+        <td>Setting up daily/weekly background runs (also accessible via <code>/automation</code>), like morning PR digests.</td>
+      </tr>
+      <tr>
+        <td><code>/learn</code></td>
+        <td>Persistent Memory Capture</td>
+        <td>Right after you correct a mistake or solve a tricky setup—saves the lesson as a reusable rule/skill!</td>
+      </tr>
+      <tr>
+        <td><code>/compact</code></td>
+        <td>Context Window Optimizer</td>
+        <td>Summarizes a very long chat history so your session stays sharp, fast, and uncluttered.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Precision Context with <code>@</code> Mentions</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">@</span> Files &amp; Folders</div>
+      <p style="font-size:8.3pt;">Attach <code>@package.json</code> or <code>@src/auth/</code> so the agent reads exact targets immediately without guessing.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">@</span> Terminals &amp; Chats</div>
+      <p style="font-size:8.3pt;">Reference a failing build with <code>@terminal</code> or carry decisions forward from <code>@previous-conversation</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">@</span> Rules &amp; MCP Tools</div>
+      <p style="font-size:8.3pt;">Explicitly invoke a style guide via <code>@rule</code> or query connected databases/GitHub via <code>@mcp</code>.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: 15-MINUTE FEATURE BUILD WALKTHROUGH ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Hands-On Pipeline</span>
+    <span>Your First End-to-End Build in 15 Minutes</span>
+  </div>
+
+  <h2 class="page-title">The 6-Step Agentic Build Loop (Idea to Verified PR)</h2>
+  <p class="page-lead">
+    Whether you are building a personal dashboard from scratch or adding a feature to an existing repo, this 6-step loop keeps you in full control while the agent handles the heavy lifting.
+  </p>
+
+  <!-- 6-Step Build Pipeline SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:11px 13px;">
+    <svg viewBox="0 0 700 164" width="100%" height="164" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="8" width="205" height="62" rx="9" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+      <circle cx="31" cy="28" r="10.5" fill="#2563eb"/><text x="31" y="32" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="800">1</text>
+      <text x="48" y="32" fill="#0f172a" font-size="10.8" font-weight="800">Align w/ /plan</text>
+      <text x="22" y="49" fill="#334155" font-size="9">Describe goal + @ files; agent</text>
+      <text x="22" y="61" fill="#334155" font-size="9">researches repo &amp; drafts plan.</text>
+
+      <path d="M219 39 L242 39" stroke="#2563eb" stroke-width="2.2"/><polygon points="241,34 248,39 241,44" fill="#2563eb"/>
+
+      <rect x="248" y="8" width="205" height="62" rx="9" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+      <circle cx="269" cy="28" r="10.5" fill="#7c3aed"/><text x="269" y="32" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="800">2</text>
+      <text x="286" y="32" fill="#0f172a" font-size="10.8" font-weight="800">Approve Artifact</text>
+      <text x="260" y="49" fill="#334155" font-size="9">Read plan artifact, tweak edge</text>
+      <text x="260" y="61" fill="#334155" font-size="9">cases, and click "Proceed".</text>
+
+      <path d="M457 39 L480 39" stroke="#7c3aed" stroke-width="2.2"/><polygon points="479,34 486,39 479,44" fill="#7c3aed"/>
+
+      <rect x="486" y="8" width="204" height="62" rx="9" fill="#fff7ed" stroke="#ea580c" stroke-width="1.8"/>
+      <circle cx="507" cy="28" r="10.5" fill="#ea580c"/><text x="507" y="32" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="800">3</text>
+      <text x="524" y="32" fill="#0f172a" font-size="10.8" font-weight="800">Build &amp; Run Tests</text>
+      <text x="498" y="49" fill="#334155" font-size="9">Agent edits files, runs terminal</text>
+      <text x="498" y="61" fill="#334155" font-size="9">test suites, and self-heals bugs.</text>
+
+      <path d="M588 70 L588 85 L112 85 L112 95" fill="none" stroke="#64748b" stroke-width="1.8" stroke-dasharray="4 3"/>
+      <polygon points="107,93 112,100 117,93" fill="#64748b"/>
+
+      <rect x="10" y="99" width="205" height="58" rx="9" fill="#fdf2f8" stroke="#db2777" stroke-width="1.8"/>
+      <circle cx="31" cy="118" r="10.5" fill="#db2777"/><text x="31" y="122" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="800">4</text>
+      <text x="48" y="122" fill="#0f172a" font-size="10.8" font-weight="800">Live Browser Check</text>
+      <text x="22" y="139" fill="#334155" font-size="9">Browser subagent clicks through</text>
+      <text x="22" y="150" fill="#334155" font-size="9">localhost UI &amp; screenshots proof.</text>
+
+      <path d="M219 128 L242 128" stroke="#db2777" stroke-width="2.2"/><polygon points="241,123 248,128 241,133" fill="#db2777"/>
+
+      <rect x="248" y="99" width="205" height="58" rx="9" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+      <circle cx="269" cy="118" r="10.5" fill="#059669"/><text x="269" y="122" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="800">5</text>
+      <text x="286" y="122" fill="#0f172a" font-size="10.8" font-weight="800">Inspect Diffs &amp; /learn</text>
+      <text x="260" y="139" fill="#334155" font-size="9">Verify Files Changed pane; save</text>
+      <text x="260" y="150" fill="#334155" font-size="9">any new repo gotchas via /learn.</text>
+
+      <path d="M457 128 L480 128" stroke="#059669" stroke-width="2.2"/><polygon points="479,123 486,128 479,133" fill="#059669"/>
+
+      <rect x="486" y="99" width="204" height="58" rx="9" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8"/>
+      <circle cx="507" cy="118" r="10.5" fill="#38bdf8"/><text x="507" y="122" text-anchor="middle" fill="#0f172a" font-size="9.5" font-weight="800">6</text>
+      <text x="524" y="122" fill="#ffffff" font-size="10.8" font-weight="800">Ship Clean PR</text>
+      <text x="498" y="139" fill="#cbd5e1" font-size="9">Ask agent to commit &amp; open a</text>
+      <text x="498" y="150" fill="#cbd5e1" font-size="9">GitHub Pull Request via MCP/gh.</text>
+    </svg>
+  </div>
+
+  <h3>Concrete Example: Building a Personal Expense Tracker Web App</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Turn</th>
+        <th style="width:44%;">Exact Prompt You Type</th>
+        <th style="width:38%;">What Antigravity Does Behind the Scenes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Turn 1: Plan</strong></td>
+        <td><code>/plan Build a clean Next.js + SQLite expense tracker with CSV import and monthly charts.</code></td>
+        <td>Creates a task checklist &amp; architecture plan artifact with tech choices and schema; pauses for feedback.</td>
+      </tr>
+      <tr>
+        <td><strong>Turn 2: Build</strong></td>
+        <td>Click <strong>Proceed</strong> on the plan artifact (or reply: <em>"Add dark mode toggle too, then proceed."</em>)</td>
+        <td>Scaffolds project, writes database &amp; chart components, runs <code>npm run build</code> and unit tests until green.</td>
+      </tr>
+      <tr>
+        <td><strong>Turn 3: Verify UI</strong></td>
+        <td><code>Start the dev server and open localhost:3000 in the browser to test uploading a sample CSV.</code></td>
+        <td>Starts background server, delegates to the <strong>Browser Subagent</strong>, uploads a test CSV, and verifies charts render.</td>
+      </tr>
+      <tr>
+        <td><strong>Turn 4: Ship</strong></td>
+        <td><code>Initialize git, write a clean commit, and push to a new private GitHub repo via GitHub MCP.</code></td>
+        <td>Commits tested code and creates your remote repository + clean README automatically.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">Zero-Polling Reactive Architecture</div>
+    When Antigravity starts a long test suite, dev server, or subagent, you <strong>never</strong> need to babysit or ask "is it done yet?" Background tasks automatically wake the agent the instant they complete.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: JULES DEEP DIVE & 2026 MIGRATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Jules &amp; Async Cloud</span>
+    <span>Google Jules Guide &amp; Late-2026 Consolidation Map</span>
+  </div>
+
+  <h2 class="page-title">Google Jules: Async Pioneer &amp; Antigravity Migration</h2>
+  <p class="page-lead">
+    <strong>Google Jules</strong> (<code>jules.google</code>) introduced "fire-and-forget" asynchronous engineering—cloning GitHub repos into cloud Linux VMs, proposing a plan, running tests, and opening Pull Requests while you worked elsewhere.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/async_bridge.jpg" alt="Interactive Workstation vs Asynchronous Cloud Agents" style="width:100%; height:142px; object-fit:cover; display:block;" />
+    <div style="display:flex; justify-content:space-between; align-items:center; background:#0f172a; color:#f8fafc; padding:6px 12px; font-size:7.9pt; border-top:1px solid #334155;">
+      <span><strong style="color:#38bdf8;">[LEFT: INTERACTIVE MODE]</strong> Live pair-programming in IDE/App</span>
+      <span style="color:#34d399; font-weight:700;">&mdash;&mdash; Unified in Antigravity (Late 2026) &rarr;</span>
+      <span><strong style="color:#a78bfa;">[RIGHT: JULES ASYNC MODE]</strong> Parallel branched workers &amp; overnight cron PRs</span>
+    </div>
+  </div>
+
+  <h3>The Late-2026 Timeline &amp; 1-to-1 Jules &rarr; Antigravity Map</h3>
+  <p style="font-size:8.9pt;">
+    Rather than splitting your quota between two separate coding products, Google folded Jules's async architecture into Antigravity (Jules entered read-only mode on <strong>Nov 11, 2026</strong> ahead of full sunset on <strong>Dec 31, 2026</strong>). Every beloved Jules workflow now has a direct—and more powerful—home inside Antigravity:
+  </p>
+
+  <table class="clean-table" style="font-size:8.3pt;">
+    <thead>
+      <tr>
+        <th style="width:32%;">Classic Jules Feature (<code>jules.google</code>)</th>
+        <th style="width:68%;">How You Do It Better in Google Antigravity Today</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>"Give Me a Plan" Approval Gate</strong></td>
+        <td>Use <code>/plan</code> (or IDE Planning Mode). Antigravity writes a structured Markdown plan Artifact with an interactive <strong>Proceed</strong> button.</td>
+      </tr>
+      <tr>
+        <td><strong>60 Parallel Cloud Tasks (AI Ultra)</strong><br/><code>jules remote new --parallel 3</code></td>
+        <td>Use <code>/teamwork</code> (Swarm) or spawn subagents with <code>workspace: "share"</code> / <code>"branch"</code> so each agent edits its own isolated git copy in parallel.</td>
+      </tr>
+      <tr>
+        <td><strong>Repo <code>AGENTS.md</code> Memory File</strong></td>
+        <td><strong>100% Native!</strong> Antigravity automatically discovers and obeys your existing root and subdirectory <code>AGENTS.md</code> (and <code>GEMINI.md</code>) files with zero changes.</td>
+      </tr>
+      <tr>
+        <td><strong>GitHub Issue / PR Automation</strong></td>
+        <td>Connect the built-in <strong>GitHub MCP Server</strong> (or <code>gh</code> CLI skill) + <code>/goal</code> to pull an issue, fix it on a branch, run tests, and open a ready-to-merge PR.</td>
+      </tr>
+      <tr>
+        <td><strong>Scheduled Scans &amp; Audio Recaps</strong></td>
+        <td>Use <code>/schedule</code> (or <code>/automation</code>) to run nightly dependency/security audits or morning changelog digests automatically.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="padding:8px 11px; font-size:8.5pt;">
+    <div class="callout-title">Used Jules Previously? Export Your History Before Dec 31, 2026</div>
+    Run <code>npx @google/jules</code> in your terminal and authenticate via <code>jules login</code> to export past session patches, setup scripts, and repository memories straight into your local Antigravity <code>.agents/</code> folder before standalone <code>jules.google</code> retires.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: SUBAGENTS, WORKTREES & SWARMS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Multi-Agent Scale</span>
+    <span>Subagents, Isolated Workspaces &amp; Parallel Swarms</span>
+  </div>
+
+  <h2 class="page-title">Multiplying Yourself: Subagents &amp; Native Swarms</h2>
+  <p class="page-lead">
+    With a <strong>Google AI Ultra</strong> plan, you aren't limited to a single single-threaded assistant. Antigravity can dispatch specialized specialist agents—or an entire collaborative team—that work simultaneously.
+  </p>
+
+  <!-- Subagent & Swarm Architecture SVG -->
+  <div class="figure-box" style="background:#0f172a; padding:12px 15px; margin-bottom:10px;">
+    <svg viewBox="0 0 680 150" width="100%" height="150" xmlns="http://www.w3.org/2000/svg">
+      <!-- Coordinator -->
+      <rect x="225" y="8" width="230" height="38" rx="8" fill="#1d4ed8" stroke="#7dd3fc" stroke-width="1.5"/>
+      <text x="340" y="25" text-anchor="middle" fill="#fff" font-size="10.5" font-weight="800">Lead Coordinator Agent (Your Chat)</text>
+      <text x="340" y="39" text-anchor="middle" fill="#bae6fd" font-size="8.5">Plans slices, assigns briefs, merges verified branches</text>
+
+      <!-- Fan-out lines -->
+      <path d="M270 46 L90 74 M315 46 L255 74 M365 46 L425 74 M410 46 L590 74" stroke="#64748b" stroke-width="1.8"/>
+
+      <!-- 4 Workers -->
+      <rect x="10" y="74" width="152" height="66" rx="7" fill="#1e293b" stroke="#38bdf8"/>
+      <text x="20" y="92" fill="#38bdf8" font-size="9.5" font-weight="800">Research Subagent</text>
+      <text x="20" y="107" fill="#cbd5e1" font-size="8.3">Read-only sandbox. Scans</text>
+      <text x="20" y="119" fill="#cbd5e1" font-size="8.3">50+ files without bloating</text>
+      <text x="20" y="131" fill="#cbd5e1" font-size="8.3">your main context window.</text>
+
+      <rect x="176" y="74" width="156" height="66" rx="7" fill="#1e293b" stroke="#34d399"/>
+      <text x="186" y="92" fill="#34d399" font-size="9.5" font-weight="800">Worker A (share copy)</text>
+      <text x="186" y="107" fill="#cbd5e1" font-size="8.3">Builds backend API slice</text>
+      <text x="186" y="119" fill="#cbd5e1" font-size="8.3">in its own git worktree—</text>
+      <text x="186" y="131" fill="#cbd5e1" font-size="8.3">zero file edit collisions.</text>
+
+      <rect x="346" y="74" width="156" height="66" rx="7" fill="#1e293b" stroke="#a78bfa"/>
+      <text x="356" y="92" fill="#a78bfa" font-size="9.5" font-weight="800">Worker B (share copy)</text>
+      <text x="356" y="107" fill="#cbd5e1" font-size="8.3">Builds React UI slice in</text>
+      <text x="356" y="119" fill="#cbd5e1" font-size="8.3">parallel &amp; coordinates on</text>
+      <text x="356" y="131" fill="#cbd5e1" font-size="8.3">the Swarm message board.</text>
+
+      <rect x="516" y="74" width="154" height="66" rx="7" fill="#1e293b" stroke="#fb923c"/>
+      <text x="526" y="92" fill="#fb923c" font-size="9.5" font-weight="800">Browser + Image Agents</text>
+      <text x="526" y="107" fill="#cbd5e1" font-size="8.3">Generates UI illustrations</text>
+      <text x="526" y="119" fill="#cbd5e1" font-size="8.3">&amp; clicks through live web</text>
+      <text x="526" y="131" fill="#cbd5e1" font-size="8.3">pages to verify flows.</text>
+    </svg>
+  </div>
+
+  <h3>Subagents vs. Swarms: When to Use Each</h3>
+  <div class="grid-2" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Focused Subagents (Automatic)</div>
+      <p>Antigravity automatically delegates focused jobs—like surveying a huge repo (<code>research</code>), clicking around a web app (<code>browser</code>), or generating assets (<code>image-generator</code>)—and receives a concise summary back.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">B</span> Native Swarms (<code>/teamwork</code>)</div>
+      <p>For ambitious builds or cross-checking critical code, type <code>/teamwork</code>. Multiple named agents (<code>author-1</code>, <code>author-2</code>, <code>verifier</code>) collaborate on a shared public message board!</p>
+    </div>
+  </div>
+
+  <h3>Understanding Workspace Isolation Modes</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Workspace Mode</th>
+        <th style="width:80%;">How It Works &amp; Why It Prevents File Conflicts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>inherit</code> (Default)</td>
+        <td>Works directly inside your active folder. Ideal for read-only researchers, code reviewers, or single-author tasks.</td>
+      </tr>
+      <tr>
+        <td><code>share</code> (Worktree)</td>
+        <td>Creates an instant lightweight working copy sharing <code>.git</code> storage—letting 3+ authors edit and build simultaneously without overwriting each other!</td>
+      </tr>
+      <tr>
+        <td><code>branch</code> (Clone)</td>
+        <td>Creates a completely isolated clone for risky refactors or competing architectural experiments (just like Jules's parallel <code>--parallel 3</code> runs).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: CUSTOMIZATIONS (RULES, SKILLS, PLUGINS, MCP) ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Customizations</span>
+    <span>Teaching Your Agent: Rules, Skills, Plugins &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">Customizing Antigravity: Rules, Skills, Plugins &amp; MCP</h2>
+  <p class="page-lead">
+    Out of the box, Antigravity is a brilliant generalist. With five modular customization building blocks, you turn it into a specialist tailored to your exact voice, codebase, and third-party apps.
+  </p>
+
+  <div class="figure-box" style="background:#081024;">
+    <img src="assets/customizations_triptych.jpg" alt="Rules Blueprint, Skills/Plugins Gears, and MCP Universal Hub" style="width:100%; height:146px; object-fit:contain; background:#081024; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.8pt; border-top:1px solid #334155;">
+      <div><strong style="color:#38bdf8;">1. Rules (<code>GEMINI.md</code> / <code>AGENTS.md</code>):</strong> Always-on guardrails, tone &amp; repo conventions.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#60a5fa;">2. Skills &amp; Plugins (<code>SKILL.md</code>):</strong> On-demand playbooks &amp; 1-click Marketplace bundles.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#c084fc;">3. MCP &amp; Hooks:</strong> Live connections to GitHub, Drive, Figma, Databases &amp; scripts.</div>
+    </div>
+  </div>
+
+  <h3>The 5 Customization Building Blocks Compared</h3>
+  <table class="clean-table" style="font-size:8.4pt;">
+    <thead>
+      <tr>
+        <th style="width:18%;">Type</th>
+        <th style="width:30%;">Where It Lives</th>
+        <th style="width:52%;">What It Does</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Rules</strong></td>
+        <td><code>AGENTS.md</code>, <code>GEMINI.md</code>, or <code>.agents/rules/*.md</code></td>
+        <td>Enforces coding standards, tech stack choices, or response style. Loaded hierarchically from edited subfolder up to repo root.</td>
+      </tr>
+      <tr>
+        <td><strong>Skills</strong></td>
+        <td><code>.agents/skills/&lt;name&gt;/SKILL.md</code> (or <code>~/.gemini/config/skills/</code>)</td>
+        <td>Step-by-step SOPs (like PDF creation, security audits, or TDD). Uses <strong>progressive disclosure</strong>: full text loads <em>only</em> when relevant!</td>
+      </tr>
+      <tr>
+        <td><strong>Plugins</strong></td>
+        <td>Marketplace or <code>~/.gemini/config/plugins/&lt;name&gt;/</code></td>
+        <td>Packages skills, rules, subagents, and MCP servers into one toggleable unit (e.g., Google Docs/Drive/Sheets, Vercel, Figma, Android).</td>
+      </tr>
+      <tr>
+        <td><strong>MCP Servers</strong></td>
+        <td><code>mcp_config.json</code> (or inside a Plugin)</td>
+        <td>Model Context Protocol bridges giving the agent live tools for GitHub PRs, SQLite/Postgres, Chrome DevTools, Linear, or Canva.</td>
+      </tr>
+      <tr>
+        <td><strong>Hooks</strong></td>
+        <td><code>hooks.json</code></td>
+        <td>Shell scripts triggered automatically at lifecycle events (e.g., auto-formatting or secret scanning before/after tool calls).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald">
+    <div class="callout-title">Team vs. Personal Scope (Priority Order)</div>
+    Put team-shared rules and skills in your repo's <code>.agents/</code> folder and commit them to Git—<strong>Workspace</strong> configs always take top priority! Put personal preferences (like your preferred writing voice or global plugins) in <code>~/.gemini/config/</code> so they follow you across every project on your Mac.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CLI, PYTHON SDK & AUTOMATIONS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; CLI, SDK &amp; Cron</span>
+    <span>Antigravity CLI (<code>agy</code>), Python SDK &amp; Automations</span>
+  </div>
+
+  <h2 class="page-title">Headless Power: <code>agy</code> CLI, Python SDK &amp; Cron Jobs</h2>
+  <p class="page-lead">
+    When you want agentic power directly inside your macOS terminal, automated Python scripts, or recurring morning briefings, reach for these three headless workflows.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">1</span> Antigravity CLI (<code>agy</code>)</div>
+      <p style="font-size:8.4pt;">Open Terminal in any project folder and run <code>agy</code>:</p>
+      <div style="background:#0f172a; color:#e2e8f0; padding:7px 9px; border-radius:6px; font-family:monospace; font-size:7.6pt; line-height:1.5;">
+        $ cd ~/my-project &amp;&amp; agy<br/>
+        &gt; /help &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8;"># list TUI slash commands</span><br/>
+        &gt; /plan Fix flaky auth test<br/>
+        &gt; /exit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8;"># or Ctrl+D twice</span>
+      </div>
+      <p style="font-size:7.9pt; color:#475569; margin:5px 0 0 0;">Settings live in <code>~/.gemini/antigravity-cli/settings.json</code>.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Scheduled Automations (<code>/automation</code>)</div>
+      <p style="font-size:8.4pt;">Run standing jobs on a cron schedule—even while away from your desk:</p>
+      <ul style="font-size:8.2pt; margin:4px 0 0 0;">
+        <li>Type <code>/automation</code> (or <code>/schedule</code>) in Antigravity 2.0.</li>
+        <li>Pick cadence (Hourly, Daily, Weekly, or custom cron).</li>
+        <li>Antigravity writes a background sidecar config that wakes a fresh agent session on schedule (e.g., <em>"Every weekday at 8:30 AM, check open GitHub PRs and Google Calendar and write a priority brief"</em>).</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>3. Programmatic Orchestration with the Official Python SDK</h3>
+  <p style="font-size:8.8pt;">
+    Install via <code>pip install google-antigravity</code> (includes the compiled local runtime binary) to embed full Antigravity agents inside your own Python pipelines, CI checks, or data workflows:
+  </p>
+
+  <div class="card-dark" style="font-family:'SF Mono', Menlo, monospace; font-size:7.7pt; line-height:1.48; padding:10px 13px;">
+<span style="color:#7dd3fc;">import</span> asyncio, sys<br/>
+<span style="color:#7dd3fc;">from</span> google.antigravity <span style="color:#7dd3fc;">import</span> Agent, LocalAgentConfig, CapabilitiesConfig<br/><br/>
+<span style="color:#7dd3fc;">async def</span> <span style="color:#fbbf24;">run_audit</span>():<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8;"># Default is safe read-only mode; pass CapabilitiesConfig() to enable file edits/commands</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;config = LocalAgentConfig(<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;system_instructions=<span style="color:#86efac;">"You are a concise release-readiness auditor."</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capabilities=CapabilitiesConfig(),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7dd3fc;">async with</span> Agent(config) <span style="color:#7dd3fc;">as</span> agent:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response = <span style="color:#7dd3fc;">await</span> agent.chat(<span style="color:#86efac;">"Run pytest and summarize any failing edge cases."</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7dd3fc;">async for</span> call <span style="color:#7dd3fc;">in</span> response.tool_calls:&nbsp;&nbsp;<span style="color:#94a3b8;"># inspect live tool calls!</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fbbf24;">print</span>(<span style="color:#86efac;">f"[Tool] {call.name}"</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7dd3fc;">async for</span> token <span style="color:#7dd3fc;">in</span> response:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.stdout.write(token)<br/><br/>
+asyncio.run(run_audit())
+  </div>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: SECURITY SANDBOX & CHEAT SHEET ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Safety &amp; Quick Reference</span>
+    <span>Security Sandbox, Permissions &amp; Power-User Checklist</span>
+  </div>
+
+  <h2 class="page-title">Safety Controls, Troubleshooting &amp; Quick Cheat Sheet</h2>
+  <p class="page-lead">
+    Autonomous agents are only fun when you trust their boundaries. Antigravity gives you granular global and per-project guardrails under <strong>Settings &rarr; Permissions &amp; Sandbox</strong>.
+  </p>
+
+  <h3>The 4 Permission Dials You Control</h3>
+  <div class="grid-2" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Tool Execution Policy</div>
+      <p style="font-size:8.3pt;">Choose <code>proceed-in-sandbox</code> (recommended sweet spot: fast autonomy inside an OS sandbox), <code>request-review</code> (ask before shell commands), or <code>strict</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Workspace Boundary Policy</div>
+      <p style="font-size:8.3pt;">Set <strong>Non-Workspace File Access</strong> to <code>ask</code> or <code>deny</code> so an agent working on one project never touches unrelated folders without permission.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">3</span> Command Allowlist / Denylist</div>
+      <p style="font-size:8.3pt;">Pre-approve safe daily commands (<code>npm test</code>, <code>git status</code>) while hard-blocking destructive ones (<code>rm -rf</code>, production deploy scripts).</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">4</span> Browser &amp; Network Allowlist</div>
+      <p style="font-size:8.3pt;">Restrict which external domains the Browser Subagent can visit; sensitive login and payment pages always pause and hand control back to you.</p>
+    </div>
+  </div>
+
+  <h3>Quick Troubleshooting Fixes</h3>
+  <table class="clean-table" style="font-size:8.3pt;">
+    <thead>
+      <tr>
+        <th style="width:32%;">Common Situation</th>
+        <th style="width:68%;">Fastest Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Agent repeats a mistake you already fixed</strong></td>
+        <td>Type <code>/learn</code> or add a 1-line rule to your project's <code>AGENTS.md</code> so it sticks forever.</td>
+      </tr>
+      <tr>
+        <td><strong>Long conversation starts feeling slow or fuzzy</strong></td>
+        <td>Run <code>/compact</code> to distill context, or start a fresh chat referencing <code>@previous-conversation</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Need Google Docs, Figma, or Linear integration</strong></td>
+        <td>Ask: <em>"Search the Marketplace for Figma / Google Docs"</em> and click <strong>Add</strong> on the plugin card.</td>
+      </tr>
+      <tr>
+        <td><strong>Want Jules-style isolated parallel attempts</strong></td>
+        <td>Ask Antigravity to <em>"spawn 2 branched subagents comparing Approach A vs. Approach B."</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:6px;">
+    <div class="card-title" style="font-size:10.2pt; color:#38bdf8; margin-bottom:5px;">
+      Power-User Pre-Flight Checklist: 6 Habits for Effortless Sessions
+    </div>
+    <div class="grid-2" style="gap:5px 16px; font-size:8.4pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Drop an <code>AGENTS.md</code></strong> in repo root with build/test commands.</div>
+      <div>&#9744; <strong>4. Enable <code>proceed-in-sandbox</code></strong> for safe, interruption-free speed.</div>
+      <div>&#9744; <strong>2. Start multi-file work with <code>/plan</code></strong> or <code>/grill-me</code>.</div>
+      <div>&#9744; <strong>5. Verify web UI changes</strong> with the live <code>/browser</code> agent.</div>
+      <div>&#9744; <strong>3. Tag exact targets with <code>@file</code></strong> or <code>@folder</code>.</div>
+      <div>&#9744; <strong>6. Use <code>/goal</code> or <code>/teamwork</code></strong> on AI Ultra for big builds!</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Antigravity &amp; Jules &bull; Complete User Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

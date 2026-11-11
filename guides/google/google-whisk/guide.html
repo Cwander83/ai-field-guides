@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Whisk: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">Google AI Ultra Creative Studio Series &bull; Late 2026 Edition</div>
+    <h1>Mastering <span>Google Whisk</span></h1>
+    <p class="cover-sub">
+      The complete visual handbook to Google's image-first remix studio—blending Subject, Scene &amp; Style cards, surgical Refine edits, Seed locking, Whisk Animate, and Google Flow handoffs.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Subject + Scene + Style Blending</span>
+      <span class="cover-badge">Hidden Gemini Caption Editing</span>
+      <span class="cover-badge">Nano Banana 2 &amp; Imagen 4</span>
+      <span class="cover-badge">Conversational Refine Loop</span>
+      <span class="cover-badge">Seed Lock Consistency</span>
+      <span class="cover-badge">Whisk Animate (Veo) &amp; Flow Pipeline</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Google Whisk Visual Remixing Studio Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Prompt With Pictures</div>
+      <div class="cover-stat-desc">Drag photos, sketches, or textures into Subject, Scene, and Style slots instead of writing 200-word prompts.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Essence Over Copy-Paste</div>
+      <div class="cover-stat-desc">Gemini understands your references and paints fresh, cohesive variations powered by Nano Banana 2 &amp; Imagen.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Built to Feed Google Flow</div>
+      <div class="cover-stat-desc">Turn winning Whisk creations into 8-second Veo animations—or export them straight into Flow Ingredients.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & HOW WHISK THINKS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Google Whisk Complete How-To Guide</span>
+  </div>
+
+  <h2 class="page-title">What Is Google Whisk (And Why It Feels Like Magic)</h2>
+  <p class="page-lead">
+    Describing an exact artistic style or product shape in words is hard. <strong>Google Whisk</strong> (<code>labs.google/fx/tools/whisk</code>) flips AI art upside down: you <strong>show</strong> Google three reference images—<em>Subject</em>, <em>Scene</em>, and <em>Style</em>—and Whisk remixes them into something brand new.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. How Whisk Thinks</strong> (Under the Hood)</span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Secret Weapon:</strong> Editing Hidden Captions</span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Setup, AI Ultra &amp; Aspect Ratios</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Refine Mode, Text Signs &amp; Seed Lock</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Whisk Studio UI Tour</strong> (Annotated Map)</span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 High-Impact Creative Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Mastering Subject + Scene + Style</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Whisk Animate</strong> (Bringing Stills to Life)</span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Style-Transfer Library &amp; Anti-Bleed</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. The Whisk &rarr; Google Flow Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight Sheet</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>Visualization: What Happens Behind the Curtain When You Click Remix</h3>
+  <div class="figure-box" style="background:#0f172a; padding:13px 15px;">
+    <svg viewBox="0 0 700 176" width="100%" height="176" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: 3 Input Cards -->
+      <rect x="10" y="10" width="142" height="44" rx="7" fill="#1e3a8a" stroke="#60a5fa"/>
+      <text x="22" y="27" fill="#93c5fd" font-size="8.5" font-weight="700">SLOT 1 &bull; SUBJECT</text>
+      <text x="22" y="42" fill="#ffffff" font-size="10.5" font-weight="700">Your Pet / Product</text>
+
+      <rect x="10" y="64" width="142" height="44" rx="7" fill="#065f46" stroke="#34d399"/>
+      <text x="22" y="81" fill="#a7f3d0" font-size="8.5" font-weight="700">SLOT 2 &bull; SCENE</text>
+      <text x="22" y="96" fill="#ffffff" font-size="10.5" font-weight="700">Tokyo Alley / Beach</text>
+
+      <rect x="10" y="118" width="142" height="44" rx="7" fill="#581c87" stroke="#c084fc"/>
+      <text x="22" y="135" fill="#e9d5ff" font-size="8.5" font-weight="700">SLOT 3 &bull; STYLE</text>
+      <text x="22" y="150" fill="#ffffff" font-size="10.5" font-weight="700">Claymation / Oil Art</text>
+
+      <!-- Arrows to Gemini -->
+      <path d="M154 32 L188 76 M154 86 L188 86 M154 140 L188 96" stroke="#94a3b8" stroke-width="2"/>
+
+      <!-- Middle 1: Gemini Interpreter -->
+      <rect x="190" y="34" width="162" height="104" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="202" y="54" fill="#38bdf8" font-size="9" font-weight="800">STEP A: GEMINI VISION</text>
+      <text x="202" y="71" fill="#f8fafc" font-size="11.2" font-weight="700">Reads &amp; Captions</text>
+      <text x="202" y="88" fill="#cbd5e1" font-size="9">Extracts key traits into</text>
+      <text x="202" y="101" fill="#cbd5e1" font-size="9">detailed hidden captions</text>
+      <text x="202" y="114" fill="#cbd5e1" font-size="9">(which you can open &amp;</text>
+      <text x="202" y="127" fill="#7dd3fc" font-size="9" font-weight="700">edit word-for-word!).</text>
+
+      <path d="M356 86 L382 86" stroke="#38bdf8" stroke-width="2.2"/><polygon points="381,81 388,86 381,91" fill="#38bdf8"/>
+
+      <!-- Middle 2: Nano Banana / Imagen -->
+      <rect x="390" y="34" width="152" height="104" rx="10" fill="#7c2d12" stroke="#fb923c" stroke-width="1.6"/>
+      <text x="402" y="54" fill="#fed7aa" font-size="9" font-weight="800">STEP B: RENDERER</text>
+      <text x="402" y="71" fill="#ffffff" font-size="11.2" font-weight="700">Nano Banana 2 /</text>
+      <text x="402" y="85" fill="#ffffff" font-size="11.2" font-weight="700">Imagen 4</text>
+      <text x="402" y="103" fill="#ffedd5" font-size="9">Plans lighting, layout &amp;</text>
+      <text x="402" y="116" fill="#ffedd5" font-size="9">crisp text; outputs 2–4</text>
+      <text x="402" y="129" fill="#ffedd5" font-size="9">remixed high-res takes.</text>
+
+      <path d="M546 86 L572 86" stroke="#fb923c" stroke-width="2.2"/><polygon points="571,81 578,86 571,91" fill="#fb923c"/>
+
+      <!-- Right: Animate / Flow -->
+      <rect x="580" y="22" width="110" height="58" rx="8" fill="#064e3b" stroke="#34d399"/>
+      <text x="590" y="40" fill="#6ee7b7" font-size="8.5" font-weight="800">WHISK ANIMATE</text>
+      <text x="590" y="55" fill="#ffffff" font-size="10" font-weight="700">8s Veo Video</text>
+      <text x="590" y="68" fill="#d1fae5" font-size="8.3">Instant motion</text>
+
+      <rect x="580" y="92" width="110" height="58" rx="8" fill="#312e81" stroke="#818cf8"/>
+      <text x="590" y="110" fill="#c7d2fe" font-size="8.5" font-weight="800">EXPORT ASSET</text>
+      <text x="590" y="125" fill="#ffffff" font-size="10" font-weight="700">Google Flow</text>
+      <text x="590" y="138" fill="#e0e7ff" font-size="8.3">@Ingredient card</text>
+    </svg>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">Crucial Mindset Shift: Whisk Captures "Essence", Not Pixel Cutouts</div>
+    Because Gemini describes your Subject image in words before rendering, Whisk naturally adapts poses, lighting, and artistic textures—meaning a photo of you might have slightly different hair strands or proportions as an enamel pin or plushie! When you need strict 1:1 facial lock across film shots, hand your favorite Whisk creation over to <strong>Google Flow Ingredients</strong> (Page 11).
+  </div>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, AI ULTRA & ASPECT RATIOS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Formats</span>
+    <span>Getting Started, AI Ultra Quotas &amp; Aspect Ratios</span>
+  </div>
+
+  <h2 class="page-title">First Launch, AI Ultra Perks &amp; Aspect Ratio Guide</h2>
+  <p class="page-lead">
+    Whisk is built for zero-friction play: you can roll built-in dice presets within five seconds of opening the page, or click <strong>Start From Scratch</strong> to upload your own photos and brand assets.
+  </p>
+
+  <h3>3 Steps to Your First Remix (Under 60 Seconds)</h3>
+  <div class="grid-3" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Open Whisk Studio</div>
+      <p>Visit <code>labs.google/fx/tools/whisk</code> signed into your <strong>Google AI Ultra</strong> account (18+). Note: Whisk's core remix tech also powers image creation inside <code>flow.google</code>!</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Pick Template or Blank</div>
+      <p>Try a preset style (<em>Sticker, Enamel Pin, Plushie, 3D Figurine</em>) to see how slots work, or click <strong>Start From Scratch</strong> at the bottom to open all three slots.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">3</span> Drop Cards &amp; Generate</div>
+      <p>Upload photos, type quick text descriptions inside any slot, or click the <strong>Dice icon</strong> (<em>Inspire Me</em>) to fill missing slots automatically.</p>
+    </div>
+  </div>
+
+  <h3>Choosing the Right Aspect Ratio Before You Generate</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Aspect Ratio</th>
+        <th style="width:26%;">Orientation</th>
+        <th style="width:56%;">Best Creative &amp; Production Use Cases</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>1:1</code></td>
+        <td><strong>Square</strong></td>
+        <td>Die-cut stickers, enamel pins, album covers, e-commerce product mockups, and clean <code>@Ingredient</code> prop cards for Google Flow.</td>
+      </tr>
+      <tr>
+        <td><code>9:16</code></td>
+        <td><strong>Vertical Portrait</strong></td>
+        <td>Full-body character turnarounds, iPhone/Android wallpapers, and vertical keyframes for YouTube Shorts, Reels, and TikTok.</td>
+      </tr>
+      <tr>
+        <td><code>16:9</code></td>
+        <td><strong>Widescreen Cinema</strong></td>
+        <td>Start/End keyframes for widescreen <strong>Google Flow</strong> films, YouTube thumbnails, presentation hero slides, and desktop art.</td>
+      </tr>
+      <tr>
+        <td><code>21:9</code> / <code>4:3</code></td>
+        <td><strong>Ultra-Wide / Editorial</strong></td>
+        <td>Immersive panoramic world-building banners (<code>21:9</code>) or classic print/magazine illustrations and retro storybooks (<code>4:3</code>).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>What Your Google AI Ultra Plan Unlocks + Whisk vs. Flow</h3>
+  <div class="grid-2">
+    <div class="callout emerald" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">Your AI Ultra Advantage in Whisk</div>
+      Free users hit monthly caps on <strong>Whisk Animate</strong> (Veo video renders) quickly. Your <strong>Google AI Ultra</strong> membership unlocks massive generation ceilings across both high-resolution Nano Banana 2 / Imagen 4 remixes and Veo-powered animations.
+    </div>
+    <div class="callout" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">When to Use Whisk vs. Google Flow</div>
+      Use <strong>Whisk</strong> as your <em>Art Department &amp; Look-Dev Lab</em> to explore wild styles, mash up concepts, and design characters/worlds rapidly. Move to <strong>Google Flow</strong> when ready to shoot multi-clip scenes with dialogue and timelines.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: WHISK STUDIO UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Interface Map</span>
+    <span>Touring the Google Whisk Workspace</span>
+  </div>
+
+  <h2 class="page-title">The Google Whisk Workspace: Annotated Visual Tour</h2>
+  <p class="page-lead">
+    Whisk keeps its workspace intentionally tactile—like spreading reference polaroids on a designer's desk. Master these 7 numbered controls to unlock full precision.
+  </p>
+
+  <!-- Annotated Whisk Studio UI Mockup -->
+  <div class="ui-window" style="margin-bottom:11px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">Google Labs &bull; Whisk</span>
+        <span style="background:#fbbf24; color:#0f172a; padding:1px 6px; border-radius:4px; font-weight:800; font-size:6.8pt;">AI ULTRA</span>
+      </div>
+      <div style="display:flex; gap:7px; align-items:center;">
+        <span class="callout-pin">3</span>
+        <span style="background:#1e293b; border:1px solid #334155; padding:2px 7px; border-radius:5px;">Ratio: 16:9</span>
+        <span style="background:#1e293b; border:1px solid #38bdf8; padding:2px 7px; border-radius:5px; color:#7dd3fc;">Seed: 482910 &#128274; Locked</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 205px 1fr; gap:1px; background:#1f2937;">
+      <!-- Left Tray: 3 Visual Dropzones -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-weight:800; color:#f8fafc; font-size:7.6pt;">VISUAL INPUT CARDS</span>
+          <span class="callout-pin">1</span>
+        </div>
+
+        <!-- Subject Card -->
+        <div style="background:#1e293b; border:1.5px solid #60a5fa; border-radius:7px; padding:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#93c5fd;">SUBJECT</strong>
+            <span style="font-size:6.6pt; background:#0f172a; padding:1px 5px; border-radius:3px; color:#7dd3fc;">Edit Caption <span class="callout-pin" style="width:14px;height:14px;font-size:6.8pt;">2</span></span>
+          </div>
+          <div style="height:28px; background:linear-gradient(135deg,#92400e,#fbbf24); border-radius:4px; margin-bottom:3px;"></div>
+          <div style="font-size:6.8pt; color:#cbd5e1;">Brass clockwork owl photo</div>
+        </div>
+
+        <!-- Scene Card -->
+        <div style="background:#1e293b; border:1.5px solid #34d399; border-radius:7px; padding:6px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+            <strong style="color:#6ee7b7;">SCENE</strong>
+            <span style="font-size:6.6pt; color:#94a3b8;">&#127922; Dice | Upload</span>
+          </div>
+          <div style="height:28px; background:linear-gradient(135deg,#1e1b4b,#ec4899); border-radius:4px; margin-bottom:3px;"></div>
+          <div style="font-size:6.8pt; color:#cbd5e1;">Lantern-lit night market</div>
+        </div>
+
+        <!-- Style Card -->
+        <div style="background:#1e293b; border:1.5px solid #c084fc; border-radius:7px; padding:6px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+            <strong style="color:#e9d5ff;">STYLE</strong>
+            <span style="font-size:6.6pt; color:#94a3b8;">&#127922; Dice | Text</span>
+          </div>
+          <div style="height:28px; background:linear-gradient(135deg,#065f46,#38bdf8); border-radius:4px; margin-bottom:3px;"></div>
+          <div style="font-size:6.8pt; color:#cbd5e1;">Handcrafted felted wool</div>
+        </div>
+      </div>
+
+      <!-- Right Canvas: Outputs + Refine + Animate -->
+      <div style="background:#0b0f19; padding:9px; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="color:#94a3b8; font-weight:700;">REMIX OUTPUTS (NANO BANANA 2)</span>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:7px; margin-bottom:8px;">
+            <div style="background:linear-gradient(135deg,#1e293b,#3b0764,#b45309); height:92px; border-radius:7px; border:2px solid #fbbf24; padding:6px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div style="display:flex; justify-content:space-between;">
+                <span style="background:rgba(0,0,0,0.65); padding:1px 6px; border-radius:4px; font-weight:700;">Variation A</span>
+                <span class="callout-pin">7</span>
+              </div>
+              <div style="display:flex; gap:4px; font-size:6.8pt;">
+                <span style="background:#059669; color:#fff; font-weight:700; padding:2px 6px; border-radius:4px;">&#9654; Animate (Veo)</span>
+                <span style="background:#2563eb; color:#fff; font-weight:700; padding:2px 6px; border-radius:4px;">Refine</span>
+                <span style="background:rgba(0,0,0,0.7); padding:2px 6px; border-radius:4px;">Download</span>
+              </div>
+            </div>
+            <div style="background:linear-gradient(135deg,#0f172a,#1e3a8a,#047857); height:92px; border-radius:7px; border:1px solid #334155; padding:6px; opacity:0.85;">
+              <span style="background:rgba(0,0,0,0.65); padding:1px 6px; border-radius:4px;">Variation B</span>
+            </div>
+          </div>
+
+          <!-- Refine Conversational Box -->
+          <div style="background:#1e1b4b; border:1px solid #6366f1; border-radius:7px; padding:6px 8px; margin-bottom:7px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:7.2pt; color:#e0e7ff;"><strong>Refine Chat:</strong> <em>"Add a tiny knitted scarf around the owl's neck and a wooden sign reading 'OWL TEA'."</em></span>
+            <span class="callout-pin">6</span>
+          </div>
+        </div>
+
+        <!-- Bottom Remix Prompt Bar -->
+        <div style="background:#111827; border:1px solid #374151; border-radius:7px; padding:6px 8px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="color:#cbd5e1; font-size:7.3pt;"><span class="callout-pin">4</span> <strong>Additional Details:</strong> Perched on a mossy lantern post, shallow depth of field...</span>
+          <span style="background:#fbbf24; color:#0f172a; font-weight:800; padding:3px 10px; border-radius:5px;">Remix &rarr;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Interface Reference</h3>
+  <div class="grid-2" style="gap:7px 14px; font-size:8.7pt;">
+    <div><span class="callout-pin">1</span> <strong>Subject / Scene / Style Cards:</strong> Drag-and-drop images, type a mini text prompt per card, or roll the <em>Dice</em> icon for instant inspiration.</div>
+    <div><span class="callout-pin">2</span> <strong>Caption Inspector:</strong> Click any card's caption button to read—and surgically edit—the exact description Gemini wrote from your upload!</div>
+    <div><span class="callout-pin">3</span> <strong>Ratio &amp; Seed Lock Bar:</strong> Choose frame shape (<code>1:1</code>, <code>9:16</code>, <code>16:9</code>) and click the <strong>Padlock</strong> to freeze your Seed number across tweaks.</div>
+    <div><span class="callout-pin">4</span> <strong>Additional Details Box:</strong> Optional steering prompt describing how the Subject interacts with the Scene (pose, action, camera angle).</div>
+    <div><span class="callout-pin">5</span> <strong>Variation Canvas:</strong> Whisk generates multiple side-by-side interpretations on every click so you can pick the strongest composition.</div>
+    <div><span class="callout-pin">6</span> <strong>Refine (Chat-to-Edit) Drawer:</strong> Select a winning image and ask in plain English to tweak colors, props, lighting, or sign lettering.</div>
+  </div>
+  <div style="margin-top:5px; font-size:8.7pt;">
+    <span class="callout-pin">7</span> <strong>Animate &amp; Export Bar:</strong> Click <strong>Animate</strong> to turn your still into an 8-second Veo video right inside Whisk, or download PNGs for Google Flow.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: MASTERING SUBJECT + SCENE + STYLE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Visual Equation</span>
+    <span>Mastering the Subject + Scene + Style Triad</span>
+  </div>
+
+  <h2 class="page-title">How to Mix Subject, Scene &amp; Style Like an Art Director</h2>
+  <p class="page-lead">
+    Think of Whisk's three slots like cooking ingredients: <strong>Subject</strong> is the "Who/What", <strong>Scene</strong> is the "Where", and <strong>Style</strong> is the "Medium &amp; Mood". You can fill all three—or leave any slot empty!
+  </p>
+
+  <div class="figure-box" style="background:#3d4954;">
+    <img src="assets/subject_scene_style_equation.jpg" alt="Subject Espresso Machine + Scene Alpine Cabin + Style Watercolor = Remixed Painting" style="width:100%; height:265px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1.15fr; background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.6pt; border-top:1px solid #334155;">
+      <div><strong style="color:#60a5fa;">1. SUBJECT:</strong> Chrome espresso maker on plain backdrop.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#34d399;">2. SCENE:</strong> Snowy pine cabin wooden windowsill.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#c084fc;">3. STYLE:</strong> Warm watercolor &amp; gouache brushstrokes.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#fbbf24;">= WHISK OUTPUT:</strong> Cohesive watercolor cabin espresso scene!</div>
+    </div>
+  </div>
+
+  <h3>Slot-by-Slot Rules for Cleanest Results</h3>
+  <div class="grid-3" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Subject Tips</div>
+      <p style="font-size:8.3pt;">Use clear, unobstructed photos where your person, pet, or product fills the frame. Avoid group photos—crop to the single hero subject first. Need two heroes? Add a second Subject card!</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Scene Tips</div>
+      <p style="font-size:8.3pt;">Pick empty environments without a competing main character standing in the middle (e.g., an empty neon street or forest trail) so Whisk knows exactly where to place your Subject.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Style Tips</div>
+      <p style="font-size:8.3pt;">Style cards can be <em>anything</em> with a strong look: an oil painting, macro photo of knitted yarn, vintage travel poster, clay sculpture, or stained glass.</p>
+    </div>
+  </div>
+
+  <h3>Power Combos: You Don't Have to Fill All Three Slots!</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:28%;">Active Slots Used</th>
+        <th style="width:24%;">Leave Blank</th>
+        <th style="width:48%;">What You Get</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Subject + Style</strong></td>
+        <td><em>Scene empty</em></td>
+        <td>Isolated die-cut stickers, collectible figurines, avatars, logos, and clean character cards ready for Google Flow!</td>
+      </tr>
+      <tr>
+        <td><strong>Scene + Style</strong></td>
+        <td><em>Subject empty</em></td>
+        <td>Pure stylized background plates, matte paintings, game environments, and empty film sets.</td>
+      </tr>
+      <tr>
+        <td><strong>Subject A + Subject B + Style</strong></td>
+        <td><em>Scene optional</em></td>
+        <td>Puts two separate people, pets, or products together inside the exact same artistic universe.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: STYLE-TRANSFER LIBRARY & ANTI-BLEED ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Style Alchemy</span>
+    <span>Style-Transfer Playbook &amp; Stopping "Style Bleed"</span>
+  </div>
+
+  <h2 class="page-title">One Subject, Infinite Worlds: Style-Transfer Mastery</h2>
+  <p class="page-lead">
+    Keeping your <strong>Subject</strong> slot locked while swapping only the <strong>Style</strong> card is the fastest way to explore ten wildly different visual directions for a brand, story, or gift in two minutes.
+  </p>
+
+  <div class="figure-box" style="background:#081024;">
+    <img src="assets/refine_and_styles_grid.jpg" alt="Same Golden Retriever Astronaut in 4 Styles: Vinyl Toy, Felt Puppet, Vintage Comic, Stained Glass" style="width:100%; height:280px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.6pt; border-top:1px solid #334155;">
+      <div><strong style="color:#38bdf8;">Style A:</strong> Glossy 3D Vinyl Designer Toy</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#fbbf24;">Style B:</strong> Handcrafted Wool-Felt Stop-Motion</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#f472b6;">Style C:</strong> Vintage Ink &amp; Halftone Comic</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#34d399;">Style D:</strong> Jewel-Toned Stained Glass</div>
+    </div>
+  </div>
+
+  <h3>High-Impact Tactile &amp; Cinematic Styles to Try</h3>
+  <table class="clean-table" style="font-size:8.4pt;">
+    <thead>
+      <tr>
+        <th style="width:26%;">Style Category</th>
+        <th style="width:74%;">Text-in-Slot Prompts (or Reference Photos to Upload into Style)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Physical Craft &amp; Merch</strong></td>
+        <td><code>Hard-enamel gold-plated lapel pin</code> &bull; <code>Chunky hand-crocheted amigurumi plushie</code> &bull; <code>Holographic die-cut vinyl sticker</code></td>
+      </tr>
+      <tr>
+        <td><strong>Stop-Motion &amp; Miniature</strong></td>
+        <td><code>Thumbprint plasticine claymation puppet</code> &bull; <code>Tilt-shift miniature cardboard architectural diorama</code> &bull; <code>Needle-felted wool</code></td>
+      </tr>
+      <tr>
+        <td><strong>Illustration &amp; Print</strong></td>
+        <td><code>1960s risograph 3-color screenprint</code> &bull; <code>Ghibli-inspired gouache background art</code> &bull; <code>Woodblock ukiyo-e botanical print</code></td>
+      </tr>
+      <tr>
+        <td><strong>Cinema &amp; Photography</strong></td>
+        <td><code>Kodak Portra 400 golden-hour 35mm film</code> &bull; <code>1980s dark-fantasy practical puppet cinema</code> &bull; <code>Studio commercial macro lighting</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <div class="callout-title">Pro Fix: Stopping "Style Bleed" (When Unwanted Objects Creep In)</div>
+    Suppose you upload a famous painting of a sailboat as your <strong>Style</strong> card, and Whisk accidentally puts sailboats behind your portrait! Fix it in 5 seconds: either paste this into <em>Additional Details</em>—<code>"Apply only the brushwork, color palette, and lighting of the style reference; keep the subject and setting strictly distinct"</code>—or delete the word "sailboat" inside the Style card's Hidden Caption (next page!).
+  </div>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: SECRET SUPERPOWER - HIDDEN CAPTIONS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Insider Control</span>
+    <span>Whisk's Secret Weapon: Editing Hidden Gemini Captions</span>
+  </div>
+
+  <h2 class="page-title">Unlocking Precision via Hidden Gemini Captions</h2>
+  <p class="page-lead">
+    Ninety percent of casual users never click the small <strong>View / Edit Caption</strong> icon on their uploaded cards—yet it is the single most powerful control in all of Google Whisk.
+  </p>
+
+  <h3>How Hidden Captions Work (Visual Breakdown)</h3>
+  <div class="ui-window" style="padding:11px 13px; margin-bottom:11px;">
+    <div style="color:#94a3b8; font-weight:700; margin-bottom:7px;">INSIDE A WHISK "SUBJECT" CARD CAPTION DRAWER</div>
+    <div style="display:grid; grid-template-columns: 1fr 26px 1fr; gap:8px; align-items:center;">
+      <div style="background:#1e293b; border:1px solid #ef4444; border-radius:7px; padding:8px;">
+        <div style="color:#fca5a5; font-weight:800; margin-bottom:4px;">AUTO-GENERATED BY GEMINI (BEFORE)</div>
+        <div style="color:#cbd5e1; font-size:7.3pt; line-height:1.45;">
+          "A smiling man in his 30s with short brown hair, <span style="background:#7f1d1d; color:#fecaca; padding:0 3px; border-radius:3px;">holding a half-eaten sandwich</span> in a <span style="background:#7f1d1d; color:#fecaca; padding:0 3px; border-radius:3px;">cluttered office kitchen</span>, wearing a navy hoodie..."
+        </div>
+      </div>
+      <div style="text-align:center; color:#38bdf8; font-size:14pt; font-weight:800;">&rarr;</div>
+      <div style="background:#1e293b; border:1px solid #34d399; border-radius:7px; padding:8px;">
+        <div style="color:#6ee7b7; font-weight:800; margin-bottom:4px;">YOUR 5-SECOND EDIT (AFTER)</div>
+        <div style="color:#cbd5e1; font-size:7.3pt; line-height:1.45;">
+          "A smiling man in his 30s with short brown hair, <span style="background:#065f46; color:#a7f3d0; padding:0 3px; border-radius:3px;">distinctive round silver glasses and subtle freckles</span>, wearing a navy hoodie..."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>4 Ways Editing Hidden Captions Saves Broken Remixes</h3>
+  <div class="grid-2" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Delete Accidental Photo Clutter</div>
+      <p>Uploaded a selfie taken in your car, and Whisk keeps putting seatbelts on your fantasy wizard? Open the Subject caption and delete mentions of the car or seatbelt.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Lock Signature Facial / Brand Details</div>
+      <p>If Gemini overlooked a beauty mark, gap-tooth smile, wedding ring, or specific product button layout, type that detail right into the Subject caption.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">3</span> Purify Your Style Card</div>
+      <p>Open your <strong>Style</strong> card's caption and strip out all nouns (people, trees, buildings) so <em>only</em> artistic medium, lighting, color palette, and texture words remain!</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">4</span> Steal Great Prompt Vocabulary</div>
+      <p>Ever see an artwork whose style you can't describe in words? Drop it into Whisk's Style slot and read Gemini's caption—instant art-history vocabulary lesson!</p>
+    </div>
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">Workflow Habit: Upload &rarr; Peek at Caption &rarr; Remix</div>
+    Spending 10 seconds skimming the three auto-generated captions before clicking <em>Remix</em> eliminates 80% of weird mashups on the very first roll.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: REFINE MODE, TYPOGRAPHY & SEED LOCK ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Surgical Iteration</span>
+    <span>Conversational Refine, Crisp Text &amp; Seed Locking</span>
+  </div>
+
+  <h2 class="page-title">Polishing Winners: Refine Chat, Text Signs &amp; Seeds</h2>
+  <p class="page-lead">
+    When an output is 90% right, don't hit <em>Remix</em> and lose the composition you love. Use Whisk's <strong>Refine</strong> loop, <strong>Nano Banana 2</strong> typography, and <strong>Seed Locking</strong> to dial in the final 10%.
+  </p>
+
+  <h3>1. Multi-Turn Surgical Edits with "Refine"</h3>
+  <p>
+    Click any generated image and select <strong>Refine</strong>. Powered by Nano Banana 2's conversational image-editing brain, each message modifies your chosen image in place while keeping the rest intact:
+  </p>
+
+  <div class="figure-box" style="background:#f8fafc; padding:10px 13px; margin-bottom:10px;">
+    <svg viewBox="0 0 680 96" width="100%" height="96" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="10" width="150" height="76" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="16" y="29" fill="#1e40af" font-size="8.8" font-weight="800">BASE WINNER</text>
+      <text x="16" y="46" fill="#334155" font-size="8.8">Watercolor cafe exterior</text>
+      <text x="16" y="59" fill="#334155" font-size="8.8">at noon (sunny sky,</text>
+      <text x="16" y="72" fill="#334155" font-size="8.8">blank wooden awning).</text>
+
+      <path d="M160 48 L180 48" stroke="#2563eb" stroke-width="2"/><polygon points="179,43 186,48 179,53" fill="#2563eb"/>
+
+      <rect x="188" y="10" width="150" height="76" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="198" y="29" fill="#5b21b6" font-size="8.8" font-weight="800">REFINE TURN 1</text>
+      <text x="198" y="46" fill="#334155" font-size="8.8">"Paint 'LUNA ROAST' in</text>
+      <text x="198" y="59" fill="#334155" font-size="8.8">gold serif letters across</text>
+      <text x="198" y="72" fill="#334155" font-size="8.8">the green awning."</text>
+
+      <path d="M342 48 L362 48" stroke="#7c3aed" stroke-width="2"/><polygon points="361,43 368,48 361,53" fill="#7c3aed"/>
+
+      <rect x="370" y="10" width="150" height="76" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+      <text x="380" y="29" fill="#9a3412" font-size="8.8" font-weight="800">REFINE TURN 2</text>
+      <text x="380" y="46" fill="#334155" font-size="8.8">"Shift lighting to warm</text>
+      <text x="380" y="59" fill="#334155" font-size="8.8">blue-hour dusk with</text>
+      <text x="380" y="72" fill="#334155" font-size="8.8">glowing interior lamps."</text>
+
+      <path d="M524 48 L544 48" stroke="#ea580c" stroke-width="2"/><polygon points="543,43 550,48 543,53" fill="#ea580c"/>
+
+      <rect x="552" y="10" width="122" height="76" rx="8" fill="#0f172a" stroke="#34d399" stroke-width="1.6"/>
+      <text x="562" y="29" fill="#34d399" font-size="8.8" font-weight="800">READY MASTER</text>
+      <text x="562" y="46" fill="#e2e8f0" font-size="8.8">Exact building,</text>
+      <text x="562" y="59" fill="#e2e8f0" font-size="8.8">crisp signage &amp;</text>
+      <text x="562" y="72" fill="#e2e8f0" font-size="8.8">dusk atmosphere!</text>
+    </svg>
+  </div>
+
+  <h3>2. Rendering Crisp Signs, Labels &amp; Logos</h3>
+  <p>
+    Thanks to Nano Banana 2's pre-render layout reasoning, Whisk handles spelled text cleanly when you follow three rules:
+  </p>
+  <ul>
+    <li><strong>Wrap exact words in quotation marks:</strong> <code>A neon window sign that clearly reads "OPEN 24 HRS"</code>.</li>
+    <li><strong>Name the physical surface &amp; font feel:</strong> Specify <em>"embossed gold foil on leather," "hand-chalked menu board,"</em> or <em>"bold retro block lettering."</em></li>
+    <li><strong>Keep phrases concise (1–5 words):</strong> Short headlines render sharpest; add multi-sentence body copy in Canva or Slides afterward.</li>
+  </ul>
+
+  <h3>3. When to Click the Seed Lock Padlock</h3>
+  <div class="callout">
+    <div class="callout-title">How Seed Locking Works</div>
+    Every AI image begins from a 6-digit random "Seed" number. Normally Whisk picks a fresh random Seed every click for maximum variety. Clicking the <strong>Padlock icon</strong> freezes that number—so if you love how your character is posed on the left third of the frame, locking the Seed lets you test subtle outfit or color-grade tweaks without reshuffling the layout!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 HIGH-IMPACT CREATIVE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Project Cookbook</span>
+    <span>5 Ready-to-Run Google Whisk Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Creative Recipes You Can Build Today</h2>
+  <p class="page-lead">
+    Not sure what to make first? Plug your own photos into any of these five proven slot recipes for instant studio-grade results.
+  </p>
+
+  <table class="clean-table" style="font-size:8.35pt;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Project Recipe</th>
+        <th style="width:25%;">Subject + Scene Slots</th>
+        <th style="width:27%;">Style Slot Input</th>
+        <th style="width:27%;">Additional Details Tip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Custom Pet / Team Stickers &amp; Pins</strong><br/>Ratio: <code>1:1</code></td>
+        <td><strong>Subject:</strong> Clear phone photo of your dog, cat, or portrait.<br/><strong>Scene:</strong> <em>Leave Empty!</em></td>
+        <td>Upload a photo of a glossy die-cut vinyl sticker (or hard-enamel gold lapel pin).</td>
+        <td><code>"Thick white die-cut sticker border on solid dark gray backdrop, cheerful expression."</code></td>
+      </tr>
+      <tr>
+        <td><strong>2. Zero-Shoot Product Mockups</strong><br/>Ratio: <code>4:3</code> or <code>1:1</code></td>
+        <td><strong>Subject:</strong> Bottle, candle, mug, or gadget shot on your desk.<br/><strong>Scene:</strong> Sunlit marble spa counter or mossy river rock.</td>
+        <td>High-end editorial magazine ad photo with soft morning shadows and water droplets.</td>
+        <td><code>"Product resting naturally on wet stone, shallow 85mm bokeh, crisp label lighting."</code></td>
+      </tr>
+      <tr>
+        <td><strong>3. Storybook / Comic World-Building</strong><br/>Ratio: <code>16:9</code> or <code>4:3</code></td>
+        <td><strong>Subject:</strong> Pencil sketch (even a rough stick-figure doodle!) of your hero.<br/><strong>Scene:</strong> Cozy treehouse library.</td>
+        <td>Watercolors, Beatrix Potter ink wash, or vibrant modern graphic novel page.</td>
+        <td>Lock your favorite output, download it, and reuse it as the new <strong>Subject</strong> card for Page 2!</td>
+      </tr>
+      <tr>
+        <td><strong>4. Room &amp; Exterior Restyling</strong><br/>Ratio: <code>16:9</code></td>
+        <td><strong>Subject:</strong> <em>Leave Empty</em> (or add a specific sofa/lamp).<br/><strong>Scene:</strong> Photo of your current living room or backyard.</td>
+        <td>Japandi minimalist wood interior, warm Mediterranean terracotta, or cozy mid-century loft.</td>
+        <td><code>"Keep room window and wall layout intact; restyle furniture, lighting, and materials."</code></td>
+      </tr>
+      <tr>
+        <td><strong>5. YouTube / Poster Hero Thumbnails</strong><br/>Ratio: <code>16:9</code></td>
+        <td><strong>Subject:</strong> Expressive portrait photo.<br/><strong>Scene:</strong> Dramatic sci-fi lab or mountain summit.</td>
+        <td>Bold theatrical movie poster or high-contrast rim-lit portrait photography.</td>
+        <td><code>"Subject positioned on right third looking toward glowing sign on left reading '2026'."</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:8px;">
+    <div class="callout-title">Underrated Trick: Rough Napkin Sketches Make Incredible Inputs!</div>
+    You don't need polished photos for your Subject or Scene slots. Snapping a photo of a 30-second pen doodle on notebook paper gives Gemini the exact layout/pose you want—while your <strong>Style</strong> card supplies 100% of the photorealistic or painted polish!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: WHISK ANIMATE (VEO) ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Instant Motion</span>
+    <span>Bringing Stills to Life with Whisk Animate (Veo)</span>
+  </div>
+
+  <h2 class="page-title">Mastering <code>Whisk Animate</code>: From Still Card to Living Clip</h2>
+  <p class="page-lead">
+    Hover over any favorite Whisk image and click <strong>Animate</strong>. Powered by Google's <strong>Veo</strong> video engine, Whisk transforms your static frame into a fluid 8-second MP4 clip right inside your browser.
+  </p>
+
+  <!-- Motion Prompt Formula SVG -->
+  <div class="figure-box" style="background:#0f172a; padding:12px 15px; margin-bottom:10px;">
+    <svg viewBox="0 0 680 120" width="100%" height="120" xmlns="http://www.w3.org/2000/svg">
+      <text x="12" y="19" fill="#94a3b8" font-size="9.2" font-weight="700" letter-spacing="0.8">THE GOLDEN RULE OF WHISK ANIMATE PROMPTS: DO NOT RE-DESCRIBE THE PICTURE!</text>
+
+      <!-- Wrong Box -->
+      <rect x="12" y="30" width="318" height="78" rx="8" fill="#450a0a" stroke="#ef4444" stroke-width="1.4"/>
+      <text x="24" y="49" fill="#fca5a5" font-size="10" font-weight="800">&#10007; WEAK PROMPT (WASTES TOKENS ON APPEARANCE)</text>
+      <text x="24" y="67" fill="#fecaca" font-size="9">"A cute felted wool owl with brass gears sitting on</text>
+      <text x="24" y="81" fill="#fecaca" font-size="9">a wooden post in a dark street with yellow lanterns</text>
+      <text x="24" y="95" fill="#fecaca" font-size="9">and cobblestones at night."</text>
+
+      <!-- Right Box -->
+      <rect x="350" y="30" width="318" height="78" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1.4"/>
+      <text x="362" y="49" fill="#6ee7b7" font-size="10" font-weight="800">&#10003; PRO MOTION PROMPT (ACTION + CAMERA + PHYSICS)</text>
+      <text x="362" y="67" fill="#d1fae5" font-size="9">"Slow dolly push-in; the felted owl blinks warmly, tilts</text>
+      <text x="362" y="81" fill="#d1fae5" font-size="9">its head curiously as tiny brass wing gears spin, while</text>
+      <text x="362" y="95" fill="#d1fae5" font-size="9">warm paper lanterns sway gently in the night breeze."</text>
+    </svg>
+  </div>
+
+  <h3>Copy-Paste Motion Formulas by Scene Type</h3>
+  <div class="grid-2" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Character / Pet Micro-Life</div>
+      <p style="font-size:8.4pt;"><code>"Subtle handheld breathing motion; subject blinks naturally, smiles warmly, and turns head slightly toward camera as hair catches a soft breeze."</code></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Cozy Atmosphere / Cinemagraph</div>
+      <p style="font-size:8.4pt;"><code>"Locked static tripod camera; warm steam curls upward from the mug while soft snow falls outside the window and fireplace light flickers."</code></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Toy / Product Showcase</div>
+      <p style="font-size:8.4pt;"><code>"Smooth 90-degree orbital camera arc around the figurine with shifting studio rim reflections and shallow macro depth of field."</code></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">4</span> Epic Environment Reveal</div>
+      <p style="font-size:8.4pt;"><code>"Slow aerial drone glide forward through drifting morning mist as waterfall spray rises and sunbeams sweep across the valley."</code></p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Keep Whisk Animate Movements Grounded</div>
+    Asking a still image to execute three backflips and change outfits in 8 seconds causes warping. Aim for <strong>one primary subject action + one smooth camera move + one environmental motion</strong> (wind, steam, rain, light flicker) for cinema-grade realism.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: WHISK -> GOOGLE FLOW PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Studio Synergy</span>
+    <span>Combining Google Whisk + Google Flow</span>
+  </div>
+
+  <h2 class="page-title">Power Pipeline: Design in Whisk, Direct in Google Flow</h2>
+  <p class="page-lead">
+    Now that you have both the <strong>Google Flow</strong> guide and this <strong>Google Whisk</strong> guide, combining the two unlocks Google AI Ultra's ultimate creative workflow—and why Google integrated Whisk's DNA directly into the Flow ecosystem.
+  </p>
+
+  <!-- 5-Step Whisk -> Flow Bridge SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:12px 14px; margin-bottom:10px;">
+    <svg viewBox="0 0 690 140" width="100%" height="140" xmlns="http://www.w3.org/2000/svg">
+      <!-- Whisk Zone Banner -->
+      <rect x="8" y="8" width="398" height="22" rx="5" fill="#581c87"/>
+      <text x="207" y="23" text-anchor="middle" fill="#f3e8ff" font-size="9.2" font-weight="800">PHASE 1: GOOGLE WHISK (LOOK-DEV &amp; ASSET FACTORY)</text>
+
+      <!-- Flow Zone Banner -->
+      <rect x="418" y="8" width="264" height="22" rx="5" fill="#1e3a8a"/>
+      <text x="550" y="23" text-anchor="middle" fill="#dbeafe" font-size="9.2" font-weight="800">PHASE 2: GOOGLE FLOW (FILM STUDIO)</text>
+
+      <!-- Cards -->
+      <rect x="8" y="38" width="124" height="92" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+      <text x="18" y="56" fill="#6b21a8" font-size="9.5" font-weight="800">1. Lock Art Style</text>
+      <text x="18" y="72" fill="#334155" font-size="8.4">Test 6+ Style cards</text>
+      <text x="18" y="84" fill="#334155" font-size="8.4">fast until you find</text>
+      <text x="18" y="96" fill="#334155" font-size="8.4">your film's signature</text>
+      <text x="18" y="108" fill="#334155" font-size="8.4">visual aesthetic.</text>
+
+      <path d="M134 84 L144 84" stroke="#9333ea" stroke-width="2"/>
+
+      <rect x="145" y="38" width="124" height="92" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+      <text x="155" y="56" fill="#6b21a8" font-size="9.5" font-weight="800">2. Mint Hero Cards</text>
+      <text x="155" y="72" fill="#334155" font-size="8.4">Use Subject + Style</text>
+      <text x="155" y="84" fill="#334155" font-size="8.4">(blank Scene) to get</text>
+      <text x="155" y="96" fill="#334155" font-size="8.4">clean neutral-bg</text>
+      <text x="155" y="108" fill="#334155" font-size="8.4">characters &amp; props.</text>
+
+      <path d="M271 84 L281 84" stroke="#9333ea" stroke-width="2"/>
+
+      <rect x="282" y="38" width="124" height="92" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+      <text x="292" y="56" fill="#6b21a8" font-size="9.5" font-weight="800">3. Mint Set Plates</text>
+      <text x="292" y="72" fill="#334155" font-size="8.4">Use Scene + Style</text>
+      <text x="292" y="84" fill="#334155" font-size="8.4">in 16:9 using that</text>
+      <text x="292" y="96" fill="#334155" font-size="8.4">exact same Style card</text>
+      <text x="292" y="108" fill="#334155" font-size="8.4">for matching worlds!</text>
+
+      <path d="M408 84 L420 84" stroke="#2563eb" stroke-width="2.5"/><polygon points="418,79 425,84 418,89" fill="#2563eb"/>
+
+      <rect x="426" y="38" width="122" height="92" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="436" y="56" fill="#1e40af" font-size="9.5" font-weight="800">4. Load @Tags</text>
+      <text x="436" y="72" fill="#334155" font-size="8.4">Upload Whisk PNGs</text>
+      <text x="436" y="84" fill="#334155" font-size="8.4">into Google Flow's</text>
+      <text x="436" y="96" fill="#334155" font-size="8.4">Ingredients &amp; Start/</text>
+      <text x="436" y="108" fill="#334155" font-size="8.4">End Frame slots.</text>
+
+      <path d="M550 84 L559 84" stroke="#2563eb" stroke-width="2"/>
+
+      <rect x="560" y="38" width="122" height="92" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="570" y="56" fill="#38bdf8" font-size="9.5" font-weight="800">5. Shoot &amp; Cut</text>
+      <text x="570" y="72" fill="#cbd5e1" font-size="8.4">Direct Veo 3.1 speech,</text>
+      <text x="570" y="84" fill="#cbd5e1" font-size="8.4">camera &amp; SFX; edit</text>
+      <text x="570" y="96" fill="#cbd5e1" font-size="8.4">full story in Flow's</text>
+      <text x="570" y="108" fill="#cbd5e1" font-size="8.4">Scenebuilder!</text>
+    </svg>
+  </div>
+
+  <h3>Why This Two-Tool Workflow Beats Using Either Tool Alone</h3>
+  <ul>
+    <li><strong>100% Unified Art Direction:</strong> By feeding the <em>exact same Style card</em> into every Whisk character, prop, and background generation, all your Google Flow Ingredients share identical brushwork, clay texture, or film grain before you spend a single video credit!</li>
+    <li><strong>Instant Start-to-End Morphs:</strong> Generate two Whisk variations with a locked Seed (e.g., sunny summer cabin vs. snowy winter cabin via <em>Refine</em>), then drop both into Google Flow's <strong>Frames to Video</strong> for a breathtaking 8-second seasonal time-lapse.</li>
+    <li><strong>Zero Video Credit Waste:</strong> Experiment freely in Whisk stills until your client—or your own eye—loves the look, then move into Flow purely for execution.</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHEAT SHEET ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; Whisk Creator Cheat Sheet</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Cheat Sheet</h2>
+  <p class="page-lead">
+    Keep this page open next to Whisk whenever an output surprises you—every quirk has a fast, reliable fix.
+  </p>
+
+  <h3>Top 7 Whisk Problems &amp; Instant Fixes</h3>
+  <table class="clean-table" style="font-size:8.3pt;">
+    <thead>
+      <tr>
+        <th style="width:30%;">Symptom / Problem</th>
+        <th style="width:70%;">Root Cause &amp; 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Portrait doesn't look enough like the person uploaded</strong></td>
+        <td>Whisk re-imagined via caption essence. Open the Subject's <strong>Hidden Caption</strong> to add specific facial features—or use <strong>Google Flow Ingredients</strong> for strict 1:1 face lock.</td>
+      </tr>
+      <tr>
+        <td><strong>Objects from the Style image appear in my scene</strong></td>
+        <td>Style bleed. Open the Style card's <strong>Hidden Caption</strong> and delete all object/subject nouns, leaving only medium, palette, and lighting descriptors.</td>
+      </tr>
+      <tr>
+        <td><strong>Background from my Subject photo leaked into the Scene</strong></td>
+        <td>Cluttered Subject photo. Delete background words inside the Subject's Hidden Caption, or crop tightly around your subject before uploading.</td>
+      </tr>
+      <tr>
+        <td><strong>Text on a sign or label is misspelled or garbled</strong></td>
+        <td>Phrase too long or unquoted. Click <strong>Refine</strong> and write: <code>Change sign text to clearly read "CAFE" in bold block letters</code> (keep to 1–5 words).</td>
+      </tr>
+      <tr>
+        <td><strong>Tweaking my prompt completely changed the pose I liked</strong></td>
+        <td>Seed was unlocked. Click the <strong>Seed Padlock</strong> on the winning variation first, or use <strong>Refine</strong> instead of clicking main <em>Remix</em>.</td>
+      </tr>
+      <tr>
+        <td><strong>Whisk Animate video warps or looks chaotic</strong></td>
+        <td>Motion prompt re-described static appearance or asked for too many stunts. Prompt <em>only</em> 1 smooth camera move + 1 gentle action.</td>
+      </tr>
+      <tr>
+        <td><strong>Head or feet get cut off in vertical/wide formats</strong></td>
+        <td>Changed aspect ratio late. Pick <code>9:16</code> or <code>16:9</code> <em>first</em> and add <code>"full-body framing with headroom"</code> in Additional Details.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:6px;">
+    <div class="card-title" style="font-size:10.2pt; color:#fbbf24; margin-bottom:5px;">
+      Whisk Pre-Flight Checklist: 6 Habits for Instant Studio Results
+    </div>
+    <div class="grid-2" style="gap:5px 16px; font-size:8.4pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Set Aspect Ratio First</strong> (<code>1:1</code>, <code>9:16</code>, or <code>16:9</code>).</div>
+      <div>&#9744; <strong>4. Lock Seed Padlock</strong> as soon as you love a layout.</div>
+      <div>&#9744; <strong>2. Crop Subject Tightly</strong> (one clear hero per card).</div>
+      <div>&#9744; <strong>5. Use <code>Refine</code> Chat</strong> for surgical color, prop &amp; sign edits.</div>
+      <div>&#9744; <strong>3. Peek at Hidden Captions</strong> to strip unwanted clutter.</div>
+      <div>&#9744; <strong>6. Export Winners to Flow</strong> for multi-shot storytelling!</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:8px; padding:8px 12px;">
+    <div class="callout-title">Ready to Remix?</div>
+    Open <strong><code>https://labs.google/fx/tools/whisk</code></strong>, drop one Subject photo + one wild Style texture, peek inside Gemini's hidden caption, and hit <strong>Animate</strong> on your favorite creation!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Whisk (labs.google/fx/tools/whisk) &bull; Complete User Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

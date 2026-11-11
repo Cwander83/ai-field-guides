@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google NotebookLM: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">Google AI Ultra Creative Studio Series &bull; Late 2026 Edition</div>
+    <h1>Mastering <span>NotebookLM</span></h1>
+    <p class="cover-sub">
+      The complete visual handbook to Google's source-grounded AI research &amp; audio-visual studio—turning 500+ documents, videos, and recordings into verifiable citations, live podcasts, Video Overviews, and Mind Maps.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Zero-Hallucination Grounding</span>
+      <span class="cover-badge">500+ Sources (AI Ultra)</span>
+      <span class="cover-badge">Interactive Audio ("Join" Live)</span>
+      <span class="cover-badge">Narrated Video Overviews</span>
+      <span class="cover-badge">Clickable Mind Maps</span>
+      <span class="cover-badge">Mobile App &amp; Chat-Only Sharing</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Google NotebookLM Jade-Emerald Knowledge & Audio Studio Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero Outside Hallucinations</div>
+      <div class="cover-stat-desc">Every claim links to clickable inline citations ([1] [2]) that jump straight to the exact highlighted quote in your files.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">AI Ultra Scale (500+ Sources)</div>
+      <div class="cover-stat-desc">Load up to 500–600 sources per notebook—up to 500,000 words per file—backed by 5x–20x priority Studio compute.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Read, Listen, Watch &amp; Map</div>
+      <div class="cover-stat-desc">Transform dense folders into 2-host podcasts you can join live on mic, visual Video Overviews, and branching Mind Maps.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & WHY NOTEBOOKLM IS DIFFERENT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Google NotebookLM Complete How-To Guide</span>
+  </div>
+
+  <h2 class="page-title">Why NotebookLM Changes How You Learn &amp; Research</h2>
+  <p class="page-lead">
+    Standard AI chatbots draw from the entire open internet—blending facts with plausible-sounding guesses. <strong>Google NotebookLM</strong> (<code>notebooklm.google.com</code>, integrated across the Gemini ecosystem as <em>Gemini Notebook</em>) builds a <strong>strict walled garden</strong> around the exact files you upload, turning Gemini into an instant expert on <em>your</em> world alone.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Source-Grounded Architecture</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Video Overviews, Mind Maps &amp; Study</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. AI Ultra Limits, Formats &amp; Discover</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Analytical Power Prompts</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. 3-Panel Studio Tour</strong> (Annotated Map)</span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Real-World Project Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Source Checkboxes &amp; Inline Citations</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Mobile App &amp; Chat-Only Sharing</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Audio Overviews &amp; Live "Join" Mode</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Deep Research &rarr; NotebookLM &rarr; Vids</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight Sheet</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>Visualization: How Source-Grounded Synthesis Eliminates Hallucinations</h3>
+  <div class="figure-box" style="background:#071915; padding:13px 15px;">
+    <svg viewBox="0 0 700 176" width="100%" height="176" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: Your Sources -->
+      <rect x="10" y="10" width="150" height="44" rx="7" fill="#064e3b" stroke="#34d399"/>
+      <text x="22" y="27" fill="#6ee7b7" font-size="8.5" font-weight="700">DOCS &amp; SLIDES</text>
+      <text x="22" y="42" fill="#ffffff" font-size="10.2" font-weight="700">PDFs, Docs, Slides, TXT</text>
+
+      <rect x="10" y="64" width="150" height="44" rx="7" fill="#1e3a8a" stroke="#60a5fa"/>
+      <text x="22" y="81" fill="#93c5fd" font-size="8.5" font-weight="700">WEB &amp; VIDEO</text>
+      <text x="22" y="96" fill="#ffffff" font-size="10.2" font-weight="700">URLs &amp; YouTube Links</text>
+
+      <rect x="10" y="118" width="150" height="44" rx="7" fill="#78350f" stroke="#fbbf24"/>
+      <text x="22" y="135" fill="#fde68a" font-size="8.5" font-weight="700">AUDIO &amp; DISCOVER</text>
+      <text x="22" y="150" fill="#ffffff" font-size="10.2" font-weight="700">MP3/WAV + Web Scout</text>
+
+      <!-- Arrows to Walled Garden -->
+      <path d="M162 32 L196 76 M162 86 L196 86 M162 140 L196 96" stroke="#6ee7b7" stroke-width="2"/>
+
+      <!-- Middle 1: Source-Grounded Engine -->
+      <rect x="198" y="26" width="182" height="120" rx="10" fill="#0f2922" stroke="#4ade80" stroke-width="1.8"/>
+      <text x="210" y="46" fill="#4ade80" font-size="9" font-weight="800">WALLED-GARDEN ENGINE</text>
+      <text x="210" y="64" fill="#ffffff" font-size="11.2" font-weight="700">Gemini Grounded Brain</text>
+      <text x="210" y="82" fill="#cbd5e1" font-size="9">&bull; Reads ONLY checked files</text>
+      <text x="210" y="96" fill="#cbd5e1" font-size="9">&bull; Blocks outside web noise</text>
+      <text x="210" y="110" fill="#cbd5e1" font-size="9">&bull; Maps cross-file evidence</text>
+      <text x="210" y="128" fill="#86efac" font-size="8.8" font-weight="700">Zero model training on files!</text>
+
+      <path d="M384 86 L412 86" stroke="#4ade80" stroke-width="2.2"/><polygon points="410,81 418,86 410,91" fill="#4ade80"/>
+
+      <!-- Right: Verifiable Studio Outputs -->
+      <rect x="420" y="16" width="268" height="64" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="432" y="35" fill="#7dd3fc" font-size="8.8" font-weight="800">INLINE VERIFIABLE CITATIONS [1] [2]</text>
+      <text x="432" y="51" fill="#ffffff" font-size="10" font-weight="700">Click Any Badge &rarr; Exact Source Quote</text>
+      <text x="432" y="66" fill="#cbd5e1" font-size="8.6">Jumps directly to highlighted paragraph or transcript</text>
+
+      <rect x="420" y="92" width="268" height="68" rx="8" fill="#064e3b" stroke="#4ade80" stroke-width="1.5"/>
+      <text x="432" y="111" fill="#86efac" font-size="8.8" font-weight="800">MULTIMODAL STUDIO TRANSFORMS</text>
+      <text x="432" y="127" fill="#ffffff" font-size="10" font-weight="700">Audio ("Join") &bull; Video Overviews &bull; Mind Maps</text>
+      <text x="432" y="143" fill="#d1fae5" font-size="8.6">Plus Briefing Docs, Timelines, Flashcards &amp; Quizzes</text>
+    </svg>
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">Your Ironclad Privacy Guarantee</div>
+    Google explicitly guarantees that files, audio recordings, notes, and queries inside NotebookLM remain private to you (and collaborators you invite) and are <strong>never used to train foundation AI models</strong>—making it safe for proprietary contracts, unpublished manuscripts, medical literature, and board materials.
+  </div>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: AI ULTRA LIMITS, SOURCE TYPES & DISCOVER SOURCES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Scale &amp; Sources</span>
+    <span>Google AI Ultra Quotas, File Formats &amp; Discover Sources</span>
+  </div>
+
+  <h2 class="page-title">Google AI Ultra Super-Limits &amp; Supported Sources</h2>
+  <p class="page-lead">
+    While free accounts cap out at 50 files per project, your <strong>Google AI Ultra</strong> membership turns each notebook into an enterprise-scale knowledge vault holding hundreds of books, transcripts, and slide decks simultaneously.
+  </p>
+
+  <h3>Plan Comparison: Standard vs. Pro vs. Google AI Ultra</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:27%;">Capability / Quota</th>
+        <th style="width:21%;">Standard (Free)</th>
+        <th style="width:23%;">Google AI Pro</th>
+        <th style="width:29%;">Google AI Ultra (Your Tier)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Total Notebooks</strong></td>
+        <td>Up to 100</td>
+        <td>Up to 500</td>
+        <td><strong>Up to 500 Notebooks</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Sources per Notebook</strong></td>
+        <td>50 sources</td>
+        <td>300 sources</td>
+        <td><strong>500–600 Sources</strong> (up to 250M+ words!)</td>
+      </tr>
+      <tr>
+        <td><strong>Max Size per Source</strong></td>
+        <td>500k words / 200 MB</td>
+        <td>500k words / 200 MB</td>
+        <td><strong>500,000 words / 200 MB per file</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Studio &amp; Overview Compute</strong></td>
+        <td>Baseline daily pool</td>
+        <td>5x expanded pool</td>
+        <td><strong>5x–20x Priority Compute</strong> (5-hr refresh)</td>
+      </tr>
+      <tr>
+        <td><strong>Advanced Features</strong></td>
+        <td>Core Chat, Audio, Notes</td>
+        <td>Chat-Only Share, Styles</td>
+        <td><strong>Max Cinematic Video Overviews &amp; Priority</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Every Source Format You Can Feed Into a Notebook</h3>
+  <div class="grid-3" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">1</span> Docs, PDFs &amp; Slides</div>
+      <p style="font-size:8.4pt;">Upload <strong>PDFs</strong> (up to 200 MB), <strong>Google Docs</strong>, <strong>Google Slides</strong>, <code>.txt</code>, Markdown, or pasted text. <em>Note:</em> Drive imports take a static snapshot; click <strong>Sync</strong> inside the source view if you edit the original Doc!</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Web &amp; YouTube URLs</div>
+      <p style="font-size:8.4pt;">Paste public <strong>Website URLs</strong> to scrape clean article text, or paste public <strong>YouTube video links</strong>—NotebookLM automatically ingests the full caption transcript so you can query 3-hour lectures in seconds!</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Audio Files (MP3/WAV)</div>
+      <p style="font-size:8.4pt;">Drop raw voice memos, Zoom/Meet audio exports, interviews, or university lectures (<code>.mp3</code>, <code>.wav</code>, <code>.m4a</code>). Gemini transcribes every spoken word behind the scenes into searchable text.</p>
+    </div>
+  </div>
+
+  <h3>Starting With Zero Files? Use "Discover Sources"</h3>
+  <div class="grid-2">
+    <div class="callout emerald" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">How "Discover Sources" Works</div>
+      Starting a brand-new topic from scratch? Click <strong>Discover</strong> inside the Sources panel and describe what you want to learn (e.g., <em>"2026 solid-state EV battery manufacturing breakthroughs"</em>). NotebookLM searches the web, curates the top 10 annotated sources, and lets you import winners in one click!
+    </div>
+    <div class="callout amber" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">Understanding Rolling 5-Hour Compute</div>
+      Heavy Studio renders (like <em>Video Overviews</em> and <em>Audio Overviews</em>) share a rolling compute budget that refreshes <strong>every 5 hours</strong>. On rare marathon days, click <strong>Generate later</strong> to automatically queue renders for the next refresh!
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: 3-PANEL STUDIO UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Interface Map</span>
+    <span>Touring the 3-Panel NotebookLM Studio</span>
+  </div>
+
+  <h2 class="page-title">The 3-Panel NotebookLM Studio: Visual Tour</h2>
+  <p class="page-lead">
+    NotebookLM organizes everything into one clean left-to-right flow: <strong>Sources</strong> on the left, grounded <strong>Chat</strong> in the center, and multimodal <strong>Studio</strong> outputs &amp; saved notes on the right.
+  </p>
+
+  <!-- Annotated 3-Panel NotebookLM UI Mockup -->
+  <div class="ui-window" style="margin-bottom:10px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">NotebookLM &bull; Q4 Acquisition Due Diligence</span>
+        <span style="background:#4ade80; color:#052e16; padding:1px 6px; border-radius:4px; font-weight:800; font-size:6.8pt;">AI ULTRA &bull; 142 SOURCES</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="callout-pin">7</span>
+        <span style="background:#1e293b; border:1px solid #334155; padding:2px 7px; border-radius:5px; font-size:7pt;">Analytics</span>
+        <span style="background:#059669; color:#ffffff; font-weight:700; padding:2px 8px; border-radius:5px; font-size:7pt;">Share (Chat-Only)</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 162px 1fr 196px; gap:1px; background:#1f2937;">
+      <!-- LEFT PANEL: SOURCES -->
+      <div style="background:#0f172a; padding:8px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-weight:800; color:#f8fafc; font-size:7.4pt;">SOURCES (3/142)</span>
+          <span class="callout-pin">1</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; font-size:6.6pt;">
+          <div style="background:#1e293b; border:1px solid #475569; text-align:center; padding:3px; border-radius:4px; font-weight:700;">+ Add</div>
+          <div style="background:#064e3b; border:1px solid #34d399; color:#a7f3d0; text-align:center; padding:3px; border-radius:4px; font-weight:700;">Discover</div>
+        </div>
+        <div style="background:#1e293b; border:1px solid #34d399; border-radius:5px; padding:4px 6px; font-size:6.8pt;">
+          <strong style="color:#4ade80;">&#9745;</strong> PDF &bull; Q4_Audit_Report.pdf
+        </div>
+        <div style="background:#1e293b; border:1px solid #34d399; border-radius:5px; padding:4px 6px; font-size:6.8pt;">
+          <strong style="color:#4ade80;">&#9745;</strong> YT &bull; CEO Earnings Call
+        </div>
+        <div style="background:#1e293b; border:1px solid #34d399; border-radius:5px; padding:4px 6px; font-size:6.8pt;">
+          <strong style="color:#4ade80;">&#9745;</strong> Doc &bull; MSA_Contract_v4
+        </div>
+        <div style="background:#111827; border:1px solid #1f2937; border-radius:5px; padding:4px 6px; font-size:6.7pt; color:#64748b;">
+          &#9744; 139 older files (unchecked)
+        </div>
+      </div>
+
+      <!-- CENTER PANEL: GROUNDED CHAT -->
+      <div style="background:#0b0f19; padding:8px 9px; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+            <span style="color:#94a3b8; font-weight:700; font-size:7.3pt;">GROUNDED CHAT (3 ACTIVE SOURCES)</span>
+            <span class="callout-pin">2</span>
+          </div>
+          <div style="background:#1e293b; border-radius:7px; padding:7px 8px; margin-bottom:6px; border:1px solid #334155;">
+            <div style="font-size:6.9pt; color:#93c5fd; font-weight:700; margin-bottom:3px;">Q: Does the CEO call match the audited Q4 churn numbers?</div>
+            <div style="font-size:7.1pt; color:#e2e8f0; line-height:1.42;">
+              No—on the earnings call, management stated net churn fell below 4%
+              <span style="background:#065f46; color:#6ee7b7; padding:0 4px; border-radius:3px; font-weight:800;">[1]</span>, whereas Schedule C of the Q4 Audit records enterprise churn at <strong>6.8%</strong> excluding paused pilots
+              <span style="background:#065f46; color:#6ee7b7; padding:0 4px; border-radius:3px; font-weight:800;">[2]</span>.
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px; padding-top:4px; border-top:1px solid #334155; font-size:6.6pt;">
+              <span style="background:#0f172a; border:1px solid #475569; padding:2px 6px; border-radius:4px; color:#f8fafc;">&#128204; Save to Note</span>
+              <span style="color:#94a3b8;">Copy &bull; Mind Map <span class="callout-pin" style="width:14px;height:14px;font-size:6.8pt;">3</span></span>
+            </div>
+          </div>
+        </div>
+        <div style="background:#111827; border:1px solid #374151; border-radius:6px; padding:5px 8px; display:flex; justify-content:space-between; align-items:center; font-size:7pt;">
+          <span style="color:#94a3b8;">Ask a question across 3 selected sources...</span>
+          <span style="background:#4ade80; color:#052e16; font-weight:800; padding:2px 7px; border-radius:4px;">&rarr;</span>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: STUDIO -->
+      <div style="background:#0f172a; padding:8px; display:flex; flex-direction:column; gap:5px;">
+        <div style="font-weight:800; color:#f8fafc; font-size:7.4pt;">STUDIO &amp; OUTPUTS</div>
+
+        <!-- Audio Overview Box -->
+        <div style="background:#064e3b; border:1px solid #34d399; border-radius:6px; padding:5px 6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#a7f3d0; font-size:7.1pt;">Audio Overview</strong>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="display:flex; gap:3px; font-size:6.4pt;">
+            <span style="background:#022c22; padding:2px 5px; border-radius:3px; color:#fff;">&#9654; Deep Dive</span>
+            <span style="background:#4ade80; color:#052e16; font-weight:800; padding:2px 5px; border-radius:3px;">&#127908; Join Live</span>
+            <span style="background:#022c22; padding:2px 4px; border-radius:3px;">Customize</span>
+          </div>
+        </div>
+
+        <!-- Video & Mind Map Grid -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+          <div style="background:#1e1b4b; border:1px solid #818cf8; border-radius:6px; padding:5px;">
+            <div style="display:flex; justify-content:space-between;"><strong style="color:#c7d2fe; font-size:6.7pt;">Video</strong><span class="callout-pin" style="width:14px;height:14px;font-size:6.6pt;">5</span></div>
+            <div style="font-size:6.2pt; color:#94a3b8;">Explainer + Styles</div>
+          </div>
+          <div style="background:#172554; border:1px solid #60a5fa; border-radius:6px; padding:5px;">
+            <strong style="color:#93c5fd; font-size:6.7pt;">Mind Map</strong>
+            <div style="font-size:6.2pt; color:#94a3b8;">Concept Tree</div>
+          </div>
+        </div>
+
+        <!-- Reports & Study Tools -->
+        <div style="background:#1e293b; border:1px solid #334155; border-radius:6px; padding:5px 6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <strong style="color:#f8fafc; font-size:6.9pt;">Reports &amp; Active Study</strong>
+            <span class="callout-pin">6</span>
+          </div>
+          <div style="font-size:6.3pt; color:#cbd5e1; line-height:1.38;">
+            Briefing Doc &bull; Timeline &bull; Study Guide &bull; <strong>Flashcards</strong> &bull; <strong>Quiz</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Interface Reference</h3>
+  <div class="grid-2" style="gap:6px 14px; font-size:8.65pt;">
+    <div><span class="callout-pin">1</span> <strong>Sources Drawer &amp; Checkboxes:</strong> Add up to 500+ files, run <em>Discover</em> web scouting, and toggle individual checkboxes to focus queries on specific files.</div>
+    <div><span class="callout-pin">2</span> <strong>Grounded Chat &amp; Citations (<code>[1]</code>):</strong> Hover or click any numbered badge to inspect the exact highlighted passage inside the original document.</div>
+    <div><span class="callout-pin">3</span> <strong>Save to Note &amp; Convert to Source:</strong> Note-worthy AI answers don't persist cleanly in long chats unless pinned via <em>Save to Note</em> (and optionally converted into a new Source!).</div>
+    <div><span class="callout-pin">4</span> <strong>Audio Overview &amp; Live <code>Join</code>:</strong> Pick <em>Deep Dive, Brief, Critique,</em> or <em>Debate</em>, customize host focus, or click <strong>Join</strong> to speak with the hosts mid-show.</div>
+    <div><span class="callout-pin">5</span> <strong>Video Overviews &amp; Mind Maps:</strong> Render narrated visual slide videos with custom art styles, or open an interactive branching concept map.</div>
+    <div><span class="callout-pin">6</span> <strong>Reports, Flashcards &amp; Quizzes:</strong> One-click Briefing Docs, Timelines, FAQs, self-grading Quizzes, and spaced-practice Flashcard decks.</div>
+  </div>
+  <div style="margin-top:5px; font-size:8.65pt;">
+    <span class="callout-pin">7</span> <strong>Share Modes &amp; Analytics:</strong> Share either the <em>Full Notebook</em> with co-authors or a clean <strong>Chat-Only</strong> portal link for clients/students, plus view query analytics.
+  </div>
+
+  <div class="callout emerald" style="margin-top:10px;">
+    <div class="callout-title">Workspace Ergonomics: Collapse Panels On Demand</div>
+    Every panel header includes a quick-collapse toggle. Fold away the right <strong>Studio</strong> drawer while reading side-by-side cited passages in the left <strong>Source Guide</strong>, or collapse both sidebars when running deep analytical tables in full-width Chat!
+  </div>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: SOURCE CURATION, CHECKBOXES & INLINE CITATIONS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Source Mastery</span>
+    <span>Curating Clean Notebooks, Checkboxes &amp; Citation Verification</span>
+  </div>
+
+  <h2 class="page-title">Mastering Checkboxes, Citations &amp; the Notes Loop</h2>
+  <p class="page-lead">
+    Because NotebookLM trusts your uploaded sources as ground truth, <strong>garbage in equals garbage out</strong>. Three simple curation habits separate casual users from research pros.
+  </p>
+
+  <div class="figure-box" style="background:#071915;">
+    <img src="assets/sources_to_grounded_truth.jpg" alt="Diverse Multi-Format Sources Passing Through Emerald Grounding Prism Into Citations and Mind Map" style="width:100%; height:248px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr 1.15fr; background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.6pt; border-top:1px solid #334155;">
+      <div><strong style="color:#fca5a5;">1. RAW MULTI-FORMAT INPUTS:</strong> Books, slides, YouTube talks, MP3s.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#4ade80;">2. CHECKBOX GROUNDING LENS:</strong> Filters out unchecked files &amp; web noise.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#fbbf24;">3. VERIFIED STUDIO OUTPUT:</strong> Clickable <code>[1][2]</code> quotes &amp; Mind Maps!</div>
+    </div>
+  </div>
+
+  <h3>3 High-Precision Source Habits</h3>
+  <div class="grid-3" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">1</span> Checkbox Isolation</div>
+      <p style="font-size:8.3pt;">Have 300 sources in a project, but want a podcast or table comparing <em>only</em> Q3 vs. Q4? Uncheck "Select All" in the left drawer, check just those two PDFs, and run your prompt or Audio Overview!</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Click Every Citation</div>
+      <p style="font-size:8.3pt;">Never copy a mission-critical number blindly. Clicking any inline <code>[1]</code> or <code>[4]</code> badge opens the <strong>Source Guide</strong> viewer scrolled directly to the highlighted paragraph or transcript line.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Notes &rarr; New Source</div>
+      <p style="font-size:8.3pt;">Click <strong>Save to Note</strong> under your best Chat syntheses, combine them with your own written notes in the Studio board, then click <strong>Convert all notes to source</strong> to query your distilled insights!</p>
+    </div>
+  </div>
+
+  <h3>Notebook Hygiene Rules: When to Combine vs. Split Notebooks</h3>
+  <table class="clean-table" style="font-size:8.35pt;">
+    <thead>
+      <tr>
+        <th style="width:28%;">Scenario</th>
+        <th style="width:72%;">Best Practice Inside Google AI Ultra</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Draft v1, v2, v3 &amp; Final</strong></td>
+        <td>Keep old drafts <strong>unchecked</strong> (or prefix titles with <code>[ARCHIVE]</code>) so Gemini doesn't cite outdated pricing or clauses alongside your final contract.</td>
+      </tr>
+      <tr>
+        <td><strong>Editing a Google Doc / Slide</strong></td>
+        <td>NotebookLM captures a static snapshot on import. Whenever you update the live file in Google Drive, open that source in NotebookLM and click <strong>Click to sync with Google Drive</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>One Mega-Vault vs. Topic Vaults</strong></td>
+        <td>Put sources in the same notebook when you want <em>cross-connections</em> (e.g., 200 papers on longevity). Create separate notebooks per client or semester to keep sharing clean.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: AUDIO OVERVIEWS & LIVE INTERACTIVE MODE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Audio Studio</span>
+    <span>Audio Overviews, 4 Show Formats &amp; Live Interactive Mode</span>
+  </div>
+
+  <h2 class="page-title">Audio Overviews &amp; Stepping Live Into the Podcast (<code>Join</code>)</h2>
+  <p class="page-lead">
+    NotebookLM's viral two-host podcast engine has evolved into a four-format audio studio supporting <strong>50+ languages</strong>, custom producer instructions, and live two-way voice participation.
+  </p>
+
+  <div class="figure-box" style="background:#051411;">
+    <img src="assets/interactive_audio_and_video_studio.jpg" alt="Two Studio Podcast Microphones With Listener Soundwave Joining In and Mobile Commuter Visual Studio" style="width:100%; height:235px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr; background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.6pt; border-top:1px solid #334155;">
+      <div><strong style="color:#4ade80;">LEFT &bull; LIVE INTERACTIVE BOOTH:</strong> Tap <code>Join</code> mid-episode and interrupt the AI hosts with your voice!</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#fbbf24;">RIGHT &bull; VISUAL &amp; COMMUTE STUDIO:</strong> Offline podcasts, Video Overviews &amp; Mind Maps anywhere.</div>
+    </div>
+  </div>
+
+  <h3>Choose From 4 Distinct Audio Overview Formats</h3>
+  <div class="grid-2" style="gap:8px 12px; margin-bottom:9px;">
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:9.2pt;"><span class="num-badge teal">1</span> Deep Dive (2 Hosts &bull; Default)</div>
+      <p style="font-size:8.2pt; margin:0;">Warm, lively 10–25 minute dialogue unpacking complex concepts with memorable analogies and examples. Choose <em>Shorter, Default,</em> or <em>Longer</em> duration.</p>
+    </div>
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:9.2pt;"><span class="num-badge">2</span> Brief (1 Host &bull; Rapid Triage)</div>
+      <p style="font-size:8.2pt; margin:0;">Crisp, single-speaker executive summary under 2 minutes—ideal for triaging a 60-page report five minutes before walking into a meeting.</p>
+    </div>
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:9.2pt;"><span class="num-badge amber">3</span> Critique (Constructive Review)</div>
+      <p style="font-size:8.2pt; margin:0;">Upload your own essay, pitch deck, grant proposal, or product spec—hosts deliver candid editorial feedback on weak logic, missing proof, and structure!</p>
+    </div>
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:9.2pt;"><span class="num-badge purple">4</span> Debate (Clash of Ideas)</div>
+      <p style="font-size:8.2pt; margin:0;">Two hosts take opposing stances grounded in your sources—perfect for legal prep, investment bull/bear cases, and policy trade-offs.</p>
+    </div>
+  </div>
+
+  <h3>Producer Secret: Color-Coded "Customize" Host Prompt Formula</h3>
+  <div class="card" style="padding:9px 12px; margin-bottom:8px; background:#f8fafc;">
+    <div style="font-size:8.6pt; line-height:1.68;">
+      <span class="p-tag p-style">Audience: Senior ICU clinicians</span>
+      <span class="p-tag p-subj">Focus strictly on dosing changes between the 2022 and 2026 guidelines</span>
+      <span class="p-tag p-cons">Skip basic introductory definitions</span>
+      <span class="p-tag p-act">Flag every edge case where pediatric and adult protocols diverge, and end with 3 bedside takeaways.</span>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:0; padding:8px 12px;">
+    <div class="callout-title">How to Use Live Interactive Mode (<code>Join</code>)</div>
+    Start playing any generated Audio Overview, click <strong>Interactive Mode</strong>, and tap <strong>Join</strong> whenever a question pops into your head. Speak naturally into your mic (<em>"Hold on—can you explain that tax formula using a $100k example?"</em>). The hosts welcome you onto the show, answer directly from your sources, and smoothly resume the episode!
+  </div>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: VIDEO OVERVIEWS, MIND MAPS & STUDIO REPORTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Visual &amp; Study Studio</span>
+    <span>Video Overviews, Interactive Mind Maps, Flashcards &amp; Reports</span>
+  </div>
+
+  <h2 class="page-title">Video Overviews, Mind Maps &amp; Active Study Suite</h2>
+  <p class="page-lead">
+    Some concepts—like system architectures, historical timelines, or biochemical pathways—click 10x faster visually than in audio alone. The right-hand <strong>Studio</strong> panel turns raw text into visual explainers and interactive study decks.
+  </p>
+
+  <h3>1. Narrated Video Overviews &amp; the Visual Style Picker</h3>
+  <p style="font-size:8.9pt;">
+    Click <strong>Video Overview</strong> in the Studio panel to generate a narrated multimedia presentation complete with custom diagrams, pulled quotes, numerical charts, and AI visual styling. In <strong>Google AI Ultra</strong>, you unlock top quotas across <em>Explainer</em> decks, 60-second <em>Shorts</em>, and Veo-powered <em>Cinematic</em> video overviews—plus a <strong>Visual Style Picker</strong> (<em>Professional, Editorial, Scientific, Bento Grid, Sketch Note, Instructional, Clay,</em> or <em>Anime</em>).
+  </p>
+
+  <h3>2. Navigating 100+ Documents via Interactive Mind Maps</h3>
+  <div class="figure-box" style="background:#0f172a; padding:11px 14px; margin-bottom:9px;">
+    <svg viewBox="0 0 680 116" width="100%" height="116" xmlns="http://www.w3.org/2000/svg">
+      <!-- Root Node -->
+      <rect x="14" y="40" width="148" height="38" rx="19" fill="#065f46" stroke="#4ade80" stroke-width="1.8"/>
+      <text x="88" y="63" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Solid-State Batteries</text>
+
+      <!-- Branch Curves -->
+      <path d="M162 59 C205 59, 205 24, 245 24" stroke="#4ade80" stroke-width="1.8" fill="none"/>
+      <path d="M162 59 L245 59" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+      <path d="M162 59 C205 59, 205 94, 245 94" stroke="#fbbf24" stroke-width="1.8" fill="none"/>
+
+      <!-- Level 2 Nodes -->
+      <rect x="246" y="8" width="152" height="30" rx="15" fill="#1e293b" stroke="#4ade80"/>
+      <text x="322" y="27" text-anchor="middle" fill="#bbf7d0" font-size="8.8" font-weight="700">Sulfide Electrolytes &gt;</text>
+
+      <rect x="246" y="44" width="152" height="30" rx="15" fill="#1e3a8a" stroke="#60a5fa"/>
+      <text x="322" y="63" text-anchor="middle" fill="#dbeafe" font-size="8.8" font-weight="700">Dendrite Suppression &gt;</text>
+
+      <rect x="246" y="80" width="152" height="30" rx="15" fill="#1e293b" stroke="#fbbf24"/>
+      <text x="322" y="99" text-anchor="middle" fill="#fde68a" font-size="8.8" font-weight="700">2027 Pilot Scaling (+)</text>
+
+      <!-- Leaf Action -->
+      <path d="M398 59 L436 59" stroke="#60a5fa" stroke-width="2"/><polygon points="434,54 442,59 434,64" fill="#60a5fa"/>
+
+      <rect x="444" y="20" width="222" height="78" rx="9" fill="#172554" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="456" y="40" fill="#7dd3fc" font-size="8.6" font-weight="800">CLICK ANY NODE &rarr; INSTANT CHAT</text>
+      <text x="456" y="56" fill="#ffffff" font-size="9.2" font-weight="700">Auto-Prompts Grounded Deep Dive</text>
+      <text x="456" y="71" fill="#cbd5e1" font-size="8.3">Summarizes "Dendrite Suppression" across</text>
+      <text x="456" y="84" fill="#cbd5e1" font-size="8.3">all 84 uploaded papers with [1][2] links!</text>
+    </svg>
+  </div>
+
+  <h3>3. One-Click Reports, Flashcards &amp; Self-Grading Quizzes</h3>
+  <table class="clean-table" style="font-size:8.35pt;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Studio Tool</th>
+        <th style="width:76%;">What It Generates &amp; When to Reach For It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Briefing Doc &amp; FAQ</strong></td>
+        <td>Executive synthesis of key themes, core arguments, quoted statistics, and anticipated stakeholder Q&amp;As.</td>
+      </tr>
+      <tr>
+        <td><strong>Timeline</strong></td>
+        <td>Chronological sequence of every dated event plus a cast-of-characters roster—unbeatable for legal cases, history, and novels.</td>
+      </tr>
+      <tr>
+        <td><strong>Flashcards</strong></td>
+        <td>Interactive flip-card decks extracted straight from your sources with <em>"Got it" / "Missed it"</em> session tracking, card editing, and shuffle.</td>
+      </tr>
+      <tr>
+        <td><strong>Quiz Studio</strong></td>
+        <td>Dynamic multiple-choice and short-answer practice tests with instant explanations citing your notes—plus one-click <strong>Re-test Missed</strong>!</td>
+      </tr>
+      <tr>
+        <td><strong>Study Guide &amp; Custom</strong></td>
+        <td>Full course review packet (glossary + essay prompts + answer key), or click <strong>Create Your Own</strong> to specify any custom memo structure!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:6px;">
+    <div class="callout-title">Export Tip: High-Res Mind Map PNGs &amp; Video Downloads</div>
+    Click the download icon in the top-right corner of any <strong>Mind Map</strong> to save a crisp high-resolution PNG for slide decks, or download generated <strong>Video Overviews</strong> as standalone MP4 explainers for your team!
+  </div>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: POWER PROMPTING INSIDE NOTEBOOKLM ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Analytical Prompting</span>
+    <span>5 High-Leverage Research Prompts Generic AI Cannot Run</span>
+  </div>
+
+  <h2 class="page-title">Power Prompting: Cross-Examining 500 Sources at Once</h2>
+  <p class="page-lead">
+    Don't just ask NotebookLM <em>"Summarize this."</em> Because Gemini holds all checked documents inside one massive grounded context window, you can run forensic cross-document audits that would take a human research team weeks.
+  </p>
+
+  <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:9px;">
+    <div class="card" style="padding:9px 13px;">
+      <div class="card-title"><span class="num-badge teal">1</span> The Cross-Document Contradiction &amp; Tension Hunt</div>
+      <p style="font-size:8.45pt; margin:0;"><code>"Compare all checked sources and list every factual claim, metric, date, or policy where two or more documents disagree. Present a 3-column table: Topic, Position A (with citation), and Position B (with citation)."</code></p>
+    </div>
+
+    <div class="card" style="padding:9px 13px;">
+      <div class="card-title"><span class="num-badge">2</span> The Structured Vendor / Literature Evidence Matrix</div>
+      <p style="font-size:8.45pt; margin:0;"><code>"Build a Markdown comparison matrix across all uploaded proposals with rows for Pricing Tier, Uptime SLA, SOC2/HIPAA Status, Data Exit Fees, and Auto-Renewal Notice Window. Write 'Not Stated' anywhere a source omits an answer."</code></p>
+    </div>
+
+    <div class="card" style="padding:9px 13px;">
+      <div class="card-title"><span class="num-badge amber">3</span> The "Silent Gap" &amp; Blind-Spot Audit</div>
+      <p style="font-size:8.45pt; margin:0;"><code>"Based strictly on our uploaded product PRD and the 25 customer interview transcripts, what top customer complaints or edge cases are completely unaddressed by our current spec? Cite exact interview quotes."</code></p>
+    </div>
+
+    <div class="card" style="padding:9px 13px;">
+      <div class="card-title"><span class="num-badge purple">4</span> Master Forensic Chronology Builder</div>
+      <p style="font-size:8.45pt; margin:0;"><code>"Extract every dated event, email commitment, and milestone across all selected files into a single strict chronological timeline (YYYY-MM-DD), noting who knew what at each step with inline citations."</code></p>
+    </div>
+
+    <div class="card" style="padding:9px 13px;">
+      <div class="card-title"><span class="num-badge teal">5</span> Jargon-Free Concept Bridge (Feynman Tutor)</div>
+      <p style="font-size:8.45pt; margin:0;"><code>"Explain the core mechanism in Chapter 6 first to a smart 12-year-old using an everyday analogy, then again at a graduate engineering level quoting the exact equations and definitions from the text."</code></p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:0;">
+    <div class="callout-title">Golden Rule: Pin Great Answers Immediately With "Save to Note"!</div>
+    NotebookLM intentionally treats Chat as a scratchpad while keeping your <strong>Studio Notes</strong> permanent. Whenever one of the prompts above produces an extraordinary table or synthesis, click <strong>Save to Note</strong> right below the answer so it stays permanently organized in your right-hand Studio drawer!
+  </div>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD POWER RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Project Cookbook</span>
+    <span>5 End-to-End Workflows for Work, Study &amp; Creative Worlds</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World NotebookLM Power Recipes</h2>
+  <p class="page-lead">
+    Ready to put your 500-source Google AI Ultra capacity to work? Use these five proven blueprints to turn sprawling folders into clarity in a single afternoon.
+  </p>
+
+  <table class="clean-table" style="font-size:8.3pt;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Power Recipe</th>
+        <th style="width:26%;">Sources to Drop In</th>
+        <th style="width:26%;">Studio Moves to Run</th>
+        <th style="width:27%;">Pro Multiplier Tip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Master Any Course or Exam in 1 Weekend</strong></td>
+        <td>Syllabus PDF, textbook chapters, Google Slides decks, recorded lecture MP3s, and YouTube review videos.</td>
+        <td>Open <strong>Mind Map</strong> first for big-picture structure &rarr; generate <strong>Flashcards</strong> &amp; <strong>Quiz</strong> &rarr; listen to <em>Deep Dive</em> on walks.</td>
+        <td>Tap <strong>Join</strong> during the Audio Overview and ask the hosts to quiz you orally on the three hardest chapters!</td>
+      </tr>
+      <tr>
+        <td><strong>2. Deal / Contract Due-Diligence Room</strong></td>
+        <td>150+ data-room PDFs, audited financials, MSAs, security certs, and earnings call YouTube/MP3s.</td>
+        <td>Run the <em>Contradiction Hunt</em> &amp; <em>Evidence Matrix</em> prompts (p. 8) + generate a <strong>Critique</strong> Audio Overview.</td>
+        <td>Tell prompts to output <code>"Not Disclosed in Data Room"</code> for missing answers—instant question list for opposing counsel!</td>
+      </tr>
+      <tr>
+        <td><strong>3. YouTube &amp; Podcast Expert Brain</strong></td>
+        <td>50–200 public YouTube episode URLs + downloaded podcast MP3s from top thinkers in your industry.</td>
+        <td>Ask specific tactical questions across 200 hours of talks &rarr; generate a <strong>Debate</strong> Audio Overview on contested topics.</td>
+        <td>Every citation jumps straight to the exact spoken transcript passage so you know <em>who</em> recommended <em>what</em>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Self-Serve Team / Client Helpdesk</strong></td>
+        <td>Employee handbook, SOP Google Docs, API specs, onboarding slides, and product release notes.</td>
+        <td>Generate an <strong>FAQ</strong> &amp; <strong>Video Overview</strong> (<em>Instructional</em> style), then click <strong>Share &rarr; Chat-Only</strong>.</td>
+        <td>Teammates ask questions 24/7 with cited SOP answers—while your underlying master documents remain untouched!</td>
+      </tr>
+      <tr>
+        <td><strong>5. Fiction, Screenplay &amp; Lore Bible</strong></td>
+        <td>Draft chapters/scripts, worldbuilding notes, magic/tech rules, and character backstory sheets.</td>
+        <td>Click <strong>Timeline</strong> to audit chronology &amp; character appearances; run continuity checks before publishing.</td>
+        <td>Ask: <code>"Does Elena ever use abilities in Draft 4 that contradict the rules in Lore_Doc_v2?"</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:8px;">
+    <div class="callout-title">Underrated Personal Use Case: Your Home &amp; Tax Vault</div>
+    Create one private "Household Vault" notebook holding PDFs of your appliance manuals, HOA bylaws, home/auto insurance policies, medical plan summaries, and warranty receipts. Next time the dishwasher flashes error <code>E24</code> or you wonder whether roof flashing is covered, you get a cited answer in 4 seconds!
+  </div>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: MOBILE APP & TEAM SHARING MODES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Mobile &amp; Collaboration</span>
+    <span>iOS &amp; Android App, Offline Listening &amp; Chat-Only Sharing</span>
+  </div>
+
+  <h2 class="page-title">NotebookLM Mobile App &amp; Team Sharing Modes</h2>
+  <p class="page-lead">
+    Your research vault no longer lives purely in a desktop tab. With the native <strong>NotebookLM app for iOS and Android</strong> plus granular sharing controls, you can capture sources on the move and publish interactive knowledge portals for anyone.
+  </p>
+
+  <h3>1. Three Superpowers Inside the Official Mobile App (iOS &amp; Android)</h3>
+  <div class="grid-3" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">1</span> 2-Tap Share Sheet</div>
+      <p style="font-size:8.35pt;">Reading a deep essay in Safari/Chrome, viewing a PDF, or watching a YouTube talk on your phone? Tap the system <strong>Share</strong> icon &rarr; tap <strong>NotebookLM</strong> &rarr; pick a notebook. Done in two seconds!</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Offline Commute Audio</div>
+      <p style="font-size:8.35pt;">Tap the download arrow on any generated <strong>Audio Overview</strong> inside the mobile app for zero-signal airplane or subway listening, complete with lock-screen background playback and speed controls.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Hands-Free Voice "Join"</div>
+      <p style="font-size:8.35pt;">Tap <strong>Join</strong> right from your phone while walking the dog to ask your AI podcast hosts follow-up questions out loud and turn idle commute minutes into active study.</p>
+    </div>
+  </div>
+
+  <h3>2. Sharing Your Notebook: Full Collaboration vs. "Chat-Only" Portals</h3>
+  <table class="clean-table" style="font-size:8.4pt;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Sharing Mode</th>
+        <th style="width:36%;">What Recipients Can See &amp; Do</th>
+        <th style="width:40%;">Ideal Real-World Scenario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Full Notebook</strong><br/>(<em>Viewer</em> or <em>Editor</em>)</td>
+        <td>Inspect full left-panel source documents, read/play saved Studio outputs &amp; Mind Maps (and add sources/notes if granted <em>Editor</em>).</td>
+        <td>Co-authoring a research paper, deal team war-room, or study group building a shared vault together.</td>
+      </tr>
+      <tr>
+        <td><strong>Chat-Only Access</strong></td>
+        <td>Recipients see a clean conversational interface where they ask questions and get cited answers—<strong>without</strong> modifying sources or cluttering your Studio notes!</td>
+        <td>Sharing a course tutor bot with 200 students, client project Q&amp;A portal, or company-wide HR/SOP helpdesk.</td>
+      </tr>
+      <tr>
+        <td><strong>Usage Analytics</strong><br/>(Shared Notebooks)</td>
+        <td>Click the top-bar <strong>Analytics</strong> chart (activates once shared with 4+ users) to see daily active users and daily query volume over the past week.</td>
+        <td>Measuring whether your team or students are actively engaging with onboarding or course materials.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">Smart Collaboration Tip: Add a Custom "Welcome Note"</div>
+    When sharing a notebook in <strong>Chat-Only</strong> mode, configure a short <em>Welcome Note</em> and 3 starter suggested questions inside the Share dialog so first-time visitors immediately know what your notebook knows!
+  </div>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: STUDIO SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Studio Synergy</span>
+    <span>Gemini Deep Research &rarr; NotebookLM &rarr; Google Vids &amp; Slides</span>
+  </div>
+
+  <h2 class="page-title">Power Pipeline: Deep Research &rarr; NotebookLM &rarr; Vids</h2>
+  <p class="page-lead">
+    NotebookLM deliberately stays inside its walled garden—which means pairing it with <strong>Gemini Deep Research</strong> (for open-web scouting) and <strong>Google Vids / Slides / Whisk / Flow</strong> (for visual storytelling) unlocks Google AI Ultra's ultimate end-to-end workflow.
+  </p>
+
+  <!-- 5-Step Ecosystem Bridge SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:12px 14px; margin-bottom:10px;">
+    <svg viewBox="0 0 690 142" width="100%" height="142" xmlns="http://www.w3.org/2000/svg">
+      <!-- Phase Banners -->
+      <rect x="8" y="8" width="132" height="22" rx="5" fill="#1e3a8a"/>
+      <text x="74" y="23" text-anchor="middle" fill="#dbeafe" font-size="8.6" font-weight="800">1. GEMINI APP</text>
+
+      <rect x="150" y="8" width="392" height="22" rx="5" fill="#064e3b"/>
+      <text x="346" y="23" text-anchor="middle" fill="#d1fae5" font-size="8.8" font-weight="800">2. GOOGLE NOTEBOOKLM (GROUNDED SYNTHESIS STUDIO)</text>
+
+      <rect x="552" y="8" width="130" height="22" rx="5" fill="#581c87"/>
+      <text x="617" y="23" text-anchor="middle" fill="#f3e8ff" font-size="8.6" font-weight="800">3. VIDS / SLIDES</text>
+
+      <!-- Step 1 -->
+      <rect x="8" y="38" width="132" height="94" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="18" y="56" fill="#1e40af" font-size="9.4" font-weight="800">Deep Research</text>
+      <text x="18" y="72" fill="#334155" font-size="8.3">Crawls 100+ live</text>
+      <text x="18" y="84" fill="#334155" font-size="8.3">websites &amp; exports</text>
+      <text x="18" y="96" fill="#334155" font-size="8.3">a cited report to</text>
+      <text x="18" y="108" fill="#1e40af" font-size="8.3" font-weight="700">Google Docs.</text>
+
+      <path d="M142 85 L154 85" stroke="#059669" stroke-width="2.2"/><polygon points="152,80 159,85 152,90" fill="#059669"/>
+
+      <!-- Step 2 -->
+      <rect x="160" y="38" width="122" height="94" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+      <text x="170" y="56" fill="#065f46" font-size="9.4" font-weight="800">Fuse Private Data</text>
+      <text x="170" y="72" fill="#334155" font-size="8.3">Import that Doc</text>
+      <text x="170" y="84" fill="#334155" font-size="8.3">+ your private</text>
+      <text x="170" y="96" fill="#334155" font-size="8.3">internal PDFs, calls</text>
+      <text x="170" y="108" fill="#334155" font-size="8.3">&amp; spreadsheets.</text>
+
+      <path d="M284 85 L293 85" stroke="#059669" stroke-width="2"/>
+
+      <!-- Step 3 -->
+      <rect x="294" y="38" width="118" height="94" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+      <text x="304" y="56" fill="#065f46" font-size="9.4" font-weight="800">Map &amp; Stress-Test</text>
+      <text x="304" y="72" fill="#334155" font-size="8.3">Explore Mind Map,</text>
+      <text x="304" y="84" fill="#334155" font-size="8.3">run Debate/Critique</text>
+      <text x="304" y="96" fill="#334155" font-size="8.3">Audio &amp; verify</text>
+      <text x="304" y="108" fill="#334155" font-size="8.3">every [1][2] quote.</text>
+
+      <path d="M414 85 L423 85" stroke="#059669" stroke-width="2"/>
+
+      <!-- Step 4 -->
+      <rect x="424" y="38" width="118" height="94" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+      <text x="434" y="56" fill="#065f46" font-size="9.4" font-weight="800">Mint Studio Brief</text>
+      <text x="434" y="72" fill="#334155" font-size="8.3">Render a narrated</text>
+      <text x="434" y="84" fill="#334155" font-size="8.3">Video Overview +</text>
+      <text x="434" y="96" fill="#334155" font-size="8.3">export Briefing Doc</text>
+      <text x="434" y="108" fill="#334155" font-size="8.3">to Google Docs.</text>
+
+      <path d="M544 85 L556 85" stroke="#7c3aed" stroke-width="2.2"/><polygon points="554,80 561,85 554,90" fill="#7c3aed"/>
+
+      <!-- Step 5 -->
+      <rect x="562" y="38" width="120" height="94" rx="8" fill="#0f172a" stroke="#c084fc" stroke-width="1.5"/>
+      <text x="572" y="56" fill="#e9d5ff" font-size="9.4" font-weight="800">Keynote &amp; Film</text>
+      <text x="572" y="72" fill="#cbd5e1" font-size="8.3">Feed Doc into</text>
+      <text x="572" y="84" fill="#cbd5e1" font-size="8.3">Google Vids/Slides</text>
+      <text x="572" y="96" fill="#cbd5e1" font-size="8.3">+ hero art from</text>
+      <text x="572" y="108" fill="#4ade80" font-size="8.3" font-weight="700">Whisk &amp; Flow!</text>
+    </svg>
+  </div>
+
+  <h3>Why This Three-Stage Pipeline Works Like Magic</h3>
+  <ul>
+    <li><strong>External Intelligence Meets Internal Secrets:</strong> Gemini Deep Research scours the live public web in minutes, while NotebookLM safely merges that public report with your private PDFs, customer transcripts, and internal financials—without exposing a single internal byte!</li>
+    <li><strong>Instant Audio Pre-Brief Before You Build Slides:</strong> Listen to a 10-minute <em>Critique</em> or <em>Debate</em> Audio Overview of your combined research on your morning walk so you already anticipate every executive objection before designing Slide 1.</li>
+    <li><strong>Seamless Workspace Export:</strong> One click exports any NotebookLM Briefing Doc or saved note straight to <strong>Google Docs</strong>, where <strong>Google Vids</strong> or <strong>Google Slides</strong> can auto-draft a storyboard—ready to enrich with custom illustrations from <strong>Google Whisk</strong> and Veo b-roll from <strong>Google Flow</strong>!</li>
+  </ul>
+
+  <div class="card-dark" style="margin-top:8px;">
+    <div class="card-title" style="font-size:9.6pt; color:#4ade80; margin-bottom:5px;">
+      Cheat Map: Which Google AI Ultra Studio Tool Owns Which Job?
+    </div>
+    <div class="grid-2" style="gap:6px 16px; font-size:8.35pt; color:#e2e8f0;">
+      <div><strong style="color:#93c5fd;">Gemini Deep Research:</strong> Scours 100+ live public websites to build your initial cited briefing report.</div>
+      <div><strong style="color:#4ade80;">Google NotebookLM:</strong> Zero-hallucination vault for your 500+ private files, live Podcasts, Video Overviews &amp; Mind Maps.</div>
+      <div><strong style="color:#e9d5ff;">Google Whisk:</strong> Image-first Subject + Scene + Style remix lab for custom slide art, icons &amp; character assets.</div>
+      <div><strong style="color:#fbbf24;">Google Vids &amp; Google Flow:</strong> Executive storyboards (Vids) and multi-shot cinematic Veo 3.1 filmmaking (Flow).</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHEAT SHEET ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; Research Architect Cheat Sheet</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Cheat Sheet</h2>
+  <p class="page-lead">
+    Keep this page handy whenever a source refuses to import or an output misses the mark—every quirk has a fast, reliable fix.
+  </p>
+
+  <h3>Top 7 NotebookLM Quirks &amp; 10-Second Fixes</h3>
+  <table class="clean-table" style="font-size:8.25pt;">
+    <thead>
+      <tr>
+        <th style="width:31%;">Symptom / Problem</th>
+        <th style="width:69%;">Root Cause &amp; 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Edited my Google Doc in Drive, but NotebookLM quotes old text</strong></td>
+        <td>Drive imports are static snapshots. Click the file in the left <strong>Sources</strong> drawer and click <strong>Click to sync with Google Drive</strong> to pull fresh edits.</td>
+      </tr>
+      <tr>
+        <td><strong>YouTube link says "Unable to import"</strong></td>
+        <td>Video is private, age-gated, or newly uploaded without captions yet. Use public/unlisted videos with captions enabled, or upload the audio/MP3 directly.</td>
+      </tr>
+      <tr>
+        <td><strong>Website URL imports only a cookie banner or paywall stub</strong></td>
+        <td>NotebookLM respects paywalls and login walls. Open the article in your logged-in browser, print-to-PDF (or copy the text), and upload via <strong>PDF / Copied Text</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>Answers feel too generic across 300+ uploaded sources</strong></td>
+        <td>Too many peripheral files active at once. Uncheck <em>Select All</em> in the left panel and check <strong>only the 3–8 core sources</strong> needed for that specific question.</td>
+      </tr>
+      <tr>
+        <td><strong>Great table or analysis vanished from my Chat view</strong></td>
+        <td>Chat history isn't meant as permanent storage. Always click <strong>Save to Note</strong> beneath valuable responses to lock them into your Studio board.</td>
+      </tr>
+      <tr>
+        <td><strong>Audio Overview hosts spend 4 minutes on beginner basics</strong></td>
+        <td>Default Deep Dive assumes general listeners. Click <strong>Customize</strong> before generating and state your expertise level + exact sections to dissect.</td>
+      </tr>
+      <tr>
+        <td><strong>Video Overview button shows compute cooldown</strong></td>
+        <td>Intensive Studio renders share a rolling <strong>5-hour compute window</strong>. Click <strong>Generate later</strong> so NotebookLM renders it automatically on refresh.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:6px;">
+    <div class="card-title" style="font-size:10pt; color:#4ade80; margin-bottom:5px;">
+      NotebookLM Pre-Flight Checklist: 6 Habits of Elite Researchers
+    </div>
+    <div class="grid-2" style="gap:5px 16px; font-size:8.35pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Name &amp; Date Sources Cleanly</strong> (archive old drafts).</div>
+      <div>&#9744; <strong>4. Customize Audio Hosts</strong> with audience &amp; focus rules.</div>
+      <div>&#9744; <strong>2. Toggle Source Checkboxes</strong> to isolate surgical subsets.</div>
+      <div>&#9744; <strong>5. Tap <code>Join</code> Live</strong> to interrogate hosts with your voice.</div>
+      <div>&#9744; <strong>3. Click <code>[1] [2]</code> Badges</strong> to verify high-stakes claims.</div>
+      <div>&#9744; <strong>6. Click <code>Save to Note</code></strong> on every breakthrough answer!</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:8px; padding:8px 12px;">
+    <div class="callout-title">Ready to Build Your First Second Brain?</div>
+    Open <strong><code>https://notebooklm.google.com</code></strong> (or install the <strong>NotebookLM</strong> mobile app), drop in 5 PDFs + 2 YouTube talks, open your interactive <strong>Mind Map</strong>, and tap <strong>Join</strong> on your first custom Audio Overview!
+  </div>
+
+  <div class="page-footer">
+    <span>Google NotebookLM (notebooklm.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

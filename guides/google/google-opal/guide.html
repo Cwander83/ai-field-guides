@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Opal: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">Google AI Ultra Creative Studio Series &bull; Late 2026 Edition</div>
+    <h1>Mastering <span>Google Opal</span></h1>
+    <p class="cover-sub">
+      The complete visual handbook to Google's no-code AI mini-app studio—turning plain-English ideas into chained multimodal node workflows, styled web apps, and shareable creative tools.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Natural-Language App Builder</span>
+      <span class="cover-badge">Visual Node-Graph Canvas</span>
+      <span class="cover-badge">@Variable Step Chaining</span>
+      <span class="cover-badge">Gemini + Imagen + Veo + Lyria</span>
+      <span class="cover-badge">Gallery Remixing &amp; Themes</span>
+      <span class="cover-badge">1-Click Publishing &amp; Drive Sync</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Google Opal Iridescent Node-Graph Mini-App Studio Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Speak an App Into Existence</div>
+      <div class="cover-stat-desc">Describe what your tool should do in plain English and watch Opal wire a working multi-step workflow in seconds.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Chat + Visual Graph Sync</div>
+      <div class="cover-stat-desc">Switch seamlessly between conversational edits and surgical node-by-node prompt, tool, and model tweaks.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Instant Link Sharing</div>
+      <div class="cover-stat-desc">Publish polished interactive web mini-apps stored safely in Google Drive—zero servers, API keys, or deployment setup.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & WHAT IS GOOGLE OPAL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Google Opal Complete How-To Guide</span>
+  </div>
+
+  <h2 class="page-title">What Is Google Opal (And Why Mini-Apps Beat Single Prompts)</h2>
+  <p class="page-lead">
+    Standard chat prompts crumble when a task needs five distinct stages—like researching a live URL, writing a script, painting four matching scenes, and formatting a clean webpage. <strong>Google Opal</strong> (<code>opal.withgoogle.com</code> / <code>opal.google</code>) lets anyone build reusable, shareable <strong>AI mini-apps</strong> visually without writing a single line of code.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. How Google Opal Thinks</strong> (Architecture)</span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. App UX Styling &amp; Gallery Remixing</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Setup, Remixing &amp; Tool Comparison</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Console Debugging &amp; Parallel Speed</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Opal Studio Tour</strong> (UI Map)</span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Ready-to-Build Mini-App Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Input, Model, Search &amp; Output Nodes</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Publishing, Drive Sync &amp; Permissions</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Chaining Steps &amp; <code>@Variables</code></strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Opal &rarr; AI Studio &amp; Antigravity</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight Sheet</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>Architecture: From Plain-English Idea to Interactive Multimodal Mini-App</h3>
+  <div class="figure-box" style="background:#0f172a; padding:13px 15px;">
+    <svg viewBox="0 0 700 172" width="100%" height="172" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1: Plain English Idea -->
+      <rect x="8" y="26" width="144" height="120" rx="10" fill="#1e1b4b" stroke="#a78bfa" stroke-width="1.6"/>
+      <text x="20" y="47" fill="#c4b5fd" font-size="8.6" font-weight="800">1. DESCRIBE OR REMIX</text>
+      <text x="20" y="65" fill="#ffffff" font-size="11" font-weight="700">Plain-English Idea</text>
+      <text x="20" y="83" fill="#cbd5e1" font-size="8.8">"Build an app that takes</text>
+      <text x="20" y="96" fill="#cbd5e1" font-size="8.8">a product URL, researches</text>
+      <text x="20" y="109" fill="#cbd5e1" font-size="8.8">it, paints 3 ad visuals, &amp;</text>
+      <text x="20" y="122" fill="#fde68a" font-size="8.8" font-weight="700">outputs a launch page."</text>
+
+      <path d="M154 86 L176 86" stroke="#a78bfa" stroke-width="2.2"/><polygon points="175,81 182,86 175,91" fill="#a78bfa"/>
+
+      <!-- Box 2: Visual Node Graph -->
+      <rect x="184" y="26" width="154" height="120" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="196" y="47" fill="#7dd3fc" font-size="8.6" font-weight="800">2. VISUAL NODE GRAPH</text>
+      <text x="196" y="65" fill="#ffffff" font-size="11" font-weight="700">Editable Step Cards</text>
+      <rect x="196" y="75" width="130" height="18" rx="4" fill="#0f172a" stroke="#38bdf8"/>
+      <text x="204" y="87" fill="#bae6fd" font-size="8.2" font-weight="700">Input &rarr; @URL / @Photo</text>
+      <rect x="196" y="98" width="130" height="18" rx="4" fill="#0f172a" stroke="#c084fc"/>
+      <text x="204" y="110" fill="#e9d5ff" font-size="8.2" font-weight="700">Generate &rarr; @Steps 1..N</text>
+      <rect x="196" y="121" width="130" height="18" rx="4" fill="#0f172a" stroke="#34d399"/>
+      <text x="204" y="133" fill="#a7f3d0" font-size="8.2" font-weight="700">Output &rarr; Styled UI View</text>
+
+      <path d="M340 86 L362 86" stroke="#38bdf8" stroke-width="2.2"/><polygon points="361,81 368,86 361,91" fill="#38bdf8"/>
+
+      <!-- Box 3: Chained Google Engines -->
+      <rect x="370" y="16" width="164" height="140" rx="10" fill="#3b0764" stroke="#e879f9" stroke-width="1.6"/>
+      <text x="382" y="36" fill="#f5d0fe" font-size="8.6" font-weight="800">3. MULTIMODAL ENGINES</text>
+      <text x="382" y="53" fill="#ffffff" font-size="10.8" font-weight="700">Chained Execution</text>
+      <text x="382" y="71" fill="#f3e8ff" font-size="8.7">&bull; Gemini Reasoning &amp; Code</text>
+      <text x="382" y="86" fill="#f3e8ff" font-size="8.7">&bull; Google Search &amp; URL Read</text>
+      <text x="382" y="101" fill="#f3e8ff" font-size="8.7">&bull; Imagen 4 / Nano Banana</text>
+      <text x="382" y="116" fill="#f3e8ff" font-size="8.7">&bull; Veo Video &amp; Lyria Audio</text>
+      <text x="382" y="136" fill="#fde68a" font-size="8.4" font-weight="700">Passes @outputs forward!</text>
+
+      <path d="M536 86 L558 86" stroke="#fbbf24" stroke-width="2.2"/><polygon points="557,81 564,86 557,91" fill="#fbbf24"/>
+
+      <!-- Box 4: Shareable App -->
+      <rect x="566" y="26" width="126" height="120" rx="10" fill="#064e3b" stroke="#34d399" stroke-width="1.6"/>
+      <text x="577" y="47" fill="#6ee7b7" font-size="8.6" font-weight="800">4. SHAREABLE APP</text>
+      <text x="577" y="65" fill="#ffffff" font-size="10.8" font-weight="700">Clean End-User UI</text>
+      <text x="577" y="83" fill="#d1fae5" font-size="8.6">Users see a friendly</text>
+      <text x="577" y="96" fill="#d1fae5" font-size="8.6">input form &amp; themed</text>
+      <text x="577" y="109" fill="#d1fae5" font-size="8.6">output page—saved in</text>
+      <text x="577" y="124" fill="#fde68a" font-size="8.5" font-weight="700">My Drive &gt; Opal!</text>
+    </svg>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">Ecosystem Note: Standalone Opal Studio + Gemini Workflow Integration</div>
+    Born in <strong>Google Labs</strong>, Opal stores your custom workflow files directly inside your Google Drive (<code>My Drive &gt; Opal</code>) and powers reusable custom workflows across the broader <strong>Gemini</strong> ecosystem—meaning every node-chaining habit in this guide pays dividends across your entire Google AI Ultra toolkit.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, REMIXING & TOOL MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Ecosystem</span>
+    <span>First Launch, Gallery Remixing &amp; Choosing the Right Builder</span>
+  </div>
+
+  <h2 class="page-title">Getting Started &amp; Where Opal Fits in Your AI Stack</h2>
+  <p class="page-lead">
+    Opal bridges the gap between casual chat assistants and full software engineering: you get the structured power of multi-step pipelines with zero boilerplate, package installs, or cloud billing setup.
+  </p>
+
+  <h3>3 Steps to Your First Working Mini-App (Under 90 Seconds)</h3>
+  <div class="grid-3" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">1</span> Launch Opal Studio</div>
+      <p>Sign in at <code>opal.withgoogle.com</code> with your <strong>Google AI Ultra</strong> account. Opal automatically creates an <code>Opal</code> folder in your Google Drive to save every app you build.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Remix or Create New</div>
+      <p>Pick a featured mini-app from the <strong>Gallery</strong> and click <strong>Remix</strong> to inspect its wiring—or click <strong>Create New</strong> and describe your dream tool in one sentence.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> Preview, Tweak &amp; Share</div>
+      <p>Toggle to the <strong>App Preview</strong> pane to test your form like a real user, refine any node prompt on the canvas, and click <strong>Publish</strong> to copy a shareable link.</p>
+    </div>
+  </div>
+
+  <h3>Decision Matrix: Google Opal vs. Gems vs. AI Studio vs. Antigravity</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Google Tool</th>
+        <th style="width:23%;">Core Format</th>
+        <th style="width:20%;">Coding Required?</th>
+        <th style="width:37%;">Best Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Google Opal</strong></td>
+        <td>Visual Node Workflow + Form Mini-App</td>
+        <td><strong>Zero Code</strong> (Chat + Visual Cards)</td>
+        <td>Multi-step multimodal mini-apps chaining Search, Gemini, Imagen, Veo, and styled Webpage/Doc outputs you can share by link in minutes.</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini Gems</strong></td>
+        <td>Custom Persona &amp; Saved Instructions</td>
+        <td><strong>Zero Code</strong></td>
+        <td>Back-and-forth conversational coaching, writing partners, or Q&amp;A grounded in uploaded reference files.</td>
+      </tr>
+      <tr>
+        <td><strong>Google AI Studio</strong></td>
+        <td>Developer Prompt &amp; API Workbench</td>
+        <td><strong>Low / API Code</strong></td>
+        <td>Testing raw model parameters (temperature, JSON schemas, token counts, Live API) and exporting Python/TypeScript SDK snippets.</td>
+      </tr>
+      <tr>
+        <td><strong>Google Antigravity</strong></td>
+        <td>Agentic Full-Stack IDE</td>
+        <td><strong>Agentic Code</strong></td>
+        <td>Shipping custom production SaaS apps with databases, authentication, custom domains, Stripe billing, and full Git repos.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Blank Canvas vs. Gallery Remixing + Your AI Ultra Edge</h3>
+  <div class="grid-2">
+    <div class="callout emerald" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">Fastest Learning Path: Remix First!</div>
+      Before building from a blank canvas, open two or three featured <strong>Opal Gallery</strong> templates and hit <strong>Remix</strong>. Seeing how Google's own creators wire <code>@User Input</code> chips into parallel Gemini and Imagen nodes teaches you best practices in 3 minutes flat.
+    </div>
+    <div class="callout" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">Why Opal Shines on Google AI Ultra</div>
+      Multi-step workflows trigger 4 to 8 model calls per single run (e.g., Search + Gemini script + 3 Imagen frames + Veo clip). Your <strong>AI Ultra</strong> membership gives you generous multimodal headroom to test rich chains freely.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED OPAL STUDIO UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Interface Map</span>
+    <span>Touring the Google Opal Dual-Mode Workspace</span>
+  </div>
+
+  <h2 class="page-title">The Google Opal Studio: Annotated Visual Tour</h2>
+  <p class="page-lead">
+    Opal's superpower is <strong>bi-directional sync</strong>: ask the bottom chat bar to add a feature and watch new cards appear on the canvas—or click any card directly to fine-tune its prompt, model, and <code>@Variables</code>.
+  </p>
+
+  <!-- Annotated Opal Studio UI Mockup -->
+  <div class="ui-window" style="margin-bottom:11px;">
+    <div class="ui-topbar" style="padding:6px 10px;">
+      <div class="ui-dots" style="white-space:nowrap;">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:6px; font-weight:700; color:#f8fafc; font-size:7.4pt;">Google Opal &bull; Launch Kit</span>
+        <span style="background:#7c3aed; color:#ffffff; padding:1px 5px; border-radius:4px; font-weight:800; font-size:6.2pt;">DRIVE SYNC</span>
+      </div>
+      <div style="display:flex; gap:4px; align-items:center; white-space:nowrap;">
+        <span class="callout-pin">4</span>
+        <span style="background:#1e293b; border:1px solid #38bdf8; padding:2px 5px; border-radius:4px; color:#bae6fd; font-size:6.5pt;">+ Input</span>
+        <span style="background:#1e293b; border:1px solid #c084fc; padding:2px 5px; border-radius:4px; color:#e9d5ff; font-size:6.5pt;">+ Generate</span>
+        <span style="background:#1e293b; border:1px solid #34d399; padding:2px 5px; border-radius:4px; color:#a7f3d0; font-size:6.5pt;">+ Output</span>
+        <span class="callout-pin">5</span>
+        <span style="background:#312e81; border:1px solid #818cf8; padding:2px 6px; border-radius:4px; color:#e0e7ff; font-size:6.5pt;">App Preview &bull; Theme</span>
+        <span class="callout-pin">7</span>
+        <span style="background:#fbbf24; color:#0f172a; padding:2px 7px; border-radius:4px; font-weight:800; font-size:6.6pt;">Publish</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.35fr 1fr; gap:1px; background:#1f2937;">
+      <!-- Left: Visual Node-Graph Canvas + Conversational Bar -->
+      <div style="background:#0b0f19; padding:9px; display:flex; flex-direction:column; justify-content:space-between; gap:8px;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-weight:800; color:#cbd5e1; font-size:7.4pt;">VISUAL WORKFLOW CANVAS (DRAG &amp; WIRE STEPS)</span>
+            <span class="callout-pin">1</span>
+          </div>
+
+          <!-- Mini Node Graph inside Canvas -->
+          <div style="display:grid; grid-template-columns: 92px 18px 118px 18px 94px; align-items:center; gap:2px; padding:6px 4px; background:#0f172a; border:1px solid #1e293b; border-radius:8px;">
+            <!-- Input Node -->
+            <div style="background:#1e293b; border:1.5px solid #38bdf8; border-radius:6px; padding:5px;">
+              <div style="color:#7dd3fc; font-weight:800; font-size:6.5pt;">USER INPUT</div>
+              <div style="color:#f8fafc; font-weight:700; font-size:7pt;">Product Info</div>
+              <div style="color:#94a3b8; font-size:6.2pt;">URL + Photo</div>
+            </div>
+
+            <div style="text-align:center; color:#64748b; font-weight:800;">&rarr;</div>
+
+            <!-- Parallel Middle Nodes -->
+            <div style="display:flex; flex-direction:column; gap:5px;">
+              <div style="background:#2e1065; border:1.5px solid #c084fc; border-radius:6px; padding:4px 5px;">
+                <div style="color:#e9d5ff; font-weight:800; font-size:6.3pt;">GEMINI + SEARCH</div>
+                <div style="color:#ffffff; font-weight:700; font-size:6.9pt;">Ad Copy Brief</div>
+              </div>
+              <div style="background:#451a03; border:1.5px solid #fbbf24; border-radius:6px; padding:4px 5px;">
+                <div style="color:#fde68a; font-weight:800; font-size:6.3pt;">IMAGEN 4 (SELECTED)</div>
+                <div style="color:#ffffff; font-weight:700; font-size:6.9pt;">Hero Visuals</div>
+              </div>
+            </div>
+
+            <div style="text-align:center; color:#64748b; font-weight:800;">&rarr;</div>
+
+            <!-- Output Node -->
+            <div style="background:#064e3b; border:1.5px solid #34d399; border-radius:6px; padding:5px;">
+              <div style="color:#6ee7b7; font-weight:800; font-size:6.5pt;">OUTPUT VIEW</div>
+              <div style="color:#ffffff; font-weight:700; font-size:7pt;">Webpage Kit</div>
+              <div style="color:#a7f3d0; font-size:6.2pt;">Editorial Theme</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Natural-Language Chat Builder Bar -->
+        <div style="background:#170d33; border:1px solid #a855f7; border-radius:7px; padding:6px 8px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:7.1pt; color:#f3e8ff;"><span class="callout-pin">3</span> <strong>Chat Editor:</strong> <em>"Add a Lyria audio jingle step before the final webpage output..."</em></span>
+          <span style="background:#c084fc; color:#0f172a; font-weight:800; padding:2px 7px; border-radius:4px; font-size:6.8pt;">Update</span>
+        </div>
+      </div>
+
+      <!-- Right: Step Prompt Inspector + Console Log -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; justify-content:space-between; gap:7px;">
+        <!-- Step Inspector -->
+        <div style="background:#1e293b; border:1px solid #475569; border-radius:7px; padding:7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#fde68a; font-size:7.3pt;">STEP INSPECTOR: Hero Visuals (Imagen 4)</strong>
+            <span class="callout-pin">2</span>
+          </div>
+          <div style="background:#0b0f19; border:1px solid #334155; border-radius:5px; padding:5px; font-size:6.9pt; color:#e2e8f0; line-height:1.45;">
+            Studio commercial hero photo of <span style="background:#1e3a8a; color:#93c5fd; padding:0 4px; border-radius:3px; font-weight:700;">@Product Photo</span> styled to match the mood described in <span style="background:#4c1d95; color:#e9d5ff; padding:0 4px; border-radius:3px; font-weight:700;">@Ad Copy Brief</span>, sunlit editorial lighting, 16:9.
+          </div>
+        </div>
+
+        <!-- Step-by-Step Console Log -->
+        <div style="background:#090d16; border:1px solid #334155; border-radius:7px; padding:6px 7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#94a3b8; font-size:7pt;">STEP CONSOLE &amp; TEST RUNNER</strong>
+            <span class="callout-pin">6</span>
+          </div>
+          <div style="font-size:6.6pt; color:#cbd5e1; line-height:1.42;">
+            <div><span style="color:#34d399;">&#10003; Product Info</span> &mdash; received URL + 1 PNG (0.1s)</div>
+            <div><span style="color:#34d399;">&#10003; Ad Copy Brief</span> &mdash; Search grounded 4 hooks (3.4s)</div>
+            <div><span style="color:#fbbf24;">&#9654; Hero Visuals</span> &mdash; rendering 2 Imagen frames... <u style="color:#7dd3fc;">Re-run step</u></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Interface Reference</h3>
+  <div class="grid-2" style="gap:7px 14px; font-size:8.65pt;">
+    <div><span class="callout-pin">1</span> <strong>Visual Node-Graph Canvas:</strong> Every stage of your app lives as a movable card connected by directional wires showing exact data flow.</div>
+    <div><span class="callout-pin">2</span> <strong>Step Inspector &amp; <code>@</code> Prompt Editor:</strong> Click any node to pick its AI model/tool and type <code>@</code> to inject dynamic outputs from earlier steps.</div>
+    <div><span class="callout-pin">3</span> <strong>Conversational Chat Builder:</strong> Describe new features or fixes in plain English—Opal rewires or inserts nodes on the canvas automatically.</div>
+    <div><span class="callout-pin">4</span> <strong>Manual Add-Node Toolbar:</strong> Drop fresh <strong>User Input</strong>, <strong>Generate</strong>, <strong>Add Asset</strong>, or <strong>Output</strong> blocks onto the canvas anytime.</div>
+    <div><span class="callout-pin">5</span> <strong>App Preview &amp; Theme Switcher:</strong> Flip between the wiring canvas and the clean end-user interface, and apply visual UI themes in one click.</div>
+    <div><span class="callout-pin">6</span> <strong>Step-by-Step Console:</strong> Watch each node execute live, inspect intermediate text/media outputs, and re-run a single step while debugging.</div>
+  </div>
+  <div style="margin-top:5px; font-size:8.65pt;">
+    <span class="callout-pin">7</span> <strong>Publish &amp; Share Button:</strong> Generates a hosted link so teammates, clients, or followers can use your mini-app without seeing messy internals.
+  </div>
+
+  <div class="callout emerald" style="margin-top:10px;">
+    <div class="callout-title">Golden Workflow Rhythm: Chat for Big Strokes, Canvas for Surgical Edits</div>
+    Use the <strong>Chat Editor (3)</strong> to scaffold your initial 4-node app or add a brand-new branch in seconds; then click individual cards in the <strong>Step Inspector (2)</strong> whenever you want to tweak one specific prompt word without touching the rest of your graph.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: OPAL'S CORE BUILDING BLOCKS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Core Node Palette</span>
+    <span>Understanding Input, AI Model, Search, Asset &amp; Output Nodes</span>
+  </div>
+
+  <h2 class="page-title">Opal's Building Blocks: Every Node Type Explained</h2>
+  <p class="page-lead">
+    Every Opal mini-app—from a two-step summarizer to a ten-node multimedia studio—is assembled from four foundational node families working together in sequence or in parallel.
+  </p>
+
+  <div class="figure-box" style="background:#0f172a;">
+    <img src="assets/node_chain_alchemy.jpg" alt="Visual Node Flow: User Input Card Branching into Gemini Brain and Visual/Audio Prism Merging into Storyboard App" style="width:100%; height:255px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1.05fr 1.05fr 1.1fr; background:#0b0f19; color:#f8fafc; padding:6px 10px; font-size:7.5pt; border-top:1px solid #334155;">
+      <div><strong style="color:#38bdf8;">1. USER INPUT:</strong> Text, URL, photo, or file upload.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#c084fc;">2. GEMINI + TOOLS:</strong> Reasoning, Search &amp; script logic.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#fbbf24;">3. MEDIA MODELS:</strong> Imagen, Nano Banana, Veo &amp; Lyria.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#34d399;">= 4. OUTPUT VIEW:</strong> Polished interactive webpage!</div>
+    </div>
+  </div>
+
+  <h3>Complete Reference: Opal Node Types &amp; Native Google Models</h3>
+  <table class="clean-table" style="font-size:8.35pt;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Node Category</th>
+        <th style="width:28%;">Available Engines / Options</th>
+        <th style="width:51%;">What It Does &amp; Best Practical Tip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. User Input</strong></td>
+        <td>Text box, Dropdown, Photo/Image upload, PDF/Doc/Audio file, URL</td>
+        <td>Builds the front-door form your users fill out. Add clear placeholder hints so users know exactly what to type or upload.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Generate (Text &amp; Logic)</strong></td>
+        <td><strong>Gemini Flash</strong> (fast) &bull; <strong>Gemini Pro</strong> (deep reasoning &amp; coding)</td>
+        <td>Plans, summarizes, writes scripts, formats structured tables, or writes custom interactive HTML layouts. Use Flash for speed, Pro for nuance.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Generate (Visual &amp; Video)</strong></td>
+        <td><strong>Imagen 4</strong> &bull; <strong>Nano Banana</strong> (image edit) &bull; <strong>Veo</strong> (video clips)</td>
+        <td>Creates crisp illustrations, restyles uploaded user photos in context, or renders short cinematic MP4 motion clips inside your workflow.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Generate (Voice &amp; Music)</strong></td>
+        <td><strong>AudioLM / Speech TTS</strong> &bull; <strong>Lyria</strong> (instrumental music)</td>
+        <td>Turns upstream story text into natural spoken narration or composes custom background soundtracks structured by genre and mood.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Tools &amp; Assets</strong></td>
+        <td><strong>Google Search</strong> &bull; <strong>URL / YouTube Reader</strong> &bull; <strong>Add Asset</strong></td>
+        <td>Grounds steps in live web facts, extracts webpage/video content, or attaches permanent brand PDFs/style guides from Google Drive.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Output</strong></td>
+        <td><strong>Dynamic Webpage</strong> &bull; <strong>Google Docs / Sheets / Slides</strong></td>
+        <td>Presents your finished text, galleries, and players in a styled UI—or exports structured reports straight into the user's Workspace.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: CHAINING & @VARIABLES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Workflow Architecture</span>
+    <span>Chaining Multi-Step Workflows &amp; Passing @Variables</span>
+  </div>
+
+  <h2 class="page-title">Mastering Multi-Step Chains &amp; <code>@Variable</code> Chips</h2>
+  <p class="page-lead">
+    The magic of Opal happens when Step 2 automatically builds on Step 1's output—for example, letting Gemini write an ultra-detailed visual art prompt first, then feeding that exact prompt into Imagen 4 via an <code>@</code> tag.
+  </p>
+
+  <h3>How <code>@</code> Dynamic References Work Inside Any Node</h3>
+  <p>
+    Inside any <strong>Generate</strong> or <strong>Output</strong> prompt box, press the <code>@</code> key on your keyboard. Opal opens a live menu listing every upstream <strong>User Input</strong>, <strong>Asset</strong>, <strong>Tool</strong>, and completed <strong>Step</strong>—inserting a colored dynamic chip that updates automatically on every run.
+  </p>
+
+  <h3>Anatomy of a Bulletproof Node Prompt (Color-Coded Formula)</h3>
+  <div class="card" style="margin-bottom:10px;">
+    <div class="card-title" style="margin-bottom:5px;">Example: Step 2 ("Visual Director") Preparing Prompts for Step 3 ("Imagen Renderer")</div>
+    <p style="font-size:8.9pt; line-height:1.85; margin-bottom:6px;">
+      <span class="p-tag p-style">Act as a senior editorial art director.</span>
+      <span class="p-tag p-subj">Read the product positioning in <code>@Brand Summary</code> and inspect the uploaded <code>@Product Photo</code>.</span>
+      <span class="p-tag p-cam">Use <code>@Google Search</code> to verify seasonal color trends for this category.</span>
+      <span class="p-tag p-act">Write one vivid, photographic scene description placing the product in a sunlit lifestyle setting with natural props and 85mm depth of field.</span>
+      <span class="p-tag p-cons">Output ONLY the raw image-generation prompt (under 65 words), with zero intro commentary or bullet points.</span>
+    </p>
+    <div style="display:flex; flex-wrap:wrap; gap:6px; font-size:7.6pt;">
+      <span class="p-tag p-style">1. Role &amp; Voice</span>
+      <span class="p-tag p-subj">2. Upstream @Variables</span>
+      <span class="p-tag p-cam">3. Grounding Tool</span>
+      <span class="p-tag p-act">4. Core Transformation</span>
+      <span class="p-tag p-cons">5. Strict Output Contract</span>
+    </div>
+  </div>
+
+  <h3>3 Golden Rules of Clean Node Architecture</h3>
+  <div class="grid-3" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> One Job Per Node</div>
+      <p style="font-size:8.3pt;">Never cram research, copywriting, and formatting into one giant prompt. Split them into three focused nodes so each step succeeds reliably and is effortless to debug.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">2</span> Strict Output Contracts</div>
+      <p style="font-size:8.3pt;">When Node A feeds Node B (like Gemini feeding Imagen or Lyria), end Node A with <code>"Output ONLY the prompt text—no conversational filler"</code> so clean text flows forward.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Rename Nodes Early</div>
+      <p style="font-size:8.3pt;">Rename generic labels like <em>Generate 3</em> to clear titles like <code>Competitor Table</code> or <code>Cover Art</code> so your <code>@</code> menu stays self-explanatory as graphs grow.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">Pro Chaining Pattern: The "Prompt Upgrader" Bridge</div>
+    End-users type lazy 3-word inputs like <em>"cozy jazz cafe."</em> Always place a fast <strong>Gemini Flash</strong> node right after <code>@User Input</code> to expand their 3 words into a rich, structured brief—then feed <em>that</em> upgraded brief into Imagen, Veo, and Lyria so every output looks studio-crafted!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: DESIGNING MINI-APP INTERFACES & REMIXING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; App UX &amp; Remixing</span>
+    <span>Designing Gorgeous End-User Views &amp; Remixing Gallery Apps</span>
+  </div>
+
+  <h2 class="page-title">Crafting Polished App Interfaces &amp; Gallery Remixing</h2>
+  <p class="page-lead">
+    People who open your published Opal link never see your node graph unless they choose to remix it—they experience a sleek, standalone <strong>interactive web mini-app</strong>. A few thoughtful UX touches make your tool feel custom-coded.
+  </p>
+
+  <div class="figure-box" style="background:#0d091f;">
+    <img src="assets/mini_app_showcase_grid.jpg" alt="4-Panel Showcase of Google Opal Mini-Apps: Enchanted Storybook, Coastal Travel Map, Interior Moodboard, Audio Equalizer Studio" style="width:100%; height:265px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); background:#0b0f19; color:#f8fafc; padding:6px 10px; font-size:7.5pt; border-top:1px solid #334155;">
+      <div><strong style="color:#c084fc;">App 1:</strong> Illustrated Bedtime Storybook</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#fbbf24;">App 2:</strong> Visual Travel &amp; Dining Mapper</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#34d399;">App 3:</strong> Interior Palette &amp; Moodboarder</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#38bdf8;">App 4:</strong> Lyria Audio &amp; Cover Studio</div>
+    </div>
+  </div>
+
+  <h3>4 UX Habits That Make End-Users Love Your Mini-App</h3>
+  <div class="grid-2" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">1</span> Keep Inputs Under 3 Fields</div>
+      <p style="font-size:8.3pt;">Apps with 8 required boxes scare users off. Ask for 1–3 high-leverage inputs (e.g., <em>Topic</em>, <em>Tone Dropdown</em>, and optional <em>Reference Image</em>) and let Gemini infer the rest.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Style Your Webpage Output Node</div>
+      <p style="font-size:8.3pt;">Choose <strong>Dynamic Webpage</strong> in your Output node and specify layout cues—such as <em>"two-column magazine hero card, summary callout pills, and a downloadable checklist table."</em></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> Apply a Cohesive App Theme</div>
+      <p style="font-size:8.3pt;">Use Opal's <strong>Theme</strong> selector (or describe your palette in the Chat Builder, like <em>"warm editorial cream with forest-green serif headers"</em>) to match your brand aesthetic.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">4</span> Hide Messy "Scratchpad" Steps</div>
+      <p style="font-size:8.3pt;">Route only polished final <code>@Variables</code> into your <strong>Output</strong> card so intermediate JSON drafts, raw search snippets, and prompt-upgrader notes stay behind the curtain.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">How to Remix Any Gallery App Like a Pro</div>
+    Open a Gallery favorite &rarr; click <strong>Remix</strong> (saves a private copy to your Drive) &rarr; swap its <code>@User Input</code> fields for your niche &rarr; add an <code>@Asset</code> brand guide &rarr; restyle the Output theme! You can transform a generic "Blog Writer" template into a specialized "Real Estate Listing + Virtual Staging App" in under five minutes.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: DEBUGGING & PARALLEL SPEED ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Console &amp; Speed</span>
+    <span>Testing, Debugging Broken Steps &amp; Parallel Optimization</span>
+  </div>
+
+  <h2 class="page-title">Debugging in the Console &amp; Cutting Wait Time in Half</h2>
+  <p class="page-lead">
+    Nothing kills mini-app magic faster than a 45-second loading spinner or one broken step derailing the final screen. Use Opal's <strong>Step Console</strong> and <strong>Parallel Fan-Out</strong> wiring to keep apps fast and resilient.
+  </p>
+
+  <h3>Speed Secret: Wire Independent Nodes in Parallel, Not Single-File!</h3>
+  <div class="figure-box" style="background:#0f172a; padding:11px 14px; margin-bottom:10px;">
+    <svg viewBox="0 0 680 128" width="100%" height="128" xmlns="http://www.w3.org/2000/svg">
+      <!-- Slow Serial Chain -->
+      <rect x="8" y="8" width="664" height="46" rx="7" fill="#450a0a" stroke="#ef4444" stroke-width="1.2"/>
+      <text x="18" y="25" fill="#fca5a5" font-size="8.6" font-weight="800">&#10007; SLOW DAISY-CHAIN (~28 SECONDS TOTAL): STEPS WAIT UNNECESSARILY ON ONE ANOTHER</text>
+      <text x="18" y="42" fill="#fecaca" font-size="8.6" font-family="monospace">Input &rarr; Story Outline (4s) &rarr; Scene 1 Art (8s) &rarr; Scene 2 Art (8s) &rarr; Voiceover (8s) &rarr; Output</text>
+
+      <!-- Fast Parallel Graph -->
+      <rect x="8" y="62" width="664" height="58" rx="7" fill="#064e3b" stroke="#34d399" stroke-width="1.4"/>
+      <text x="18" y="79" fill="#6ee7b7" font-size="8.6" font-weight="800">&#10003; FAST PARALLEL FAN-OUT (~12 SECONDS TOTAL): ALL MEDIA NODES FIRE AT THE EXACT SAME TIME!</text>
+      <text x="18" y="97" fill="#d1fae5" font-size="8.5" font-family="monospace">Input &rarr; Story Outline (4s) &rArr; [ Scene 1 Art (8s)  ||  Scene 2 Art (8s)  ||  Voiceover (7s) ] &rArr; Output</text>
+      <text x="18" y="112" fill="#fde68a" font-size="8.1">Tip: Reference @Story Outline inside all three media nodes—without chaining Scene 2 after Scene 1!</text>
+    </svg>
+  </div>
+
+  <h3>4-Step Debugging &amp; Hardening Workflow</h3>
+  <div class="grid-2" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Inspect Raw Node Outputs</div>
+      <p style="font-size:8.35pt;">When your final webpage looks wrong, open the <strong>Console</strong> panel and click each step from left to right. You will spot the exact node where a hallucination or empty string started.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Re-Run Only the Edited Node</div>
+      <p style="font-size:8.35pt;">Tweaking your final layout prompt? Run just that downstream node in the Step Inspector using cached upstream values instead of re-generating every image and video from scratch.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Guard Against Weird User Inputs</div>
+      <p style="font-size:8.35pt;">Test your app with a 1-word input, a broken URL, and an unrelated selfie. Add a fallback line in Step 1: <code>"If @User Input lacks detail, assume sensible creative defaults."</code></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">4</span> Right-Size Models Per Step</div>
+      <p style="font-size:8.35pt;">Use <strong>Gemini Flash</strong> for quick input cleanup, routing, and formatting; save heavier <strong>Gemini Pro</strong> reasoning solely for your core analytical or creative centerpiece node.</p>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">Watch Out for Hidden Circular or Orphaned Wires</div>
+    If you ask the Conversational Chat Builder to overhaul your app three times in a row, glance at the visual canvas afterward and delete any disconnected grey "orphan" nodes that are no longer wired into your <strong>Output</strong> card so they don't waste run time.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 MINI-APP RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Mini-App Cookbook</span>
+    <span>5 Ready-to-Build Google Opal Mini-App Blueprints</span>
+  </div>
+
+  <h2 class="page-title">5 High-Impact Mini-Apps You Can Build in 10 Minutes</h2>
+  <p class="page-lead">
+    Paste any blueprint below into Opal's <strong>Conversational Chat Builder</strong> to auto-scaffold the graph, then customize the individual node prompts to fit your workflow.
+  </p>
+
+  <table class="clean-table" style="font-size:8.25pt;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Mini-App Recipe</th>
+        <th style="width:22%;">User Input Fields</th>
+        <th style="width:34%;">Chained Node Graph (Middle Steps)</th>
+        <th style="width:23%;">Styled Output View</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. URL-to-Social Launch Kit</strong></td>
+        <td><code>@Product URL</code> + <code>@Brand Tone</code> dropdown</td>
+        <td><strong>Step 1 (URL Reader + Gemini):</strong> Extract key value props.<br/><strong>Step 2A (Gemini):</strong> LinkedIn, X &amp; IG posts.<br/><strong>Step 2B (Imagen 4):</strong> <code>1:1</code> &amp; <code>16:9</code> hero visuals.</td>
+        <td>Tabbed campaign webpage with copy-paste post cards and downloadable visuals.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Illustrated Storybook + Voiceover</strong></td>
+        <td><code>@Child Name</code>, <code>@Hero Animal</code>, <code>@Lesson</code></td>
+        <td><strong>Step 1 (Gemini Pro):</strong> 4-page rhyming story + character visual sheet.<br/><strong>Steps 2A–2D (Imagen 4):</strong> 4 watercolor spreads.<br/><strong>Step 2E (AudioLM):</strong> Warm narrated audio.</td>
+        <td>Interactive picture-book webpage with embedded audio player at the top.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Live Competitor &amp; Topic Brief</strong></td>
+        <td><code>@Company / Topic</code> + <code>@Focus Question</code></td>
+        <td><strong>Step 1 (Google Search + Gemini):</strong> Pull recent news, pricing &amp; launches.<br/><strong>Step 2 (Gemini Pro):</strong> SWOT matrix + strategic takeaways.</td>
+        <td>Executive dashboard page + one-click export to <strong>Google Docs</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Room Photo Restyler &amp; Shopper</strong></td>
+        <td><code>@Room Photo</code> upload + <code>@Design Style</code></td>
+        <td><strong>Step 1 (Gemini Vision):</strong> Analyze room geometry &amp; lighting.<br/><strong>Step 2A (Nano Banana):</strong> Restyle photo preserving walls.<br/><strong>Step 2B (Search):</strong> 5 matching decor categories.</td>
+        <td>Before/After visual comparison card + curated shopping checklist.</td>
+      </tr>
+      <tr>
+        <td><strong>5. YouTube Hook &amp; Thumbnail Lab</strong></td>
+        <td><code>@Video Idea</code> + optional <code>@Host Selfie</code></td>
+        <td><strong>Step 1 (Gemini):</strong> 5 high-CTR titles + 20-second spoken cold open.<br/><strong>Step 2 (Imagen 4 / Nano Banana):</strong> High-contrast <code>16:9</code> thumbnail concept.</td>
+        <td>Creator pre-production sheet pairing each title next to the thumbnail preview.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:8px;">
+    <div class="callout-title">Copy-Paste Starter Prompt for Opal's Chat Builder</div>
+    Try pasting this straight into a new Opal project: <code>"Build a mini-app that takes a Topic and Audience Level as user inputs, uses Google Search to gather fresh 2026 facts, runs two parallel steps—one Gemini node writing a 5-bullet executive brief and one Imagen node creating an editorial header illustration—and displays both in a clean modern magazine webpage."</code>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: PUBLISHING, DRIVE & PERMISSIONS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Sharing &amp; Governance</span>
+    <span>Publishing Links, Google Drive Storage &amp; Remix Etiquette</span>
+  </div>
+
+  <h2 class="page-title">Publishing, Sharing Links &amp; Managing Drive Files</h2>
+  <p class="page-lead">
+    With traditional AI code projects, sharing a prototype with a colleague means wrestling with cloud hosting and leaked API keys. Opal handles identity, compute, and Google Drive file permissions natively.
+  </p>
+
+  <h3>How Opal Execution &amp; Quota Work When You Share a Link</h3>
+  <div class="grid-3" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">1</span> Zero API Key Exposure</div>
+      <p style="font-size:8.3pt;">Recipients sign in with their own Google account to run your published mini-app—meaning you never paste or risk billing keys inside client-facing tools.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Stored in Google Drive</div>
+      <p style="font-size:8.3pt;">Every Opal workflow lives inside <code>My Drive &gt; Opal</code>. You can organize, back up, duplicate, or adjust sharing access just like a Google Doc or Sheet.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> View-Only vs. Remixable</div>
+      <p style="font-size:8.3pt;">Share links let people run your app cleanly; if someone clicks <strong>Remix</strong>, Opal clones a separate copy into <em>their</em> Drive—your original graph is never overwritten!</p>
+    </div>
+  </div>
+
+  <h3>Sharing &amp; Lifecycle Management Reference</h3>
+  <table class="clean-table" style="font-size:8.4pt;">
+    <thead>
+      <tr>
+        <th style="width:25%;">Task / Goal</th>
+        <th style="width:75%;">How to Handle It Cleanly in Google Opal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Share with Specific Teammates or Clients</strong></td>
+        <td>Click <strong>Publish / Share</strong> and restrict access to named Google accounts or your Workspace domain—ideal for internal team calculators, research briefs, and brand generators.</td>
+      </tr>
+      <tr>
+        <td><strong>Publish a Public Community Tool</strong></td>
+        <td>Enable link sharing for <em>Anyone with the link</em> so social followers, students, or newsletter readers can launch and run your mini-app in one click.</td>
+      </tr>
+      <tr>
+        <td><strong>Experiment Without Breaking Your Live Link</strong></td>
+        <td>Before making major node surgery on an app people actively use, duplicate the file inside <code>My Drive &gt; Opal</code> (e.g., <code>App_v2_Dev</code>) so your live link stays rock-solid.</td>
+      </tr>
+      <tr>
+        <td><strong>Port Workflows Into Gemini</strong></td>
+        <td>Because Opal's custom workflow DNA integrates into the Gemini ecosystem, clean modular prompts and Drive assets carry smoothly into Gemini skills and Gems.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <div class="callout-title">Security &amp; Privacy Check Before Clicking "Publish"</div>
+    Remember that if link recipients are allowed to <strong>Remix</strong> your mini-app, they can inspect your hidden system prompts and any reference PDFs attached via <strong>Add Asset</strong>! Never embed confidential client spreadsheets, unreleased financials, or private passwords inside a publicly remixable Opal app.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: STUDIO SYNERGY (OPAL -> AI STUDIO -> ANTIGRAVITY) ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Studio Synergy</span>
+    <span>From 10-Minute Opal Prototype to Full SaaS in Antigravity</span>
+  </div>
+
+  <h2 class="page-title">Power Pipeline: Validate in Opal, Scale in Antigravity</h2>
+  <p class="page-lead">
+    Smart builders never spend two weeks coding a full-stack app before knowing if users care—or if the AI pipeline even works! Use <strong>Google Opal</strong> as your rapid product lab, then graduate proven winners into <strong>AI Studio</strong> and <strong>Google Antigravity</strong>.
+  </p>
+
+  <!-- 5-Step Opal -> AI Studio -> Antigravity SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:12px 14px; margin-bottom:10px;">
+    <svg viewBox="0 0 690 142" width="100%" height="142" xmlns="http://www.w3.org/2000/svg">
+      <!-- Phase 1 Banner -->
+      <rect x="8" y="8" width="268" height="22" rx="5" fill="#581c87"/>
+      <text x="142" y="23" text-anchor="middle" fill="#f3e8ff" font-size="9" font-weight="800">PHASE 1: GOOGLE OPAL (10-MIN VALIDATOR)</text>
+
+      <!-- Phase 2 Banner -->
+      <rect x="288" y="8" width="394" height="22" rx="5" fill="#0f172a"/>
+      <text x="485" y="23" text-anchor="middle" fill="#fde68a" font-size="9" font-weight="800">PHASE 2: AI STUDIO + ANTIGRAVITY (PRODUCTION SAAS)</text>
+
+      <!-- Step 1 -->
+      <rect x="8" y="38" width="128" height="94" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+      <text x="18" y="56" fill="#6b21a8" font-size="9.4" font-weight="800">1. Wire in Opal</text>
+      <text x="18" y="72" fill="#334155" font-size="8.3">Prototype your multi-</text>
+      <text x="18" y="84" fill="#334155" font-size="8.3">step Gemini + Imagen</text>
+      <text x="18" y="96" fill="#334155" font-size="8.3">graph visually in</text>
+      <text x="18" y="108" fill="#334155" font-size="8.3">under 10 minutes.</text>
+
+      <path d="M138 85 L147 85" stroke="#9333ea" stroke-width="2"/>
+
+      <!-- Step 2 -->
+      <rect x="148" y="38" width="128" height="94" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+      <text x="158" y="56" fill="#6b21a8" font-size="9.4" font-weight="800">2. User-Test Link</text>
+      <text x="158" y="72" fill="#334155" font-size="8.3">Send Opal link to 10</text>
+      <text x="158" y="84" fill="#334155" font-size="8.3">real testers; iterate</text>
+      <text x="158" y="96" fill="#334155" font-size="8.3">prompts live until</text>
+      <text x="158" y="108" fill="#334155" font-size="8.3">outputs wow them.</text>
+
+      <path d="M278 85 L290 85" stroke="#2563eb" stroke-width="2.4"/><polygon points="288,80 295,85 288,90" fill="#2563eb"/>
+
+      <!-- Step 3 -->
+      <rect x="296" y="38" width="122" height="94" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="306" y="56" fill="#1e40af" font-size="9.4" font-weight="800">3. Export Specs</text>
+      <text x="306" y="72" fill="#334155" font-size="8.3">Copy winning node</text>
+      <text x="306" y="84" fill="#334155" font-size="8.3">prompts &amp; test strict</text>
+      <text x="306" y="96" fill="#334155" font-size="8.3">JSON schemas inside</text>
+      <text x="306" y="108" fill="#1e40af" font-size="8.3" font-weight="700">Google AI Studio.</text>
+
+      <path d="M420 85 L429 85" stroke="#2563eb" stroke-width="2"/>
+
+      <!-- Step 4 -->
+      <rect x="430" y="38" width="122" height="94" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="440" y="56" fill="#1e40af" font-size="9.4" font-weight="800">4. Antigravity</text>
+      <text x="440" y="72" fill="#334155" font-size="8.3">Hand your Opal node</text>
+      <text x="440" y="84" fill="#334155" font-size="8.3">blueprint to agents</text>
+      <text x="440" y="96" fill="#334155" font-size="8.3">in Antigravity IDE to</text>
+      <text x="440" y="108" fill="#334155" font-size="8.3">build Next.js/Python.</text>
+
+      <path d="M554 85 L563 85" stroke="#059669" stroke-width="2"/>
+
+      <!-- Step 5 -->
+      <rect x="564" y="38" width="118" height="94" rx="8" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+      <text x="574" y="56" fill="#34d399" font-size="9.4" font-weight="800">5. Ship SaaS</text>
+      <text x="574" y="72" fill="#cbd5e1" font-size="8.3">Add auth, Postgres,</text>
+      <text x="574" y="84" fill="#cbd5e1" font-size="8.3">Stripe billing &amp; your</text>
+      <text x="574" y="96" fill="#cbd5e1" font-size="8.3">custom domain with</text>
+      <text x="574" y="108" fill="#fde68a" font-size="8.3" font-weight="700">proven demand!</text>
+    </svg>
+  </div>
+
+  <h3>Creative Studio Bonus: Pairing Opal with Google Whisk &amp; Flow</h3>
+  <ul>
+    <li><strong>Custom Brand Style Assets from Whisk:</strong> Mint signature art-direction reference plates in <strong>Google Whisk</strong>, save them to Drive, and attach them via <strong>Add Asset</strong> inside Opal so every image your mini-app generates matches your studio aesthetic!</li>
+    <li><strong>Pre-Production Storyboard Apps for Flow:</strong> Build a custom Opal mini-app that turns a 1-paragraph film pitch into 6 structured <strong>Google Flow</strong> shot prompts, dialogue lines, and <code>16:9</code> reference frames in one click.</li>
+    <li><strong>Know When to Stay in Opal:</strong> If an internal workflow or community tool doesn't need custom user billing or a SQL database, keep it in Opal permanently—zero maintenance forever!</li>
+  </ul>
+
+  <h3>Graduation Handoff: What Transfers Directly From Opal to Antigravity</h3>
+  <div class="grid-2" style="margin-top:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">1</span> Your Proven Prompt &amp; DAG Spec</div>
+      <p style="font-size:8.35pt;">Every Opal node maps 1-to-1 to an async API function in TypeScript or Python! Copy your tested node prompts, model choices, and parallel branching diagram straight into an <strong>Antigravity</strong> agent brief so it builds the exact architecture you already validated.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Real User Input &amp; Edge-Case Logs</div>
+      <p style="font-size:8.35pt;">Watching five friends use your Opal link reveals every confusing form label and surprising upload before you write a single line of React—saving days of wasted frontend refactoring.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHEAT SHEET ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; Opal Mini-App Creator Cheat Sheet</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Cheat Sheet</h2>
+  <p class="page-lead">
+    Keep this page handy whenever a workflow step misbehaves—every common Google Opal quirk has a reliable 10-second fix.
+  </p>
+
+  <h3>7 Common Google Opal Quirks &amp; 10-Second Fixes</h3>
+  <table class="clean-table" style="font-size:8.25pt;">
+    <thead>
+      <tr>
+        <th style="width:31%;">Symptom / Quirk</th>
+        <th style="width:69%;">Root Cause &amp; 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Downstream node ignores an earlier step's result</strong></td>
+        <td>Missing or broken <code>@Variable</code> chip after deleting/replacing a card. Open the downstream node, delete the stale text, press <code>@</code>, and re-select the live upstream step.</td>
+      </tr>
+      <tr>
+        <td><strong>Final Webpage displays raw "Sure! Here is..." chat fluff</strong></td>
+        <td>Upstream node lacked an output contract. Append <code>"Output ONLY the clean content with zero conversational intro or markdown fences"</code> to the feeding Generate step.</td>
+      </tr>
+      <tr>
+        <td><strong>Mini-app takes 40+ seconds to finish a single run</strong></td>
+        <td>Media nodes wired in single-file daisy chain. Rewire independent Imagen, Veo, and Lyria steps in <strong>parallel</strong> off the same upstream brief, and swap helper steps to <strong>Gemini Flash</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>Image node ignores the user's uploaded photo</strong></td>
+        <td>Prompt didn't inject the upload chip or used text-only phrasing. Explicitly insert <code>@User Photo</code> inside the visual node prompt and choose an image-editing/reference model.</td>
+      </tr>
+      <tr>
+        <td><strong>2-word user inputs produce generic or broken outputs</strong></td>
+        <td>Raw input fed straight into media generators. Insert a fast <strong>Gemini Flash "Prompt Upgrader"</strong> node right after <code>@User Input</code> to enrich sparse entries first.</td>
+      </tr>
+      <tr>
+        <td><strong>Teammate opens shared link and sees "Access Denied"</strong></td>
+        <td>App is still in draft or Drive sharing is private. Click <strong>Publish</strong> inside Opal and check permissions on the file in <code>My Drive &gt; Opal</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Live users see half-baked broken edits while I tinker</strong></td>
+        <td>Editing production file directly. Duplicate your Opal file in Google Drive to test major graph experiments, then publish when verified.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:6px;">
+    <div class="card-title" style="font-size:10.1pt; color:#fde68a; margin-bottom:5px;">
+      Google Opal Pre-Flight Checklist: 6 Habits of Pro Mini-App Creators
+    </div>
+    <div class="grid-2" style="gap:5px 16px; font-size:8.35pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Limit User Inputs to 1–3 Clear Fields</strong> with helpful examples.</div>
+      <div>&#9744; <strong>4. Wire Media Nodes in Parallel</strong> to cut wait times in half.</div>
+      <div>&#9744; <strong>2. Give Every Node One Clear Job</strong> &amp; descriptive title.</div>
+      <div>&#9744; <strong>5. Route Only Final Polished Outputs</strong> to the Webpage view.</div>
+      <div>&#9744; <strong>3. Verify Every <code>@Variable</code> Chip</strong> lights up in the prompt box.</div>
+      <div>&#9744; <strong>6. Strip Private Secrets from <code>@Assets</code></strong> before public sharing!</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:8px; padding:8px 12px;">
+    <div class="callout-title">Ready to Build Your First Mini-App?</div>
+    Open <strong><code>https://opal.withgoogle.com</code></strong>, hit <strong>Remix</strong> on any Gallery favorite to peek under the hood, or describe a repetitive multi-step task in plain English and share your custom tool link in minutes!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Opal (opal.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

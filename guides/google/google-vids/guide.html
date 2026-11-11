@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Vids: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">Google AI Ultra Creative Studio Series &bull; Late 2026 Edition</div>
+    <h1>Mastering <span>Google Vids</span></h1>
+    <p class="cover-sub">
+      The complete visual handbook to Google's AI-powered video presentation studio—turning Docs &amp; Slides into narrated storyboards with Gemini, AI Voiceovers, Avatars, Teleprompter Studio, and custom Veo B-roll.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">"Help me create" + @Drive</span>
+      <span class="cover-badge">AI Voiceovers &amp; 24-Lang Avatars</span>
+      <span class="cover-badge">Recording Studio &amp; Teleprompter</span>
+      <span class="cover-badge">Veo 3.1 Custom B-Roll</span>
+      <span class="cover-badge">Transcript Trim &amp; Auto-Ducking</span>
+      <span class="cover-badge">Real-Time Workspace Collab</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Google Vids AI Storyboard and Video Studio Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">From Google Doc to Storyboard</div>
+      <div class="cover-stat-desc">Reference any Doc, Slide deck, or PDF with @mentions—Gemini builds scenes, scripts, music, and B-roll in seconds.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Camera-Optional Storytelling</div>
+      <div class="cover-stat-desc">Narrate via lifelike Gemini AI Voiceovers and AI Avatars, or record smoothly with the built-in scrolling Teleprompter.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Edit Video Like Slides &amp; Docs</div>
+      <div class="cover-stat-desc">Delete "ums" right in the text transcript, generate custom Veo clips in the sidebar, and collaborate live in Drive.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & WHAT IS GOOGLE VIDS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Google Vids Complete How-To Guide</span>
+  </div>
+
+  <h2 class="page-title">What Is Google Vids (And Why Teams Love It)</h2>
+  <p class="page-lead">
+    Traditional video editors force you onto intimidating multi-track timelines before you even have a story. <strong>Google Vids</strong> (<code>vids.google.com</code>) sits right alongside Docs, Sheets, and Slides—combining slide-simple scene cards with Gemini scripting, studio recording, and custom <strong>Veo</strong> generation.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. How Google Vids Works</strong> (End-to-End)</span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Generating Veo B-Roll &amp; Imagen Art</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Launch, AI Ultra &amp; Formats</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Timeline, Object Timing &amp; Ducking</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Google Vids UI Tour</strong> (Annotated Map)</span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Real-World Project Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. "Help me create" &amp; @Drive Magic</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Collaboration, Captions &amp; MP4 Export</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Voiceovers, Avatars &amp; Teleprompter</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Whisk + Flow + Vids Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight Sheet</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>Visualization: The 4-Stage Google Vids Production Pipeline</h3>
+  <div class="figure-box" style="background:#0f172a; padding:13px 15px;">
+    <svg viewBox="0 0 700 172" width="100%" height="172" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Inputs -->
+      <rect x="8" y="14" width="146" height="44" rx="7" fill="#3b0764" stroke="#c084fc"/>
+      <text x="19" y="31" fill="#e9d5ff" font-size="8.4" font-weight="800">INPUT A &bull; @DRIVE FILES</text>
+      <text x="19" y="46" fill="#ffffff" font-size="10.2" font-weight="700">Docs, Slides &amp; PDFs</text>
+
+      <rect x="8" y="66" width="146" height="44" rx="7" fill="#881337" stroke="#fb7185"/>
+      <text x="19" y="83" fill="#fecdd3" font-size="8.4" font-weight="800">INPUT B &bull; DIRECTION</text>
+      <text x="19" y="98" fill="#ffffff" font-size="10.2" font-weight="700">"Help me create" Prompt</text>
+
+      <rect x="8" y="118" width="146" height="42" rx="7" fill="#1e293b" stroke="#64748b"/>
+      <text x="19" y="134" fill="#94a3b8" font-size="8.4" font-weight="800">INPUT C &bull; BRAND KIT</text>
+      <text x="19" y="149" fill="#ffffff" font-size="10.2" font-weight="700">Templates &amp; Drive Clips</text>
+
+      <!-- Arrows -->
+      <path d="M156 36 L186 84 M156 88 L186 88 M156 139 L186 92" stroke="#94a3b8" stroke-width="2"/>
+
+      <!-- Stage 2: Gemini Architect -->
+      <rect x="188" y="30" width="160" height="114" rx="10" fill="#1e1b4b" stroke="#a78bfa" stroke-width="1.6"/>
+      <text x="200" y="50" fill="#c4b5fd" font-size="8.8" font-weight="800">STAGE 1: GEMINI ARCHITECT</text>
+      <text x="200" y="67" fill="#ffffff" font-size="11" font-weight="700">Auto-Storyboard</text>
+      <text x="200" y="84" fill="#e2e8f0" font-size="8.9">&bull; Breaks doc into 5–10 scenes</text>
+      <text x="200" y="98" fill="#e2e8f0" font-size="8.9">&bull; Writes scene-by-scene script</text>
+      <text x="200" y="112" fill="#e2e8f0" font-size="8.9">&bull; Places titles, stock B-roll</text>
+      <text x="200" y="126" fill="#fda4af" font-size="8.9" font-weight="700">&amp; scored background music!</text>
+
+      <path d="M352 87 L376 87" stroke="#fb7185" stroke-width="2.2"/><polygon points="375,82 382,87 375,92" fill="#fb7185"/>
+
+      <!-- Stage 3: Studio & AI Media -->
+      <rect x="384" y="30" width="164" height="114" rx="10" fill="#4c0519" stroke="#fb7185" stroke-width="1.6"/>
+      <text x="396" y="50" fill="#fecdd3" font-size="8.8" font-weight="800">STAGE 2: VOICE &amp; VISUALS</text>
+      <text x="396" y="67" fill="#ffffff" font-size="11" font-weight="700">AI + Studio Polish</text>
+      <text x="396" y="84" fill="#ffe4e6" font-size="8.9">&bull; Gemini TTS or AI Avatars</text>
+      <text x="396" y="98" fill="#ffe4e6" font-size="8.9">&bull; Teleprompter camera/screen</text>
+      <text x="396" y="112" fill="#ffe4e6" font-size="8.9">&bull; Custom 8s Veo 3.1 B-roll</text>
+      <text x="396" y="126" fill="#fde68a" font-size="8.9" font-weight="700">&bull; Transcript Trim &amp; Ducking</text>
+
+      <path d="M552 87 L576 87" stroke="#34d399" stroke-width="2.2"/><polygon points="575,82 582,87 575,92" fill="#34d399"/>
+
+      <!-- Stage 4: Output -->
+      <rect x="584" y="24" width="108" height="58" rx="8" fill="#064e3b" stroke="#34d399"/>
+      <text x="594" y="42" fill="#6ee7b7" font-size="8.3" font-weight="800">LIVE WORKSPACE</text>
+      <text x="594" y="57" fill="#ffffff" font-size="10" font-weight="700">Drive Player</text>
+      <text x="594" y="70" fill="#d1fae5" font-size="8.2">Comments &amp; CC</text>
+
+      <rect x="584" y="92" width="108" height="58" rx="8" fill="#1e3a8a" stroke="#60a5fa"/>
+      <text x="594" y="110" fill="#93c5fd" font-size="8.3" font-weight="800">PORTABLE FILE</text>
+      <text x="594" y="125" fill="#ffffff" font-size="10" font-weight="700">1080p MP4</text>
+      <text x="594" y="138" fill="#dbeafe" font-size="8.2">YouTube / LMS</text>
+    </svg>
+  </div>
+
+  <div class="callout rose">
+    <div class="callout-title">Core Superpower: "Scenes First, Timeline Second"</div>
+    Every Google Vids project works just like a deck of slides—except each slide plays across time with narration, animated callouts, and video B-roll. Reordering two chapters of your video is literally as easy as dragging Scene 4 above Scene 2 in the left filmstrip!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, FORMATS & AI ULTRA ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Formats</span>
+    <span>Launching Google Vids, AI Ultra Perks &amp; Video Formats</span>
+  </div>
+
+  <h2 class="page-title">Getting Started, Project Formats &amp; AI Ultra Perks</h2>
+  <p class="page-lead">
+    Because Google Vids lives natively inside Google Drive, there is nothing to install, render locally, or back up—every edit saves to the cloud automatically in real time.
+  </p>
+
+  <h3>4 Ways to Start a New Project in 10 Seconds</h3>
+  <div class="grid-2" style="gap:10px; margin-bottom:10px;">
+    <div class="card" style="padding:9px 12px;">
+      <div class="card-title"><span class="num-badge">1</span> Direct Launch &amp; Drive Menu</div>
+      <p style="margin:0; font-size:8.6pt;">Visit <code>vids.google.com</code> (or <code>docs.google.com/videos</code>), type <code>vids.new</code> in your address bar, or click <strong>+ New &rarr; Google Vids</strong> inside Google Drive.</p>
+    </div>
+    <div class="card" style="padding:9px 12px;">
+      <div class="card-title"><span class="num-badge purple">2</span> "Help me create" with @Drive</div>
+      <p style="margin:0; font-size:8.6pt;">Describe your goal and type <code>@</code> to attach an existing Google Doc, PDF, or brief—Gemini drafts a complete multi-scene storyboard, script, and score.</p>
+    </div>
+    <div class="card" style="padding:9px 12px;">
+      <div class="card-title"><span class="num-badge teal">3</span> Convert Google Slides to Video</div>
+      <p style="margin:0; font-size:8.6pt;">Click <strong>Import Slides</strong> to pull selected slides from any presentation, keeping editable text layers, charts, and speaker notes ready for voiceover!</p>
+    </div>
+    <div class="card" style="padding:9px 12px;">
+      <div class="card-title"><span class="num-badge amber">4</span> Designer Storyboard Templates</div>
+      <p style="margin:0; font-size:8.6pt;">Pick a curated studio template (<em>Product Pitch, Executive Update, Training Tutorial, Event Recap</em>) with pre-coordinated fonts, transitions, and lower thirds.</p>
+    </div>
+  </div>
+
+  <h3>Aspect Ratios, Runtime Sweet Spots &amp; Output Specs</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Format / Spec</th>
+        <th style="width:26%;">Dimensions</th>
+        <th style="width:54%;">Best Use Cases &amp; Pacing Recommendations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Widescreen</strong> (Default)</td>
+        <td><code>16:9</code> (1920 &times; 1080)</td>
+        <td>Executive pitches, software screen-share demos, onboarding tutorials, town-hall updates, and YouTube / LMS embeds.</td>
+      </tr>
+      <tr>
+        <td><strong>Vertical / Social</strong></td>
+        <td><code>9:16</code> / <code>1:1</code></td>
+        <td>Mobile-first product teasers, event countdown reels, internal Slack/Chat announcements, and LinkedIn square explainers.</td>
+      </tr>
+      <tr>
+        <td><strong>Runtime Ceiling</strong></td>
+        <td>Up to <code>10 min</code> (Ideal: <code>90s–4m</code>)</td>
+        <td>Google Vids supports up to 10 minutes per project, but <strong>6–12 scenes (2–3 minutes total)</strong> holds viewer retention above 80%.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>What Google AI Ultra Unlocks + Vids vs. Google Flow</h3>
+  <div class="grid-2">
+    <div class="callout emerald" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">Your Google AI Ultra Advantage</div>
+      Standard accounts quickly hit monthly ceilings on generative video. <strong>Google AI Ultra</strong> unlocks high-volume <strong>Veo 3.1</strong> custom clip allotments (up to 1,000 video generations monthly across Ultra apps), full <strong>AI Avatar</strong> presenters, and <strong>Lyria</strong> custom AI music scoring.
+    </div>
+    <div class="callout" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">Google Vids vs. Google Flow: Which One?</div>
+      Use <strong>Google Flow</strong> to direct cinematic narrative films, character dialogue shots, and dramatic VFX. Use <strong>Google Vids</strong> to assemble structured <em>presentations, explainers, tutorials, and pitches</em> with titles, screen recordings, voiceovers, and Docs collaboration.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Interface Map</span>
+    <span>Touring the Google Vids Studio Workspace</span>
+  </div>
+
+  <h2 class="page-title">The Google Vids Workspace: Annotated Visual Tour</h2>
+  <p class="page-lead">
+    If you have ever used Google Slides, you already know 70% of Google Vids. Learn these 7 numbered studio controls to command the remaining 30% like a seasoned video producer.
+  </p>
+
+  <!-- Annotated Google Vids UI Mockup -->
+  <div class="ui-window" style="margin-bottom:10px;">
+    <div class="ui-topbar">
+      <div class="ui-dots" style="white-space:nowrap;">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:6px; font-weight:700; color:#f8fafc;">Google Vids &bull; Aurora_Launch</span>
+        <span style="background:#fb7185; color:#0f172a; padding:1px 6px; border-radius:4px; font-weight:800; font-size:6.5pt;">AI ULTRA</span>
+      </div>
+      <div style="display:flex; gap:5px; align-items:center; white-space:nowrap; font-size:7pt;">
+        <span style="background:#1e1b4b; border:1px solid #8b5cf6; padding:2px 6px; border-radius:5px; color:#ddd6fe;">&#10024; Help me create <code>@Doc</code> <span class="callout-pin" style="width:15px;height:15px;font-size:6.8pt;">6</span></span>
+        <span style="background:#be123c; color:#fff; font-weight:700; padding:2px 7px; border-radius:5px;">&#9679; Record / Avatar <span class="callout-pin" style="width:15px;height:15px;font-size:6.8pt;">4</span></span>
+        <span style="background:#059669; color:#fff; font-weight:700; padding:2px 7px; border-radius:5px;">Share / MP4 <span class="callout-pin" style="width:15px;height:15px;font-size:6.8pt;">7</span></span>
+      </div>
+    </div>
+
+    <!-- Middle 3-Pane Studio -->
+    <div style="display:grid; grid-template-columns: 185px 1fr 142px; gap:1px; background:#1f2937;">
+      <!-- Left: Script & Transcript Drawer -->
+      <div style="background:#0f172a; padding:8px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-weight:800; color:#fda4af; font-size:7.3pt;">SCRIPT &amp; TRANSCRIPT</span>
+          <span class="callout-pin">3</span>
+        </div>
+        <div style="background:#1e293b; border:1px solid #334155; border-radius:6px; padding:6px; font-size:6.8pt; color:#e2e8f0; line-height:1.4;">
+          <div style="color:#93c5fd; font-weight:700; margin-bottom:2px;">Scene 02 &bull; 14.5s (34 words)</div>
+          "Meet Aurora—our fastest solar hub yet. <span style="background:#7f1d1d; color:#fecaca; text-decoration:underline; padding:0 2px;">um</span> <span style="color:#94a3b8;">(...2s)</span> Setup takes under five minutes."
+        </div>
+        <div style="background:#1e1b4b; border:1px solid #6366f1; border-radius:6px; padding:5px 6px; font-size:6.7pt;">
+          <div style="color:#c4b5fd; font-weight:700;">AI Voice: Warm Studio (Aria)</div>
+          <div style="display:flex; justify-content:space-between; margin-top:3px;">
+            <span style="background:#4f46e5; color:#fff; padding:1px 5px; border-radius:3px; font-weight:700;">Update Voiceover</span>
+            <span style="color:#fca5a5;">Trim Fillers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: 16:9 Scene Canvas -->
+      <div style="background:#090d16; padding:8px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <div style="width:100%; height:128px; border-radius:8px; background:linear-gradient(135deg,#1e1b4b 0%,#31102f 55%,#7c2d12 100%); border:1.5px solid #fb7185; padding:9px; display:flex; flex-direction:column; justify-content:space-between; position:relative;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="background:rgba(15,23,42,0.8); padding:2px 7px; border-radius:4px; font-size:6.8pt; color:#fda4af; font-weight:700;">SCENE 02 CANVAS &bull; 16:9 HD</span>
+            <span class="callout-pin">1</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <div style="background:rgba(15,23,42,0.82); border-left:3px solid #fb7185; padding:5px 9px; border-radius:4px;">
+              <div style="font-weight:800; color:#fff; font-size:8.6pt;">5-Minute Solar Setup</div>
+              <div style="font-size:6.7pt; color:#cbd5e1;">Object Timing: 0:02.0 &rarr; 0:12.5 (Rise In)</div>
+            </div>
+            <div style="width:48px; height:48px; border-radius:50%; border:2px solid #34d399; background:linear-gradient(135deg,#065f46,#10b981); display:flex; align-items:center; justify-content:center; font-size:6.4pt; font-weight:800; color:#fff; text-align:center;">Host<br/>Bubble</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Generative & Stock Sidebar -->
+      <div style="background:#0f172a; padding:8px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-weight:800; color:#c4b5fd; font-size:7.2pt;">AI &amp; STOCK RAIL</span>
+          <span class="callout-pin">5</span>
+        </div>
+        <div style="background:#3b0764; border:1px solid #a855f7; border-radius:5px; padding:4px 6px; font-size:6.7pt; color:#f3e8ff;">
+          <strong>&#9654; Veo Video</strong><br/>Generate 8s AI B-roll
+        </div>
+        <div style="background:#1e293b; border:1px solid #475569; border-radius:5px; padding:4px 6px; font-size:6.7pt; color:#cbd5e1;">
+          <strong>&#127912; Imagen Visuals</strong><br/>Stickers, Art &amp; BG Remove
+        </div>
+        <div style="background:#1e293b; border:1px solid #475569; border-radius:5px; padding:4px 6px; font-size:6.7pt; color:#cbd5e1;">
+          <strong>&#9835; Stock &amp; Lyria</strong><br/>Royalty-Free + AI Music
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: Scene Strip + Multi-Track Timeline -->
+    <div style="background:#111827; border-top:1px solid #334155; padding:7px 10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:6.9pt; font-weight:800; color:#94a3b8;">MULTI-TRACK TIMELINE &amp; SCENE FILMSTRIP &bull; 00:18 / 02:15</span>
+        <span style="font-size:6.8pt; color:#6ee7b7;">&#10003; Auto-Ducking Active <span class="callout-pin" style="width:15px;height:15px;font-size:7pt;">2</span></span>
+      </div>
+      <div style="display:grid; grid-template-columns: 78px 1fr; gap:5px; font-size:6.5pt; align-items:center;">
+        <span style="color:#fda4af; font-weight:700;">Title Callout</span>
+        <div style="background:#1f2937; height:12px; border-radius:3px; padding-left:18%;"><div style="width:56%; height:100%; background:#fb7185; border-radius:3px;"></div></div>
+        <span style="color:#c4b5fd; font-weight:700;">Scenes / Veo</span>
+        <div style="display:grid; grid-template-columns:1fr 1.4fr 1.2fr 1fr; gap:3px;">
+          <div style="background:#4c1d95; padding:1px 5px; border-radius:3px; color:#fff;">01 Intro</div>
+          <div style="background:#7c3aed; border:1px solid #fff; padding:1px 5px; border-radius:3px; color:#fff; font-weight:700;">02 Aurora Veo Clip</div>
+          <div style="background:#4c1d95; padding:1px 5px; border-radius:3px; color:#fff;">03 Live Demo</div>
+          <div style="background:#4c1d95; padding:1px 5px; border-radius:3px; color:#fff;">04 CTA</div>
+        </div>
+        <span style="color:#6ee7b7; font-weight:700;">Voice + Music</span>
+        <div style="background:#064e3b; height:12px; border-radius:3px; display:flex; align-items:center; padding:0 6px; color:#a7f3d0;">Voiceover Waveform &bull; Background Music Auto-Ducked to 18% During Speech</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Interface Reference</h3>
+  <div class="grid-2" style="gap:6px 14px; font-size:8.6pt;">
+    <div><span class="callout-pin">1</span> <strong>16:9 Scene Canvas:</strong> Position titles, screen recordings, circular presenter bubbles, and shapes just like Google Slides.</div>
+    <div><span class="callout-pin">2</span> <strong>Timeline &amp; Scene Strip:</strong> Reorder whole scenes, drag purple/coral <em>Object Timing</em> handles, and balance layered audio tracks.</div>
+    <div><span class="callout-pin">3</span> <strong>Script &amp; Transcript Drawer:</strong> Write per-scene voiceovers—or open <em>Transcript</em> to delete red-highlighted filler words (<em>"um"</em>) in one click.</div>
+    <div><span class="callout-pin">4</span> <strong>Studio &amp; AI Avatars:</strong> Record webcam, screen + camera, or voice with a scrolling <em>Teleprompter</em>, or drop in a 24-language AI Avatar.</div>
+    <div><span class="callout-pin">5</span> <strong>Generative &amp; Stock Sidebar:</strong> Generate custom 8s <strong>Veo</strong> video clips, <strong>Imagen</strong> graphics, <strong>Lyria</strong> scores, or search millions of stock clips.</div>
+    <div><span class="callout-pin">6</span> <strong>"Help me create" + <code>@</code> Grounding:</strong> Prompt Gemini with <code>@</code> links to your Google Docs, Slides, or PDFs to draft scenes automatically.</div>
+  </div>
+  <div style="margin-top:4px; margin-bottom:8px; font-size:8.6pt;">
+    <span class="callout-pin">7</span> <strong>Collaboration, Captions &amp; Export:</strong> Share live with Commenter/Editor permissions, toggle auto-captions, or export a crisp <strong>1080p MP4</strong>.
+  </div>
+
+  <div class="callout" style="padding:8px 12px;">
+    <div class="callout-title">Workspace Tip: Toggle Timeline Detail Whenever You Need Focus</div>
+    Designing slide layouts? Collapse the multi-track audio/timing lanes down to the compact <strong>Scene Filmstrip</strong> for maximum canvas room—then expand <strong>Show timing</strong> only when fine-tuning bullet reveals and voiceover cuts.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: "HELP ME CREATE" & @DRIVE MAGIC ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; AI Storyboarding</span>
+    <span>Mastering "Help me create" &amp; @Drive Document-to-Video Magic</span>
+  </div>
+
+  <h2 class="page-title">Turning Docs &amp; Slides Into Videos With <code>@Drive</code></h2>
+  <p class="page-lead">
+    Staring at a blank timeline is history. Typing <code>@</code> inside <strong>Help me create</strong> grounds Gemini directly in your own Google Docs, Slide decks, and PDFs—so facts, metrics, and structure never get hallucinated.
+  </p>
+
+  <div class="figure-box" style="background:#161026;">
+    <img src="assets/doc_to_video_transformation.jpg" alt="Visual transformation from Google Docs and charts into storyboard cards and a finished widescreen video" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr 1.1fr; background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.6pt; border-top:1px solid #334155;">
+      <div><strong style="color:#fda4af;">1. GROUNDED SOURCE:</strong> Attach <code>@Spec_Doc</code> or <code>@Deck</code>.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#c4b5fd;">2. GEMINI STORYBOARD:</strong> Auto-drafts scenes, script &amp; music.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#6ee7b7;">3. STUDIO POLISH:</strong> Swap stock clips for Veo B-roll &amp; ship!</div>
+    </div>
+  </div>
+
+  <h3>Anatomy of a 10/10 "Help me create" Prompt</h3>
+  <div class="card" style="margin-bottom:9px; padding:9px 12px;">
+    <div style="font-size:8.9pt; line-height:1.7;">
+      <span class="p-tag p-act">Create a 90-second, 7-scene customer launch video</span>
+      <span class="p-tag p-subj">grounded in @Aurora_Solar_PRD and @Q4_Pricing_Sheet</span>
+      <span class="p-tag p-cam">targeted at busy homeowners deciding on rooftop battery backup.</span>
+      <span class="p-tag p-style">Use an upbeat, modern clean-tech visual style with bold metric callouts,</span>
+      <span class="p-tag p-dial">conversational 140-WPM narration opening with a hook about winter blackouts,</span>
+      <span class="p-tag p-sfx">and end Scene 7 with a clear "Book Your 5-Minute Assessment" call to action.</span>
+    </div>
+    <div style="margin-top:5px; font-size:7.7pt; color:#475569;">
+      <strong>Formula:</strong> <span class="p-tag p-act">Length &amp; Scene Count</span> + <span class="p-tag p-subj">@Drive Source Files</span> + <span class="p-tag p-cam">Target Viewer</span> + <span class="p-tag p-style">Visual Tone</span> + <span class="p-tag p-dial">Hook &amp; Script Pace</span> + <span class="p-tag p-sfx">Closing CTA</span>
+    </div>
+  </div>
+
+  <h3>3 Ways to Prep Your Google Doc Before Clicking Generate</h3>
+  <div class="grid-3">
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge">1</span> Use Clear H2 Headings</div>
+      <p style="margin:0; font-size:8.2pt;">Gemini maps <code>Heading 2</code> sections cleanly into individual video scenes—6 crisp headings yield 6 tightly focused scenes.</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge purple">2</span> Bold Hero Metrics</div>
+      <p style="margin:0; font-size:8.2pt;">Call out key stats (e.g., <strong>42% faster</strong>, <strong>$0 setup</strong>) on bullets so Vids promotes them into large on-screen title cards.</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge teal">3</span> Review Outline First</div>
+      <p style="margin:0; font-size:8.2pt;">Before accepting the draft, edit scene titles or swap visual style presets in Gemini's preview outline—zero cost to iterate!</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: VOICEOVERS, AVATARS & RECORDING STUDIO ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Voice &amp; Camera</span>
+    <span>AI Voiceovers, 24-Language Avatars &amp; Teleprompter Studio</span>
+  </div>
+
+  <h2 class="page-title">Narrating Your Story: AI Voices, Avatars &amp; Studio</h2>
+  <p class="page-lead">
+    Great audio makes even simple visuals feel expensive. Google Vids gives you three mix-and-match narration paths—and automatically syncs scene timing to your spoken words.
+  </p>
+
+  <div class="figure-box" style="background:#140e24;">
+    <img src="assets/recording_and_veo_broll.jpg" alt="Creator speaking warmly into a studio microphone blending into lush Veo mountain train B-roll" style="width:100%; height:240px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr; background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.6pt; border-top:1px solid #334155;">
+      <div><strong style="color:#fda4af;">LEFT &bull; HUMAN OR AI VOICE:</strong> Teleprompter studio, Gemini TTS, or AI Avatar host.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#fde68a;">RIGHT &bull; VISUAL CUTAWAY:</strong> Keep voice playing underneath rich B-roll &amp; demos!</div>
+    </div>
+  </div>
+
+  <h3>Choosing the Right Narration Mode for Your Project</h3>
+  <div class="grid-3" style="margin-bottom:9px;">
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge">1</span> Gemini AI Voiceovers</div>
+      <p style="margin:0; font-size:8.2pt;">Expressive text-to-speech voices (<em>Warm, Confident, Calm, Energetic</em>). Edit two words in the script box and regenerate that scene in 3 seconds!</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge purple">2</span> Lifelike AI Avatars</div>
+      <p style="margin:0; font-size:8.2pt;">Camera-free digital presenters (photorealistic or illustrated) supporting <strong>up to 24 languages</strong>—ideal for global SOPs and instant localization.</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge teal">3</span> Recording Studio</div>
+      <p style="margin:0; font-size:8.2pt;">Capture <strong>Camera</strong>, <strong>Screen + Camera</strong>, or <strong>Voice Only</strong> with Meet-grade background blur and a built-in read-along <strong>Teleprompter</strong>.</p>
+    </div>
+  </div>
+
+  <h3>Two Insider Habits: The 135-WPM Rule &amp; AI Transcript Trim</h3>
+  <div class="grid-2">
+    <div class="callout amber" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">Pacing Rule: Keep Scenes to 20–35 Words</div>
+      Natural narration runs <strong>130–150 words per minute</strong> (~2.3 words/sec). Packing 90 words onto one static slide puts viewers to sleep—aim for <strong>20–35 words (8–15 seconds) per scene</strong> so visuals stay crisp and dynamic.
+    </div>
+    <div class="callout emerald" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">Magic Cleanup: AI Transcript Trim</div>
+      Recorded live on camera and said <em>"um"</em> four times? Click your clip &rarr; <strong>Transcript</strong>. Vids underlines filler words in red and marks silences like <code>(...3s)</code>—click <strong>Remove</strong> and the video cuts seamlessly like editing a Google Doc!
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: VEO VIDEO & IMAGEN GRAPHICS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Generative Media</span>
+    <span>Generating Custom Veo Video Clips, Imagen Art &amp; Lyria Music</span>
+  </div>
+
+  <h2 class="page-title">Custom <code>Veo</code> B-Roll, Imagen Visuals &amp; Lyria Music</h2>
+  <p class="page-lead">
+    Stock footage gets you a fast first draft, but generic office handshakes rarely match your brand. With <strong>Google AI Ultra</strong>, you can generate bespoke 8-second <strong>Veo 3.1</strong> video clips, custom graphics, and AI music right inside the right-hand rail.
+  </p>
+
+  <!-- Weak vs Pro Veo B-Roll Prompt SVG -->
+  <div class="figure-box" style="background:#0f172a; padding:12px 15px; margin-bottom:10px;">
+    <svg viewBox="0 0 680 118" width="100%" height="118" xmlns="http://www.w3.org/2000/svg">
+      <text x="12" y="19" fill="#fda4af" font-size="9.1" font-weight="800" letter-spacing="0.7">SWAPPING GENERIC STOCK FOR BESPOKE VEO 3.1 B-ROLL (LEAVE SPACE FOR TEXT OVERLAYS!)</text>
+
+      <!-- Weak Prompt -->
+      <rect x="12" y="29" width="318" height="78" rx="8" fill="#450a0a" stroke="#ef4444" stroke-width="1.4"/>
+      <text x="24" y="48" fill="#fca5a5" font-size="9.8" font-weight="800">&#10007; VAGUE PROMPT (BUSY CENTER, FIGHTS TITLES)</text>
+      <text x="24" y="65" fill="#fecaca" font-size="8.9">"Make a cool futuristic video about solar energy</text>
+      <text x="24" y="79" fill="#fecaca" font-size="8.9">panels on a house with lots of people and bright</text>
+      <text x="24" y="93" fill="#fecaca" font-size="8.9">flashing graphics."</text>
+
+      <!-- Pro Prompt -->
+      <rect x="350" y="29" width="318" height="78" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1.4"/>
+      <text x="362" y="48" fill="#6ee7b7" font-size="9.8" font-weight="800">&#10003; PRO VIDS B-ROLL PROMPT (CLEAN NEGATIVE SPACE)</text>
+      <text x="362" y="65" fill="#d1fae5" font-size="8.9">"Slow aerial drone glide across a sleek architectural</text>
+      <text x="362" y="79" fill="#d1fae5" font-size="8.9">solar roof on right half of frame; soft misty sunrise</text>
+      <text x="362" y="93" fill="#d1fae5" font-size="8.9">sky on left third for clean presentation text."</text>
+    </svg>
+  </div>
+
+  <h3>4 Built-In Generative Tools Inside the Google Vids Sidebar</h3>
+  <table class="clean-table" style="font-size:8.45pt;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Sidebar Tool</th>
+        <th style="width:23%;">Powered By</th>
+        <th style="width:54%;">Best Way to Use It Inside Your Presentation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Generate a Video</strong></td>
+        <td><code>Veo 3.1</code> (8s HD)</td>
+        <td>Custom product beauty shots, metaphorical B-roll cutaways over narration, and looping atmospheric background plates.</td>
+      </tr>
+      <tr>
+        <td><strong>Generate an Image</strong></td>
+        <td><code>Imagen / Nano Banana</code></td>
+        <td>Cohesive custom illustrations, isometric diagrams, icons, and stylized chapter title backgrounds tailored to your color palette.</td>
+      </tr>
+      <tr>
+        <td><strong>Remove Background</strong></td>
+        <td>Vision Cutout AI</td>
+        <td>Select any product photo or team headshot on the canvas and click <strong>Remove background</strong> for instant floating layer cutouts!</td>
+      </tr>
+      <tr>
+        <td><strong>Custom AI Music</strong></td>
+        <td><code>Lyria</code> + Stock Audio</td>
+        <td>Prompt mood, tempo, and instrumentation (e.g., <em>"Warm acoustic marimba &amp; lo-fi pulse, no vocals"</em>) for bespoke background beds.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout rose">
+    <div class="callout-title">Art Director Trick: Prompt "Negative Space" for Legible Slide Text</div>
+    Unlike standalone movies, Google Vids scenes usually carry headlines, bullet callouts, or KPI numbers. Whenever you prompt <strong>Veo</strong> or <strong>Imagen</strong> for a background scene, add <code>"clean blurred negative space on the left third"</code> (or <code>"subtle dark atmospheric gradient"</code>) so white typography pops effortlessly without dark boxes!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: TIMELINE POLISH & AUDIO DUCKING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Timeline Craft</span>
+    <span>Scene Pacing, Object Timing, Transitions &amp; Auto Audio Ducking</span>
+  </div>
+
+  <h2 class="page-title">Timeline Polish: Timing Markers &amp; Audio Ducking</h2>
+  <p class="page-lead">
+    What separates an amateur slide export from a broadcast-grade explainer? Three habits: staggered <strong>Object Timing</strong>, restrained <strong>Transitions</strong>, and balanced <strong>Audio Ducking</strong>.
+  </p>
+
+  <h3>Visual Blueprint: How Layered Tracks Stack Inside One 12-Second Scene</h3>
+  <div class="figure-box" style="background:#0f172a; padding:12px 14px; margin-bottom:10px;">
+    <svg viewBox="0 0 690 168" width="100%" height="168" xmlns="http://www.w3.org/2000/svg">
+      <!-- Time Ruler -->
+      <text x="115" y="15" fill="#94a3b8" font-size="8.2" font-weight="700">0:00s</text>
+      <text x="250" y="15" fill="#94a3b8" font-size="8.2" font-weight="700">0:03s (Hook)</text>
+      <text x="415" y="15" fill="#94a3b8" font-size="8.2" font-weight="700">0:07s (Metric Pop)</text>
+      <text x="615" y="15" fill="#94a3b8" font-size="8.2" font-weight="700">0:12s</text>
+      <line x1="112" y1="20" x2="676" y2="20" stroke="#334155" stroke-width="1"/>
+
+      <!-- Track 1: Object Timing -->
+      <text x="10" y="40" fill="#fda4af" font-size="8.6" font-weight="800">TEXT CALLOUT</text>
+      <rect x="235" y="27" width="350" height="20" rx="5" fill="#9f1239" stroke="#fb7185"/>
+      <text x="247" y="40" fill="#ffffff" font-size="8.2" font-weight="700">&#9650; Enters at 0:02.5s ("42% Faster") &bull; Exits at 0:10.5s</text>
+
+      <!-- Track 2: B-Roll Cutaway -->
+      <text x="10" y="68" fill="#c4b5fd" font-size="8.6" font-weight="800">VEO CUTAWAY</text>
+      <rect x="330" y="55" width="290" height="20" rx="5" fill="#5b21b6" stroke="#a78bfa"/>
+      <text x="342" y="68" fill="#ffffff" font-size="8.2" font-weight="700">8s Veo Solar Drone B-Roll Covers Speaker (J/L Cut)</text>
+
+      <!-- Track 3: Base Scene / Presenter -->
+      <text x="10" y="96" fill="#93c5fd" font-size="8.6" font-weight="800">BASE CANVAS</text>
+      <rect x="115" y="83" width="560" height="20" rx="5" fill="#1e3a8a" stroke="#60a5fa"/>
+      <text x="127" y="96" fill="#ffffff" font-size="8.2" font-weight="700">Presenter Camera / Slide Layout (Full 12s Scene Duration)</text>
+
+      <!-- Track 4: Voiceover -->
+      <text x="10" y="124" fill="#6ee7b7" font-size="8.6" font-weight="800">VOICEOVER</text>
+      <rect x="145" y="111" width="490" height="20" rx="5" fill="#065f46" stroke="#34d399"/>
+      <text x="157" y="124" fill="#ffffff" font-size="8.2" font-weight="700">100% Crisp Speech Clarity (0:00.8s &rarr; 0:11.2s)</text>
+
+      <!-- Track 5: Music Ducking -->
+      <text x="10" y="154" fill="#fde68a" font-size="8.6" font-weight="800">MUSIC BED</text>
+      <path d="M115 136 L142 136 L156 143 L626 143 L640 136 L675 136 L675 162 L115 162 Z" fill="#78350f" stroke="#fbbf24" stroke-width="1.2"/>
+      <text x="260" y="156" fill="#fef3c7" font-size="8" font-weight="700">Auto-Ducked to ~15–20% Volume Whenever Voiceover Speaks!</text>
+    </svg>
+  </div>
+
+  <h3>3 Timeline Techniques That Instantly Elevate Quality</h3>
+  <div class="grid-3" style="margin-bottom:9px;">
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge">1</span> Stagger Object Timing</div>
+      <p style="margin:0; font-size:8.2pt;">Click any text box or chart &rarr; <strong>Show timing</strong>. Drag its start handle so each bullet pops onto screen the exact second your voice mentions it!</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge purple">2</span> Enable Audio Ducking</div>
+      <p style="margin:0; font-size:8.2pt;">Never let music drown out speech. Turn on <strong>Background music ducking</strong> (or keep music at 15–20%) so tracks dip smoothly under narration.</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge teal">3</span> Cut &gt; Flashy Wipes</div>
+      <p style="margin:0; font-size:8.2pt;">Use clean <strong>Hard Cuts</strong> for 80% of scene changes, saving soft <strong>Dissolves</strong> or <strong>Slide Pushes</strong> solely for major chapter shifts.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">Pro Editing Secret: The "B-Roll Sandwich"</div>
+    Watching a single talking head or static slide for 45 seconds causes viewer drop-off. Start on your presenter for 3 seconds to build human warmth, layer an 8-second <strong>Veo clip or screen demo</strong> over seconds 0:03–0:11 while your voice keeps talking underneath, then return to your presenter!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD PROJECT RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Project Cookbook</span>
+    <span>5 Ready-to-Run Google Vids Production Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Google Vids Recipes You Can Ship Today</h2>
+  <p class="page-lead">
+    Each recipe pairs a specific Workspace input with the fastest narration and visual workflow—turning hours of editing or live meetings into reusable 2-minute assets.
+  </p>
+
+  <table class="clean-table" style="font-size:8.3pt;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Project Recipe</th>
+        <th style="width:25%;">Best Starting Input</th>
+        <th style="width:25%;">Voice &amp; Visual Setup</th>
+        <th style="width:29%;">High-Impact Studio Tip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Executive Pitch / Async Deck</strong><br/>Target: <code>2m 00s</code> (8 scenes)</td>
+        <td><strong>Import Slides</strong> from your existing investor or leadership presentation.</td>
+        <td><strong>Camera Bubble</strong> via Teleprompter in bottom-right corner + slide animations.</td>
+        <td>Record a warm 10s full-screen intro on Scene 1, then shrink your webcam into a corner circle for data slides!</td>
+      </tr>
+      <tr>
+        <td><strong>2. Product Launch &amp; Feature Demo</strong><br/>Target: <code>90s</code> (6 scenes)</td>
+        <td><code>@Product_PRD</code> + <code>"Help me create"</code> customer benefit arc.</td>
+        <td><strong>Screen Recording</strong> for UI walkthrough + <strong>Veo 3.1</strong> hero lifestyle B-roll.</td>
+        <td>Zoom browser UI to <code>125%</code> before recording your screen so buttons and text stay razor-sharp on mobile.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Onboarding / Global SOP Guide</strong><br/>Target: <code>3m 00s</code> (10 scenes)</td>
+        <td><code>@SOP_Checklist_Doc</code> organized with numbered H2 steps.</td>
+        <td><strong>Gemini AI Voiceover</strong> or <strong>24-Language AI Avatar</strong> presenter.</td>
+        <td>Use AI Voiceover instead of live mic—when software changes next quarter, update 1 scene's text in 15 seconds!</td>
+      </tr>
+      <tr>
+        <td><strong>4. Client Quarterly Recap Reel</strong><br/>Target: <code>75s</code> (5 scenes)</td>
+        <td><code>@Q3_Results_Doc</code> + exported chart PNGs from Google Sheets.</td>
+        <td>Confident studio voiceover + staggered <strong>Object Timing</strong> KPI callouts.</td>
+        <td>Drop a subtle sound effect (<em>soft whoosh / chime</em>) on the timeline right as your #1 ROI metric appears.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Event or Course Promo Trailer</strong><br/>Target: <code>45s</code> (5 fast scenes)</td>
+        <td>Template: <em>Event Promo</em> in <code>16:9</code> (or <code>9:16</code> for social reels).</td>
+        <td>3 custom <strong>Veo</strong> atmospheric clips + upbeat <strong>Lyria</strong> AI music track.</td>
+        <td>Keep scenes snappy (6–8s each) with bold 4-word kinetic titles and a QR code / short URL on the final frame.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin-top:7px;">
+    <div class="callout-title">30-Second Time-Saver: Auto-Import Speaker Notes From Google Slides</div>
+    When you use <strong>File &rarr; Import slides</strong> on a deck that already has speaker notes written underneath each slide, Google Vids brings those notes straight into each scene's <strong>Script</strong> tab—meaning your teleprompter script and AI voiceover are 100% ready before you type a single word!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: COLLABORATION, CAPTIONS & EXPORT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Team &amp; Delivery</span>
+    <span>Real-Time Collaboration, Auto-Captions &amp; Exporting MP4</span>
+  </div>
+
+  <h2 class="page-title">Workspace Collaboration, Captions &amp; Delivery Guide</h2>
+  <p class="page-lead">
+    No more emailing 800 MB <code>Final_v7_REAL.mp4</code> attachments back and forth. Reviewers comment directly on scenes in their browser just like a Google Doc—and you only export MP4 when ready to publish externally.
+  </p>
+
+  <h3>3 Frictionless Review &amp; Accessibility Workflows</h3>
+  <div class="grid-3" style="margin-bottom:10px;">
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge">1</span> Scene-Pinned Comments</div>
+      <p style="margin:0; font-size:8.2pt;">Click <strong>Comment</strong> on any scene or canvas object and <code>@mention</code> a teammate (e.g., <em>"@Maya verify legal disclaimer on Scene 5"</em>) to assign action items.</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge purple">2</span> Version History Safety</div>
+      <p style="margin:0; font-size:8.2pt;">Open <strong>File &rarr; Version history</strong> to name milestones (<em>"Pre-Exec Cut"</em>) and restore any earlier storyboard state in two clicks without duplicating files.</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge teal">3</span> Auto-Captions (CC)</div>
+      <p style="margin:0; font-size:8.2pt;">Over 60% of workplace videos start muted. Generate <strong>Closed Captions</strong> from your transcript and fix brand acronyms in seconds for 100% silent-play clarity.</p>
+    </div>
+  </div>
+
+  <h3>Sharing via Google Drive Player vs. Exporting 1080p MP4</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Delivery Method</th>
+        <th style="width:38%;">How to Trigger It</th>
+        <th style="width:38%;">When to Choose This Option</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Share Live in Drive</strong><br/>(<em>Viewer</em> Link)</td>
+        <td>Click <strong>Share</strong> &rarr; set org or client emails to <strong>Viewer</strong> (hides timeline &amp; script; opens sleek Drive video player).</td>
+        <td>Internal company updates, async team standups, and living SOPs—fix a typo tomorrow and the same link plays the updated cut!</td>
+      </tr>
+      <tr>
+        <td><strong>Commenter Review Link</strong></td>
+        <td>Click <strong>Share</strong> &rarr; set stakeholders to <strong>Commenter</strong> before locking final picture.</td>
+        <td>Client sign-off, product marketing review, and legal/compliance approval cycles.</td>
+      </tr>
+      <tr>
+        <td><strong>Download MP4</strong><br/>(<code>1080p HD</code>)</td>
+        <td>Click <strong>File &rarr; Download as MP4</strong> (or <em>Export to Google Drive as MP4</em>).</td>
+        <td>Uploading to YouTube, LinkedIn, LMS portals, customer help centers, keynote stages, or archiving frozen deliverables.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">Permission Tip: Viewers See a Clean Player, Not Your Messy Notes!</div>
+    Worried that sharing a Google Vids link exposes your rough script drafts or trimmed transcript takes? Anyone granted <strong>Viewer</strong> access sees <em>only</em> the finished streaming video player with closed captions—never your underlying timeline, unused voice takes, or script drawer.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: WHISK + FLOW + VIDS SYNERGY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Studio Synergy</span>
+    <span>The Complete Google AI Ultra Creative Trilogy: Whisk + Flow + Vids</span>
+  </div>
+
+  <h2 class="page-title">Power Pipeline: Combining <code>Whisk</code> + <code>Flow</code> + <code>Vids</code></h2>
+  <p class="page-lead">
+    Together with our <strong>Google Whisk</strong> and <strong>Google Flow</strong> guides, <strong>Google Vids</strong> completes your three-part Google AI Ultra studio—taking any idea from wild visual concept to polished, multi-minute narrated presentation.
+  </p>
+
+  <!-- 3-App Master Synergy SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:12px 14px; margin-bottom:10px;">
+    <svg viewBox="0 0 690 148" width="100%" height="148" xmlns="http://www.w3.org/2000/svg">
+      <!-- Phase Banners -->
+      <rect x="8" y="8" width="212" height="22" rx="5" fill="#581c87"/>
+      <text x="114" y="23" text-anchor="middle" fill="#f3e8ff" font-size="8.8" font-weight="800">1. GOOGLE WHISK (ART LAB)</text>
+
+      <rect x="238" y="8" width="212" height="22" rx="5" fill="#1e3a8a"/>
+      <text x="344" y="23" text-anchor="middle" fill="#dbeafe" font-size="8.8" font-weight="800">2. GOOGLE FLOW (CINEMA SET)</text>
+
+      <rect x="468" y="8" width="214" height="22" rx="5" fill="#9f1239"/>
+      <text x="575" y="23" text-anchor="middle" fill="#ffe4e6" font-size="8.8" font-weight="800">3. GOOGLE VIDS (STORY STUDIO)</text>
+
+      <!-- Card 1: Whisk -->
+      <rect x="8" y="38" width="212" height="100" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+      <text x="20" y="57" fill="#6b21a8" font-size="9.6" font-weight="800">Mint Cohesive Brand Assets</text>
+      <text x="20" y="74" fill="#334155" font-size="8.4">&bull; Blend Subject + Scene + Style</text>
+      <text x="20" y="88" fill="#334155" font-size="8.4">&bull; Lock one signature Style card</text>
+      <text x="20" y="102" fill="#334155" font-size="8.4">&bull; Export crisp 16:9 PNG hero props,</text>
+      <text x="20" y="116" fill="#334155" font-size="8.4">  characters &amp; chapter backdrops</text>
+      <text x="20" y="130" fill="#7e22ce" font-size="8.2" font-weight="700">Output: High-Res Styled PNGs</text>
+
+      <path d="M222 88 L236 88" stroke="#2563eb" stroke-width="2.4"/><polygon points="234,83 241,88 234,93" fill="#2563eb"/>
+
+      <!-- Card 2: Flow -->
+      <rect x="238" y="38" width="212" height="100" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="250" y="57" fill="#1e40af" font-size="9.6" font-weight="800">Shoot Hero Cinema Sequences</text>
+      <text x="250" y="74" fill="#334155" font-size="8.4">&bull; Load Whisk PNGs as @Ingredients</text>
+      <text x="250" y="88" fill="#334155" font-size="8.4">&bull; Direct Start-to-End Frame morphs</text>
+      <text x="250" y="102" fill="#334155" font-size="8.4">&bull; Shoot 15–30s theatrical opener</text>
+      <text x="250" y="116" fill="#334155" font-size="8.4">  with synced Veo 3.1 camera &amp; SFX</text>
+      <text x="250" y="130" fill="#1d4ed8" font-size="8.2" font-weight="700">Output: Hero Cinema MP4s</text>
+
+      <path d="M452 88 L466 88" stroke="#e11d48" stroke-width="2.4"/><polygon points="464,83 471,88 464,93" fill="#e11d48"/>
+
+      <!-- Card 3: Vids -->
+      <rect x="468" y="38" width="214" height="100" rx="8" fill="#fff1f2" stroke="#e11d48" stroke-width="1.6"/>
+      <text x="480" y="57" fill="#9f1239" font-size="9.6" font-weight="800">Assemble, Narrate &amp; Ship</text>
+      <text x="480" y="74" fill="#334155" font-size="8.4">&bull; Ground script in @Drive Docs</text>
+      <text x="480" y="88" fill="#334155" font-size="8.4">&bull; Drop Flow MP4s into Scene 1 &amp; 7</text>
+      <text x="480" y="102" fill="#334155" font-size="8.4">&bull; Add screen demos, Voiceover/Avatar,</text>
+      <text x="480" y="116" fill="#334155" font-size="8.4">  timed KPI titles, CC &amp; team review!</text>
+      <text x="480" y="130" fill="#be123c" font-size="8.2" font-weight="700">Output: Complete 3-Min Presentation</text>
+    </svg>
+  </div>
+
+  <h3>How Each Tool Plays to Its Exact Strength</h3>
+  <ul>
+    <li><strong>Open With a Jaw-Dropping Flow Hook:</strong> Place a 12-second cinematic sequence exported from <strong>Google Flow</strong> as Scene 1 of your Google Vids deck to hook executives or customers emotionally, then transition smoothly into structured data slides and live software demos on Scenes 2–6.</li>
+    <li><strong>Consistent Visual Identity Across Every Slide:</strong> Drop styled PNG illustrations minted in <strong>Google Whisk</strong> straight onto your Google Vids canvas (and run <em>Remove background</em>) so icons, mascots, and chapter cards share 100% unified art direction.</li>
+    <li><strong>Google Drive as the Shared Spine:</strong> Save Whisk stills and Flow renders into one shared Google Drive project folder—every collaborator inside Google Vids can pull them directly from the Drive sidebar in two clicks!</li>
+  </ul>
+
+  <div class="callout rose" style="margin-top:8px;">
+    <div class="callout-title">5-Second Studio Rule: Which App Should You Open First?</div>
+    Need to <strong>invent a visual look, mascot, or styled graphic</strong>? Start in <strong>Whisk</strong>. Shooting a <strong>dramatic short film or character scene with camera choreography</strong>? Open <strong>Flow</strong>. Explaining an idea with <strong>slides, Docs, voiceover, screen recordings, or teammates</strong>? Open <strong>Google Vids</strong>!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT SHEET ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; Google Vids Creator Cheat Sheet</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Cheat Sheet</h2>
+  <p class="page-lead">
+    Bookmark this final page for instant fixes to the seven most common Google Vids hiccups—plus a 6-point pre-flight checklist before sharing with leadership or clients.
+  </p>
+
+  <h3>Top 7 Google Vids Issues &amp; 10-Second Fixes</h3>
+  <table class="clean-table" style="font-size:8.25pt;">
+    <thead>
+      <tr>
+        <th style="width:31%;">Symptom / Problem</th>
+        <th style="width:69%;">Root Cause &amp; Instant Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>@File</code> doesn't show up in "Help me create"</strong></td>
+        <td>File isn't accessible to your signed-in account or is an unsupported raw archive. Open the Doc/Slide/PDF once in Drive so it surfaces at the top of recent <code>@</code> suggestions.</td>
+      </tr>
+      <tr>
+        <td><strong>AI Voiceover cuts off or rushes the end of a scene</strong></td>
+        <td>Scene duration was manually shortened shorter than the audio clip. Drag the right edge of the scene bar outward by 1–2 seconds on the timeline for breathing room.</td>
+      </tr>
+      <tr>
+        <td><strong>Background music overpowers spoken narration</strong></td>
+        <td>Music volume left at 100% without ducking. Select the music track, enable <strong>Auto-Ducking</strong>, or lower track volume to <code>15%–20%</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Screen recording text looks blurry or tiny</strong></td>
+        <td>Recorded an ultra-wide 4K monitor at 100% scale. Resize your target window to <code>16:9</code> and zoom browser UI to <code>125%–150%</code> before clicking Record.</td>
+      </tr>
+      <tr>
+        <td><strong>Slide text disappears halfway through a scene</strong></td>
+        <td>Accidental <em>Object Timing</em> trim. Select the text box, click <strong>Show timing</strong>, and snap its right handle all the way to the end of the scene.</td>
+      </tr>
+      <tr>
+        <td><strong>Camera or microphone blocked in Recording Studio</strong></td>
+        <td>Browser site permission muted. Click the tune/lock icon left of <code>vids.google.com</code> in Chrome's address bar and set Camera &amp; Microphone to <strong>Allow</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>Teammate opens my link and sees the raw editor</strong></td>
+        <td>Shared with <em>Editor</em> role instead of <em>Viewer</em>. Change general access to <strong>Viewer</strong> so recipients launch directly into the clean streaming player.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:5px;">
+    <div class="card-title" style="font-size:10pt; color:#fda4af; margin-bottom:5px;">
+      Google Vids Pre-Flight Checklist: 6 Habits Before You Hit Share
+    </div>
+    <div class="grid-2" style="gap:4px 16px; font-size:8.35pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Ground With <code>@Drive</code> First</strong> (H2 headings = clean scenes).</div>
+      <div>&#9744; <strong>4. Check Audio Ducking</strong> (music at 15–20% under speech).</div>
+      <div>&#9744; <strong>2. Pace Scripts to 25–35 Words/Scene</strong> (~10–15s per card).</div>
+      <div>&#9744; <strong>5. Proof Auto-Captions</strong> for brand names &amp; silent viewers.</div>
+      <div>&#9744; <strong>3. Run Transcript Trim</strong> to strip red <em>"ums"</em> &amp; dead pauses.</div>
+      <div>&#9744; <strong>6. Share as <code>Viewer</code></strong> (or export <code>1080p MP4</code> for external).</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:7px; padding:8px 12px;">
+    <div class="callout-title">Ready to Roll Action?</div>
+    Open <strong><code>https://vids.google.com</code></strong>, click <strong>Help me create</strong>, type <code>@</code> to attach your latest Google Doc or Slide deck, swap two stock clips for custom <strong>Veo</strong> B-roll, and publish your first studio explainer in under 15 minutes!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Vids (vids.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

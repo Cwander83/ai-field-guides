@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Stitch: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">Google AI Ultra Creative Studio Series &bull; Late 2026 Edition</div>
+    <h1>Mastering <span>Google Stitch</span></h1>
+    <p class="cover-sub">
+      The complete visual handbook to Google's AI-native UI design studio—turning plain-English prompts, napkin sketches &amp; screenshots into cohesive multi-screen flows, live themes, Figma Auto-Layout frames, and production HTML/Tailwind code.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Prompt &amp; Sketch to UI</span>
+      <span class="cover-badge">Infinite Multi-Screen Canvas</span>
+      <span class="cover-badge">Standard &amp; Experimental Modes</span>
+      <span class="cover-badge">Global Themes &amp; DESIGN.md</span>
+      <span class="cover-badge">One-Click Paste to Figma</span>
+      <span class="cover-badge">HTML/Tailwind &amp; Antigravity MCP</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Google Stitch AI UI Design Studio Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Napkin to Production UI</div>
+      <div class="cover-stat-desc">Transform plain-English app goals, whiteboard wireframes, or screenshots into crisp Mobile and Web interfaces in seconds.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Cohesive Design Systems</div>
+      <div class="cover-stat-desc">Switch Light/Dark modes, accent palettes, fonts, corner radii, and portable DESIGN.md rules across entire user flows.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Built for Figma &amp; Antigravity</div>
+      <div class="cover-stat-desc">Paste editable Auto-Layout layers straight into Figma—or stream clean HTML/Tailwind via MCP into Google Antigravity.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & WHAT IS GOOGLE STITCH ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Google Stitch Complete How-To Guide</span>
+  </div>
+
+  <h2 class="page-title">What Is Google Stitch (And Why It Changes UI Design)</h2>
+  <p class="page-lead">
+    Traditional image generators paint flat pictures of apps filled with garbled text that developers have to rebuild from scratch. <strong>Google Stitch</strong> (<code>stitch.withgoogle.com</code>, born from Google Labs and Galileo AI) is a true <strong>AI-native interface studio</strong>: it thinks in real layout trees, design tokens, multi-screen user flows, editable Figma layers, and clean semantic frontend code.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. How Google Stitch Thinks</strong> (Architecture)</span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Multi-Screen Flows &amp; Surgical Edits</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Targets, Modes &amp; Monthly Quotas</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Paste to Figma &amp; HTML/Tailwind Export</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Stitch Studio UI Tour</strong> (Annotated Map)</span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Ready-to-Run UI Prompt Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Napkin Sketches &amp; Screenshots to UI</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. UX Craft, Contrast &amp; Edge States</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Precision Prompts &amp; Theme Systems</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Stitch &rarr; Google Antigravity (&amp; Jules)</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight Sheet</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>Architecture: From Rough Intent to Editable Layers &amp; Live Code</h3>
+  <div class="figure-box" style="background:#0f172a; padding:13px 15px;">
+    <svg viewBox="0 0 700 176" width="100%" height="176" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: 3 Multimodal Inputs -->
+      <rect x="10" y="10" width="146" height="44" rx="7" fill="#064e3b" stroke="#34d399"/>
+      <text x="20" y="27" fill="#6ee7b7" font-size="8.3" font-weight="800">INPUT A &bull; NATURAL PROMPT</text>
+      <text x="20" y="42" fill="#ffffff" font-size="10.2" font-weight="700">Text or Voice Intent</text>
+
+      <rect x="10" y="64" width="146" height="44" rx="7" fill="#1e3a8a" stroke="#60a5fa"/>
+      <text x="20" y="81" fill="#93c5fd" font-size="8.3" font-weight="800">INPUT B &bull; VISUAL SEED</text>
+      <text x="20" y="96" fill="#ffffff" font-size="10.2" font-weight="700">Sketch or Screenshot</text>
+
+      <rect x="10" y="118" width="146" height="44" rx="7" fill="#312e81" stroke="#818cf8"/>
+      <text x="20" y="135" fill="#c7d2fe" font-size="8.3" font-weight="800">INPUT C &bull; BRAND CONTEXT</text>
+      <text x="20" y="150" fill="#ffffff" font-size="10.2" font-weight="700">Live URL or DESIGN.md</text>
+
+      <!-- Arrows to Gemini Engine -->
+      <path d="M158 32 L188 76 M158 86 L188 86 M158 140 L188 96" stroke="#94a3b8" stroke-width="2"/>
+
+      <!-- Middle 1: Gemini Design Engine -->
+      <rect x="190" y="30" width="164" height="112" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="1.6"/>
+      <text x="202" y="50" fill="#34d399" font-size="8.8" font-weight="800">STEP 1: GEMINI UI ENGINE</text>
+      <text x="202" y="67" fill="#f8fafc" font-size="11" font-weight="700">Structural Planning</text>
+      <text x="202" y="84" fill="#cbd5e1" font-size="8.8">Maps UX hierarchy, spacing</text>
+      <text x="202" y="97" fill="#cbd5e1" font-size="8.8">scale, real domain copy,</text>
+      <text x="202" y="110" fill="#cbd5e1" font-size="8.8">vector icons &amp; semantic</text>
+      <text x="202" y="123" fill="#6ee7b7" font-size="8.8" font-weight="700">component architecture.</text>
+
+      <path d="M358 86 L382 86" stroke="#34d399" stroke-width="2.2"/><polygon points="381,81 388,86 381,91" fill="#34d399"/>
+
+      <!-- Middle 2: Infinite Canvas & Theme Engine -->
+      <rect x="390" y="30" width="152" height="112" rx="10" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="402" y="50" fill="#7dd3fc" font-size="8.8" font-weight="800">STEP 2: LIVE CANVAS</text>
+      <text x="402" y="67" fill="#ffffff" font-size="11" font-weight="700">Multi-Screen +</text>
+      <text x="402" y="81" fill="#ffffff" font-size="11" font-weight="700">Theme Tokens</text>
+      <text x="402" y="98" fill="#e0f2fe" font-size="8.8">Syncs Light/Dark, fonts,</text>
+      <text x="402" y="111" fill="#e0f2fe" font-size="8.8">palettes, radius &amp; live</text>
+      <text x="402" y="124" fill="#e0f2fe" font-size="8.8">hotspot prototypes.</text>
+
+      <path d="M546 86 L570 86" stroke="#38bdf8" stroke-width="2.2"/><polygon points="569,81 576,86 569,91" fill="#38bdf8"/>
+
+      <!-- Right: Handoff Targets -->
+      <rect x="578" y="18" width="112" height="62" rx="8" fill="#3b0764" stroke="#c084fc"/>
+      <text x="588" y="36" fill="#e9d5ff" font-size="8.3" font-weight="800">DESIGN HANDOFF</text>
+      <text x="588" y="51" fill="#ffffff" font-size="10" font-weight="700">Paste to Figma</text>
+      <text x="588" y="65" fill="#f3e8ff" font-size="8.2">True Auto-Layout</text>
+
+      <rect x="578" y="92" width="112" height="62" rx="8" fill="#065f46" stroke="#34d399"/>
+      <text x="588" y="110" fill="#a7f3d0" font-size="8.3" font-weight="800">CODE &amp; IDE MCP</text>
+      <text x="588" y="125" fill="#ffffff" font-size="10" font-weight="700">HTML / Tailwind</text>
+      <text x="588" y="139" fill="#d1fae5" font-size="8.2">&rarr; Antigravity IDE</text>
+    </svg>
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">Core Mindset Shift: "Vibe Designing" With Real Structural Bones</div>
+    You never have to choose between speed and craft. Describe the <em>business problem and user goal</em> first, let Stitch assemble a complete multi-screen layout on its infinite canvas, adjust global theme sliders in real time, and export directly to Figma or your coding agent without redrawing a single rectangle.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, TARGETS & MODES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Modes</span>
+    <span>Mobile vs. Web Targets &amp; Choosing Your Generation Engine</span>
+  </div>
+
+  <h2 class="page-title">First Launch: Targets, Modes &amp; Monthly Allowances</h2>
+  <p class="page-lead">
+    Before typing your first prompt at <code>stitch.withgoogle.com</code>, two quick toggles at the bottom of the composer shape everything Stitch builds: your <strong>Device Target</strong> (<em>Mobile</em> vs. <em>Web</em>) and your <strong>Model Mode</strong> (<em>Standard</em> vs. <em>Experimental</em>).
+  </p>
+
+  <h3>3 Steps to Your First Shippable Screen (Under 60 Seconds)</h3>
+  <div class="grid-3" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">1</span> Launch Stitch Canvas</div>
+      <p>Sign in at <code>stitch.withgoogle.com</code> with your Google account. Click <strong>New Project</strong> to open a fresh infinite canvas with Agent Manager ready.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Select Mobile or Web</div>
+      <p>Pick <strong>Mobile</strong> for touch-first iOS/Android screens (<code>390px–430px</code>) or <strong>Web</strong> for responsive desktop dashboards, SaaS apps, and landing pages.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Pick Mode &amp; Generate</div>
+      <p>Choose <strong>Standard</strong> for rapid multi-screen flows + native Figma paste, or <strong>Experimental</strong> for sketch/image uploads and high-craft aesthetics.</p>
+    </div>
+  </div>
+
+  <h3>Standard Mode vs. Experimental (Pro) Mode: When to Use Which</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Capability</th>
+        <th style="width:39%;">Standard Mode (Gemini Flash Engine)</th>
+        <th style="width:39%;">Experimental / Pro Mode (Gemini Pro Engine)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Primary Strength</strong></td>
+        <td>Blazing-fast multi-screen ideation, structured design systems, and rapid conversational tweaks.</td>
+        <td>Deep visual reasoning, bespoke editorial/3D aesthetics, and complex spatial layout interpretation.</td>
+      </tr>
+      <tr>
+        <td><strong>Image &amp; Sketch Uploads</strong></td>
+        <td>Text prompts, URL-to-theme context, and conversational screen edits.</td>
+        <td><strong>Full Multimodal Seed Support:</strong> Upload napkin sketches, whiteboard photos, wireframes &amp; screenshots!</td>
+      </tr>
+      <tr>
+        <td><strong>Paste to Figma</strong></td>
+        <td><strong>Native 1-Click <code>Copy to Figma</code></strong> (pastes clean editable Auto-Layout frames directly).</td>
+        <td>Exports clean HTML/Tailwind code (importable to Figma via <code>html.to.design</code> or Stitch plugin bridge).</td>
+      </tr>
+      <tr>
+        <td><strong>Frontend Code Export</strong></td>
+        <td>Clean semantic HTML5 + Tailwind CSS + live preview + Stitch MCP access.</td>
+        <td>Rich custom CSS variables, nuanced gradients, HTML5/Tailwind markup + Stitch MCP access.</td>
+      </tr>
+      <tr>
+        <td><strong>Monthly Allowance</strong></td>
+        <td>Generous high-volume pool (~<strong>350 generations/month</strong> standard baseline; expanded in AI Ultra workflows).</td>
+        <td>Dedicated high-reasoning monthly pool (~<strong>50–100 Pro generations/month</strong>; save for hero look-dev &amp; sketches).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Choosing Mobile vs. Web Target Before You Prompt</h3>
+  <div class="grid-2">
+    <div class="callout emerald" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">When to Pick "Mobile" Target</div>
+      Automatically enforces thumb-friendly bottom navigation bars, stacked card rhythms, safe-area top headers, swipeable pill carousels, and slide-up action sheets ideal for React Native, Flutter, SwiftUI, or mobile-web PWAs.
+    </div>
+    <div class="callout" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">When to Pick "Web / Desktop" Target</div>
+      Unlocks collapsible left navigation rails, multi-column Bento analytics grids, filterable data tables, split-pane inspector drawers, and wide hero sections tailored for Next.js, React, and SaaS web platforms.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED STITCH STUDIO TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Interface Map</span>
+    <span>Touring the Google Stitch Infinite Workspace</span>
+  </div>
+
+  <h2 class="page-title">The Google Stitch Workspace: Annotated Visual Tour</h2>
+  <p class="page-lead">
+    Stitch combines an expansive multi-screen canvas with a conversational design agent and global theme tokens. Master these 7 numbered controls to steer every pixel and code export cleanly.
+  </p>
+
+  <!-- Annotated Google Stitch Studio UI Mockup -->
+  <div class="ui-window" style="margin-bottom:10px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">Google Labs &bull; Stitch</span>
+        <span style="background:#065f46; color:#6ee7b7; border:1px solid #34d399; padding:1px 6px; border-radius:4px; font-weight:800; font-size:6.6pt;">MCP READY</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="callout-pin">4</span>
+        <span style="background:#1e293b; border:1px solid #334155; padding:2px 6px; border-radius:4px; font-size:6.9pt;">Theme: <strong>Dark</strong></span>
+        <span style="background:#1e293b; border:1px solid #34d399; padding:2px 6px; border-radius:4px; color:#6ee7b7; font-size:6.9pt;">&#9679; #34D399</span>
+        <span style="background:#1e293b; border:1px solid #334155; padding:2px 6px; border-radius:4px; font-size:6.9pt;">Plus Jakarta &bull; R:12px</span>
+        <span style="background:#3b0764; border:1px solid #c084fc; color:#f3e8ff; padding:2px 7px; border-radius:4px; font-weight:700; font-size:6.9pt;">Copy to Figma <span class="callout-pin" style="width:14px;height:14px;font-size:6.6pt;">6</span></span>
+        <span style="background:#0c4a6e; border:1px solid #38bdf8; color:#e0f2fe; padding:2px 7px; border-radius:4px; font-weight:700; font-size:6.9pt;">&lt;/&gt; Code <span class="callout-pin" style="width:14px;height:14px;font-size:6.6pt;">7</span></span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 198px 1fr; gap:1px; background:#1f2937;">
+      <!-- Left Rail: Prompt, Sketch Upload & Conversational Iteration -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; justify-content:space-between; gap:7px;">
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-weight:800; color:#f8fafc; font-size:7.4pt;">STITCH AGENT &amp; INPUTS</span>
+            <span class="callout-pin">1</span>
+          </div>
+
+          <div style="background:#1e293b; border:1px solid #34d399; border-radius:7px; padding:6px; font-size:6.9pt; color:#e2e8f0;">
+            <div style="color:#6ee7b7; font-weight:700; margin-bottom:2px;">&#128247; Attached: napkin_flow.jpg</div>
+            "Build a 3-screen EV charging app: Station Map, Live Charge Ring, and Receipt..."
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; background:#111827; border:1px solid #334155; border-radius:6px; padding:4px 6px; font-size:6.7pt;">
+            <span>Target: <strong style="color:#38bdf8;">Mobile</strong> | <strong style="color:#fbbf24;">Exp Pro</strong></span>
+            <span class="callout-pin" style="width:15px;height:15px;font-size:6.8pt;">2</span>
+          </div>
+
+          <div style="background:#1e1b4b; border:1px solid #6366f1; border-radius:7px; padding:6px; font-size:6.8pt; color:#e0e7ff;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+              <strong style="color:#a5b4fc;">SELECTED: SCREEN 2</strong>
+              <span class="callout-pin" style="width:15px;height:15px;font-size:6.8pt;">5</span>
+            </div>
+            <em>"Add a 'Stop at 80%' toggle pill below the kWh progress ring."</em>
+          </div>
+        </div>
+
+        <div style="background:#111827; border:1px solid #374151; border-radius:6px; padding:5px 7px; display:flex; justify-content:space-between; align-items:center; font-size:6.8pt;">
+          <span style="color:#94a3b8;">+ Sketch / URL / Voice...</span>
+          <span style="background:#34d399; color:#042f2e; font-weight:800; padding:2px 8px; border-radius:4px;">Generate</span>
+        </div>
+      </div>
+
+      <!-- Right Area: Infinite Multi-Screen Canvas + Code Drawer Peek -->
+      <div style="background:#090d16; padding:9px; display:flex; flex-direction:column; gap:7px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="color:#94a3b8; font-weight:700; font-size:7.2pt;">INFINITE MULTI-SCREEN FLOW CANVAS (85% ZOOM &bull; PROTOTYPE LINKS ON)</span>
+          <span class="callout-pin">3</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
+          <!-- Phone Frame 1 -->
+          <div style="background:#111827; border:1px solid #334155; border-radius:9px; padding:6px;">
+            <div style="font-size:6.4pt; color:#94a3b8; margin-bottom:4px;">01 &bull; Station Finder</div>
+            <div style="height:44px; background:linear-gradient(135deg,#0f172a,#065f46); border-radius:5px; margin-bottom:5px; border:1px solid #1e293b;"></div>
+            <div style="height:14px; background:#1e293b; border-radius:4px; margin-bottom:4px;"></div>
+            <div style="height:18px; background:#34d399; border-radius:4px;"></div>
+          </div>
+
+          <!-- Phone Frame 2 (Selected) -->
+          <div style="background:#111827; border:2px solid #34d399; border-radius:9px; padding:6px;">
+            <div style="font-size:6.4pt; color:#6ee7b7; font-weight:700; margin-bottom:4px;">02 &bull; Live Charge (Selected)</div>
+            <div style="height:44px; width:44px; margin:2px auto 5px auto; border-radius:50%; border:4px solid #34d399; border-right-color:#1e293b;"></div>
+            <div style="height:14px; background:#064e3b; border:1px solid #34d399; border-radius:99px; margin-bottom:4px;"></div>
+            <div style="height:18px; background:#1e293b; border-radius:4px;"></div>
+          </div>
+
+          <!-- Phone Frame 3 -->
+          <div style="background:#111827; border:1px solid #334155; border-radius:9px; padding:6px;">
+            <div style="font-size:6.4pt; color:#94a3b8; margin-bottom:4px;">03 &bull; Session Summary</div>
+            <div style="height:26px; background:#1e293b; border-radius:5px; margin-bottom:5px;"></div>
+            <div style="height:28px; background:#1e293b; border-radius:5px; margin-bottom:5px;"></div>
+            <div style="height:18px; background:#38bdf8; border-radius:4px;"></div>
+          </div>
+        </div>
+
+        <!-- Bottom Code Drawer Strip -->
+        <div style="background:#0f172a; border:1px solid #1e293b; border-radius:6px; padding:5px 8px; font-family:monospace; font-size:6.7pt; color:#7dd3fc; display:flex; justify-content:space-between;">
+          <span>&lt;div class="rounded-xl bg-slate-900 border border-emerald-400/40 p-4 flex items-center..."&gt;</span>
+          <span style="color:#6ee7b7; font-family:sans-serif; font-weight:700;">Export HTML / DESIGN.md</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Interface Reference</h3>
+  <div class="grid-2" style="gap:6px 14px; font-size:8.6pt;">
+    <div><span class="callout-pin">1</span> <strong>Prompt &amp; Multimodal Composer:</strong> Describe app goals by text or voice, attach wireframe sketches/screenshots, or paste a brand URL.</div>
+    <div><span class="callout-pin">2</span> <strong>Target &amp; Engine Switcher:</strong> Toggle <code>Mobile</code> vs. <code>Web</code> layout geometry and switch between <code>Standard</code> and <code>Experimental</code> engines.</div>
+    <div><span class="callout-pin">3</span> <strong>Infinite Multi-Screen Canvas:</strong> Pan, zoom, arrange 4–10+ connected screens side by side, and test interactive prototype hotspots in Live Mode.</div>
+    <div><span class="callout-pin">4</span> <strong>Global Theme Bar:</strong> Instantly flip Dark/Light mode, accent hex color, Google Font pairing, and corner radius across every screen at once.</div>
+    <div><span class="callout-pin">5</span> <strong>Contextual Edit &amp; Variant Drawer:</strong> Click any individual screen or component to generate 3 layout variants or chat surgical refinements.</div>
+    <div><span class="callout-pin">6</span> <strong>Copy to Figma Button:</strong> Copies real vector frames, Auto-Layout stacks, and editable typography straight onto your system clipboard.</div>
+  </div>
+  <div style="margin-top:5px; font-size:8.6pt;">
+    <span class="callout-pin">7</span> <strong>Code, Live Preview &amp; MCP Settings:</strong> Inspect live interactive HTML/Tailwind CSS, download <code>DESIGN.md</code> tokens, or grab your Stitch MCP API key for Google Antigravity.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: SKETCH OR SCREENSHOT TO PRODUCTION UI ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Multimodal Inputs</span>
+    <span>Turning Napkin Sketches, Wireframes &amp; Screenshots into UI</span>
+  </div>
+
+  <h2 class="page-title">From Napkin Sketch or Screenshot to Production UI</h2>
+  <p class="page-lead">
+    Sometimes drawing three boxes on dotted paper is ten times faster than explaining a spatial layout in words. Switch Stitch to <strong>Experimental Mode</strong>, click the attachment icon, and let Gemini Vision translate rough ink into polished UI and clean DOM structure.
+  </p>
+
+  <div class="figure-box" style="background:#0f172a;">
+    <img src="assets/sketch_to_polished_ui.jpg" alt="Progression from hand-drawn pencil wireframe on dotted notebook paper to 3D emerald wireframe layers to polished dark-mode mobile UI" style="width:100%; height:255px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr 1.1fr; background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.5pt; border-top:1px solid #334155;">
+      <div><strong style="color:#cbd5e1;">1. PAPER SKETCH:</strong> Simple boxes, avatar circles &amp; hierarchy lines.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#38bdf8;">2. GEMINI PARSING:</strong> Infers Auto-Layout stacks, cards &amp; chart zones.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#34d399;">3. STITCH OUTPUT:</strong> High-craft themed UI + semantic HTML/Tailwind!</div>
+    </div>
+  </div>
+
+  <h3>3 Multimodal Upload Workflows Every Designer Should Master</h3>
+  <div class="grid-3" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">1</span> Paper &amp; Whiteboard</div>
+      <p style="font-size:8.3pt;">Use dark felt-tip pen on plain or dotted paper. Draw clear bounding boxes, standard <code>[X]</code> image placeholders, and short section labels, then snap a well-lit overhead photo without harsh shadows.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Screenshot Remixing</div>
+      <p style="font-size:8.3pt;">Upload a screenshot of an existing app (or your legacy v1 product) and prompt: <em>"Keep this information architecture, but redesign for a luxury veterinary clinic in warm sage and cream."</em></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> URL &amp; Moodboards</div>
+      <p style="font-size:8.3pt;">Point Stitch at your live marketing URL—or upload a brand style tile—to automatically extract colors, font mood, and button geometry into a reusable <code>DESIGN.md</code> system!</p>
+    </div>
+  </div>
+
+  <h3>Image-Input Best Practices (Avoiding Misread Layouts)</h3>
+  <table class="clean-table" style="font-size:8.4pt;">
+    <thead>
+      <tr>
+        <th style="width:28%;">Input Type</th>
+        <th style="width:36%;">Do This</th>
+        <th style="width:36%;">Avoid This</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Hand-Drawn Sketch</strong></td>
+        <td>Crop tightly to a single screen frame (or clearly numbered frames) with bold marker lines.</td>
+        <td>Cursive margin notes, crossed-out scribbles, or angled perspective photos across two laptop monitors.</td>
+      </tr>
+      <tr>
+        <td><strong>Existing App Screenshot</strong></td>
+        <td>Tell Stitch explicitly what to <em>keep</em> (layout grid) vs. what to <em>replace</em> (industry, brand palette, data).</td>
+        <td>Uploading a screenshot with zero text prompt—Stitch won't know whether to modernize or clone it.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin-top:4px; padding:8px 12px;">
+    <div class="callout-title">Golden Formula: Visual Seed = "Where Things Go" &bull; Text Prompt = "How It Feels"</div>
+    Never waste time shading buttons on paper! Let your 30-second sketch control spatial hierarchy, and add one crisp sentence: <code>"Turn this wireframe into a dark-mode podcast studio dashboard with emerald waveform cards and crisp tabular metrics."</code>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: PRECISION UI PROMPTS & THEME SYSTEMS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Prompting &amp; Themes</span>
+    <span>The 5-Part UI Prompt Formula &amp; Global Theme Controls</span>
+  </div>
+
+  <h2 class="page-title">Writing High-Precision UI Prompts &amp; Mastering Themes</h2>
+  <p class="page-lead">
+    Vague prompts like <em>"make a finance app"</em> yield generic templates. Giving Stitch five structured ingredients produces agency-grade layouts—which you can then restyle across radically different aesthetics in one click.
+  </p>
+
+  <div class="figure-box" style="background:#090d16; margin:4px 0 8px 0;">
+    <img src="assets/theme_system_showcase.jpg" alt="Four identical mobile layouts rendered in Nordic Light Glass, Cyberpunk Neon Dark, Warm Terracotta Editorial, and Playful 3D Bento themes" style="width:100%; height:265px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); background:#0f172a; color:#f8fafc; padding:5px 10px; font-size:7.4pt; border-top:1px solid #334155;">
+      <div><strong style="color:#bae6fd;">1. Nordic Frosted Light:</strong> Airy white, pale mint, subtle glass.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#34d399;">2. Cyberpunk Neon Dark:</strong> Obsidian surface, glowing cyan/emerald.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#fdba74;">3. Editorial Wellness:</strong> Warm sand, terracotta &amp; organic sage.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#f9a8d4;">4. Tactile Bento Pop:</strong> Pastel coral/sky tiles, 24px pill corners.</div>
+    </div>
+  </div>
+
+  <h3 style="margin:7px 0 4px 0;">The 5-Part Stitch UI Prompt Formula (Color-Coded Anatomy)</h3>
+  <div class="card" style="margin-bottom:7px; padding:8px 11px;">
+    <div style="font-size:8pt; margin-bottom:4px;">
+      <span class="p-tag p-subj">1. App Purpose &amp; Persona</span>
+      <span class="p-tag p-style">2. Target Device</span>
+      <span class="p-tag p-cam">3. Layout Hierarchy</span>
+      <span class="p-tag p-act">4. Concrete Components &amp; Data</span>
+      <span class="p-tag p-sfx">5. Aesthetic &amp; Theme Vibe</span>
+    </div>
+    <div style="font-size:8.45pt; line-height:1.52; color:#0f172a;">
+      "Design a <span class="p-tag p-subj">personal sleep &amp; recovery coach app for endurance athletes</span> as a <span class="p-tag p-style">Mobile iOS screen</span>. Use a <span class="p-tag p-cam">clean top greeting header, a dominant central recovery ring card, a 2x2 Bento metric grid below, and a 4-icon bottom tab bar</span>. Populate with <span class="p-tag p-act">realistic data: 92% Recovery Score, 7h 48m Sleep Stages bar, HRV 74 ms sparkline, and Resting HR 46 bpm</span>. Style in <span class="p-tag p-sfx">deep midnight slate (#0B1120) with luminous emerald-mint accents, Plus Jakarta Sans typography, and 16px rounded cards</span>."
+    </div>
+  </div>
+
+  <h3 style="margin:7px 0 4px 0;">Stitch's 4 Global Theme Levers + Portable <code>DESIGN.md</code></h3>
+  <table class="clean-table" style="font-size:8.25pt; margin:4px 0 0 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Theme Control</th>
+        <th style="width:77%;">How to Steer It Without Re-Generating Your Layout</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Light / Dark Polarity</strong></td>
+        <td>Flip the global sun/moon switch to test surface contrast, elevation shadows, and chart legibility in both modes instantly.</td>
+      </tr>
+      <tr>
+        <td><strong>Primary Accent Palette</strong></td>
+        <td>Pick a preset swatch or paste your exact brand hex (e.g., <code>#10B981</code>)—Stitch recalculates hover tints, badges, and chart fills automatically.</td>
+      </tr>
+      <tr>
+        <td><strong>Typography Scale</strong></td>
+        <td>Swap geometric sans (<em>Inter, Plus Jakarta</em>), editorial serif (<em>Playfair, Instrument Serif</em>), or technical mono (<em>JetBrains Mono</em>) globally.</td>
+      </tr>
+      <tr>
+        <td><strong>Border Radius &amp; <code>DESIGN.md</code></strong></td>
+        <td>Slide corner radius from architectural <code>0px</code> sharp to <code>12px</code> SaaS modern or <code>24px</code> consumer pill—then export <code>DESIGN.md</code> so coding agents obey every token!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: MULTI-SCREEN USER FLOWS & ITERATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Flows &amp; Iteration</span>
+    <span>Designing Cohesive Multi-Screen User Flows &amp; Surgical Edits</span>
+  </div>
+
+  <h2 class="page-title">Building Cohesive Multi-Screen Flows &amp; Surgical Edits</h2>
+  <p class="page-lead">
+    Real software isn't one hero screen—it is an end-to-end journey. Stitch's infinite canvas and <strong>Agent Manager</strong> let you map 4 to 8 connected screens that share identical navigation chrome, spacing rhythm, and theme tokens.
+  </p>
+
+  <!-- 4-Screen Connected Flow SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:11px 13px; margin-bottom:10px;">
+    <svg viewBox="0 0 680 118" width="100%" height="118" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="6" width="668" height="20" rx="5" fill="#0f172a"/>
+      <text x="340" y="19.5" text-anchor="middle" fill="#6ee7b7" font-size="8.6" font-weight="800">SHARED GLOBAL THEME LOCK: DARK SLATE (#0F172A) &bull; ACCENT #34D399 &bull; INTER &bull; 12PX RADIUS &bull; DESIGN.MD</text>
+
+      <rect x="8" y="34" width="150" height="76" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+      <text x="18" y="51" fill="#065f46" font-size="8.8" font-weight="800">SCREEN 1: ONBOARDING</text>
+      <text x="18" y="66" fill="#334155" font-size="8.3">Value prop hero, OAuth</text>
+      <text x="18" y="78" fill="#334155" font-size="8.3">"Continue with Google",</text>
+      <text x="18" y="90" fill="#334155" font-size="8.3">3-step goal selector.</text>
+
+      <path d="M160 72 L176 72" stroke="#059669" stroke-width="2"/><polygon points="175,67 182,72 175,77" fill="#059669"/>
+
+      <rect x="184" y="34" width="150" height="76" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="194" y="51" fill="#1e40af" font-size="8.8" font-weight="800">SCREEN 2: HOME BENTO</text>
+      <text x="194" y="66" fill="#334155" font-size="8.3">Pinned Winner! Daily</text>
+      <text x="194" y="78" fill="#334155" font-size="8.3">KPI summary, sparkline</text>
+      <text x="194" y="90" fill="#334155" font-size="8.3">cards &amp; bottom nav bar.</text>
+
+      <path d="M336 72 L352 72" stroke="#2563eb" stroke-width="2"/><polygon points="351,67 358,72 351,77" fill="#2563eb"/>
+
+      <rect x="360" y="34" width="150" height="76" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="370" y="51" fill="#5b21b6" font-size="8.8" font-weight="800">SCREEN 3: DETAIL VIEW</text>
+      <text x="370" y="66" fill="#334155" font-size="8.3">Drill-down interactive</text>
+      <text x="370" y="78" fill="#334155" font-size="8.3">chart, filter pills, item</text>
+      <text x="370" y="90" fill="#334155" font-size="8.3">specs &amp; primary CTA.</text>
+
+      <path d="M512 72 L528 72" stroke="#7c3aed" stroke-width="2"/><polygon points="527,67 534,72 527,77" fill="#7c3aed"/>
+
+      <rect x="536" y="34" width="136" height="76" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+      <text x="546" y="51" fill="#9a3412" font-size="8.8" font-weight="800">SCREEN 4: CHECKOUT</text>
+      <text x="546" y="66" fill="#334155" font-size="8.3">Order breakdown,</text>
+      <text x="546" y="78" fill="#334155" font-size="8.3">Apple/Google Pay sheet</text>
+      <text x="546" y="90" fill="#334155" font-size="8.3">&amp; confirmation state.</text>
+    </svg>
+  </div>
+
+  <h3>The "Anchor First, Expand Second" Workflow (Best Consistency)</h3>
+  <ol style="margin-bottom:9px;">
+    <li><strong>Nail One Anchor Screen First:</strong> Generate your core Home Dashboard or Product Page first, explore 2–3 layout variants, and dial in your exact Global Theme palette, font, and radius.</li>
+    <li><strong>Expand the Flow From Your Anchor:</strong> Select that winning screen on the canvas and prompt: <code>"Using this exact design system and navigation bar, generate 3 connected screens: (1) Onboarding Sign-In, (2) Analytics Drill-Down, and (3) User Settings."</code></li>
+    <li><strong>Link Interactive Hotspots:</strong> Toggle Stitch's <strong>Prototype / Live Mode</strong> to connect buttons across screens and click through the live user journey in your browser before writing a line of backend code.</li>
+  </ol>
+
+  <h3>Surgical Conversational Edits (Changing 10% Without Breaking 90%)</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">&#10003;</span> Scoped Component Prompts</div>
+      <p style="font-size:8.4pt;"><strong>Click the specific screen or section first</strong>, then write a surgical delta: <code>"Keep the header and KPI row untouched; replace only the bottom activity feed with a 5-row sortable invoice table with Paid/Pending status pills."</code></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">&#9888;</span> Branching Variants Safely</div>
+      <p style="font-size:8.4pt;">Want to test a bold new layout without risking your current favorite? Click <strong>Duplicate / Generate Variants</strong> on the canvas so Agent Manager explores 3 parallel options side by side while preserving your original frame.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: PASTE TO FIGMA & HTML/TAILWIND EXPORT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Figma &amp; Code Export</span>
+    <span>Seamless Handoff: Copy to Figma &amp; Production HTML/Tailwind</span>
+  </div>
+
+  <h2 class="page-title">Design-to-Dev Handoff: Paste to Figma &amp; Clean Code</h2>
+  <p class="page-lead">
+    Stitch eliminates the dead-end "static mockup trap." Whether your next stop is a collaborative design critique in <strong>Figma</strong> or a live repository in <strong>Google Antigravity</strong>, your work travels with full structure intact.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">A</span> One-Click "Paste to Figma" Workflow</div>
+      <ol style="font-size:8.35pt; padding-left:16px; margin-bottom:4px;">
+        <li>Select any screen (or multi-screen group) generated in <strong>Standard Mode</strong>.</li>
+        <li>Click <strong>Copy to Figma</strong> in the top action bar.</li>
+        <li>Open any Figma design file and press <code>Cmd + V</code> (Mac) or <code>Ctrl + V</code> (Windows).</li>
+        <li><strong>Inspect your layers:</strong> Stitch creates real nested <strong>Figma Auto-Layout</strong> frames (horizontal/vertical padding &amp; gap rules), editable text nodes, crisp SVG icons, and clean fill tokens!</li>
+      </ol>
+      <p style="font-size:7.9pt; color:#475569; margin:0;"><em>Tip for Experimental Mode screens:</em> Export the screen's HTML or live preview link and import via Figma's <code>html.to.design</code> plugin to preserve editable layers.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">B</span> Clean HTML &amp; Tailwind CSS Export</div>
+      <ol style="font-size:8.35pt; padding-left:16px; margin-bottom:4px;">
+        <li>Click any screen and open the <strong><code>&lt;/&gt; Code</code></strong> drawer (or toggle <strong>Live Preview</strong> to test responsive resizing).</li>
+        <li>Copy or download the single-file <strong>HTML5 + Tailwind CSS</strong> bundle.</li>
+        <li><strong>What's inside:</strong> Semantic tags (<code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>), clean Flexbox/CSS Grid classes, Google Fonts links, and zero absolute-positioned spaghetti!</li>
+        <li>Download <code>DESIGN.md</code> alongside your code to document every color, font, and spacing token for AI coding agents.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3>Choosing the Right Stitch Export Path for Your Team</h3>
+  <table class="clean-table" style="font-size:8.35pt;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Export Format</th>
+        <th style="width:32%;">What Gets Transferred</th>
+        <th style="width:45%;">Best When You Need To...</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Copy to Figma</strong></td>
+        <td>Editable Auto-Layout frames, vector icons, text layers &amp; fills.</td>
+        <td>Co-edit with product designers, attach to an existing enterprise Figma component library, or run stakeholder redlines.</td>
+      </tr>
+      <tr>
+        <td><strong>HTML + Tailwind CSS</strong></td>
+        <td>Responsive semantic DOM markup + Tailwind utility classes.</td>
+        <td>Drop directly into a prototype server, convert into React/Vue/Svelte components, or deploy an instant landing page.</td>
+      </tr>
+      <tr>
+        <td><strong><code>DESIGN.md</code> File</strong></td>
+        <td>Structured Markdown design-system contract (tokens &amp; UX rules).</td>
+        <td>Commit into your Git repo root so <strong>Google Antigravity</strong>, Jules, or Claude/Cursor enforce your exact aesthetic on every PR.</td>
+      </tr>
+      <tr>
+        <td><strong>Stitch MCP Server</strong></td>
+        <td>Live API bridge exposing all Stitch projects, screens &amp; code.</td>
+        <td>Let Google Antigravity pull screens directly into Next.js, Flutter, or Swift projects with zero manual copy-paste (Page 11!).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="padding:8px 12px;">
+    <div class="callout-title">2-Minute Figma Hygiene Habit After Pasting</div>
+    Right after pressing <code>Cmd + V</code> in Figma, select the pasted frame, verify your Google Font is installed locally, and click <strong>Create Component</strong> on repeated navbars and cards—you just turned a 20-second AI generation into a reusable design system!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 READY-TO-RUN STITCH UI PROMPT RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; UI Prompt Cookbook</span>
+    <span>5 Ready-to-Run Google Stitch Blueprints</span>
+  </div>
+
+  <h2 class="page-title">5 Copy-Paste Stitch Recipes for Mobile &amp; Web Apps</h2>
+  <p class="page-lead">
+    Paste any of these five battle-tested prompts straight into Stitch—each is engineered with clear hierarchy, realistic domain copy, and crisp theme tokens so it renders cleanly on the very first run.
+  </p>
+
+  <table class="clean-table" style="font-size:8.2pt; line-height:1.36;">
+    <thead>
+      <tr>
+        <th style="width:20%;">App Blueprint</th>
+        <th style="width:15%;">Target &amp; Mode</th>
+        <th style="width:65%;">Copy-Paste Stitch Prompt (Includes Layout, Data &amp; Theme)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. SaaS AI Spend &amp; Analytics Console</strong></td>
+        <td><code>Web</code><br/>Standard / Exp</td>
+        <td><em>"Design a B2B AI observability dashboard. Left collapsible icon+label sidebar; top header with workspace switcher and date-range picker; 4-card KPI row (Total Requests 4.2M, P95 Latency 310ms, Cache Hit 68%, Monthly Spend $1,840); wide stacked area chart of token usage by model; bottom filterable trace log table with status badges. Dark slate (<code>#0B1120</code>) theme, emerald (<code>#34D399</code>) accents, Inter + JetBrains Mono numbers, 10px radius."</em></td>
+      </tr>
+      <tr>
+        <td><strong>2. AI Fitness &amp; Habit Coach</strong></td>
+        <td><code>Mobile</code><br/>Standard</td>
+        <td><em>"Create a sleek iOS daily habit &amp; workout tracker home screen. Top greeting 'Good morning, Maya' with streak pill '14 Days'; hero dual-ring progress card showing Move (620/700 kcal) and Mindfulness (15/20 min); 3 checkable habit tiles (Morning Hydration, 45m Strength, Read 20 Pages) with subtle progress bars; floating emerald '+' quick-log button and 4-tab bottom bar. Obsidian dark mode, electric mint accents, 20px rounded cards."</em></td>
+      </tr>
+      <tr>
+        <td><strong>3. Boutique Ceramic Storefront</strong></td>
+        <td><code>Web</code><br/>Experimental</td>
+        <td><em>"Design an editorial e-commerce product &amp; collection page for handcrafted Kyoto ceramics. Minimal top nav with cart badge; split hero featuring asymmetric gallery grid on left and sticky buy box on right ('Kuro Glaze Pour-Over Set — $88', glaze swatch dots, quantity stepper, 'Add to Bag' button, care accordion); 3-column 'Complete the Table' cross-sell grid below. Warm alabaster (<code>#FAF7F2</code>), terracotta (<code>#C25E3E</code>) CTA, editorial serif headings."</em></td>
+      </tr>
+      <tr>
+        <td><strong>4. Personal Finance Bento Tracker</strong></td>
+        <td><code>Mobile</code><br/>Standard</td>
+        <td><em>"Build a calm personal net-worth &amp; budget mobile app. Clean header with month selector 'November 2026'; hero Safe-to-Spend card ($2,410 remaining of $4,000 budget) with smooth pace curve; 2x2 Bento grid for Checking, High-Yield Savings (+4.6% APY), Investments, and Upcoming Bills; bottom 'Recent Transactions' list with merchant icons. Crisp Nordic light mode (<code>#F8FAFC</code>), deep cobalt (<code>#2563EB</code>) accents, 16px radius."</em></td>
+      </tr>
+      <tr>
+        <td><strong>5. Creator Portfolio &amp; Booking Hub</strong></td>
+        <td><code>Web</code><br/>Standard / Exp</td>
+        <td><em>"Design a product designer portfolio &amp; paid advisory booking page. Availability pill ('2 Q4 Advisory Slots Open'); bold typographic intro headline; 2x2 interactive Bento case-study grid with metric tags ('+38% Checkout Conversion'); embedded 3-tier session booking strip (30m Critique $120, 60m Design System Audit $250, Async Review $95) with calendar time-slot pills. High-contrast monochrome with sky-cyan (<code>#38BDF8</code>) highlights."</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:6px; padding:8px 12px;">
+    <div class="callout-title">Instant Follow-Up Move: Turn Any Recipe Above into a 5-Screen Prototype</div>
+    Once your favorite recipe renders, select the frame and send this second prompt: <code>"Keep this exact DESIGN.md aesthetic and navigation chrome, and generate 4 companion screens: Empty State, Detail Drawer, Settings, and Checkout."</code>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: UX CRAFT & ACCESSIBILITY INSIDE STITCH ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; UX Craft &amp; A11y</span>
+    <span>Visual Hierarchy, Contrast, Touch Targets &amp; Real-World Edge States</span>
+  </div>
+
+  <h2 class="page-title">Elevating AI Mockups into Shippable, Accessible UX</h2>
+  <p class="page-lead">
+    Left unguided, any AI UI tool will happily pack twelve charts onto one phone screen or place pale mint text on a white button. Apply these four senior UX guardrails inside Stitch so your designs pass real engineering and accessibility reviews.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">1</span> Enforce the "One Primary Job" Rule</div>
+      <p style="font-size:8.35pt;">Every screen needs <strong>one</strong> unmistakable primary action and 3–4 content groups max. Include <code>"generous 24px section spacing, progressive disclosure, and a single high-contrast primary CTA"</code> in prompts to prevent cramped dashboard soup.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> WCAG AA Contrast &amp; Surface Steps</div>
+      <p style="font-size:8.35pt;">When using bright accents like mint (<code>#34D399</code>) or amber (<code>#FBBF24</code>), instruct Stitch: <code>"Use dark obsidian text (#042F2E) on bright accent buttons for 7:1 WCAG contrast, and step dark cards cleanly from #0B1120 bg to #1E293B surface."</code></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Ergonomic Touch &amp; Click Targets</div>
+      <p style="font-size:8.35pt;">For <strong>Mobile</strong> targets, ask for <code>"minimum 44x44px tap targets, 8px minimum gap between icon buttons, and primary actions anchored in the lower thumb zone"</code>—critical before exporting to SwiftUI or Flutter.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">4</span> Always Generate the "Unhappy Paths"</div>
+      <p style="font-size:8.35pt;">Developers stall when designs only show sunny-day data! Ask Stitch to generate matching frames for: <strong>Zero-Data Empty State</strong>, <strong>Skeleton Shimmer Loading</strong>, <strong>Inline Form Error State</strong>, and <strong>Confirmation Toast</strong>.</p>
+    </div>
+  </div>
+
+  <h3>Quick Audit: Turning "AI Demo Smells" into Production Polish</h3>
+  <table class="clean-table" style="font-size:8.35pt;">
+    <thead>
+      <tr>
+        <th style="width:34%;">Common "AI Mockup Smell"</th>
+        <th style="width:66%;">10-Second Conversational Fix Inside Stitch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>3 competing solid-colored primary buttons in one header</strong></td>
+        <td><code>"Demote Export and Filter to subtle ghost/outline buttons; keep only '+ New Project' as a solid primary fill."</code></td>
+      </tr>
+      <tr>
+        <td><strong>Fake placeholder labels ("Card 1", "Metric A", "Lorem ipsum")</strong></td>
+        <td><code>"Replace all placeholder text with realistic veterinary clinic appointment names, pet breeds, and timestamps."</code></td>
+      </tr>
+      <tr>
+        <td><strong>Tiny 10px captions &amp; dense 7-column table on Mobile</strong></td>
+        <td><code>"Convert this mobile table into a clean vertical stacked card list with 15px titles and right-aligned status pills."</code></td>
+      </tr>
+      <tr>
+        <td><strong>Charts missing axis units, legends, or time toggles</strong></td>
+        <td><code>"Add clear Y-axis dollar labels, a 7D / 30D / 1Y segmented pill toggle, and a hover tooltip callout on peak day."</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: STITCH -> GOOGLE ANTIGRAVITY & JULES PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Studio Synergy</span>
+    <span>From Google Stitch UI to Full-Stack Apps in Google Antigravity &amp; Jules</span>
+  </div>
+
+  <h2 class="page-title">Power Pipeline: Design in Stitch, Ship in Antigravity</h2>
+  <p class="page-lead">
+    Pairing <strong>Google Stitch</strong> with your <strong>Google Antigravity &amp; Jules</strong> setup creates Google's flagship end-to-end software factory: Stitch acts as your instant UX &amp; design-system studio, Antigravity builds the real full-stack application via <strong>MCP</strong>, and Jules handles background verification.
+  </p>
+
+  <!-- 5-Step Stitch -> Antigravity -> Jules Bridge SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:11px 13px; margin-bottom:10px;">
+    <svg viewBox="0 0 690 138" width="100%" height="138" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stitch Zone Banner -->
+      <rect x="8" y="8" width="262" height="22" rx="5" fill="#065f46"/>
+      <text x="139" y="23" text-anchor="middle" fill="#d1fae5" font-size="9" font-weight="800">PHASE 1: GOOGLE STITCH (UI &amp; DESIGN.MD)</text>
+
+      <!-- Antigravity + Jules Banner -->
+      <rect x="282" y="8" width="400" height="22" rx="5" fill="#0f172a"/>
+      <text x="482" y="23" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="800">PHASE 2: GOOGLE ANTIGRAVITY IDE + JULES (FULL-STACK &amp; QA)</text>
+
+      <!-- Step 1 -->
+      <rect x="8" y="38" width="124" height="90" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+      <text x="17" y="55" fill="#065f46" font-size="9.2" font-weight="800">1. Flow &amp; Theme</text>
+      <text x="17" y="70" fill="#334155" font-size="8.2">Design 4–6 screens,</text>
+      <text x="17" y="82" fill="#334155" font-size="8.2">lock Dark/Light tokens</text>
+      <text x="17" y="94" fill="#334155" font-size="8.2">&amp; verify UX states on</text>
+      <text x="17" y="106" fill="#334155" font-size="8.2">Stitch's live canvas.</text>
+
+      <path d="M134 83 L144 83" stroke="#059669" stroke-width="2"/>
+
+      <!-- Step 2 -->
+      <rect x="146" y="38" width="124" height="90" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+      <text x="155" y="55" fill="#065f46" font-size="9.2" font-weight="800">2. Key + DESIGN.md</text>
+      <text x="155" y="70" fill="#334155" font-size="8.2">Generate your Stitch</text>
+      <text x="155" y="82" fill="#334155" font-size="8.2">API Key in Settings &amp;</text>
+      <text x="155" y="94" fill="#334155" font-size="8.2">export DESIGN.md to</text>
+      <text x="155" y="106" fill="#334155" font-size="8.2">your repo root.</text>
+
+      <path d="M272 83 L284 83" stroke="#0284c7" stroke-width="2.5"/><polygon points="282,78 289,83 282,88" fill="#0284c7"/>
+
+      <!-- Step 3 -->
+      <rect x="290" y="38" width="124" height="90" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="299" y="55" fill="#1e40af" font-size="9.2" font-weight="800">3. Stitch MCP</text>
+      <text x="299" y="70" fill="#334155" font-size="8.2">Connect Stitch MCP</text>
+      <text x="299" y="82" fill="#334155" font-size="8.2">(&amp; stitch-skills) inside</text>
+      <text x="299" y="94" fill="#334155" font-size="8.2">Antigravity to pull</text>
+      <text x="299" y="106" fill="#334155" font-size="8.2">screens &amp; DOM live!</text>
+
+      <path d="M416 83 L426 83" stroke="#2563eb" stroke-width="2"/>
+
+      <!-- Step 4 -->
+      <rect x="428" y="38" width="124" height="90" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="437" y="55" fill="#1e40af" font-size="9.2" font-weight="800">4. Wire Backend</text>
+      <text x="437" y="70" fill="#334155" font-size="8.2">Antigravity converts</text>
+      <text x="437" y="82" fill="#334155" font-size="8.2">HTML into Next.js +</text>
+      <text x="437" y="94" fill="#334155" font-size="8.2">Auth + Postgres/API</text>
+      <text x="437" y="106" fill="#334155" font-size="8.2">&amp; verifies in browser.</text>
+
+      <path d="M554 83 L564 83" stroke="#7c3aed" stroke-width="2"/>
+
+      <!-- Step 5 -->
+      <rect x="566" y="38" width="116" height="90" rx="8" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+      <text x="575" y="55" fill="#34d399" font-size="9.2" font-weight="800">5. Jules Async</text>
+      <text x="575" y="70" fill="#cbd5e1" font-size="8.2">Push to GitHub; let</text>
+      <text x="575" y="82" fill="#cbd5e1" font-size="8.2">Jules write Playwright</text>
+      <text x="575" y="94" fill="#cbd5e1" font-size="8.2">a11y tests &amp; mobile</text>
+      <text x="575" y="106" fill="#cbd5e1" font-size="8.2">responsive PRs!</text>
+    </svg>
+  </div>
+
+  <h3>How to Wire Stitch Directly Into Google Antigravity (3 Options)</h3>
+  <ul>
+    <li><strong>Option 1 — Live Stitch MCP Integration (Fastest):</strong> Open Stitch <strong>Settings &rarr; API / MCP</strong>, copy your key, and add the Stitch MCP server (plus optional <code>google-labs-code/stitch-skills</code>) in Antigravity. Then prompt Antigravity: <code>"Pull the 4 screens from my Stitch 'EV Charger' project, convert them into reusable Next.js App Router components obeying DESIGN.md, and wire Supabase auth."</code></li>
+    <li><strong>Option 2 — HTML + Screenshot Dual Drop:</strong> Export Stitch's HTML/Tailwind zip into your workspace <em>and</em> drop the PNG preview into Antigravity's chat—Antigravity uses the exact Tailwind classes while verifying visual fidelity in its built-in browser agent!</li>
+    <li><strong>Option 3 — Delegate UI Polish &amp; Regression Tests to Jules:</strong> Once your core app runs, tag <strong>Jules</strong> on GitHub to add skeleton loading states, dark-mode persistence, and Playwright end-to-end tests matching your repo's <code>DESIGN.md</code>.</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">Why Separating "UI Exploration in Stitch" From "Code Architecture in Antigravity" Wins</div>
+    Asking a full-stack IDE agent to invent visual aesthetics from scratch burns coding tokens and slows iteration. Exploring 5 visual themes in Stitch takes 90 seconds—handing Antigravity a finished Stitch design means your coding agent spends 100% of its brainpower on clean state management, APIs, security, and tests!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHEAT SHEET ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; Stitch Designer Pre-Flight Cheat Sheet</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Cheat Sheet</h2>
+  <p class="page-lead">
+    Keep this page handy alongside <code>stitch.withgoogle.com</code>—every common UI generation hiccup has a reliable 10-second fix.
+  </p>
+
+  <h3>Top 7 Google Stitch Issues &amp; 10-Second Fixes</h3>
+  <table class="clean-table" style="font-size:8.25pt;">
+    <thead>
+      <tr>
+        <th style="width:31%;">Symptom / Problem</th>
+        <th style="width:69%;">Root Cause &amp; 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>Copy to Figma</code> button is grayed out or missing</strong></td>
+        <td>Screen was generated in <strong>Experimental Mode</strong>. Re-generate or branch in <strong>Standard Mode</strong> for native 1-click Figma paste, or import Experimental HTML via Figma's <code>html.to.design</code> plugin.</td>
+      </tr>
+      <tr>
+        <td><strong>Sketch/wireframe upload icon isn't clickable</strong></td>
+        <td>Workspace is currently set to Standard Mode text-only flow. Toggle the mode selector to <strong>Experimental (Pro) Mode</strong> to unlock multimodal sketch and screenshot attachments.</td>
+      </tr>
+      <tr>
+        <td><strong>Editing one widget accidentally redesigned the whole screen</strong></td>
+        <td>Prompt was sent globally without scoping. <strong>Click the specific screen/section first</strong> and prefix with: <code>"Keep header, nav, and palette identical; update ONLY the..."</code></td>
+      </tr>
+      <tr>
+        <td><strong>Multi-screen flow drifts in button shape or colors</strong></td>
+        <td>Screens were prompted in separate unlinked sessions. Set your <strong>Global Theme Bar</strong> (accent, font, radius) on Screen 1 first, then select Screen 1 and ask Stitch to expand companion screens from it.</td>
+      </tr>
+      <tr>
+        <td><strong>Generated screen feels overcrowded &amp; claustrophobic</strong></td>
+        <td>Prompt listed too many widgets for one viewport. Ask Stitch: <code>"Increase whitespace and card padding to 24px; move secondary settings into a slide-over drawer."</code></td>
+      </tr>
+      <tr>
+        <td><strong>Hand-drawn sketch produced weird floating boxes</strong></td>
+        <td>Low-contrast pencil or angled shadow in photo. Retake flat overhead in bright light with dark marker boxes, and add a 1-sentence prompt naming each boxed zone.</td>
+      </tr>
+      <tr>
+        <td><strong>Pasted Figma text wraps slightly differently</strong></td>
+        <td>Missing local Google Font in Figma Desktop. Install the matching Google Font (e.g., <em>Plus Jakarta Sans</em> or <em>Inter</em>) or select all and apply your team's Figma text style.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:6px;">
+    <div class="card-title" style="font-size:10.1pt; color:#34d399; margin-bottom:5px;">
+      Stitch Designer Pre-Flight Checklist: 6 Habits for Instant Production UI
+    </div>
+    <div class="grid-2" style="gap:5px 16px; font-size:8.35pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Pick <code>Mobile</code> vs. <code>Web</code> First</strong> before typing a word.</div>
+      <div>&#9744; <strong>4. Lock Global Theme Early</strong> (Light/Dark, hex, font, radius).</div>
+      <div>&#9744; <strong>2. Match Mode to Job</strong> (<code>Standard</code> = Figma/speed; <code>Exp</code> = sketches).</div>
+      <div>&#9744; <strong>5. Generate Edge States</strong> (Empty, Loading &amp; Error frames).</div>
+      <div>&#9744; <strong>3. Nail 1 Anchor Screen</strong>, then expand into 4–6 flow screens.</div>
+      <div>&#9744; <strong>6. Export <code>DESIGN.md</code> + MCP</strong> straight into Google Antigravity!</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:8px; padding:8px 12px;">
+    <div class="callout-title">Ready to Design &amp; Ship?</div>
+    Open <strong><code>https://stitch.withgoogle.com</code></strong>, sketch a rough flow or paste Recipe #1, dial in your Global Theme tokens, paste Auto-Layout frames into Figma, and connect Stitch MCP inside <strong>Google Antigravity</strong> to bring it to life!
+  </div>
+
+  <div class="page-footer">
+    <span>Google Stitch (stitch.withgoogle.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

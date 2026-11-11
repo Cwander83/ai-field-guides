@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google AI Studio: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">Google AI Ultra Creative Studio Series &bull; Late 2026 Edition</div>
+    <h1>Mastering <span>Google AI Studio</span></h1>
+    <p class="cover-sub">
+      The complete visual handbook to Google's fastest Gemini workbench—mastering 1M-token video &amp; PDF analysis, Stream Realtime screen sharing, vibe-coding web apps, Structured JSON, and Cloud Run deployment.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">1M+ Token Multimodal Playground</span>
+      <span class="cover-badge">Stream Realtime (Voice + Screen Share)</span>
+      <span class="cover-badge">Build Mode Vibe-Coding &amp; Cloud Run</span>
+      <span class="cover-badge">Google Search &amp; URL Context</span>
+      <span class="cover-badge">Visual JSON Schema Builder</span>
+      <span class="cover-badge">Multi-Speaker TTS, Nano Banana &amp; Veo</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Google AI Studio Multimodal Mission Control Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero Code Required to Start</div>
+      <div class="cover-stat-desc">Drop in 1-hour videos, 500-page PDFs, or share your live screen to solve complex work right in your browser.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Full Dial &amp; Tool Control</div>
+      <div class="cover-stat-desc">Unlock System Instructions, Thinking levels, Compare Mode, Python Code Execution, and guaranteed JSON output.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Idea to Live App in Minutes</div>
+      <div class="cover-stat-desc">Describe an app in plain English inside Build mode, publish to a custom URL, or export clean Gemini SDK code.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & WHAT IS GOOGLE AI STUDIO ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Google AI Studio Complete How-To Guide</span>
+  </div>
+
+  <h2 class="page-title">What Is Google AI Studio (And Why Non-Coders Love It Too)</h2>
+  <p class="page-lead">
+    Think of consumer Gemini (<code>gemini.google.com</code>) like an automatic family sedan, and <strong>Google AI Studio</strong> (<code>aistudio.google.com</code>) as the open cockpit with every pro dial unlocked. Originally built for developers, it has quietly become the secret weapon of researchers, creators, analysts, and first-time app builders.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. The 4 Pillars of AI Studio</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Structured JSON &amp; Podcast Audio</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Models, Privacy Tiers &amp; Dials</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 High-Impact Daily Workflows</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Workspace UI Tour</strong> (Annotated Map)</span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. API Keys, SDKs &amp; Antigravity IDE</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. 1M+ Token Video &amp; PDF Mastery</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Google AI Ultra Ecosystem Map</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. System Instructions &amp; Live Tools</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Sheet</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Stream Realtime &amp; Build Apps</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Quick Launch:</strong> <code>aistudio.google.com</code></span><span class="toc-pg">Web</span></div>
+  </div>
+
+  <h3>Architecture: The Four Core Modes Inside <code>aistudio.google.com</code></h3>
+  <div class="figure-box" style="background:#0f172a; padding:12px 14px;">
+    <svg viewBox="0 0 700 172" width="100%" height="172" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Hub Banner -->
+      <rect x="170" y="8" width="360" height="28" rx="14" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1.5"/>
+      <text x="350" y="26" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800" letter-spacing="0.5">GOOGLE AI STUDIO WORKBENCH (AISTUDIO.GOOGLE.COM)</text>
+
+      <!-- Connecting Lines -->
+      <path d="M250 36 L88 54 M315 36 L262 54 M385 36 L438 54 M450 36 L612 54" stroke="#38bdf8" stroke-width="1.8"/>
+
+      <!-- Pillar 1: Chat Playground -->
+      <rect x="8" y="54" width="160" height="108" rx="9" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+      <text x="18" y="73" fill="#93c5fd" font-size="8.5" font-weight="800">PILLAR 1 &bull; CHAT PLAYGROUND</text>
+      <text x="18" y="89" fill="#ffffff" font-size="10.5" font-weight="700">Deep Prompt Lab</text>
+      <text x="18" y="105" fill="#cbd5e1" font-size="8.6">&bull; 1M+ token videos &amp; PDFs</text>
+      <text x="18" y="118" fill="#cbd5e1" font-size="8.6">&bull; System Instructions</text>
+      <text x="18" y="131" fill="#cbd5e1" font-size="8.6">&bull; Thinking level &amp; Temp</text>
+      <text x="18" y="144" fill="#7dd3fc" font-size="8.6" font-weight="700">&bull; Split Compare Mode</text>
+
+      <!-- Pillar 2: Stream Realtime -->
+      <rect x="182" y="54" width="160" height="108" rx="9" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+      <text x="192" y="73" fill="#6ee7b7" font-size="8.5" font-weight="800">PILLAR 2 &bull; STREAM REALTIME</text>
+      <text x="192" y="89" fill="#ffffff" font-size="10.5" font-weight="700">Gemini Live Co-Pilot</text>
+      <text x="192" y="105" fill="#cbd5e1" font-size="8.6">&bull; Zero-lag two-way voice</text>
+      <text x="192" y="118" fill="#cbd5e1" font-size="8.6">&bull; Live webcam vision</text>
+      <text x="192" y="131" fill="#cbd5e1" font-size="8.6">&bull; Live Screen Sharing</text>
+      <text x="192" y="144" fill="#6ee7b7" font-size="8.6" font-weight="700">&bull; Software &amp; UI coaching</text>
+
+      <!-- Pillar 3: Build Mode -->
+      <rect x="356" y="54" width="160" height="108" rx="9" fill="#1e293b" stroke="#c084fc" stroke-width="1.5"/>
+      <text x="366" y="73" fill="#e9d5ff" font-size="8.5" font-weight="800">PILLAR 3 &bull; BUILD MODE</text>
+      <text x="366" y="89" fill="#ffffff" font-size="10.5" font-weight="700">Vibe-Coding Studio</text>
+      <text x="366" y="105" fill="#cbd5e1" font-size="8.6">&bull; Plain-English full apps</text>
+      <text x="366" y="118" fill="#cbd5e1" font-size="8.6">&bull; Live React &amp; Android UI</text>
+      <text x="366" y="131" fill="#cbd5e1" font-size="8.6">&bull; 2-way GitHub sync</text>
+      <text x="366" y="144" fill="#e9d5ff" font-size="8.6" font-weight="700">&bull; 1-Click Cloud Run URL</text>
+
+      <!-- Pillar 4: Media & API Keys -->
+      <rect x="530" y="54" width="162" height="108" rx="9" fill="#1e293b" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="540" y="73" fill="#fed7aa" font-size="8.5" font-weight="800">PILLAR 4 &bull; MEDIA &amp; API</text>
+      <text x="540" y="89" fill="#ffffff" font-size="10.5" font-weight="700">Assets &amp; Production</text>
+      <text x="540" y="105" fill="#cbd5e1" font-size="8.6">&bull; 2-Host Podcast TTS</text>
+      <text x="540" y="118" fill="#cbd5e1" font-size="8.6">&bull; Nano Banana &amp; Veo clips</text>
+      <text x="540" y="131" fill="#cbd5e1" font-size="8.6">&bull; Project Logs &amp; Evals</text>
+      <text x="540" y="144" fill="#fdba74" font-size="8.6" font-weight="700">&bull; API Keys &amp; Get Code</text>
+    </svg>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Why Switch from Regular Gemini Chat to Google AI Studio?</div>
+    In regular chat apps, hidden guardrails summarize long files behind your back and blend past conversations together. In <strong>Google AI Studio</strong>, every session starts 100% clean, shows your exact <strong>Token Count</strong> in real time, lets you pin permanent <strong>System Instructions</strong>, and lets you delete or edit any message in the conversation history before continuing!
+  </div>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: MODELS, PRIVACY TIERS & RUN SETTINGS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Models, Privacy &amp; Controls</span>
+    <span>Choosing Gemini Models, Free vs. Paid Privacy &amp; Run Settings</span>
+  </div>
+
+  <h2 class="page-title">Picking the Right Model, Privacy Tier &amp; Run Dials</h2>
+  <p class="page-lead">
+    Before uploading your first file, take sixty seconds to learn two essentials: which Gemini engine fits your task, and the critical data-privacy boundary between AI Studio's <strong>Free Tier</strong> and <strong>Paid Billing Tier</strong>.
+  </p>
+
+  <h3>2026 Gemini Model Lineup Inside AI Studio</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:27%;">Model Family / Code</th>
+        <th style="width:18%;">Context / Speed</th>
+        <th style="width:55%;">When to Select It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Frontier / Pro Reasoning</strong><br/><code>gemini-4-carbon</code> &bull; <code>gemini-4-argon</code></td>
+        <td><strong>1M Tokens</strong><br/>Deepest Logic</td>
+        <td>Hard multi-file coding, complex financial/legal reasoning, architecture audits, scientific proofs, and nuanced synthesis across massive documents.</td>
+      </tr>
+      <tr>
+        <td><strong>Balanced Workhorse</strong><br/><code>gemini-3.8-flash</code></td>
+        <td><strong>1M Tokens</strong><br/>Fast &amp; Smart</td>
+        <td><strong>Best everyday default!</strong> Snappy 1-hour video Q&amp;A, structured JSON extraction, live tool calling, and interactive Build mode apps.</td>
+      </tr>
+      <tr>
+        <td><strong>Ultra-Fast / High-Volume</strong><br/><code>gemini-3.5-flash-lite</code></td>
+        <td><strong>1M Tokens</strong><br/>Lowest Cost</td>
+        <td>Classifying thousands of rows, instant translation, lightweight autocomplete, and high-frequency API pipelines at pennies per million tokens.</td>
+      </tr>
+      <tr>
+        <td><strong>Live &amp; Native Media</strong><br/><code>gemini-3.8-live</code> &bull; <code>gemini-3.8-flash-tts</code> &bull; <code>gemini-nano-banana-2.1</code></td>
+        <td><strong>Realtime / Native</strong><br/>Audio, Image, Video</td>
+        <td>Powers two-way voice/screen streaming (<code>Stream</code>), 2-speaker podcast dialogue &amp; Voice Design, Nano Banana 2.1 images, and Veo / Omni Flash clips.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <div class="callout-title">CRITICAL PRIVACY RULE: Free Tier vs. Paid Billing Tier</div>
+    <ul style="margin:3px 0 0 0;">
+      <li><strong>Unpaid / Free Tier:</strong> Great for learning and public experiments, <em>but prompts and uploads may be reviewed by human annotators and used to train Google models</em> (outside EEA, UK, and Switzerland). <strong>Never paste client secrets, private code, or PII on the Free Tier!</strong></li>
+      <li><strong>Paid Billing Tier (Pay-As-You-Go):</strong> Linking a Google Cloud Billing account switches your project to <strong>strictly private enterprise data handling—zero data is ever used to train Google models</strong>—while unlocking frontier models and 1,000+ RPM rate limits.</li>
+    </ul>
+  </div>
+
+  <h3>Mastering the 4 Right-Sidebar Run Settings</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Thinking Level / Budget</div>
+      <p style="font-size:8.4pt;">Controls how long Gemini reasons internally before speaking. Use <code>low</code> for instant chat/classification, <code>medium</code> (default) for daily coding &amp; analysis, and <code>high</code> for thorny math, bugs, or strategy.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Temperature Slider</div>
+      <p style="font-size:8.4pt;">Controls randomness. Leave at model default (<code>1.0</code>) for Gemini 3.8/4 reasoning models; lower toward <code>0.1–0.3</code> only when demanding strict deterministic extraction on non-thinking tasks.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Live Token Counter</div>
+      <p style="font-size:8.4pt;">Displays exact usage (e.g., <code>142,810 / 1,048,576 tokens</code>) before you even hit Run—so you always know how much memory and API spend a giant PDF or video consumes.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">4</span> Safety &amp; Output Limits</div>
+      <p style="font-size:8.4pt;">Adjust harassment/hate/dangerous content filter thresholds for legitimate security or fiction testing, and raise <code>Max output tokens</code> (up to 64K+) so long reports never cut off mid-sentence.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Interface Map</span>
+    <span>Touring the Google AI Studio Cockpit</span>
+  </div>
+
+  <h2 class="page-title">The Google AI Studio Workspace: Annotated Tour</h2>
+  <p class="page-lead">
+    Everything in AI Studio lives inside a clean three-column layout: <strong>Modes</strong> on the left, your <strong>Conversation &amp; System Instructions</strong> in the center, and <strong>Model &amp; Tool Dials</strong> on the right.
+  </p>
+
+  <!-- Annotated Google AI Studio UI Mockup -->
+  <div class="ui-window" style="margin-bottom:10px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:800; color:#f8fafc;">Google AI Studio</span>
+        <span style="background:#1d4ed8; color:#dbeafe; padding:1px 6px; border-radius:4px; font-weight:700; font-size:6.6pt;">PAID TIER &bull; PRIVATE</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="callout-pin">4</span>
+        <span style="background:#1e293b; border:1px solid #38bdf8; padding:2px 7px; border-radius:5px; color:#7dd3fc; font-weight:700;">&#8644; Compare Mode</span>
+        <span class="callout-pin">7</span>
+        <span style="background:#2563eb; color:#ffffff; padding:2px 8px; border-radius:5px; font-weight:700;">&lt;/&gt; Get code</span>
+        <span style="background:#1e293b; border:1px solid #334155; padding:2px 7px; border-radius:5px;">Save / Share</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 118px 1fr 186px; gap:1px; background:#1f2937;">
+      <!-- Left Rail -->
+      <div style="background:#0f172a; padding:8px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+          <span style="font-size:6.8pt; font-weight:800; color:#94a3b8;">MODES</span>
+          <span class="callout-pin">1</span>
+        </div>
+        <div style="background:#1e3a8a; color:#fff; padding:4px 7px; border-radius:5px; font-weight:700; font-size:7.2pt;">&#9998; Chat Prompt</div>
+        <div style="color:#cbd5e1; padding:4px 7px; border-radius:5px; font-size:7.2pt;">&#9673; Stream Realtime</div>
+        <div style="color:#c4b5fd; padding:4px 7px; border-radius:5px; font-size:7.2pt; font-weight:600;">&#10024; Build (Apps)</div>
+        <div style="color:#cbd5e1; padding:4px 7px; border-radius:5px; font-size:7.2pt;">&#9835; Generate Media</div>
+        <div style="border-top:1px solid #1e293b; margin:3px 0;"></div>
+        <div style="color:#94a3b8; padding:3px 7px; font-size:7pt;">History &amp; Logs</div>
+        <div style="color:#fbbf24; padding:3px 7px; font-size:7.1pt; font-weight:700;">&#128273; Get API key</div>
+      </div>
+
+      <!-- Center Playground -->
+      <div style="background:#0b0f19; padding:9px; display:flex; flex-direction:column; justify-content:space-between; gap:7px;">
+        <!-- System Instructions Drawer -->
+        <div style="background:#111827; border:1px solid #3b82f6; border-radius:7px; padding:6px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <strong style="color:#93c5fd; font-size:7.3pt;">SYSTEM INSTRUCTIONS (PERMANENT ROLE &amp; RULES)</strong>
+            <span class="callout-pin">2</span>
+          </div>
+          <div style="color:#cbd5e1; font-size:7pt;">"You are a senior UX researcher. Cite exact [MM:SS] timestamps from uploaded user-testing videos and flag friction points by severity..."</div>
+        </div>
+
+        <!-- Chat Turn Stream -->
+        <div style="background:#111827; border:1px solid #1f2937; border-radius:7px; padding:7px 8px;">
+          <div style="display:flex; gap:6px; align-items:center; margin-bottom:5px;">
+            <span style="background:#065f46; color:#a7f3d0; padding:2px 6px; border-radius:4px; font-size:6.7pt; font-weight:700;">&#127909; checkout_test_48m.mp4 (784K tokens)</span>
+            <span style="background:#1e293b; color:#cbd5e1; padding:2px 6px; border-radius:4px; font-size:6.7pt;">&#128196; spec_v3.pdf</span>
+          </div>
+          <div style="background:#1e293b; border-left:2.5px solid #38bdf8; padding:4px 7px; border-radius:4px; margin-bottom:4px; font-size:6.8pt; color:#7dd3fc;">
+            &#9662; <strong>Thoughts (4.2s):</strong> Cross-referencing user hesitation at 14:22 against Section 3 of spec_v3.pdf...
+          </div>
+          <div style="color:#e2e8f0; font-size:7.1pt;">
+            <strong>Top Friction #1 [14:22]:</strong> Tester clicked the gray shipping badge three times expecting a modal...
+          </div>
+        </div>
+
+        <!-- Bottom Multimodal Input Bar -->
+        <div style="background:#111827; border:1px solid #374151; border-radius:7px; padding:6px 8px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="callout-pin">3</span>
+            <span style="background:#1e293b; border:1px solid #475569; padding:2px 6px; border-radius:4px; font-weight:800; color:#fff;">+ Insert</span>
+            <span style="color:#94a3b8; font-size:7pt;">Drive, Upload Video/PDF/Audio, Record Mic, Folder...</span>
+          </div>
+          <span style="background:#38bdf8; color:#0f172a; font-weight:800; padding:3px 10px; border-radius:5px;">Run &#8984;&#9166;</span>
+        </div>
+      </div>
+
+      <!-- Right Run Settings -->
+      <div style="background:#0f172a; padding:8px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:6.9pt; font-weight:800; color:#f8fafc;">RUN SETTINGS</span>
+          <span class="callout-pin">5</span>
+        </div>
+        <div style="background:#1e293b; border:1px solid #334155; padding:4px 6px; border-radius:5px; font-size:7pt;">
+          Model: <strong style="color:#60a5fa;">gemini-4-argon</strong>
+        </div>
+        <div style="font-size:6.9pt; color:#cbd5e1; display:flex; justify-content:space-between;">
+          <span>Tokens:</span><strong style="color:#38bdf8;">812,410 / 1,048,576</strong>
+        </div>
+        <div style="font-size:6.9pt; color:#cbd5e1; display:flex; justify-content:space-between;">
+          <span>Thinking Level:</span><strong style="color:#a78bfa;">High &#9646;&#9646;&#9646;</strong>
+        </div>
+
+        <div style="border-top:1px solid #1e293b; padding-top:5px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:6.9pt; font-weight:800; color:#f8fafc;">TOOLS</span>
+          <span class="callout-pin">6</span>
+        </div>
+        <div style="font-size:6.8pt; display:flex; flex-direction:column; gap:3px; color:#cbd5e1;">
+          <div>&#9745; <span style="color:#6ee7b7;">Structured outputs</span> <span style="color:#94a3b8;">(Edit)</span></div>
+          <div>&#9745; <span style="color:#6ee7b7;">Code execution</span></div>
+          <div>&#9745; <span style="color:#6ee7b7;">Grounding w/ Google Search</span></div>
+          <div>&#9745; <span style="color:#6ee7b7;">URL context</span></div>
+          <div>&#9744; Function calling</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>7 Controls Every Power User Should Know by Heart</h3>
+  <div class="grid-2" style="gap:6px 14px; font-size:8.6pt;">
+    <div><span class="callout-pin">1</span> <strong>Left Mode Rail:</strong> Jump instantly between <em>Chat</em>, live <em>Stream Realtime</em>, full-stack <em>Build</em> apps, <em>Generate Media</em>, <em>Logs</em>, and <em>API Keys</em>.</div>
+    <div><span class="callout-pin">2</span> <strong>System Instructions Drawer:</strong> Sets persistent persona, tone, and formatting rules that govern the entire session without cluttering your chat turns.</div>
+    <div><span class="callout-pin">3</span> <strong>Multimodal <code>+</code> Insert Menu:</strong> Pull files straight from Google Drive, upload local videos/PDFs/audio, record voice notes, or drop whole code folders.</div>
+    <div><span class="callout-pin">4</span> <strong>Compare Mode Button:</strong> Splits your screen into two side-by-side columns so you can race <code>gemini-3.8-flash</code> against <code>gemini-4-argon</code> on the exact same prompt!</div>
+    <div><span class="callout-pin">5</span> <strong>Run Settings &amp; Thinking Box:</strong> Swap models mid-conversation, monitor live token fill, and inspect collapsible <em>Thoughts</em> to see <em>how</em> Gemini reached its answer.</div>
+    <div><span class="callout-pin">6</span> <strong>One-Click Tool Toggles:</strong> Give Gemini live Google Search, URL reading, a Python math/chart sandbox, or strict JSON Schema enforcement with simple switches.</div>
+  </div>
+  <div style="margin-top:5px; font-size:8.6pt;">
+    <span class="callout-pin">7</span> <strong>Get Code &amp; Save to Drive:</strong> Prompts auto-save to a dedicated <code>Google AI Studio</code> folder in your Google Drive, and <strong>Get code</strong> exports working Python, TypeScript, Go, or cURL code in one click.
+  </div>
+
+  <div class="callout emerald" style="margin-top:9px; padding:8px 12px;">
+    <div class="callout-title">Fastest Keyboard Habit in AI Studio</div>
+    Press <code>Cmd + Enter</code> (Mac) or <code>Ctrl + Enter</code> (Windows/Linux) to fire <strong>Run</strong> without lifting your hands from the keyboard—unlike consumer chat apps, pressing plain <code>Enter</code> safely inserts a new line so you never send half-written prompts by accident!
+  </div>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: 1M+ TOKEN MULTIMODAL SUPERPOWERS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Massive Context</span>
+    <span>Unlocking 1M+ Token Video, PDF, Audio &amp; Codebase Analysis</span>
+  </div>
+
+  <h2 class="page-title">1M+ Token Superpowers: Drop Everything In at Once</h2>
+  <p class="page-lead">
+    Most AI tools chop long documents into tiny fragments and only "see" a handful of paragraphs at a time. Gemini's native <strong>1,048,576-token window</strong> holds an entire hour of video, 1,500 pages of PDFs, or 30,000 lines of code in active memory simultaneously.
+  </p>
+
+  <div class="figure-box" style="background:#081024;">
+    <img src="assets/multimodal_context_funnel.jpg" alt="Video, PDF documents, audio waveforms, and code converging into Gemini's 1M-token prism" style="width:100%; height:242px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.5pt; border-top:1px solid #334155;">
+      <div><strong style="color:#60a5fa;">VIDEO (~1 HR):</strong> Sees visual frames + hears spoken audio together.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#34d399;">PDFS (~1,500 PGS):</strong> Reads tables, charts, diagrams &amp; fine print.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#fbbf24;">AUDIO (~8+ HRS):</strong> Distinguishes voices, tone, and exact timestamps.</div>
+      <div style="padding-left:7px; border-left:1px solid #334155;"><strong style="color:#c084fc;">REPOS (~30K LOC):</strong> Maps cross-file bugs &amp; architecture in one shot.</div>
+    </div>
+  </div>
+
+  <h3>3 Multimodal Power Moves That Save Hours Every Week</h3>
+  <div class="grid-3" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Visual Video Search</div>
+      <p style="font-size:8.25pt;">Gemini doesn't just read a transcript—it watches frames! Ask: <em>"List every slide shown on screen with its exact <code>[MM:SS]</code> timestamp and transcribe any whiteboard diagrams."</em> YouTube URLs can be pasted directly too.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Cross-Document Diffs</div>
+      <p style="font-size:8.25pt;">Drop <em>both</em> last year's 200-page vendor contract PDF and this year's renewal PDF into one prompt. Ask: <em>"Build a table of every clause, fee, or SLA threshold that changed, citing exact page numbers."</em></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Media Resolution Dial</div>
+      <p style="font-size:8.25pt;">Analyzing a 2-hour video? Lower <strong>Media Resolution</strong> in Run Settings to pack 2–3x more footage into 1M tokens. Reading tiny dense architectural blueprints? Set Media Resolution to <strong>High</strong>!</p>
+    </div>
+  </div>
+
+  <h3>Quick Token Math &amp; Cost-Smart Habits</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Uploaded Media Type</th>
+        <th style="width:28%;">Approximate Token Footprint</th>
+        <th style="width:48%;">Smart Workflow Tip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Standard Video (MP4/MOV)</strong></td>
+        <td>~260–300 tokens per second (~1M tokens &asymp; 55–60 mins)</td>
+        <td>Keep all follow-up questions inside the <strong>same chat thread</strong> so implicit context caching cuts repeat input costs dramatically.</td>
+      </tr>
+      <tr>
+        <td><strong>PDFs &amp; Slide Decks</strong></td>
+        <td>~258 tokens per page image + extracted text</td>
+        <td>Upload native PDFs via Google Drive or <code>+</code> rather than copy-pasting raw text—Gemini reads embedded bar charts and layout cues!</td>
+      </tr>
+      <tr>
+        <td><strong>Pure Audio (MP3/WAV)</strong></td>
+        <td>~32 tokens per second (~115K tokens per hour)</td>
+        <td>If you only need speech analyzed from a massive webinar, uploading audio-only uses <strong>9x fewer tokens</strong> than full video!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: SYSTEM INSTRUCTIONS, TOOLS & COMPARE MODE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Steering &amp; Tools</span>
+    <span>Bulletproof System Instructions, Built-In Tools &amp; Compare Mode</span>
+  </div>
+
+  <h2 class="page-title">System Instructions, Live Grounding &amp; Python Sandbox</h2>
+  <p class="page-lead">
+    Stop repeating <em>"be concise, don't make things up, format as a table"</em> in every message. Moving your rules into <strong>System Instructions</strong> and flipping on AI Studio's built-in tools transforms Gemini from a chatbot into a verifiable analyst.
+  </p>
+
+  <h3>The 5-Part System Instruction Blueprint (Color-Coded Template)</h3>
+  <div class="card" style="margin-bottom:10px; background:#ffffff; border:1.5px solid #cbd5e1;">
+    <div style="font-size:8.7pt; line-height:1.8;">
+      <span class="p-tag p-style">[ROLE] You are a Principal Financial &amp; Operations Analyst reviewing quarterly executive packets.</span>
+      <span class="p-tag p-subj">[CONTEXT] My company sells B2B SaaS; prioritize net retention, CAC payback, and margin shifts.</span>
+      <span class="p-tag p-act">[TASK RULES] Ground every number in uploaded files or URL Context; cite [Doc Name, Page #] inline.</span>
+      <span class="p-tag p-cam">[OUTPUT FORMAT] Start with a 3-bullet TL;DR, followed by a Markdown variance table and open risks.</span>
+      <span class="p-tag p-cons">[GUARDRAILS] Never guess missing figures—write "Not disclosed in source" if a metric is absent.</span>
+    </div>
+  </div>
+
+  <h3>Flipping On Gemini's Four Super-Tools (Right Sidebar)</h3>
+  <div class="grid-2" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Grounding with Google Search</div>
+      <p style="font-size:8.35pt;">Connects Gemini to live Google Search results so it can verify today's pricing, recent news, library releases, or competitor announcements—complete with clickable source citation chips below every answer.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> URL Context (Live Page Reader)</div>
+      <p style="font-size:8.35pt;">Paste up to 20 public URLs directly in your prompt (docs pages, articles, pricing pages) with <strong>URL context</strong> enabled. Gemini fetches and reads the full pages on the fly—no manual copy-pasting!</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Code Execution (Python Sandbox)</div>
+      <p style="font-size:8.35pt;">Never let an LLM do mental math on a 10,000-row CSV! With <strong>Code execution</strong> on, Gemini writes and runs real Python (<code>pandas</code>, <code>matplotlib</code>) inside a secure Google sandbox to calculate exact numbers and plot charts.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">4</span> Function Calling (Custom Tools)</div>
+      <p style="font-size:8.35pt;">Prototyping an agent? Paste tool schemas (like <code>check_inventory(sku)</code> or <code>create_ticket()</code>) into the Function Calling modal to test whether Gemini triggers the right parameters before writing backend glue.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">Power Habit: Use Compare Mode (<code>&#8644;</code>) Before Committing to a Model</div>
+    Click the <strong>Compare</strong> icon in the top bar to open two synchronized panels. Put <code>gemini-4-argon</code> on the left and <code>gemini-3.8-flash</code> on the right—or test two different System Instructions on the same model. One prompt fires both panels simultaneously so you can compare speed, token cost, and quality side by side!
+  </div>
+
+  <div class="callout" style="margin-top:7px;">
+    <div class="callout-title">Bonus Trick: Edit Any Past Turn in Place</div>
+    Made a typo three turns ago, or wish Gemini had phrased an earlier answer differently? Hover over <em>any</em> user or model message in AI Studio, click the <strong>Pencil icon</strong> to edit it (or branch from that point), and click <strong>Rerun</strong>!
+  </div>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: STREAM REALTIME & BUILD MODE VIBE-CODING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Live Co-Pilot &amp; App Builder</span>
+    <span>Stream Realtime Screen Sharing &amp; Vibe-Coding Full Apps in Build Mode</span>
+  </div>
+
+  <h2 class="page-title"><code>Stream Realtime</code> &amp; Instant Apps in <code>Build</code> Mode</h2>
+  <p class="page-lead">
+    Two tabs in AI Studio's left sidebar regularly make first-time users gasp out loud: <strong>Stream Realtime</strong> (where Gemini watches your live screen and talks you through anything) and <strong>Build</strong> (where plain English turns into a live deployed web or Android app).
+  </p>
+
+  <div class="figure-box" style="background:#070d1f;">
+    <img src="assets/stream_realtime_and_build.jpg" alt="Left: Stream Realtime voice and live screen sharing; Right: Build Mode assembling an interactive web dashboard" style="width:100%; height:232px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr; background:#0f172a; color:#f8fafc; padding:6px 11px; font-size:7.6pt; border-top:1px solid #334155;">
+      <div><strong style="color:#38bdf8;">LEFT &bull; STREAM REALTIME:</strong> Two-way voice + webcam + live desktop screen sharing.</div>
+      <div style="padding-left:10px; border-left:1px solid #334155;"><strong style="color:#c084fc;">RIGHT &bull; BUILD MODE:</strong> Vibe-code full-stack React or Android apps &amp; publish in 1 click.</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Stream Realtime: Live Screen Tutor</div>
+      <ol style="font-size:8.25pt; padding-left:16px; margin:4px 0 0 0;">
+        <li>Click <strong>Stream Realtime</strong> in the left navigation rail (powered by <code>gemini-3.8-live</code>).</li>
+        <li>Choose <strong>Share Screen</strong> (or <strong>Webcam</strong> on mobile/desktop to point your camera at hardware, plants, or sketches).</li>
+        <li>Speak naturally—you can interrupt Gemini mid-sentence anytime!</li>
+        <li><strong>Killer use cases:</strong> Learning Blender, Figma, Excel pivot tables, or AWS consoles while Gemini watches your cursor and says <em>"Click the blue dropdown two inches to the right..."</em>; or rehearsing a live slide deck pitch with real-time coaching.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">B</span> Build Mode: Vibe-Code &amp; Deploy</div>
+      <ol style="font-size:8.25pt; padding-left:16px; margin:4px 0 0 0;">
+        <li>Open <strong>Build</strong> (or remix a template from the <strong>App Gallery</strong>) and describe the tool you want—or drop in a UI screenshot!</li>
+        <li>AI Studio generates a complete full-stack web app (React + Node + npm packages, optional Firebase Auth/Firestore &amp; Workspace APIs) or native Kotlin Android app with a live interactive preview.</li>
+        <li>Use <strong>Annotation Mode</strong> to circle any button on the preview and say <em>"Make this export a CSV."</em></li>
+        <li>Click <strong>Publish</strong> (top right) to deploy straight to <strong>Google Cloud Run</strong> with a custom <code>https://your-app.ai.studio</code> link!</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Starter Tier Perk: Publish Up to 2 Live Cloud Run Apps Without Cloud Setup</div>
+    Eligible personal accounts can click <strong>Publish</strong> in Build Mode using Google's managed <strong>Cloud Run Starter Tier</strong>—deploying up to two server-side apps (keeping your API keys safely hidden off the browser!) under a custom <code>*.ai.studio</code> subdomain before ever needing a full Google Cloud setup.
+  </div>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: STRUCTURED OUTPUTS & MULTI-SPEAKER AUDIO / MEDIA ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Clean Data &amp; Native Media</span>
+    <span>Guaranteed JSON Schemas, 2-Speaker Podcast TTS &amp; Media Generation</span>
+  </div>
+
+  <h2 class="page-title"><code>Structured Outputs</code> &amp; Multi-Speaker Media Studio</h2>
+  <p class="page-lead">
+    Whether you want to turn 50 messy PDF invoices into a clean spreadsheet or turn dry research notes into a lifelike two-host audio briefing, AI Studio gives you dedicated visual interfaces for both.
+  </p>
+
+  <h3>1. Visual JSON Schema Builder: Never Fight Broken Formatting Again</h3>
+  <p style="font-size:8.9pt;">
+    Toggle <strong>Structured outputs</strong> ON in the right Tools panel and click <strong>Edit</strong>. Define your columns visually (<code>STRING</code>, <code>INTEGER</code>, <code>BOOLEAN</code>, <code>ARRAY</code>, or strict dropdown <code>ENUM</code> values)—Gemini is mathematically constrained at token-generation time to output <em>only</em> valid JSON matching your exact fields:
+  </p>
+
+  <div class="ui-window" style="padding:10px 12px; margin-bottom:10px;">
+    <div style="display:grid; grid-template-columns: 1fr 24px 1.1fr; gap:8px; align-items:center;">
+      <div style="background:#1e293b; border:1px solid #ef4444; border-radius:7px; padding:7px 9px;">
+        <div style="color:#fca5a5; font-weight:800; font-size:7.3pt; margin-bottom:3px;">&#10007; WITHOUT STRUCTURED OUTPUT (FRAGILE CHAT)</div>
+        <div style="color:#cbd5e1; font-family:monospace; font-size:6.9pt; line-height:1.4;">
+          Sure! Here are the invoice details:<br/>
+          - **Vendor:** Acme Cloud Services<br/>
+          - **Total:** Around $1,420.50 (paid)<br/>
+          Let me know if you need anything else!
+        </div>
+      </div>
+      <div style="text-align:center; color:#38bdf8; font-size:14pt; font-weight:800;">&rarr;</div>
+      <div style="background:#1e293b; border:1px solid #34d399; border-radius:7px; padding:7px 9px;">
+        <div style="color:#6ee7b7; font-weight:800; font-size:7.3pt; margin-bottom:3px;">&#10003; WITH STRUCTURED OUTPUT ON (100% PARSEABLE)</div>
+        <div style="color:#a7f3d0; font-family:monospace; font-size:6.9pt; line-height:1.38;">
+          {"vendor": "Acme Cloud Services", "amount_usd": 1420.50, "category": "INFRASTRUCTURE", "paid": true, "due_date": "2026-11-30"}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>2. Inside <code>Generate Media</code>: Native Podcast Audio, Images &amp; Video</h3>
+  <div class="grid-3" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> 2-Host Speech &amp; Voice Design</div>
+      <p style="font-size:8.25pt;">Using <code>gemini-3.8-flash-tts</code>, paste a dialogue script for <em>Speaker 1</em> and <em>Speaker 2</em>, add natural delivery directions (<em>"warm, curious, slight laugh"</em>), or craft bespoke vocal personas via <strong>Voice Design</strong> and download crisp WAV audio.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Nano Banana 2.1 &amp; Imagen</div>
+      <p style="font-size:8.25pt;">Test conversational image editing and multi-image fusion (up to 14 reference images!) directly with <code>gemini-nano-banana-2.1</code> or photorealistic renders with Imagen—perfect for prototyping visual pipelines.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Veo, Omni Flash &amp; Lyria</div>
+      <p style="font-size:8.25pt;">Generate 1080p clips, keyframe transitions, and video edits via Veo and <code>gemini-omni-1.2-flash</code>, or compose custom instrumental backing tracks with <strong>Lyria 3.5</strong> right from the Media gallery.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">Power Combo: Structured Outputs + Built-In Tools Work Together!</div>
+    You can enable <strong>Grounding with Google Search</strong> (or <strong>URL Context</strong>) <em>at the same time</em> as <strong>Structured Outputs</strong>. For example: paste 10 company URLs and force Gemini to output a clean JSON array of <code>{company, pricing_model, free_trial, enterprise_soc2}</code> ready to paste straight into Google Sheets or Airtable!
+  </div>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 HIGH-IMPACT DAILY WORKFLOWS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Playbook</span>
+    <span>5 High-Impact Google AI Studio Workflows Anyone Can Run Today</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Recipes You Can Run in Under 5 Minutes</h2>
+  <p class="page-lead">
+    You don't need to write a single line of code to save hours with AI Studio. Try any of these five battle-tested recipes using your own files today.
+  </p>
+
+  <table class="clean-table" style="font-size:8.3pt;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Workflow Recipe</th>
+        <th style="width:22%;">Mode &amp; Model</th>
+        <th style="width:26%;">Settings / Tools ON</th>
+        <th style="width:30%;">Starter Prompt / Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. 60-Min Meeting or Lecture Extractor</strong></td>
+        <td><strong>Chat Playground</strong><br/><code>gemini-3.8-flash</code></td>
+        <td>Upload MP4 / YouTube link &bull; Thinking: <code>Medium</code></td>
+        <td><em>"Extract every decision made, owner, deadline, and onscreen slide chart with exact <code>[MM:SS]</code> timestamps."</em></td>
+      </tr>
+      <tr>
+        <td><strong>2. Live Screen-Share Software Coach</strong></td>
+        <td><strong>Stream Realtime</strong><br/><code>gemini-3.8-live</code></td>
+        <td>Click <strong>Share Screen</strong> + Mic ON</td>
+        <td>Open Photoshop, Google Sheets, or DaVinci Resolve and ask out loud: <em>"Look at my screen—walk me step by step through fixing this formula/layer."</em></td>
+      </tr>
+      <tr>
+        <td><strong>3. 60-Second Custom Team Micro-App</strong></td>
+        <td><strong>Build Mode</strong><br/>Full-Stack Web</td>
+        <td>Upload sample CSV or rough sketch &bull; Click <strong>Publish</strong></td>
+        <td><em>"Build an interactive ROI calculator &amp; visual proposal generator for solar installers with dark mode and PDF export."</em></td>
+      </tr>
+      <tr>
+        <td><strong>4. Receipt / PDF Batch to Clean Table</strong></td>
+        <td><strong>Chat Playground</strong><br/><code>gemini-3.8-flash</code></td>
+        <td><strong>Structured Outputs</strong> ON (define schema)</td>
+        <td>Drop 15 receipt photos or vendor PDFs at once &rarr; copy guaranteed JSON output straight into any JSON-to-CSV/Sheets importer.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Custom 2-Speaker Briefing Podcast</strong></td>
+        <td><strong>Chat &rarr; Media</strong><br/><code>gemini-3.8-flash-tts</code></td>
+        <td>Step 1: Write script in Chat &bull; Step 2: Multi-Speaker TTS</td>
+        <td>Ask Gemini to turn a dense 80-page industry PDF into a lively 3-minute script between two hosts, then synthesize studio WAV audio!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:8px;">
+    <div class="callout" style="margin:0;">
+      <div class="callout-title">Underrated Gem: Save Reusable "Prompt Apps" in Drive</div>
+      Once you craft a great System Instruction + JSON Schema (like your monthly expense extractor), click <strong>Save</strong> and name it <code>Monthly Receipt Parser</code>. Next month, open it from your saved library, clear the single user turn, drop in new receipts, and click <strong>Run</strong>!
+    </div>
+    <div class="callout emerald" style="margin:0;">
+      <div class="callout-title">Inspecting Project Logs &amp; Datasets</div>
+      Open <strong>Logs</strong> in the left sidebar anytime to inspect historic prompt/response traces, token latency, and tool steps across your project—and curate winning runs into evaluation datasets as your workflows mature.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: API KEYS, CURRENT SDKS & ANTIGRAVITY HANDOFF ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Developer Handoff</span>
+    <span>API Keys, Official google-genai SDKs &amp; Graduating to Google Antigravity</span>
+  </div>
+
+  <h2 class="page-title">API Keys, <code>Get Code</code> &amp; Scaling in Antigravity</h2>
+  <p class="page-lead">
+    When a prompt or prototype inside AI Studio works so well you want to automate it in Python/TypeScript or turn it into a production company product, AI Studio hands you clean starter code in seconds.
+  </p>
+
+  <h3>Step 1: Mint &amp; Protect Your <code>GEMINI_API_KEY</code></h3>
+  <ul>
+    <li>Click <strong>Get API key</strong> in the bottom-left rail &rarr; create a key linked to a Paid Tier project for private zero-training production traffic.</li>
+    <li>Store it in your shell or <code>.env</code> file as <code>export GEMINI_API_KEY="your_key_here"</code>—the official SDKs detect that exact variable name automatically so you <strong>never hardcode keys inside source files or public GitHub repos!</strong></li>
+  </ul>
+
+  <h3>Step 2: Use Only Current Official SDKs (<code>google-genai</code> &amp; <code>@google/genai</code>)</h3>
+  <div class="grid-2" style="gap:10px; margin-bottom:6px;">
+    <div>
+      <div style="font-size:8.2pt; font-weight:700; color:#1e40af; margin-bottom:2px;">Python &bull; <code>pip install -U google-genai</code></div>
+      <pre class="code-block"><code>from google import genai
+
+client = genai.Client()  # Uses GEMINI_API_KEY
+
+res = client.interactions.create(
+    model="gemini-3.8-flash",
+    system_instruction="Reply in 3 crisp bullets.",
+    input="Why 1M context beats RAG chunking.",
+    tools=[{"type": "google_search"}],
+    generation_config={"thinking_level": "medium"},
+)
+print(res.output_text)</code></pre>
+    </div>
+    <div>
+      <div style="font-size:8.2pt; font-weight:700; color:#6b21a8; margin-bottom:2px;">TypeScript &bull; <code>npm install @google/genai</code></div>
+      <pre class="code-block"><code>import { GoogleGenAI } from "@google/genai";
+
+const ai = new GoogleGenAI({}); // GEMINI_API_KEY
+
+const res = await ai.interactions.create({
+  model: "gemini-3.8-flash",
+  system_instruction: "Reply in 3 crisp bullets.",
+  input: "Why 1M context beats RAG chunking.",
+  tools: [{ type: "google_search" }],
+  generation_config: { thinking_level: "medium" },
+});
+console.log(res.output_text);</code></pre>
+    </div>
+  </div>
+
+  <div class="callout amber" style="padding:7px 11px; margin:4px 0 8px 0;">
+    <div class="callout-title">SDK Trap to Avoid: Never Install Legacy <code>google-generativeai</code>!</div>
+    Older blog posts online show <code>import google.generativeai</code> or <code>@google/generative-ai</code> and <code>gemini-1.5</code> / <code>gemini-2.0</code> models—those are <strong>deprecated</strong>. Always use <code>google-genai</code> (Python) and <code>@google/genai</code> (JS/TS) with the modern <code>client.interactions.create()</code> API!
+  </div>
+
+  <h3>Step 3: Graduating From AI Studio <code>Build</code> to Google Antigravity IDE</h3>
+  <div class="grid-3">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Vibe-Code in AI Studio</div>
+      <p style="font-size:8pt; margin:0;">Validate the core Gemini prompts, UI flow, and live preview in 10 minutes inside AI Studio's <strong>Build</strong> tab.</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge teal">2</span> Sync to GitHub</div>
+      <p style="font-size:8pt; margin:0;">Open Build <strong>Settings &rarr; GitHub</strong> to push your app to a private repository with two-way sync (or export ZIP).</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge purple">3</span> Scale in Antigravity</div>
+      <p style="font-size:8pt; margin:0;">Clone the repo in <strong>Google Antigravity</strong> so autonomous coding agents add auth, Postgres, Playwright tests &amp; CI/CD!</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: COMPLETE GOOGLE AI ULTRA ECOSYSTEM MASTER MAP ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Ecosystem Master Map</span>
+    <span>How Every Google AI Ultra Studio &amp; Builder Tool Connects Together</span>
+  </div>
+
+  <h2 class="page-title">The Complete Google AI Ultra Ecosystem Map</h2>
+  <p class="page-lead">
+    Wondering when to open <strong>Google AI Studio</strong> versus <strong>Antigravity</strong>, <strong>Stitch</strong>, <strong>Opal</strong>, <strong>Whisk</strong>, <strong>Vids</strong>, or <strong>Flow</strong>? Here is how the entire Google AI Ultra suite snaps together like a single modular studio.
+  </p>
+
+  <!-- Ecosystem Architecture SVG -->
+  <div class="figure-box" style="background:#0f172a; padding:11px 14px; margin-bottom:9px;">
+    <svg viewBox="0 0 700 156" width="100%" height="156" xmlns="http://www.w3.org/2000/svg">
+      <!-- Center Brain: Google AI Studio -->
+      <rect x="238" y="42" width="224" height="72" rx="11" fill="#1e3a8a" stroke="#60a5fa" stroke-width="2"/>
+      <text x="350" y="62" text-anchor="middle" fill="#93c5fd" font-size="8.6" font-weight="800" letter-spacing="0.6">CORE ENGINE &amp; WORKBENCH</text>
+      <text x="350" y="80" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="800">Google AI Studio</text>
+      <text x="350" y="96" text-anchor="middle" fill="#dbeafe" font-size="8.5">Prompts &bull; 1M Context &bull; Live &bull; Build &bull; APIs</text>
+
+      <!-- Left Side: Visual & No-Code Creation -->
+      <rect x="10" y="8" width="178" height="42" rx="7" fill="#1e293b" stroke="#c084fc" stroke-width="1.4"/>
+      <text x="20" y="25" fill="#e9d5ff" font-size="9.2" font-weight="800">Google Stitch (UI Design)</text>
+      <text x="20" y="39" fill="#cbd5e1" font-size="8">Prompt &rarr; Figma UI &amp; frontend code</text>
+
+      <rect x="10" y="57" width="178" height="42" rx="7" fill="#1e293b" stroke="#34d399" stroke-width="1.4"/>
+      <text x="20" y="74" fill="#6ee7b7" font-size="9.2" font-weight="800">Google Opal (Mini-Workflows)</text>
+      <text x="20" y="88" fill="#cbd5e1" font-size="8">Visual node chains for no-code AI apps</text>
+
+      <rect x="10" y="106" width="178" height="42" rx="7" fill="#1e293b" stroke="#fbbf24" stroke-width="1.4"/>
+      <text x="20" y="123" fill="#fde68a" font-size="9.2" font-weight="800">Google Whisk (Image Remix)</text>
+      <text x="20" y="137" fill="#cbd5e1" font-size="8">Subject + Scene + Style look-dev cards</text>
+
+      <!-- Right Side: Engineering & Cinema Production -->
+      <rect x="512" y="8" width="178" height="42" rx="7" fill="#1e293b" stroke="#38bdf8" stroke-width="1.4"/>
+      <text x="522" y="25" fill="#7dd3fc" font-size="9.2" font-weight="800">Antigravity &amp; Jules (Code)</text>
+      <text x="522" y="39" fill="#cbd5e1" font-size="8">Agentic IDE + async GitHub cloud devs</text>
+
+      <rect x="512" y="57" width="178" height="42" rx="7" fill="#1e293b" stroke="#f472b6" stroke-width="1.4"/>
+      <text x="522" y="74" fill="#fbcfe8" font-size="9.2" font-weight="800">Google Flow (AI Filmmaking)</text>
+      <text x="522" y="88" fill="#cbd5e1" font-size="8">Veo 3.1 cinema shots, @Ingredients, cuts</text>
+
+      <rect x="512" y="106" width="178" height="42" rx="7" fill="#1e293b" stroke="#fb923c" stroke-width="1.4"/>
+      <text x="522" y="123" fill="#fed7aa" font-size="9.2" font-weight="800">Google Vids (Work Video)</text>
+      <text x="522" y="137" fill="#cbd5e1" font-size="8">Docs/Slides &rarr; narrated training &amp; pitch</text>
+
+      <!-- Connectors -->
+      <path d="M188 29 L238 62 M188 78 L238 78 M188 127 L238 94" stroke="#60a5fa" stroke-width="1.7"/>
+      <path d="M462 62 L512 29 M462 78 L512 78 M462 94 L512 127" stroke="#38bdf8" stroke-width="1.7"/>
+    </svg>
+  </div>
+
+  <h3>Which Google AI Tool Should You Open for Your Goal?</h3>
+  <table class="clean-table" style="font-size:8.25pt;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Tool</th>
+        <th style="width:27%;">Sweet Spot</th>
+        <th style="width:50%;">How It Connects With Google AI Studio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Google AI Studio</strong><br/><code>aistudio.google.com</code></td>
+        <td>Prompt lab, 1M multimodal analysis, Live screen share &amp; rapid app prototypes</td>
+        <td><strong>Your starting hub:</strong> analyze research, test System Instructions &amp; JSON schemas, vibe-code quick web/Android apps, and generate API keys.</td>
+      </tr>
+      <tr>
+        <td><strong>Antigravity &amp; Jules</strong><br/>Agentic IDE + Async</td>
+        <td>Full-scale software repositories, testing, multi-file engineering &amp; PRs</td>
+        <td>Sync your AI Studio <code>Build</code> prototype to GitHub, open it in <strong>Antigravity</strong> for deep engineering, and assign background bug/upgrade tasks to <strong>Jules</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>Google Stitch</strong><br/>UI/UX Generator</td>
+        <td>Polished mobile/web interface mockups, design systems &amp; Figma export</td>
+        <td>Generate pixel-clean UI screens in <strong>Stitch</strong>, then drop those screenshots or HTML exports into AI Studio <strong>Build</strong> (or Antigravity) to wire live Gemini brains!</td>
+      </tr>
+      <tr>
+        <td><strong>Google Opal</strong><br/>Visual Mini-Apps</td>
+        <td>Drag-and-drop visual multi-step AI workflows you can share via link</td>
+        <td>Great when non-coders want visual node graphs for repeatable team workflows; move to AI Studio <strong>Build</strong> when you want custom UIs, databases, or Cloud Run.</td>
+      </tr>
+      <tr>
+        <td><strong>Whisk &rarr; Flow &rarr; Vids</strong><br/>Visual &amp; Video Suite</td>
+        <td>Concept art (<strong>Whisk</strong>), cinema films (<strong>Flow</strong>), &amp; business decks/videos (<strong>Vids</strong>)</td>
+        <td>Write scripts, shot lists, and custom 2-speaker voiceovers in <strong>AI Studio</strong>, design consistent visual cards in <strong>Whisk</strong>, shoot cinema scenes in <strong>Flow</strong>, or assemble polished company explainers in <strong>Google Vids</strong>!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHEAT SHEET ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; Power-User Pre-Flight Cheat Sheet</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Cheat Sheet</h2>
+  <p class="page-lead">
+    Keep this final reference page handy whenever an API call, long file upload, or Build preview hits a snag—almost every issue has a 10-second fix.
+  </p>
+
+  <h3>Top 7 Google AI Studio Pitfalls &amp; 10-Second Fixes</h3>
+  <table class="clean-table" style="font-size:8.25pt;">
+    <thead>
+      <tr>
+        <th style="width:31%;">Symptom / Error</th>
+        <th style="width:69%;">Root Cause &amp; Instant Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>429 RESOURCE_EXHAUSTED</code> error</strong></td>
+        <td>Hit Free Tier RPM/RPD quota (enforced per Cloud project, not per key!). Switch to <code>gemini-3.8-flash</code> / <code>flash-lite</code> or link Cloud Billing to unlock Tier 1+ quotas.</td>
+      </tr>
+      <tr>
+        <td><strong>Long report or code stops mid-sentence</strong></td>
+        <td>Reached output token ceiling (thinking + visible output share <code>Max output tokens</code>). Raise <strong>Max output tokens</strong> in Run Settings (or type <em>"Continue from exact last line"</em>).</td>
+      </tr>
+      <tr>
+        <td><strong>Uploaded video says "Processing..." briefly</strong></td>
+        <td>Normal File API frame/audio indexing for large MP4s. Wait 10–30 seconds until the file chip turns active before clicking <strong>Run</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini miscalculated totals in a large table</strong></td>
+        <td>Mental LLM arithmetic instead of code. Toggle <strong>Code execution</strong> ON in the right Tools panel so Gemini runs exact Python math in its sandbox.</td>
+      </tr>
+      <tr>
+        <td><strong>JSON parser fails on Markdown code fences</strong></td>
+        <td>Asked for JSON in text instead of schema enforcement. Toggle <strong>Structured outputs</strong> ON in Tools—it strips all markdown prose automatically.</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini cites outdated library/news facts</strong></td>
+        <td>Static training cutoff. Toggle <strong>Grounding with Google Search</strong> ON—or paste the live docs link with <strong>URL context</strong> enabled!</td>
+      </tr>
+      <tr>
+        <td><strong>Build Mode app won't access mic or camera</strong></td>
+        <td>Browser frame policy requires explicit opt-in. Ask Gemini in Build chat to add <code>"microphone"</code> or <code>"camera"</code> to <code>requestFramePermissions</code> inside <code>metadata.json</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:6px;">
+    <div class="card-title" style="font-size:10.1pt; color:#60a5fa; margin-bottom:5px;">
+      Google AI Studio Pre-Flight Checklist: 6 Habits of Power Users
+    </div>
+    <div class="grid-2" style="gap:5px 16px; font-size:8.35pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Verify Privacy Tier First</strong> (Paid Project = 0% data training).</div>
+      <div>&#9744; <strong>4. Flip On <code>Code Execution</code></strong> for any math, CSV, or chart task.</div>
+      <div>&#9744; <strong>2. Put Rules in <code>System Instructions</code></strong> so chat stays clean.</div>
+      <div>&#9744; <strong>5. Use <code>Compare Mode</code></strong> to test Flash vs. Frontier speed/quality.</div>
+      <div>&#9744; <strong>3. Match <code>Thinking Level</code> to Task</strong> (<code>low</code> fast &rarr; <code>high</code> deep).</div>
+      <div>&#9744; <strong>6. Use <code>google-genai</code> / <code>@google/genai</code></strong> when exporting code!</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:8px; padding:8px 12px;">
+    <div class="callout-title">Ready to Take the Controls?</div>
+    Open <strong><code>https://aistudio.google.com</code></strong>, try sharing your screen inside <strong>Stream Realtime</strong>, drop a long video into the <strong>Chat Playground</strong>, or vibe-code your first live web app in <strong>Build Mode</strong>!
+  </div>
+
+  <div class="page-footer">
+    <span>Google AI Studio (aistudio.google.com) &bull; Complete User Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

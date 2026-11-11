@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Flow: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">Google Labs Creative Studio &bull; 2026 Practical Handbook</div>
+    <h1>Mastering <span>Google Flow</span></h1>
+    <p class="cover-sub">
+      The complete, step-by-step visual guide to planning, generating, directing, and editing cinematic AI films with Veo 3.1, Imagen 4, and Gemini.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Flow Agent Storyboarding</span>
+      <span class="cover-badge">Ingredients Consistency (@Tags)</span>
+      <span class="cover-badge">Start &amp; End Frame Keyframing</span>
+      <span class="cover-badge">Camera &amp; Lens Direction</span>
+      <span class="cover-badge">Native Dialogue &amp; SFX</span>
+      <span class="cover-badge">Scenebuilder Timeline</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Google Flow AI Filmmaking Studio Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Three Engines, One Studio</div>
+      <div class="cover-stat-desc">Unifies Gemini Omni Flash, Imagen 4 / Nano Banana, and Veo 3.1 in one browser &amp; mobile workspace.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Built for Continuity</div>
+      <div class="cover-stat-desc">Lock faces, outfits, and props across dozens of shots using Ingredients and Save-Last-Frame anchors.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero Experience Needed</div>
+      <div class="cover-stat-desc">Plain-English workflows, visual UI maps, copy-paste prompt formulas, and credit-saving habits.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & OVERVIEW ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Google Flow Complete How-To Guide</span>
+  </div>
+
+  <h2 class="page-title">Inside This Guide &amp; What Google Flow Actually Is</h2>
+  <p class="page-lead">
+    Most AI video tools give you a single text box that produces random 5-second clips. <strong>Google Flow</strong> (<code>flow.google</code>) is a complete digital film studio built to tell multi-shot stories with consistent characters, sound, and editing.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. What Is Google Flow?</strong> &amp; Model Triad</span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Prompt Anatomy</strong> (8-Part Formula)</span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Access, Tiers &amp; Credits</strong> (Smart Budgeting)</span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Camera &amp; Lens Guide</strong> (Visual Cheat Sheet)</span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Workspace UI Tour</strong> (Annotated Map)</span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Directing Audio</strong> (Dialogue, Lip-Sync &amp; SFX)</span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Your First 15-Minute Film</strong> (6-Step Pipeline)</span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Scenebuilder, Flow TV &amp; Flow Tools</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Flow Agent &amp; Ingredients</strong> (Character Lock)</span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Checklist</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Generation Modes &amp; Frames-to-Video</strong></span><span class="toc-pg">p. 7</span></div>
+  </div>
+
+  <h3>Visualization: The Three-Model Engine Under the Hood</h3>
+  <div class="figure-box" style="background:#0f172a; padding: 14px 16px;">
+    <svg viewBox="0 0 700 185" width="100%" height="185" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#1d4ed8"/><stop offset="100%" stop-color="#0284c7"/>
+        </linearGradient>
+        <linearGradient id="gPurple" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#6d28d9"/><stop offset="100%" stop-color="#9333ea"/>
+        </linearGradient>
+        <linearGradient id="gAmber" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#c2410c"/><stop offset="100%" stop-color="#ea580c"/>
+        </linearGradient>
+      </defs>
+      <!-- Three Engine Cards -->
+      <rect x="12" y="12" width="195" height="106" rx="10" fill="url(#gBlue)" />
+      <text x="26" y="36" fill="#bae6fd" font-size="9.5" font-weight="700" letter-spacing="0.8">1. THE BRAIN &amp; WRITER</text>
+      <text x="26" y="56" fill="#ffffff" font-size="14" font-weight="800">Gemini Omni Flash</text>
+      <text x="26" y="76" fill="#e0f2fe" font-size="10">Powers Flow Agent, script</text>
+      <text x="26" y="90" fill="#e0f2fe" font-size="10">storyboards, prompt tuning,</text>
+      <text x="26" y="104" fill="#e0f2fe" font-size="10">and "Jump To" transitions.</text>
+
+      <rect x="252" y="12" width="195" height="106" rx="10" fill="url(#gPurple)" />
+      <text x="266" y="36" fill="#e9d5ff" font-size="9.5" font-weight="700" letter-spacing="0.8">2. THE ART DEPARTMENT</text>
+      <text x="266" y="56" fill="#ffffff" font-size="14" font-weight="800">Imagen 4 / Nano Banana</text>
+      <text x="266" y="76" fill="#f3e8ff" font-size="10">Creates character portraits,</text>
+      <text x="266" y="90" fill="#f3e8ff" font-size="10">props, start/end keyframes,</text>
+      <text x="266" y="104" fill="#f3e8ff" font-size="10">and crisp in-place visual edits.</text>
+
+      <rect x="492" y="12" width="195" height="106" rx="10" fill="url(#gAmber)" />
+      <text x="506" y="36" fill="#fed7aa" font-size="9.5" font-weight="700" letter-spacing="0.8">3. CAMERA &amp; SOUND STAGE</text>
+      <text x="506" y="56" fill="#ffffff" font-size="14" font-weight="800">Google Veo 3.1</text>
+      <text x="506" y="76" fill="#ffedd5" font-size="10">Renders realistic motion,</text>
+      <text x="506" y="90" fill="#ffedd5" font-size="10">3D camera physics, lip-synced</text>
+      <text x="506" y="104" fill="#ffedd5" font-size="10">speech, SFX &amp; ambience.</text>
+
+      <!-- Arrows between cards -->
+      <path d="M213 65 L245 65" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="4 3"/>
+      <polygon points="245,60 252,65 245,70" fill="#94a3b8"/>
+      <path d="M453 65 L485 65" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="4 3"/>
+      <polygon points="485,60 492,65 485,70" fill="#94a3b8"/>
+
+      <!-- Bottom Unified Bar -->
+      <path d="M110 120 L110 138 M350 120 L350 138 M590 120 L590 138" stroke="#38bdf8" stroke-width="2"/>
+      <rect x="12" y="138" width="675" height="38" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="350" y="162" text-anchor="middle" fill="#f8fafc" font-size="11.5" font-weight="700">
+        Unified Project Container: Asset Grid + @Ingredient Library + Scenebuilder Timeline + 4K Export
+      </text>
+    </svg>
+    <div class="figure-caption">
+      <strong>Figure 1.1:</strong> Instead of juggling separate chat, image, audio, and video apps, Google Flow routes each task to the specialized model best suited for it.
+    </div>
+  </div>
+
+  <h3>Why Filmmakers &amp; Creators Use Flow Over Standalone Video Generators</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Standalone Video Prompt Box</div>
+      <ul>
+        <li>Every prompt invents a brand-new face and outfit.</li>
+        <li>Fixing a small mistake requires re-rolling the entire clip.</li>
+        <li>Silent clips force you to hunt for external voiceovers and Foley sound effects.</li>
+      </ul>
+    </div>
+    <div class="card" style="background:#eff6ff; border-color:#bfdbfe;">
+      <div class="card-title"><span class="num-badge emerald" style="background:#059669;">B</span> Google Flow Studio Workflow</div>
+      <ul>
+        <li><strong>Ingredients</strong> lock characters, products, and art styles across every scene.</li>
+        <li><strong>Frames-to-Video</strong> anchors exact opening and closing compositions.</li>
+        <li><strong>Native Audio + Scenebuilder</strong> let you direct speech, sound, and cuts in one place.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: ACCESS, SETUP & CREDITS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Budgeting</span>
+    <span>Access, Subscriptions &amp; Credit Management</span>
+  </div>
+
+  <h2 class="page-title">Getting Started: Account Setup, Plans &amp; Credit Math</h2>
+  <p class="page-lead">
+    You can start experimenting with Google Flow in under two minutes for free, then scale up only if you need longer productions, premium models, or 4K exports.
+  </p>
+
+  <h3>Step-by-Step First Login</h3>
+  <div class="grid-3" style="margin-bottom: 10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Open Flow Studio</div>
+      <p>Visit <code>flow.google</code> (or <code>labs.google/fx/tools/flow</code>) in Chrome, Safari, or Edge, or install the <strong>Google Flow</strong> iOS/Android companion app.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Sign In (18+)</div>
+      <p>Sign in with a personal Google Account or qualifying Google Workspace account. Age verification (18+) is required in supported regions.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">3</span> Create a Project</div>
+      <p>Click <strong>+ New Project</strong>. Every project acts as a dedicated folder holding your chat history, Ingredients, clips, and Scenebuilder timeline.</p>
+    </div>
+  </div>
+
+  <h3>Subscription Tiers &amp; Credit Allowances (2026 Structure)</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Plan Tier</th>
+        <th style="width:18%;">Typical US Price</th>
+        <th style="width:26%;">Credit Allowance</th>
+        <th style="width:36%;">Best For &amp; Unlocked Capabilities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Free Tier</strong><br/><span style="color:#64748b;font-size:7.8pt;">Google Account</span></td>
+        <td><strong>$0 / month</strong></td>
+        <td><strong>50 daily credits</strong><br/><span style="color:#64748b;font-size:7.8pt;">Resets midnight PT; no rollover</span></td>
+        <td>Learning the interface, generating Imagen reference Ingredients, and testing draft clips daily.</td>
+      </tr>
+      <tr>
+        <td><strong>Google AI Plus</strong><br/><span style="color:#64748b;font-size:7.8pt;">Entry Creator</span></td>
+        <td><strong>~$4.99 – $9.99/mo</strong></td>
+        <td>Daily pool + starter monthly credit bundle</td>
+        <td>Casual social creators making weekly vertical Reels/Shorts (<code>9:16</code>) and custom Flow Tools.</td>
+      </tr>
+      <tr>
+        <td><strong>Google AI Pro</strong><br/><span style="color:#64748b;font-size:7.8pt;">Standard Production</span></td>
+        <td><strong>~$19.99 / month</strong></td>
+        <td>Expanded monthly production credits</td>
+        <td>Full Veo 3.1 Fast &amp; Quality access, native audio dialogue, Scenebuilder transitions, 1080p masters.</td>
+      </tr>
+      <tr>
+        <td><strong>Google AI Ultra</strong><br/><span style="color:#64748b;font-size:7.8pt;">Studio / Agency</span></td>
+        <td><strong>~$99.99 – $199.99/mo</strong></td>
+        <td>Highest bulk monthly credits + priority queue</td>
+        <td>Heavy commercial production, highest-tier Veo 3.1 Quality renders, batch takes, and 4K upscaling.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>How Credits Are Consumed (And How to Stretch Them 4&times; Further)</h3>
+  <p>
+    Before every generation, Google Flow displays the exact <strong>credit cost badge</strong> right next to the <em>Generate</em> button. Cost scales with four sliders: <strong>Model Tier</strong> (Lite/Fast vs. Quality), <strong>Output Count</strong> (1, 2, or 4 simultaneous takes), <strong>Clip Duration</strong>, and <strong>Resolution</strong> (draft vs. 1080p/4K).
+  </p>
+
+  <div class="grid-2" style="margin-top:4px; gap:10px;">
+    <div class="callout emerald" style="margin:0; padding:8px 11px; font-size:8.6pt;">
+      <div class="callout-title">Pro Habit 1: Storyboard in Images First</div>
+      Generating still frames with <strong>Imagen 4 / Nano Banana</strong> costs a fraction of video credits. Nail your character look, lighting, and composition as stills <em>before</em> spending Veo video credits.
+    </div>
+    <div class="callout amber" style="margin:0; padding:8px 11px; font-size:8.6pt;">
+      <div class="callout-title">Pro Habit 2: Draft on "Fast/Lite", Master on "Quality"</div>
+      When testing camera movement or dialogue timing, select <strong>Veo 3.1 Fast / Lite</strong> with 1–2 outputs. Switch to <strong>Veo 3.1 Quality</strong> and <strong>4K Upscale</strong> only on the winning prompt.
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:7px; padding:8px 11px; font-size:8.6pt;">
+    <div class="callout-title">Good to Know: SynthID Watermarking &amp; Commercial Safety</div>
+    Every export embeds Google DeepMind's imperceptible <strong>SynthID</strong> digital watermark into its pixels and audio frames—invisible to human viewers, resilient to compression, and built for transparent AI provenance.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Interface Map</span>
+    <span>Touring the Google Flow Studio Workspace</span>
+  </div>
+
+  <h2 class="page-title">The Google Flow Workspace: Annotated Visual Tour</h2>
+  <p class="page-lead">
+    When you open a project in <code>flow.google</code>, everything lives inside one dark-mode studio screen. Use the numbered callouts below to orient yourself in seconds.
+  </p>
+
+  <!-- Annotated Dark-Mode Studio UI Mockup -->
+  <div class="ui-window" style="margin-bottom: 12px;">
+    <!-- Top Chrome -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">Google Flow</span>
+        <span style="color:#64748b;">/</span>
+        <span style="color:#cbd5e1;">Project: The Midnight Botanist</span>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span style="background:#1e293b; padding:3px 8px; border-radius:99px; color:#38bdf8; font-weight:600;">Flow TV</span>
+        <span style="background:#1e293b; padding:3px 8px; border-radius:99px; color:#fbbf24; font-weight:700;">&#9889; 420 Credits</span>
+        <span style="background:#2563eb; padding:3px 10px; border-radius:6px; color:#fff; font-weight:700;">Export 4K</span>
+      </div>
+    </div>
+
+    <!-- Main 3-Column Studio Body -->
+    <div style="display:grid; grid-template-columns: 155px 1fr 175px; gap:1px; background:#1f2937;">
+      <!-- Left: Ingredients Drawer -->
+      <div style="background:#0f172a; padding:9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:7px;">
+          <span style="font-weight:700; color:#cbd5e1; font-size:7.6pt;">INGREDIENTS</span>
+          <span class="callout-pin">5</span>
+        </div>
+        <div style="background:#1e293b; border:1px solid #38bdf8; border-radius:6px; padding:5px; margin-bottom:6px;">
+          <div style="height:36px; background:linear-gradient(135deg,#7c2d12,#fb923c); border-radius:4px; margin-bottom:4px;"></div>
+          <div style="color:#f8fafc; font-weight:700;">@clara_botanist</div>
+          <div style="color:#94a3b8; font-size:6.8pt;">Character Reference</div>
+        </div>
+        <div style="background:#1e293b; border:1px solid #334155; border-radius:6px; padding:5px; margin-bottom:6px;">
+          <div style="height:36px; background:linear-gradient(135deg,#064e3b,#34d399); border-radius:4px; margin-bottom:4px;"></div>
+          <div style="color:#f8fafc; font-weight:700;">@brass_lantern</div>
+          <div style="color:#94a3b8; font-size:6.8pt;">Prop Reference</div>
+        </div>
+        <div style="border:1px dashed #475569; border-radius:6px; padding:6px; text-align:center; color:#94a3b8;">
+          + Upload / Generate
+        </div>
+      </div>
+
+      <!-- Center: Shot Grid + Prompt Composer -->
+      <div style="background:#0b0f19; padding:9px; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="color:#94a3b8; font-weight:600;">SHOT CANVAS &bull; SCENE 02 (4 TAKES)</span>
+            <span class="callout-pin">6</span>
+          </div>
+          <!-- 2x2 Shot Grid -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:9px;">
+            <div style="background:linear-gradient(135deg,#132a13,#31572c); height:64px; border-radius:6px; padding:5px; border:2px solid #38bdf8; display:flex; flex-direction:column; justify-content:space-between;">
+              <div style="display:flex; justify-content:space-between;"><span style="background:rgba(0,0,0,0.6); padding:1px 5px; border-radius:4px;">Take A &bull; 0:08</span><span style="background:#0284c7; padding:1px 5px; border-radius:4px; font-weight:700;">Selected</span></div>
+              <div style="display:flex; gap:4px; font-size:6.6pt;"><span style="background:rgba(0,0,0,0.65); padding:2px 5px; border-radius:3px;">Save Last Frame</span><span style="background:rgba(0,0,0,0.65); padding:2px 5px; border-radius:3px;">+ Add to Scene</span></div>
+            </div>
+            <div style="background:linear-gradient(135deg,#1b263b,#415a77); height:64px; border-radius:6px; padding:5px; opacity:0.82; display:flex; align-items:flex-start;">
+              <span style="background:rgba(0,0,0,0.6); padding:1px 5px; border-radius:4px;">Take B &bull; 0:08</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prompt Box -->
+        <div style="background:#111827; border:1px solid #374151; border-radius:8px; padding:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <div style="display:flex; gap:4px; align-items:center;">
+              <span class="callout-pin">1</span>
+              <span style="background:#1f2937; padding:2px 7px; border-radius:4px; color:#94a3b8;">Text to Video</span>
+              <span style="background:#1f2937; padding:2px 7px; border-radius:4px; color:#94a3b8;">Frames to Video</span>
+              <span style="background:#2563eb; padding:2px 7px; border-radius:4px; color:#fff; font-weight:700;">Ingredients to Video</span>
+            </div>
+          </div>
+          <div style="background:#030712; border:1px solid #1f2937; border-radius:6px; padding:6px 8px; margin-bottom:6px; color:#e2e8f0; display:flex; justify-content:space-between; align-items:center;">
+            <span>Medium tracking shot of <strong style="color:#38bdf8;">@clara_botanist</strong> holding <strong style="color:#34d399;">@brass_lantern</strong> in misty redwoods...</span>
+            <span class="callout-pin">2</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; gap:5px; align-items:center; flex-wrap:wrap;">
+              <span class="callout-pin">3</span>
+              <span style="background:#1f2937; padding:2px 6px; border-radius:4px;">Veo 3.1 Quality</span>
+              <span style="background:#1f2937; padding:2px 6px; border-radius:4px;">16:9</span>
+              <span style="background:#1f2937; padding:2px 6px; border-radius:4px;">8s</span>
+              <span style="background:#1f2937; padding:2px 6px; border-radius:4px; color:#34d399;">Audio: ON</span>
+            </div>
+            <span style="background:#f97316; color:#fff; font-weight:800; padding:3px 10px; border-radius:5px;">Generate (20 cr)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Flow Agent Sidebar -->
+      <div style="background:#0f172a; padding:9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:7px;">
+          <span style="font-weight:700; color:#a78bfa; font-size:7.6pt;">FLOW AGENT (GEMINI)</span>
+          <span class="callout-pin">4</span>
+        </div>
+        <div style="background:#1e293b; border-radius:6px; padding:6px; margin-bottom:6px; font-size:7pt; color:#cbd5e1;">
+          <strong>You:</strong> Plan a 3-shot teaser for a bioluminescent plant discovery.
+        </div>
+        <div style="background:#1e1b4b; border:1px solid #4c1d95; border-radius:6px; padding:6px; font-size:7pt; color:#e0e7ff;">
+          <strong>Flow Agent:</strong> Here is a 3-shot arc:<br/>
+          &bull; Shot 1: Wide misty forest arrival.<br/>
+          &bull; Shot 2: Close-up lantern glow.<br/>
+          &bull; Shot 3: Whispered line + reveal.<br/>
+          <span style="color:#38bdf8; font-weight:700;">[Send Shot 2 to Prompt &rarr;]</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: Scenebuilder Dock -->
+    <div style="background:#111827; border-top:1px solid #334155; padding:8px 12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+        <span style="font-weight:700; color:#f8fafc;">SCENEBUILDER TIMELINE &bull; 00:22 TOTAL</span>
+        <span class="callout-pin">7</span>
+      </div>
+      <div style="display:grid; grid-template-columns: 2fr 0.6fr 2fr 1.4fr; gap:5px; align-items:center;">
+        <div style="background:#1d4ed8; padding:5px 8px; border-radius:5px; font-weight:600;">Shot 01: Forest Wide (0:08)</div>
+        <div style="background:#7c3aed; padding:5px 4px; border-radius:5px; text-align:center; font-weight:700;">Jump To</div>
+        <div style="background:#047857; padding:5px 8px; border-radius:5px; font-weight:600;">Shot 02: Lantern Tracking (0:08)</div>
+        <div style="background:#b45309; padding:5px 8px; border-radius:5px; font-weight:600;">+ Extend (0:06)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Numbered Key Legend -->
+  <h3>Numbered Interface Reference</h3>
+  <div class="grid-2" style="gap:8px 14px; font-size:8.8pt;">
+    <div><span class="callout-pin">1</span> <strong>Generation Mode Switcher:</strong> Toggle between <em>Text to Video</em>, <em>Frames to Video</em> (start/end images), and <em>Ingredients to Video</em> (character/prop references).</div>
+    <div><span class="callout-pin">2</span> <strong>Prompt Bar &amp; <code>@</code> Mentions:</strong> Describe camera, action, and dialogue; type <code>@</code> to inject saved characters or props directly into the scene.</div>
+    <div><span class="callout-pin">3</span> <strong>Parameter &amp; Cost Strip:</strong> Pick model (Veo 3.1 Fast vs. Quality), aspect ratio (<code>16:9</code> or <code>9:16</code>), clip length, Audio ON/OFF, and preview exact credit cost.</div>
+    <div><span class="callout-pin">4</span> <strong>Flow Agent Sidebar:</strong> Chat with Gemini to brainstorm scripts, break ideas into shot lists, set project-wide style rules, and auto-fill prompts.</div>
+    <div><span class="callout-pin">5</span> <strong>Ingredients Library:</strong> Store uploaded or Imagen-generated characters, objects, and style cards so every shot stays visually consistent.</div>
+    <div><span class="callout-pin">6</span> <strong>Shot Canvas &amp; Frame Actions:</strong> Audition multiple takes side-by-side, make in-place fixes, click <em>Save Last Frame</em>, or push winners to the timeline.</div>
+  </div>
+  <div style="margin-top:6px; font-size:8.8pt;">
+    <span class="callout-pin">7</span> <strong>Scenebuilder Timeline Dock:</strong> Drag clips into story order, trim handles, lengthen clips with <em>Extend</em>, or bridge cuts smoothly with AI-powered <em>Jump To</em>.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: 6-STEP END-TO-END WORKFLOW ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Quickstart Pipeline</span>
+    <span>Your First 15-Minute Film from Scratch</span>
+  </div>
+
+  <h2 class="page-title">The 6-Step Filmmaking Pipeline (Start to Finish)</h2>
+  <p class="page-lead">
+    Beginners often make the mistake of jumping straight to video generation. Follow this proven 6-step studio order to build a cohesive 30-second short film on your very first try—without wasting credits.
+  </p>
+
+  <!-- 6-Step Pipeline SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:12px 14px;">
+    <svg viewBox="0 0 700 170" width="100%" height="170" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Row: Steps 1 -> 2 -> 3 -->
+      <rect x="10" y="10" width="205" height="64" rx="9" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+      <circle cx="32" cy="30" r="11" fill="#2563eb"/><text x="32" y="34" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">1</text>
+      <text x="50" y="34" fill="#0f172a" font-size="11" font-weight="800">Storyboard w/ Flow Agent</text>
+      <text x="22" y="52" fill="#334155" font-size="9.2">Pitch 1-sentence concept; get</text>
+      <text x="22" y="64" fill="#334155" font-size="9.2">a 4–6 shot script &amp; visual bible.</text>
+
+      <path d="M219 42 L242 42" stroke="#2563eb" stroke-width="2.2"/><polygon points="241,37 248,42 241,47" fill="#2563eb"/>
+
+      <rect x="248" y="10" width="205" height="64" rx="9" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+      <circle cx="270" cy="30" r="11" fill="#7c3aed"/><text x="270" y="34" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">2</text>
+      <text x="288" y="34" fill="#0f172a" font-size="11" font-weight="800">Lock Ingredients (@Tags)</text>
+      <text x="260" y="52" fill="#334155" font-size="9.2">Generate hero character &amp; key</text>
+      <text x="260" y="64" fill="#334155" font-size="9.2">props in Imagen; save to drawer.</text>
+
+      <path d="M457 42 L480 42" stroke="#7c3aed" stroke-width="2.2"/><polygon points="479,37 486,42 479,47" fill="#7c3aed"/>
+
+      <rect x="486" y="10" width="204" height="64" rx="9" fill="#fdf2f8" stroke="#db2777" stroke-width="1.8"/>
+      <circle cx="508" cy="30" r="11" fill="#db2777"/><text x="508" y="34" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">3</text>
+      <text x="526" y="34" fill="#0f172a" font-size="11" font-weight="800">Anchor Keyframes</text>
+      <text x="498" y="52" fill="#334155" font-size="9.2">Optional: create Start/End still</text>
+      <text x="498" y="64" fill="#334155" font-size="9.2">frames for tricky transitions.</text>
+
+      <!-- Connector Row 1 to Row 2 -->
+      <path d="M588 74 L588 89 L112 89 L112 98" fill="none" stroke="#64748b" stroke-width="1.8" stroke-dasharray="4 3"/>
+      <polygon points="107,96 112,103 117,96" fill="#64748b"/>
+
+      <!-- Bottom Row: Steps 4 -> 5 -> 6 -->
+      <rect x="10" y="103" width="205" height="60" rx="9" fill="#fff7ed" stroke="#ea580c" stroke-width="1.8"/>
+      <circle cx="32" cy="123" r="11" fill="#ea580c"/><text x="32" y="127" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">4</text>
+      <text x="50" y="127" fill="#0f172a" font-size="11" font-weight="800">Render Clips in Veo 3.1</text>
+      <text x="22" y="145" fill="#334155" font-size="9.2">Direct camera, lighting, speech</text>
+      <text x="22" y="156" fill="#334155" font-size="9.2">&amp; SFX; draft Fast, master Quality.</text>
+
+      <path d="M219 133 L242 133" stroke="#ea580c" stroke-width="2.2"/><polygon points="241,128 248,133 241,138" fill="#ea580c"/>
+
+      <rect x="248" y="103" width="205" height="60" rx="9" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+      <circle cx="270" cy="123" r="11" fill="#059669"/><text x="270" y="127" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">5</text>
+      <text x="288" y="127" fill="#0f172a" font-size="11" font-weight="800">Assemble Scenebuilder</text>
+      <text x="260" y="145" fill="#334155" font-size="9.2">Sequence takes, trim dead air,</text>
+      <text x="260" y="156" fill="#334155" font-size="9.2">use Extend &amp; Jump To bridges.</text>
+
+      <path d="M457 133 L480 133" stroke="#059669" stroke-width="2.2"/><polygon points="479,128 486,133 479,138" fill="#059669"/>
+
+      <rect x="486" y="103" width="204" height="60" rx="9" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8"/>
+      <circle cx="508" cy="123" r="11" fill="#38bdf8"/><text x="508" y="127" text-anchor="middle" fill="#0f172a" font-size="10" font-weight="800">6</text>
+      <text x="526" y="127" fill="#ffffff" font-size="11" font-weight="800">Upscale &amp; Export</text>
+      <text x="498" y="145" fill="#cbd5e1" font-size="9.2">Review master cut, upscale to</text>
+      <text x="498" y="156" fill="#cbd5e1" font-size="9.2">1080p/4K MP4, download/share.</text>
+    </svg>
+  </div>
+
+  <h3>Walkthrough Example: Making <em>"The Midnight Botanist"</em> (24 Seconds)</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:16%;">Stage</th>
+        <th style="width:44%;">What You Click &amp; Type in Google Flow</th>
+        <th style="width:40%;">Resulting Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Plan</strong><br/>(2 mins)</td>
+        <td>Open <strong>Flow Agent</strong> and type: <em>"Create a 3-shot, 24-second atmospheric film about a botanist discovering a glowing fern in a misty redwood forest. 35mm cinema style."</em></td>
+        <td>Flow Agent writes a 3-shot breakdown with suggested camera lenses, lighting notes, and ambient forest audio cues.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Ingredients</strong><br/>(3 mins)</td>
+        <td>In the <strong>Ingredients</strong> panel, click <em>+ Generate</em>. Create a portrait of Clara (terracotta jacket, round glasses) and a brass plant lantern. Tag them <code>@clara</code> and <code>@lantern</code>.</td>
+        <td>Two locked visual reference cards appear in your left sidebar ready to anchor every video shot.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Shot 1</strong><br/>(3 mins)</td>
+        <td>Select <strong>Ingredients to Video</strong>, <code>16:9</code>, <code>8s</code>, Audio ON. Prompt: <em>"Wide crane shot descending into misty redwoods at dusk as @clara walks down a mossy trail carrying @lantern..."</em></td>
+        <td>Veo 3.1 renders Clara in her exact jacket holding the exact lantern, complete with footsteps on damp moss and distant owls.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Shot 2</strong><br/>(3 mins)</td>
+        <td>Hover over Shot 1, click <strong>Save Last Frame</strong>, switch to <strong>Frames to Video</strong>, and set it as the Start Frame. Prompt a close-up push-in as she kneels and whispers, <em>"There you are."</em></td>
+        <td>Shot 2 picks up seamlessly from the exact forest spot and lighting of Shot 1 with lip-synced whispered dialogue.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Shot 3 &amp; Edit</strong><br/>(4 mins)</td>
+        <td>Generate a macro shot of the glowing fern, drag all three clips into <strong>Scenebuilder</strong>, trim 0.5s off the ends for snappy pacing, and click <strong>Export (1080p / 4K)</strong>.</td>
+        <td>A polished, continuous 24-second short film downloaded as a single MP4 with synchronized sound.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">Golden Rule of Pacing</div>
+    Professional films rarely hold a static shot for 10+ seconds unless dramatic tension demands it. Aim for <strong>4 to 6 seconds per cut</strong> in Scenebuilder—trimming the first and last half-second of AI clips immediately makes edits feel human-directed.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: FLOW AGENT & INGREDIENTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Continuity Mastery</span>
+    <span>Storyboarding with Flow Agent &amp; Locking Ingredients</span>
+  </div>
+
+  <h2 class="page-title">Solving "Character Drift" with Flow Agent &amp; Ingredients</h2>
+  <p class="page-lead">
+    The #1 frustration in AI video is watching your main character morph into a stranger from Shot 1 to Shot 2. Google Flow solves this with two paired tools: <strong>Agent Instructions</strong> and <strong>Ingredients to Video</strong>.
+  </p>
+
+  <h3>Part A: Setting Persistent "Agent Instructions"</h3>
+  <p>
+    Inside the Flow Agent panel, open <strong>Agent Instructions</strong> (project-level rules). Anything you write here is automatically remembered across every storyboard and prompt Gemini writes for this project:
+  </p>
+  <div class="card" style="background:#f8fafc; font-family:'SF Mono', Menlo, monospace; font-size:8.2pt; margin-bottom:10px; border-left:4px solid #7c3aed;">
+    <strong>Example Project Agent Instructions:</strong><br/>
+    &bull; Visual Style: Shot on 35mm Kodak Vision3 500T film, subtle grain, natural skin texture, anamorphic bokeh.<br/>
+    &bull; Color Palette: Deep Pacific Northwest forest greens, warm amber lantern light, cool slate shadows.<br/>
+    &bull; Audio Rule: Realistic Foley footsteps and forest wind only; always append "no background music" unless asked.
+  </div>
+
+  <h3>Part B: How "Ingredients to Video" Works</h3>
+  <p>
+    Switch your prompt bar to <strong>Ingredients to Video</strong> to combine <strong>up to 3 visual reference assets</strong> (uploaded photos or Imagen/Nano Banana generations) into one coherent video clip:
+  </p>
+
+  <div class="figure-box" style="background:#232b35;">
+    <img src="assets/ingredients_triptych.jpg" alt="Ingredients to Video Triptych: Character + Prop = Final Consistent Scene" style="width:100%; height:160px; object-fit:contain; display:block; background:#232b35;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.8pt; border-top:1px solid #334155;">
+      <div><strong style="color:#38bdf8;">Ingredient 1 (@clara):</strong> Neutral portrait locks facial structure, glasses &amp; terracotta jacket.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#fbbf24;">Ingredient 2 (@lantern):</strong> Isolated dark-backdrop prop locks brass housing &amp; glowing leaf.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#34d399;">Combined Veo 3.1 Output:</strong> Both references merge naturally into golden-hour redwood motion.</div>
+    </div>
+  </div>
+
+  <h3>4 Best Practices for Bulletproof Ingredients</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">1</span> Use Clean, Neutral Reference Cards</div>
+      <p>Generate or upload character portraits against a plain, softly lit background—not a busy crowd. Clean edges stop background clutter from bleeding into unrelated scenes.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">2</span> Let the Image Describe Appearance</div>
+      <p>Once <code>@clara</code> is attached, don't waste 40 prompt words re-describing her brown hair and glasses. Spend your prompt words on <strong>action, emotion, camera, and sound</strong>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Stick to 2–3 Core Ingredients Per Shot</div>
+      <p>Combining 1 Character + 1 Hero Prop + 1 Environment/Style card hits the sweet spot. Overloading 5+ conflicting objects confuses spatial composition.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">4</span> Save Multi-Angle Character Sheets</div>
+      <p>Ask Imagen inside Flow for a <em>"front and three-quarter profile turnaround sheet"</em> of your hero so Veo understands how they look when turning their head.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: MODES & FRAMES-TO-VIDEO ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Keyframing &amp; Modes</span>
+    <span>Choosing Modes &amp; Mastering Frames-to-Video</span>
+  </div>
+
+  <h2 class="page-title">Generation Modes &amp; "Frames to Video" Keyframing</h2>
+  <p class="page-lead">
+    Every shot in Google Flow starts by choosing one of three generation modes. Picking the right mode before typing saves hours of trial-and-error.
+  </p>
+
+  <h3>Decision Matrix: Which Mode Should You Pick?</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Mode</th>
+        <th style="width:28%;">Inputs Required</th>
+        <th style="width:50%;">Ideal Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Text to Video</strong></td>
+        <td>Text prompt only</td>
+        <td>Establishing shots, b-roll landscapes, atmospheric weather, abstract transitions, or brainstorming brand-new scenes from scratch.</td>
+      </tr>
+      <tr>
+        <td><strong>Ingredients to Video</strong></td>
+        <td>1–3 reference images (<code>@tags</code>) + prompt</td>
+        <td>Character-driven scenes, product commercials, or branded worlds where the exact face, outfit, or object must appear in new angles.</td>
+      </tr>
+      <tr>
+        <td><strong>Frames to Video</strong></td>
+        <td>Start Frame (and/or End Frame) + prompt</td>
+        <td>Exact composition control, seamless shot-chaining, dramatic reveals, morphs, and day-to-night or before-and-after transitions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Visualizing "Frames to Video" (Start + End Keyframe Interpolation)</h3>
+  <p>
+    When you drop an image into the <strong>Start Frame</strong> slot and a second image into the <strong>End Frame</strong> slot, Veo 3.1 calculates realistic intermediate physics, lighting shifts, and camera motion to connect point A to point B:
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/frames_transition.jpg" alt="Start Frame Morning Sunlight transitioning into End Frame Rainy Neon Dusk" style="width:100%; height:142px; object-fit:cover; object-position:center 65%; display:block;" />
+    <div style="display:flex; justify-content:space-between; align-items:center; background:#0f172a; color:#f8fafc; padding:6px 12px; font-size:8pt; border-top:1px solid #334155;">
+      <span><strong style="color:#fbbf24;">[00:00 START FRAME]</strong> Golden morning bookshop + cyclist</span>
+      <span style="color:#38bdf8; font-weight:700;">&mdash;&mdash; Veo 3.1 8s Interpolation &rarr;</span>
+      <span><strong style="color:#a78bfa;">[00:08 END FRAME]</strong> Rainy neon twilight &amp; wet cobblestones</span>
+    </div>
+  </div>
+
+  <h3>Pro Technique: The "Save Last Frame" Continuous-Shot Trick</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">1</span> Pause at the End</div>
+      <p>Play your generated 8-second clip in the Shot Canvas and scrub to the final clean frame (e.g., <code>0:07.9</code>).</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Click "Save Frame"</div>
+      <p>Click <strong>Save Frame</strong> on the video player. Google Flow instantly adds that exact still image into your project assets.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Feed Into Next Shot</div>
+      <p>Switch to <strong>Frames to Video</strong>, drop that saved frame into <strong>Start Frame</strong>, and direct the next 8 seconds of action!</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:8px;">
+    <div class="callout-title">Why Filmmakers Love Frame-Chaining</div>
+    By chaining the last frame of Shot A into the first frame of Shot B, you can choreograph unbroken 25-to-40-second "oner" sequences (like walking from a sunny street through a shop door into a dimly lit library) with zero lighting jumps.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: DIRECTOR-GRADE PROMPT ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Prompt Engineering</span>
+    <span>Writing Director-Grade Prompts for Veo 3.1</span>
+  </div>
+
+  <h2 class="page-title">The 8-Block Director Prompt Formula</h2>
+  <p class="page-lead">
+    Treat Google Flow's prompt box like a film director's cue sheet—not a search engine. Ordering your prompt from big visual rules down to specific audio cues gives Veo 3.1 crystal-clear instructions.
+  </p>
+
+  <h3>Color-Coded Master Prompt Anatomy</h3>
+  <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:12px 14px; margin-bottom:10px;">
+    <div style="margin-bottom:8px; display:flex; flex-wrap:wrap; gap:5px; font-size:7.9pt;">
+      <span class="p-tag p-style">1. Format &amp; Film Style</span>
+      <span class="p-tag p-subj">2. Subject &amp; Setting</span>
+      <span class="p-tag p-act">3. Specific Action</span>
+      <span class="p-tag p-cam">4. Camera &amp; Lens</span>
+      <span class="p-tag p-light">5. Lighting &amp; Texture</span>
+      <span class="p-tag p-dial">6. Quoted Dialogue</span>
+      <span class="p-tag p-sfx">7. SFX &amp; Ambience</span>
+      <span class="p-tag p-cons">8. Constraints</span>
+    </div>
+
+    <div style="font-size:9.5pt; line-height:1.85; border-top:1px dashed #cbd5e1; padding-top:8px;">
+      <span class="p-tag p-style">Photorealistic 35mm cinema drama, subtle Kodak film grain.</span>
+      <span class="p-tag p-subj">Weary spaceship pilot @maya sits inside a cramped, rain-streaked dropship cockpit.</span>
+      <span class="p-tag p-act">She flips two overhead brass toggle switches, glances at the flickering radar screen, and exhales sharply.</span>
+      <span class="p-tag p-cam">Slow dolly-in from medium shot to tight close-up, 50mm anamorphic lens with shallow depth of field.</span>
+      <span class="p-tag p-light">Moody cyan instrument glow mixing with pulsing amber warning lights on brushed steel.</span>
+      <span class="p-tag p-dial">She says, "We have thirty seconds before atmospheric entry," in a calm, hushed voice.</span>
+      <span class="p-tag p-sfx">Crisp metallic switch clicks, low turbine hum, heavy rain pelting cockpit glass.</span>
+      <span class="p-tag p-cons">One continuous shot; no subtitles; no background music.</span>
+    </div>
+  </div>
+
+  <h3>Before &amp; After Prompt Makeovers</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:28%;">Beginner Vague Prompt</th>
+        <th style="width:48%;">Upgraded Google Flow Director Prompt</th>
+        <th style="width:24%;">Why It Wins</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><em>"A cool car driving fast in the desert."</em></td>
+        <td><em>"1970s matte-black muscle car speeding down a cracked salt-flat highway at golden hour. Low-angle lateral tracking shot at wheel height, 24mm wide lens, dust plume billowing behind tires. Deep V8 engine roar and rushing wind; no music."</em></td>
+        <td>Defines camera height, focal length, time of day, dust physics, and raw engine audio.</td>
+      </tr>
+      <tr>
+        <td><em>"A barista hands coffee to a customer and talks."</em></td>
+        <td><em>"Warm indie film look. Smiling barista @leo slides a ceramic latte cup across a walnut counter in a sunlit cafe. Over-the-shoulder medium shot, soft morning window light, rising steam. @leo says, 'Careful, the mug is hot,' in a friendly tone. Ceramic clink, espresso machine hiss, quiet cafe chatter; no music."</em></td>
+        <td>Locks speaker attribution, short lip-syncable quote, tactile prop action, and layered room tone.</td>
+      </tr>
+      <tr>
+        <td><em>"Product video of a smartwatch."</em></td>
+        <td><em>"Commercial studio macro film. Sleek titanium @watch resting on wet black basalt stone as water droplets roll off the sapphire screen. Slow 180-degree orbital arc, 85mm macro lens, crisp rim lighting. Subtle water droplet plinks; no voiceover."</em></td>
+        <td>Combines <code>@watch</code> Ingredient with orbital camera motion and tactile surface reflections.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <div class="callout-title">Avoid "Everything Everywhere" Prompts</div>
+    Do not pack three separate plot twists into one 8-second clip (<em>"he wakes up, makes breakfast, runs outside, and catches the bus"</em>). Give each clip <strong>one clear physical beat</strong> and assemble the story in Scenebuilder.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: CAMERA & CINEMATOGRAPHY CHEAT SHEET ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Cinematography</span>
+    <span>Directing the Virtual Camera &amp; Lens Language</span>
+  </div>
+
+  <h2 class="page-title">Visual Camera Movement &amp; Lens Cheat Sheet</h2>
+  <p class="page-lead">
+    Avoid generic words like <em>"moving camera."</em> Veo 3.1 is trained on real cinematography terminology—use the exact movement phrases below to direct intentional, rock-steady shots.
+  </p>
+
+  <!-- 6-Card Visual SVG Camera Grid -->
+  <div class="grid-3" style="margin-bottom: 11px;">
+    <!-- Card 1: Dolly In -->
+    <div class="card" style="padding:9px 10px;">
+      <svg viewBox="0 0 180 78" width="100%" height="78">
+        <rect width="180" height="78" rx="6" fill="#0f172a"/>
+        <circle cx="135" cy="39" r="13" fill="#38bdf8" opacity="0.25" stroke="#38bdf8" stroke-width="1.5"/>
+        <circle cx="135" cy="39" r="4" fill="#f8fafc"/>
+        <rect x="24" y="29" width="22" height="20" rx="3" fill="#f97316"/>
+        <polygon points="46,35 55,30 55,48 46,43" fill="#fb923c"/>
+        <path d="M62 39 L108 39" stroke="#fbbf24" stroke-width="2.5"/>
+        <polygon points="107,34 115,39 107,44" fill="#fbbf24"/>
+      </svg>
+      <div class="card-title" style="margin-top:5px;">Dolly In / Push-In</div>
+      <p style="font-size:8.2pt; margin:0;">Camera physically rolls forward toward subject, building intimacy or tension.<br/><code>"Slow dolly-in to close-up"</code></p>
+    </div>
+
+    <!-- Card 2: Truck / Lateral -->
+    <div class="card" style="padding:9px 10px;">
+      <svg viewBox="0 0 180 78" width="100%" height="78">
+        <rect width="180" height="78" rx="6" fill="#0f172a"/>
+        <circle cx="60" cy="24" r="5" fill="#34d399"/><path d="M68 24 L122 24" stroke="#34d399" stroke-width="2" stroke-dasharray="3 2"/>
+        <polygon points="121,20 128,24 121,28" fill="#34d399"/>
+        <rect x="49" y="48" width="22" height="16" rx="3" fill="#f97316"/>
+        <path d="M76 56 L122 56" stroke="#fbbf24" stroke-width="2.5"/>
+        <polygon points="121,51 129,56 121,61" fill="#fbbf24"/>
+      </svg>
+      <div class="card-title" style="margin-top:5px;">Lateral Tracking / Truck</div>
+      <p style="font-size:8.2pt; margin:0;">Camera glides sideways alongside a walking or running subject.<br/><code>"Side-profile lateral tracking shot"</code></p>
+    </div>
+
+    <!-- Card 3: Orbit / Arc -->
+    <div class="card" style="padding:9px 10px;">
+      <svg viewBox="0 0 180 78" width="100%" height="78">
+        <rect width="180" height="78" rx="6" fill="#0f172a"/>
+        <circle cx="90" cy="42" r="7" fill="#f8fafc"/>
+        <path d="M38 56 A 54 32 0 0 1 142 56" fill="none" stroke="#a78bfa" stroke-width="2.5"/>
+        <polygon points="144,51 145,60 136,57" fill="#a78bfa"/>
+        <rect x="28" y="50" width="16" height="12" rx="2" fill="#f97316"/>
+      </svg>
+      <div class="card-title" style="margin-top:5px;">180&deg; Orbit / Arc Shot</div>
+      <p style="font-size:8.2pt; margin:0;">Circles smoothly around hero or product while keeping them centered.<br/><code>"Smooth orbital arc around subject"</code></p>
+    </div>
+
+    <!-- Card 4: Crane / Jib -->
+    <div class="card" style="padding:9px 10px;">
+      <svg viewBox="0 0 180 78" width="100%" height="78">
+        <rect width="180" height="78" rx="6" fill="#0f172a"/>
+        <rect x="28" y="50" width="20" height="14" rx="3" fill="#f97316"/>
+        <path d="M38 46 L38 18" stroke="#38bdf8" stroke-width="2.5"/>
+        <polygon points="33,19 38,11 43,19" fill="#38bdf8"/>
+        <path d="M52 20 L145 58" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <circle cx="145" cy="58" r="6" fill="#fbbf24"/>
+      </svg>
+      <div class="card-title" style="margin-top:5px;">Crane Rise / Boom Up</div>
+      <p style="font-size:8.2pt; margin:0;">Sweeps vertically upward to reveal a vast landscape or city skyline.<br/><code>"High crane shot rising above trees"</code></p>
+    </div>
+
+    <!-- Card 5: Pan & Tilt -->
+    <div class="card" style="padding:9px 10px;">
+      <svg viewBox="0 0 180 78" width="100%" height="78">
+        <rect width="180" height="78" rx="6" fill="#0f172a"/>
+        <rect x="24" y="31" width="18" height="16" rx="3" fill="#f97316"/>
+        <path d="M44 39 L135 16 M44 39 L135 62" stroke="#475569" stroke-width="1.5"/>
+        <path d="M115 22 A 36 36 0 0 1 115 56" fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+        <polygon points="111,53 115,61 120,54" fill="#fbbf24"/>
+      </svg>
+      <div class="card-title" style="margin-top:5px;">Tripod Pan / Slow Tilt</div>
+      <p style="font-size:8.2pt; margin:0;">Camera stays planted in one spot and rotates left/right or up/down.<br/><code>"Locked tripod slow pan right"</code></p>
+    </div>
+
+    <!-- Card 6: Rack Focus -->
+    <div class="card" style="padding:9px 10px;">
+      <svg viewBox="0 0 180 78" width="100%" height="78">
+        <rect width="180" height="78" rx="6" fill="#0f172a"/>
+        <circle cx="68" cy="44" r="10" fill="#f43f5e"/>
+        <circle cx="136" cy="34" r="13" fill="#94a3b8" opacity="0.35" stroke="#cbd5e1" stroke-dasharray="2 2"/>
+        <path d="M78 40 Q 104 20 124 30" fill="none" stroke="#34d399" stroke-width="2.2"/>
+        <polygon points="121,26 128,32 119,34" fill="#34d399"/>
+      </svg>
+      <div class="card-title" style="margin-top:5px;">Rack Focus Shift</div>
+      <p style="font-size:8.2pt; margin:0;">Shifts sharp focus from a foreground object to a background character.<br/><code>"Rack focus from teacup to doorway"</code></p>
+    </div>
+  </div>
+
+  <h3>Eliminating the "Plastic AI Look": Texture, Lenses &amp; Lighting Keywords</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Visual Dimension</th>
+        <th style="width:76%;">Copy-Paste Keywords Recognized by Veo 3.1 &amp; Imagen 4</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Film Stocks &amp; Era</strong></td>
+        <td><code>35mm Kodak Vision3 500T</code> &bull; <code>16mm grainy documentary film</code> &bull; <code>IMAX 65mm crisp cinema</code> &bull; <code>vintage 1990s VHS camcorder</code></td>
+      </tr>
+      <tr>
+        <td><strong>Focal Length &amp; Glass</strong></td>
+        <td><code>24mm wide-angle lens</code> (expansive environments) &bull; <code>50mm prime natural eye-level</code> &bull; <code>85mm portrait shallow bokeh</code> &bull; <code>100mm macro</code></td>
+      </tr>
+      <tr>
+        <td><strong>Lighting Setups</strong></td>
+        <td><code>warm golden-hour backlight</code> &bull; <code>overcast soft diffused daylight</code> &bull; <code>high-contrast chiaroscuro rim light</code> &bull; <code>volumetric fog beams</code></td>
+      </tr>
+      <tr>
+        <td><strong>Camera Rig Feel</strong></td>
+        <td><code>static locked-off tripod</code> &bull; <code>smooth Steadicam glide</code> &bull; <code>subtle handheld documentary urgency</code> &bull; <code>FPV drone dive</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">Aspect Ratio Tip (16:9 vs. 9:16)</div>
+    Pick your aspect ratio <strong>before</strong> generating Ingredients or keyframes. Lateral tracking shots shine in widescreen <code>16:9</code> (YouTube, TV, film), while vertical <code>9:16</code> (Shorts, Reels, TikTok) works best with tight medium close-ups, dolly push-ins, and vertical crane tilts.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: DIRECTING NATIVE AUDIO ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Sound &amp; Dialogue</span>
+    <span>Directing Native Audio, Lip-Sync &amp; Sound Effects</span>
+  </div>
+
+  <h2 class="page-title">Directing Synchronized Dialogue, SFX &amp; Ambience</h2>
+  <p class="page-lead">
+    With Audio toggled <strong>ON</strong>, Veo 3.1 generates lip-synced speech, physical Foley sound effects, and room ambience simultaneously with video pixels—no external lip-sync plugin required.
+  </p>
+
+  <!-- Multi-Track Audio Architecture Diagram -->
+  <div class="figure-box" style="background:#0f172a; padding:12px 15px; margin-bottom:10px;">
+    <svg viewBox="0 0 680 128" width="100%" height="128" xmlns="http://www.w3.org/2000/svg">
+      <text x="10" y="18" fill="#94a3b8" font-size="9.5" font-weight="700" letter-spacing="0.8">HOW VEO 3.1 LAYERS SOUND INSIDE A SINGLE 8-SECOND CLIP</text>
+      <!-- Track 1: Dialogue -->
+      <rect x="10" y="28" width="135" height="26" rx="5" fill="#831843"/><text x="20" y="45" fill="#fbcfe8" font-size="10" font-weight="700">1. Spoken Dialogue</text>
+      <rect x="152" y="28" width="518" height="26" rx="5" fill="#1e293b"/>
+      <rect x="210" y="32" width="270" height="18" rx="4" fill="#db2777"/>
+      <text x="345" y="44" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">"There it is—right beneath the roots." (1.5s – 5.8s)</text>
+
+      <!-- Track 2: Focal SFX -->
+      <rect x="10" y="60" width="135" height="26" rx="5" fill="#115e59"/><text x="20" y="77" fill="#99f6e4" font-size="10" font-weight="700">2. Focal Foley SFX</text>
+      <rect x="152" y="60" width="518" height="26" rx="5" fill="#1e293b"/>
+      <rect x="165" y="64" width="95" height="18" rx="4" fill="#0d9488"/><text x="212" y="76" text-anchor="middle" fill="#fff" font-size="8.5">Boots on moss</text>
+      <rect x="495" y="64" width="130" height="18" rx="4" fill="#0d9488"/><text x="560" y="76" text-anchor="middle" fill="#fff" font-size="8.5">Lantern glass chime</text>
+
+      <!-- Track 3: Ambience / Music Rule -->
+      <rect x="10" y="92" width="135" height="26" rx="5" fill="#1e3a8a"/><text x="20" y="109" fill="#bfdbfe" font-size="10" font-weight="700">3. Bed &amp; Music Rule</text>
+      <rect x="152" y="92" width="518" height="26" rx="5" fill="#1d4ed8" opacity="0.45"/>
+      <text x="411" y="109" text-anchor="middle" fill="#e0f2fe" font-size="9" font-weight="600">Continuous soft night wind &amp; crickets &bull; Explicit constraint: "no background music"</text>
+    </svg>
+  </div>
+
+  <h3>The 4 Golden Rules of Clean AI Dialogue</h3>
+  <div class="grid-2" style="margin-bottom:10px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Put Exact Words in Quotation Marks</div>
+      <p>Attribute the quote directly to the speaker:<br/>
+      <strong>Good:</strong> <code>@clara looks up and says, "Follow the river north," in an urgent whisper.</code><br/>
+      <strong>Bad:</strong> <code>Clara tells them to go north.</code></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Respect the 15-Word Budget</div>
+      <p>Natural human speech runs ~2.2 words per second. In an 8-second clip, cap dialogue at <strong>10 to 16 words</strong> so the actor finishes speaking naturally before the cut.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">3</span> Direct Vocal Delivery &amp; Emotion</div>
+      <p>Add a short performance note right after the quote: <em>"in a warm, raspy voice," "with breathless excitement," "deadpan and monotone,"</em> or <em>"through a crackly radio."</em></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">4</span> Split Two-Person Conversations</div>
+      <p>Don't cram three back-and-forth lines into one clip (causes lip-sync confusion). Generate <strong>Shot A (Speaker 1)</strong> and <strong>Shot B (Speaker 2 reaction)</strong>, then cut between them in Scenebuilder.</p>
+    </div>
+  </div>
+
+  <h3>Controlling Background Music vs. Clean Room Tone</h3>
+  <div class="callout amber">
+    <div class="callout-title">Crucial Tip: Always Add <code>"no background music"</code> for Multi-Shot Films!</div>
+    If you leave music unspecified, Veo may invent a different orchestral score on every 8-second clip—which clashes horribly when stitched together in Scenebuilder! Always end narrative prompts with <code>"quiet room tone, no background music"</code>, then lay a single unified music track underneath your finished edit (or only ask for music on standalone one-shot posts).
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: SCENEBUILDER, FLOW TV & FLOW TOOLS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Editing &amp; Ecosystem</span>
+    <span>Scenebuilder Timeline, Flow TV &amp; Custom Flow Tools</span>
+  </div>
+
+  <h2 class="page-title">Assembling Your Film in Scenebuilder &amp; Beyond</h2>
+  <p class="page-lead">
+    Once your clips are generated, open <strong>Scenebuilder</strong> at the bottom of the workspace. Unlike rigid storyboards, Scenebuilder is a flexible <em>"generate, then assemble"</em> timeline with AI continuity superpowers.
+  </p>
+
+  <!-- Scenebuilder Visual Diagram -->
+  <div class="ui-window" style="padding:10px 12px; margin-bottom:11px;">
+    <div style="display:flex; justify-content:space-between; margin-bottom:7px; color:#94a3b8; font-weight:700;">
+      <span>SCENEBUILDER EDITING TOOLS</span>
+      <span style="color:#34d399;">00:00 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash; Playhead 00:14.2 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 00:26</span>
+    </div>
+    <div style="display:grid; grid-template-columns: 2.2fr 0.9fr 2.2fr 1.5fr; gap:6px; align-items:stretch;">
+      <div style="background:#1e3a8a; border:2px solid #60a5fa; border-radius:6px; padding:7px;">
+        <div style="font-weight:700; color:#fff;">Clip 01 &bull; Trim Handles <code>[ | ]</code></div>
+        <div style="color:#bfdbfe; font-size:7pt; margin-top:2px;">Drag left/right yellow handles to shave hesitant starts or awkward endings.</div>
+      </div>
+      <div style="background:#581c87; border:1px solid #c084fc; border-radius:6px; padding:7px; text-align:center;">
+        <div style="font-weight:800; color:#f3e8ff;">Jump To</div>
+        <div style="color:#e9d5ff; font-size:6.8pt; margin-top:2px;">AI bridges Clip 01 into Clip 02 smoothly</div>
+      </div>
+      <div style="background:#065f46; border:1px solid #34d399; border-radius:6px; padding:7px;">
+        <div style="font-weight:700; color:#fff;">Clip 02 &bull; In-Place Fix / Angle</div>
+        <div style="color:#a7f3d0; font-size:7pt; margin-top:2px;">Fix a minor visual blemish or pull a secondary camera angle without re-rolling.</div>
+      </div>
+      <div style="background:#7c2d12; border:1px dashed #fb923c; border-radius:6px; padding:7px;">
+        <div style="font-weight:700; color:#ffedd5;">+ Extend Clip</div>
+        <div style="color:#fed7aa; font-size:7pt; margin-top:2px;">Appends context-aware seconds (Omni Flash / Veo Lite).</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Core Scenebuilder Actions Explained</h3>
+  <ul>
+    <li><strong>Add &amp; Reorder:</strong> Hover any winning take in your Shot Canvas and click <strong>+ Add to Scene</strong>. Drag clips left or right on the timeline to test alternate story orders.</li>
+    <li><strong>Trim In/Out Handles:</strong> Grab either edge of a clip on the timeline to trim dead air or cut right on physical motion ("cutting on action" makes transitions invisible).</li>
+    <li><strong>Jump To (Smart Continuity Bridge):</strong> Need your character to move from a car interior to standing outside a diner? Select <strong>Jump To</strong>—Gemini and Veo synthesize a context-aware bridge shot linking the two locations.</li>
+    <li><strong>Extend:</strong> Appends extra seconds to a shot that ended slightly too soon (powered by Omni Flash 1.2 / Veo 3.1 Lite continuation workflows—or use the manual <em>Save Last Frame</em> method from Page 7 for full Veo Quality control).</li>
+    <li><strong>Export &amp; 4K Upscale:</strong> Preview your assembled cut end-to-end, choose <strong>1080p</strong> or <strong>4K Upscale</strong>, and download a single ready-to-publish MP4.</li>
+  </ul>
+
+  <h3>Bonus Ecosystem Features You Shouldn't Miss</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">TV</span> Flow TV (Inspiration &amp; Prompt Study)</div>
+      <p>Click <strong>Flow TV</strong> in the top header to watch curated short films, music videos, and experiments created inside Google Flow. Studying how top creators frame shots and pace cuts is the fastest free film school on the platform.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">FX</span> Google Flow Tools &amp; Mobile Sync</div>
+      <p>Use <strong>Flow Tools</strong> to build reusable no-code mini-apps in plain English (e.g., bespoke aspect-ratio reframers, retro title overlays, or brand color graders), and use the <strong>iOS/Android app</strong> to snap real-world photos directly into your Ingredients drawer.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHEAT SHEET ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Creator Cheat Sheet</h2>
+  <p class="page-lead">
+    Keep this final page handy while working in <code>flow.google</code>. Almost every frustrating generation has a fast, predictable fix.
+  </p>
+
+  <h3>Top 7 Common Problems &amp; Instant Fixes</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:28%;">Symptom / Problem</th>
+        <th style="width:72%;">Root Cause &amp; Exact Fix in Google Flow</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Character's face or outfit changes between shots</strong></td>
+        <td>You used plain <em>Text to Video</em>. Generate a neutral portrait in Imagen, save it as an <strong>Ingredient</strong> (<code>@hero</code>), and use <strong>Ingredients to Video</strong> for every shot.</td>
+      </tr>
+      <tr>
+        <td><strong>Spoken line gets cut off at the end of the clip</strong></td>
+        <td>Too many words for clip duration. Trim dialogue to <strong>&le;15 words per 8s clip</strong>, put exact speech inside <code>"quotes"</code>, or split into two shots in Scenebuilder.</td>
+      </tr>
+      <tr>
+        <td><strong>Clashing music plays under every clip</strong></td>
+        <td>Veo generated default score per clip. Append <code>"quiet room tone, no background music"</code> to your prompts (and Project Agent Instructions).</td>
+      </tr>
+      <tr>
+        <td><strong>Visuals look overly glossy, floaty, or "AI-smooth"</strong></td>
+        <td>Missing lens and texture cues. Add <code>"35mm film grain, natural skin texture, 50mm lens, overcast natural lighting"</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Jarring jump when cutting from Shot 1 to Shot 2</strong></td>
+        <td>Lighting or pose shifted. Use <strong>Save Last Frame</strong> on Shot 1 &rarr; drop into <strong>Start Frame</strong> of Shot 2, or trim 0.5s off the cut point in Scenebuilder.</td>
+      </tr>
+      <tr>
+        <td><strong>Hands or complex props warp mid-action</strong></td>
+        <td>Too many simultaneous actions. Isolate complex prop interactions into a dedicated <strong>macro insert shot</strong> using an Ingredient card of the prop.</td>
+      </tr>
+      <tr>
+        <td><strong>Running out of credits too quickly</strong></td>
+        <td>Rendering 4 takes on Veo Quality while still experimenting. Prototype in Imagen stills + <strong>Veo 3.1 Fast/Lite (1–2 takes)</strong>; switch to Quality only for final hero takes.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Tear-Out Pre-Flight Checklist -->
+  <div class="card-dark" style="margin-top:8px;">
+    <div class="card-title" style="font-size:10.5pt; color:#38bdf8; margin-bottom:6px;">
+      Pre-Flight Checklist: Check These 6 Boxes Before Clicking "Generate"
+    </div>
+    <div class="grid-2" style="gap:6px 16px; font-size:8.6pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Right Mode Selected?</strong> (<em>Text</em> vs. <em>Ingredients</em> vs. <em>Frames</em>)</div>
+      <div>&#9744; <strong>4. Camera Specified?</strong> (e.g., <em>dolly-in, lateral track, tripod pan + lens mm</em>)</div>
+      <div>&#9744; <strong>2. Aspect Ratio Set First?</strong> (<code>16:9</code> landscape or <code>9:16</code> vertical)</div>
+      <div>&#9744; <strong>5. Audio Scripted Cleanly?</strong> (Short <code>"quoted line"</code> + SFX + <code>no music</code>)</div>
+      <div>&#9744; <strong>3. <code>@Ingredients</code> Tagged?</strong> (Hero character &amp; key prop attached)</div>
+      <div>&#9744; <strong>6. Credit Tier Matched?</strong> (<em>Fast/Lite</em> for tests, <em>Quality</em> for final take)</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:10px;">
+    <div class="callout-title">Ready to Roll Camera?</div>
+    Open <strong><code>https://flow.google</code></strong>, start a free 50-credit daily session, pitch a 3-shot micro-story to <strong>Flow Agent</strong>, lock one character Ingredient, and assemble your first scene today.
+  </div>
+
+  <div class="page-footer">
+    <span>Google Flow (flow.google) &bull; Complete User Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>
