@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Multi-Platform Bots With Vercel Chat SDK: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">VERCEL &amp; FULL-STACK AI APPLICATIONS &bull; FIELD GUIDE</div>
+    <h1>Multi-Platform Bots With <span>Vercel Chat SDK</span></h1>
+    <p class="cover-sub">
+      Build one unified TypeScript bot codebase that speaks native Slack, Microsoft Teams, Discord, Telegram, Google Chat, GitHub, Linear, and Liveblocks&mdash;backed by Redis thread locks, AI SDK 7 <code>ToolLoopAgent</code>, Vercel Connect OAuth, durable Workflow 5 approval gates, and isolated Vercel Sandboxes.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Unified Chat Class</span>
+      <span class="cover-badge"><code>@chat-adapter/catalog</code></span>
+      <span class="cover-badge">Slack, Teams &amp; Discord</span>
+      <span class="cover-badge">Telegram, GitHub &amp; Linear</span>
+      <span class="cover-badge">Vercel Connect OAuth</span>
+      <span class="cover-badge">HITL Cards &amp; Sandbox</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Dark obsidian and coral-amber geometric bot core linked by glowing conduits to seven floating communication prisms" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Write Bot Logic Once</div>
+      <div class="cover-stat-desc">Handle <code>@</code>-mentions, subscribed threads, slash commands, and streamed AI replies in one shared handler across every platform adapter.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Secret Auth &amp; Locks</div>
+      <div class="cover-stat-desc">Pair <code>@vercel/connect</code> short-lived OAuth tokens with Redis distributed thread locks so parallel messages never race or leak static keys.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Durable HITL &amp; Sandboxes</div>
+      <div class="cover-stat-desc">Suspend <strong>Workflow 5</strong> runs on Slack or Teams approval cards via <code>createWebhook</code> and audit PR diffs inside <strong>Vercel Sandbox</strong> microVMs.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Unified Architecture</span>
+    <span>Multi-Platform Bots With Vercel Chat SDK</span>
+  </div>
+
+  <h2 class="page-title">Write Bot Logic Once, Native UX Everywhere</h2>
+  <p class="page-lead">
+    Every chat platform invents its own webhook signature scheme, markdown dialect, thread model, and button payload. <strong>Vercel Chat SDK</strong> (<code>chat</code>) normalizes incoming events into one clean TypeScript API while rendering authentic native cards, modals, and streaming replies per channel.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Unified Architecture &amp; Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Zero-Secret Connect OAuth &amp; Blob Tools</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Quickstart, Catalog &amp; Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. HITL Workflow 5 Gates &amp; Sandbox PRs</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Thread &amp; Card Inspector</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Unified Event Model &amp; Adapters</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Webhook Security, Fallbacks &amp; Replay</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Redis Locks &amp; Handler Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Check Catalog Capabilities First</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Core Mental Model: Normalized Ingress, Native Egress</h3>
+  <p style="font-size:8.55pt;">
+    Instead of embedding Slack Block Kit JSON or Discord slash-command glue inside your AI agent, route every webhook endpoint into one shared <code>Chat</code> instance running in Next.js, Hono, or Nuxt. Adapters translate inbound webhooks into unified <code>Thread</code> and <code>Message</code> objects, Redis guards thread state against concurrent replies, and <strong>AI SDK 7</strong> streams grounded responses back out through each platform&rsquo;s native UI primitives.
+  </p>
+
+  <h3>Unified Architecture: 8 Webhook Channels Through One <code>Chat</code> Core</h3>
+  <div class="figure-box" style="background:#160c07; padding:9px 11px; border-color:#7c2d12;">
+    <svg viewBox="0 0 710 198" width="100%" height="198" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: 8 Platform Webhooks -->
+      <rect x="6" y="10" width="156" height="156" rx="8" fill="#23120a" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="84" y="26" text-anchor="middle" fill="#fdba74" font-size="7.2" font-weight="700">8 PLATFORM WEBHOOKS</text>
+      <rect x="14" y="34" width="66" height="24" rx="4" fill="#160c07" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="47" y="49" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">Slack</text>
+      <rect x="86" y="34" width="68" height="24" rx="4" fill="#160c07" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="120" y="49" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">MS Teams</text>
+
+      <rect x="14" y="64" width="66" height="24" rx="4" fill="#160c07" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="47" y="79" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">Discord</text>
+      <rect x="86" y="64" width="68" height="24" rx="4" fill="#160c07" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="120" y="79" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">Telegram</text>
+
+      <rect x="14" y="94" width="66" height="24" rx="4" fill="#160c07" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="47" y="109" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">Google Chat</text>
+      <rect x="86" y="94" width="68" height="24" rx="4" fill="#160c07" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="120" y="109" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">GitHub</text>
+
+      <rect x="14" y="124" width="66" height="24" rx="4" fill="#160c07" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="47" y="139" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">Linear</text>
+      <rect x="86" y="124" width="68" height="24" rx="4" fill="#160c07" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="120" y="139" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">Liveblocks</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M162 88 L190 88" stroke="#fb923c" stroke-width="2" fill="none"/>
+      <polygon points="188,83 196,88 188,93" fill="#fb923c"/>
+
+      <!-- Center-Left: Chat Instance + Redis -->
+      <rect x="196" y="14" width="166" height="148" rx="8" fill="#2b160b" stroke="#f59e0b" stroke-width="1.6"/>
+      <text x="279" y="31" text-anchor="middle" fill="#fde68a" font-size="7.2" font-weight="700">NEXT.JS / HONO / NUXT</text>
+      <text x="279" y="47" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">Unified Chat Core</text>
+      <rect x="208" y="57" width="142" height="36" rx="5" fill="#160c07" stroke="#fb923c" stroke-width="0.9"/>
+      <text x="279" y="72" text-anchor="middle" fill="#fed7aa" font-size="7.3" font-weight="700">Adapter Routing &amp; Sig Verify</text>
+      <text x="279" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.8">onNewMention / onSlashCommand</text>
+      <rect x="208" y="101" width="142" height="48" rx="5" fill="#0c2030" stroke="#38bdf8" stroke-width="1"/>
+      <text x="279" y="117" text-anchor="middle" fill="#7dd3fc" font-size="7.5" font-weight="700">Redis State Adapter</text>
+      <text x="279" y="130" text-anchor="middle" fill="#e0f2fe" font-size="6.9">Distributed thread locks &amp;</text>
+      <text x="279" y="141" text-anchor="middle" fill="#e0f2fe" font-size="6.9">subscribed follow-up tracking</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M362 88 L390 88" stroke="#fb923c" stroke-width="2" fill="none"/>
+      <polygon points="388,83 396,88 388,93" fill="#fb923c"/>
+
+      <!-- Center-Right: AI SDK 7 + AI Gateway -->
+      <rect x="396" y="14" width="154" height="148" rx="8" fill="#1e1424" stroke="#a78bfa" stroke-width="1.6"/>
+      <text x="473" y="31" text-anchor="middle" fill="#ddd6fe" font-size="7.2" font-weight="700">INTELLIGENCE LAYER</text>
+      <text x="473" y="47" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">AI SDK 7 + Gateway</text>
+      <rect x="408" y="57" width="130" height="42" rx="5" fill="#130d19" stroke="#8b5cf6" stroke-width="0.9"/>
+      <text x="473" y="73" text-anchor="middle" fill="#ede9fe" font-size="7.4" font-weight="700">ToolLoopAgent</text>
+      <text x="473" y="86" text-anchor="middle" fill="#c4b5fd" font-size="6.8">Streamed text + tool calls</text>
+      <rect x="408" y="106" width="130" height="43" rx="5" fill="#130d19" stroke="#34d399" stroke-width="0.9"/>
+      <text x="473" y="122" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">Vercel AI Gateway</text>
+      <text x="473" y="135" text-anchor="middle" fill="#a7f3d0" font-size="6.8">OIDC auth, routing &amp; failover</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M550 88 L576 88" stroke="#34d399" stroke-width="2" fill="none"/>
+      <polygon points="574,83 582,88 574,93" fill="#34d399"/>
+
+      <!-- Right: Native Egress -->
+      <rect x="582" y="14" width="120" height="148" rx="8" fill="#092119" stroke="#34d399" stroke-width="1.6"/>
+      <text x="642" y="31" text-anchor="middle" fill="#6ee7b7" font-size="7.2" font-weight="700">NATIVE EGRESS</text>
+      <rect x="592" y="42" width="100" height="32" rx="5" fill="#061411" stroke="#10b981" stroke-width="0.9"/>
+      <text x="642" y="56" text-anchor="middle" fill="#ffffff" font-size="7.5" font-weight="700">Interactive Cards</text>
+      <text x="642" y="67" text-anchor="middle" fill="#a7f3d0" font-size="6.7">Buttons &amp; HITL gates</text>
+      <rect x="592" y="81" width="100" height="32" rx="5" fill="#061411" stroke="#10b981" stroke-width="0.9"/>
+      <text x="642" y="95" text-anchor="middle" fill="#ffffff" font-size="7.5" font-weight="700">Native Modals</text>
+      <text x="642" y="106" text-anchor="middle" fill="#a7f3d0" font-size="6.7">Typed form inputs</text>
+      <rect x="592" y="120" width="100" height="32" rx="5" fill="#061411" stroke="#10b981" stroke-width="0.9"/>
+      <text x="642" y="134" text-anchor="middle" fill="#ffffff" font-size="7.5" font-weight="700">Stream Replies</text>
+      <text x="642" y="145" text-anchor="middle" fill="#a7f3d0" font-size="6.7">Live token updates</text>
+
+      <!-- Bottom Summary Strip -->
+      <rect x="6" y="173" width="696" height="18" rx="4" fill="#23120a" stroke="#7c2d12" stroke-width="0.9"/>
+      <text x="354" y="185" text-anchor="middle" fill="#fdba74" font-size="7.15" font-weight="600">Webhook Event &rarr; Adapter Normalize &rarr; Redis Thread Lock &rarr; ToolLoopAgent via AI Gateway &rarr; Native Card / Stream</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Mental Model Takeaway: Decouple Reasoning From Channel Plumbing</div>
+    Your agent code never cares whether a question arrived from a Slack channel, a GitHub pull request comment, or a Microsoft Teams thread. Adapters handle platform auth, rate-limit formatting, and native card translation at the edge of your app.
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: QUICKSTART, CATALOG & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Quickstart, Catalog Discovery &amp; Architecture</span>
+    <span>Scaffold, @chat-adapter/catalog &amp; Platform Choice</span>
+  </div>
+
+  <h2 class="page-title">Quickstart, <code>@chat-adapter/catalog</code> &amp; Decision Matrix</h2>
+  <p class="page-lead">
+    Go from zero to a multi-platform bot in under a minute. Scaffold a Next.js template without prompts, inspect the bundled offline docs inside <code>node_modules/chat/</code>, and use <code>@chat-adapter/catalog</code> to query adapter capabilities statically.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-amber" style="border-top:3px solid #ea580c;">
+      <div class="card-title"><span class="num-badge">1</span> 60-Second Scaffold &amp; Bundled Docs</div>
+      <pre class="code-block" style="margin:3px 0 4px 0; padding:5.5px 8px; font-size:6.95pt; line-height:1.33;"><code># Scaffold a Next.js bot project without prompts
+npx create-chat-sdk
+
+# Or add Chat SDK + adapters to an existing repo
+npm i chat @chat-adapter/slack @chat-adapter/redis</code></pre>
+      <p style="font-size:7.75pt; margin:0; color:#334155;">
+        Every install ships version-matched markdown guides in <code>node_modules/chat/docs/</code>, 13 production recipes in <code>node_modules/chat/resources/</code>, and starter blueprints in <code>node_modules/chat/resources/templates.json</code>.
+      </p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #c2410c;">
+      <div class="card-title"><span class="num-badge dark">2</span> Adapter Catalog Discovery (<code>@chat-adapter/catalog</code>)</div>
+      <p style="font-size:7.75pt; margin:2px 0 4px 0;">
+        Replace deprecated <code>chat/adapters</code> imports with <code>@chat-adapter/catalog</code>&mdash;a zero-dependency static index of official, vendor-official, and community adapters:
+      </p>
+      <ul style="font-size:7.65pt; margin:0;">
+        <li><code>listAdapters()</code> &amp; <code>getCatalogEntry(slug)</code>: Discover npm packages, peer deps, and platform vs. state adapter roles before installing.</li>
+        <li><code>getFeatureSupport(slug)</code>: Check streaming, modals, and distributed locking support at build time or runtime.</li>
+        <li><code>listEnvVars(slug)</code> &amp; <code>getSecretEnvVars(slug)</code>: Generate accurate onboarding checklists and secret vaults automatically.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Architectural Decision Matrix: Choosing Your Bot Foundation</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Dimension</th>
+        <th style="width:29%;">Vercel Chat SDK (<code>chat</code>)</th>
+        <th style="width:26%;">Raw SDKs (<code>@slack/bolt</code>, <code>discord.js</code>, <code>telegraf</code>)</th>
+        <th style="width:26%;"><code>eve</code> Framework (Greenfield)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Primary Sweet Spot</strong></td>
+        <td>Multi-platform bots inside Next.js, Hono, Nitro, or Nuxt apps sharing one handler codebase.</td>
+        <td>Single-platform edge cases needing esoteric socket-mode APIs outside standard messaging.</td>
+        <td>Greenfield, filesystem-first durable internal agents where Slack is one of several agent channels.</td>
+      </tr>
+      <tr>
+        <td><strong>Channel Portability</strong></td>
+        <td><strong>High:</strong> Add Slack, Teams, Discord, Telegram, GChat, GitHub, Linear, or Liveblocks via adapters.</td>
+        <td><strong>Locked:</strong> Rewriting a Slack Bolt bot for Teams or Discord means duplicating every route and UI card.</td>
+        <td><strong>Built-In:</strong> Convention-based <code>agent/channels/*.ts</code> files wired straight to durable agent sessions.</td>
+      </tr>
+      <tr>
+        <td><strong>Concurrency &amp; State</strong></td>
+        <td>Pluggable <code>@chat-adapter/redis</code> locks threads and persists subscriptions across serverless instances.</td>
+        <td>Manual DIY Redis locks; stateful WebSocket clients like <code>discord.js</code> break on serverless cold starts.</td>
+        <td>Durable filesystem-backed session history, schedules, and subagents managed by the runtime.</td>
+      </tr>
+      <tr>
+        <td><strong>Workflow &amp; Auth Pairing</strong></td>
+        <td>Pairs cleanly with <code>@vercel/connect/chat</code>, AI SDK 7 <code>ToolLoopAgent</code>, and Workflow 5 <code>createWebhook</code>.</td>
+        <td>Requires manual OAuth refresh plumbing, custom webhook replay checks, and static bot tokens.</td>
+        <td>Native <code>@vercel/connect/eve</code> helpers (<code>connectSlackCredentials</code>) and Agent Runs observability.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:2px 0 0 0;">
+    <div class="callout-title">When to Pick Chat SDK vs. <code>eve</code> Directly</div>
+    Choose <strong>Vercel Chat SDK</strong> when you are adding a multi-platform bot or interactive webhook handler to an existing web app (Next.js, Hono, Nuxt) and want full control over routes, cards, and custom workflows. Pick <strong>eve</strong> directly when starting a greenfield, autonomous internal agent whose primary job is long-lived filesystem-first sessions, subagents, and scheduled Slack operations.
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Thread &amp; Card Inspector Tour</span>
+    <span>Inside a Live Multi-Platform Chat SDK Turn</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Cross-Platform Thread &amp; Card Cockpit</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Trace how a single user <code>@</code>-mention flows from an inbound webhook through Redis locking, AI SDK 7 streaming, and an interactive Human-in-the-Loop approval card that resumes a paused Workflow 5 run.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#fdba74;">chat-sdk-runtime &mdash; /api/webhooks/[platform] (Next.js + AI SDK 7)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:7px; font-size:7pt;">
+        <span style="background:#7c2d12; color:#ffedd5; border:1px solid #fb923c; padding:1.5px 6px; border-radius:4px; font-weight:700;">Catalog: slack + teams + github <span class="callout-pin">1</span></span>
+        <span style="background:#0c2d3d; color:#7dd3fc; border:1px solid #0284c7; padding:1.5px 6px; border-radius:4px; font-weight:700;">Redis Lock: thread_8f2a (TTL 30s) <span class="callout-pin">3</span></span>
+      </div>
+    </div>
+
+    <!-- Event & Auth Banner -->
+    <div style="background:#23120a; border-bottom:1px solid #7c2d12; padding:4.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.1pt;">
+      <span><strong style="color:#fb923c;">[EVENT: onNewMention]</strong> <span style="color:#e2e8f0;">Verified via <code>@vercel/connect</code> OIDC Trigger &rarr; <code>thread.subscribe()</code></span> <span class="callout-pin">2</span></span>
+      <span><strong style="color:#6ee7b7;">Auth:</strong> <code>slack/acme-ops</code> (0 static secrets) <span class="callout-pin">4</span></span>
+    </div>
+
+    <!-- Main Split Pane -->
+    <div style="display:grid; grid-template-columns: 1.08fr 1fr; border-bottom:1px solid #7c2d12;">
+      <!-- Left: Handler + Stream -->
+      <div style="padding:8px 11px; border-right:1px solid #7c2d12;">
+        <div style="color:#fdba74; font-weight:700; font-size:7.15pt; margin-bottom:4px;">Unified Handler &amp; Streamed Agent Reply <span class="callout-pin">5</span></div>
+        <div style="background:#100805; border:1px solid #7c2d12; border-radius:5px; padding:5px 7px; font-family:monospace; font-size:6.85pt; line-height:1.38; margin-bottom:5px;">
+          <div style="color:#94a3b8;">bot.onNewMention(async (thread, msg) =&gt; {</div>
+          <div style="color:#7dd3fc;">&nbsp;&nbsp;await thread.subscribe();</div>
+          <div style="color:#fde68a;">&nbsp;&nbsp;const res = await opsAgent.stream({ prompt: msg.text });</div>
+          <div style="color:#6ee7b7;">&nbsp;&nbsp;await thread.post(res.textStream);</div>
+          <div style="color:#94a3b8;">});</div>
+        </div>
+        <div style="background:#1c0f08; border:1px solid #ea580c; border-radius:5px; padding:5px 7px; font-size:6.95pt; color:#ffedd5;">
+          <strong style="color:#fb923c;">Stream Output:</strong> &ldquo;Staging tests passed (42/42). Release <code>v2.14.0</code> is staged for production. Requesting sign-off below&hellip;&rdquo;
+        </div>
+      </div>
+
+      <!-- Right: Rendered Cross-Platform Approval Card -->
+      <div style="padding:8px 10px; background:#120a06; font-size:7pt;">
+        <div style="font-weight:700; color:#6ee7b7; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+          <span>NATIVE CARD RENDER (SLACK / TEAMS)</span> <span class="callout-pin">6</span>
+        </div>
+        <div style="background:#1e130d; border:1px solid #fb923c; border-left:3.5px solid #fb923c; border-radius:6px; padding:6px 8px;">
+          <div style="font-weight:800; color:#ffffff; font-size:7.6pt; margin-bottom:2px;">Production Deploy Approval &bull; api-core</div>
+          <div style="color:#cbd5e1; font-size:6.9pt; margin-bottom:5px;">Commit <code>91c4e2a</code> &bull; Target: <code>prod-us-east</code> &bull; Timeout: <code>sleep(&quot;24h&quot;)</code></div>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <span style="background:#059669; color:#ffffff; padding:2.5px 8px; border-radius:4px; font-weight:700; font-size:6.8pt;">Approve Deploy</span>
+            <span style="background:#dc2626; color:#ffffff; padding:2.5px 8px; border-radius:4px; font-weight:700; font-size:6.8pt;">Reject</span>
+            <span style="color:#fde68a; font-size:6.6pt; margin-left:auto;"><code>wh_tok_771b</code> <span class="callout-pin">7</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Status Strip -->
+    <div style="background:#23120a; padding:5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.1pt;">
+      <span><strong style="color:#fb923c;">Capability Check:</strong> <code>getFeatureSupport(&quot;slack&quot;)</code> &rarr; streaming: true, modals: true, locking: true</span>
+      <span style="color:#fdba74;"><code>AI Gateway: anthropic/claude-sonnet-4.6</code></span>
+    </div>
+  </div>
+
+  <h3>Interface Legend: The 7 Live Runtime Touchpoints</h3>
+  <div class="grid-2" style="font-size:7.85pt; gap:5.5px 11px;">
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">1</span> Catalog Adapter Registry:</strong> Verified adapter entries from <code>@chat-adapter/catalog</code> map each webhook route to its platform formatter and feature flags.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">2</span> Unified Event Hook &amp; Subscription:</strong> <code>onNewMention</code> fires on first ping; calling <code>thread.subscribe()</code> routes future thread replies to <code>onSubscribedMessage</code>.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">3</span> Redis Distributed Thread Lock:</strong> Prevents overlapping serverless invocations from mutating the same thread history or posting out-of-order replies.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">4</span> Vercel Connect OIDC Auth:</strong> Inbound webhooks arrive OIDC-signed by Vercel Connect while outbound posts fetch short-lived tokens dynamically.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">5</span> Streamed <code>ToolLoopAgent</code> Reply:</strong> Pipes AI SDK 7 token streams directly into <code>thread.post()</code> using native live-edit updates where supported.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">6</span> Cross-Platform Card Renderer:</strong> Compiles one declarative JSX/object Card into Slack Block Kit, Teams Adaptive Cards, or Discord Embeds automatically.
+    </div>
+    <div class="card-amber" style="padding:6px 9px; grid-column: span 2;">
+      <strong><span class="callout-pin">7</span> Workflow 5 Resumption Token (<code>createWebhook</code>):</strong> Button clicks carry an opaque token back to your handler, verifying the clicking user&rsquo;s authority and calling <code>resumeWebhook(token, payload)</code> to wake the suspended workflow run cleanly.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: UNIFIED EVENT MODEL & ADAPTERS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Unified Event Model &amp; Native Adapters</span>
+    <span>onNewMention, Streaming, Cards, Modals &amp; Capability Checks</span>
+  </div>
+
+  <h2 class="page-title">Unified <code>Chat</code> Event Model &amp; Native Adapters</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Every adapter translates platform-specific events into four clean lifecycle hooks, letting you write interactive streaming bots, slash commands, Cards, and Modals once while honoring per-platform capabilities from <code>@chat-adapter/catalog</code>.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div>
+      <p style="font-size:7.75pt; font-weight:700; margin-bottom:2px; color:#9a3412;">1. Unified Event Hooks &amp; Streaming Replies</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.8pt; line-height:1.33;"><code>import { Chat } from "chat";
+import { createSlackAdapter } from "@chat-adapter/slack";
+import { createTeamsAdapter } from "@chat-adapter/teams";
+import { createRedisState } from "@chat-adapter/redis";
+
+export const bot = new Chat({
+  userName: "ops-copilot",
+  adapters: { slack: createSlackAdapter(), teams: createTeamsAdapter() },
+  state: createRedisState(),
+});
+
+bot.onNewMention(async (thread, msg) =&gt; {
+  await thread.subscribe();
+  const stream = await supportAgent.stream({ prompt: msg.text });
+  await thread.post(stream.textStream); // Streams natively per adapter
+});
+
+bot.onSubscribedMessage(async (thread, msg) =&gt; { /* follow-up turn */ });
+bot.onSlashCommand("/triage", async (event) =&gt; { /* modal or card */ });</code></pre>
+    </div>
+
+    <div>
+      <p style="font-size:7.75pt; font-weight:700; margin-bottom:2px; color:#9a3412;">2. Capability Checks via <code>@chat-adapter/catalog</code></p>
+      <table class="clean-table" style="font-size:7.4pt; margin:0 0 5px 0;">
+        <thead>
+          <tr>
+            <th style="width:28%;">Adapter</th>
+            <th style="width:24%;">Streaming</th>
+            <th style="width:22%;">Modals</th>
+            <th style="width:26%;">Primary Surface</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Slack / Teams</strong></td>
+            <td>Live Edit</td>
+            <td>Native</td>
+            <td>Block Kit / Adaptive</td>
+          </tr>
+          <tr>
+            <td><strong>Discord</strong></td>
+            <td>Chunk Edit</td>
+            <td>Native</td>
+            <td>Embeds &amp; Slash</td>
+          </tr>
+          <tr>
+            <td><strong>Telegram</strong></td>
+            <td>Draft / Edit</td>
+            <td>Inline Buttons</td>
+            <td>Commands &amp; Topics</td>
+          </tr>
+          <tr>
+            <td><strong>GitHub / Linear</strong></td>
+            <td>Final Post</td>
+            <td>Markdown Links</td>
+            <td>PR &amp; Issue Threads</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:7.55pt; margin:0; color:#334155;">
+        Call <code>getFeatureSupport(slug)</code> before invoking modals or token streaming so your bot degrades gracefully on issue-tracker threads without throwing runtime errors.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 6px 0;">
+    <div class="callout-title">Declarative Cards &amp; Modals Compile to Native Platform Components</div>
+    Use Chat SDK&rsquo;s built-in <code>Card</code>, <code>Button</code>, and <code>Modal</code> helpers instead of raw JSON payloads. On Slack they render as interactive Block Kit; on Microsoft Teams they emit Adaptive Cards; on GitHub or Linear they automatically render clean Markdown summaries with action links.
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/unified_adapter_switchboard.jpg" alt="Isometric switchboard showing one glowing amber message crystal refracting through precision glass adapter lenses and a shared lock node into diverse channel chambers" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>The Adapter Switchboard:</strong> One structured message crystal enters the central switchboard, passes through a shared distributed lock node, and fans across precision adapter lenses into distinct native channel chambers without duplicating bot logic.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: REDIS LOCKS & HANDLER ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Redis Thread State &amp; Handler Anatomy</span>
+    <span>Distributed Locking, Multi-Turn Context &amp; Tag Breakdown</span>
+  </div>
+
+  <h2 class="page-title">Redis Thread Locks &amp; Multi-Platform Handler Anatomy</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Serverless webhook functions run concurrently across regions. Without a shared state layer, two rapid messages in the same thread overwrite each other&rsquo;s context and post scrambled replies. Pairing <code>@chat-adapter/redis</code> with durable Workflow handoffs keeps every conversation deterministic.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div class="card-amber" style="border-top:3px solid #ea580c;">
+      <div class="card-title"><span class="num-badge">1</span> Redis Subscriptions &amp; Distributed Locks</div>
+      <ul style="font-size:7.8pt; margin:2px 0 0 0;">
+        <li><strong>Thread Subscriptions:</strong> Calling <code>await thread.subscribe()</code> stores the active thread ID in Redis so users can reply naturally without re-typing <code>@bot</code> every turn.</li>
+        <li><strong>Per-Thread Mutual Exclusion:</strong> Redis distributed locks serialize concurrent webhook deliveries on the same thread key, protecting message history and tool side-effects.</li>
+        <li><strong>Zero Cold-Start Drift:</strong> Any Vercel Function instance can pick up the next turn seamlessly using shared Redis state.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">2</span> Never Poll With <code>setInterval</code> in Webhooks</div>
+      <ul style="font-size:7.8pt; margin:2px 0 0 0;">
+        <li><strong>Fast Webhook Ack:</strong> Messaging platforms retry or drop webhooks that stall past 3 seconds.</li>
+        <li><strong>Avoid <code>setTimeout</code> / <code>setInterval</code>:</strong> Polling loops burn function timeouts and vanish on redeploys.</li>
+        <li><strong>Offload Long Jobs:</strong> Acknowledge the mention, post a streaming status message, and trigger a durable <strong>Workflow 5</strong> run via <code>start()</code> for multi-minute builds or approvals.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Color-Coded Anatomy of a Production Multi-Platform Handler</h3>
+  <div style="margin-bottom:5px; font-size:7.65pt; display:flex; flex-wrap:wrap; gap:5px;">
+    <span class="p-tag p-event">[1. Event Trigger]</span>
+    <span class="p-tag p-lock">[2. Redis Lock &amp; State]</span>
+    <span class="p-tag p-agent">[3. ToolLoopAgent + Gateway]</span>
+    <span class="p-tag p-card">[4. Native Stream / Card]</span>
+    <span class="p-tag p-guard">[5. Fallback &amp; Stop Guard]</span>
+  </div>
+
+  <div class="card" style="background:#f8fafc; border:1px solid #fed7aa; padding:8px 10px; margin-bottom:7px; font-size:8.05pt; line-height:1.65;">
+    <span class="p-tag p-event">Listen on bot.onNewMention &amp; bot.onSubscribedMessage after adapter signature verification succeeds.</span>
+    <span class="p-tag p-lock">Acquire the Redis thread lock, load recent thread messages, and mark thread.subscribe() active.</span>
+    <span class="p-tag p-agent">Invoke new ToolLoopAgent({ model: &quot;anthropic/claude-sonnet-4.6&quot;, tools, stopWhen: isStepCount(6) }) via AI Gateway.</span>
+    <span class="p-tag p-card">Stream textStream into thread.post() and append an interactive Card when human approval is needed.</span>
+    <span class="p-tag p-guard">Check getFeatureSupport(thread.adapterName) before opening modals; release the Redis lock in finally {}.</span>
+  </div>
+
+  <h3>3-Phase Execution Lifecycle Across Serverless Invocations</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin-bottom:4px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Lifecycle Phase</th>
+        <th style="width:27%;">Primary Mechanism</th>
+        <th style="width:53%;">Why It Matters in Production</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Ingress &amp; Lock</strong></td>
+        <td>Adapter Verify + Redis Lock</td>
+        <td>Rejects forged payloads immediately and queues duplicate Slack/Teams retries behind a single thread mutex.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Reason &amp; Stream</strong></td>
+        <td><code>ToolLoopAgent</code> + AI Gateway</td>
+        <td>Routes models via OIDC with automatic provider failover while streaming incremental tokens back to the thread.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Pause &amp; Resume</strong></td>
+        <td><code>Card</code> Action + Workflow 5</td>
+        <td>Converts multi-hour human sign-offs into zero-compute durable suspensions resumed via <code>resumeWebhook()</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">Pro Tip: Bound Agent Loops With <code>stopWhen: isStepCount(N)</code></div>
+    Never rely on legacy <code>maxSteps</code> (removed in AI SDK 5+). Pass <code>stopWhen: isStepCount(6)</code> to <code>ToolLoopAgent</code> so runaway tool calls terminate predictably before exhausting platform response windows.
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: VERCEL CONNECT & VERCEL BLOB TOOLS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Zero-Secret OAuth &amp; Storage Tools</span>
+    <span>@vercel/connect/chat &amp; Approval-Gated Vercel Blob Tools</span>
+  </div>
+
+  <h2 class="page-title">Zero-Secret Auth with <code>@vercel/connect</code> &amp; Blob Tools</h2>
+  <p class="page-lead">
+    Static long-lived bot tokens sitting inside <code>.env</code> files create rotation headaches and wide blast radii. Pair Chat SDK with <strong>Vercel Connect</strong> (<code>@vercel/connect/chat</code>) for short-lived OAuth tokens and OIDC-signed triggers, and equip agents with approval-gated <strong>Vercel Blob</strong> tools.
+  </p>
+
+  <div class="callout rose" style="margin:2px 0 7px 0;">
+    <div class="callout-title">Stop Copying Static <code>SLACK_BOT_TOKEN</code> &amp; <code>GITHUB_APP_PRIVATE_KEY</code> Secrets</div>
+    With <strong>Vercel Connect</strong>, your deployment authenticates using its ephemeral <code>VERCEL_OIDC_TOKEN</code>. Connect holds refresh credentials in its managed vault and mints short-lived <code>app</code> or per-<code>user</code> provider tokens strictly at request time.
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div class="card-dark">
+      <div class="card-title">How <code>@vercel/connect/chat</code> Works</div>
+      <ul style="font-size:7.75pt; color:#e2e8f0; margin:3px 0 0 0;">
+        <li><strong>App vs. User Subject:</strong> Request <code>subject: { type: &quot;app&quot; }</code> to post as the bot, or <code>subject: { type: &quot;user&quot;, id }</code> to act strictly with an individual user&rsquo;s OAuth consent.</li>
+        <li><strong>Signed Trigger Forwarding:</strong> Connect verifies inbound Slack, Teams, Discord, GitHub, and Linear webhooks and forwards them to your route as signed Vercel OIDC requests.</li>
+        <li><strong>Native Exceptions:</strong> Telegram and Notion continue using their native inbound webhook verification tokens alongside Connect outbound calls.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Approval-Gated Vercel Blob / Files SDK Tools</div>
+      <ul style="font-size:7.75pt; margin:3px 0 0 0;">
+        <li><strong><code>createFileTools</code> Factory:</strong> Expose Vercel Blob buckets directly to <code>ToolLoopAgent</code> so Slack users can list, search, and read reports conversationally.</li>
+        <li><strong>Read-Only vs. Write Modes:</strong> Allow safe read/list calls automatically while placing uploads and deletes behind explicit human approval.</li>
+        <li><strong>Scoped Paths:</strong> Restrict prefixes per channel or tenant (e.g. <code>reports/eng/</code>) so bots never traverse unrelated buckets.</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:6px 9px; font-size:6.85pt; line-height:1.35; margin:0 0 6px 0;"><code>// 1. Provision &amp; link connector via CLI: vercel connect create slack &amp;&amp; vercel connect attach slack/acme-ops
+import { getToken } from "@vercel/connect";
+import { ToolLoopAgent, isStepCount } from "ai";
+import { createFileTools } from "@vercel/blob/ai"; // Approval-gated Files SDK tools
+
+const slackToken = await getToken("slack/acme-ops", { subject: { type: "app" } });
+const fileTools = createFileTools({ prefix: "team-docs/", readOnly: false, requireWriteApproval: true });
+
+export const docsAgent = new ToolLoopAgent({
+  model: "openai/gpt-5.4", // Routed via AI Gateway with VERCEL_OIDC_TOKEN
+  tools: fileTools,
+  stopWhen: isStepCount(6),
+});</code></pre>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Local Dev Tip: Refresh Ephemeral OIDC Tokens With <code>vercel env pull</code></div>
+    On Vercel deployments, <code>VERCEL_OIDC_TOKEN</code> rotates automatically. Locally, link your directory with <code>vercel link</code> and run <code>vercel env pull</code> whenever your short-lived development OIDC token expires.
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: HITL WORKFLOWS & SANDBOX PR REVIEWERS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Durable HITL Gates &amp; Sandbox PR Reviewers</span>
+    <span>Workflow 5 createWebhook + @vercel/sandbox@2</span>
+  </div>
+
+  <h2 class="page-title">HITL Approval Cards &amp; <code>Sandbox</code> PR Reviewers</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Combine Chat SDK with <strong>Workflow 5</strong> to pause multi-day approvals at zero compute cost until someone clicks a button in Slack or Teams, and spin up <strong>Vercel Sandbox</strong> microVMs whenever a developer <code>@</code>-mentions your bot on a GitHub pull request.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div class="card-amber" style="border-top:3px solid #ea580c;">
+      <div class="card-title"><span class="num-badge">1</span> Suspending Workflow 5 on Chat Buttons</div>
+      <ul style="font-size:7.75pt; margin:2px 0 0 0;">
+        <li><strong>Create Resumable Gate:</strong> Call <code>const hook = createWebhook()</code> inside a <code>&quot;use workflow&quot;</code> function and pass <code>hook.token</code> into your Chat SDK approval <code>Card</code> buttons.</li>
+        <li><strong>Race With Durable Timeouts:</strong> Pair <code>Promise.race([hook, sleep(&quot;24h&quot;)])</code> so stale deployment requests expire cleanly without holding any server memory.</li>
+        <li><strong>Validate Approver Identity:</strong> Inside <code>bot.onAction</code>, verify <code>event.user</code> belongs to the authorized release group before calling <code>resumeWebhook()</code>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">2</span> GitHub PR Reviews in Vercel Sandbox</div>
+      <ul style="font-size:7.75pt; margin:2px 0 0 0;">
+        <li><strong>Trigger on PR Mention:</strong> <code>@chat-adapter/github</code> captures <code>@bot review</code> comments on any PR thread.</li>
+        <li><strong>Isolated Firecracker microVM:</strong> Launch <code>await Sandbox.create({ networkPolicy: &quot;deny-all&quot; })</code> via <code>@vercel/sandbox@2</code>, clone the PR branch, and run tests safely.</li>
+        <li><strong>Grounded PR Feedback:</strong> Feed exact diff hunks and failing test output to <code>ToolLoopAgent</code> and post crisp inline comments back to the PR.</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:5.5px 9px; font-size:6.8pt; margin:0 0 6px 0;"><code>// Workflow 5 HITL gate: suspends cleanly until Slack/Teams button click or 24h durable sleep()
+import { createWebhook, sleep } from "workflow";
+export async function deployApprovalWorkflow(releaseTag: string, channelId: string) {
+  "use workflow";
+  const approvalHook = createWebhook();
+  await postApprovalCardStep(channelId, releaseTag, approvalHook.token);
+  const decision = await Promise.race([approvalHook, sleep("24h").then(() =&gt; ({ approved: false, reason: "timeout" }))]);
+  if (decision.approved) await promoteProductionStep(releaseTag);
+}</code></pre>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/hitl_approval_card_bridge.jpg" alt="Architectural visualization of a luminous amber workflow ribbon pausing at a floating glass approval gate card before continuing into deployment pods" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Durable Human-in-the-Loop Bridge:</strong> A Workflow 5 execution ribbon pauses with zero idle compute at an illuminated approval card until an authorized reviewer clicks Approve, unlocking downstream deployment pods or sandboxed verifications.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Field Blueprints</span>
+    <span>5 Real-World Copy-Paste Chat SDK Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Start faster with these five production architectures drawn from <code>node_modules/chat/resources/guides/</code>. Each recipe pairs the exact adapters, AI SDK 7 primitives, and durability guards required for real traffic.
+  </p>
+
+  <table class="clean-table" style="font-size:7.6pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Recipe &amp; Channels</th>
+        <th style="width:24%;">Stack &amp; Adapters</th>
+        <th style="width:54%;">Implementation Blueprint</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Streaming AI Slack Bot</strong><br/><span style="color:#c2410c; font-weight:600;">Slack Threads &amp; DMs</span></td>
+        <td><code>@chat-adapter/slack</code><br/><code>@chat-adapter/redis</code><br/><code>ToolLoopAgent</code> + Gateway</td>
+        <td>Subscribe on <code>onNewMention</code>, acquire the Redis thread lock, call <code>agent.stream()</code> with <code>anthropic/claude-sonnet-4.6</code> via AI Gateway, and pipe <code>stream.textStream</code> into <code>thread.post()</code> for live Slack message updates.</td>
+      </tr>
+      <tr>
+        <td><strong>2. GitHub PR Diff Reviewer</strong><br/><span style="color:#0284c7; font-weight:600;">GitHub PR Comments</span></td>
+        <td><code>@chat-adapter/github</code><br/><code>@vercel/sandbox@2</code><br/>Hono + Redis</td>
+        <td>On PR <code>@bot</code> mention, enqueue a background step that boots an isolated <code>Sandbox.create()</code> microVM, checks out the PR head SHA, runs <code>pnpm test</code>, analyzes changed files with <code>ToolLoopAgent</code>, and replies with exact file-and-line findings.</td>
+      </tr>
+      <tr>
+        <td><strong>3. HITL Deploy Gate Card</strong><br/><span style="color:#059669; font-weight:600;">Slack + MS Teams + Linear</span></td>
+        <td><code>@chat-adapter/slack</code><br/><code>@chat-adapter/teams</code><br/>Workflow 5 <code>createWebhook</code></td>
+        <td>Trigger <code>start(deployApprovalWorkflow)</code> from <code>/deploy</code>. Inside the workflow, call <code>createWebhook()</code>, post a native <code>Card</code> with the token, race against <code>sleep(&quot;24h&quot;)</code>, validate <code>event.user</code> on click, and call <code>resumeWebhook()</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Discord &amp; Telegram Knowledge Bot</strong><br/><span style="color:#7c3aed; font-weight:600;">Discord + Telegram Topics</span></td>
+        <td><code>@chat-adapter/discord</code><br/><code>@chat-adapter/telegram</code><br/>Nuxt + Redis Locks</td>
+        <td>Share one <code>onSubscribedMessage</code> handler across Discord threads and Telegram topics. Check <code>getFeatureSupport()</code> so Discord opens native <code>Modal</code> forms while Telegram falls back cleanly to threaded prompt questions.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Zero-Secret Connect Channel Automation</strong><br/><span style="color:#c2410c; font-weight:600;">Slack + GitHub + Linear</span></td>
+        <td><code>@vercel/connect/chat</code><br/><code>VERCEL_OIDC_TOKEN</code><br/>Connect Triggers</td>
+        <td>Link connectors via <code>vercel connect attach</code>, verify inbound webhooks via Vercel OIDC trigger headers instead of raw secrets, and mint short-lived <code>app</code> or per-<code>user</code> tokens with <code>getToken()</code> right before posting digests.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin:2px 0 0 0;">
+    <div class="callout-title">Scaling Pattern: Prototype on One Channel, Enable Seven More in Config</div>
+    Because every recipe above isolates business logic inside <code>ToolLoopAgent</code> and Workflow 5 steps, expanding Recipe 1 from Slack to Microsoft Teams and Google Chat takes adding two entries to <code>adapters: {}</code> and attaching their webhook routes.
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, FALLBACKS & PRODUCTION OPS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Webhook Security, Fallbacks &amp; Replay Ops</span>
+    <span>Signature Checks, Capability Degradation &amp; fixtures/replay/</span>
+  </div>
+
+  <h2 class="page-title">Webhook Security, Feature Fallbacks &amp; Replay Ops</h2>
+  <p class="page-lead">
+    Production bots face forged webhook probes, bursty retry storms, and subtle differences across messaging platforms. Lock down verification at the edge, inspect adapter capabilities before rendering rich UI, and test every channel offline with deterministic replay fixtures.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-dark">
+      <div class="card-title">Webhook Signature &amp; Replay Defense</div>
+      <ul style="font-size:7.75pt; color:#e2e8f0; margin:3px 0 0 0;">
+        <li><strong>Verify Before Parsing:</strong> Let each adapter (or Vercel Connect&rsquo;s OIDC verifier) validate raw HMAC/Ed25519 signatures and timestamp drift before running any agent code.</li>
+        <li><strong>Idempotent Event Keys:</strong> Messaging APIs retry if responses exceed 3s. Deduplicate inbound event IDs in Redis with a short TTL so duplicate webhooks never trigger double deploys or double LLM bills.</li>
+        <li><strong>Fast Ack, Async Work:</strong> Return <code>200 OK</code> quickly and offload heavy tool loops via Vercel Functions <code>waitUntil</code> or Workflow 5 <code>start()</code>.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge">!</span> Graceful Adapter Feature Fallbacks</div>
+      <ul style="font-size:7.75pt; margin:3px 0 0 0;">
+        <li><strong>Check <code>getFeatureSupport(slug)</code>:</strong> Never assume every adapter supports live token streaming or popup modals.</li>
+        <li><strong>Modal Fallback:</strong> When <code>modals</code> is unsupported (e.g., GitHub PR comments or Telegram), collect fields via sequential threaded questions or a signed web link button.</li>
+        <li><strong>Streaming Fallback:</strong> When <code>streaming</code> is buffered rather than live-edited, buffer chunks cleanly and post one crisp formatted reply to avoid rate-limit <code>429</code> throttling.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Production Operations &amp; Deterministic Testing Matrix</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Operational Area</th>
+        <th style="width:36%;">Chat SDK / Vercel Mechanism</th>
+        <th style="width:40%;">Recommended Production Practice</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Replay Fixtures</strong></td>
+        <td><code>fixtures/replay/*.json</code></td>
+        <td>Capture real Slack, Teams, Discord, and GitHub webhook payloads into <code>fixtures/replay/</code> to run deterministic Vitest suites in CI.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Rate-Limit Protection</strong></td>
+        <td>Adapter edit throttling + Redis</td>
+        <td>Throttle live stream message edits (e.g., every 400&ndash;600ms) so rapid LLM tokens never trigger Slack or Discord <code>429</code> penalties.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Preview Environment Auth</strong></td>
+        <td><code>VERCEL_OIDC_TOKEN</code> / Connect</td>
+        <td>Attach separate dev/staging Connect connectors or verify preview webhook URLs have active OIDC and AI Gateway credentials.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:2px 0 0 0;">
+    <div class="callout-title">Test Multi-Platform Formatting Without Pinging Live Channels</div>
+    Replaying captured JSON events from <code>fixtures/replay/</code> through your local <code>bot.webhooks</code> handler lets you verify mention parsing, Redis lock contention, and Card fallbacks in milliseconds inside CI before deploying.
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Vercel Full-Stack AI Synergy</span>
+    <span>Chat SDK &rarr; Vercel Connect &rarr; AI SDK 7 + Gateway &rarr; Workflow 5 + Sandbox</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From Mention to Durable Action</h2>
+  <p class="page-lead">
+    Vercel Chat SDK serves as the conversational front door of a unified full-stack AI architecture&mdash;connecting zero-secret OAuth credentials, gateway-routed reasoning, and crash-safe execution pods without custom glue servers.
+  </p>
+
+  <div class="figure-box" style="background:#160c07; padding:10px 12px; border-color:#7c2d12; margin-bottom:9px;">
+    <svg viewBox="0 0 700 206" width="100%" height="206" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Vercel Chat SDK -->
+      <rect x="8" y="18" width="150" height="142" rx="9" fill="#2b160b" stroke="#fb923c" stroke-width="1.8"/>
+      <text x="83" y="37" text-anchor="middle" fill="#fdba74" font-size="7.3" font-weight="700">1. CHANNEL INGRESS</text>
+      <text x="83" y="54" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">Vercel Chat SDK</text>
+      <text x="83" y="68" text-anchor="middle" fill="#fed7aa" font-size="7.1">8+ Native Platform Adapters</text>
+      <line x1="22" y1="77" x2="144" y2="77" stroke="#9a3412" stroke-width="1"/>
+      <text x="20" y="93" fill="#fff7ed" font-size="7.2">&bull; Unified event handlers</text>
+      <text x="20" y="107" fill="#fff7ed" font-size="7.2">&bull; Redis locks &amp; subscriptions</text>
+      <text x="20" y="121" fill="#fff7ed" font-size="7.2">&bull; Native Cards &amp; Modals</text>
+      <rect x="20" y="133" width="126" height="20" rx="4" fill="#7c2d12"/>
+      <text x="83" y="146" text-anchor="middle" fill="#ffedd5" font-size="7" font-weight="700">Normalizes human intent</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M158 89 L180 89" stroke="#fb923c" stroke-width="2"/>
+      <polygon points="178,84 186,89 178,94" fill="#fb923c"/>
+
+      <!-- Stage 2: Vercel Connect -->
+      <rect x="186" y="18" width="152" height="142" rx="9" fill="#0d1e2b" stroke="#38bdf8" stroke-width="1.7"/>
+      <text x="262" y="37" text-anchor="middle" fill="#7dd3fc" font-size="7.3" font-weight="700">2. ZERO-SECRET AUTH</text>
+      <text x="262" y="54" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">Vercel Connect</text>
+      <text x="262" y="68" text-anchor="middle" fill="#bae6fd" font-size="7.1">@vercel/connect/chat</text>
+      <line x1="200" y1="77" x2="324" y2="77" stroke="#0369a1" stroke-width="1"/>
+      <text x="198" y="93" fill="#e0f2fe" font-size="7.2">&bull; Short-lived OAuth tokens</text>
+      <text x="198" y="107" fill="#e0f2fe" font-size="7.2">&bull; App &amp; per-user subjects</text>
+      <text x="198" y="121" fill="#e0f2fe" font-size="7.2">&bull; OIDC-signed triggers</text>
+      <rect x="198" y="133" width="128" height="20" rx="4" fill="#0c4a6e"/>
+      <text x="262" y="146" text-anchor="middle" fill="#bae6fd" font-size="7" font-weight="700">Supplies scoped credentials</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M338 89 L360 89" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="358,84 366,89 358,94" fill="#a78bfa"/>
+
+      <!-- Stage 3: AI SDK 7 + AI Gateway -->
+      <rect x="366" y="18" width="154" height="142" rx="9" fill="#1d142b" stroke="#a78bfa" stroke-width="1.7"/>
+      <text x="443" y="37" text-anchor="middle" fill="#ddd6fe" font-size="7.3" font-weight="700">3. REASONING &amp; TOOLS</text>
+      <text x="443" y="54" text-anchor="middle" fill="#ffffff" font-size="9.7" font-weight="800">AI SDK 7 + Gateway</text>
+      <text x="443" y="68" text-anchor="middle" fill="#c4b5fd" font-size="7.1">ToolLoopAgent + OIDC</text>
+      <line x1="380" y1="77" x2="506" y2="77" stroke="#5b21b6" stroke-width="1"/>
+      <text x="378" y="93" fill="#ede9fe" font-size="7.2">&bull; Multi-provider failover</text>
+      <text x="378" y="107" fill="#ede9fe" font-size="7.2">&bull; Blob &amp; API tool calls</text>
+      <text x="378" y="121" fill="#ede9fe" font-size="7.2">&bull; Streamed thread replies</text>
+      <rect x="378" y="133" width="130" height="20" rx="4" fill="#3b0764"/>
+      <text x="443" y="146" text-anchor="middle" fill="#ddd6fe" font-size="7" font-weight="700">Plans &amp; streams answers</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M520 89 L542 89" stroke="#34d399" stroke-width="2"/>
+      <polygon points="540,84 548,89 540,94" fill="#34d399"/>
+
+      <!-- Stage 4: Workflow 5 + Vercel Sandbox -->
+      <rect x="548" y="18" width="144" height="142" rx="9" fill="#09241b" stroke="#34d399" stroke-width="1.7"/>
+      <text x="620" y="37" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">4. DURABLE EXECUTION</text>
+      <text x="620" y="54" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">Workflow 5 &amp; Sandbox</text>
+      <text x="620" y="68" text-anchor="middle" fill="#a7f3d0" font-size="7.1">createWebhook &amp; microVMs</text>
+      <line x1="560" y1="77" x2="680" y2="77" stroke="#065f46" stroke-width="1"/>
+      <text x="559" y="93" fill="#ecfdf5" font-size="7.2">&bull; Zero-idle HITL pauses</text>
+      <text x="559" y="107" fill="#ecfdf5" font-size="7.2">&bull; Durable sleep() timers</text>
+      <text x="559" y="121" fill="#ecfdf5" font-size="7.2">&bull; Isolated PR test sandboxes</text>
+      <rect x="559" y="133" width="122" height="20" rx="4" fill="#064e3b"/>
+      <text x="620" y="146" text-anchor="middle" fill="#6ee7b7" font-size="7" font-weight="700">Executes safely to completion</text>
+
+      <!-- Bottom Loop Banner -->
+      <rect x="8" y="173" width="684" height="24" rx="6" fill="#23120a" stroke="#7c2d12" stroke-width="1"/>
+      <text x="350" y="189" text-anchor="middle" fill="#fdba74" font-size="7.4" font-weight="600">End-to-End Loop: Mention in Chat &rarr; Connect OAuth &rarr; ToolLoopAgent via AI Gateway &rarr; Workflow 5 / Sandbox &rarr; Native Card Reply</text>
+    </svg>
+  </div>
+
+  <h3>How the Pieces Reinforce Each Other in Production</h3>
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Ingress &amp; Identity (Chat SDK + Connect)</div>
+      <p style="font-size:7.95pt; margin:0;"><strong>Vercel Chat SDK</strong> absorbs platform webhook differences and manages Redis thread locks, while <strong>Vercel Connect</strong> guarantees zero static API keys sit in your deployment config and verifies forwarded webhook triggers via OIDC.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> Reasoning &amp; Durability (AI SDK 7 + Workflow + Sandbox)</div>
+      <p style="font-size:7.95pt; margin:0;"><strong>AI SDK 7</strong> drives tool-calling loops across <strong>AI Gateway</strong> models with automatic failover, handing risky code checks to isolated <strong>Vercel Sandboxes</strong> and multi-hour human sign-offs to <strong>Workflow 5</strong> webhooks.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Architecture Payoff: Swap Models, Secrets, or Channels Independently</div>
+    Need to switch from Anthropic to OpenAI, rotate a Slack installation, or expand from Discord into Linear? Each boundary updates in a single line of configuration without touching your core agent prompts or workflow logic.
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Most multi-platform bot bugs trace back to one of seven predictable adapter, concurrency, or auth mistakes. Apply these ten-second fixes, then run the six-point checklist before shipping to production.
+  </p>
+
+  <table class="clean-table" style="font-size:7.45pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Anti-Pattern</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Mixing <code>@slack/bolt</code> or <code>telegraf</code></strong></td>
+        <td>Platform-specific bot frameworks hijack routes, bypass Redis locks, and break multi-platform portability.</td>
+        <td>Remove <code>@slack/bolt</code>, <code>discord.js</code>, and <code>telegraf</code>; use <code>chat</code> with <code>@chat-adapter/slack</code>, <code>discord</code>, or <code>telegram</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Parallel thread replies race or overwrite context</strong></td>
+        <td>Serverless webhook invocations execute simultaneously without a distributed thread mutex.</td>
+        <td>Configure <code>state: createRedisState()</code> with <code>@chat-adapter/redis</code> so Chat SDK locks per thread ID automatically.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Hardcoded bot tokens in <code>.env</code></strong></td>
+        <td>Static <code>SLACK_BOT_TOKEN</code> or GitHub private keys invite rotation failures and wide secret exposure.</td>
+        <td>Migrate to <code>@vercel/connect/chat</code> with <code>getToken()</code> and Connect-forwarded OIDC webhook triggers.</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>setTimeout</code> / <code>setInterval</code> polling times out</strong></td>
+        <td>Polling inside serverless webhook functions hits max-duration limits and loses state across deploys.</td>
+        <td>Move multi-step waits into a <code>&quot;use workflow&quot;</code> function using durable <code>sleep()</code> and <code>createWebhook()</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Importing deprecated <code>chat/adapters</code></strong></td>
+        <td>Legacy subpath is deprecated and pulls unnecessary coupling into onboarding or tooling code.</td>
+        <td>Import <code>listAdapters</code>, <code>getFeatureSupport</code>, and <code>listEnvVars</code> directly from <code>@chat-adapter/catalog</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Streaming or modals crash on GitHub / Telegram</strong></td>
+        <td>Bot invokes live modals or token-stream edits on adapters whose platform API does not support them.</td>
+        <td>Inspect <code>getFeatureSupport(slug)</code> first and branch cleanly to threaded follow-ups or buffered final posts.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Preview webhooks fail AI calls (401/403)</strong></td>
+        <td>Missing <code>AI_GATEWAY_API_KEY</code> or expired local/preview <code>VERCEL_OIDC_TOKEN</code> on branch deploys.</td>
+        <td>Verify Vercel OIDC is enabled for Preview deployments (or set <code>AI_GATEWAY_API_KEY</code>), and refresh locally with <code>vercel env pull</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Going Live</h3>
+  <div class="checklist-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Catalog Capabilities Checked:</strong> Verified <code>getFeatureSupport()</code> fallbacks for streaming and modals on every enabled adapter.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Redis Thread Locks Active:</strong> Confirmed <code>@chat-adapter/redis</code> handles distributed locks and thread subscriptions across instances.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Zero Static Bot Secrets:</strong> Replaced hardcoded tokens with <code>@vercel/connect</code> connectors and OIDC webhook verification.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Bounded <code>ToolLoopAgent</code> Loops:</strong> Configured <code>stopWhen: isStepCount(N)</code> and AI Gateway <code>provider/model</code> routing.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Durable HITL &amp; Sandboxes:</strong> Moved long approvals to Workflow 5 <code>createWebhook</code> + <code>sleep()</code> and PR code checks to Vercel Sandbox.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Replay Fixtures Green:</strong> Tested webhook signatures, idempotency, and Card formatting against <code>fixtures/replay/</code> in CI.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Multi-Platform Bots With Vercel Chat SDK &bull; Complete Field Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

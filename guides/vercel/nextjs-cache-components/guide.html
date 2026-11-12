@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Next.js Cache Components &amp; Partial Prefetching: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">VERCEL &amp; FULL-STACK AI APPLICATIONS &bull; FIELD GUIDE</div>
+    <h1>Next.js <span>Cache Components</span> &amp; Partial Prefetching</h1>
+    <p class="cover-sub">
+      The complete 12-page visual field guide to instant App Shells, deterministic <code>&quot;use cache&quot;</code> boundaries, granular <code>&lt;Suspense&gt;</code> streaming, zero-regression Partial Prefetching, and automated <code>@next/playwright</code> <code>instant()</code> locks in Next.js 16.3+.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Next.js 16.3+ App Router</span>
+      <span class="cover-badge">use cache &amp; cacheLife</span>
+      <span class="cover-badge">Granular Suspense</span>
+      <span class="cover-badge">Incremental Codemods</span>
+      <span class="cover-badge">Partial Prefetching</span>
+      <span class="cover-badge">@next/playwright instant()</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Obsidian and emerald architectural render of a crystalline static structural shell illuminating immediately while glowing jade data streams glide into interior slots" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Instant Static Shells</div>
+      <div class="cover-stat-desc">Prerender rich navigation chrome, headings, and cached data frames on millisecond-fast first paint while live request holes stream cleanly.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Guesswork Migration</div>
+      <div class="cover-stat-desc">Adopt route by route with first-party codemods, Turbopack <code>/_next/mcp</code> runtime checks, and top-down validation loops.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Locked Production Proofs</div>
+      <div class="cover-stat-desc">Prevent silent regressions forever using <code>@next/playwright</code> <code>instant()</code> locks and Partial Prefetching URL-data sweeps.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Core Mental Model</span>
+    <span>Next.js Cache Components &amp; Partial Prefetching</span>
+  </div>
+
+  <h2 class="page-title">Instant Static Shell + Streamed Request Holes</h2>
+  <p class="page-lead">
+    Traditional SSR makes the user wait for the slowest database query before painting a single pixel. Turning on <code>cacheComponents: true</code> flips that default: every App Router route prerenders an immediate <strong>App Shell</strong> and streams request-specific holes into <code>&lt;Suspense&gt;</code>.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Core Mental Model &amp; Offline Docs</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Top-Down Loop &amp; <code>next-dev-loop</code></strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Prerequisites &amp; Adoption Strategy Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Partial Prefetching &amp; URL-Data Sweeps</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated <code>next dev</code> + <code>/_next/mcp</code> Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Resolving the 3 Blocker Classes</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Regression Proof with <code>instant()</code></strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Mastering <code>&quot;use cache&quot;</code> &amp; Boundary Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Vercel Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Push Reads Down, Keep Shells Rich</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>How <code>cacheComponents: true</code> Splits Every Route</h3>
+  <div class="figure-box" style="background:#05130f; padding:9px 11px; border-color:#047857;">
+    <svg viewBox="0 0 710 205" width="100%" height="205" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: Next.js App Router Route -->
+      <rect x="8" y="16" width="174" height="154" rx="8" fill="#0a261e" stroke="#34d399" stroke-width="1.6"/>
+      <text x="95" y="34" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">NEXT.JS 16.3+ ROUTE TREE</text>
+      <text x="95" y="49" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">cacheComponents: true</text>
+      <rect x="20" y="60" width="150" height="32" rx="5" fill="#05130f" stroke="#059669" stroke-width="1"/>
+      <text x="95" y="74" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="700">Layouts &amp; Static Chrome</text>
+      <text x="95" y="85" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Shell nav, headers, skeletons</text>
+      <rect x="20" y="98" width="150" height="30" rx="5" fill="#05130f" stroke="#059669" stroke-width="1"/>
+      <text x="95" y="111" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="700">&quot;use cache&quot; Boundaries</text>
+      <text x="95" y="122" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Deterministic shared data/UI</text>
+      <rect x="20" y="134" width="150" height="28" rx="5" fill="#17122b" stroke="#a78bfa" stroke-width="1"/>
+      <text x="95" y="147" text-anchor="middle" fill="#ede9fe" font-size="7.8" font-weight="700">Live Request Holes</text>
+      <text x="95" y="157" text-anchor="middle" fill="#c4b5fd" font-size="6.6">cookies, headers, params</text>
+
+      <!-- Branching Arrows -->
+      <path d="M182 86 L226 55" stroke="#34d399" stroke-width="1.9" fill="none"/>
+      <polygon points="222,51 232,53 226,60" fill="#34d399"/>
+      <path d="M182 146 L226 135" stroke="#a78bfa" stroke-width="1.9" fill="none"/>
+      <polygon points="223,130 232,134 225,140" fill="#a78bfa"/>
+
+      <!-- Top Track: Prerendered App Shell -->
+      <rect x="232" y="14" width="286" height="75" rx="8" fill="#092920" stroke="#10b981" stroke-width="1.7"/>
+      <text x="244" y="31" fill="#6ee7b7" font-size="7.3" font-weight="700">PRERENDERED APP SHELL &bull; COMMITS INSTANTLY</text>
+      <text x="244" y="46" fill="#ffffff" font-size="9.6" font-weight="800">Static Chrome + &quot;use cache&quot; UI</text>
+      <rect x="244" y="55" width="84" height="24" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="0.8"/>
+      <text x="286" y="70" text-anchor="middle" fill="#ecfdf5" font-size="6.9" font-weight="700">Layout Shell</text>
+      <rect x="334" y="55" width="90" height="24" rx="4" fill="#065f46" stroke="#34d399" stroke-width="0.8"/>
+      <text x="379" y="70" text-anchor="middle" fill="#ecfdf5" font-size="6.9" font-weight="700">Cached Blocks</text>
+      <rect x="430" y="55" width="76" height="24" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="0.8"/>
+      <text x="468" y="70" text-anchor="middle" fill="#fde68a" font-size="6.9" font-weight="700">Fallbacks</text>
+
+      <!-- Bottom Track: Streamed Suspense Holes -->
+      <rect x="232" y="99" width="286" height="71" rx="8" fill="#131024" stroke="#a78bfa" stroke-width="1.7"/>
+      <text x="244" y="116" fill="#ddd6fe" font-size="7.3" font-weight="700">STREAMED &lt;Suspense&gt; HOLES &bull; REQUEST-TIME</text>
+      <text x="244" y="131" fill="#ffffff" font-size="9.6" font-weight="800">Forwarded Promises &amp; Dynamic Reads</text>
+      <rect x="244" y="139" width="84" height="23" rx="4" fill="#2e1065" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="286" y="153" text-anchor="middle" fill="#ede9fe" font-size="6.9">cookies() / auth</text>
+      <rect x="334" y="139" width="86" height="23" rx="4" fill="#2e1065" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="377" y="153" text-anchor="middle" fill="#ede9fe" font-size="6.9">headers() / geo</text>
+      <rect x="426" y="139" width="80" height="23" rx="4" fill="#2e1065" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="466" y="153" text-anchor="middle" fill="#ede9fe" font-size="6.9">params promise</text>
+
+      <!-- Arrows to Browser -->
+      <path d="M518 52 L548 74" stroke="#34d399" stroke-width="1.8" fill="none"/>
+      <polygon points="546,68 553,78 541,77" fill="#34d399"/>
+      <path d="M518 134 L548 112" stroke="#a78bfa" stroke-width="1.8" fill="none"/>
+      <polygon points="541,109 553,108 546,118" fill="#a78bfa"/>
+
+      <!-- Right: Browser Output -->
+      <rect x="553" y="24" width="149" height="136" rx="9" fill="#0a261e" stroke="#34d399" stroke-width="1.8"/>
+      <text x="627" y="45" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">BROWSER EXPERIENCE</text>
+      <text x="627" y="63" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">Frame-1 Paint</text>
+      <text x="627" y="77" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">+ Live Stream</text>
+      <rect x="565" y="90" width="125" height="54" rx="5" fill="#05130f" stroke="#059669" stroke-width="0.9"/>
+      <text x="627" y="106" text-anchor="middle" fill="#a7f3d0" font-size="7">1. Instant shell &amp; nav</text>
+      <text x="627" y="119" text-anchor="middle" fill="#a7f3d0" font-size="7">2. Zero layout shift</text>
+      <text x="627" y="132" text-anchor="middle" fill="#a7f3d0" font-size="7">3. Holes hydrate live</text>
+
+      <!-- Bottom Strip -->
+      <rect x="8" y="177" width="694" height="20" rx="4" fill="#04100d" stroke="#047857" stroke-width="0.9"/>
+      <text x="355" y="190" text-anchor="middle" fill="#6ee7b7" font-size="7.1" font-weight="600">Rule: Every route must prerender a shell. Wrap live reads in &lt;Suspense&gt; or cache shared blocks with &quot;use cache&quot;.</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:5px;">
+    <div class="card-mint">
+      <div class="card-title"><span class="num-badge">1</span> Offline Version-Matched Docs</div>
+      <p style="font-size:7.9pt; margin:0;">Since Next.js 16.2, full App Router guides live directly inside <code>node_modules/next/dist/docs/</code> (e.g., <code>01-app/02-guides/migrating-to-cache-components.md</code>). Use <code>find node_modules/next/dist/docs -name &apos;*.md&apos;</code> to read exact API recipes offline.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Auto-Generated <code>AGENTS.md</code> Index</div>
+      <p style="font-size:7.9pt; margin:0;">Working on an older tree or want coding agents grounded in exact Next.js 16.3+ rules? Run <code>npx @next/codemod@latest agents-md</code> to populate <code>.next-docs/</code> and write a compact framework index straight into your repository&rsquo;s <code>AGENTS.md</code>.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0;">
+    <div class="callout-title">Mental Model Takeaway: Prerender Everything You Can, Stream Only What Varies Per User</div>
+    An empty <code>&lt;Suspense&gt;</code> wrapper around your entire page passes build validation but ships a blank spinner. Great Cache Components apps put headers, navigation, and shared catalog cards inside the instant shell, leaving only personalized or live request holes behind tight <code>&lt;Suspense&gt;</code> boundaries.
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: PREREQUISITES, FLAG MIGRATION & STRATEGY MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Prerequisites, Flag Migration &amp; Strategy</span>
+    <span>Upgrading to Next.js 16.3+, Config Cleanup &amp; Adoption Paths</span>
+  </div>
+
+  <h2 class="page-title">Prerequisites, Flag Migration &amp; Strategy Matrix</h2>
+  <p class="page-lead">
+    Before flipping <code>cacheComponents: true</code>, verify that your project runs Next.js 16.3+ App Router and strip out legacy route-segment flags that conflict with fine-grained prerendering.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-mint" style="border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge">1</span> Upgrade to Next.js 16.3+ &amp; Check App Tree</div>
+      <pre class="code-block" style="margin:2px 0 4px 0; padding:5.5px 8px; font-size:6.85pt; line-height:1.33;"><code># Upgrade Next.js, React, and codemods together
+npx @next/codemod@latest upgrade latest
+npx next --version   # Must be 16.3.0 or newer</code></pre>
+      <p style="font-size:7.75pt; margin:0; color:#334155;">Cache Components applies to <code>app/</code> (or <code>src/app/</code>). If both folders exist, Next.js builds <code>app/</code> and silently ignores <code>src/app/</code>. Hybrid <code>pages/</code> routes continue working untouched.</p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #e11d48;">
+      <div class="card-title"><span class="num-badge rose">!</span> Remove Fatal &amp; Legacy Config Keys</div>
+      <ul style="font-size:7.75pt; margin:2px 0 0 0;">
+        <li><strong><code>experimental.dynamicIO</code> is fatal:</strong> Renamed to top-level <code>cacheComponents</code>; leaving the old key aborts startup before any build runs.</li>
+        <li><strong>Remove <code>experimental.useCache</code>:</strong> Deprecated alias once <code>cacheComponents: true</code> is enabled.</li>
+        <li><strong>Inventory route exports:</strong> <code>cacheComponents: true</code> errors on any file still exporting <code>dynamic</code>, <code>revalidate</code>, or <code>fetchCache</code>&mdash;migrate those manually first (existing <code>fetch</code> &amp; <code>unstable_cache</code> calls can stay).</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:5.5px 9px; font-size:6.95pt; margin:0 0 6px 0;"><code>// next.config.ts — clean Next.js 16.3+ baseline (delete experimental.dynamicIO first!)
+import type { NextConfig } from 'next'
+
+const nextConfig: NextConfig = {
+  cacheComponents: true,
+}
+export default nextConfig</code></pre>
+
+  <h3>Decision Matrix: Incremental Adoption vs. Direct Adoption</h3>
+  <table class="clean-table" style="font-size:7.7pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Dimension</th>
+        <th style="width:42%;">Incremental Adoption (Recommended for Teams)</th>
+        <th style="width:38%;">Direct Adoption (Small Apps / Single Branch)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Pre-Step Action</strong></td>
+        <td>Run <code>npx @next/codemod@latest cache-components-instant-false ./app</code> (or <code>./src/app</code>) on a clean Git working tree, then enable <code>cacheComponents: true</code>.</td>
+        <td>Skip the codemod, set <code>cacheComponents: true</code> immediately, and use <code>next build</code> / <code>next dev</code> errors as your single-branch queue.</td>
+      </tr>
+      <tr>
+        <td><strong>What Gets Modified</strong></td>
+        <td>Codemod inserts <code>// TODO: Cache Components adoption</code> + <code>export const instant = false</code> into every Server <code>page</code>, <code>layout</code>, and <code>default</code> file.</td>
+        <td>No temporary opt-out markers added; every blocking route fails validation immediately until refactored in place.</td>
+      </tr>
+      <tr>
+        <td><strong>PR &amp; Review Shape</strong></td>
+        <td>Ship a green baseline PR immediately (migrating previously <code>force-static</code> routes), then remove opt-outs feature-by-feature across small PRs.</td>
+        <td>All fixes sit together on one branch until every route in the app passes validation.</td>
+      </tr>
+      <tr>
+        <td><strong>Hidden Gotchas</strong></td>
+        <td>Codemod refuses dirty Git trees (use <code>--force</code> or commit lockfiles first) and cannot bypass Sync-IO calls (<code>new Date()</code>, <code>Math.random()</code>).</td>
+        <td>Large apps surface dozens of cascading layout errors at once; harder to bisect regressions during review.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">How <code>export const instant = false</code> Resolves: Top-Down Build Shield vs. Client Navs</div>
+    The codemod adds <code>export const instant = false</code> to <em>every</em> segment intentionally. During <code>next build</code>, the highest ancestor <code>instant = false</code> shields its entire subtree; during client-side navigations, Next.js still validates each descendant segment individually. Removing opt-outs top-down keeps every child safely deferred until you reach it.
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED DEV OVERLAY & /_next/mcp TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Developer Cockpit Tour</span>
+    <span>Inside next dev Overlay, Insights Tab &amp; /_next/mcp</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: <code>next dev</code> Overlay &amp; <code>/_next/mcp</code></h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Do not rely on HTTP 200 status codes or guesswork while migrating. Next.js 16.3+ pairs the browser dev overlay, amber Insights cards, and the live <code>/_next/mcp</code> server so you see every blocking read and React boundary in real time.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:7px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#6ee7b7;">next dev (Turbopack) &mdash; localhost:3000/projects/alpha</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:7px; font-size:7pt;">
+        <span style="background:#064e3b; color:#6ee7b7; border:1px solid #10b981; padding:1.5px 6px; border-radius:4px; font-weight:700;">/_next/mcp: CONNECTED <span class="callout-pin">2</span></span>
+        <span style="background:#065f46; color:#ecfdf5; border:1px solid #34d399; padding:1.5px 6px; border-radius:4px; font-weight:700;">instant() LOCK: PASS <span class="callout-pin">7</span></span>
+      </div>
+    </div>
+
+    <!-- Overlay Error & Amber Insights Bar -->
+    <div style="display:grid; grid-template-columns: 1.08fr 1fr; border-bottom:1px solid #047857;">
+      <!-- Left: Red Blocking-Prerender Fix Card -->
+      <div style="padding:7px 10px; border-right:1px solid #047857; background:#14090d;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <span style="background:#9f1239; color:#ffe4e6; padding:1.5px 6px; border-radius:4px; font-weight:800; font-size:6.9pt;">BLOCKING PRERENDER (1/1)</span>
+          <span class="callout-pin">1</span>
+        </div>
+        <div style="color:#fda4af; font-weight:700; font-size:7.3pt; margin-bottom:2px;">Uncached data or request read accessed outside &lt;Suspense&gt;</div>
+        <div style="color:#cbd5e1; font-size:6.85pt; line-height:1.35;">
+          Route <code>/projects/[slug]</code> awaited <code>cookies()</code> in <code>app/projects/[slug]/page.tsx:14</code>.<br/>
+          Docs: <span style="color:#7dd3fc; text-decoration:underline;">https://nextjs.org/docs/messages/blocking-prerender-runtime</span>
+        </div>
+      </div>
+
+      <!-- Right: Amber Insights Tab -->
+      <div style="padding:7px 10px; background:#141007;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <span style="background:#b45309; color:#fef3c7; padding:1.5px 6px; border-radius:4px; font-weight:800; font-size:6.9pt;">INSIGHTS TAB (NON-BLOCKING &bull; 1)</span>
+          <span class="callout-pin">3</span>
+        </div>
+        <div style="color:#fde68a; font-weight:700; font-size:7.3pt; margin-bottom:2px;">instant-shell-url-data: URL param read too high in subtree</div>
+        <div style="color:#cbd5e1; font-size:6.85pt; line-height:1.35;">
+          <code>params</code> awaited before leaf <code>&lt;Suspense&gt;</code>; shared App Shell ties to one URL.<br/>
+          Docs: <span style="color:#7dd3fc; text-decoration:underline;">https://nextjs.org/docs/messages/instant-shell-url-data</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Grid: React Tree & MCP / --debug-prerender -->
+    <div style="display:grid; grid-template-columns: 1fr 1.08fr; border-bottom:1px solid #047857;">
+      <div style="padding:7px 10px; border-right:1px solid #047857; background:#05100d;">
+        <div style="font-weight:700; color:#6ee7b7; margin-bottom:3px; display:flex; justify-content:space-between; align-items:center;">
+          <span>REACT SHELL &amp; SUSPENSE TREE</span> <span class="callout-pin">4</span>
+        </div>
+        <div style="font-family:monospace; font-size:6.8pt; line-height:1.4; color:#cbd5e1;">
+          <div>&lt;RootLayout&gt; <span style="color:#34d399;">[Static Shell]</span></div>
+          <div>&nbsp;&nbsp;&lt;AppNavShell /&gt; <span style="color:#34d399;">[Static + &quot;use cache&quot;]</span></div>
+          <div>&nbsp;&nbsp;&lt;Suspense fallback=&quot;SkeletonCard&quot;&gt;</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&lt;ProjectBody params={params} /&gt; <span style="color:#c4b5fd;">[Streamed]</span></div>
+          <div>&nbsp;&nbsp;&lt;/Suspense&gt;</div>
+        </div>
+      </div>
+
+      <div style="padding:7px 10px; background:#040d0a;">
+        <div style="font-weight:700; color:#6ee7b7; margin-bottom:3px; display:flex; justify-content:space-between; align-items:center;">
+          <span>/_next/mcp + --debug-prerender LOG</span>
+          <span><span class="callout-pin">6</span> <span class="callout-pin">5</span></span>
+        </div>
+        <div style="font-family:monospace; font-size:6.75pt; line-height:1.38; color:#a7f3d0;">
+          <div>&gt; mcp.get_errors() &rarr; 1 blocking error, 1 insight</div>
+          <div>&gt; mcp.get_page_metadata() &rarr; app/projects/[slug]/page.tsx</div>
+          <div style="color:#fde68a;">&gt; next build --debug-prerender --debug-build-paths=&quot;app/projects/**/page.tsx&quot;</div>
+          <div style="color:#cbd5e1;">&nbsp;&nbsp;at ProjectHeader (components/header.tsx:28:19)</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#0a261e; padding:4.5px 10px; display:flex; justify-content:space-between; align-items:center; font-size:7pt;">
+      <span><strong style="color:#34d399;">Shadow Root Tip:</strong> Dev overlay mounts inside <code>nextjs-portal</code> shadow DOM; <code>/_next/mcp</code> exposes errors cleanly over HTTP.</span>
+      <span style="color:#6ee7b7;"><code>get_compilation_issues</code> &bull; <code>get_logs</code></span>
+    </div>
+  </div>
+
+  <h3>Interface Legend: The 7 Live Diagnostics Touchpoints</h3>
+  <div class="grid-2" style="font-size:7.8pt; gap:5.5px 11px;">
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">1</span> Blocking-Prerender Fix Card:</strong> Surfaces in red inside <code>next dev</code> with the exact offending line and canonical <code>https://nextjs.org/docs/messages/...</code> recipe link.
+    </div>
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">2</span> <code>/_next/mcp</code> Turbopack Endpoint:</strong> Built-in MCP server reporting routes, active segment files, compilation status, and server errors in one structured call.
+    </div>
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">3</span> Amber Insights Tab:</strong> Non-blocking warning tab for Partial Prefetching (<code>instant-shell-url-data</code>); disappears completely once every visited route is clean.
+    </div>
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">4</span> Shell vs. <code>&lt;Suspense&gt;</code> Tree View:</strong> Confirms via React DevTools that static chrome commits on frame 1 while only genuine dynamic leaves suspend.
+    </div>
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">5</span> <code>--debug-prerender</code> Trace:</strong> Disables early-exit on <code>next build</code> and prints full originating file-and-line traces across all blocking routes at once.
+    </div>
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">6</span> <code>get_errors</code> &amp; <code>get_page_metadata</code>:</strong> Remember that prefetch insights surface in <code>get_errors</code> and dev logs&mdash;not the experimental <code>get_request_insights</code> recorder.
+    </div>
+    <div class="card-mint" style="padding:6px 8.5px; grid-column: span 2;">
+      <strong><span class="callout-pin">7</span> <code>@next/playwright</code> <code>instant()</code> Lock Verdict:</strong> Runs against a production <code>next build &amp;&amp; next start</code> server to prove mathematically that the static shell renders immediately while deferred data is locked out.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: RESOLVING THE 3 BLOCKER CLASSES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Resolving Blocking Prerenders</span>
+    <span>Request-Time Reads, Sync-IO &amp; Client Hook Blockers</span>
+  </div>
+
+  <h2 class="page-title">Resolving the 3 Blocker Classes</h2>
+  <p class="page-lead">
+    Almost every prerender error during Cache Components adoption belongs to one of three predictable families. Fix the exact offending boundary rather than wrapping whole pages in a giant fallback.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:6px;">
+    <div class="card-mint" style="border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge">1</span> Request-Time Reads</div>
+      <p style="font-size:7.6pt; margin-bottom:4px;"><strong>Culprits:</strong> <code>cookies()</code>, <code>headers()</code>, <code>await params</code>, <code>await searchParams</code> at page or layout top.</p>
+      <p style="font-size:7.6pt; margin:0;"><strong>Fix:</strong> Move the read into a focused child component inside <code>&lt;Suspense&gt;</code>. Never <code>await params</code> at page top&mdash;forward the <code>params</code> or <code>searchParams</code> promise straight into the child and <code>await</code> it there.</p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #d97706;">
+      <div class="card-title"><span class="num-badge amber">2</span> Sync-IO Calls</div>
+      <p style="font-size:7.6pt; margin-bottom:4px;"><strong>Culprits:</strong> <code>new Date()</code>, <code>Date.now()</code>, <code>Math.random()</code>, <code>crypto.randomUUID()</code> during render.</p>
+      <p style="font-size:7.6pt; margin:0;"><strong>Fix:</strong> These fail <code>next build</code> <em>even with <code>instant = false</code></em>! If inside a shared layout, they break every child route. Run <code>--debug-prerender</code>, move into a <code>&quot;use cache&quot;</code> helper, or isolate behind <code>&lt;Suspense&gt;</code> / <code>connection()</code>.</p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #e11d48;">
+      <div class="card-title"><span class="num-badge rose">3</span> Client Nav Hooks</div>
+      <p style="font-size:7.6pt; margin-bottom:4px;"><strong>Culprit:</strong> <code>blocking-prerender-client-hook</code> from <code>usePathname()</code> or <code>useSearchParams()</code> in root nav.</p>
+      <p style="font-size:7.6pt; margin:0;"><strong>Trap:</strong> Static pages pass (pathname is known at build) and hide the bug until you hit a dynamic route! Wrap the hook-reading client leaf in <code>&lt;Suspense&gt;</code> while keeping the outer nav bar static.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <pre class="code-block" style="margin:0; font-size:6.85pt; line-height:1.34;"><code>// WRONG: top-level await blocks the entire route shell
+export default async function PostPage({
+  params,
+}: { params: Promise&lt;{ slug: string }&gt; }) {
+  const { slug } = await params // Blocks before Suspense!
+  return &lt;Article slug={slug} /&gt;
+}</code></pre>
+
+    <pre class="code-block" style="margin:0; font-size:6.85pt; line-height:1.34;"><code>// RIGHT: forward the promise into a Suspense child
+export default function PostPage({
+  params,
+}: { params: Promise&lt;{ slug: string }&gt; }) {
+  return (
+    &lt;ShellLayout&gt;
+      &lt;Suspense fallback={&lt;ArticleSkeleton /&gt;}&gt;
+        &lt;ArticleBody params={params} /&gt;
+      &lt;/Suspense&gt;
+    &lt;/ShellLayout&gt;
+  )
+}</code></pre>
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/static_shell_suspense_split.jpg" alt="Architectural cross-section showing a solid emerald glass outer shell enclosing translucent suspended interior chambers receiving live vertical light beams" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Solid Shell, Suspended Holes:</strong> Your outer layout and cached components form a rigid emerald glass frame that renders on frame 1, while live request-time reads (<code>cookies()</code>, <code>headers()</code>, forwarded <code>params</code>, and <code>usePathname()</code> leaves) stream cleanly into recessed <code>&lt;Suspense&gt;</code> bays.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: MASTERING "use cache", cacheLife & BOUNDARY ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Deterministic Caching &amp; Boundary Anatomy</span>
+    <span>Mastering &quot;use cache&quot;, cacheLife, Keys &amp; Revalidation</span>
+  </div>
+
+  <h2 class="page-title">Mastering <code>&quot;use cache&quot;</code>, <code>cacheLife</code> &amp; Keys</h2>
+  <p class="page-lead">
+    When data is shared across visitors or changes on a predictable schedule, promote it into your static shell with <code>&quot;use cache&quot;</code> instead of streaming it on every request.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div>
+      <p style="font-size:7.75pt; font-weight:700; margin-bottom:2px; color:#047857;">Data-Level vs. UI-Level Cache + Revalidation</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.8pt; line-height:1.33;"><code>import { cacheLife, cacheTag, updateTag } from 'next/cache'
+
+export async function CatalogGrid({ category }: { category: string }) {
+  'use cache'
+  cacheLife('hours')              // Built-in or custom profile
+  cacheTag('catalog', 'cat-' + category)
+
+  const items = await db.products.findMany({ where: { category } })
+  return &lt;ProductCards items={items} /&gt;
+}
+
+// Inside a Server Action after mutation:
+export async function publishProduct(category: string) {
+  'use server'
+  await db.products.create(...)
+  updateTag('cat-' + category)    // Immediate read-your-own-writes
+}</code></pre>
+    </div>
+
+    <div>
+      <p style="font-size:7.75pt; font-weight:700; margin-bottom:2px; color:#047857;">Cache Key Rules &amp; Request-Data Guardrails</p>
+      <div class="card" style="padding:7.5px 9.5px; font-size:7.65pt; line-height:1.4;">
+        <div style="margin-bottom:4px;"><span class="num-badge" style="width:16px;height:16px;font-size:6.8pt;">1</span> <strong>Automatic Key Hashing:</strong> Next.js hashes build ID, function location, serialized arguments, and closed-over values into the cache key.</div>
+        <div style="margin-bottom:4px;"><span class="num-badge teal" style="width:16px;height:16px;font-size:6.8pt;">2</span> <strong>Never Call <code>cookies()</code> Inside <code>&quot;use cache&quot;</code>:</strong> Read session or locale <em>outside</em> in a <code>&lt;Suspense&gt;</code> parent, then pass serializable primitives (e.g., <code>orgId</code>) in as arguments.</div>
+        <div><span class="num-badge amber" style="width:16px;height:16px;font-size:6.8pt;">3</span> <strong>Keep CLS Zero:</strong> Match <code>&lt;Suspense fallback&gt;</code> dimensions (fixed heights, aspect boxes) to resolved content so streamed inserts never jump the page.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Anatomy of a Clean Cache + Suspense Boundary Refactor</h3>
+  <div style="margin-bottom:4px; font-size:7.45pt; display:flex; flex-wrap:wrap; gap:4.5px;">
+    <span class="p-tag p-shell">[1. Instant Static Chrome]</span>
+    <span class="p-tag p-cache">[2. &quot;use cache&quot; Data/UI Slice]</span>
+    <span class="p-tag p-life">[3. cacheLife + cacheTag]</span>
+    <span class="p-tag p-bound">[4. Tight &lt;Suspense&gt; + CLS Fallback]</span>
+    <span class="p-tag p-reval">[5. Server Action updateTag]</span>
+  </div>
+
+  <div class="card" style="background:#f8fafc; border:1px solid #a7f3d0; padding:7.5px 10px; margin-bottom:6px; font-size:7.9pt; line-height:1.62;">
+    <span class="p-tag p-shell">Render header, sidebar, and page title synchronously outside any boundary so frame 1 paints rich UI.</span>
+    <span class="p-tag p-cache">Extract shared catalog or team metadata into an async helper or Server Component marked &quot;use cache&quot; with serializable props.</span>
+    <span class="p-tag p-life">Declare cacheLife(&apos;hours&apos;) and granular cacheTag(&apos;team-&apos; + teamId) so prerender includes the cached slice.</span>
+    <span class="p-tag p-bound">Wrap only the personalized user banner or live billing meter in &lt;Suspense fallback={&lt;BannerSkeleton h=&quot;48px&quot; /&gt;}&gt; passing userId outside the cache.</span>
+    <span class="p-tag p-reval">Call updateTag(&apos;team-&apos; + teamId) in the mutating Server Action and test the round-trip under next start.</span>
+  </div>
+
+  <div class="callout rose" style="margin:2px 0 0 0;">
+    <div class="callout-title">Critical Runtime Trap: Passing <code>next build</code> Does Not Prove <code>&quot;use cache&quot;</code> Is Safe</div>
+    A hidden <code>cookies()</code>, <code>headers()</code>, or auth session helper called deep inside a <code>&quot;use cache&quot;</code> call tree often passes <code>next build</code> silently, then throws a runtime error when a real user hits <code>next start</code>. Always verify every newly cached subtree against a live production run (<code>next build &amp;&amp; next start</code>) and test its mutation invalidation path.
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: TOP-DOWN INCREMENTAL LOOP & next-dev-loop ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Incremental Top-Down Adoption Loop</span>
+    <span>Un-Opting Feature by Feature &amp; next-dev-loop Verification</span>
+  </div>
+
+  <h2 class="page-title">Top-Down Loop &amp; <code>next-dev-loop</code> Verification</h2>
+  <p class="page-lead">
+    Adopt one product feature at a time (e.g., <code>app/settings/profile/**</code>), walking strictly top-down from root layout to leaf pages while cross-checking <code>/_next/mcp</code> against a real browser.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card" style="border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge">1</span> Why Root Layouts Must Un-Opt First</div>
+      <p style="font-size:7.8pt; margin-bottom:4px;">Validation follows <strong>first-explicit-config-wins</strong> top-down resolution:</p>
+      <ul style="font-size:7.7pt; margin:0;">
+        <li><strong>Ancestor shields children:</strong> Removing <code>export const instant = false</code> on a leaf does nothing while its parent layout still exports <code>instant = false</code>.</li>
+        <li><strong>Children shield ancestor:</strong> Removing a layout&rsquo;s opt-out leaves <code>next build</code> green while child pages keep theirs&mdash;actual layout blockers only fire once descendant opt-outs come off!</li>
+        <li><strong>Clean root first:</strong> Un-opt <code>app/layout.tsx</code>, clear any Sync-IO or client-hook nav blockers, then descend feature by feature.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">2</span> Scoped Build &amp; Prerender Flags</div>
+      <p style="font-size:7.8pt; margin-bottom:4px;">By default <code>next build</code> exits on the first blocking route. Use these two diagnostic flags when isolating tricky errors:</p>
+      <pre class="code-block" style="margin:2px 0 4px 0; padding:5px 7px; font-size:6.75pt; line-height:1.33;"><code># Report ALL blocking routes + full file:line traces
+npx next build --debug-prerender
+
+# Build ONLY specific file-path globs (NOT URL paths!)
+npx next build --debug-prerender --debug-build-paths=&quot;app/admin/**/page.tsx&quot;</code></pre>
+      <p style="font-size:7.5pt; margin:0; color:#475569;">Passing a URL like <code>/admin</code> matches zero files and silently builds nothing.</p>
+    </div>
+  </div>
+
+  <h3>Two-View Verification with Turbopack <code>next-dev-loop</code></h3>
+  <pre class="code-block" style="padding:6px 9px; font-size:6.95pt; margin:2px 0 6px 0;"><code># 1. Start Turbopack dev server (default in Next.js 16.3+; avoid --webpack) &amp; bind worktree browser session
+SESSION=&quot;$(agent-browser session id --scope worktree --prefix next-dev-loop)&quot;
+agent-browser --session &quot;$SESSION&quot; --restore --enable react-devtools open http://localhost:3000/settings/profile
+
+# 2. Cross-check framework state over /_next/mcp (SSE responses: extract JSON from data: lines)
+#    &bull; get_compilation_issues  &rarr; confirms Turbopack compile is clean
+#    &bull; get_routes              &rarr; lists app/ route inventory
+#    &bull; get_page_metadata       &rarr; reveals exact segment files powering the visited route
+#    &bull; get_errors / get_logs   &rarr; catches runtime, hydration, and blocking-prerender errors</code></pre>
+
+  <div class="grid-3" style="margin-bottom:5px;">
+    <div class="card-mint" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;">Check Non-Blank Paint</div>
+      <p style="font-size:7.6pt; margin:0;">Verify in <code>agent-browser</code> that frame 1 renders real navigation, headings, and skeletons&mdash;not a blank screen.</p>
+    </div>
+    <div class="card-mint" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;">Check Sibling Routes</div>
+      <p style="font-size:7.6pt; margin:0;">Whenever you refactor a shared layout or sidebar component, re-check sibling routes under that layout.</p>
+    </div>
+    <div class="card-mint" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;">Grow Shells Deliberately</div>
+      <p style="font-size:7.6pt; margin:0;">Once green, apply <code>next-cache-components-optimizer</code> to lift shared blocks out of <code>&lt;Suspense&gt;</code> into <code>&quot;use cache&quot;</code>.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Per-Route Success Bar: Dev Overlay Clean + Browser Verified + Passing <code>next build</code></div>
+    Never delete <code>.next</code> while <code>next dev</code> is running (it breaks active incremental state). When a feature passes <code>next-dev-loop</code>, finish with <code>npx next build</code> as your final commit gate before moving to the next feature.
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: PARTIAL PREFETCHING (partialPrefetching: true) ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Partial Prefetching Rollout</span>
+    <span>Shared App Shells, Link Audits &amp; instant-shell-url-data Sweeps</span>
+  </div>
+
+  <h2 class="page-title">Partial Prefetching (<code>partialPrefetching: true</code>)</h2>
+  <p class="page-lead">
+    Legacy Next.js prefetched entire routes per URL. With <code>partialPrefetching: true</code>, default links reuse <strong>one shared App Shell</strong> across every dynamic parameter, while only opted-in <code>&lt;Link prefetch={true}&gt;</code> links pre-warm cached URL-specific data ahead of entry.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:5px; gap:10px;">
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title"><span class="num-badge">1</span> 5-Step Staged Rollout Sequence</div>
+      <ol style="font-size:7.55pt; margin:2px 0 0 0; line-height:1.38;">
+        <li><strong>Audit before enabling:</strong> Search <code>app/</code> and shared components (<code>rg -n &apos;\bprefetch\b|router\.prefetch&apos;</code>) for effective <code>prefetch={true}</code> links and imperative <code>router.prefetch()</code> calls.</li>
+        <li><strong>Lock legacy baseline:</strong> Write and pass <code>@next/playwright</code> <code>instant()</code> tests under <code>next start</code> with the flag still OFF.</li>
+        <li><strong>Stage destinations:</strong> Add <code>export const prefetch = &apos;partial&apos;</code> to audited routes until every locked test passes again.</li>
+        <li><strong>Flip flag + codemod:</strong> Set <code>partialPrefetching: true</code> in <code>next.config.ts</code> and run <code>npx @next/codemod@canary remove-partial-prefetch ./app</code>.</li>
+        <li><strong>Sweep Insights:</strong> Visit routes in <code>next dev</code> to clear any remaining <code>instant-shell-url-data</code> warnings.</li>
+      </ol>
+    </div>
+
+    <div>
+      <pre class="code-block" style="margin:0 0 5px 0; padding:5.5px 8px; font-size:6.8pt; line-height:1.33;"><code>// next.config.ts (after Cache Components is green)
+export default {
+  cacheComponents: true,
+  partialPrefetching: true,
+}
+
+# Strip temporary route exports cleanly after flag flip:
+npx @next/codemod@canary remove-partial-prefetch ./app</code></pre>
+      <div class="callout amber" style="margin:0; padding:6px 9px; font-size:7.65pt;">
+        <div class="callout-title" style="font-size:8.1pt;">Catching <code>instant-shell-url-data</code> Insights</div>
+        Often fires on <code>generateStaticParams</code> routes where <code>params</code> is already inside <code>&lt;Suspense&gt;</code>, but awaited too high above the URL-specific leaf&mdash;tying the shared App Shell to a single URL. Push the <code>await params</code> down into its own leaf boundary.
+      </div>
+    </div>
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/partial_prefetch_link_matrix.jpg" alt="Widescreen visualization of interconnected geometric route portals sharing one illuminated emerald hull while a single highlighted pathway bridge pre-warms golden-green data crystals" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>One Shared Hull, Selective Pre-Warming:</strong> Default <code>&lt;Link&gt;</code> navigations share a single cached emerald App Shell across infinite dynamic URLs, while explicit <code>&lt;Link prefetch={true}&gt;</code> paths pre-warm golden-green URL-specific data crystals before the click.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Use Field Blueprints</span>
+    <span>5 Real-World Copy-Paste Cache Components &amp; Prefetch Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Drop these five production-tested patterns straight into Next.js 16.3+ App Router codebases. Every recipe respects non-blocking shell composition and clean mutation boundaries.
+  </p>
+
+  <table class="clean-table" style="font-size:7.45pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Recipe &amp; Goal</th>
+        <th style="width:22%;">Boundary &amp; Config</th>
+        <th style="width:56%;">Copy-Paste Snippet / Command</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Incremental Route Adoption Starter</strong><br/><span style="color:#059669; font-weight:600;">Safe Team Rollout</span></td>
+        <td>Clean Git tree<br/><code>cacheComponents: true</code><br/><code>instant = false</code> markers</td>
+        <td><code>npx @next/codemod@latest cache-components-instant-false ./app</code><br/>Set <code>cacheComponents: true</code> in <code>next.config.ts</code>, remove <code>experimental.dynamicIO</code>, migrate <code>force-static</code> routes first, then run <code>npx next build --debug-prerender</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Promise-Forwarded Dynamic <code>[slug]</code> Page</strong><br/><span style="color:#059669; font-weight:600;">Zero Page-Top Await</span></td>
+        <td>Sync page export<br/><code>&lt;Suspense&gt;</code> boundary<br/>Forwarded <code>params</code></td>
+        <td><code>export default function Page({ params }: { params: Promise&lt;{ slug: string }&gt; }) {</code><br/><code>&nbsp;&nbsp;return &lt;Shell&gt;&lt;Suspense fallback={&lt;PostSkeleton /&gt;}&gt;&lt;PostBody params={params} /&gt;&lt;/Suspense&gt;&lt;/Shell&gt;</code><br/><code>}</code> &mdash; await <code>const { slug } = await params</code> strictly inside <code>PostBody</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Authenticated Nav Shell (No Hook Block)</strong><br/><span style="color:#0284c7; font-weight:600;">Fixes Client Hook Error</span></td>
+        <td>Static outer <code>&lt;nav&gt;</code><br/>Isolated client leaf<br/><code>usePathname()</code></td>
+        <td>Keep brand logo and layout links static in <code>RootLayout</code>. Wrap only <code>&lt;ActiveRouteTabs /&gt;</code> (which calls <code>usePathname()</code>/<code>useSearchParams()</code>) and <code>&lt;UserMenu /&gt;</code> inside <code>&lt;Suspense fallback={&lt;NavTabsSkeleton /&gt;}&gt;</code> so dynamic routes never hit <code>blocking-prerender-client-hook</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Cached Catalog + Mutation Revalidation</strong><br/><span style="color:#059669; font-weight:600;">Rich Static Shell</span></td>
+        <td><code>&quot;use cache&quot;</code><br/><code>cacheLife(&apos;hours&apos;)</code><br/><code>cacheTag</code> + <code>updateTag</code></td>
+        <td><code>async function Catalog({ cat }: { cat: string }) { &apos;use cache&apos;; cacheLife(&apos;hours&apos;); cacheTag(&apos;cat-&apos; + cat); return &lt;Grid items={await getItems(cat)} /&gt;; }</code><br/>In your Server Action: mutate DB, then call <code>updateTag(&apos;cat-&apos; + cat)</code> and verify under <code>next start</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Opted-In <code>&lt;Link prefetch={true}&gt;</code> Dashboard</strong><br/><span style="color:#d97706; font-weight:600;">Pre-Click URL Data</span></td>
+        <td><code>prefetch = &apos;partial&apos;</code><br/><code>partialPrefetching: true</code><br/><code>&quot;use cache&quot;</code> URL slice</td>
+        <td>Mark destination with <code>export const prefetch = &apos;partial&apos;</code> while auditing; move cached URL-keyed summary into <code>&quot;use cache&quot;</code> behind <code>&lt;Link href={'/org/' + id} prefetch={true}&gt;</code>; verify with <code>instant()</code> under <code>next start</code>, then run <code>remove-partial-prefetch</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Composition Power Move: Combine Recipe 2 + Recipe 4 for Instant Dynamic Pages</div>
+    Forwarding the <code>params</code> promise into a <code>&lt;Suspense&gt;</code> child (Recipe 2) keeps your shared App Shell reusable across all URLs, while calling a <code>&quot;use cache&quot;</code> data helper inside that child (Recipe 4) lets <code>&lt;Link prefetch={true}&gt;</code> resolve the URL&rsquo;s cached content before the user even clicks.
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: REGRESSION PROOF WITH @next/playwright instant() ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Automated Production Regression Locks</span>
+    <span>@next/playwright instant(), Production Rigs &amp; RED-to-GREEN Contracts</span>
+  </div>
+
+  <h2 class="page-title">Regression Proof with <code>@next/playwright</code> <code>instant()</code></h2>
+  <p class="page-lead">
+    Timers are flaky and <code>next dev</code> does not prefetch. Guard your instant navigations with <code>instant()</code> from <code>@next/playwright</code>&mdash;a deterministic dynamic-data lock running against a real production build.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-mint" style="border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge">1</span> Expose Testing API in Test Rigs Only</div>
+      <pre class="code-block" style="margin:2px 0 4px 0; padding:5px 7px; font-size:6.75pt; line-height:1.33;"><code>// next.config.ts (gated to E2E/CI test builds)
+export default {
+  cacheComponents: true,
+  partialPrefetching: true,
+  experimental: {
+    exposeTestingApiInProductionBuild:
+      process.env.PLAYWRIGHT_TEST === '1',
+  },
+}</code></pre>
+      <p style="font-size:7.6pt; margin:0;">Run tests against <code>next build &amp;&amp; next start</code>. Keep <code>@next/playwright</code> on the exact same release version as <code>next</code>.</p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">2</span> The Present &amp; Instant + Non-Blank Contract</div>
+      <ul style="font-size:7.65pt; margin:2px 0 0 0;">
+        <li><strong>Under the lock (<code>instant()</code>):</strong> Dynamic data streams are paused. Your meaningful shell marker MUST be visible (<code>toBeVisible()</code>), and deferred dynamic data MUST still be absent (<code>toHaveCount(0)</code>) to prevent vacuous passes!</li>
+        <li><strong>After lock release:</strong> Dynamic content streams in (<code>toBeVisible()</code>).</li>
+        <li><strong>RED &rarr; GREEN differential:</strong> Prove the test fails RED before your fix, turns GREEN after, and stays non-blank visually.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Production Tests: Soft Client Navigation vs. Hard Initial Load</h3>
+  <div class="grid-2" style="margin-bottom:5px; gap:10px;">
+    <div>
+      <p style="font-size:7.65pt; font-weight:700; margin-bottom:2px; color:#047857;">A. Soft Client Navigation (<code>&lt;Link&gt;</code> Click)</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.7pt; line-height:1.33;"><code>import { test, expect } from '@playwright/test'
+import { instant } from '@next/playwright'
+
+test('dashboard soft nav is instant', async ({ page }) =&gt; {
+  await page.goto('/projects')
+  const link = page.getByTestId('nav-analytics-link')
+  await expect(link).toBeVisible()
+
+  await instant(page, async () =&gt; {
+    await link.click()
+    await expect(page.getByTestId('analytics-shell')).toBeVisible()
+    await expect(page.getByTestId('live-metrics')).toHaveCount(0)
+  })
+  await expect(page.getByTestId('live-metrics')).toBeVisible()
+})</code></pre>
+    </div>
+
+    <div>
+      <p style="font-size:7.65pt; font-weight:700; margin-bottom:2px; color:#047857;">B. Hard Initial Load (<code>page.goto</code> + <code>storageState</code>)</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.7pt; line-height:1.33;"><code>// Inject session via storageState — NEVER call page.goto()
+// to log in before instant(), or auth runs unmeasured!
+test('analytics hard load serves shell', async ({ page }) =&gt; {
+  const url = 'http://127.0.0.1:3000/analytics'
+  await instant(
+    page,
+    async () =&gt; {
+      await page.goto(url)
+      await expect(page.getByTestId('analytics-shell')).toBeVisible()
+      await expect(page.getByTestId('live-metrics')).toHaveCount(0)
+    },
+    { baseURL: new URL(url).origin }
+  )
+  await expect(page.getByTestId('live-metrics')).toBeVisible()
+})</code></pre>
+    </div>
+  </div>
+
+  <div class="callout slate" style="margin:2px 0 0 0;">
+    <div class="callout-title">Always Assert Both Halves of the Self-Validating Lock</div>
+    If <code>exposeTestingApiInProductionBuild</code> was accidentally omitted, <code>instant()</code> silently becomes a no-op and a shell-only assertion passes falsely! Checking <code>toHaveCount(0)</code> on a known dynamic node inside the lock guarantees the lock actually engaged.
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Vercel &amp; Next.js Full-Stack Synergy</span>
+    <span>Cache Components &rarr; Vercel CDN + Runtime Cache &rarr; AI SDK 7 &rarr; CI Locks</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From Static Shell to Live AI UI</h2>
+  <p class="page-lead">
+    Cache Components and Partial Prefetching form the presentation foundation of modern Vercel applications&mdash;pairing edge-delivered App Shells with Runtime Cache, AI SDK 7 streaming interfaces, and automated CI locks.
+  </p>
+
+  <div class="figure-box" style="background:#05130f; padding:10px 12px; border-color:#047857; margin-bottom:8px;">
+    <svg viewBox="0 0 700 206" width="100%" height="206" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="18" width="152" height="142" rx="9" fill="#0a261e" stroke="#34d399" stroke-width="1.8"/>
+      <text x="84" y="37" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">1. ROUTE ARCHITECTURE</text>
+      <text x="84" y="53" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Cache Components</text>
+      <text x="84" y="67" text-anchor="middle" fill="#a7f3d0" font-size="7.1">+ Partial Prefetching</text>
+      <line x1="20" y1="76" x2="148" y2="76" stroke="#047857" stroke-width="1"/>
+      <text x="20" y="92" fill="#ecfdf5" font-size="7.1">&bull; Prerendered App Shell</text>
+      <text x="20" y="106" fill="#ecfdf5" font-size="7.1">&bull; &quot;use cache&quot; + cacheLife</text>
+      <text x="20" y="120" fill="#ecfdf5" font-size="7.1">&bull; Opted-in Link prefetch</text>
+      <rect x="20" y="132" width="128" height="20" rx="4" fill="#064e3b"/>
+      <text x="84" y="145" text-anchor="middle" fill="#6ee7b7" font-size="7" font-weight="700">Splits shell vs. holes</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M160 89 L182 89" stroke="#34d399" stroke-width="2"/>
+      <polygon points="180,84 188,89 180,94" fill="#34d399"/>
+
+      <!-- Stage 2 -->
+      <rect x="188" y="18" width="152" height="142" rx="9" fill="#081d26" stroke="#38bdf8" stroke-width="1.7"/>
+      <text x="264" y="37" text-anchor="middle" fill="#7dd3fc" font-size="7.3" font-weight="700">2. EDGE &amp; COMPUTE</text>
+      <text x="264" y="53" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Vercel CDN +</text>
+      <text x="264" y="67" text-anchor="middle" fill="#bae6fd" font-size="7.1">Runtime Cache</text>
+      <line x1="200" y1="76" x2="328" y2="76" stroke="#0369a1" stroke-width="1"/>
+      <text x="200" y="92" fill="#e0f2fe" font-size="7.1">&bull; Global shell edge hits</text>
+      <text x="200" y="106" fill="#e0f2fe" font-size="7.1">&bull; Regional KV cache tags</text>
+      <text x="200" y="120" fill="#e0f2fe" font-size="7.1">&bull; Fluid Compute holes</text>
+      <rect x="200" y="132" width="128" height="20" rx="4" fill="#0c4a6e"/>
+      <text x="264" y="145" text-anchor="middle" fill="#7dd3fc" font-size="7" font-weight="700">Serves shell in ~10ms</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M340 89 L362 89" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="360,84 368,89 360,94" fill="#38bdf8"/>
+
+      <!-- Stage 3 -->
+      <rect x="368" y="18" width="152" height="142" rx="9" fill="#17122b" stroke="#a78bfa" stroke-width="1.7"/>
+      <text x="444" y="37" text-anchor="middle" fill="#ddd6fe" font-size="7.3" font-weight="700">3. STREAMING UI</text>
+      <text x="444" y="53" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">AI SDK 7</text>
+      <text x="444" y="67" text-anchor="middle" fill="#c4b5fd" font-size="7.1">Generative &amp; Chat UIs</text>
+      <line x1="380" y1="76" x2="508" y2="76" stroke="#5b21b6" stroke-width="1"/>
+      <text x="380" y="92" fill="#ede9fe" font-size="7.1">&bull; Instant chat workspace</text>
+      <text x="380" y="106" fill="#ede9fe" font-size="7.1">&bull; Streamed user threads</text>
+      <text x="380" y="120" fill="#ede9fe" font-size="7.1">&bull; Tool UIs inside holes</text>
+      <rect x="380" y="132" width="128" height="20" rx="4" fill="#3b0764"/>
+      <text x="444" y="145" text-anchor="middle" fill="#ddd6fe" font-size="7" font-weight="700">Streams tokens live</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M520 89 L542 89" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="540,84 548,89 540,94" fill="#a78bfa"/>
+
+      <!-- Stage 4 -->
+      <rect x="548" y="18" width="144" height="142" rx="9" fill="#092920" stroke="#10b981" stroke-width="1.8"/>
+      <text x="620" y="37" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">4. CI GUARDRAIL</text>
+      <text x="620" y="53" text-anchor="middle" fill="#ffffff" font-size="9.3" font-weight="800">@next/playwright</text>
+      <text x="620" y="67" text-anchor="middle" fill="#a7f3d0" font-size="7.1">instant() Lock Suite</text>
+      <line x1="560" y1="76" x2="680" y2="76" stroke="#047857" stroke-width="1"/>
+      <text x="559" y="92" fill="#ecfdf5" font-size="7.1">&bull; Soft &amp; hard nav tests</text>
+      <text x="559" y="106" fill="#ecfdf5" font-size="7.1">&bull; Present &amp; gated checks</text>
+      <text x="559" y="120" fill="#ecfdf5" font-size="7.1">&bull; Blocks shell regressions</text>
+      <rect x="559" y="132" width="122" height="20" rx="4" fill="#064e3b"/>
+      <text x="620" y="145" text-anchor="middle" fill="#6ee7b7" font-size="7" font-weight="700">Enforces speed on PRs</text>
+
+      <!-- Bottom Loop Banner -->
+      <rect x="8" y="173" width="684" height="23" rx="6" fill="#071915" stroke="#047857" stroke-width="1"/>
+      <text x="350" y="188" text-anchor="middle" fill="#a7f3d0" font-size="7.4" font-weight="600">End-to-End Flow: Structure routes with Cache Components &rarr; Serve shells from Vercel CDN &rarr; Stream AI SDK 7 UIs &rarr; Lock with instant()</text>
+    </svg>
+  </div>
+
+  <h3>How These Layers Click Together in a Production AI App</h3>
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Edge Shells + AI SDK 7 Streaming</div>
+      <p style="font-size:7.9pt; margin:0;">In an AI workspace, the sidebar, model picker, and prompt composer belong in your prerendered App Shell via <code>&quot;use cache&quot;</code>, served straight from the Vercel CDN. Only the user&rsquo;s active conversation history and <strong>AI SDK 7</strong> token streams sit inside <code>&lt;Suspense&gt;</code>, so clicking any thread opens immediately.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> Runtime Cache + CI Lock Discipline</div>
+      <p style="font-size:7.9pt; margin:0;">Tag-based invalidation (<code>updateTag</code> / <code>revalidateTag</code>) coordinates across Next.js <code>&quot;use cache&quot;</code> and Vercel Runtime Cache, while running <code>@next/playwright</code> <code>instant()</code> against preview deployments catches accidental top-level <code>cookies()</code> or <code>await params</code> regressions before merge.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0;">
+    <div class="callout-title">Design Takeaway: Separate Public Infrastructure From Personalized Streamed State</div>
+    When your route boundaries mirror how data actually changes&mdash;public chrome in the edge shell, shared reference data in <code>&quot;use cache&quot;</code>, and user-specific AI or auth data behind tight <code>&lt;Suspense&gt;</code> bays&mdash;every layer of the Vercel platform reinforces the next.
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Production Launch Readiness</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:5px;">
+    Most Cache Components and Partial Prefetching snags trace to one of seven concrete patterns. Match your error below for the ten-second fix, then verify your app against the pre-flight checklist.
+  </p>
+
+  <table class="clean-table" style="font-size:7.35pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:28%;">Symptom / Error</th>
+        <th style="width:30%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. <code>experimental.dynamicIO</code> aborts startup</strong></td>
+        <td>Legacy experimental flag was replaced by top-level <code>cacheComponents</code> in Next.js 16.3+.</td>
+        <td>Delete <code>experimental.dynamicIO</code> (and deprecated <code>experimental.useCache</code>) from <code>next.config.*</code> and set top-level <code>cacheComponents: true</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Top-level <code>await params</code> blocks shared shell</strong></td>
+        <td>Awaiting <code>params</code> or <code>searchParams</code> before <code>&lt;Suspense&gt;</code> ties the shell to one URL or fails prerender.</td>
+        <td>Remove <code>await</code> from the page/layout function; forward the <code>params</code> promise into a <code>&lt;Suspense&gt;</code> child and <code>await</code> it inside that child.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Sync-IO breaks an <code>instant = false</code> route</strong></td>
+        <td><code>new Date()</code>, <code>Date.now()</code>, <code>Math.random()</code>, or <code>crypto.randomUUID()</code> ignores opt-outs.</td>
+        <td>Run <code>next build --debug-prerender --debug-build-paths=&quot;...&quot;</code> to locate the call; move into <code>&quot;use cache&quot;</code>, behind <code>&lt;Suspense&gt;</code>, or use <code>connection()</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>cookies()</code> throws inside <code>use cache</code> under <code>next start</code></strong></td>
+        <td><code>next build</code> passed, but a cached helper called <code>cookies()</code>, <code>headers()</code>, or auth session at runtime.</td>
+        <td>Read session/cookies <em>outside</em> <code>&quot;use cache&quot;</code> inside a <code>&lt;Suspense&gt;</code> parent, and pass serializable primitives (like <code>tenantId</code>) as arguments.</td>
+      </tr>
+      <tr>
+        <td><strong>5. <code>Only async functions allowed</code> with <code>&quot;use cache&quot;</code> + <code>instant</code></strong></td>
+        <td>A file with top-level <code>&quot;use cache&quot;</code> also exported <code>const instant = false</code> or read request data.</td>
+        <td>Remove file-level <code>&quot;use cache&quot;</code> from the route file; place <code>&quot;use cache&quot;</code> strictly on pure async data/UI functions inside helper modules or components.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Codemod reports <code>0 ok</code> or misses client-hook error</strong></td>
+        <td>Codemod targeted wrong dir (<code>./app</code> vs <code>./src/app</code>), or a shared nav calls <code>usePathname()</code>.</td>
+        <td>Re-run codemod against the real app folder (check count &gt; 0), and wrap <code>usePathname()</code>/<code>useSearchParams()</code> client leaves in <code>&lt;Suspense&gt;</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. <code>&lt;Link prefetch={true}&gt;</code> returns shell-only</strong></td>
+        <td>Destination lacks <code>export const prefetch = &apos;partial&apos;</code> (or <code>partialPrefetching: true</code>), or URL data isn&rsquo;t cached.</td>
+        <td>Add <code>export const prefetch = &apos;partial&apos;</code> during rollout (or enable <code>partialPrefetching: true</code>), wrap URL reads in <code>&quot;use cache&quot;</code>, and test under <code>next start</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Merging to Main</h3>
+  <div class="checklist-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Legacy Configs Cleared:</strong> Zero remaining <code>experimental.dynamicIO</code>, <code>dynamic</code>, <code>revalidate</code>, or <code>fetchCache</code> exports across <code>app/</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Top-Down Opt-Outs Removed:</strong> Every adopted feature (starting from root layout) has zero leftover <code>export const instant = false</code> markers.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong><code>next-dev-loop</code> &amp; Insights Clean:</strong> Turbopack <code>/_next/mcp</code> reports zero compilation or blocking errors and zero amber Insights warnings.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Rich Non-Blank Shells Verified:</strong> First paint shows real layout chrome, headings, and CLS-matched skeletons&mdash;never a full-page blank spinner.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Production <code>next start</code> Tested:</strong> Every new <code>&quot;use cache&quot;</code> boundary, mutation <code>updateTag()</code>, and <code>&lt;Link prefetch={true}&gt;</code> verified under <code>next start</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong><code>instant()</code> Lock Passing in CI:</strong> Both soft-nav and hard-load <code>@next/playwright</code> <code>instant()</code> tests assert shell visible AND deferred content <code>toHaveCount(0)</code>.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Next.js Cache Components &amp; Partial Prefetching &bull; Complete Field Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

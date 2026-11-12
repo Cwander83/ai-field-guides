@@ -5,9 +5,9 @@
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-35%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-420%20Pages-059669?style=for-the-badge)
-![Ecosystems](https://img.shields.io/badge/Scope-5%20Ecosystems-7c3aed?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-39%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-468%20Pages-059669?style=for-the-badge)
+![Ecosystems](https://img.shields.io/badge/Scope-6%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
 
@@ -18,7 +18,7 @@ Every handbook in this repository is authored as a self-contained **12-page visu
 Click any cover card or **Read / Download PDF** link below to view the full handbook directly in GitHub or download a local copy.
 
 <!-- CATALOG:START -->
-**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems)
+**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems)
 
 ### Google AI & Creative Studios
 Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, agentic coding IDEs, source-grounded research tools, and autonomous browser workflows.
@@ -236,6 +236,48 @@ Publication-grade 12-page visual handbooks for OpenAI's agentic developer and wo
   </tr>
 </table>
 
+### Vercel & Full-Stack AI Applications
+Publication-grade 12-page visual handbooks for building production full-stack AI applications on Vercel—covering AI SDK 7 & AI Gateway, Durable Agents with eve, Workflow 5 & Queues, Next.js 16.3+ Cache Components & Partial Prefetching, and multi-platform bots with the Vercel Chat SDK.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/vercel/ai-sdk-and-gateway/Vercel_AI_SDK_and_Gateway_Complete_How_To_Guide.pdf"><img src="guides/vercel/ai-sdk-and-gateway/cover.png" alt="Vercel AI SDK 7 &amp; AI Gateway Cover" width="100%" /></a>
+      <h3><a href="guides/vercel/ai-sdk-and-gateway/Vercel_AI_SDK_and_Gateway_Complete_How_To_Guide.pdf">Vercel AI SDK 7 &amp; AI Gateway</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Stream typed UI messages, ToolLoopAgent runs, and structured Output.object() calls through Vercel AI Gateway with OIDC auth, virtual models, budgets, and automatic provider failover.</p>
+      <p><code>AI SDK 7</code> &middot; <code>AI Gateway</code> &middot; <code>Fluid Compute</code></p>
+      <p><a href="guides/vercel/ai-sdk-and-gateway/Vercel_AI_SDK_and_Gateway_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/vercel/ai-sdk-and-gateway">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/vercel/durable-agents-and-workflows/Vercel_Durable_Agents_and_Workflows_Complete_How_To_Guide.pdf"><img src="guides/vercel/durable-agents-and-workflows/cover.png" alt="Vercel Durable Agents, Workflows &amp; Queues Cover" width="100%" /></a>
+      <h3><a href="guides/vercel/durable-agents-and-workflows/Vercel_Durable_Agents_and_Workflows_Complete_How_To_Guide.pdf">Vercel Durable Agents, Workflows &amp; Queues</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Build crash-safe agents and long-running pipelines using eve, Workflow 5 (WorkflowAgent, use workflow &amp; use step), Vercel Queues, and Vercel Schedules.</p>
+      <p><code>Workflow 5</code> &middot; <code>eve Agents</code> &middot; <code>Queues &amp; Schedules</code></p>
+      <p><a href="guides/vercel/durable-agents-and-workflows/Vercel_Durable_Agents_and_Workflows_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/vercel/durable-agents-and-workflows">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/vercel/nextjs-cache-components/Nextjs_Cache_Components_and_Prefetching_Complete_How_To_Guide.pdf"><img src="guides/vercel/nextjs-cache-components/cover.png" alt="Next.js Cache Components &amp; Partial Prefetching Cover" width="100%" /></a>
+      <h3><a href="guides/vercel/nextjs-cache-components/Nextjs_Cache_Components_and_Prefetching_Complete_How_To_Guide.pdf">Next.js Cache Components &amp; Partial Prefetching</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Adopt cacheComponents and partialPrefetching in Next.js 16.3+, grow instant static App Shells with use cache and Suspense, and lock regressions with @next/playwright instant().</p>
+      <p><code>Next.js 16.3+</code> &middot; <code>Cache Components</code> &middot; <code>Partial Prefetching</code></p>
+      <p><a href="guides/vercel/nextjs-cache-components/Nextjs_Cache_Components_and_Prefetching_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/vercel/nextjs-cache-components">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/vercel/multi-platform-chat-sdk/Vercel_Multi_Platform_Chat_SDK_Complete_How_To_Guide.pdf"><img src="guides/vercel/multi-platform-chat-sdk/cover.png" alt="Multi-Platform Bots with Vercel Chat SDK Cover" width="100%" /></a>
+      <h3><a href="guides/vercel/multi-platform-chat-sdk/Vercel_Multi_Platform_Chat_SDK_Complete_How_To_Guide.pdf">Multi-Platform Bots with Vercel Chat SDK</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Ship one TypeScript bot codebase across Slack, Teams, Discord, Telegram, GitHub, and Linear with @chat-adapter/*, Vercel Connect OAuth, Sandbox PR reviews, and Workflow approval cards.</p>
+      <p><code>Chat SDK</code> &middot; <code>@chat-adapter</code> &middot; <code>Vercel Connect</code></p>
+      <p><a href="guides/vercel/multi-platform-chat-sdk/Vercel_Multi_Platform_Chat_SDK_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/vercel/multi-platform-chat-sdk">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+</table>
+
 ### AI Agent Engineering & Architecture
 Practical 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktrees, vector RAG, security, evals, System One decision models, and local on-device AI.
 
@@ -392,6 +434,10 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **OpenAI Agents API & SDK** — Architect production multi-agent systems with handoffs, Agents-as-Tools, parallel input/output guardrails, built-in tracing, and stateful MCP sessions. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/agents-api-and-sdk/OpenAI_Agents_API_and_SDK_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/agents-api-and-sdk) |
 | **ChatGPT Canvas, Spaces & Computer Use** — Master surgical split-pane Canvas diffs, multiplayer Spaces and Pages, and gated Agent Mode browser and desktop workflows. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/chatgpt-canvas-and-spaces/ChatGPT_Canvas_Spaces_and_Computer_Use_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/chatgpt-canvas-and-spaces) |
 | **OpenAI Realtime Voice & Vision** — Build sub-second speech-to-speech and live vision agents across WebRTC, WebSockets, and SIP telephony with native VAD barge-in and async MCP. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/realtime-voice-and-vision/OpenAI_Realtime_Voice_and_Vision_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/realtime-voice-and-vision) |
+| **Vercel AI SDK 7 & AI Gateway** — Stream typed UI messages, ToolLoopAgent runs, and structured Output.object() calls through Vercel AI Gateway with OIDC auth, virtual models, budgets, and automatic provider failover. | Vercel & Full-Stack AI Applications | `v1.0` | `2026-11` | 12 | [PDF](guides/vercel/ai-sdk-and-gateway/Vercel_AI_SDK_and_Gateway_Complete_How_To_Guide.pdf) &middot; [Source](guides/vercel/ai-sdk-and-gateway) |
+| **Vercel Durable Agents, Workflows & Queues** — Build crash-safe agents and long-running pipelines using eve, Workflow 5 (WorkflowAgent, use workflow & use step), Vercel Queues, and Vercel Schedules. | Vercel & Full-Stack AI Applications | `v1.0` | `2026-11` | 12 | [PDF](guides/vercel/durable-agents-and-workflows/Vercel_Durable_Agents_and_Workflows_Complete_How_To_Guide.pdf) &middot; [Source](guides/vercel/durable-agents-and-workflows) |
+| **Next.js Cache Components & Partial Prefetching** — Adopt cacheComponents and partialPrefetching in Next.js 16.3+, grow instant static App Shells with use cache and Suspense, and lock regressions with @next/playwright instant(). | Vercel & Full-Stack AI Applications | `v1.0` | `2026-11` | 12 | [PDF](guides/vercel/nextjs-cache-components/Nextjs_Cache_Components_and_Prefetching_Complete_How_To_Guide.pdf) &middot; [Source](guides/vercel/nextjs-cache-components) |
+| **Multi-Platform Bots with Vercel Chat SDK** — Ship one TypeScript bot codebase across Slack, Teams, Discord, Telegram, GitHub, and Linear with @chat-adapter/*, Vercel Connect OAuth, Sandbox PR reviews, and Workflow approval cards. | Vercel & Full-Stack AI Applications | `v1.0` | `2026-11` | 12 | [PDF](guides/vercel/multi-platform-chat-sdk/Vercel_Multi_Platform_Chat_SDK_Complete_How_To_Guide.pdf) &middot; [Source](guides/vercel/multi-platform-chat-sdk) |
 | **Spec-Driven Dev & Context Engineering** — Cross-vendor context architecture (AGENTS.md, CLAUDE.md, Cursor rules), progressive disclosure, and Spec-to-Plan-to-Tasks agent workflows. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/spec-driven-context-engineering/Spec_Driven_Dev_and_Context_Engineering_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/spec-driven-context-engineering) |
 | **Subagents & Agent Orchestration** — Designing specialist subagents, context forks, least-privilege tool scoping, lifecycle hooks, and multi-agent coordinator-worker swarms. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/subagents-and-orchestration/Subagents_and_Agent_Orchestration_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/subagents-and-orchestration) |
 | **Git Worktrees & Parallel Agent Safety** — Running parallel coding agents without file collisions—covering Git worktree fleets, isolated ports/databases, safety hooks, and teardown. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/git-worktrees-and-parallel-safety/Git_Worktrees_and_Parallel_Agent_Safety_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/git-worktrees-and-parallel-safety) |

@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vercel Durable Agents, Workflows &amp; Queues: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">VERCEL &amp; FULL-STACK AI APPLICATIONS &bull; FIELD GUIDE</div>
+    <h1>Vercel <span>Durable Agents</span>, Workflows &amp; Queues</h1>
+    <p class="cover-sub">
+      Build crash-safe AI agents and multi-day background pipelines that survive server restarts, zero-downtime deploys, and API rate limits&mdash;powered by Workflow 5, <code>eve</code>, Vercel Queues, Vercel Schedules, Sandbox, and Daemons.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Workflow 5 + WorkflowAgent</span>
+      <span class="cover-badge"><code>eve</code> Framework</span>
+      <span class="cover-badge"><code>use workflow</code> &amp; <code>use step</code></span>
+      <span class="cover-badge">Vercel Queues</span>
+      <span class="cover-badge">Vercel Schedules</span>
+      <span class="cover-badge">Sandbox &amp; Daemons</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Dark obsidian and violet architectural clockwork pipeline where glowing amethyst step-checkpoints lock state along an unbreakable luminous rail" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Crash-Safe Replay</div>
+      <div class="cover-stat-desc">Checkpoint every LLM call and side effect via <code>&quot;use step&quot;</code>, sleep for days with zero idle compute, and replay cleanly past failures.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Durable Agent Runtimes</div>
+      <div class="cover-stat-desc">Embed <code>WorkflowAgent</code> inside existing apps or scaffold filesystem-first agents with <code>eve</code>, Slack channels, and <code>@vercel/connect</code>.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Queues, Clocks &amp; MicroVMs</div>
+      <div class="cover-stat-desc">Buffer bursts on append-only <code>@vercel/queue</code> topics, schedule per-tenant jobs, and execute untrusted code inside Firecracker sandboxes.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Durable Architecture</span>
+    <span>Vercel Durable Agents, Workflows &amp; Queues</span>
+  </div>
+
+  <h2 class="page-title">Surviving Crashes, Deploys &amp; Multi-Day Waits</h2>
+  <p class="page-lead">
+    Standard HTTP functions vanish after a few minutes, while real AI agents need to wait for human approvals, recover from upstream rate limits, and stream progress across browser reloads. Vercel solves this by layering deterministic replay and durable message logs underneath ordinary TypeScript functions.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Core Mental Model &amp; Replay Stack</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Hooks, Webhooks &amp; Vercel Sandbox</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Ecosystem Decision Matrix &amp; Setup</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Vercel Queues &amp; Vercel Schedules</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Run &amp; <code>agent-runs</code> Inspector Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Workflow 5: <code>use workflow</code> vs. <code>use step</code></strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Observability, KMS &amp; Operations</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. <code>WorkflowAgent</code> &amp; <code>eve</code> Agents</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting Clinic &amp; Checklist</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Separate Orchestration &amp; I/O</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>One Append-Only Foundation, Three Layers of Power</h3>
+  <p style="font-size:8.55pt;">
+    At the bottom sits <strong>Vercel Queues</strong>, an append-only topic log with at-least-once delivery. <strong>Workflows v5</strong> builds on top of Queues: your <code>&quot;use workflow&quot;</code> orchestrator runs in a deterministic replay VM that journals every event, while <code>&quot;use step&quot;</code> workers execute Node.js I/O, retry transient errors, and persist results. At the top, <strong><code>eve</code></strong> wraps durable sessions, tools, skills, channels, and evals into a filesystem-first agent framework.
+  </p>
+
+  <h3>Architecture: How Queues Powers Workflows v5 &amp; <code>eve</code></h3>
+  <div class="figure-box" style="background:#0d081c; padding:9px 11px; border-color:#5b21b6;">
+    <svg viewBox="0 0 710 198" width="100%" height="198" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: Triggers -->
+      <rect x="8" y="16" width="144" height="148" rx="8" fill="#1b1138" stroke="#a78bfa" stroke-width="1.6"/>
+      <text x="80" y="34" text-anchor="middle" fill="#ddd6fe" font-size="7.4" font-weight="700">INGRESS TRIGGERS</text>
+      <rect x="18" y="44" width="124" height="32" rx="5" fill="#110a24" stroke="#7c3aed" stroke-width="1"/>
+      <text x="80" y="58" text-anchor="middle" fill="#ffffff" font-size="8.0" font-weight="700">start(workflow)</text>
+      <text x="80" y="69" text-anchor="middle" fill="#c4b5fd" font-size="6.8">API routes &amp; actions</text>
+
+      <rect x="18" y="82" width="124" height="32" rx="5" fill="#110a24" stroke="#7c3aed" stroke-width="1"/>
+      <text x="80" y="96" text-anchor="middle" fill="#ffffff" font-size="8.0" font-weight="700">@vercel/schedules</text>
+      <text x="80" y="107" text-anchor="middle" fill="#c4b5fd" font-size="6.8">Cron &amp; one-shot clocks</text>
+
+      <rect x="18" y="120" width="124" height="34" rx="5" fill="#110a24" stroke="#7c3aed" stroke-width="1"/>
+      <text x="80" y="134" text-anchor="middle" fill="#ffffff" font-size="8.0" font-weight="700">Channels &amp; Hooks</text>
+      <text x="80" y="146" text-anchor="middle" fill="#c4b5fd" font-size="6.8">Slack, webhooks, HITL</text>
+
+      <!-- Arrows to Middle -->
+      <path d="M152 60 L182 54" stroke="#a78bfa" stroke-width="1.8" fill="none"/>
+      <polygon points="179,49 188,53 181,59" fill="#a78bfa"/>
+      <path d="M152 136 L182 136" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+      <polygon points="180,131 188,136 180,141" fill="#38bdf8"/>
+
+      <!-- Top Middle: Workflows v5 + eve -->
+      <rect x="188" y="14" width="322" height="94" rx="8" fill="#160e2e" stroke="#a78bfa" stroke-width="1.8"/>
+      <text x="200" y="31" fill="#ddd6fe" font-size="7.3" font-weight="700">ORCHESTRATION &amp; AGENT LAYER</text>
+      <rect x="198" y="39" width="146" height="58" rx="6" fill="#23164a" stroke="#8b5cf6" stroke-width="1"/>
+      <text x="271" y="55" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">&quot;use workflow&quot; VM</text>
+      <text x="271" y="68" text-anchor="middle" fill="#ddd6fe" font-size="6.9">Deterministic replay,</text>
+      <text x="271" y="79" text-anchor="middle" fill="#ddd6fe" font-size="6.9">sleep(), createHook()</text>
+      <text x="271" y="90" text-anchor="middle" fill="#a78bfa" font-size="6.7" font-weight="700">+ WorkflowAgent loop</text>
+
+      <rect x="354" y="39" width="146" height="58" rx="6" fill="#112236" stroke="#38bdf8" stroke-width="1"/>
+      <text x="427" y="55" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">eve Agent Runtime</text>
+      <text x="427" y="68" text-anchor="middle" fill="#bae6fd" font-size="6.9">Filesystem-first tools,</text>
+      <text x="427" y="79" text-anchor="middle" fill="#bae6fd" font-size="6.9">skills, channels &amp; evals</text>
+      <text x="427" y="90" text-anchor="middle" fill="#7dd3fc" font-size="6.7" font-weight="700">Durable session state</text>
+
+      <!-- Bottom Middle: Vercel Queues Backbone -->
+      <rect x="188" y="116" width="322" height="50" rx="8" fill="#0d1e29" stroke="#38bdf8" stroke-width="1.7"/>
+      <text x="200" y="133" fill="#7dd3fc" font-size="7.4" font-weight="700">DURABLE BACKBONE &bull; VERCEL QUEUES (APPEND-ONLY LOG)</text>
+      <rect x="200" y="140" width="94" height="18" rx="4" fill="#082f49" stroke="#38bdf8" stroke-width="0.8"/>
+      <text x="247" y="152" text-anchor="middle" fill="#e0f2fe" font-size="6.9" font-weight="700">Step Dispatch</text>
+      <rect x="302" y="140" width="96" height="18" rx="4" fill="#082f49" stroke="#38bdf8" stroke-width="0.8"/>
+      <text x="350" y="152" text-anchor="middle" fill="#e0f2fe" font-size="6.9" font-weight="700">Delayed Wakeups</text>
+      <rect x="406" y="140" width="92" height="18" rx="4" fill="#082f49" stroke="#38bdf8" stroke-width="0.8"/>
+      <text x="452" y="152" text-anchor="middle" fill="#e0f2fe" font-size="6.9" font-weight="700">Topic Fan-Out</text>
+
+      <!-- Bidirectional vertical links -->
+      <path d="M271 108 L271 115" stroke="#a78bfa" stroke-width="1.8"/>
+      <path d="M427 108 L427 115" stroke="#38bdf8" stroke-width="1.8"/>
+
+      <!-- Arrows to Right -->
+      <path d="M510 61 L536 61" stroke="#34d399" stroke-width="1.8"/>
+      <polygon points="534,56 542,61 534,66" fill="#34d399"/>
+      <path d="M510 141 L536 141" stroke="#fbbf24" stroke-width="1.8"/>
+      <polygon points="534,136 542,141 534,146" fill="#fbbf24"/>
+
+      <!-- Right: Workers & Execution -->
+      <rect x="542" y="16" width="160" height="150" rx="9" fill="#130d29" stroke="#34d399" stroke-width="1.7"/>
+      <text x="622" y="34" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">EXECUTION WORKERS</text>
+      <rect x="554" y="43" width="136" height="36" rx="5" fill="#0a241d" stroke="#10b981" stroke-width="0.9"/>
+      <text x="622" y="58" text-anchor="middle" fill="#ffffff" font-size="8.0" font-weight="700">&quot;use step&quot; Functions</text>
+      <text x="622" y="70" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Full Node.js, retries, AI Gateway</text>
+
+      <rect x="554" y="85" width="136" height="34" rx="5" fill="#1e1538" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="622" y="99" text-anchor="middle" fill="#ffffff" font-size="8.0" font-weight="700">Vercel Sandbox</text>
+      <text x="622" y="111" text-anchor="middle" fill="#ddd6fe" font-size="6.8">Firecracker microVMs</text>
+
+      <rect x="554" y="125" width="136" height="33" rx="5" fill="#231a0d" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="622" y="139" text-anchor="middle" fill="#ffffff" font-size="8.0" font-weight="700">Vercel Daemons</text>
+      <text x="622" y="150" text-anchor="middle" fill="#fde68a" font-size="6.8">Always-on poll containers</text>
+
+      <!-- Bottom Summary Strip -->
+      <rect x="8" y="174" width="694" height="18" rx="4" fill="#160e2e" stroke="#5b21b6" stroke-width="0.9"/>
+      <text x="355" y="186" text-anchor="middle" fill="#ddd6fe" font-size="7.15" font-weight="600">Orchestrator suspends for zero cost during sleep/hooks &rarr; Queues wakes it up &rarr; Cached steps replay instantly without repeating side effects</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Mental Model Takeaway: Replay Is Not Re-Execution</div>
+    When a durable workflow wakes from a crash or a 3-day <code>sleep(&quot;72h&quot;)</code>, the VM replays your orchestrator function using stored step outputs from the event log. Previously completed <code>&quot;use step&quot;</code> calls return their cached values immediately without charging another LLM call or double-charging Stripe.
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: DECISION MATRIX & SETUP ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Ecosystem Decision Matrix &amp; Quickstart</span>
+    <span>Choosing the Right Primitive &amp; Installing SDKs</span>
+  </div>
+
+  <h2 class="page-title">Ecosystem Decision Matrix &amp; 60-Second Setup</h2>
+  <p class="page-lead">
+    Vercel offers six complementary durability primitives. Pick the highest-level abstraction that fits your workload instead of hand-rolling queue state machines or polling loops.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Primitive</th>
+        <th style="width:27%;">Reach For It When&hellip;</th>
+        <th style="width:28%;">Key Mechanism</th>
+        <th style="width:26%;">Skip It If&hellip;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>eve</code> Framework</strong><br/><span style="color:#6d28d9; font-weight:600;">Agent-First Apps</span></td>
+        <td>Building a dedicated backend AI agent with persistent sessions, Slack/GitHub channels, skills, and evals.</td>
+        <td>Filesystem-first directory (<code>agent/</code>) + <code>defineAgent</code> + <code>useEveAgent</code> + <code>vercel agent-runs</code>.</td>
+        <td>Adding one durable step inside an existing Next.js checkout route.</td>
+      </tr>
+      <tr>
+        <td><strong>Workflow 5</strong><br/><span style="color:#6d28d9; font-weight:600;"><code>WorkflowAgent</code></span></td>
+        <td>Adding multi-step orchestration, human approvals, or durable AI loops directly inside Next.js, Hono, or Express.</td>
+        <td><code>&quot;use workflow&quot;</code> + <code>&quot;use step&quot;</code> + <code>WorkflowAgent</code> (<code>@ai-sdk/workflow</code> 2.x).</td>
+        <td>You only need single-hop fire-and-forget job buffering.</td>
+      </tr>
+      <tr>
+        <td><strong>Vercel Queues</strong><br/><span style="color:#0284c7; font-weight:600;"><code>@vercel/queue</code></span></td>
+        <td>Buffering traffic spikes, decoupling microservices, or fanning one event out to multiple consumer groups.</td>
+        <td>Append-only topics, <code>send()</code>, <code>handleCallback()</code>, up to 7-day retention &amp; delays.</td>
+        <td>You need multi-step branching, <code>sleep()</code>, or human webhook pauses.</td>
+      </tr>
+      <tr>
+        <td><strong>Vercel Schedules</strong><br/><span style="color:#059669; font-weight:600;"><code>@vercel/schedules</code></span></td>
+        <td>Running recurring cron jobs or one-time future reminders per tenant/timezone (replaces legacy <code>crons</code>).</td>
+        <td>Static private <code>function</code> targets or dynamic <code>Schedules.create()</code> targeting queue topics.</td>
+        <td>Work is triggered by user clicks or incoming webhooks rather than time.</td>
+      </tr>
+      <tr>
+        <td><strong>Vercel Daemons</strong><br/><span style="color:#d97706; font-weight:600;">Always-On Workers</span></td>
+        <td>Running continuous poll loops (Vercel Queues poll mode, Celery, BullMQ, Sidekiq) with no inbound HTTP.</td>
+        <td><code>Dockerfile</code> declared under <code>daemons</code> in <code>vercel.json</code>; fixed <code>instances</code> per region.</td>
+        <td>Push-mode Functions or Queues can handle your request-driven work.</td>
+      </tr>
+      <tr>
+        <td><strong>Vercel Sandbox</strong><br/><span style="color:#6d28d9; font-weight:600;">Firecracker VMs</span></td>
+        <td>Agents execute untrusted user code, run shell builds, or process media in an isolated Linux filesystem.</td>
+        <td><code>@vercel/sandbox</code> v2 named persistent microVMs with L7 network policies &amp; snapshots.</td>
+        <td>Your code only calls safe typed APIs and database queries.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-violet" style="border-top:3px solid #7c3aed;">
+      <div class="card-title"><span class="num-badge">1</span> Workflow 5 + <code>WorkflowAgent</code> Quickstart</div>
+      <pre class="code-block" style="margin:3px 0 4px 0; padding:6px 8px; font-size:6.85pt; line-height:1.33;"><code># Workflow 5 deprecates DurableAgent (@workflow/ai)
+npm i workflow@latest ai @ai-sdk/workflow zod
+
+# Next.js setup: wrap next.config.ts with withWorkflow
+import { withWorkflow } from "workflow/next";
+export default withWorkflow(nextConfig);
+
+# Pull project OIDC credentials for local dev
+vercel link &amp;&amp; vercel env pull</code></pre>
+      <p style="font-size:7.65pt; margin:0; color:#334155;">Read version-exact docs inside <code>node_modules/workflow/docs/</code> and <code>node_modules/ai/docs/</code> before coding.</p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">2</span> <code>eve</code> Filesystem-First Agent Quickstart</div>
+      <pre class="code-block" style="margin:3px 0 4px 0; padding:6px 8px; font-size:6.85pt; line-height:1.33;"><code># Scaffold a new durable agent project
+npx eve@latest init support-agent
+cd support-agent
+
+# Start local dev runtime &amp; inspect live traces
+npx eve dev
+vercel agent-runs list --limit 10</code></pre>
+      <p style="font-size:7.65pt; margin:0; color:#334155;">Every installed <code>eve</code> package bundles its exact guide under <code>node_modules/eve/docs/README.md</code>.</p>
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin:2px 0 0 0;">
+    <div class="callout-title">Version Check Before Writing Agents: Workflow 5 vs. Legacy Workflow 4</div>
+    In Workflow 5 (<code>workflow@latest</code>), always import <code>WorkflowAgent</code> from <code>@ai-sdk/workflow</code> (2.x) instead of the deprecated <code>DurableAgent</code> from <code>@workflow/ai</code>. Plain <code>&quot;provider/model&quot;</code> strings (such as <code>&quot;openai/gpt-5.4&quot;</code> or <code>&quot;spacexai/grok-4.6&quot;</code>) route automatically through Vercel AI Gateway using OIDC authentication&mdash;no manual provider keys required.
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INSPECTOR UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Observability &amp; Run Inspector Tour</span>
+    <span>Workflow Web UI &amp; vercel agent-runs</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Workflow Run &amp; <code>agent-runs</code> Inspector</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Debugging durable systems requires seeing both <strong>replay history</strong> and <strong>live agent tool spans</strong>. Inspect local and production runs with <code>npx workflow web</code> and <code>vercel agent-runs</code> across these seven diagnostic touchpoints.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#ddd6fe;">npx workflow web &mdash; run_01J9V8K4M2P7 (production)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; font-size:7pt;">
+        <span style="background:#2e1065; color:#ddd6fe; border:1px solid #8b5cf6; padding:1.5px 6px; border-radius:4px; font-weight:700;">STATUS: SUSPENDED (HOOK) <span class="callout-pin">4</span></span>
+        <span style="background:#0c2d3d; color:#7dd3fc; border:1px solid #0284c7; padding:1.5px 6px; border-radius:4px; font-weight:700;">Deep Link Ready <span class="callout-pin">7</span></span>
+      </div>
+    </div>
+
+    <!-- Timeline & Trace Grid -->
+    <div style="display:grid; grid-template-columns: 1.15fr 1fr; border-bottom:1px solid #4c1d95;">
+      <!-- Left: Event Log Timeline -->
+      <div style="padding:8px 11px; border-right:1px solid #4c1d95;">
+        <div style="color:#c4b5fd; font-weight:700; font-size:7.2pt; margin-bottom:5px;">EVENT LOG TIMELINE (APPEND-ONLY TRUTH)</div>
+
+        <div style="background:#160e2e; border:1px solid #059669; border-radius:5px; padding:4.5px 7px; margin-bottom:4.5px; font-size:6.95pt;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span><strong style="color:#34d399;">[REPLAYED CACHED]</strong> <code>fetchCustomerProfile</code></span>
+            <span>0 ms <span class="callout-pin">1</span></span>
+          </div>
+          <div style="color:#94a3b8;">Event: <code>step_completed</code> &bull; Output hydrated via <code>devalue</code></div>
+        </div>
+
+        <div style="background:#160e2e; border:1px solid #d97706; border-radius:5px; padding:4.5px 7px; margin-bottom:4.5px; font-size:6.95pt;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span><strong style="color:#fbbf24;">[RETRIED 2/3]</strong> <code>syncBillingLedger</code></span>
+            <span>1.42 s <span class="callout-pin">2</span></span>
+          </div>
+          <div style="color:#fde68a;">Attempt 1 threw <code>RetryableError</code> (HTTP 429) &rarr; Attempt 2 succeeded</div>
+        </div>
+
+        <div style="background:#160e2e; border:1px solid #38bdf8; border-radius:5px; padding:4.5px 7px; margin-bottom:4.5px; font-size:6.95pt;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span><strong style="color:#7dd3fc;">[TIMER WAKEUP]</strong> <code>sleep(&quot;48h&quot;)</code></span>
+            <span>0 compute <span class="callout-pin">3</span></span>
+          </div>
+          <div style="color:#bae6fd;"><code>wait_created</code> &rarr; Queue delayed message wakes VM cleanly at T+48h</div>
+        </div>
+
+        <div style="background:#1f123d; border:1px solid #a78bfa; border-radius:5px; padding:4.5px 7px; font-size:6.95pt;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span><strong style="color:#ddd6fe;">[HITL PAUSED]</strong> <code>createWebhook()</code></span>
+            <span>Waiting <span class="callout-pin">4</span></span>
+          </div>
+          <div style="color:#c4b5fd;">Token: <code>wh_9a3f...</code> &bull; Resumes on manager POST to <code>resumeWebhook</code></div>
+        </div>
+      </div>
+
+      <!-- Right: AI Gateway & eve Agent Runs Trace -->
+      <div style="padding:8px 10px; background:#090514;">
+        <div style="color:#7dd3fc; font-weight:700; font-size:7.2pt; margin-bottom:5px;">AI GATEWAY &amp; <code>vercel agent-runs</code> TRACE</div>
+
+        <div style="background:#120b24; border:1px solid #5b21b6; border-radius:5px; padding:5px 7px; margin-bottom:5px; font-size:6.9pt;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <strong style="color:#ddd6fe;">WorkflowAgent Span</strong> <span class="callout-pin">5</span>
+          </div>
+          <div>Model: <code>openai/gpt-5.4</code> (AI Gateway OIDC)</div>
+          <div>Step Count: <code>3 / 10</code> &bull; Tokens: 4,120 in / 680 out</div>
+          <div style="color:#6ee7b7;">Stream: <code>getWritable&lt;ModelCallStreamPart&gt;()</code></div>
+        </div>
+
+        <div style="background:#0b1a24; border:1px solid #0284c7; border-radius:5px; padding:5px 7px; font-size:6.9pt;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <strong style="color:#7dd3fc;">eve Agent Runs Summary</strong> <span class="callout-pin">6</span>
+          </div>
+          <div>Run: <code>ar_78c1...</code> &bull; Channel: <code>slack/#ops-triage</code></div>
+          <div>Tools: <code>lookupOrder</code>, <code>sandbox.runCommand</code></div>
+          <div style="color:#cbd5e1;">CLI: <code>vercel agent-runs inspect ar_78c1 --json</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom CLI Strip -->
+    <div style="background:#1b1138; padding:5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.05pt;">
+      <span><strong style="color:#a78bfa;">World SDK:</strong> <code>world.steps.list({ runId, resolveData: &apos;none&apos; })</code></span>
+      <span style="color:#ddd6fe;">CLI: <code>npx workflow inspect run &lt;id&gt; --backend vercel --url</code></span>
+    </div>
+  </div>
+
+  <h3>Inspector Legend: The 7 Durable Runtime Touchpoints</h3>
+  <div class="grid-2" style="font-size:7.85pt; gap:5.5px 12px;">
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">1</span> Cached Replay Badge:</strong> Completed <code>&quot;use step&quot;</code> calls store serialized outputs in the event log so subsequent replays skip re-execution in 0 ms.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">2</span> Automatic Step Retry Recovery:</strong> Thrown exceptions or <code>RetryableError</code> instances trigger queue-backed backoff without losing earlier steps.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">3</span> Zero-Compute <code>sleep()</code> Suspension:</strong> Writes a <code>wait_created</code> event and releases the worker completely until the scheduled queue message fires.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">4</span> Suspended Hook / Webhook Token:</strong> Pauses execution indefinitely until an API route delivers payload data via <code>resumeHook</code> or <code>resumeWebhook</code>.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">5</span> <code>WorkflowAgent</code> Gateway Span:</strong> Tracks AI SDK 7 model turns, token counts, and step-backed tool calls routed cleanly via Vercel AI Gateway.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">6</span> <code>vercel agent-runs</code> Trace View:</strong> Inspects production <code>eve</code> sessions, tool traces, and token spend from the CLI or Vercel MCP server.
+    </div>
+    <div class="card-violet" style="padding:6px 9px; grid-column: span 2;">
+      <strong><span class="callout-pin">7</span> Deep-Link Run URLs:</strong> Append <code>--url</code> to <code>npx workflow inspect run &lt;run_id&gt; --backend vercel --url</code> to print a shareable dashboard URL straight to Slack or PR comments without launching a local browser.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: WORKFLOW 5 DEEP DIVE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Workflow 5 Deep Dive</span>
+    <span>&quot;use workflow&quot; Sandbox vs. &quot;use step&quot; Node.js Workers</span>
+  </div>
+
+  <h2 class="page-title">Workflow 5: <code>&quot;use workflow&quot;</code> vs. <code>&quot;use step&quot;</code></h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    The secret to error-free Workflow 5 code is knowing where each directive runs. Keep <code>&quot;use workflow&quot;</code> strictly for deterministic orchestration and move all real I/O, npm libraries, and network calls into <code>&quot;use step&quot;</code> functions.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div class="card-violet" style="border-top:3px solid #7c3aed;">
+      <div class="card-title"><span class="num-badge">1</span> <code>&quot;use workflow&quot;</code> Replay Sandbox Rules</div>
+      <ul style="font-size:7.8pt; margin:2px 0 0 0;">
+        <li><strong>Deterministic VM:</strong> Replays the exact control-flow path across restarts; non-deterministic side effects are forbidden here.</li>
+        <li><strong>Blocked APIs:</strong> Never use <code>setTimeout</code>, <code>setInterval</code>, raw <code>require()</code>, Node <code>fs</code>/<code>crypto</code>, or bare global <code>fetch()</code>.</li>
+        <li><strong>Approved Primitives:</strong> Use <code>sleep(&quot;48h&quot;)</code>, <code>createHook()</code>, <code>createWebhook()</code>, <code>fetch</code> imported from <code>&quot;workflow&quot;</code>, and <code>start()</code> for child runs.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge emerald">2</span> <code>&quot;use step&quot;</code> Full-Access Workers</div>
+      <ul style="font-size:7.8pt; margin:2px 0 0 0;">
+        <li><strong>Full Node.js &amp; npm:</strong> Run database clients, Stripe SDKs, AI SDK calls, and native <code>fetch</code> with zero sandbox restrictions.</li>
+        <li><strong>Automatic Checkpointing:</strong> Inputs and return values serialize across boundaries via <code>devalue</code> (or <code>@workflow/serde</code> for classes).</li>
+        <li><strong>Launch Properly:</strong> Always invoke workflows via <code>start(myWorkflow, [args])</code> from <code>&quot;workflow/api&quot;</code> with <code>withWorkflow</code> configured.</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:6px 9px; font-size:6.85pt; line-height:1.34; margin:0 0 6px 0;"><code>// app/api/onboard/route.ts &amp; workflows/onboard.ts
+import { sleep, FatalError, RetryableError } from "workflow";
+import { start } from "workflow/api";
+
+async function provisionWorkspace(orgId: string) {
+  "use step";
+  console.log("[step] provisioning org", orgId); // Always log step entry for observability
+  const res = await fetch("https://api.internal/orgs/" + orgId, { method: "POST" });
+  if (res.status === 429) throw new RetryableError("Rate limited", { retryAfter: "2m" });
+  if (res.status >= 400) throw new FatalError("Invalid org " + orgId);
+  return res.json();
+}
+
+export async function onboardWorkflow(orgId: string) {
+  "use workflow";
+  const workspace = await provisionWorkspace(orgId);
+  await sleep("24h"); // Suspends cleanly on Vercel Queues with zero compute held
+  return { status: "ready", workspaceId: workspace.id };
+}
+// Launch from route: const run = await start(onboardWorkflow, [orgId]);</code></pre>
+
+  <div class="callout emerald" style="margin:2px 0 6px 0;">
+    <div class="callout-title">Always Read Version-Matched Docs in <code>node_modules/workflow/docs/</code></div>
+    Workflow 5 ships complete, version-locked documentation right inside <code>node_modules/workflow/docs/</code> (covering <code>foundations/</code>, <code>api-reference/</code>, <code>worlds/</code>, and <code>errors/</code>). Also batch or bundle loops over thousands of items so each run stays well below event-log ceilings.
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/workflow_step_checkpoint_vault.jpg" alt="Isometric architectural glass illustration contrasting a sealed violet sandboxed orchestrator chamber above three interconnected full-access worker vaults holding glowing replay checkpoints" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Orchestrator Chamber vs. Worker Vaults:</strong> The sealed upper <code>&quot;use workflow&quot;</code> VM coordinates timing, hooks, and child runs deterministically, while lower <code>&quot;use step&quot;</code> worker vaults execute full Node.js I/O and lock state into glowing replay checkpoints.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: WORKFLOWAGENT & EVE AGENTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Durable AI Agents: WorkflowAgent &amp; eve</span>
+    <span>@ai-sdk/workflow 2.x &amp; Filesystem-First eve Architecture</span>
+  </div>
+
+  <h2 class="page-title"><code>WorkflowAgent</code> &amp; <code>eve</code> Filesystem-First Agents</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Whether you embed an agent inside an existing Next.js route with <code>WorkflowAgent</code> or build a dedicated multi-channel agent service with <code>eve</code>, durable checkpoints guarantee every reasoning turn and tool result survives failures.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div>
+      <p style="font-size:7.75pt; font-weight:700; margin-bottom:2px; color:#5b21b6;">1. <code>WorkflowAgent</code> (Replaces <code>DurableAgent</code>)</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.75pt; line-height:1.33;"><code>import { WorkflowAgent, type ModelCallStreamPart,
+  createModelCallToUIChunkTransform } from "@ai-sdk/workflow";
+import { isStepCount, tool } from "ai";
+import { getWritable } from "workflow";
+
+async function queryCRM({ id }: { id: string }) {
+  "use step"; // External I/O MUST use "use step"
+  return await db.customers.findUnique({ where: { id } });
+}
+
+export async function supportWorkflow(prompt: string) {
+  "use workflow";
+  const agent = new WorkflowAgent({
+    model: "openai/gpt-5.4", // Routes via AI Gateway
+    tools: { queryCRM: tool({ /* inputSchema, execute: queryCRM */ }) },
+  });
+  return await agent.stream({
+    messages: [{ role: "user", content: prompt }],
+    writable: getWritable&lt;ModelCallStreamPart&gt;(),
+    stopWhen: isStepCount(10),
+  });
+}</code></pre>
+    </div>
+
+    <div>
+      <p style="font-size:7.75pt; font-weight:700; margin-bottom:2px; color:#5b21b6;">2. <code>eve</code> Filesystem-First Agent Layout</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.75pt; line-height:1.33;"><code>support-agent/
+├── agent/
+│   ├── instructions.md   # Core system behavior
+│   ├── tools/            # Typed durable tool modules
+│   ├── skills/           # On-demand playbooks
+│   ├── connections/      # @vercel/connect/eve OAuth
+│   ├── channels/         # Slack, GitHub, HTTP adapters
+│   ├── subagents/        # Delegated specialist agents
+│   └── schedules/        # Recurring agent tasks
+└── app/page.tsx          # Frontend via useEveAgent()</code></pre>
+      <p style="font-size:7.55pt; margin:4px 0 0 0; color:#334155;">
+        Connect React UIs with <code>useEveAgent</code>, inspect live production traces via <code>vercel agent-runs</code>, and check <code>node_modules/eve/docs/</code>.
+      </p>
+    </div>
+  </div>
+
+  <h3>Anatomy of a Durable Agent Specification</h3>
+  <p style="font-size:8.1pt; margin-bottom:4px;">
+    Durable agents stay reliable when you separate identity, step-backed I/O, workflow-level pauses, streaming output, and termination guards:
+  </p>
+
+  <div style="margin-bottom:4.5px; font-size:7.55pt; display:flex; flex-wrap:wrap; gap:5px;">
+    <span class="p-tag p-identity">[1. Agent Identity &amp; Gateway Model]</span>
+    <span class="p-tag p-steps">[2. &quot;use step&quot; I/O Tools]</span>
+    <span class="p-tag p-hooks">[3. Workflow-Scope Hooks/Sleep]</span>
+    <span class="p-tag p-model">[4. Stream &amp; Channel Pipe]</span>
+    <span class="p-tag p-guard">[5. Stop &amp; Retry Guards]</span>
+  </div>
+
+  <div class="card" style="background:#faf8ff; border:1px solid #c4b5fd; padding:7.5px 10px; margin-bottom:6px; font-size:7.95pt; line-height:1.64;">
+    <span class="p-tag p-identity">Instantiate <code>new WorkflowAgent({ model: &quot;openai/gpt-5.4&quot; })</code> or <code>defineAgent()</code> in <code>eve</code> using plain Gateway IDs.</span>
+    <span class="p-tag p-steps">Tag database, API, and Sandbox tools with <code>&quot;use step&quot;</code> so every side effect caches and auto-retries.</span>
+    <span class="p-tag p-hooks">Keep tools calling <code>sleep()</code> or <code>createHook()</code> WITHOUT <code>&quot;use step&quot;</code> so they run directly in workflow scope.</span>
+    <span class="p-tag p-model">Pipe <code>getWritable&lt;ModelCallStreamPart&gt;()</code> through <code>createModelCallToUIChunkTransform()</code> (or <code>useEveAgent</code>).</span>
+    <span class="p-tag p-guard">Enforce <code>stopWhen: isStepCount(10)</code> plus <code>FatalError</code> vs. <code>RetryableError</code> to prevent runaway loops.</span>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">Critical Rule for Agent Tools: Node I/O vs. Workflow Primitives</div>
+    Never put <code>&quot;use step&quot;</code> on a tool whose <code>execute</code> function calls <code>sleep()</code> or <code>createHook()</code>&mdash;workflow primitives only operate at workflow scope. Conversely, every tool touching npm packages, databases, or external APIs must declare <code>&quot;use step&quot;</code>. Pipe HTTP responses using <code>run.getReadable().pipeThrough(createModelCallToUIChunkTransform())</code> so UI clients survive page reloads cleanly.
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: HITL HOOKS & VERCEL SANDBOX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Human-in-the-Loop &amp; Isolated Execution</span>
+    <span>Hooks, Webhooks &amp; Vercel Sandbox Firecracker MicroVMs</span>
+  </div>
+
+  <h2 class="page-title">Human-in-the-Loop Hooks &amp; Vercel Sandbox</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Real production agents regularly pause for days waiting on human sign-off or execute untrusted AI-generated scripts. Workflows v5 hooks suspend execution at zero cost, while <strong>Vercel Sandbox</strong> jails untrusted code inside Firecracker microVMs.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div class="card" style="border-top:3px solid #7c3aed;">
+      <div class="card-title"><span class="num-badge">1</span> <code>createHook()</code> vs. <code>createWebhook()</code></div>
+      <ul style="font-size:7.75pt; margin:2px 0 0 0;">
+        <li><strong><code>createHook({ token })</code>:</strong> Uses deterministic server-side tokens (e.g., <code>&quot;approval-&quot; + invoiceId</code>). Implements <code>AsyncIterable</code> so <code>for await</code> handles multi-turn chat events. Resume via <code>resumeHook(token, payload)</code>.</li>
+        <li><strong><code>createWebhook()</code>:</strong> Generates a secure random token and public URL automatically (never pass a custom <code>token</code>). Delivers full HTTP <code>Request</code> objects via <code>resumeWebhook(token, req)</code>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">2</span> Vercel Sandbox (<code>@vercel/sandbox</code> v2)</div>
+      <ul style="font-size:7.75pt; margin:2px 0 0 0;">
+        <li><strong>Named &amp; Persistent:</strong> <code>Sandbox.getOrCreate({ name })</code> auto-snapshots on stop and restores the Ubuntu filesystem (Node 24, Python 3.14, Bun) on resume.</li>
+        <li><strong>Untrusted Isolation:</strong> Pass <code>networkPolicy: &quot;deny-all&quot;</code>, a short <code>timeout</code>, and <code>persistent: false</code> when running arbitrary user or LLM code.</li>
+        <li><strong>Credential Brokering:</strong> Firewall <code>transform</code> rules inject auth headers on egress so secrets never enter VM memory.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div>
+      <p style="font-size:7.65pt; font-weight:700; margin-bottom:2px; color:#5b21b6;">Multi-Day Webhook Approval + Timeout</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.75pt; line-height:1.33;"><code>import { createWebhook, sleep } from "workflow";
+import { resumeWebhook } from "workflow/api";
+
+export async function payoutApproval(orderId: string) {
+  "use workflow";
+  const hook = createWebhook();
+  await notifyApprover(orderId, hook.url);
+
+  const decision = await Promise.race([
+    hook.then((req) => req.json()),
+    sleep("72h").then(() => ({ approved: false })),
+  ]);
+  return decision.approved ? await releaseFunds(orderId) : "expired";
+}
+// Callback route: await resumeWebhook(token, request);</code></pre>
+    </div>
+
+    <div>
+      <p style="font-size:7.65pt; font-weight:700; margin-bottom:2px; color:#075985;">Safe Step-Backed Sandbox Tool</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.75pt; line-height:1.33;"><code>import { Sandbox } from "@vercel/sandbox";
+import ms from "ms";
+
+async function runUntrustedPython(code: string) {
+  "use step";
+  const sbx = await Sandbox.create({
+    networkPolicy: "deny-all",
+    persistent: false,
+    timeout: ms("2m"),
+  });
+  try {
+    const res = await sbx.runCommand("python3", ["-c", code]);
+    return { exitCode: res.exitCode, out: await res.stdout() };
+  } finally {
+    await sbx.stop();
+  }
+}</code></pre>
+    </div>
+  </div>
+
+  <div class="callout violet" style="margin:2px 0 0 0;">
+    <div class="callout-title">Sandbox Gotchas &amp; AI Gateway Inside MicroVMs</div>
+    <code>runCommand()</code> executes directly without a shell&mdash;wrap pipes or redirects inside <code>[&quot;bash&quot;, &quot;-c&quot;, &quot;...&quot;]</code>, and always check <code>res.exitCode</code> (non-zero exits do not throw). To let agents inside a Sandbox call AI Gateway without embedding API keys, forward or broker <code>VERCEL_OIDC_TOKEN</code> to <code>https://ai-gateway.vercel.sh</code>. Read full specs inside <code>node_modules/@vercel/sandbox</code> docs.
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: VERCEL QUEUES & SCHEDULES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Durable Topics, Fan-Out &amp; Clocks</span>
+    <span>@vercel/queue &amp; @vercel/schedules</span>
+  </div>
+
+  <h2 class="page-title">Vercel Queues &amp; Vercel Schedules</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Use <strong>Vercel Queues</strong> (<code>@vercel/queue</code> / Python <code>vercel-queue</code>) when you want direct control over topic publishing, buffering, and consumer groups, and <strong>Vercel Schedules</strong> (<code>@vercel/schedules</code>) to replace legacy <code>crons</code> with timezone-aware recurring or one-shot triggers.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div>
+      <p style="font-size:7.65pt; font-weight:700; margin-bottom:2px; color:#5b21b6;">1. Queues: Idempotent Publish &amp; Poison-Pill Guard</p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.65pt; line-height:1.32;"><code>// Producer: idempotencyKey drops duplicates
+await send("orders", { orderId }, {
+  idempotencyKey: "order-" + orderId,
+  delaySeconds: 60,        // up to retentionSeconds
+  retentionSeconds: 604800 // 7 days max (default 24h)
+});
+
+// Consumer: app/api/queues/orders/route.ts
+export const POST = handleCallback(processOrder, {
+  retry: (err, meta) =&gt; {
+    if (meta.deliveryCount &gt; 5) return { acknowledge: true };
+    return { afterSeconds: Math.min(300, 2 ** meta.deliveryCount * 5) };
+  },
+});</code></pre>
+    </div>
+
+    <div>
+      <p style="font-size:7.65pt; font-weight:700; margin-bottom:2px; color:#065f46;">2. Schedules: Static Private vs. Dynamic Per-User</p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.65pt; line-height:1.32;"><code>// vercel.json: queue consumer + private schedule
+{
+  "functions": {
+    "app/api/queues/orders/route.ts": {
+      "experimentalTriggers": [{ "type": "queue/v2beta", "topic": "orders" }]
+    },
+    "api/nightly.ts": {
+      "experimentalTriggers": [{ "type": "schedule/v1beta" }]
+    }
+  },
+  "schedules": {
+    "nightly": { "schedule": "0 2 * * *", "function": "api/nightly" }
+  }
+}
+// Dynamic per-tenant: await Schedules.create({
+//   namespace: "t-" + id, name: "digest", target: { topic: "digests" },
+//   expression: { type: "cron", cron: "0 9 * * *" }, timezone: tz });</code></pre>
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin:2px 0 6px 0;">
+    <div class="callout-title">Push Functions vs. Poll Daemons &amp; Private Schedule Security</div>
+    Vercel Queues supports both serverless push triggers and always-on poll-mode workers via <code>PollingQueueClient</code> inside <strong>Vercel Daemons</strong>. For static schedules, prefer private <code>function</code> targets wrapped in <code>handleSchedule()</code> over legacy <code>path</code> routes&mdash;private functions carry no public URL and eliminate manual <code>CRON_SECRET</code> checks.
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/queues_schedules_fanout.jpg" alt="Widescreen visualization of a glowing violet precision chronometer synchronized to an append-only message log fanning out streams to four parallel consumer pods" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Time-Driven Clocks Meet Append-Only Fan-Out:</strong> Precision <code>@vercel/schedules</code> chronometers inject recurring or one-shot events into append-only <code>@vercel/queue</code> logs, delivering independent copies to parallel push Functions and poll-mode Daemon consumer pods.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Run Production Blueprints</span>
+    <span>5 Real-World Copy-Paste Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Adapt these five field-tested patterns directly into your repository. Each pairs the right Vercel durability layer with explicit idempotency, timeout safety, and clean observability.
+  </p>
+
+  <table class="clean-table" style="font-size:7.6pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Recipe &amp; Pattern</th>
+        <th style="width:23%;">Stack &amp; Primitives</th>
+        <th style="width:56%;">Implementation Blueprint</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Crash-Safe Research Agent</strong><br/><span style="color:#6d28d9; font-weight:600;">Workflow 5 + AI SDK</span></td>
+        <td><code>start()</code><br/><code>WorkflowAgent</code><br/><code>&quot;use step&quot;</code> tools<br/><code>getWritable()</code></td>
+        <td>Define <code>searchDocs</code> and <code>fetchMetrics</code> with <code>&quot;use step&quot;</code>; instantiate <code>new WorkflowAgent({ model: &quot;openai/gpt-5.4&quot;, tools })</code> inside <code>&quot;use workflow&quot;</code>; pass <code>getWritable&lt;ModelCallStreamPart&gt;()</code> and return <code>run.getReadable().pipeThrough(createModelCallToUIChunkTransform())</code> so browser reloads resume seamlessly.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Multi-Day Approval Gate</strong><br/><span style="color:#6d28d9; font-weight:600;">Human-in-the-Loop</span></td>
+        <td><code>createWebhook()</code><br/><code>sleep(&quot;48h&quot;)</code><br/><code>resumeWebhook()</code></td>
+        <td>Generate a one-time callback URL with <code>const hook = createWebhook()</code> inside <code>&quot;use workflow&quot;</code>, email or Slack <code>hook.url</code> via a <code>&quot;use step&quot;</code> helper, then race <code>Promise.race([hook, sleep(&quot;48h&quot;)])</code>. In your callback route handler, forward the incoming HTTP request directly to <code>resumeWebhook(token, request)</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Idempotent Order Topic</strong><br/><span style="color:#0284c7; font-weight:600;">Vercel Queues Push</span></td>
+        <td><code>@vercel/queue</code><br/><code>idempotencyKey</code><br/><code>deliveryCount</code></td>
+        <td>Publish with <code>send(&quot;orders&quot;, payload, { idempotencyKey: orderId })</code>. Export <code>POST = handleCallback(fn, { retry })</code> registered under <code>experimentalTriggers: [{ type: &quot;queue/v2beta&quot;, topic: &quot;orders&quot; }]</code>. Acknowledge poison messages when <code>metadata.deliveryCount &gt; 5</code> and guard database writes by <code>metadata.messageId</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Per-Tenant TZ Digest</strong><br/><span style="color:#059669; font-weight:600;">Dynamic Schedules</span></td>
+        <td><code>@vercel/schedules</code><br/><code>Schedules.create()</code><br/><code>executionId</code></td>
+        <td>Call <code>Schedules.create({ namespace: tenantId, name: &quot;digest&quot;, target: { topic: &quot;digests&quot; }, expression: { type: &quot;cron&quot;, cron: &quot;0 9 * * *&quot; }, timezone: user.tz, payload: { tenantId } })</code>. In the queue consumer, deduplicate by <code>message.executionId</code> so retries never send duplicate emails.</td>
+      </tr>
+      <tr>
+        <td><strong>5. <code>eve</code> Slack Ops Agent</strong><br/><span style="color:#d97706; font-weight:600;">eve + Connect + Sandbox</span></td>
+        <td><code>eve</code><br/><code>@vercel/connect/eve</code><br/><code>@vercel/sandbox</code></td>
+        <td>Wire Slack credentials with <code>connectSlackCredentials()</code> from <code>@vercel/connect/eve</code> (zero <code>SLACK_BOT_TOKEN</code> env vars), expose a diagnostic tool running <code>Sandbox.create({ networkPolicy: &quot;deny-all&quot;, persistent: false })</code>, and audit every production turn with <code>vercel agent-runs</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Recipe Scaling Rule: Keep Individual Runs Compact</div>
+    If a batch workflow iterates over 5,000+ records, avoid creating 5,000 parallel steps inside a single run (which slows replay and risks hitting <code>MAX_EVENTS_EXCEEDED</code>). Process chunks of 50&ndash;100 items per <code>&quot;use step&quot;</code> call, or fan out independent child runs with <code>start()</code>.
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: OBSERVABILITY, SECURITY & OPS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Observability, Security &amp; Production Ops</span>
+    <span>Agent Runs, Hydrated World SDK, KMS &amp; Daemons</span>
+  </div>
+
+  <h2 class="page-title">Observability, Security &amp; Production Operations</h2>
+  <p class="page-lead">
+    Durable systems run asynchronously for hours or days, which means silent failures or leaked secrets compound fast. Pair programmatic hydration and <code>vercel agent-runs</code> tracing with OIDC-backed credentials and graceful Daemon shutdowns.
+  </p>
+
+  <div class="callout rose" style="margin:2px 0 7px 0;">
+    <div class="callout-title">Zero Long-Lived Secrets in Prompts, Repos, or Sandbox Memory</div>
+    Never paste Slack bot tokens, GitHub private keys, or provider API keys into instructions or <code>.env</code> commits. Rely on <code>VERCEL_OIDC_TOKEN</code> for AI Gateway, Queues, and Schedules; use <code>@vercel/connect</code> for short-lived third-party OAuth tokens; and use <strong>Vercel KMS</strong> for OIDC-authenticated JWT/message signing.
+  </div>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-dark">
+      <div class="card-title">Programmatic Observability (<code>World</code> &amp; CLI)</div>
+      <ul style="font-size:7.75pt; color:#cbd5e1; margin:3px 0 0 0;">
+        <li><strong><code>vercel agent-runs</code>:</strong> Inspect production <code>eve</code> agent runs, step latencies, tool payloads, and token usage via CLI or the Vercel MCP server.</li>
+        <li><strong>World SDK Status Polling:</strong> Use <code>world.runs.get(runId, { resolveData: &quot;none&quot; })</code> for fast dashboards without loading serialized I/O blobs.</li>
+        <li><strong>Mandatory <code>devalue</code> Hydration:</strong> Step I/O arrives prefixed with <code>devl</code> bytes&mdash;always call <code>hydrateResourceIO(step, observabilityRevivers)</code> from <code>workflow/observability</code> before reading <code>step.input</code> or <code>step.output</code>.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge">!</span> Vercel Daemons vs. Push Functions</div>
+      <ul style="font-size:7.75pt; margin:3px 0 0 0;">
+        <li><strong>Choose Push Functions First:</strong> For most apps, Queues push mode (<code>queue/v2beta</code>) and Workflows autoscale cleanly across both Preview and Production deployments.</li>
+        <li><strong>Use Daemons for Continuous Loops:</strong> Declare <code>daemons</code> in <code>vercel.json</code> when running always-on <code>PollingQueueClient</code> workers, Celery, or BullMQ containers.</li>
+        <li><strong>Graceful <code>SIGTERM</code> &amp; Beta Scope:</strong> Listen to <code>SIGTERM</code> (30s default grace) to finish in-flight jobs cleanly; note Daemons run on Production deployments only during Public Beta.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Production Hardening &amp; Testing Matrix</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Operational Area</th>
+        <th style="width:37%;">Built-In Vercel Mechanism</th>
+        <th style="width:40%;">Production Best Practice</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Integration Testing</strong></td>
+        <td><code>@workflow/vitest</code> plugin with <code>waitForHook</code>, <code>waitForSleep</code>, and <code>wakeUp()</code>.</td>
+        <td>Match <code>@workflow/vitest</code> major version to <code>workflow</code> and fast-forward multi-day sleeps in milliseconds during CI.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Stream Separation</strong></td>
+        <td>Namespaced streams via <code>getWritable({ namespace: &quot;logs:debug&quot; })</code>.</td>
+        <td>Keep verbose debug logs out of the default result stream so long 50+ minute agent replays stay fast and lean.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Poison-Pill Cap</strong></td>
+        <td><code>handleCallback</code> <code>retry</code> callback + <code>FatalError</code> in workflow steps.</td>
+        <td>Return <code>{ acknowledge: true }</code> past <code>deliveryCount &gt; 5</code> and log to dead-letter storage instead of looping forever.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:2px 0 0 0;">
+    <div class="callout-title">Always Log Step Boundaries for Instant Hang Triage</div>
+    Add structured <code>console.log()</code> statements at the start and completion of every <code>&quot;use step&quot;</code> function and workflow branch. Combined with <code>npx workflow inspect runs</code> and <code>vercel agent-runs</code>, step logs reveal immediately whether a run is waiting on a hook, backing off on a 429, or stuck in an external API call.
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Full-Stack Vercel AI Synergy</span>
+    <span>Next.js / Chat SDK &rarr; Workflow 5 / eve &rarr; Gateway &amp; Sandbox &rarr; Queues &amp; Schedules</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: End-to-End Durable Agent Stack</h2>
+  <p class="page-lead">
+    Each Vercel primitive handles one clean responsibility. Wire Next.js or Chat SDK at the edge of user interaction, Workflow 5 or <code>eve</code> for durable state, AI Gateway and Sandbox for safe intelligence, and Queues plus Schedules for background scale.
+  </p>
+
+  <div class="figure-box" style="background:#0d081c; padding:10px 12px; border-color:#5b21b6; margin-bottom:8px;">
+    <svg viewBox="0 0 700 206" width="100%" height="206" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: UI / Chat SDK -->
+      <rect x="8" y="18" width="150" height="142" rx="9" fill="#1b1138" stroke="#a78bfa" stroke-width="1.6"/>
+      <text x="83" y="37" text-anchor="middle" fill="#ddd6fe" font-size="7.3" font-weight="700">1. INTERACTION LAYER</text>
+      <text x="83" y="54" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Next.js &amp; Chat SDK</text>
+      <text x="83" y="68" text-anchor="middle" fill="#c4b5fd" font-size="7.1">Web UI, Slack &amp; Teams</text>
+      <line x1="22" y1="77" x2="144" y2="77" stroke="#5b21b6" stroke-width="1"/>
+      <text x="20" y="93" fill="#f5f3ff" font-size="7.2">&bull; POST triggers start()</text>
+      <text x="20" y="107" fill="#f5f3ff" font-size="7.2">&bull; useEveAgent() hooks</text>
+      <text x="20" y="121" fill="#f5f3ff" font-size="7.2">&bull; Reconnectable SSE</text>
+      <rect x="20" y="133" width="126" height="20" rx="4" fill="#2e1065"/>
+      <text x="83" y="146" text-anchor="middle" fill="#ddd6fe" font-size="7.0" font-weight="700">Captures intent &amp; streams</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M158 89 L180 89" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="178,84 186,89 178,94" fill="#a78bfa"/>
+
+      <!-- Stage 2: Workflow 5 / eve -->
+      <rect x="186" y="18" width="152" height="142" rx="9" fill="#231347" stroke="#c4b5fd" stroke-width="2"/>
+      <text x="262" y="37" text-anchor="middle" fill="#ede9fe" font-size="7.3" font-weight="700">2. DURABLE BRAIN</text>
+      <text x="262" y="54" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Workflow 5 / eve</text>
+      <text x="262" y="68" text-anchor="middle" fill="#ddd6fe" font-size="7.1">WorkflowAgent &amp; Sessions</text>
+      <line x1="200" y1="77" x2="324" y2="77" stroke="#6d28d9" stroke-width="1"/>
+      <text x="198" y="93" fill="#f5f3ff" font-size="7.2">&bull; Deterministic replay VM</text>
+      <text x="198" y="107" fill="#f5f3ff" font-size="7.2">&bull; sleep() &amp; HITL webhooks</text>
+      <text x="198" y="121" fill="#f5f3ff" font-size="7.2">&bull; Auto-retried steps</text>
+      <rect x="198" y="133" width="128" height="20" rx="4" fill="#4c1d95"/>
+      <text x="262" y="146" text-anchor="middle" fill="#ede9fe" font-size="7.0" font-weight="700">Checkpoints state &amp; pauses</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M338 89 L360 89" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="358,84 366,89 358,94" fill="#38bdf8"/>
+
+      <!-- Stage 3: Gateway + Sandbox + Connect -->
+      <rect x="366" y="18" width="154" height="142" rx="9" fill="#0d1e2b" stroke="#38bdf8" stroke-width="1.8"/>
+      <text x="443" y="37" text-anchor="middle" fill="#7dd3fc" font-size="7.3" font-weight="700">3. MODELS &amp; CAPABILITY</text>
+      <text x="443" y="54" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">Gateway &amp; Sandbox</text>
+      <text x="443" y="68" text-anchor="middle" fill="#bae6fd" font-size="7.1">+ @vercel/connect OAuth</text>
+      <line x1="380" y1="77" x2="506" y2="77" stroke="#0369a1" stroke-width="1"/>
+      <text x="378" y="93" fill="#e0f2fe" font-size="7.2">&bull; OIDC AI model routing</text>
+      <text x="378" y="107" fill="#e0f2fe" font-size="7.2">&bull; Firecracker code runs</text>
+      <text x="378" y="121" fill="#e0f2fe" font-size="7.2">&bull; Scoped provider tokens</text>
+      <rect x="378" y="133" width="130" height="20" rx="4" fill="#0c4a6e"/>
+      <text x="443" y="146" text-anchor="middle" fill="#7dd3fc" font-size="7.0" font-weight="700">Executes safely via OIDC</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M520 89 L542 89" stroke="#34d399" stroke-width="2"/>
+      <polygon points="540,84 548,89 540,94" fill="#34d399"/>
+
+      <!-- Stage 4: Queues & Schedules -->
+      <rect x="548" y="18" width="144" height="142" rx="9" fill="#0a211b" stroke="#34d399" stroke-width="1.6"/>
+      <text x="620" y="37" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">4. ASYNC SCALE &amp; CLOCKS</text>
+      <text x="620" y="54" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Queues &amp; Schedules</text>
+      <text x="620" y="68" text-anchor="middle" fill="#a7f3d0" font-size="7.1">+ Vercel Daemons</text>
+      <line x1="560" y1="77" x2="680" y2="77" stroke="#065f46" stroke-width="1"/>
+      <text x="559" y="93" fill="#ecfdf5" font-size="7.2">&bull; Durable topic fan-out</text>
+      <text x="559" y="107" fill="#ecfdf5" font-size="7.2">&bull; Per-tenant TZ crons</text>
+      <text x="559" y="121" fill="#ecfdf5" font-size="7.2">&bull; Poll-mode worker pods</text>
+      <rect x="559" y="133" width="122" height="20" rx="4" fill="#064e3b"/>
+      <text x="620" y="146" text-anchor="middle" fill="#6ee7b7" font-size="7.0" font-weight="700">Buffers &amp; schedules scale</text>
+
+      <!-- Bottom Loop Banner -->
+      <rect x="8" y="173" width="684" height="24" rx="6" fill="#160e2e" stroke="#5b21b6" stroke-width="1"/>
+      <text x="350" y="189" text-anchor="middle" fill="#ddd6fe" font-size="7.45" font-weight="600">Unified OIDC Trust Plane: Next.js / Chat SDK &rarr; Workflow 5 or eve &rarr; AI Gateway + Sandbox &rarr; Queues, Schedules &amp; Daemons</text>
+    </svg>
+  </div>
+
+  <h3>Walkthrough: How One User Request Flows Across All Four Layers</h3>
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Trigger, Reason &amp; Stream (Layers 1 &amp; 2)</div>
+      <p style="font-size:7.95pt; margin:0;">A user submits a complex migration prompt in Next.js or Slack (via Chat SDK). Your route calls <code>start(agentWorkflow, [input])</code> and pipes <code>getWritable&lt;ModelCallStreamPart&gt;()</code> through <code>createModelCallToUIChunkTransform()</code> back to the client. If the user refreshes mid-stream, reconnecting to <code>getRun(runId).getReadable()</code> replays buffered chunks without restarting the agent.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> Act Safely &amp; Scale Out (Layers 3 &amp; 4)</div>
+      <p style="font-size:7.95pt; margin:0;">Inside <code>&quot;use step&quot;</code> tools, <code>WorkflowAgent</code> calls models via AI Gateway OIDC, fetches Slack/GitHub tokens through <code>@vercel/connect</code>, and validates generated patches inside <code>@vercel/sandbox</code>. Once approved via <code>createWebhook()</code>, the workflow publishes downstream events onto <code>@vercel/queue</code> topics and schedules follow-up checks via <code>@vercel/schedules</code>.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0;">
+    <div class="callout-title">Platform Coherence: Shared OIDC Authentication Everywhere</div>
+    Every modern Vercel runtime primitive&mdash;AI Gateway, Queues, Schedules, Sandbox, Connect, and KMS&mdash;authenticates automatically via <code>VERCEL_OIDC_TOKEN</code> in production and via <code>vercel link &amp;&amp; vercel env pull</code> locally, eliminating fragile static API key rotation.
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Almost every Workflow, Queues, or Schedules snag comes from mixing sandbox scopes, skipping idempotency keys, or importing outdated v4 symbols. Keep these seven 10-second fixes handy before deploying.
+  </p>
+
+  <table class="clean-table" style="font-size:7.5pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Error</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. <code>setTimeout</code> or <code>require()</code> crashes in <code>&quot;use workflow&quot;</code></strong></td>
+        <td>Workflow scope runs in a deterministic replay VM without Node.js globals or timers.</td>
+        <td>Replace <code>setTimeout</code> with <code>sleep(&quot;5s&quot;)</code> from <code>&quot;workflow&quot;</code>, use ESM imports, and move Node/npm I/O into <code>&quot;use step&quot;</code> functions.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Calling <code>myWorkflow()</code> runs inline with no <code>runId</code></strong></td>
+        <td>Invoked the exported async workflow function directly instead of registering a durable run.</td>
+        <td>Import <code>start</code> from <code>&quot;workflow/api&quot;</code> and launch with <code>await start(myWorkflow, [arg1])</code>; wrap Next config in <code>withWorkflow</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>DurableAgent</code> import error on Workflow 5</strong></td>
+        <td><code>@workflow/ai</code>&rsquo;s <code>DurableAgent</code> is deprecated in Workflow 5 (<code>workflow@latest</code>).</td>
+        <td>Install <code>@ai-sdk/workflow</code> 2.x alongside <code>workflow@latest</code> and migrate to <code>new WorkflowAgent({ model, tools })</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Duplicate queue message processing</strong></td>
+        <td>Queues guarantee at-least-once delivery; duplicate publishes or retries ran side effects twice.</td>
+        <td>Pass <code>idempotencyKey</code> to <code>send()</code>, deduplicate side effects by <code>metadata.messageId</code>, and cap poison retries via <code>deliveryCount</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Deploy error mixing <code>schedule/v1beta</code> &amp; <code>queue/v2beta</code></strong></td>
+        <td>A private scheduled function cannot share triggers with a queue consumer in <code>vercel.json</code>.</td>
+        <td>Give <code>schedule/v1beta</code> its own dedicated route (only trigger on that function), or point the schedule at a queue <code>topic</code> instead.</td>
+      </tr>
+      <tr>
+        <td><strong>6. <code>createHook()</code> tool fails inside <code>&quot;use step&quot;</code></strong></td>
+        <td>Step workers cannot suspend the parent workflow VM with <code>sleep()</code> or <code>createHook()</code>.</td>
+        <td>Remove <code>&quot;use step&quot;</code> from any agent tool that calls <code>sleep()</code> or <code>createHook()</code> so it executes directly at workflow scope.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Workflow hangs silently with zero visibility</strong></td>
+        <td>Steps omit <code>console.log</code>, or World SDK reads serialized <code>devl</code> bytes without hydration.</td>
+        <td>Add <code>console.log</code> at step entry/exit, run <code>npx workflow inspect run &lt;id&gt;</code> or <code>vercel agent-runs</code>, and call <code>hydrateResourceIO()</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Shipping Durable Agents</h3>
+  <div class="checklist-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Strict Directive Split:</strong> Every DB, API, AI SDK, and Sandbox call lives inside <code>&quot;use step&quot;</code>; <code>&quot;use workflow&quot;</code> holds only orchestration, <code>sleep()</code>, and hooks.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Modern SDK Imports:</strong> Using <code>WorkflowAgent</code> (<code>@ai-sdk/workflow</code> 2.x) on Workflow 5 or <code>eve</code>, with plain <code>&quot;provider/model&quot;</code> AI Gateway routing.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Idempotency &amp; Poison Guards:</strong> <code>send()</code> includes <code>idempotencyKey</code>, consumers track <code>messageId</code> / <code>executionId</code>, and <code>deliveryCount</code> caps infinite retries.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Private Schedules &amp; Daemons:</strong> Legacy <code>crons</code> migrated to private <code>schedule/v1beta</code> functions or queue topics; Daemons handle <code>SIGTERM</code> cleanly.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Hardened Sandbox &amp; OIDC Auth:</strong> Untrusted code runs with <code>networkPolicy: &quot;deny-all&quot;</code> and short timeouts; third-party OAuth uses <code>@vercel/connect</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Verified Tests &amp; Observability:</strong> Integration suite passes under <code>@workflow/vitest</code>, and <code>npx workflow web</code> + <code>vercel agent-runs</code> show crisp step logs.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

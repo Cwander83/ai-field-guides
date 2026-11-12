@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vercel AI SDK 7 &amp; AI Gateway: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">VERCEL &amp; FULL-STACK AI APPLICATIONS &bull; FIELD GUIDE</div>
+    <h1>Vercel <span>AI SDK 7</span> &amp; AI Gateway</h1>
+    <p class="cover-sub">
+      The complete visual handbook for building resilient, streaming TypeScript AI applications on Fluid Compute&mdash;uniting <code>ToolLoopAgent</code>, typed <code>Output.object()</code>, React <code>message.parts</code>, and multi-provider AI Gateway failover behind zero-config OIDC authentication.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Node 24 Fluid Compute</span>
+      <span class="cover-badge">AI Gateway Routing</span>
+      <span class="cover-badge"><code>ToolLoopAgent</code></span>
+      <span class="cover-badge"><code>Output.object()</code></span>
+      <span class="cover-badge"><code>useChat</code> &amp; <code>message.parts</code></span>
+      <span class="cover-badge">Virtual Models &amp; Budgets</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Obsidian and sky-cyan architectural glass prism routing luminous multi-colored model beams into a unified crystal streaming conduit above a dark studio table" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">One Unified TypeScript API</div>
+      <div class="cover-stat-desc">Call any foundation model via plain <code>provider/model</code> strings with shared streaming, tools, and structured schemas.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Automatic Provider Failover</div>
+      <div class="cover-stat-desc">Route around outages and rate limits across upstream hosts using <code>VERCEL_OIDC_TOKEN</code>, Virtual Models, and spend budgets.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Fluid Compute Streaming</div>
+      <div class="cover-stat-desc">Stream tokens and typed UI parts natively on Node.js 24 LTS with 300s default timeouts and Active CPU pricing.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Streaming Architecture</span>
+    <span>Vercel AI SDK 7 &amp; AI Gateway</span>
+  </div>
+
+  <h2 class="page-title">One Streaming TypeScript Runtime, Multi-Provider Intelligence</h2>
+  <p class="page-lead">
+    AI SDK 7 and Vercel AI Gateway split responsibilities cleanly: your React UI and Next.js server speak one strongly typed streaming protocol on Node.js Fluid Compute, while AI Gateway handles provider credentials, automatic failover, and spend governance at the network boundary.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Streaming Architecture &amp; Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Streaming React &amp; Multimodal UIs</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Fluid Compute Setup &amp; Myths vs. Truths</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. <code>vercel.ts</code>, Embeddings &amp; Coding Agents</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated DevTools &amp; Gateway Inspector</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Vercel AI Gateway Mastery &amp; Decisions</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Budgets, Caching, Security &amp; Logs</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. <code>ToolLoopAgent</code> &amp; <code>Output.object()</code></strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Vercel Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Verify Against <code>node_modules/ai/docs/</code></strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Core Mental Model: Decouple App Logic from Model Vendors</h3>
+  <p style="font-size:8.6pt;">
+    Never hardcode vendor-specific SDKs inside your application routes. Passing a plain <code>provider/model</code> string (or a centrally managed <code>vmc/&lt;slug&gt;</code> Virtual Model) into <code>ToolLoopAgent</code> or <code>streamText</code> routes traffic automatically through AI Gateway. Your app stays portable across models while Vercel Fluid Compute streams Server-Sent Events directly from Node.js 24 LTS without artificial Edge runtime constraints.
+  </p>
+
+  <h3>End-to-End Streaming Architecture on Node.js 24 Fluid Compute</h3>
+  <div class="figure-box" style="background:#06101c; padding:9px 11px; border-color:#0369a1;">
+    <svg viewBox="0 0 710 198" width="100%" height="198" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1: Browser React UI -->
+      <rect x="8" y="20" width="142" height="142" rx="8" fill="#0b2038" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="79" y="38" text-anchor="middle" fill="#7dd3fc" font-size="7.3" font-weight="700">1. REACT CLIENT</text>
+      <text x="79" y="54" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">useChat()</text>
+      <rect x="18" y="64" width="122" height="32" rx="5" fill="#06101c" stroke="#0284c7" stroke-width="1"/>
+      <text x="79" y="78" text-anchor="middle" fill="#e0f2fe" font-size="7.3" font-weight="700">DefaultChatTransport</text>
+      <text x="79" y="90" text-anchor="middle" fill="#7dd3fc" font-size="6.7">sendMessage({ text })</text>
+      <rect x="18" y="104" width="122" height="46" rx="5" fill="#06101c" stroke="#0284c7" stroke-width="1"/>
+      <text x="79" y="119" text-anchor="middle" fill="#e0f2fe" font-size="7.3" font-weight="700">message.parts</text>
+      <text x="79" y="131" text-anchor="middle" fill="#94a3b8" font-size="6.6">text, tool-&lt;name&gt;,</text>
+      <text x="79" y="142" text-anchor="middle" fill="#94a3b8" font-size="6.6">&amp; MessageResponse</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M150 91 L172 91" stroke="#38bdf8" stroke-width="1.9" fill="none"/>
+      <polygon points="170,86 178,91 170,96" fill="#38bdf8"/>
+
+      <!-- Box 2: Next.js Route on Fluid Compute -->
+      <rect x="178" y="14" width="176" height="154" rx="8" fill="#091d33" stroke="#2dd4bf" stroke-width="1.7"/>
+      <text x="266" y="32" text-anchor="middle" fill="#5eead4" font-size="7.2" font-weight="700">2. NODE 24 FLUID COMPUTE</text>
+      <text x="266" y="48" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Next.js Route Handler</text>
+      <text x="266" y="61" text-anchor="middle" fill="#99f6e4" font-size="6.8">No runtime = 'edge' needed (300s default)</text>
+      <rect x="190" y="70" width="152" height="40" rx="5" fill="#06101c" stroke="#0d9488" stroke-width="1"/>
+      <text x="266" y="85" text-anchor="middle" fill="#ffffff" font-size="7.8" font-weight="700">ToolLoopAgent / streamText</text>
+      <text x="266" y="98" text-anchor="middle" fill="#99f6e4" font-size="6.7">stopWhen: isStepCount(N) &bull; Output.object</text>
+      <rect x="190" y="116" width="152" height="40" rx="5" fill="#06101c" stroke="#0d9488" stroke-width="1"/>
+      <text x="266" y="131" text-anchor="middle" fill="#e0f2fe" font-size="7.3" font-weight="700">createUIMessageStreamResponse</text>
+      <text x="266" y="144" text-anchor="middle" fill="#94a3b8" font-size="6.7">convertToModelMessages(messages)</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M354 91 L376 91" stroke="#38bdf8" stroke-width="1.9" fill="none"/>
+      <polygon points="374,86 382,91 374,96" fill="#38bdf8"/>
+
+      <!-- Box 3: Vercel AI Gateway -->
+      <rect x="382" y="14" width="166" height="154" rx="8" fill="#0d223d" stroke="#38bdf8" stroke-width="1.8"/>
+      <text x="465" y="32" text-anchor="middle" fill="#7dd3fc" font-size="7.2" font-weight="700">3. VERCEL AI GATEWAY</text>
+      <text x="465" y="48" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">provider/model Router</text>
+      <rect x="394" y="58" width="142" height="32" rx="5" fill="#06101c" stroke="#38bdf8" stroke-width="1"/>
+      <text x="465" y="72" text-anchor="middle" fill="#fde68a" font-size="7.3" font-weight="700">VERCEL_OIDC_TOKEN</text>
+      <text x="465" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.6">or AI_GATEWAY_API_KEY / BYOK</text>
+      <rect x="394" y="96" width="142" height="60" rx="5" fill="#06101c" stroke="#0284c7" stroke-width="1"/>
+      <text x="465" y="111" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">Policy &amp; Failover Engine</text>
+      <text x="465" y="124" text-anchor="middle" fill="#7dd3fc" font-size="6.6">&bull; Health-aware auto failover</text>
+      <text x="465" y="136" text-anchor="middle" fill="#7dd3fc" font-size="6.6">&bull; Virtual Models (vmc/&lt;slug&gt;)</text>
+      <text x="465" y="148" text-anchor="middle" fill="#7dd3fc" font-size="6.6">&bull; Budgets, ZDR &amp; Logs</text>
+
+      <!-- Branching Arrows 3 -> 4 -->
+      <path d="M548 56 L574 44" stroke="#38bdf8" stroke-width="1.7" fill="none"/>
+      <polygon points="571,40 579,42 574,49" fill="#38bdf8"/>
+      <path d="M548 91 L574 91" stroke="#2dd4bf" stroke-width="1.7" fill="none"/>
+      <polygon points="572,86 580,91 572,96" fill="#2dd4bf"/>
+      <path d="M548 126 L574 138" stroke="#a78bfa" stroke-width="1.7" fill="none"/>
+      <polygon points="574,133 579,140 571,142" fill="#a78bfa"/>
+
+      <!-- Box 4: Upstream Providers -->
+      <rect x="580" y="20" width="122" height="40" rx="6" fill="#06101c" stroke="#38bdf8" stroke-width="1.2"/>
+      <text x="641" y="37" text-anchor="middle" fill="#ffffff" font-size="8.1" font-weight="700">Anthropic / Bedrock</text>
+      <text x="641" y="50" text-anchor="middle" fill="#7dd3fc" font-size="6.6">Primary &amp; prompt cache</text>
+
+      <rect x="580" y="71" width="122" height="40" rx="6" fill="#06101c" stroke="#2dd4bf" stroke-width="1.2"/>
+      <text x="641" y="88" text-anchor="middle" fill="#ffffff" font-size="8.1" font-weight="700">OpenAI / Azure</text>
+      <text x="641" y="101" text-anchor="middle" fill="#5eead4" font-size="6.6">Instant capacity failover</text>
+
+      <rect x="580" y="122" width="122" height="40" rx="6" fill="#06101c" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="641" y="139" text-anchor="middle" fill="#ffffff" font-size="8.1" font-weight="700">Google / Vertex / X</text>
+      <text x="641" y="152" text-anchor="middle" fill="#c4b5fd" font-size="6.6">Multimodal &amp; fallback</text>
+
+      <!-- Bottom Summary Strip -->
+      <rect x="8" y="174" width="694" height="18" rx="4" fill="#040b14" stroke="#0369a1" stroke-width="0.9"/>
+      <text x="355" y="186" text-anchor="middle" fill="#7dd3fc" font-size="7.1" font-weight="600">Client sends UIMessage[] &rarr; Node 24 Fluid Compute runs ToolLoopAgent &rarr; AI Gateway authenticates via OIDC &amp; fails over across hosts</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Mental Model Takeaway: Keep App Code Agnostic, Keep Routing Central</div>
+    Install only <code>ai</code> (plus <code>@ai-sdk/react</code> for browser hooks) to get started. Because plain <code>provider/model</code> strings speak directly to AI Gateway, you gain multi-provider redundancy, OIDC security, and unified cost logs without installing five vendor packages.
+  </div>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, FLUID COMPUTE & MYTHS VS TRUTHS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Fluid Compute Runtime, Setup &amp; Modern APIs</span>
+    <span>Quickstart, Live Model Discovery &amp; v4&ndash;v6 Migration</span>
+  </div>
+
+  <h2 class="page-title">Fluid Compute Setup &amp; Modern AI SDK 7 Truths</h2>
+  <p class="page-lead">
+    AI SDK 7 requires Node.js 22+ and native ESM, pairing seamlessly with Vercel&rsquo;s default <strong>Node.js 24 LTS</strong> runtime on Fluid Compute. Forget legacy Edge workarounds and outdated v4&ndash;v6 habits before writing your first route.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-sky" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge">1</span> Project Setup &amp; Version-Matched Docs</div>
+      <pre class="code-block" style="margin:3px 0 4px 0; padding:5.5px 8px; font-size:6.85pt; line-height:1.34;"><code># Install AI SDK 7 + React hooks + Zod schemas (Node 22+ / ESM)
+pnpm add ai @ai-sdk/react zod
+
+# Link project &amp; pull 12-hour VERCEL_OIDC_TOKEN locally
+vercel link &amp;&amp; vercel env pull
+
+# Read version-matched docs bundled right inside npm!
+ls node_modules/ai/docs/</code></pre>
+      <p style="font-size:7.65pt; margin:0; color:#334155;">Never trust stale training memory: <code>node_modules/ai/docs/</code> ships exact APIs for your installed version. Discover live model IDs with <code>curl -fsSL https://ai-gateway.vercel.sh/v1/models</code>.</p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0d9488;">
+      <div class="card-title"><span class="num-badge teal">2</span> Node.js 24 LTS Fluid Compute Advantages</div>
+      <ul style="font-size:7.75pt; margin:2px 0 0 0;">
+        <li><strong>Streams Natively Without Edge:</strong> Standard Node.js routes stream SSE and AI chunks cleanly&mdash;never add deprecated <code>runtime = 'edge'</code>.</li>
+        <li><strong>300s Default Timeout:</strong> Every plan (including Hobby) gets <code>300s</code> default execution (up to <code>800s</code> Pro/Enterprise, <code>1800s</code> extended beta).</li>
+        <li><strong>Active CPU Pricing:</strong> Fluid Compute reuses instances concurrently and bills only active CPU compute&mdash;idle time waiting for tokens costs zero CPU.</li>
+        <li><strong>Typed Project Config:</strong> Use <code>vercel.ts</code> via <code>@vercel/config/v1</code> instead of hand-editing JSON.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Outdated LLM Myths vs. Modern AI SDK 7 + Fluid Compute Truths (Do Not Use v4&ndash;v6 Habits)</h3>
+  <table class="clean-table" style="font-size:7.6pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Domain</th>
+        <th style="width:36%;">Outdated Myth / Obsolete v4&ndash;v6 Pattern</th>
+        <th style="width:40%;">Modern AI SDK 7 + Fluid Compute Truth</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Streaming Runtime</strong></td>
+        <td>Adding <code>export const runtime = 'edge'</code> so SSE and AI token streaming work.</td>
+        <td><strong>Drop Edge completely:</strong> Node.js 24 LTS on Fluid Compute streams cleanly with full Node APIs and 300s+ timeouts.</td>
+      </tr>
+      <tr>
+        <td><strong>Agent Abstraction</strong></td>
+        <td><code>Experimental_Agent</code> or hand-rolled <code>while</code> loops around <code>generateText</code>.</td>
+        <td>Use <code>ToolLoopAgent</code> from <code>ai</code> with <code>agent.generate()</code> and <code>agent.stream()</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Loop Step Limits</strong></td>
+        <td><code>maxSteps: 5</code> (v4) or <code>stepCountIs(5)</code> (v5&ndash;v6).</td>
+        <td>Use <code>stopWhen: isStepCount(5)</code> imported directly from <code>ai</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Structured Output</strong></td>
+        <td><code>generateObject()</code> or <code>streamObject()</code> (both deprecated since v6).</td>
+        <td>Use <code>generateText</code> or <code>streamText</code> with <code>output: Output.object({ schema })</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Tool Definitions</strong></td>
+        <td><code>tool({ parameters: z.object(...) })</code>.</td>
+        <td>MCP-aligned <code>tool({ inputSchema, outputSchema, execute })</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Message Types &amp; Streams</strong></td>
+        <td><code>CoreMessage</code> and <code>toDataStreamResponse()</code>.</td>
+        <td><code>ModelMessage</code> + <code>convertToModelMessages()</code>; <code>createUIMessageStreamResponse({ stream: result.toUIMessageStream() })</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Client Chat Hook</strong></td>
+        <td><code>useChat({ api })</code>, <code>handleSubmit</code>, <code>isLoading</code>, and <code>message.content</code>.</td>
+        <td><code>useChat({ transport: new DefaultChatTransport({ api }) })</code>, <code>sendMessage({ text })</code>, <code>status</code>, and <code>message.parts</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">Live Catalog Rule: Fetch Before Selecting Any Model Slug</div>
+    Models ship and retire rapidly. Run <code>curl -fsSL https://ai-gateway.vercel.sh/v1/models | jq -r '.data[].id'</code> (or <code>vercel ai-gateway models list</code>) to inspect exact <code>provider/model</code> IDs, context windows, and <code>zdr</code> flags rather than guessing from memory.
+  </div>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Inspector &amp; DevTools Tour</span>
+    <span>Inside @ai-sdk/devtools &amp; AI Gateway Telemetry</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: <code>@ai-sdk/devtools</code> &amp; Gateway Inspector</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Pair local <code>npx @ai-sdk/devtools</code> (<code>http://localhost:4983</code>) with AI Gateway telemetry to trace every multi-step <code>ToolLoopAgent</code> turn, provider failover hop, typed UI part, and prompt cache hit in real time.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#7dd3fc;">@ai-sdk/devtools &mdash; localhost:4983 &bull; Run #run_9f4a (Fluid Node 24)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:7px; font-size:7pt;">
+        <span style="background:#0c4a6e; color:#7dd3fc; border:1px solid #38bdf8; padding:1.5px 6px; border-radius:4px; font-weight:700;">vmc/support-router <span class="callout-pin">5</span></span>
+        <span style="background:#064e3b; color:#6ee7b7; border:1px solid #10b981; padding:1.5px 6px; border-radius:4px; font-weight:700;">AUTH: VERCEL_OIDC_TOKEN <span class="callout-pin">3</span></span>
+      </div>
+    </div>
+
+    <!-- Gateway Failover & Telemetry Ribbon -->
+    <div style="background:#081729; border-bottom:1px solid #0369a1; padding:4.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.1pt;">
+      <span><strong style="color:#38bdf8;">[GATEWAY SPAN]</strong> <span style="color:#cbd5e1;">anthropic/claude-sonnet &rarr; attempt 1: bedrock (429) &rarr; <strong style="color:#34d399;">attempt 2: vertex (200 OK)</strong></span> <span class="callout-pin">2</span></span>
+      <span><strong style="color:#fde68a;">Gen ID:</strong> <code>gen_01JZ8M...</code></span>
+    </div>
+
+    <!-- Main Body: Multi-Step Agent Stream & Typed Part Inspector -->
+    <div style="display:grid; grid-template-columns: 1.08fr 1fr; border-bottom:1px solid #0369a1;">
+      <!-- Left: ToolLoopAgent Trace -->
+      <div style="padding:8px 11px; border-right:1px solid #0369a1;">
+        <div style="margin-bottom:5px;">
+          <div style="color:#7dd3fc; font-weight:700; font-size:7.2pt;">ToolLoopAgent &bull; stopWhen: isStepCount(5) <span class="callout-pin">1</span></div>
+          <div style="background:#040b14; border:1px solid #0369a1; border-radius:5px; padding:5px 7px; margin-top:3px; font-size:6.95pt;">
+            <div style="color:#cbd5e1;"><strong style="color:#38bdf8;">Step 1 (240ms):</strong> Model emits <code>tool-lookupOrder</code></div>
+            <div style="color:#94a3b8;">&bull; input: <code>{ orderId: "ORD-8841" }</code> (Zod validated)</div>
+            <div style="color:#6ee7b7;"><strong style="color:#34d399;">Step 2 (310ms):</strong> Streams final answer + <code>Output.object</code></div>
+          </div>
+        </div>
+
+        <div style="background:#07182b; border:1px solid #0284c7; border-radius:5px; padding:5px 7px; font-size:6.9pt; color:#e0f2fe;">
+          <strong style="color:#7dd3fc;">Gateway Metadata:</strong> <code>providerMetadata.gateway</code> logged<br/>
+          Zero Data Retention: <strong style="color:#34d399;">ENFORCED</strong> &bull; TTFT: <code>184ms</code>
+        </div>
+      </div>
+
+      <!-- Right: Typed UIMessage Part Inspector -->
+      <div style="padding:8px 10px; background:#040b14; font-size:6.95pt;">
+        <div style="font-weight:700; color:#7dd3fc; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+          <span>UI STREAM PART: tool-lookupOrder</span> <span class="callout-pin">4</span>
+        </div>
+        <div style="background:#02070d; border:1px solid #0369a1; border-radius:5px; padding:5px 7px; font-family:monospace; line-height:1.4;">
+          <div style="color:#94a3b8;">{</div>
+          <div style="color:#7dd3fc;">&nbsp;&nbsp;"type": "tool-lookupOrder",</div>
+          <div style="color:#fde68a;">&nbsp;&nbsp;"state": "output-available",</div>
+          <div style="color:#cbd5e1;">&nbsp;&nbsp;"input": { "orderId": "ORD-8841" },</div>
+          <div style="color:#6ee7b7;">&nbsp;&nbsp;"output": { "status": "shipped" }</div>
+          <div style="color:#94a3b8;">}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Telemetry & Cache Strip -->
+    <div style="background:#0b2038; padding:5.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.1pt;">
+      <div style="display:flex; align-items:center; gap:9px;">
+        <span><strong style="color:#38bdf8;">Tokens &amp; Cost:</strong> 1,420 in / 318 out &bull; <code>$0.0041</code> <span class="callout-pin">6</span></span>
+        <span style="color:#475569;">|</span>
+        <span><strong style="color:#34d399;">Prompt Cache:</strong> 82% read hit (<code>caching: 'auto'</code>) <span class="callout-pin">7</span></span>
+      </div>
+      <span style="color:#7dd3fc;"><code>registerTelemetry(DevToolsTelemetry())</code></span>
+    </div>
+  </div>
+
+  <h3>Inspector Legend: The 7 Live Diagnostic Touchpoints</h3>
+  <div class="grid-2" style="font-size:7.85pt; gap:5.5px 12px;">
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">1</span> Multi-Step <code>ToolLoopAgent</code> Timeline:</strong> Shows every reasoning step, tool invocation, and <code>stopWhen: isStepCount(N)</code> boundary in chronological order.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">2</span> <code>provider/model</code> Failover Span:</strong> Reveals upstream attempts (such as a <code>429</code> on Bedrock automatically failing over to Vertex) without app retries.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">3</span> <code>VERCEL_OIDC_TOKEN</code> Auth Badge:</strong> Confirms zero-secret OIDC authentication on Vercel deployments or locally via <code>vercel env pull</code>.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">4</span> Typed <code>tool-&lt;toolName&gt;</code> Part View:</strong> Inspects exact AI SDK 7 <code>UIMessage</code> parts (replacing legacy <code>tool-invocation</code>) consumed by <code>useChat</code>.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">5</span> Virtual Model Routing Pill:</strong> Identifies centrally managed <code>vmc/&lt;slug&gt;</code> slugs that inject server-side model policy and fallbacks.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">6</span> Token &amp; Generation Cost Telemetry:</strong> Captures exact input/output tokens, TTFT, and <code>providerMetadata.gateway.generationId</code> per request.
+    </div>
+    <div class="card-sky" style="padding:6px 9px; grid-column: span 2;">
+      <strong><span class="callout-pin">7</span> Prompt Cache Hit Ratio:</strong> Tracks cached prefix reads from <code>caching: 'auto'</code> (for Anthropic/MiniMax explicit markers) and implicit caching on OpenAI/Google so multi-turn agent loops stay fast and inexpensive.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: VERCEL AI GATEWAY MASTERY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Unified Routing, Auth &amp; CLI Control</span>
+    <span>Vercel AI Gateway Mastery</span>
+  </div>
+
+  <h2 class="page-title">Vercel AI Gateway Mastery: Routing, OIDC &amp; Decisions</h2>
+  <p class="page-lead" style="margin-bottom:5px;">
+    AI Gateway turns any <code>provider/model</code> string into a fault-tolerant, observable endpoint with zero markup on provider token rates, automatic health-based failover, and unified CLI management.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:5px; gap:10px;">
+    <div>
+      <p style="font-size:7.7pt; font-weight:700; margin-bottom:2px; color:#0369a1;">1. Plain String Routing, Ordering &amp; Typed Decisions</p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.75pt; line-height:1.33;"><code>import { generateText, experimental_decide as decide } from 'ai';
+
+// Zero-config gateway routing with fallback models &amp; ZDR
+const { text } = await generateText({
+  model: 'anthropic/claude-sonnet-4.6',
+  prompt: 'Summarize incident metrics.',
+  providerOptions: {
+    gateway: {
+      order: ['bedrock', 'anthropic'], // Prefer Bedrock; keep others
+      models: ['openai/gpt-5.4'],       // Cross-provider fallback
+      zeroDataRetention: true,
+    },
+  },
+});
+
+// Typed Decisions (replaces deprecated evaluate / POST /v1/evaluate)
+const verdict = await decide({
+  model: 'typesafe-ai/jev',
+  state: text,
+  questions: { resolved: { type: 'boolean', instructions: 'Fixed?' } },
+});</code></pre>
+    </div>
+
+    <div>
+      <p style="font-size:7.7pt; font-weight:700; margin-bottom:2px; color:#0369a1;">2. Authentication Tiers &amp; <code>vercel ai-gateway</code> CLI</p>
+      <div class="card" style="padding:6.5px 9px; font-size:7.55pt; line-height:1.36; margin-bottom:4px;">
+        <div style="margin-bottom:3px;"><span class="num-badge" style="width:15px;height:15px;font-size:6.8pt;">1</span> <strong><code>VERCEL_OIDC_TOKEN</code>:</strong> Automatic on Vercel deployments; run <code>vercel link &amp;&amp; vercel env pull</code> locally (12-hour expiry).</div>
+        <div style="margin-bottom:3px;"><span class="num-badge teal" style="width:15px;height:15px;font-size:6.8pt;">2</span> <strong><code>AI_GATEWAY_API_KEY</code>:</strong> For CI pipelines, Node scripts, external servers, and coding agents.</div>
+        <div><span class="num-badge amber" style="width:15px;height:15px;font-size:6.8pt;">3</span> <strong>BYOK Provider Keys:</strong> Authenticate Gateway to vendors via dashboard or <code>providerOptions.gateway.byok</code> (still requires OIDC or Gateway key).</div>
+      </div>
+      <pre class="code-block" style="margin:0; padding:5px 8px; font-size:6.7pt; line-height:1.32;"><code>vercel ai-gateway models list          # Inspect live catalog
+vercel ai-gateway virtual-models create # Manage vmc/&lt;slug&gt;
+vercel ai-gateway budgets set team --amount 500
+vercel ai-gateway api-keys create --amount 100
+vercel ai-gateway rules list           # Routing rules (beta)
+vercel ai-gateway setup                # Wire coding agents</code></pre>
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin:2px 0 5px 0; padding:6px 10px; font-size:8pt;">
+    <strong><code>order</code> vs. <code>only</code> vs. <code>sort</code>:</strong> Leave routing unset by default for maximum resilience. Use <code>order</code> to prefer hosts without blocking fallbacks, <code>sort</code> for <code>cost</code>/<code>ttft</code>/<code>tps</code>, and reserve <code>only</code> strictly for contractual vendor allowlists (since <code>only</code> fails if listed hosts go down). HTTP clients can also call <code>POST /v1/decisions</code> directly.
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/gateway_failover_prism.jpg" alt="Sleek isometric frosted-glass router prism splitting and failing over glowing sky-cyan optical streams across three provider pillars behind a golden shield" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Health-Aware Multi-Provider Failover:</strong> Protected behind OIDC or API key authentication, AI Gateway evaluates live upstream latency and capacity on every call&mdash;transparently rerouting optical streams from a degraded provider pillar to healthy fallbacks with zero application code changes.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: TOOLLOOPAGENT & OUTPUT.OBJECT() ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Reliable Agents &amp; Typed Structured Output</span>
+    <span>ToolLoopAgent, MCP Tool Contracts &amp; Output.object()</span>
+  </div>
+
+  <h2 class="page-title">Reliable Agents with <code>ToolLoopAgent</code> &amp; <code>Output.object()</code></h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Stop hand-writing fragile <code>while</code> loops or calling deprecated <code>generateObject()</code>. AI SDK 7 unifies autonomous multi-step tool execution inside <code>ToolLoopAgent</code> and strict JSON validation inside <code>Output.object()</code>.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div>
+      <p style="font-size:7.75pt; font-weight:700; margin-bottom:2px; color:#0369a1;">1. <code>ToolLoopAgent</code> + MCP-Aligned Tool Contract</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.8pt; line-height:1.34;"><code>import { ToolLoopAgent, isStepCount, tool } from 'ai';
+import { z } from 'zod';
+
+export const supportAgent = new ToolLoopAgent({
+  model: 'anthropic/claude-sonnet-4.6',
+  instructions: 'Resolve order tickets using verified tools.',
+  tools: {
+    lookupOrder: tool({
+      description: 'Fetch order shipping state by ID.',
+      inputSchema: z.object({ orderId: z.string() }),
+      outputSchema: z.object({ status: z.string() }),
+      execute: async ({ orderId }) =&gt; fetchOrder(orderId),
+    }),
+  },
+  stopWhen: isStepCount(6), // Hard safety ceiling
+});
+
+// Call agent.generate() or agent.stream() (NEVER generateText!)
+const res = await supportAgent.generate({ prompt: 'Check ORD-8841' });</code></pre>
+    </div>
+
+    <div>
+      <p style="font-size:7.75pt; font-weight:700; margin-bottom:2px; color:#0369a1;">2. Typed <code>Output.object()</code> &amp; <code>ModelMessage</code></p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.8pt; line-height:1.34;"><code>import { generateText, Output, convertToModelMessages, type UIMessage } from 'ai';
+import { z } from 'zod';
+
+const TicketSchema = z.object({
+  severity: z.enum(['low', 'high', 'critical']),
+  category: z.string(),
+  actionRequired: z.boolean(),
+});
+
+// Convert UIMessage[] from React into ModelMessage[] safely
+const modelMessages = await convertToModelMessages(uiMessages);
+
+const { output } = await generateText({
+  model: 'openai/gpt-5.4',
+  messages: modelMessages,
+  output: Output.object({ schema: TicketSchema }),
+});
+// output is strictly typed: { severity, category, actionRequired }</code></pre>
+    </div>
+  </div>
+
+  <h3>Color-Coded Anatomy: Dissecting a Production Agent Contract</h3>
+  <div style="margin-bottom:4px; font-size:7.5pt; display:flex; flex-wrap:wrap; gap:5px;">
+    <span class="p-tag p-model">[1. Gateway Model ID]</span>
+    <span class="p-tag p-inst">[2. System Instructions]</span>
+    <span class="p-tag p-schema">[3. inputSchema / outputSchema]</span>
+    <span class="p-tag p-exec">[4. Deterministic Execute]</span>
+    <span class="p-tag p-stop">[5. stopWhen: isStepCount(N)]</span>
+  </div>
+
+  <div class="card" style="background:#f8fafc; border:1px solid #bae6fd; padding:7.5px 10px; margin-bottom:6px; font-size:8pt; line-height:1.66;">
+    <span class="p-tag p-model">model: 'vmc/triage-agent' or 'anthropic/claude-sonnet-4.6'</span>
+    <span class="p-tag p-inst">instructions: 'Never invent order IDs; cite tool outputs verbatim.'</span>
+    <span class="p-tag p-schema">tool({ inputSchema: z.object(...), outputSchema: z.object(...) })</span>
+    <span class="p-tag p-exec">execute: async (args) =&gt; db.query(...) // Runs on Node 24 Fluid Compute</span>
+    <span class="p-tag p-stop">stopWhen: isStepCount(6) // Prevents runaway loops &amp; token burn</span>
+  </div>
+
+  <h3>Key Migration &amp; Design Rules for Agent Loops</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin-bottom:4px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Capability</th>
+        <th style="width:34%;">Correct AI SDK 7 API</th>
+        <th style="width:42%;">Why It Matters in Production</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Agent Execution</strong></td>
+        <td><code>agent.generate()</code> / <code>agent.stream()</code></td>
+        <td>Encapsulates <code>instructions</code>, <code>tools</code>, and <code>stopWhen</code> once so UI routes and background jobs share identical agent logic.</td>
+      </tr>
+      <tr>
+        <td><strong>MCP-Aligned Tools</strong></td>
+        <td><code>inputSchema</code> + optional <code>outputSchema</code></td>
+        <td>Matches the Model Context Protocol spec and rejects malformed model arguments before your <code>execute</code> function runs.</td>
+      </tr>
+      <tr>
+        <td><strong>Message Conversion</strong></td>
+        <td><code>convertToModelMessages(uiMessages)</code></td>
+        <td>Safely strips client UI metadata and converts <code>UIMessage[]</code> (with <code>parts</code>) into <code>ModelMessage[]</code> (never <code>CoreMessage</code>).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Pro Tip: Infer Client Types Straight from Your Agent</div>
+    Export <code>type SupportAgentUIMessage = InferAgentUIMessage&lt;typeof supportAgent&gt;</code> and pass it to <code>useChat&lt;SupportAgentUIMessage&gt;()</code> so every <code>tool-lookupOrder</code> input and output property autocompletes end-to-end in React.
+  </div>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: STREAMING REACT & MULTIMODAL UIS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Streaming React Hooks &amp; Multimodal Files</span>
+    <span>useChat, message.parts, AI Elements &amp; Image Generation</span>
+  </div>
+
+  <h2 class="page-title">Streaming React &amp; Multimodal UIs with <code>message.parts</code></h2>
+  <p class="page-lead" style="margin-bottom:5px;">
+    AI SDK 7 replaces flat text strings with structured <code>UIMessage.parts</code>. Stream text deltas, typed tool cards, and custom data chunks cleanly from Fluid Compute routes into React <code>useChat</code> hooks.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:5px; gap:10px;">
+    <div>
+      <p style="font-size:7.7pt; font-weight:700; margin-bottom:2px; color:#0369a1;">1. Server Stream &amp; Multimodal Image Generation</p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.7pt; line-height:1.32;"><code>// app/api/chat/route.ts (Node 24 Fluid Compute — no edge runtime!)
+import { createUIMessageStreamResponse, createUIMessageStream,
+         streamText, convertToModelMessages, generateText } from 'ai';
+
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+  const result = streamText({
+    model: 'anthropic/claude-sonnet-4.6',
+    messages: await convertToModelMessages(messages),
+  });
+  return createUIMessageStreamResponse({ stream: result.toUIMessageStream() });
+}
+
+// Custom data parts: use writer.write(), NEVER stream.write()!
+const stream = createUIMessageStream({
+  execute: async ({ writer }) =&gt; { writer.write({ type: 'data-status', data: 'ok' }); },
+});
+
+// Multimodal images via Gateway (reads result.files, no DALL-E!)
+const img = await generateText({
+  model: 'google/gemini-3.1-flash-image-preview',
+  prompt: 'Minimalist glass prism studio render',
+});
+// img.files[0].uint8Array / base64 ready for Vercel Blob</code></pre>
+    </div>
+
+    <div>
+      <p style="font-size:7.7pt; font-weight:700; margin-bottom:2px; color:#0369a1;">2. React Client: <code>DefaultChatTransport</code> &amp; AI Elements</p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.7pt; line-height:1.32;"><code>'use client';
+import { useChat } from '@ai-sdk/react';
+import { DefaultChatTransport } from 'ai';
+import { MessageResponse } from '@/components/ai-elements/message';
+
+export function ChatPanel() {
+  const { messages, sendMessage, status } = useChat({
+    transport: new DefaultChatTransport({ api: '/api/chat' }),
+  });
+
+  const busy = status === 'streaming' || status === 'submitted';
+  return (
+    &lt;&gt;
+      {messages.map((m) =&gt; m.parts.map((part, i) =&gt; {
+        if (part.type === 'text')
+          return &lt;MessageResponse key={i}&gt;{part.text}&lt;/MessageResponse&gt;;
+        if (part.type === 'tool-lookupOrder')
+          return &lt;OrderCard key={i} state={part.state} data={part.output} /&gt;;
+        return null;
+      }))}
+      &lt;button disabled={busy} onClick={() =&gt; sendMessage({ text: 'Hi' })}&gt;Send&lt;/button&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+    </div>
+  </div>
+
+  <div class="callout slate" style="margin:2px 0 5px 0; padding:5.5px 10px; font-size:7.9pt;">
+    <strong>Safe Streaming Rendering:</strong> Never dump raw model strings into <code>dangerouslySetInnerHTML</code> or unguarded Markdown parsers. Render <code>text</code> parts with AI Elements (<code>MessageResponse</code>) so partial markdown tokens, code blocks, and math formulas stream cleanly without XSS or layout flicker.
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/ui_message_stream_parts.jpg" alt="Editorial visualization of a streaming cyan ribbon assembling modular translucent UI cards, tool crystals, and structured geometry blocks inside a dark glass viewport" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Composable <code>message.parts</code> Stream:</strong> Every response flows down a single Server-Sent Events ribbon as discrete, strongly typed parts&mdash;separating prose tokens, <code>tool-&lt;toolName&gt;</code> cards, and generated media files cleanly for React UI components.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: VERCEL.TS, EMBEDDINGS, RERANKING & CODING AGENTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Platform Config, RAG Primitives &amp; Coding Agents</span>
+    <span>vercel.ts, embedMany, rerank &amp; Virtual Models</span>
+  </div>
+
+  <h2 class="page-title"><code>vercel.ts</code>, Embeddings, Reranking &amp; Coding Agents</h2>
+  <p class="page-lead">
+    Beyond chat routes, AI SDK 7 and AI Gateway power typed project configuration via <code>vercel.ts</code>, high-accuracy retrieval pipelines with <code>embedMany</code> and <code>rerank</code>, and centralized coding-agent traffic.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px; gap:10px;">
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#0369a1;">1. Type-Safe Project Config: <code>vercel.ts</code></p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.85pt; line-height:1.35;"><code>// vercel.ts — replaces legacy vercel.json with full TypeScript types
+import { routes, deploymentEnv, type VercelConfig } from '@vercel/config/v1';
+
+export const config: VercelConfig = {
+  framework: 'nextjs',
+  buildCommand: 'pnpm build',
+  rewrites: [
+    routes.rewrite('/ai/(.*)', 'https://api.example.com/$1'),
+  ],
+  headers: [
+    routes.cacheControl('/assets/(.*)', {
+      public: true, maxAge: '1 week', immutable: true,
+    }),
+  ],
+};</code></pre>
+      <p style="font-size:7.65pt; margin:4px 0 0 0; color:#475569;">Install <code>@vercel/config</code> to unlock IDE autocomplete, dynamic environment logic via <code>deploymentEnv</code>, and compile-time route validation.</p>
+    </div>
+
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#0369a1;">2. Two-Stage RAG: <code>embedMany</code> + <code>rerank</code></p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.85pt; line-height:1.35;"><code>import { embed, embedMany, rerank } from 'ai';
+
+// Vectorize chunks in batches through AI Gateway
+const { embeddings } = await embedMany({
+  model: 'openai/text-embedding-3-small',
+  values: chunks,
+});
+
+// Cross-encoder reranking boosts top-K retrieval precision
+const { ranking } = await rerank({
+  model: 'cohere/rerank-v3.5',
+  documents: candidateDocs,
+  query: userQuestion,
+  topN: 5,
+});</code></pre>
+      <p style="font-size:7.65pt; margin:4px 0 0 0; color:#475569;">Use <code>embed()</code> for single search queries, <code>embedMany()</code> for ingestion batches, and <code>rerank()</code> before passing context to <code>ToolLoopAgent</code>.</p>
+    </div>
+  </div>
+
+  <h3>Connecting Coding Agents &amp; External Clients via AI Gateway</h3>
+  <p style="font-size:8.3pt; margin-bottom:5px;">
+    Route developer tools like Claude Code, Codex CLI, Cursor, or OpenCode through your team&rsquo;s AI Gateway to unify spend caps, model discovery, and audit logs. Run <code>vercel ai-gateway setup</code> to detect installed agents, store keys securely in macOS Keychain when supported, and configure protocol-matched URLs automatically.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card-sky" style="padding:7.5px 9px;">
+      <div class="card-title" style="font-size:8.5pt;"><span class="num-badge">1</span> OpenAI-Compatible</div>
+      <p style="font-size:7.55pt; margin:0 0 3px 0;">Point any OpenAI SDK, Responses client, or Codex agent to:</p>
+      <code>https://ai-gateway.vercel.sh/v1</code>
+    </div>
+    <div class="card-sky" style="padding:7.5px 9px;">
+      <div class="card-title" style="font-size:8.5pt;"><span class="num-badge teal">2</span> Anthropic-Compatible</div>
+      <p style="font-size:7.55pt; margin:0 0 3px 0;">Point Anthropic SDKs to base URL below (and <code>/claude-code</code> for Claude Code):</p>
+      <code>https://ai-gateway.vercel.sh</code>
+    </div>
+    <div class="card-sky" style="padding:7.5px 9px;">
+      <div class="card-title" style="font-size:8.5pt;"><span class="num-badge deep">3</span> Virtual Models</div>
+      <p style="font-size:7.55pt; margin:0 0 3px 0;">Give coding agents <code>vmc/&lt;slug&gt;</code> so server-side routing, fallbacks &amp; reasoning options apply without client flags.</p>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:5.5px 9px; font-size:6.9pt; margin:0 0 6px 0;"><code># Connect supported coding agents interactively (or preview with --dry-run)
+vercel ai-gateway setup --dry-run
+vercel ai-gateway setup --agent claude-code --amount 100 --refresh-period monthly
+
+# Manual Claude Code wiring: ANTHROPIC_API_KEY MUST stay empty!
+export ANTHROPIC_BASE_URL="https://ai-gateway.vercel.sh/claude-code"
+export ANTHROPIC_API_KEY=""
+export ANTHROPIC_AUTH_TOKEN="$AI_GATEWAY_API_KEY"
+export CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1</code></pre>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">Centralize Agent Policy with <code>vmc/&lt;slug&gt;</code> Virtual Models</div>
+    Most coding agents only expose a model ID picker and cannot pass <code>providerOptions.gateway</code>. Create a Virtual Model via <code>vercel ai-gateway virtual-models create</code> to pin provider order, ZDR compliance, and fallbacks server-side, then select <code>vmc/&lt;slug&gt;</code> in your agent.
+  </div>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Field Blueprints</span>
+    <span>5 Real-World Copy-Paste AI SDK 7 &amp; Gateway Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Drop these five production-ready patterns straight into Next.js App Router or Node.js 24 LTS services. Every recipe uses verified AI SDK 7 exports, plain <code>provider/model</code> routing, and Fluid Compute defaults.
+  </p>
+
+  <table class="clean-table" style="font-size:7.45pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Recipe &amp; Use Case</th>
+        <th style="width:19%;">Stack &amp; Auth</th>
+        <th style="width:60%;">Verified AI SDK 7 Copy-Paste Pattern</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Streaming App Router Chatbot</strong><br/><span style="color:#0369a1; font-weight:600;">Interactive Chat UI</span></td>
+        <td>Node 24 Fluid Compute<br/><code>VERCEL_OIDC_TOKEN</code><br/><code>DefaultChatTransport</code></td>
+        <td><pre class="code-block" style="margin:0; padding:4px 6px; font-size:6.55pt; line-height:1.3;"><code>// app/api/chat/route.ts — NO runtime = 'edge'!
+const result = streamText({
+  model: 'anthropic/claude-sonnet-4.6',
+  messages: await convertToModelMessages(messages),
+  providerOptions: { gateway: { caching: 'auto' } },
+});
+return createUIMessageStreamResponse({ stream: result.toUIMessageStream() });</code></pre></td>
+      </tr>
+      <tr>
+        <td><strong>2. Strictly Typed JSON Extraction</strong><br/><span style="color:#0d9488; font-weight:600;">Invoice / Ticket Parser</span></td>
+        <td><code>Output.object()</code><br/><code>zod</code> schema<br/>Zero deprecated APIs</td>
+        <td><pre class="code-block" style="margin:0; padding:4px 6px; font-size:6.55pt; line-height:1.3;"><code>const { output } = await generateText({
+  model: 'openai/gpt-5.4',
+  output: Output.object({
+    schema: z.object({ totalUsd: z.number(), vendor: z.string(), lineItems: z.array(z.string()) }),
+  }),
+  prompt: 'Extract structured fields from this invoice text...',
+});</code></pre></td>
+      </tr>
+      <tr>
+        <td><strong>3. Resilient Virtual Model Router</strong><br/><span style="color:#4f46e5; font-weight:600;">Multi-Provider Support</span></td>
+        <td><code>vmc/&lt;slug&gt;</code><br/>Team Budget Cap<br/>Fallback Chain</td>
+        <td><pre class="code-block" style="margin:0; padding:4px 6px; font-size:6.55pt; line-height:1.3;"><code>// CLI: vercel ai-gateway budgets set project support-app --amount 200
+const { text, providerMetadata } = await generateText({
+  model: 'vmc/support-router', // Central order, ZDR &amp; fallback models
+  prompt: customerTicket,
+  providerOptions: { gateway: { user: customerId, tags: ['tier:pro'] } },
+});</code></pre></td>
+      </tr>
+      <tr>
+        <td><strong>4. Multi-Step Research Pipeline</strong><br/><span style="color:#0369a1; font-weight:600;">Autonomous Search Agent</span></td>
+        <td><code>ToolLoopAgent</code><br/><code>isStepCount(8)</code><br/><code>inputSchema</code></td>
+        <td><pre class="code-block" style="margin:0; padding:4px 6px; font-size:6.55pt; line-height:1.3;"><code>const researcher = new ToolLoopAgent({
+  model: 'google/gemini-2.5-pro',
+  instructions: 'Search docs and synthesize cited findings.',
+  tools: { searchDocs: tool({ description: 'Query KB', inputSchema: z.object({ q: z.string() }), execute }) },
+  stopWhen: isStepCount(8),
+});
+const result = await researcher.generate({ prompt: topic });</code></pre></td>
+      </tr>
+      <tr>
+        <td><strong>5. Gateway Image Gen &rarr; Vercel Blob</strong><br/><span style="color:#d97706; font-weight:600;">Asset Generation API</span></td>
+        <td><code>gemini-3.1-flash-image-preview</code><br/><code>@vercel/blob</code></td>
+        <td><pre class="code-block" style="margin:0; padding:4px 6px; font-size:6.55pt; line-height:1.3;"><code>const { files } = await generateText({
+  model: 'google/gemini-3.1-flash-image-preview',
+  prompt: 'Clean isometric product icon on slate background',
+});
+const blob = await put('renders/icon.png', Buffer.from(files[0].uint8Array), { access: 'public' });</code></pre></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:2px 0 0 0;">
+    <div class="callout-title">Always Inspect <code>providerMetadata.gateway</code> in Critical Workflows</div>
+    Whenever a recipe handles billing, compliance, or fallback routing, capture <code>providerMetadata?.gateway?.generationId</code> and log it alongside your app trace so you can correlate exact token cost and provider attempts in AI Gateway Logs.
+  </div>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: COST CONTROLS, OBSERVABILITY & SECURITY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Cost Governance, Security &amp; Telemetry</span>
+    <span>Budgets, Auth Hygiene, Prompt Caching &amp; ZDR</span>
+  </div>
+
+  <h2 class="page-title">Cost Controls, Observability, Auth &amp; Security Hygiene</h2>
+  <p class="page-lead">
+    Production AI apps fail expensively when credentials leak or loops run uncapped. AI Gateway stacks team, project, key, and user budgets with Zero Data Retention routing and OpenTelemetry-ready request logs.
+  </p>
+
+  <div class="callout rose" style="margin:2px 0 6px 0;">
+    <div class="callout-title">Security Rule: Never Commit Keys or Print OIDC Tokens in Logs</div>
+    Keep <code>AI_GATEWAY_API_KEY</code> and BYOK provider keys strictly in Vercel Environment Variables or uncommitted <code>.env.local</code> files. Locally pulled <code>VERCEL_OIDC_TOKEN</code> values expire every <strong>12 hours</strong>&mdash;refresh them with <code>vercel env pull</code> rather than pasting long-lived keys into source.
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-dark">
+      <div class="card-title">Stacked Budgets &amp; Credit Controls</div>
+      <ul style="font-size:7.75pt; color:#cbd5e1; margin:3px 0 0 0;">
+        <li><strong>Four Stacking Scopes:</strong> Set limits across <code>team</code>, <code>project</code> (OIDC), <code>api-key</code>, and <code>user</code>. Every active scope must pass or Gateway returns HTTP <code>402</code> (<code>quota_for_entity_exceeded</code>).</li>
+        <li><strong>Per-Scope Defaults:</strong> Use <code>vercel ai-gateway budgets set api-key --default --amount 50 --refresh-period monthly</code> so new keys inherit caps automatically.</li>
+        <li><strong>Proactive Alerts:</strong> Custom budgets email at 50%, 75%, and 100% thresholds; changes propagate within tens of seconds (up to ~5 minutes for hot keys).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge">!</span> Privacy, Prompt Caching &amp; Safety IDs</div>
+      <ul style="font-size:7.75pt; margin:3px 0 0 0;">
+        <li><strong>Zero Data Retention &amp; No Training:</strong> Pass <code>zeroDataRetention: true</code> and <code>disallowPromptTraining: true</code> under <code>providerOptions.gateway</code>, or check <code>zdr</code> / <code>no_training</code> fields in <code>/v1/models</code>.</li>
+        <li><strong>Prompt Caching (<code>caching: 'auto'</code>):</strong> Injects provider prompt-cache markers on explicit-caching hosts (like Anthropic) for multi-turn prefixes&mdash;never use non-existent <code>cacheControl</code> response caching.</li>
+        <li><strong><code>safetyIdentifier</code>:</strong> Send an opaque hashed end-user ID (&le;64 chars) so provider abuse filters isolate one user instead of your whole team.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>AI Gateway Observability, Logs &amp; Billing REST Endpoints</h3>
+  <table class="clean-table" style="font-size:7.7pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Observability Surface</th>
+        <th style="width:37%;">What You Inspect &amp; Ingestion Window</th>
+        <th style="width:39%;">Recommended Production Practice</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>AI Gateway Logs</strong></td>
+        <td>Every attempt, status, TTFT, auth method, cost, and provider response. <strong>~90s ingestion window</strong>; routing cards retained 30 days.</td>
+        <td>Filter by <code>status</code>, <code>model</code>, or shareable URL params; export CSV/JSON or tail Live mode during incident triage.</td>
+      </tr>
+      <tr>
+        <td><strong>Custom Reporting</strong></td>
+        <td>Aggregates spend by <code>user</code>, <code>tags</code> (up to 10 per call), <code>model</code>, and <code>zdr</code> status via <code>GET /v1/report</code> or <code>gateway.getSpendReport()</code>.</td>
+        <td>Tag requests with <code>['feature:chat', 'env:prod']</code> (note: <code>user</code> and <code>tags</code> are reporting dimensions, not rate limits).</td>
+      </tr>
+      <tr>
+        <td><strong>Credits &amp; Generation API</strong></td>
+        <td><code>GET /v1/credits</code> returns remaining credit balance; <code>GET /v1/generation?id=...</code> returns exact token cost &amp; latency.</td>
+        <td>Save <code>providerMetadata.gateway.generationId</code> in DB audit logs to reconcile per-tenant usage programmatically.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block" style="padding:5px 9px; font-size:6.85pt; margin:0;"><code># Inspect team budgets, credit balance &amp; usage report directly from terminal
+vercel ai-gateway budgets list &amp;&amp; vercel ai-gateway budgets list --defaults
+curl -fsSL "https://ai-gateway.vercel.sh/v1/credits" -H "Authorization: Bearer $AI_GATEWAY_API_KEY"</code></pre>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Vercel Full-Stack AI Ecosystem</span>
+    <span>AI SDK 7 &rarr; Workflow 5 &rarr; Cache Components &rarr; Chat SDK</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: The Full Vercel AI Stack</h2>
+  <p class="page-lead">
+    AI SDK 7 and AI Gateway form the intelligence core of Vercel&rsquo;s platform. Pair them cleanly with <strong>Workflow 5</strong> for crash-safe multi-minute runs, <strong>Next.js Cache Components</strong> for instant UI shells, and <strong>Vercel Chat SDK</strong> for multi-platform bots.
+  </p>
+
+  <div class="figure-box" style="background:#06101c; padding:10px 12px; border-color:#0369a1; margin-bottom:8px;">
+    <svg viewBox="0 0 700 206" width="100%" height="206" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: AI SDK 7 + AI Gateway -->
+      <rect x="8" y="18" width="154" height="142" rx="9" fill="#0b2038" stroke="#38bdf8" stroke-width="1.8"/>
+      <text x="85" y="37" text-anchor="middle" fill="#7dd3fc" font-size="7.3" font-weight="700">1. INTELLIGENCE CORE</text>
+      <text x="85" y="54" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">AI SDK 7 &amp; Gateway</text>
+      <text x="85" y="68" text-anchor="middle" fill="#bae6fd" font-size="7.1">Node 24 Fluid Compute</text>
+      <line x1="22" y1="77" x2="148" y2="77" stroke="#0369a1" stroke-width="1"/>
+      <text x="20" y="93" fill="#e0f2fe" font-size="7.2">&bull; ToolLoopAgent &amp; tools</text>
+      <text x="20" y="107" fill="#e0f2fe" font-size="7.2">&bull; Output.object() schemas</text>
+      <text x="20" y="121" fill="#e0f2fe" font-size="7.2">&bull; OIDC + vmc/&lt;slug&gt; failover</text>
+      <rect x="20" y="133" width="130" height="20" rx="4" fill="#0c4a6e"/>
+      <text x="85" y="146" text-anchor="middle" fill="#7dd3fc" font-size="7" font-weight="700">Streams &amp; reasons in real time</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M162 89 L184 89" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="182,84 190,89 182,94" fill="#38bdf8"/>
+
+      <!-- Stage 2: Workflow 5 WorkflowAgent -->
+      <rect x="190" y="18" width="154" height="142" rx="9" fill="#091f26" stroke="#2dd4bf" stroke-width="1.8"/>
+      <text x="267" y="37" text-anchor="middle" fill="#5eead4" font-size="7.3" font-weight="700">2. DURABLE EXECUTION</text>
+      <text x="267" y="54" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">Workflow 5</text>
+      <text x="267" y="68" text-anchor="middle" fill="#99f6e4" font-size="7.1">WorkflowAgent (@ai-sdk/workflow)</text>
+      <line x1="204" y1="77" x2="330" y2="77" stroke="#0f766e" stroke-width="1"/>
+      <text x="202" y="93" fill="#ecfdf5" font-size="7.2">&bull; Checkpoints model steps</text>
+      <text x="202" y="107" fill="#ecfdf5" font-size="7.2">&bull; Survives deploys &amp; crashes</text>
+      <text x="202" y="121" fill="#ecfdf5" font-size="7.2">&bull; Human-in-the-loop sleep()</text>
+      <rect x="202" y="133" width="130" height="20" rx="4" fill="#134e4a"/>
+      <text x="267" y="146" text-anchor="middle" fill="#5eead4" font-size="7" font-weight="700">Runs hours/days reliably</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M344 89 L366 89" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="364,84 372,89 364,94" fill="#2dd4bf"/>
+
+      <!-- Stage 3: Next.js Cache Components -->
+      <rect x="372" y="18" width="154" height="142" rx="9" fill="#101833" stroke="#818cf8" stroke-width="1.8"/>
+      <text x="449" y="37" text-anchor="middle" fill="#a5b4fc" font-size="7.3" font-weight="700">3. INSTANT WEB SHELL</text>
+      <text x="449" y="54" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">Next.js Cache</text>
+      <text x="449" y="68" text-anchor="middle" fill="#c7d2fe" font-size="7.1">Cache Components + Suspense</text>
+      <line x1="386" y1="77" x2="512" y2="77" stroke="#4338ca" stroke-width="1"/>
+      <text x="384" y="93" fill="#eef2ff" font-size="7.2">&bull; Instant static chat shell</text>
+      <text x="384" y="107" fill="#eef2ff" font-size="7.2">&bull; Streams message.parts live</text>
+      <text x="384" y="121" fill="#eef2ff" font-size="7.2">&bull; AI Elements UI rendering</text>
+      <rect x="384" y="133" width="130" height="20" rx="4" fill="#312e81"/>
+      <text x="449" y="146" text-anchor="middle" fill="#c7d2fe" font-size="7" font-weight="700">Zero-wait UX on every route</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M526 89 L548 89" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="546,84 554,89 546,94" fill="#a78bfa"/>
+
+      <!-- Stage 4: Vercel Chat SDK -->
+      <rect x="554" y="18" width="138" height="142" rx="9" fill="#18122b" stroke="#c084fc" stroke-width="1.7"/>
+      <text x="623" y="37" text-anchor="middle" fill="#e9d5ff" font-size="7.3" font-weight="700">4. EVERY CHANNEL</text>
+      <text x="623" y="54" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">Vercel Chat SDK</text>
+      <text x="623" y="68" text-anchor="middle" fill="#d8b4fe" font-size="7.1">Slack, Teams, Discord, TG</text>
+      <line x1="566" y1="77" x2="680" y2="77" stroke="#6b21a8" stroke-width="1"/>
+      <text x="565" y="93" fill="#f3e8ff" font-size="7.2">&bull; Single thread &amp; bot API</text>
+      <text x="565" y="107" fill="#f3e8ff" font-size="7.2">&bull; Native cards &amp; modals</text>
+      <text x="565" y="121" fill="#f3e8ff" font-size="7.2">&bull; Streams AI SDK output</text>
+      <rect x="565" y="133" width="116" height="20" rx="4" fill="#4c1d95"/>
+      <text x="623" y="146" text-anchor="middle" fill="#e9d5ff" font-size="7" font-weight="700">Meets users in chat apps</text>
+
+      <!-- Bottom Loop Banner -->
+      <rect x="8" y="173" width="684" height="24" rx="6" fill="#040b14" stroke="#0369a1" stroke-width="1"/>
+      <text x="350" y="189" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="600">Unified Pipeline: AI SDK 7 &amp; Gateway power inference &rarr; WorkflowAgent checkpoints long loops &rarr; Next.js &amp; Chat SDK deliver everywhere</text>
+    </svg>
+  </div>
+
+  <h3>When to Reach for Each Adjacent Vercel Building Block</h3>
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">1</span> Upgrading <code>ToolLoopAgent</code> to <code>WorkflowAgent</code></div>
+      <p style="font-size:7.9pt; margin:0;">When an agent job exceeds a single HTTP request (waiting on external webhooks, human approvals, or multi-minute scraping), swap to <code>WorkflowAgent</code> from <code>@ai-sdk/workflow</code> on Workflow 5 (replacing legacy <code>DurableAgent</code>). Plain <code>provider/model</code> Gateway strings and <code>isStepCount</code> keep working identically.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge indigo">2</span> Delivering Across Web &amp; Messaging Channels</div>
+      <p style="font-size:7.9pt; margin:0;">Pair <strong>Next.js Cache Components</strong> with <code>useChat</code> so static layouts paint instantly while AI streams hydrate inside Suspense boundaries, then reuse the exact same agent backend inside <strong>Vercel Chat SDK</strong> adapters for Slack, Teams, Discord, and Telegram.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0;">
+    <div class="callout-title">One Agent Definition, Four Delivery Surfaces</div>
+    By encapsulating instructions, Zod tool schemas, and <code>vmc/&lt;slug&gt;</code> routing inside a shared TypeScript module, the exact same intelligence serves interactive web chats, durable Workflow 5 pipelines, and Slack bots simultaneously.
+  </div>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Production Readiness</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:5px;">
+    Almost every AI SDK 7 or AI Gateway snag stems from a handful of outdated v4&ndash;v6 habits or environment mismatches. Match your symptom below for a ten-second fix, then clear the pre-flight checklist before deploying.
+  </p>
+
+  <table class="clean-table" style="font-size:7.45pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Error</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. <code>export const runtime = 'edge'</code> breaks Node deps</strong></td>
+        <td>Outdated habit added Edge runtime to a route using Node crypto, FS, or Next.js 16.3+ APIs.</td>
+        <td>Delete <code>export const runtime = 'edge'</code> entirely. Node.js 24 LTS on Fluid Compute streams SSE and AI tokens natively.</td>
+      </tr>
+      <tr>
+        <td><strong>2. <code>useChat({ api })</code>, <code>handleSubmit</code>, or <code>isLoading</code> Type Error</strong></td>
+        <td>Client code uses removed AI SDK v4 hook signatures instead of v5&ndash;v7 transport APIs.</td>
+        <td>Use <code>useChat({ transport: new DefaultChatTransport({ api }) })</code>, <code>sendMessage({ text })</code>, <code>status</code>, and <code>message.parts</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>generateObject</code>, <code>CoreMessage</code>, or <code>maxSteps</code> Fails</strong></td>
+        <td>Deprecated or removed v4&ndash;v6 symbols copied from stale snippets.</td>
+        <td>Switch to <code>generateText</code> + <code>Output.object({ schema })</code>, <code>ModelMessage</code> + <code>convertToModelMessages()</code>, and <code>stopWhen: isStepCount(N)</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>gateway('gpt-5.4')</code> Missing Provider Error</strong></td>
+        <td>Model ID omitted its required vendor prefix (or used hyphenated Claude slugs).</td>
+        <td>Always pass <code>provider/model</code> IDs from <code>/v1/models</code> (e.g., <code>'openai/gpt-5.4'</code> or <code>'anthropic/claude-sonnet-4.6'</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>5. Claude Code Ignores Gateway Key (<code>401</code>)</strong></td>
+        <td>A non-empty <code>ANTHROPIC_API_KEY</code> in your shell overrides <code>ANTHROPIC_AUTH_TOKEN</code>.</td>
+        <td>Explicitly export <code>ANTHROPIC_API_KEY=""</code> alongside <code>ANTHROPIC_BASE_URL="https://ai-gateway.vercel.sh/claude-code"</code> and <code>ANTHROPIC_AUTH_TOKEN</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Missing or Expired Local <code>VERCEL_OIDC_TOKEN</code></strong></td>
+        <td>App runs locally without linking the project or the 12-hour OIDC token expired.</td>
+        <td>Run <code>vercel link &amp;&amp; vercel env pull</code> to refresh <code>.env.local</code>, or use <code>AI_GATEWAY_API_KEY</code> for standalone scripts.</td>
+      </tr>
+      <tr>
+        <td><strong>7. <code>stream.write is not a function</code> in <code>createUIMessageStream</code></strong></td>
+        <td>Code calls <code>stream.write()</code> on the returned <code>ReadableStream</code> instead of the writer.</td>
+        <td>Destructure <code>{ writer }</code> inside <code>execute: async ({ writer }) =&gt;</code> and call <code>writer.write(...)</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Shipping to Production</h3>
+  <div class="checklist-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Node 24 Fluid Compute:</strong> Confirmed zero <code>runtime = 'edge'</code> exports and verified Node 22+ ESM compatibility.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Live Catalog Verified:</strong> Checked <code>provider/model</code> IDs (or <code>vmc/&lt;slug&gt;</code>) against <code>https://ai-gateway.vercel.sh/v1/models</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Version-Matched APIs:</strong> Verified <code>ToolLoopAgent</code>, <code>Output.object()</code>, <code>isStepCount()</code>, and <code>message.parts</code> against <code>node_modules/ai/docs/</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>OIDC &amp; Budget Guardrails:</strong> Confirmed <code>VERCEL_OIDC_TOKEN</code> or scoped <code>AI_GATEWAY_API_KEY</code> plus team/project spend caps via <code>budgets set</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Safe UI &amp; ZDR Hygiene:</strong> Rendered prose via AI Elements (<code>MessageResponse</code>) and applied <code>zeroDataRetention</code> where policy requires.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Trace Verified in Logs:</strong> Ran a live check via <code>npx @ai-sdk/devtools</code> and confirmed routing, usage, and cost in AI Gateway Logs (~90s).</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Vercel AI SDK 7 &amp; AI Gateway &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>
