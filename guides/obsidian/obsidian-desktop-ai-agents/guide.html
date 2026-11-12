@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Obsidian + Desktop AI Agents: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">OBSIDIAN &amp; AI KNOWLEDGE SYSTEMS • FIELD GUIDE</div>
+    <h1>Obsidian + <span>Desktop AI Agents</span></h1>
+    <p class="cover-sub">
+      Operating your local Markdown vault side-by-side with Claude Desktop and Google Antigravity Desktop&mdash;mastering Cowork folders, Local REST API MCP, the native Obsidian CLI, vault <code>AGENTS.md</code> rules, and scheduled briefings.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Claude Desktop &amp; Cowork</span>
+      <span class="cover-badge">Antigravity Vault Projects</span>
+      <span class="cover-badge">Local REST API MCP</span>
+      <span class="cover-badge">Native Obsidian CLI</span>
+      <span class="cover-badge"><code>AGENTS.md</code> &amp; <code>GEMINI.md</code></span>
+      <span class="cover-badge">Scheduled Briefings</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Faceted Obsidian Crystal Vault Connected by Warm Amber and Royal Indigo Light Bridges to Dual Desktop AI Agent Cores" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">One Local Markdown Vault</div>
+      <div class="cover-stat-desc">Plain UTF-8 <code>.md</code> files on disk let Obsidian, Claude Desktop, and Antigravity Desktop collaborate live with zero cloud lock-in.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Surgical Live Patching</div>
+      <div class="cover-stat-desc">Append action items under target headings or update YAML frontmatter via MCP and the official CLI without rewriting long notes.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Automated Daily Rituals</div>
+      <div class="cover-stat-desc">Wake up to ready-made daily briefings combining Google Calendar agendas, Drive docs, and unfinished tasks on a weekday schedule.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 • Foundations &amp; Shared Vault Architecture</span>
+    <span>Obsidian + Desktop AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Why Plain-Text Markdown Is the Ultimate Agent Workspace</h2>
+  <p class="page-lead">
+    Proprietary cloud note apps lock your thinking inside opaque database blocks and rate-limited APIs. An Obsidian vault is simply a local folder of plain <code>.md</code> files, YAML properties, and <code>[[Wikilinks]]</code>&mdash;giving desktop AI agents instant, native read/write fluency right beside you.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Shared Vault Mental Model &amp; Architecture</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Native Obsidian CLI &amp; Scheduled Rituals</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Setup, 4 Connection Bridges &amp; Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Vault Prompts &amp; Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Dual-Agent + Obsidian UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Protecting <code>.obsidian/</code> &amp; Instant Rollback</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Claude Desktop: Cowork &amp; Surgical MCP</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Closed-Loop Second Brain Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Antigravity Desktop: Projects &amp; Skills</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Vault Taxonomy, <code>AGENTS.md</code> &amp; Prompts</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Plain Files, Scoped Writes</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>One Vault, Two Specialized Desktop Agents</h3>
+  <p style="font-size:8.85pt;">
+    Instead of forcing one assistant to do everything awkwardly, pair two complementary desktop apps over the exact same folder (<code>~/Vault/</code>). <strong>Claude Desktop</strong> acts as your deep editorial and research partner&mdash;synthesizing transcripts in Cowork folders and making surgical heading or YAML edits via <code>mcp-obsidian</code>. <strong>Google Antigravity Desktop</strong> acts as your persistent workspace orchestrator&mdash;auto-loading <code>AGENTS.md</code> and <code>GEMINI.md</code> rules, running reusable vault skills, pulling live Google Calendar and Drive context, invoking the official <code>obsidian</code> CLI, and running unattended scheduled briefings.
+  </p>
+
+  <h3>Architecture: Simultaneous Dual-Agent Bridge Over <code>~/Vault/</code></h3>
+  <div class="figure-box" style="background:#08071a; padding:10px 12px; border-color:#312e81;">
+    <svg viewBox="0 0 700 188" width="100%" height="188" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: Claude Desktop -->
+      <rect x="8" y="16" width="204" height="156" rx="9" fill="#1b1429" stroke="#f59e0b" stroke-width="1.6"/>
+      <text x="20" y="35" fill="#fcd34d" font-size="8.2" font-weight="700">CLAUDE DESKTOP (SYNTHESIS)</text>
+      <text x="20" y="52" fill="#ffffff" font-size="10.4" font-weight="800">Cowork + Surgical REST MCP</text>
+      <rect x="20" y="62" width="180" height="42" rx="6" fill="#291d36" stroke="#d97706" stroke-width="1"/>
+      <text x="28" y="77" fill="#fde68a" font-size="8" font-weight="700">1. Cowork Folder &amp; Filesystem MCP</text>
+      <text x="28" y="90" fill="#cbd5e1" font-size="7.6">Batch inbox triage, PDF reading &amp;</text>
+      <text x="28" y="100" fill="#cbd5e1" font-size="7.6">multi-note literature synthesis</text>
+      <rect x="20" y="112" width="180" height="48" rx="6" fill="#291d36" stroke="#f59e0b" stroke-width="1"/>
+      <text x="28" y="127" fill="#fde68a" font-size="8" font-weight="700">2. mcp-obsidian (Port 27124)</text>
+      <text x="28" y="140" fill="#cbd5e1" font-size="7.6">Local REST API • patch_content /</text>
+      <text x="28" y="151" fill="#cbd5e1" font-size="7.6">vault_patch under headings &amp; YAML</text>
+
+      <!-- Bridges to Center Vault -->
+      <path d="M212 82 L246 82" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="244,77 252,82 244,87" fill="#f59e0b"/>
+      <path d="M212 134 L246 134" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4 2"/>
+      <polygon points="244,129 252,134 244,139" fill="#fbbf24"/>
+
+      <!-- Center: Shared Obsidian Vault -->
+      <rect x="252" y="10" width="196" height="168" rx="10" fill="#131136" stroke="#818cf8" stroke-width="2"/>
+      <text x="350" y="29" text-anchor="middle" fill="#a5b4fc" font-size="8.2" font-weight="700">SHARED LOCAL SOURCE OF TRUTH</text>
+      <text x="350" y="46" text-anchor="middle" fill="#ffffff" font-size="11.2" font-weight="800">Obsidian Vault (~/Vault/)</text>
+      <rect x="266" y="55" width="168" height="22" rx="4" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="350" y="69" text-anchor="middle" fill="#e0e7ff" font-size="7.8" font-weight="700">AGENTS.md • GEMINI.md • CLAUDE.md</text>
+      <text x="268" y="93" fill="#cbd5e1" font-size="8">• 00-Inbox/ (agent staging &amp; drops)</text>
+      <text x="268" y="107" fill="#cbd5e1" font-size="8">• 01-Daily/ (YYYY-MM-DD briefings)</text>
+      <text x="268" y="121" fill="#cbd5e1" font-size="8">• 02-Projects/ &amp; 04-Resources/</text>
+      <text x="268" y="135" fill="#cbd5e1" font-size="8">• [[Wikilinks]] + YAML Properties</text>
+      <rect x="266" y="145" width="168" height="22" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="0.9"/>
+      <text x="350" y="159" text-anchor="middle" fill="#a7f3d0" font-size="7.6" font-weight="700">Live File Watcher + Graph + Snapshots</text>
+
+      <!-- Bridges to Right Antigravity -->
+      <path d="M488 74 L454 74" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="456,69 448,74 456,79" fill="#818cf8"/>
+      <path d="M488 132 L454 132" stroke="#34d399" stroke-width="2"/>
+      <polygon points="456,127 448,132 456,137" fill="#34d399"/>
+
+      <!-- Right: Google Antigravity Desktop -->
+      <rect x="488" y="16" width="204" height="156" rx="9" fill="#0f172a" stroke="#6366f1" stroke-width="1.6"/>
+      <text x="500" y="35" fill="#a5b4fc" font-size="8.1" font-weight="700">GOOGLE ANTIGRAVITY DESKTOP</text>
+      <text x="500" y="52" fill="#ffffff" font-size="10.2" font-weight="800">Vault Project + Automation</text>
+      <rect x="500" y="62" width="180" height="44" rx="6" fill="#172038" stroke="#6366f1" stroke-width="1"/>
+      <text x="508" y="76" fill="#c7d2fe" font-size="7.9" font-weight="700">3. Rules, @Mentions &amp; Vault Skills</text>
+      <text x="508" y="89" fill="#cbd5e1" font-size="7.5">Auto-loads AGENTS.md/GEMINI.md,</text>
+      <text x="508" y="99" fill="#cbd5e1" font-size="7.5">.agents/skills/ &amp; @note.md context</text>
+      <rect x="500" y="112" width="180" height="48" rx="6" fill="#0d2926" stroke="#34d399" stroke-width="1"/>
+      <text x="508" y="126" fill="#6ee7b7" font-size="7.9" font-weight="700">4. Cron + Workspace + Obsidian CLI</text>
+      <text x="508" y="139" fill="#cbd5e1" font-size="7.5">gcalendar / gdrive plugins + scheduled</text>
+      <text x="508" y="150" fill="#cbd5e1" font-size="7.5">tasks + native /usr/local/bin/obsidian</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:5px 0 0 0;">
+    <div class="callout-title">Instant Live Reload Without Import/Export Friction</div>
+    Obsidian watches your vault filesystem in real time. The millisecond Claude Desktop patches a heading over port <code>27124</code> or an Antigravity Scheduled Task writes <code>01-Daily/2026-11-12.md</code>, Obsidian updates open tabs, recalculates Backlinks, and refreshes Graph View automatically.
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, 4 CONNECTION BRIDGES & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 • Setup &amp; Connection Bridges</span>
+    <span>Prerequisites, 3-Minute Bootstrap &amp; 4-Mode Matrix</span>
+  </div>
+
+  <h2 class="page-title">Setup, 4 Vault Connection Modes &amp; Decision Matrix</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    There are four distinct bridges between desktop AI agents and an Obsidian vault. Setting up all four takes under five minutes and lets you match every task to the fastest, safest transport.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px; gap:10px;">
+    <div class="card" style="padding:8px 11px; border-top:3px solid #4f46e5;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Prerequisites &amp; Account Tiers</div>
+      <ul style="font-size:8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Obsidian Desktop <code>1.12.4+</code>:</strong> Free for personal &amp; commercial vaults; includes native Properties, Bases, and official CLI.</li>
+        <li><strong>Claude Desktop:</strong> Free/Pro supports local MCP servers; <strong>Pro, Max, or Team</strong> unlocks Cowork folder sessions.</li>
+        <li><strong>Google Antigravity Desktop:</strong> Supports local Vault Projects, <code>AGENTS.md</code>/<code>GEMINI.md</code>, Scheduled Tasks, and Google Workspace plugins.</li>
+        <li><strong>Local Runtimes:</strong> Node.js <code>20+</code> (<code>npx</code>) and Astral <code>uv</code> (<code>uvx</code>) for zero-install MCP execution.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 11px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge amber">2</span> 3-Minute Obsidian Bridge Activation</div>
+      <ol style="font-size:8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Enable Local REST API:</strong> In Obsidian open <code>Settings &rarr; Community plugins &rarr; Browse</code>, install <strong>Local REST API</strong> (by Adam Coddington), enable it, and copy the API key (default HTTPS port <code>27124</code> on <code>127.0.0.1</code>).</li>
+        <li><strong>Register Official CLI:</strong> Go to <code>Settings &rarr; General &rarr; Command line interface</code>, toggle it <strong>On</strong>, and click <strong>Register CLI</strong> to link <code>/usr/local/bin/obsidian</code>.</li>
+        <li><strong>Mount Workspace:</strong> Open <code>~/Vault</code> as a Project in Antigravity Desktop and grant folder access in Claude Cowork.</li>
+      </ol>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.2pt; line-height:1.36; margin:2px 0 7px 0;"><code># Verify local runtimes, official Obsidian CLI registration, and Local REST API listener:
+obsidian version                                   # Confirms /usr/local/bin/obsidian talks to running app
+curl -k -s -H "Authorization: Bearer $OBSIDIAN_API_KEY" https://127.0.0.1:27124/ | head -c 120
+which npx uvx                                      # Required by Claude Desktop &amp; Antigravity MCP servers</code></pre>
+
+  <h3 style="margin:4px 0 4px 0; font-size:10.6pt;">Vault Connection Decision Matrix: Comparing All 4 Bridges</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:3px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Connection Bridge</th>
+        <th style="width:20%;">Requires Obsidian Open?</th>
+        <th style="width:32%;">Superpower &amp; Best Daily Use Case</th>
+        <th style="width:26%;">Trade-Off / Watchout</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Claude Cowork Direct Folder</strong><br/>( + Antigravity Vault Project )</td>
+        <td><strong>No</strong> &mdash; reads/writes disk directly</td>
+        <td>Zero config; sweeping <code>00-Inbox/</code> triage, multi-file synthesis, PDF/image ingestion, and full-note creation.</td>
+        <td>Rewriting huge notes uses output tokens; enforce <code>AGENTS.md</code> to protect <code>.obsidian/</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Filesystem MCP</strong><br/><code>@modelcontextprotocol/server-filesystem</code></td>
+        <td><strong>No</strong> &mdash; scoped OS path sandbox</td>
+        <td>Gives standard Claude Desktop chats fast directory trees, regex searches, and multi-file edits inside allowed roots.</td>
+        <td>Knows plain text, not Obsidian link indices or heading-level AST patches.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Local REST API + <code>mcp-obsidian</code></strong><br/><code>127.0.0.1:27124</code></td>
+        <td><strong>Yes</strong> &mdash; talks to live plugin</td>
+        <td><strong>Surgical <code>patch_content</code> / <code>vault_patch</code>:</strong> inserts bullets under <code>## Action Items</code> or updates YAML keys with minimal tokens.</td>
+        <td>Self-signed localhost TLS cert; fails if Obsidian is quit in background.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Native Obsidian CLI</strong><br/><code>/usr/local/bin/obsidian</code></td>
+        <td><strong>Yes</strong> &mdash; remote-controls GUI</td>
+        <td>Triggers real Obsidian actions: <code>obsidian daily:append</code>, <code>property:set</code>, <code>search</code>, and opening notes on screen.</td>
+        <td>Requires shell command grant; designed for live desktop/scheduled scripts.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.35pt;">
+    <div class="callout-title">Pro Pairing Rule: Combine Disk Speed for Creation with REST/CLI for Mutation</div>
+    Let agents create <em>brand-new</em> notes directly on disk inside <code>00-Inbox/</code> (Modes 1 &amp; 2), where nothing existing can break. Whenever an agent updates a <em>long, living note</em> like a 2,500-word project hub or today&rsquo;s daily log, prefer <code>mcp-obsidian</code> surgical patching or <code>obsidian daily:append</code> (Modes 3 &amp; 4) so existing prose stays untouched.
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 • Annotated Workspace Interface Tour</span>
+    <span>Side-by-Side Desktop Agent + Obsidian Studio Layout</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Dual-Desktop Agent + Obsidian Studio</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Arranging Obsidian alongside Antigravity Desktop or Claude Desktop turns your screen into a live cockpit: you steer context on the left while watching structured notes, properties, and backlinks materialize on the right.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:9px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#e0e7ff;">Split Studio — Antigravity / Claude Desktop &bull; Obsidian 1.12 (~/Vault)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; font-size:7.3pt; color:#a5b4fc;">
+        <span>REST API: <code>127.0.0.1:27124</code> <span class="callout-pin">5</span></span>
+        <span style="color:#34d399;">&bull; CLI Registered</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.08fr 1fr; min-height:262px;">
+      <!-- Left Half: Desktop Agent Pane -->
+      <div style="border-right:1px solid #2e2a6e; display:flex; flex-direction:column; background:#0d0c22;">
+        <div style="display:grid; grid-template-columns: 126px 1fr; flex:1;">
+          <!-- Agent Sidebar -->
+          <div style="background:#12102e; border-right:1px solid #26235c; padding:8px; font-size:7.2pt;">
+            <div style="color:#818cf8; font-weight:700; margin-bottom:4px;">PROJECTS <span class="callout-pin">1</span></div>
+            <div style="background:#1e1b4b; color:#ffffff; padding:4px 6px; border-radius:4px; margin-bottom:7px; border:1px solid #4f46e5;">&#128193; ~/Vault (Active)</div>
+            <div style="color:#94a3b8; font-weight:700; margin-bottom:3px;">RULES LOADED <span class="callout-pin">3</span></div>
+            <div style="color:#cbd5e1; margin-bottom:2px;">&bull; <code>AGENTS.md</code></div>
+            <div style="color:#cbd5e1; margin-bottom:7px;">&bull; <code>GEMINI.md</code></div>
+            <div style="color:#34d399; font-weight:700; margin-bottom:3px;">SCHEDULED <span class="callout-pin">6</span></div>
+            <div style="background:#0d2926; border:1px solid #10b981; border-radius:4px; padding:3.5px 5px; color:#a7f3d0;">
+              <code>0 7 * * 1-5</code><br/>Morning Brief
+            </div>
+          </div>
+          <!-- Chat Canvas -->
+          <div style="padding:8px 10px; display:flex; flex-direction:column; justify-content:space-between; font-size:7.4pt;">
+            <div>
+              <div style="font-weight:700; color:#c7d2fe; margin-bottom:5px;">CHAT CANVAS / CLAUDE MCP SESSION</div>
+              <div style="background:#17153b; border:1px solid #3730a3; border-radius:6px; padding:6px 8px; margin-bottom:6px; color:#e2e8f0;">
+                <span class="callout-pin">2</span> Summarize attached Q4 spec PDF into <code>00-Inbox/</code>, link <code>@02-Projects/Atlas-Launch.md</code>, and patch 2 action items via <code>mcp-obsidian</code>.
+              </div>
+              <div style="background:#111827; border-left:2.5px solid #f59e0b; padding:5px 7px; border-radius:4px; color:#fde68a; font-size:7.1pt;">
+                &#9889; <strong>Tool Call:</strong> <code>mcp-obsidian / patch_content</code><br/>
+                <span style="color:#cbd5e1;">Target: <code>02-Projects/Atlas-Launch.md</code> &rarr; <code>## Action Items</code> (append, 68 tokens)</span>
+              </div>
+            </div>
+            <div style="background:#161433; border:1px dashed #6366f1; border-radius:5px; padding:4px 7px; color:#a5b4fc; font-size:7pt;">
+              + Type <code>@</code> to attach vault notes/folders, <code>/</code> for skills, or drop PDFs
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Half: Obsidian Window -->
+      <div style="display:grid; grid-template-columns: 112px 1fr 118px; background:#090817; font-size:7.2pt;">
+        <!-- Vault File Tree -->
+        <div style="background:#100e26; border-right:1px solid #26235c; padding:8px 7px;">
+          <div style="font-weight:700; color:#a5b4fc; margin-bottom:4px;">VAULT EXPLORER</div>
+          <div style="background:#2e1065; border:1px solid #a855f7; border-radius:4px; padding:3px 5px; color:#f3e8ff; margin-bottom:4px;">
+            00-Inbox/ <span class="callout-pin">4</span>
+          </div>
+          <div style="color:#cbd5e1; padding-left:4px; margin-bottom:2px;">01-Daily/</div>
+          <div style="color:#ffffff; font-weight:700; padding-left:4px; margin-bottom:2px;">&#9662; 02-Projects/</div>
+          <div style="color:#818cf8; padding-left:10px; margin-bottom:2px;">Atlas-Launch.md</div>
+          <div style="color:#cbd5e1; padding-left:4px; margin-bottom:2px;">03-Areas/</div>
+          <div style="color:#cbd5e1; padding-left:4px; margin-bottom:2px;">04-Resources/</div>
+          <div style="color:#64748b; padding-left:4px;">.obsidian/ &#128274;</div>
+        </div>
+        <!-- Active Markdown Note -->
+        <div style="padding:8px 9px; color:#e2e8f0;">
+          <div style="font-size:6.9pt; color:#94a3b8; margin-bottom:2px;">02-Projects / Atlas-Launch.md</div>
+          <div style="font-weight:800; font-size:8.6pt; color:#ffffff; margin-bottom:5px;">Atlas Launch Hub</div>
+          <div style="font-size:7pt; color:#cbd5e1; margin-bottom:6px;">
+            Core rollout spec linked to <span style="color:#818cf8;">[[2026-11-12]]</span> and <span style="color:#818cf8;">[[Q4-Spec-Summary]]</span>.
+          </div>
+          <div style="font-weight:700; color:#fcd34d; font-size:7.4pt; margin-bottom:3px;">## Action Items</div>
+          <div style="background:#172554; border:1px solid #3b82f6; border-radius:4px; padding:4px 6px; font-size:6.95pt; color:#dbeafe;">
+            - [ ] Finalize API quota table ([[Q4-Spec-Summary]])<br/>
+            - [ ] Confirm security sign-off by Friday
+          </div>
+        </div>
+        <!-- Right Properties & Backlinks -->
+        <div style="background:#100e26; border-left:1px solid #26235c; padding:8px 7px;">
+          <div style="font-weight:700; color:#a5b4fc; margin-bottom:4px;">PROPERTIES <span class="callout-pin">7</span></div>
+          <div style="background:#17153b; border-radius:4px; padding:4px 5px; margin-bottom:7px; font-size:6.8pt; color:#c7d2fe;">
+            type: project<br/>
+            status: active<br/>
+            owner: product
+          </div>
+          <div style="font-weight:700; color:#34d399; margin-bottom:3px;">BACKLINKS (2)</div>
+          <div style="font-size:6.8pt; color:#cbd5e1;">
+            &bull; [[2026-11-12]]<br/>
+            &bull; [[Q4-Spec-Summary]]
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 5px 0; font-size:10.6pt;">Numbered Interface Legend (Controls 1&ndash;7)</h3>
+  <div class="grid-2" style="gap:8px 12px; font-size:8.1pt;">
+    <div class="card" style="padding:7px 10px;">
+      <strong><span class="callout-pin">1</span> Vault Project Workspace:</strong> Opening <code>~/Vault</code> in Antigravity Desktop&rsquo;s <em>Projects</em> sidebar scopes file tools, terminal working directories, and permission rules to your vault root.
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <strong><span class="callout-pin">2</span> <code>@note.md</code> Mentions &amp; Media Drops:</strong> Attaching specific notes or dragging PDFs into Chat Canvas injects exact context without burning tokens scanning unrelated folders.
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <strong><span class="callout-pin">3</span> Auto-Loaded <code>AGENTS.md</code> &amp; <code>GEMINI.md</code>:</strong> Root instruction files enforce YAML property keys, <code>[[Wikilink]]</code> formatting, and folder rules in every session automatically.
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <strong><span class="callout-pin">4</span> <code>00-Inbox/</code> Quarantine Staging:</strong> New agent-authored notes land here first so you can review links and frontmatter before promoting them into permanent folders.
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <strong><span class="callout-pin">5</span> Local REST API Status (<code>27124</code>):</strong> Confirms Obsidian&rsquo;s local HTTPS endpoint is listening on loopback <code>127.0.0.1</code> so Claude&rsquo;s <code>mcp-obsidian</code> tools can patch headings live.
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <strong><span class="callout-pin">6</span> Scheduled Tasks Panel:</strong> Runs weekday cron automations (such as 7:00 AM daily briefings) in fresh background sessions without manual prompting.
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px; padding:7px 10px; font-size:8.1pt; border-left:3.5px solid #4f46e5;">
+    <strong><span class="callout-pin">7</span> Live Obsidian Properties &amp; Backlinks Inspector:</strong> Displays typed YAML frontmatter fields and incoming <code>[[Wikilinks]]</code> in real time&mdash;serving as your instant visual audit whenever an agent patches metadata or weaves new cross-references.
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: CLAUDE DESKTOP MASTERY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 • Claude Desktop Mastery</span>
+    <span>Cowork Folders, Filesystem MCP &amp; Surgical REST Patching</span>
+  </div>
+
+  <h2 class="page-title">Claude Desktop: Cowork Folders &amp; Surgical MCP Patching</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Claude Desktop shines when wired with two complementary vault tools: direct folder access for sweeping research synthesis, and <code>mcp-obsidian</code> over port <code>27124</code> for surgical single-heading and frontmatter edits.
+  </p>
+
+  <h3 style="margin:2px 0 3px 0; font-size:10.5pt;">Production <code>claude_desktop_config.json</code> (Filesystem + Local REST API MCP)</h3>
+  <p style="font-size:8.2pt; margin-bottom:4px;">
+    Edit <code>~/Library/Application Support/Claude/claude_desktop_config.json</code> (macOS) or <code>%APPDATA%\Claude\claude_desktop_config.json</code> (Windows), then fully quit and relaunch Claude Desktop:
+  </p>
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.05pt; line-height:1.34; margin:2px 0 7px 0;"><code>{
+  "mcpServers": {
+    "vault-files": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/alex/Vault"]
+    },
+    "mcp-obsidian": {
+      "command": "uvx",
+      "args": ["mcp-obsidian"],
+      "env": {
+        "OBSIDIAN_API_KEY": "paste-your-local-rest-api-plugin-key",
+        "OBSIDIAN_HOST": "127.0.0.1",
+        "OBSIDIAN_PORT": "27124"
+      }
+    }
+  }
+}</code></pre>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge amber">A</span> When to Use Cowork / <code>vault-files</code></div>
+      <p style="font-size:7.95pt; margin:0;">
+        Choose Cowork folder sessions when creating brand-new notes, sorting 25 raw captures in <code>00-Inbox/</code>, or distilling long PDFs into atomic resource notes. Because Cowork operates directly on disk alongside <code>CLAUDE.md</code>, it works even when Obsidian is closed and handles multi-file moves effortlessly.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #4f46e5;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">B</span> When to Use Surgical Patching</div>
+      <p style="font-size:7.95pt; margin:0;">
+        Never ask an LLM to rewrite a 2,000-word project hub just to add two action items. With <code>mcp-obsidian</code> (<code>patch_content</code> / <code>vault_patch</code>), Claude sets <code>targetType: "heading"</code>, <code>target: "Action Items"</code>, and <code>operation: "append"</code>&mdash;cutting token output by 90% and eliminating accidental prose deletions.
+      </p>
+    </div>
+  </div>
+
+  <div class="figure-box" style="margin:4px 0 6px 0;">
+    <img src="assets/dual_agent_bridge.jpg" alt="Isometric Cutaway Showing Warm-Amber Surgical Single-Card Optical Beam Edit Beside Royal-Indigo Multi-Folder Orchestration Conduits" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Two Precision Modes Over One Library:</strong> Surgical Local REST API conduits (left, amber beam) target a single heading or YAML key inside living notes, while workspace orchestration conduits (right, royal indigo) batch-route folders and scheduled rituals.
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.2pt;">
+    <div class="callout-title">Tip: Use Absolute Executable Paths If Claude Cannot Find <code>uvx</code> or <code>npx</code></div>
+    GUI apps on macOS do not always inherit your shell&rsquo;s Homebrew or Cargo <code>PATH</code>. If Claude Desktop shows a server startup warning, run <code>which uvx</code> and <code>which npx</code> in Terminal and paste full paths such as <code>/opt/homebrew/bin/uvx</code> into <code>command</code>.
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: GOOGLE ANTIGRAVITY DESKTOP MASTERY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 • Antigravity Desktop Mastery</span>
+    <span>Vault Projects, Auto-Loaded Rules &amp; Skills</span>
+  </div>
+
+  <h2 class="page-title">Antigravity Desktop: Vault Projects, <code>@</code> Mentions &amp; Skills</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Opening your vault as a first-class <strong>Project</strong> in Google Antigravity Desktop turns a folder of notes into a programmable knowledge workspace with persistent rules, progressive-disclosure skills, and multimodal Chat Canvas drops.
+  </p>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.5pt;">1. Automatic Rule Hierarchy: <code>GEMINI.md</code>, <code>AGENTS.md</code> &amp; <code>.agents/rules/</code></h3>
+  <p style="font-size:8.3pt; margin-bottom:6px;">
+    When you select <code>~/Vault</code> under <strong>Projects</strong> in the left-hand sidebar, Antigravity walks your vault directory and automatically loads <code>GEMINI.md</code>, <code>AGENTS.md</code>, and any modular rule files inside <code>.agents/rules/*.md</code> at the start of every turn. Subfolder rules (for example <code>02-Projects/AGENTS.md</code>) layer hierarchically when editing notes inside that folder, while deduplication prevents double-loading.
+  </p>
+
+  <h3 style="margin:4px 0 4px 0; font-size:10.5pt;">2. Authoring Reusable Vault Skills (<code>.agents/skills/</code>)</h3>
+  <p style="font-size:8.25pt; margin-bottom:4px;">
+    Unlike rules that load every turn, <strong>Skills</strong> use progressive disclosure: Antigravity reads only the YAML name and description until you (or the task) invoke the workflow. Store repeatable vault runbooks in <code>.agents/skills/daily-brief/SKILL.md</code> and <code>.agents/skills/link-orphans/SKILL.md</code>:
+  </p>
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.1pt; line-height:1.35; margin:2px 0 8px 0;"><code>---
+name: link-orphans
+description: Find unlinked notes in 00-Inbox/ or 04-Resources/ and propose contextual [[Wikilinks]] to existing hubs.
+---
+# Orphan Linker Runbook
+1. Scan target folder for .md files with zero outgoing [[Wikilinks]] (ignore .obsidian/ and 99-Archive/).
+2. Match key entities against titles and aliases in 02-Projects/ and 03-Areas/.
+3. Present a compact link table for approval before inserting 2-4 natural inline [[Target|Alias]] links.</code></pre>
+
+  <h3 style="margin:4px 0 5px 0; font-size:10.5pt;">3. High-Signal Context Steering Inside Chat Canvas</h3>
+  <div class="grid-3" style="margin-bottom:8px; gap:9px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #4f46e5;">
+      <div class="card-title" style="font-size:8.9pt;"><code>@note.md</code> &amp; <code>@folder</code></div>
+      <p style="font-size:7.85pt; margin:0;">
+        Type <code>@</code> in Chat Canvas to attach exact files (<code>@02-Projects/Roadmap.md</code>), whole folders (<code>@00-Inbox/</code>), active rules, or prior conversations&mdash;giving pinpoint context with zero wasted grep steps.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #7c3aed;">
+      <div class="card-title" style="font-size:8.9pt;">PDF &amp; Image Drops</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Drag research PDFs, slide screenshots, or whiteboard photos directly onto Chat Canvas. Ask Antigravity to extract structured Markdown notes with YAML tags and <code>[[Wikilinks]]</code> into <code>00-Inbox/</code>.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0d9488;">
+      <div class="card-title" style="font-size:8.9pt;">Workspace Plugins</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Enable the built-in <code>gcalendar</code>, <code>gdrive</code>, and <code>gdocs</code> skills from the Marketplace so vault sessions can pull live meeting agendas and shared specs directly into your local notes.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 4px 0; font-size:10.5pt;">4. Recommended Vault Customization Layout</h3>
+  <table class="clean-table" style="font-size:7.9pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:32%;">Vault Path</th>
+        <th style="width:22%;">Loaded By</th>
+        <th style="width:46%;">Role in Your Shared Vault</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>~/Vault/AGENTS.md</code></td>
+        <td>Antigravity + Cowork</td>
+        <td>Universal vault contract: folder map, YAML schema, <code>[[Wikilink]]</code> laws, and <code>.obsidian/</code> guardrails.</td>
+      </tr>
+      <tr>
+        <td><code>~/Vault/GEMINI.md</code> &amp; <code>CLAUDE.md</code></td>
+        <td>Respective Desktop App</td>
+        <td>Thin pointer or app-specific overrides (e.g., Antigravity CLI permissions vs. Claude REST patch rules).</td>
+      </tr>
+      <tr>
+        <td><code>~/Vault/.agents/skills/daily-brief/SKILL.md</code></td>
+        <td>Antigravity On-Demand</td>
+        <td>Step-by-step morning note assembly combining <code>gcalendar</code>, <code>gdrive</code>, and open tasks.</td>
+      </tr>
+      <tr>
+        <td><code>~/Vault/.agents/skills/link-orphans/SKILL.md</code></td>
+        <td>Antigravity On-Demand</td>
+        <td>Audits unlinked notes and weaves bidirectional <code>[[Wikilinks]]</code> without over-linking common nouns.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.25pt;">
+    <div class="callout-title">Single-Source-of-Truth Trick: Keep Laws in <code>AGENTS.md</code></div>
+    Maintain all shared taxonomy and YAML frontmatter laws inside <code>~/Vault/AGENTS.md</code>, then place a two-line reference in <code>CLAUDE.md</code> instructing Claude Cowork to follow <code>AGENTS.md</code>. Both desktop agents will obey identical conventions forever.
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: VAULT TAXONOMY, AGENTS.MD & PROMPT ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 • Vault Schema &amp; Prompts</span>
+    <span>Folder Taxonomy, AGENTS.md Laws &amp; Prompt Anatomy</span>
+  </div>
+
+  <h2 class="page-title">Vault Taxonomy, <code>AGENTS.md</code> Laws &amp; Prompt Anatomy</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    AI agents thrive on predictable structure. A numbered six-folder taxonomy paired with a crisp <code>AGENTS.md</code> contract eliminates duplicate notes, malformed YAML frontmatter, and broken <code>[[Wikilinks]]</code>.
+  </p>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.5pt;">1. Agent-Friendly Six-Folder Vault Taxonomy</h3>
+  <div class="grid-3" style="gap:8px; margin-bottom:7px; font-size:7.85pt;">
+    <div class="card" style="padding:7px 9px;"><strong><code>00-Inbox/</code></strong><br/>Default landing zone for all new agent drafts, web clips, and untriaged transcripts.</div>
+    <div class="card" style="padding:7px 9px;"><strong><code>01-Daily/</code></strong><br/>Chronological <code>YYYY-MM-DD.md</code> daily logs and <code>YYYY-WXX-Review.md</code> rollups.</div>
+    <div class="card" style="padding:7px 9px;"><strong><code>02-Projects/</code></strong><br/>Active outcome-driven initiatives with clear deadlines and <code>## Action Items</code> sections.</div>
+    <div class="card" style="padding:7px 9px;"><strong><code>03-Areas/</code></strong><br/>Ongoing responsibilities (Health, Engineering, Finance, Team) with no end date.</div>
+    <div class="card" style="padding:7px 9px;"><strong><code>04-Resources/</code></strong><br/>Atomic evergreen concept notes, paper summaries, and reusable reference guides.</div>
+    <div class="card" style="padding:7px 9px;"><strong><code>99-Archive/</code></strong><br/>Completed projects and retired notes; agents treat as read-only historical context.</div>
+  </div>
+
+  <h3 style="margin:3px 0 3px 0; font-size:10.5pt;">2. Production-Ready <code>~/Vault/AGENTS.md</code> Schema Contract</h3>
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7pt; line-height:1.34; margin:2px 0 8px 0;"><code># Vault Operating Contract (AGENTS.md)
+1. WRITE BOUNDARIES: Place all brand-new notes in 00-Inbox/ unless a target path (such as 01-Daily/YYYY-MM-DD.md)
+   is explicitly requested. NEVER modify .obsidian/workspace.json, .obsidian/app.json, or .obsidian/plugins/.
+2. YAML FRONTMATTER: Every note MUST begin with valid YAML frontmatter containing:
+   created: "YYYY-MM-DD"        # Always double-quote strings containing colons (:) or brackets
+   type: "daily" | "project" | "area" | "resource" | "meeting"
+   status: "inbox" | "active" | "completed" | "archived"
+   tags: [lowercase-kebab-tags]
+   summary: "One-sentence plain-text takeaway under 140 characters"
+3. WIKILINK POLICY: Use Obsidian [[Note Title]] or [[Note Title|Display Text]] links—never relative Markdown URLs.
+   Before creating a link, search existing titles in 02-Projects/, 03-Areas/, and 04-Resources/ to prevent duplicates.
+4. SURGICAL EDITS: On existing notes over 300 words, append or patch target sections instead of rewriting whole files.</code></pre>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.5pt;">3. Color-Coded Vault Prompt Anatomy</h3>
+  <p style="font-size:8.2pt; margin-bottom:5px;">
+    Combine five explicit building blocks whenever asking Claude Desktop or Antigravity Desktop to transform messy inputs into linked vault knowledge:
+  </p>
+
+  <div class="card" style="background:#ffffff; border:1.5px solid #c7d2fe; padding:9px 11px; margin-bottom:7px; font-size:8.45pt; line-height:1.68;">
+    <span class="p-tag p-style">[Scope] Read only @00-Inbox/2026-11-12-customer-call.md and @02-Projects/ onboarding hub notes.</span>
+    <span class="p-tag p-subj">[Context] Extract the three recurring onboarding friction points and concrete engineering follow-ups raised during today&rsquo;s enterprise call.</span>
+    <span class="p-tag p-act">[Frontmatter Contract] Follow AGENTS.md YAML schema with type: "meeting", status: "active", double-quoted summary, and tags: [onboarding, customer-research].</span>
+    <span class="p-tag p-cam">[Link Policy] Resolve existing note titles first; weave natural [[Note Title|Alias]] wikilinks to matching 02-Projects/ and 04-Resources/ notes without linking generic nouns.</span>
+    <span class="p-tag p-sfx">[Write Target] Save the clean meeting note to 00-Inbox/Customer-Call-Onboarding-Synthesis.md and surgically append owner-tagged checkboxes under ## Action Items in 02-Projects/Onboarding-Revamp.md.</span>
+  </div>
+
+  <div class="grid-2" style="gap:9px; font-size:7.9pt;">
+    <div class="callout" style="margin:0; padding:6.5px 10px;">
+      <div class="callout-title" style="font-size:8.5pt;">Why <code>[Scope]</code> + <code>[Link Policy]</code> Matter</div>
+      Explicitly naming source folders prevents 5,000-file fishing expeditions, while title-resolution before linking keeps your Obsidian Graph clean and connected rather than littered with ghost nodes.
+    </div>
+    <div class="callout emerald" style="margin:0; padding:6.5px 10px;">
+      <div class="callout-title" style="font-size:8.5pt;">Why <code>[Write Target]</code> Splits Output</div>
+      Separating new synthesis (written to <code>00-Inbox/</code>) from action-item mutation (patched under <code>## Action Items</code>) gives you safe human review without losing momentum on active projects.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: NATIVE OBSIDIAN CLI & SCHEDULED RITUALS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 • Obsidian CLI &amp; Scheduled Rituals</span>
+    <span>Official CLI &amp; Weekday Cron Briefings</span>
+  </div>
+
+  <h2 class="page-title">Native Obsidian CLI &amp; Scheduled Daily/Weekly Rituals</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Once registered via <code>Settings &rarr; General &rarr; Command line interface &rarr; Register CLI</code>, the official <code>obsidian</code> binary lets terminal scripts and Antigravity Scheduled Tasks drive the live Obsidian app directly.
+  </p>
+
+  <h3 style="margin:2px 0 3px 0; font-size:10.5pt;">1. High-Leverage Official <code>obsidian</code> CLI Commands</h3>
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.1pt; line-height:1.35; margin:2px 0 7px 0;"><code># Search vault index, open daily note in foreground, append tasks, and mutate typed YAML properties:
+obsidian search query="tag:#onboarding status:active"            # Fast indexed search across live vault
+obsidian daily                                                   # Opens (or creates from template) today's note
+obsidian daily:append content="- [ ] Prep Q4 architecture review ([[Atlas-Launch]])"
+obsidian property:set file="Atlas-Launch" name="status" value="in-review"
+obsidian open "01-Daily/2026-11-12"                              # Focuses today's briefing on your desktop</code></pre>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.5pt;">2. Antigravity Scheduled Tasks: Weekday Briefing &amp; Friday Synthesis</h3>
+  <p style="font-size:8.15pt; margin-bottom:5px;">
+    Use the <code>/schedule</code> command (or <strong>Scheduled Tasks</strong> in Antigravity Desktop&rsquo;s left sidebar) to run recurring cron jobs in fresh, timezone-pinned conversations that bridge Google Workspace plugins into your local vault:
+  </p>
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:7.5px 10px; border-top:3px solid #4f46e5;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Weekday Morning Brief (<code>0 7 * * 1-5</code>)</div>
+      <p style="font-size:7.85pt; margin:0;">
+        <strong>Schedule:</strong> <code>CRON_TZ=America/New_York 0 7 * * 1-5</code><br/>
+        Queries today&rsquo;s events via <code>gcalendar</code>, locates linked prep decks via <code>gdrive</code>, carries forward unfinished <code>- [ ]</code> items from yesterday&rsquo;s <code>01-Daily/</code> note, writes <code>01-Daily/YYYY-MM-DD.md</code>, and calls <code>obsidian daily</code> so it greets you at your desk.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-top:3px solid #0d9488;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge teal">2</span> Friday Weekly Synthesis (<code>0 16 * * 5</code>)</div>
+      <p style="font-size:7.85pt; margin:0;">
+        <strong>Schedule:</strong> <code>CRON_TZ=America/New_York 0 16 * * 5</code><br/>
+        Scans Monday&ndash;Friday notes in <code>01-Daily/</code> plus untriaged items in <code>00-Inbox/</code>, summarizes shipped wins, open blockers, and stale projects into <code>01-Daily/YYYY-WXX-Review.md</code> with <code>[[Wikilinks]]</code> to every touched project hub.
+      </p>
+    </div>
+  </div>
+
+  <div class="figure-box" style="margin:4px 0 6px 0;">
+    <img src="assets/scheduled_vault_rituals.jpg" alt="Dawn-Lit Architectural Study Where an Astronomical Clockwork Ring Sorts Glowing Captures Into Linked Constellation Shelves" style="width:100%; height:216px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Quiet Dawn Automation:</strong> Scheduled weekday and Friday cron routines sort raw captures, calendar commitments, and open checkboxes into linked vault shelves before your workday begins.
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.2pt;">
+    <div class="callout-title">Self-Contained Scheduled Prompts + Test Run Permissions</div>
+    Every scheduled trigger launches a clean conversation with zero memory of yesterday&rsquo;s chat. Always specify exact vault paths (<code>/Users/alex/Vault/01-Daily/</code>) and run one interactive test pass first so file and <code>obsidian</code> CLI permissions are cleanly approved.
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 • 5 Copy-Paste Vault Recipes</span>
+    <span>Daily Workflows for Claude &amp; Antigravity</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Vault Prompts &amp; Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Drop these five prompts straight into Antigravity Chat Canvas, Scheduled Tasks, or Claude Desktop. Each recipe obeys <code>AGENTS.md</code> YAML laws, protects existing prose, and produces verifiable <code>[[Wikilinks]]</code>.
+  </p>
+
+  <table class="clean-table" style="font-size:7.75pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Workflow Recipe</th>
+        <th style="width:16%;">Best Surface</th>
+        <th style="width:46%;">Copy-Paste Prompt / Scheduled Instruction</th>
+        <th style="width:19%;">Expected Vault Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Morning Calendar + Open-Tasks Daily Builder</strong></td>
+        <td><strong>Antigravity</strong><br/>Cron <code>0 7 * * 1-5</code> + <code>gcalendar</code> + CLI</td>
+        <td>&ldquo;In <code>/Users/alex/Vault</code>, read yesterday&rsquo;s note in <code>01-Daily/</code> and collect unfinished <code>- [ ]</code> tasks. Pull today&rsquo;s schedule via <code>gcalendar</code> and matching docs via <code>gdrive</code>. Create <code>01-Daily/YYYY-MM-DD.md</code> following <code>AGENTS.md</code> YAML with <code>## Schedule</code>, <code>## Top 3 Priorities</code>, and <code>## Carried Tasks</code>, linking matching <code>02-Projects/</code> hubs, then run <code>obsidian daily</code>.&rdquo;</td>
+        <td>Ready-to-work daily note opened on screen with linked meetings &amp; carried tasks.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Raw Transcript &rarr; Atomic Notes + Project Patch</strong></td>
+        <td><strong>Claude Desktop</strong><br/>Cowork + <code>mcp-obsidian</code></td>
+        <td>&ldquo;Read <code>00-Inbox/raw-sync-transcript.md</code>. Create one clean meeting note in <code>00-Inbox/</code> and up to 2 atomic concept notes in <code>04-Resources/</code> with valid <code>AGENTS.md</code> YAML and <code>[[Wikilinks]]</code>. Then use <code>mcp-obsidian</code> <code>patch_content</code> to append owner-tagged <code>- [ ]</code> items under <code>## Action Items</code> in <code>02-Projects/Atlas-Launch.md</code> without rewriting the file.&rdquo;</td>
+        <td>Structured meeting + evergreen notes, plus surgical 60-token heading append.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>00-Inbox/</code> Triage &amp; Frontmatter Normalizer</strong></td>
+        <td><strong>Claude Cowork</strong> or <strong>Antigravity</strong> <code>@00-Inbox/</code></td>
+        <td>&ldquo;Audit all <code>.md</code> files inside <code>@00-Inbox/</code>. Normalize missing or unquoted YAML frontmatter to match <code>@AGENTS.md</code> (quote any <code>summary</code> containing colons). Propose a routing table mapping each note to <code>02-Projects/</code>, <code>03-Areas/</code>, or <code>04-Resources/</code>, and wait for my approval before moving files.&rdquo;</td>
+        <td>100% valid Obsidian Properties across captures + human-gated folder filing.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Orphan Note Discovery &amp; <code>[[Wikilink]]</code> Weaver</strong></td>
+        <td><strong>Antigravity</strong><br/>Skill <code>link-orphans</code></td>
+        <td>&ldquo;Run <code>link-orphans</code> across <code>@04-Resources/</code> and <code>@02-Projects/</code> (exclude <code>.obsidian/</code> and <code>99-Archive/</code>). List notes with zero incoming or outgoing <code>[[Wikilinks]]</code>, match them to existing hub titles/aliases, preview 2&ndash;4 high-signal inline links per orphan, and apply after confirmation.&rdquo;</td>
+        <td>Isolated notes woven into Graph View with zero broken or spammy links.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Friday Weekly Review &amp; Status Rollup</strong></td>
+        <td><strong>Antigravity</strong><br/>Cron <code>0 16 * * 5</code></td>
+        <td>&ldquo;Read this week&rsquo;s 5 daily notes in <code>01-Daily/</code> and active hubs in <code>02-Projects/</code>. Write <code>01-Daily/YYYY-WXX-Review.md</code> summarizing: (1) Completed Shipments, (2) Slipped Tasks &amp; Root Blockers, (3) Untriaged <code>00-Inbox/</code> count, and (4) Next Week&rsquo;s Focus, linking every cited note via <code>[[Wikilinks]]</code>.&rdquo;</td>
+        <td>Executive weekly retrospective linked to every active project hub.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:0; padding:7.5px 11px; font-size:8.25pt;">
+    <div class="callout-title">Turn Any Table Row Into a One-Word Slash Workflow</div>
+    Save your two favorite prompts from this page as <code>.agents/skills/inbox-triage/SKILL.md</code> and <code>.agents/skills/weekly-review/SKILL.md</code> inside your vault. Next time, simply type the skill name in Antigravity Chat Canvas (or reference it in Claude Cowork) instead of re-pasting instructions.
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: PROTECTING .OBSIDIAN & ROLLBACK SAFETY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 • Vault Safety &amp; Rollback</span>
+    <span>Protecting .obsidian/, Snapshots &amp; Git</span>
+  </div>
+
+  <h2 class="page-title">Protecting <code>.obsidian/</code> Configs &amp; 10-Second Rollback Safety</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Giving desktop AI agents write access to years of personal notes requires defense in depth. Three lightweight guardrails guarantee that an over-eager bulk edit can always be undone in under ten seconds.
+  </p>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.5pt;">1. Why Agents Must Never Touch <code>.obsidian/workspace.json</code> or Plugin Binaries</h3>
+  <p style="font-size:8.25pt; margin-bottom:6px;">
+    Inside your vault root sits the hidden <code>.obsidian/</code> configuration folder. While Obsidian is running, it continuously flushes pane geometry, cursor positions, and recent file state into <code>.obsidian/workspace.json</code>. If an agent edits that file mid-session, Obsidian immediately overwrites it or corrupts your split layout. Worse, allowing agents to modify <code>.obsidian/plugins/*/main.js</code> introduces arbitrary JavaScript execution inside a desktop Electron app. Treat <code>.obsidian/</code> as strictly off-limits unless you explicitly ask for a CSS snippet inside <code>.obsidian/snippets/</code>.
+  </p>
+
+  <div class="grid-3" style="gap:9px; margin-bottom:8px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #ef4444;">
+      <div class="card-title" style="font-size:8.9pt;">Layer 1: Hard Rule + Perms</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Forbid <code>.obsidian/</code> writes in <code>AGENTS.md</code> and configure Antigravity <strong>Project-Level Permission Grants</strong> to require manual review outside <code>00-Inbox/</code> and <code>01-Daily/</code>.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #f59e0b;">
+      <div class="card-title" style="font-size:8.9pt;">Layer 2: File Recovery</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Open Obsidian <code>Settings &rarr; Core plugins &rarr; File recovery</code>. Set <strong>Snapshot interval</strong> to <code>5</code> minutes and <strong>History length</strong> to <code>30</code>+ days for visual side-by-side diffs and 1-click single-note restore.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #10b981;">
+      <div class="card-title" style="font-size:8.9pt;">Layer 3: Git Checkpoints</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Initialize Git in <code>~/Vault</code>. Taking a two-second snapshot commit before any multi-file refactor gives you atomic diff inspection (<code>git diff</code>) and instant vault-wide undo.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 3px 0; font-size:10.5pt;">2. Clean Vault <code>.gitignore</code> + Pre-Refactor Checkpoint Ritual</h3>
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.1pt; line-height:1.35; margin:2px 0 8px 0;"><code># ~/Vault/.gitignore — Track notes, templates, AGENTS.md &amp; .agents/ skills; ignore volatile UI state:
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.trash/
+.DS_Store
+
+# Run before any bulk inbox sweep, frontmatter migration, or multi-note wikilink pass:
+git add -A &amp;&amp; git commit -m "checkpoint: pre-agent vault sweep"
+# Inspect every changed line afterward — or roll back the entire batch in 2 seconds:
+git diff --stat                  # Review exact notes touched
+git checkout -- 02-Projects/     # Instant rollback if a batch edit over-reached</code></pre>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.5pt;">3. Privacy Scoping for Sensitive Personal Journals</h3>
+  <table class="clean-table" style="font-size:7.9pt; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:26%;">Sensitivity Level</th>
+        <th style="width:38%;">Recommended Vault Folder Architecture</th>
+        <th style="width:36%;">How Agents See It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Work &amp; Research Notes</strong></td>
+        <td>Standard vault folders (<code>00-Inbox/</code> through <code>04-Resources/</code>)</td>
+        <td>Full Project / Cowork + MCP read &amp; scoped write access.</td>
+      </tr>
+      <tr>
+        <td><strong>Private Journals / Therapy</strong></td>
+        <td>Separate Obsidian vault (<code>~/Private-Vault/</code>) or sibling folder excluded from MCP roots</td>
+        <td>Zero cloud token transmission; completely invisible to agent file tools.</td>
+      </tr>
+      <tr>
+        <td><strong>Credentials &amp; API Keys</strong></td>
+        <td>OS Keychain or <code>~/.zshrc</code> environment variables&mdash;never plain Markdown notes</td>
+        <td>Passed only via MCP <code>env</code> config blocks, never indexed in prose.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.2pt;">
+    <div class="callout-title">Cloud Sync Harmony (Obsidian Sync, iCloud Drive &amp; Git)</div>
+    If your vault syncs across laptop and phone via <strong>Obsidian Sync</strong> or <strong>iCloud Drive</strong>, enable iCloud&rsquo;s <em>Keep Downloaded</em> option on the vault folder so agents never hit stubbed <code>.icloud</code> placeholder files during local scans.
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 • Cross-Tool Synergy Pipeline</span>
+    <span>End-to-End Closed-Loop Second Brain Architecture</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: The Closed-Loop Second Brain</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    When mobile capture, Google Workspace signals, Antigravity scheduled routines, Claude Desktop deep synthesis, and Obsidian&rsquo;s visual graph feed one another, your vault compounds in value every single week.
+  </p>
+
+  <div class="figure-box" style="background:#08071a; padding:11px 12px; border-color:#312e81; margin-bottom:9px;">
+    <svg viewBox="0 0 700 186" width="100%" height="186" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Capture -->
+      <rect x="8" y="18" width="118" height="112" rx="8" fill="#17153b" stroke="#818cf8" stroke-width="1.4"/>
+      <text x="17" y="35" fill="#a5b4fc" font-size="7.6" font-weight="700">STAGE 1 • CAPTURE</text>
+      <text x="17" y="51" fill="#ffffff" font-size="9.4" font-weight="800">Mobile &amp; Web</text>
+      <text x="17" y="67" fill="#cbd5e1" font-size="7.5">• Obsidian Mobile</text>
+      <text x="17" y="80" fill="#cbd5e1" font-size="7.5">• Web Clipper (.md)</text>
+      <text x="17" y="93" fill="#cbd5e1" font-size="7.5">• Voice &amp; PDF drops</text>
+      <rect x="17" y="103" width="100" height="18" rx="4" fill="#2e1065"/>
+      <text x="67" y="115" text-anchor="middle" fill="#e9d5ff" font-size="7.2" font-weight="700">Lands in 00-Inbox/</text>
+
+      <path d="M126 74 L144 74" stroke="#818cf8" stroke-width="1.8"/>
+      <polygon points="142,69 149,74 142,79" fill="#818cf8"/>
+
+      <!-- Stage 2: Morning Cron -->
+      <rect x="149" y="18" width="130" height="112" rx="8" fill="#0d2926" stroke="#34d399" stroke-width="1.4"/>
+      <text x="158" y="35" fill="#6ee7b7" font-size="7.6" font-weight="700">STAGE 2 • 7:00 AM CRON</text>
+      <text x="158" y="51" fill="#ffffff" font-size="9.4" font-weight="800">Antigravity Brief</text>
+      <text x="158" y="67" fill="#d1fae5" font-size="7.5">• gcalendar agenda</text>
+      <text x="158" y="80" fill="#d1fae5" font-size="7.5">• gdrive prep docs</text>
+      <text x="158" y="93" fill="#d1fae5" font-size="7.5">• Open - [ ] carry-over</text>
+      <rect x="158" y="103" width="112" height="18" rx="4" fill="#064e3b"/>
+      <text x="214" y="115" text-anchor="middle" fill="#a7f3d0" font-size="7.2" font-weight="700">01-Daily/ + CLI Open</text>
+
+      <path d="M279 74 L297 74" stroke="#34d399" stroke-width="1.8"/>
+      <polygon points="295,69 302,74 295,79" fill="#34d399"/>
+
+      <!-- Stage 3: Deep Synthesis -->
+      <rect x="302" y="18" width="134" height="112" rx="8" fill="#26182c" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="311" y="35" fill="#fcd34d" font-size="7.6" font-weight="700">STAGE 3 • DEEP WORK</text>
+      <text x="311" y="51" fill="#ffffff" font-size="9.4" font-weight="800">Claude Synthesis</text>
+      <text x="311" y="67" fill="#fde68a" font-size="7.5">• Cowork PDF/call digest</text>
+      <text x="311" y="80" fill="#fde68a" font-size="7.5">• Atomic 04-Resources/</text>
+      <text x="311" y="93" fill="#fde68a" font-size="7.5">• REST patch_content</text>
+      <rect x="311" y="103" width="116" height="18" rx="4" fill="#78350f"/>
+      <text x="369" y="115" text-anchor="middle" fill="#fef3c7" font-size="7.2" font-weight="700">Patches 02-Projects/</text>
+
+      <path d="M436 74 L454 74" stroke="#f59e0b" stroke-width="1.8"/>
+      <polygon points="452,69 459,74 452,79" fill="#f59e0b"/>
+
+      <!-- Stage 4: Graph & Curate -->
+      <rect x="459" y="18" width="114" height="112" rx="8" fill="#131136" stroke="#a855f7" stroke-width="1.5"/>
+      <text x="468" y="35" fill="#e9d5ff" font-size="7.6" font-weight="700">STAGE 4 • CURATE</text>
+      <text x="468" y="51" fill="#ffffff" font-size="9.4" font-weight="800">Obsidian Graph</text>
+      <text x="468" y="67" fill="#cbd5e1" font-size="7.5">• Human inbox review</text>
+      <text x="468" y="80" fill="#cbd5e1" font-size="7.5">• Backlinks &amp; Bases</text>
+      <text x="468" y="93" fill="#cbd5e1" font-size="7.5">• Canvas spatial maps</text>
+      <rect x="468" y="103" width="96" height="18" rx="4" fill="#3b0764"/>
+      <text x="516" y="115" text-anchor="middle" fill="#f3e8ff" font-size="7.2" font-weight="700">Verified Truth</text>
+
+      <path d="M573 74 L591 74" stroke="#a855f7" stroke-width="1.8"/>
+      <polygon points="589,69 596,74 589,79" fill="#a855f7"/>
+
+      <!-- Stage 5: Friday Compound -->
+      <rect x="596" y="18" width="96" height="112" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.4"/>
+      <text x="604" y="35" fill="#7dd3fc" font-size="7.4" font-weight="700">STAGE 5 • FRIDAY</text>
+      <text x="604" y="51" fill="#ffffff" font-size="9.2" font-weight="800">Weekly Rollup</text>
+      <text x="604" y="67" fill="#cbd5e1" font-size="7.4">• 4:00 PM Cron</text>
+      <text x="604" y="80" fill="#cbd5e1" font-size="7.4">• Wins &amp; blockers</text>
+      <text x="604" y="93" fill="#cbd5e1" font-size="7.4">• Orphan link pass</text>
+      <rect x="604" y="103" width="80" height="18" rx="4" fill="#1e3a8a"/>
+      <text x="644" y="115" text-anchor="middle" fill="#bae6fd" font-size="7.1" font-weight="700">WXX-Review.md</text>
+
+      <!-- Bottom Feedback Loop Arrow -->
+      <path d="M644 132 L644 164 L214 164 L214 134" fill="none" stroke="#818cf8" stroke-width="1.6" stroke-dasharray="5 3"/>
+      <polygon points="210,138 214,130 218,138" fill="#818cf8"/>
+      <rect x="262" y="152" width="330" height="22" rx="5" fill="#1e1b4b" stroke="#6366f1" stroke-width="1"/>
+      <text x="427" y="166" text-anchor="middle" fill="#e0e7ff" font-size="7.6" font-weight="700">Compounding Loop: Curated Hubs Feed Next Week&rsquo;s @Mentions &amp; Briefs</text>
+    </svg>
+  </div>
+
+  <h3 style="margin:2px 0 5px 0; font-size:10.5pt;">Walking Through a Full Day &amp; Week Across Tools</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:8px; font-size:8.05pt;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Frictionless Capture &rarr; Scheduled Prep</div>
+      Throughout the day, clip articles via Obsidian Web Clipper or jot quick thoughts on Obsidian Mobile into <code>00-Inbox/</code>. At 7:00 AM, Antigravity Desktop wakes on cron, pulls your Google Calendar meetings and linked Drive docs, carries forward yesterday&rsquo;s open tasks, writes <code>01-Daily/YYYY-MM-DD.md</code>, and pops it open via <code>obsidian daily</code>.
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge amber">2</span> Midday Deep Synthesis &amp; Surgical Patching</div>
+      After a customer interview or design review, drop the transcript or PDF into Claude Desktop. Cowork distills evergreen insights into <code>00-Inbox/</code> while <code>mcp-obsidian</code> surgically appends concrete next steps under <code>## Action Items</code> in your active <code>02-Projects/</code> note without disturbing existing writing.
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge purple">3</span> Human Curation in Graph, Bases &amp; Canvas</div>
+      Spend five calm minutes reviewing <code>00-Inbox/</code> inside Obsidian. Verify YAML properties in Obsidian Bases/tables, inspect Backlinks, drag promoted notes into <code>02-Projects/</code> or <code>04-Resources/</code>, and arrange high-level architecture visually on an Obsidian Canvas board.
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge teal">4</span> Friday Synthesis &amp; Compounding Memory</div>
+      At 4:00 PM Friday, Antigravity runs your weekly synthesis and <code>link-orphans</code> skill, generating <code>YYYY-WXX-Review.md</code>. Next Monday, when you type <code>@02-Projects/</code> in Chat Canvas, both agents inherit cleaner, richer context than the week before.
+    </div>
+  </div>
+
+  <div class="callout" style="margin:0; padding:7.5px 11px; font-size:8.25pt;">
+    <div class="callout-title">The Human-in-the-Loop Sovereignty Principle</div>
+    AI agents should handle 90% of clerical formatting, calendar gathering, action-item extraction, and link discovery&mdash;while <em>you</em> remain the editor-in-chief who promotes notes out of <code>00-Inbox/</code>. That boundary keeps your Second Brain trustworthy instead of turning into an unread AI text dump.
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 • Troubleshooting &amp; Pre-Flight</span>
+    <span>Top 7 Fixes &amp; 6-Point Vault Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Nearly every hiccup between Obsidian, Claude Desktop, and Antigravity Desktop traces back to one of seven local configuration snags&mdash;each solvable in ten seconds.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:25%;">Symptom / Error</th>
+        <th style="width:27%;">Root Cause</th>
+        <th style="width:48%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Local REST API TLS error or port <code>27124</code> refused</strong></td>
+        <td>Obsidian is closed, plugin disabled, or custom client rejects localhost self-signed cert.</td>
+        <td>Keep Obsidian running, verify <strong>Local REST API</strong> is enabled on <code>127.0.0.1:27124</code>, use <code>mcp-obsidian</code> (handles local cert), or test with <code>curl -k</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Broken <code>[[Wikilinks]]</code> or duplicate note titles</strong></td>
+        <td>Agent guessed note names or emitted Markdown URLs instead of resolving vault titles.</td>
+        <td>Add title-search rule to <code>AGENTS.md</code>: run <code>obsidian search</code> or directory list across <code>02-Projects/</code> &amp; <code>04-Resources/</code> before writing links.</td>
+      </tr>
+      <tr>
+        <td><strong>3. YAML frontmatter colons break Properties UI</strong></td>
+        <td>Unquoted colons in <code>summary: Q4 Review: Phase 1</code> break Obsidian&rsquo;s strict YAML parser.</td>
+        <td>Enforce double quotes around all string values in <code>AGENTS.md</code> (<code>summary: "Q4 Review: Phase 1"</code>) and run Recipe #3 on broken files.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Constant <code>.obsidian/workspace.json</code> churn</strong></td>
+        <td>Obsidian writes tab/scroll state every few seconds; agents or Git keep flagging diffs.</td>
+        <td>Add <code>.obsidian/workspace*.json</code> and <code>.obsidian/cache</code> to <code>.gitignore</code> and forbid <code>.obsidian/</code> edits in <code>AGENTS.md</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. macOS TCC blocks <code>Documents</code> / <code>Desktop</code> vault</strong></td>
+        <td>macOS privacy sandbox denies background <code>node</code>/<code>uvx</code> access to TCC-protected folders.</td>
+        <td>Move vault to <code>~/Vault/</code> (home folder avoids TCC prompts) or grant Full Disk / Files &amp; Folders access to Claude &amp; Antigravity in System Settings.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Stale MCP Node / <code>uvx</code> processes after edits</strong></td>
+        <td>Changing <code>OBSIDIAN_API_KEY</code> or paths in JSON does not hot-reload spawned stdio children.</td>
+        <td>Fully quit Claude Desktop (<code>Cmd+Q</code>), run <code>pkill -f mcp-obsidian</code> if orphaned, and relaunch to spawn fresh MCP workers.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Context window overload on <code>5,000+</code> note vaults</strong></td>
+        <td>Broad prompt triggers full-vault file reads across years of archives and attachments.</td>
+        <td>Scope prompts with <code>@00-Inbox/</code> or <code>@02-Projects/</code> mentions, keep <code>99-Archive/</code> excluded by default, and query via <code>obsidian search</code> first.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="padding:10px 13px; margin-top:2px;">
+    <div class="card-title" style="font-size:9.8pt; margin-bottom:6px; color:#a5b4fc;">
+      6-Point Pre-Flight Checklist Before Launching Your Dual-Agent Vault
+    </div>
+    <div class="grid-2" style="gap:6px 14px; font-size:7.95pt; color:#e2e8f0;">
+      <div>&#9745; <strong>1. Vault Outside OS Traps:</strong> Stored at a clean local path (such as <code>~/Vault/</code>) with <em>Keep Downloaded</em> enabled if synced.</div>
+      <div>&#9745; <strong>2. Numbered Taxonomy Ready:</strong> <code>00-Inbox/</code> through <code>99-Archive/</code> created so every agent draft has a deterministic home.</div>
+      <div>&#9745; <strong>3. <code>AGENTS.md</code> at Root:</strong> Defines double-quoted YAML keys, <code>[[Wikilink]]</code> title resolution, and <code>.obsidian/</code> off-limits law.</div>
+      <div>&#9745; <strong>4. Both Live Bridges Verified:</strong> Local REST API active on <code>127.0.0.1:27124</code> and <code>obsidian version</code> returning <code>1.12.4+</code>.</div>
+      <div>&#9745; <strong>5. Double Safety Net Armed:</strong> Obsidian File Recovery set to 5-minute snapshots + <code>.gitignore</code> initialized for pre-sweep commits.</div>
+      <div>&#9745; <strong>6. First Scheduled Ritual Tested:</strong> Weekday <code>0 7 * * 1-5</code> briefing dry-run approved once interactively in Antigravity Desktop.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Obsidian + Desktop AI Agents • Complete How-To Guide</span><span>Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

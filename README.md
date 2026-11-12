@@ -5,9 +5,9 @@
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-19%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-228%20Pages-059669?style=for-the-badge)
-![Ecosystems](https://img.shields.io/badge/Scope-2%20Ecosystems-7c3aed?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-23%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-276%20Pages-059669?style=for-the-badge)
+![Ecosystems](https://img.shields.io/badge/Scope-3%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
 
@@ -18,7 +18,7 @@ Every handbook in this repository is authored as a self-contained **12-page visu
 Click any cover card or **Read / Download PDF** link below to view the full handbook directly in GitHub or download a local copy.
 
 <!-- CATALOG:START -->
-**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture)
+**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems)
 
 ### Google AI & Creative Studios
 Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, agentic coding IDEs, source-grounded research tools, and autonomous browser workflows.
@@ -117,7 +117,7 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
 </table>
 
 ### AI Agent Engineering & Architecture
-Practical 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktrees, RAG & knowledge graphs, security, evals, System One decision models, and local on-device AI.
+Practical 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktrees, vector RAG, security, evals, System One decision models, and local on-device AI.
 
 <table>
   <tr>
@@ -184,22 +184,64 @@ Practical 12-page visual handbooks for context engineering, multi-agent orchestr
       <p><a href="guides/agent-engineering/local-and-on-device-ai/Local_and_On_Device_AI_Stack_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/local-and-on-device-ai">&#128736; Editable Source</a></p>
     </td>
     <td width="50%" valign="top">
-      <a href="guides/agent-engineering/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/graphify-and-obsidian-knowledge-graphs/cover.png" alt="AI Agents + Graphify + Obsidian Cover" width="100%" /></a>
-      <h3><a href="guides/agent-engineering/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf">AI Agents + Graphify + Obsidian</a></h3>
-      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
-      <p>Building persistent, queryable knowledge graphs from codebases and notes that you explore visually in Obsidian and expose to AI agents via MCP.</p>
-      <p><code>Knowledge Graphs</code> &middot; <code>Obsidian</code> &middot; <code>Graphify MCP</code></p>
-      <p><a href="guides/agent-engineering/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/graphify-and-obsidian-knowledge-graphs">&#128736; Editable Source</a></p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
       <a href="guides/agent-engineering/jev-and-system-one-decisions/Jev_and_System_One_Decisions_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/jev-and-system-one-decisions/cover.png" alt="Jev &amp; System One Decisions Cover" width="100%" /></a>
       <h3><a href="guides/agent-engineering/jev-and-system-one-decisions/Jev_and_System_One_Decisions_Complete_How_To_Guide.pdf">Jev &amp; System One Decisions</a></h3>
       <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
       <p>Replacing fragile LLM JSON parsing with fast, calibrated System One decisions—mastering Choice, Score, and Noul primitives, parallel fan-out, and confidence-gated routing.</p>
       <p><code>System One</code> &middot; <code>Calibrated Decisions</code> &middot; <code>Model Routing</code></p>
       <p><a href="guides/agent-engineering/jev-and-system-one-decisions/Jev_and_System_One_Decisions_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/jev-and-system-one-decisions">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+</table>
+
+### Obsidian & AI Knowledge Systems
+Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-native Second Brains—covering Claude Desktop & Antigravity Desktop workflows, native Bases & JSON Canvas, autonomous LLM Wikis, Graphify knowledge graphs, and multi-device vault security.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/obsidian/obsidian-desktop-ai-agents/Obsidian_and_Desktop_AI_Agents_Complete_How_To_Guide.pdf"><img src="guides/obsidian/obsidian-desktop-ai-agents/cover.png" alt="Obsidian + Desktop AI Agents Cover" width="100%" /></a>
+      <h3><a href="guides/obsidian/obsidian-desktop-ai-agents/Obsidian_and_Desktop_AI_Agents_Complete_How_To_Guide.pdf">Obsidian + Desktop AI Agents</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Operating your Obsidian vault side-by-side with Claude Desktop and Google Antigravity Desktop—mastering Cowork folders, Local REST API MCP, the native Obsidian CLI, vault AGENTS.md rules, and scheduled briefings.</p>
+      <p><code>Claude Desktop</code> &middot; <code>Antigravity Desktop</code> &middot; <code>Obsidian MCP &amp; CLI</code></p>
+      <p><a href="guides/obsidian/obsidian-desktop-ai-agents/Obsidian_and_Desktop_AI_Agents_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/obsidian/obsidian-desktop-ai-agents">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/obsidian/obsidian-bases-and-json-canvas-agents/Obsidian_Bases_and_JSON_Canvas_with_AI_Complete_How_To_Guide.pdf"><img src="guides/obsidian/obsidian-bases-and-json-canvas-agents/cover.png" alt="Obsidian Bases &amp; JSON Canvas with AI Cover" width="100%" /></a>
+      <h3><a href="guides/obsidian/obsidian-bases-and-json-canvas-agents/Obsidian_Bases_and_JSON_Canvas_with_AI_Complete_How_To_Guide.pdf">Obsidian Bases &amp; JSON Canvas with AI</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turning flat Markdown notes into live relational databases and spatial visual boards—having Claude Desktop and Antigravity generate native .base views, YAML schemas, and .canvas architecture maps.</p>
+      <p><code>Obsidian Bases</code> &middot; <code>JSON Canvas</code> &middot; <code>Structured PKM</code></p>
+      <p><a href="guides/obsidian/obsidian-bases-and-json-canvas-agents/Obsidian_Bases_and_JSON_Canvas_with_AI_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/obsidian/obsidian-bases-and-json-canvas-agents">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/obsidian/autonomous-llm-wiki-vault/Autonomous_LLM_Wiki_and_Research_Vault_Complete_How_To_Guide.pdf"><img src="guides/obsidian/autonomous-llm-wiki-vault/cover.png" alt="Autonomous LLM Wiki &amp; Research Vault Cover" width="100%" /></a>
+      <h3><a href="guides/obsidian/autonomous-llm-wiki-vault/Autonomous_LLM_Wiki_and_Research_Vault_Complete_How_To_Guide.pdf">Autonomous LLM Wiki &amp; Research Vault</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Building a Karpathy-style self-maintaining knowledge base in Obsidian where Claude Desktop and Antigravity compile raw PDFs, transcripts, and web clips into interlinked evergreen concept notes.</p>
+      <p><code>LLM Wiki</code> &middot; <code>Deep Research</code> &middot; <code>Second Brain</code></p>
+      <p><a href="guides/obsidian/autonomous-llm-wiki-vault/Autonomous_LLM_Wiki_and_Research_Vault_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/obsidian/autonomous-llm-wiki-vault">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/obsidian/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf"><img src="guides/obsidian/graphify-and-obsidian-knowledge-graphs/cover.png" alt="AI Agents + Graphify + Obsidian Cover" width="100%" /></a>
+      <h3><a href="guides/obsidian/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf">AI Agents + Graphify + Obsidian</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Building persistent, queryable knowledge graphs from codebases and notes that you explore visually in Obsidian and expose to AI agents via MCP.</p>
+      <p><code>Knowledge Graphs</code> &middot; <code>Obsidian</code> &middot; <code>Graphify MCP</code></p>
+      <p><a href="guides/obsidian/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/obsidian/graphify-and-obsidian-knowledge-graphs">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/obsidian/vault-security-privacy-and-sync/Obsidian_Vault_Security_Privacy_and_Sync_Complete_How_To_Guide.pdf"><img src="guides/obsidian/vault-security-privacy-and-sync/cover.png" alt="Obsidian Vault Security, Privacy &amp; Sync Cover" width="100%" /></a>
+      <h3><a href="guides/obsidian/vault-security-privacy-and-sync/Obsidian_Vault_Security_Privacy_and_Sync_Complete_How_To_Guide.pdf">Obsidian Vault Security, Privacy &amp; Sync</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Protecting private journals, API secrets, and multi-device sync when AI agents touch your vault—mastering privacy zones, sandboxes, prompt-injection defenses, and conflict-free Obsidian Sync + Git.</p>
+      <p><code>Vault Privacy</code> &middot; <code>Obsidian Sync &amp; Git</code> &middot; <code>Agent Governance</code></p>
+      <p><a href="guides/obsidian/vault-security-privacy-and-sync/Obsidian_Vault_Security_Privacy_and_Sync_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/obsidian/vault-security-privacy-and-sync">&#128736; Editable Source</a></p>
     </td>
     <td width="50%"></td>
   </tr>
@@ -225,8 +267,12 @@ Practical 12-page visual handbooks for context engineering, multi-agent orchestr
 | **AI Evals & Regression Testing** — Turning LLM vibe-checks into deterministic CI deploy gates with golden datasets, code scorers, calibrated LLM-as-judge, and Promptfoo. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/ai-evals-and-regression-testing/AI_Evals_and_Regression_Testing_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/ai-evals-and-regression-testing) |
 | **Prompt Injection & Agent Security** — Defending tool-calling and browsing AI agents against indirect prompt injection, poisoned MCP servers, secret exfiltration, and unsafe output sinks. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/prompt-injection-and-agent-security/Prompt_Injection_and_Agent_Security_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/prompt-injection-and-agent-security) |
 | **Local & On-Device AI Stack** — Running private, zero-per-token LLMs and embeddings on your own hardware—mastering GGUF quantization, Apple Silicon memory math, Ollama, and llama.cpp. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/local-and-on-device-ai/Local_and_On_Device_AI_Stack_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/local-and-on-device-ai) |
-| **AI Agents + Graphify + Obsidian** — Building persistent, queryable knowledge graphs from codebases and notes that you explore visually in Obsidian and expose to AI agents via MCP. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/graphify-and-obsidian-knowledge-graphs) |
 | **Jev & System One Decisions** — Replacing fragile LLM JSON parsing with fast, calibrated System One decisions—mastering Choice, Score, and Noul primitives, parallel fan-out, and confidence-gated routing. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/jev-and-system-one-decisions/Jev_and_System_One_Decisions_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/jev-and-system-one-decisions) |
+| **Obsidian + Desktop AI Agents** — Operating your Obsidian vault side-by-side with Claude Desktop and Google Antigravity Desktop—mastering Cowork folders, Local REST API MCP, the native Obsidian CLI, vault AGENTS.md rules, and scheduled briefings. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-desktop-ai-agents/Obsidian_and_Desktop_AI_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-desktop-ai-agents) |
+| **Obsidian Bases & JSON Canvas with AI** — Turning flat Markdown notes into live relational databases and spatial visual boards—having Claude Desktop and Antigravity generate native .base views, YAML schemas, and .canvas architecture maps. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-bases-and-json-canvas-agents/Obsidian_Bases_and_JSON_Canvas_with_AI_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-bases-and-json-canvas-agents) |
+| **Autonomous LLM Wiki & Research Vault** — Building a Karpathy-style self-maintaining knowledge base in Obsidian where Claude Desktop and Antigravity compile raw PDFs, transcripts, and web clips into interlinked evergreen concept notes. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/autonomous-llm-wiki-vault/Autonomous_LLM_Wiki_and_Research_Vault_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/autonomous-llm-wiki-vault) |
+| **AI Agents + Graphify + Obsidian** — Building persistent, queryable knowledge graphs from codebases and notes that you explore visually in Obsidian and expose to AI agents via MCP. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/graphify-and-obsidian-knowledge-graphs) |
+| **Obsidian Vault Security, Privacy & Sync** — Protecting private journals, API secrets, and multi-device sync when AI agents touch your vault—mastering privacy zones, sandboxes, prompt-injection defenses, and conflict-free Obsidian Sync + Git. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/vault-security-privacy-and-sync/Obsidian_Vault_Security_Privacy_and_Sync_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/vault-security-privacy-and-sync) |
 <!-- CATALOG:END -->
 
 ---

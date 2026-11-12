@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Obsidian Bases &amp; JSON Canvas with AI: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">OBSIDIAN &amp; AI KNOWLEDGE SYSTEMS • FIELD GUIDE</div>
+    <h1>Obsidian Bases &amp; <span>JSON Canvas with AI</span></h1>
+    <p class="cover-sub">
+      Turning flat Markdown notes into live relational databases and spatial visual boards—having Claude Desktop and Antigravity generate native <code>.base</code> views, YAML schemas, and <code>.canvas</code> architecture maps.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Native <code>.base</code> Databases</span>
+      <span class="cover-badge">Open JSON Canvas (<code>.canvas</code>)</span>
+      <span class="cover-badge">YAML Property Schemas</span>
+      <span class="cover-badge">Formulas &amp; Dynamic Views</span>
+      <span class="cover-badge">Anti-Overlap Grid Math</span>
+      <span class="cover-badge">Zero Third-Party Plugins</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Obsidian Bases Relational Grid and Spatial JSON Canvas Constellation Refracted Through a Golden Prism" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Relational <code>.base</code> Views</div>
+      <div class="cover-stat-desc">Query thousands of vault notes into fast, two-way editable Tables and Gallery Cards powered by clean YAML filters and formulas.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Spatial <code>.canvas</code> Maps</div>
+      <div class="cover-stat-desc">Have AI agents calculate non-overlapping 2D grids, group boundaries, and labeled arrows directly in open JSON Canvas 1.0 files.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">100% Plain-Text Native</div>
+      <div class="cover-stat-desc">Every note, database query, and whiteboard lives on your local disk as inspectable UTF-8 files with zero cloud or plugin lock-in.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 • Foundations &amp; Tri-Format Mental Model</span>
+    <span>Obsidian Bases &amp; JSON Canvas with AI</span>
+  </div>
+
+  <h2 class="page-title">The Native Tri-Format Stack: <code>.md</code> + <code>.base</code> + <code>.canvas</code></h2>
+  <p class="page-lead">
+    Plain Markdown notes excel at linear prose, yet stumble when you need a sortable project tracker or a big-picture system diagram. Obsidian solves both natively—without proprietary cloud databases or fragile community plugins—using two plain-text companion formats that AI agents read and write fluently.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. The Native Tri-Format Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Bi-Directional Vault Workflows</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Core Setup &amp; Format Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Agent Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Split-Studio UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Validation Scripts &amp; <code>types.json</code> Polish</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Agent-Safe YAML Property Schemas</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Authoring Native <code>.base</code> Views &amp; Formulas</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Open JSON Canvas (<code>.canvas</code>) &amp; Grid Math</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Principle: One Vault, Three Lenses</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Why Obsidian's Tri-Format Stack Unlocks Structured Visual Thinking With AI</h3>
+  <p style="font-size:8.9pt;">
+    In cloud workspace tools, databases and whiteboards are trapped behind opaque APIs. In Obsidian, <strong>all three layers sit side-by-side in your folder tree as human-readable text</strong>: <code>.md</code> notes hold atomic knowledge and YAML frontmatter; <code>.base</code> YAML files define dynamic relational Table and Cards views over those properties; and <code>.canvas</code> JSON files arrange notes, groups, and arrows across an infinite 2D plane. When Claude Desktop (via Filesystem MCP) or Antigravity Desktop opens your vault, it can refactor all three layers in one coordinated pass.
+  </p>
+
+  <h3>Architecture: How Plain-Text Notes Feed Live Databases &amp; Spatial Boards</h3>
+  <div class="figure-box" style="background:#161006; padding:11px 13px; border-color:#78350f;">
+    <svg viewBox="0 0 700 196" width="100%" height="196" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: AI Agents -->
+      <rect x="10" y="22" width="154" height="152" rx="9" fill="#231809" stroke="#fbbf24" stroke-width="1.6"/>
+      <text x="22" y="42" fill="#fde68a" font-size="8.3" font-weight="700">AI WORKSPACE AGENTS</text>
+      <text x="22" y="60" fill="#ffffff" font-size="10.6" font-weight="800">Claude &amp; Antigravity</text>
+      <text x="22" y="79" fill="#e2e8f0" font-size="8.1">• Reads vault schema rules</text>
+      <text x="22" y="94" fill="#e2e8f0" font-size="8.1">• Normalizes YAML keys</text>
+      <text x="22" y="109" fill="#e2e8f0" font-size="8.1">• Writes .base queries</text>
+      <text x="22" y="124" fill="#e2e8f0" font-size="8.1">• Computes .canvas (x,y)</text>
+      <rect x="22" y="138" width="130" height="22" rx="5" fill="#3b2509" stroke="#d97706" stroke-width="1"/>
+      <text x="87" y="152" text-anchor="middle" fill="#fef3c7" font-size="7.7" font-weight="700">AGENTS.md Schema Contract</text>
+
+      <!-- Arrow to .md -->
+      <path d="M164 98 L196 98" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="194,93 202,98 194,103" fill="#fbbf24"/>
+
+      <!-- Center: .md Source of Truth -->
+      <rect x="202" y="22" width="194" height="152" rx="9" fill="#2b1d0b" stroke="#f59e0b" stroke-width="1.8"/>
+      <text x="215" y="42" fill="#fde68a" font-size="8.3" font-weight="700">1. ATOMIC SOURCE (.md)</text>
+      <text x="215" y="60" fill="#ffffff" font-size="10.8" font-weight="800">Markdown + YAML Props</text>
+      <rect x="215" y="70" width="168" height="62" rx="5" fill="#140d04" stroke="#78350f" stroke-width="1"/>
+      <text x="223" y="84" fill="#fbbf24" font-family="monospace" font-size="7.6">---</text>
+      <text x="223" y="95" fill="#fde68a" font-family="monospace" font-size="7.6">status: "active"</text>
+      <text x="223" y="106" fill="#fde68a" font-family="monospace" font-size="7.6">priority: 1  |  due: 2026-12-01</text>
+      <text x="223" y="117" fill="#93c5fd" font-family="monospace" font-size="7.6">owner: "[[Ada]]"</text>
+      <text x="223" y="127" fill="#fbbf24" font-family="monospace" font-size="7.6">---</text>
+      <text x="215" y="150" fill="#cbd5e1" font-size="8">Prose body + [[wikilinks]] remain</text>
+      <text x="215" y="162" fill="#cbd5e1" font-size="8">the single source of truth on disk.</text>
+
+      <!-- Upper branch to .base -->
+      <path d="M396 60 L436 60" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="434,55 442,60 434,65" fill="#f59e0b"/>
+
+      <!-- Lower branch to .canvas -->
+      <path d="M396 138 L436 138" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="434,133 442,138 434,143" fill="#38bdf8"/>
+
+      <!-- Right Top: .base Relational Lens -->
+      <rect x="442" y="14" width="248" height="76" rx="8" fill="#1f1507" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="455" y="32" fill="#fde68a" font-size="8.2" font-weight="700">2. RELATIONAL LENS (.base YAML)</text>
+      <text x="455" y="48" fill="#ffffff" font-size="10.2" font-weight="800">Dynamic Table, Cards &amp; Formulas</text>
+      <text x="455" y="63" fill="#e2e8f0" font-size="8">Queries YAML frontmatter live; editing a cell</text>
+      <text x="455" y="75" fill="#e2e8f0" font-size="8">in the Table updates the underlying .md note!</text>
+
+      <!-- Right Bottom: .canvas Spatial Lens -->
+      <rect x="442" y="106" width="248" height="76" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="455" y="124" fill="#7dd3fc" font-size="8.2" font-weight="700">3. SPATIAL LENS (.canvas JSON 1.0)</text>
+      <text x="455" y="140" fill="#ffffff" font-size="10.2" font-weight="800">Infinite 2D Architecture Boards</text>
+      <text x="455" y="155" fill="#cbd5e1" font-size="8">Mounts live .md file cards, group containers,</text>
+      <text x="455" y="167" fill="#cbd5e1" font-size="8">&amp; directional edges at exact (x, y) coordinates.</text>
+    </svg>
+  </div>
+
+  <div class="callout amber" style="margin-top:5px;">
+    <div class="callout-title">Zero Duplication: Edit Once in Any View, Sync Everywhere Instantly</div>
+    Neither a <code>.base</code> file nor a <code>.canvas</code> file copies your note contents into a separate database. Editing a <code>status</code> cell inside a <code>.base</code> Table—or typing inside an embedded <code>file</code> card on a <code>.canvas</code> board—mutates the original <code>.md</code> file directly on disk.
+  </div>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, CORE PLUGINS & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 • Core Setup &amp; Format Selection</span>
+    <span>Enabling Core Engines &amp; Choosing the Right Structure</span>
+  </div>
+
+  <h2 class="page-title">Core Plugin Setup &amp; Format Decision Matrix</h2>
+  <p class="page-lead" style="margin-bottom:7px; font-size:9.4pt;">
+    Everything in this handbook runs on 100% official, built-in Obsidian features—meaning zero community plugin security audits, instant startup on macOS/Windows/Linux/iOS/Android, and guaranteed long-term format stability.
+  </p>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.5pt;">1. Enable the Three Native Core Engines (60-Second Setup)</h3>
+  <div class="grid-3" style="margin-bottom:6px; gap:9px;">
+    <div class="card-amber" style="padding:7.5px 9px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Enable Bases</div>
+      <p style="font-size:7.8pt; line-height:1.36; margin:0;">
+        Open <code>Settings → Core plugins</code> and toggle <strong>Bases</strong> ON. Right-click any folder and select <strong>New base</strong> for a standalone <code>.base</code> file, or embed a fenced <code>base</code> block inside any note.
+      </p>
+    </div>
+    <div class="card-amber" style="padding:7.5px 9px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">2</span> Enable Canvas</div>
+      <p style="font-size:7.8pt; line-height:1.36; margin:0;">
+        In <code>Settings → Core plugins</code>, toggle <strong>Canvas</strong> ON. Under <code>Settings → Canvas</code>, set new file location to <code>Same folder as current file</code> so agent boards stay co-located with notes.
+      </p>
+    </div>
+    <div class="card-amber" style="padding:7.5px 9px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">3</span> Properties View</div>
+      <p style="font-size:7.8pt; line-height:1.36; margin:0;">
+        Toggle <strong>Properties view</strong> ON, and under <code>Settings → Editor → Properties in document</code> pick <strong>Visible</strong> to unlock the All Properties registry backed by <code>.obsidian/types.json</code>.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 3px 0; font-size:10.5pt;">2. Point Claude Desktop or Antigravity Desktop at Your Vault</h3>
+  <p style="font-size:8.3pt; margin-bottom:4px;">
+    In <strong>Antigravity Desktop</strong>, open your vault root folder directly (<code>File → Open Folder</code>). In <strong>Claude Desktop</strong>, grant the official Filesystem MCP server access to your vault directory inside <code>claude_desktop_config.json</code>:
+  </p>
+  <pre class="code-block" style="padding:5.5px 9px; font-size:6.95pt; line-height:1.3; margin:2px 0 6px 0;"><code>{ "mcpServers": {
+    "obsidian-vault": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/you/Vaults/WorkVault"]
+    } } }</code></pre>
+
+  <h3 style="margin:4px 0 3px 0; font-size:10.5pt;">3. Format Decision Matrix: When to Use Tables, <code>.base</code>, <code>.canvas</code>, or Dataview</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin:3px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%; padding:5px 8px;">Vault Format</th>
+        <th style="width:23%; padding:5px 8px;">Best Use Case</th>
+        <th style="width:19%; padding:5px 8px;">Query Speed &amp; Editing</th>
+        <th style="width:20%; padding:5px 8px;">AI Agent Reliability</th>
+        <th style="width:19%; padding:5px 8px;">Mobile &amp; Longevity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong>Static Markdown Table</strong><br/>(inside <code>.md</code>)</td>
+        <td style="padding:4.5px 8px;">Small fixed reference matrices (5–15 rows) tied to one doc</td>
+        <td style="padding:4.5px 8px;">Instant render; manual cells; zero live cross-note queries</td>
+        <td style="padding:4.5px 8px;"><strong>Very High</strong>—simple pipe syntax, though wide tables wrap</td>
+        <td style="padding:4.5px 8px;">Universal Markdown everywhere forever</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong>Native Obsidian Base</strong><br/>(<code>.base</code> YAML)</td>
+        <td style="padding:4.5px 8px;">Project trackers, CRMs, reading queues, Table/Cards cockpits</td>
+        <td style="padding:4.5px 8px;"><strong>Native C++-grade speed</strong> on 10k+ notes; two-way cell edits</td>
+        <td style="padding:4.5px 8px;"><strong>High</strong>—declarative YAML schema with clean formulas</td>
+        <td style="padding:4.5px 8px;">100% official core; full iOS/Android parity</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong>JSON Canvas 1.0</strong><br/>(<code>.canvas</code> JSON)</td>
+        <td style="padding:4.5px 8px;">System architectures, dependency flows, research clusters</td>
+        <td style="padding:4.5px 8px;">Smooth 2D pan/zoom; live embedded file editing</td>
+        <td style="padding:4.5px 8px;"><strong>High with Grid Math</strong>—open JSON spec + <code>(x,y)</code> slots</td>
+        <td style="padding:4.5px 8px;">Open MIT spec (<code>jsoncanvas.org</code>); native mobile</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong>Legacy Dataview</strong><br/>(Community Plugin)</td>
+        <td style="padding:4.5px 8px;">Procedural JS aggregations (<code>dataviewjs</code>) over inline fields</td>
+        <td style="padding:4.5px 8px;">JS re-indexing; read-only cells without extra plugins</td>
+        <td style="padding:4.5px 8px;"><strong>Medium</strong>—DQL/JS quirks often cause subtle query bugs</td>
+        <td style="padding:4.5px 8px;">Third-party plugin; migrate tables to <code>.base</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8.2pt;">
+    <div class="callout-title">Rule of Thumb: Store Facts in YAML, Query with <code>.base</code>, Map Relationships with <code>.canvas</code></div>
+    Whenever data evolves across multiple notes (tasks, contacts, literature, services), skip static Markdown tables that immediately go stale. Give each item an atomic <code>.md</code> note with clean YAML properties, then generate a <code>.base</code> view for sorting and a <code>.canvas</code> map for topology.
+  </div>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED SPLIT-STUDIO UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 • Annotated Workspace UI Tour</span>
+    <span>Inside an AI-Generated .base + .canvas Split Studio</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Split-Pane <code>.base</code> &amp; <code>.canvas</code> Studio</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Opening a relational <code>.base</code> view on the left and a spatial <code>.canvas</code> board on the right turns Obsidian into an interactive command center where tabular metadata and architectural topology stay linked in real time.
+  </p>
+
+  <!-- Rich CSS Mockup of Obsidian Split Workspace -->
+  <div class="ui-window" style="margin-bottom:9px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#fde68a;">Obsidian Vault — Platform-Launch-2026</span>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; color:#cbd5e1; font-size:7.3pt;">
+        <span>Split Right Active</span>
+        <span style="background:#3b2509; color:#fde68a; padding:2px 7px; border-radius:4px; border:1px solid #d97706;">Core: Bases + Canvas</span>
+      </div>
+    </div>
+
+    <!-- Main Split Body -->
+    <div style="display:grid; grid-template-columns: 1.08fr 1fr; min-height: 318px;">
+      <!-- LEFT PANE: .base View -->
+      <div style="border-right:1px solid #452c0e; padding:9px 10px; background:#171005;">
+        <!-- Tab & View Switcher -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; padding-bottom:6px; border-bottom:1px solid #33220b;">
+          <div style="display:flex; align-items:center; gap:5px;">
+            <span class="callout-pin">1</span>
+            <span style="background:#d97706; color:#fff; font-weight:700; padding:2px 7px; border-radius:4px; font-size:7.2pt;">Table: Active Specs</span>
+            <span style="background:#291d0a; color:#cbd5e1; padding:2px 7px; border-radius:4px; font-size:7.2pt; border:1px solid #452c0e;">Cards: Gallery</span>
+          </div>
+          <span style="color:#94a3b8; font-size:7pt;"><code>launch-tracker.base</code></span>
+        </div>
+
+        <!-- Filter & Formula Toolbar -->
+        <div style="display:flex; flex-wrap:wrap; gap:5px; align-items:center; margin-bottom:8px;">
+          <span class="callout-pin">2</span>
+          <span style="background:#2b1d0b; border:1px solid #b45309; color:#fde68a; padding:2px 6px; border-radius:4px; font-size:6.9pt;">Filter: <code>folder == "Specs"</code> &amp; <code>status != "archived"</code></span>
+          <span style="background:#1e293b; border:1px solid #38bdf8; color:#bae6fd; padding:2px 6px; border-radius:4px; font-size:6.9pt;">Sort: <code>priority ASC</code></span>
+        </div>
+
+        <!-- Base Table Mock -->
+        <table style="width:100%; border-collapse:collapse; font-size:7.05pt; color:#e2e8f0; border:1px solid #3b2509;">
+          <thead>
+            <tr style="background:#261a09; color:#fde68a; border-bottom:1px solid #b45309;">
+              <th style="padding:4.5px 5px; text-align:left;">File Name</th>
+              <th style="padding:4.5px 5px; text-align:left;">Status <span class="callout-pin" style="width:15px; height:15px; font-size:6.8pt;">3</span></th>
+              <th style="padding:4.5px 5px; text-align:left;">Owner</th>
+              <th style="padding:4.5px 5px; text-align:left;"><code>formula.sla</code> <span class="callout-pin" style="width:15px; height:15px; font-size:6.8pt;">4</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #2d1f0b;">
+              <td style="padding:5px; color:#93c5fd; font-weight:600;">auth-gateway.md</td>
+              <td style="padding:5px;"><span style="background:#064e3b; color:#a7f3d0; padding:1.5px 5px; border-radius:3px;">in-progress</span></td>
+              <td style="padding:5px;">[[Ada]]</td>
+              <td style="padding:5px; color:#fde68a;">4d left</td>
+            </tr>
+            <tr style="border-bottom:1px solid #2d1f0b; background:#1d1407;">
+              <td style="padding:5px; color:#93c5fd; font-weight:600;">billing-webhook.md</td>
+              <td style="padding:5px;"><span style="background:#7f1d1d; color:#fecaca; padding:1.5px 5px; border-radius:3px;">blocked</span></td>
+              <td style="padding:5px;">[[Marco]]</td>
+              <td style="padding:5px; color:#fca5a5; font-weight:700;">OVERDUE</td>
+            </tr>
+            <tr style="border-bottom:1px solid #2d1f0b;">
+              <td style="padding:5px; color:#93c5fd; font-weight:600;">edge-cache-v2.md</td>
+              <td style="padding:5px;"><span style="background:#1e3a8a; color:#bfdbfe; padding:1.5px 5px; border-radius:3px;">review</span></td>
+              <td style="padding:5px;">[[Lin]]</td>
+              <td style="padding:5px; color:#fde68a;">9d left</td>
+            </tr>
+            <tr>
+              <td style="padding:5px; color:#93c5fd; font-weight:600;">audit-ledger.md</td>
+              <td style="padding:5px;"><span style="background:#065f46; color:#6ee7b7; padding:1.5px 5px; border-radius:3px;">ready</span></td>
+              <td style="padding:5px;">[[Ada]]</td>
+              <td style="padding:5px; color:#6ee7b7;">Shipped</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr style="background:#211608; border-top:1px solid #5c3a11; color:#fde68a; font-size:6.8pt;">
+              <td style="padding:4px 5px;"><strong>Summary:</strong> 4 Notes</td>
+              <td style="padding:4px 5px;">1 Blocked</td>
+              <td style="padding:4px 5px;">3 Owners</td>
+              <td style="padding:4px 5px;">Avg: 6.5d</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <!-- Property Inspector Mini Strip -->
+        <div style="margin-top:8px; padding:6px 8px; background:#211608; border:1px solid #452c0e; border-radius:6px; font-size:6.9pt; color:#cbd5e1;">
+          <strong style="color:#fbbf24;">Live Two-Way Sync:</strong> Clicking <code>blocked</code> opens a dropdown; changing it rewrites <code>status:</code> in <code>billing-webhook.md</code> immediately.
+        </div>
+      </div>
+
+      <!-- RIGHT PANE: .canvas Board -->
+      <div style="padding:9px 10px; background:#100c05; position:relative; background-image: radial-gradient(#3b2810 1px, transparent 1px); background-size: 14px 14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:7px;">
+          <span style="background:#241909; border:1px solid #78350f; color:#fde68a; padding:2px 7px; border-radius:4px; font-size:7pt; font-weight:700;">Spatial Map: <code>architecture.canvas</code></span>
+          <span style="color:#94a3b8; font-size:6.9pt;">Zoom: 100% • Grid Lock</span>
+        </div>
+
+        <!-- Group Container 1 -->
+        <div style="border:1.5px dashed #f59e0b; background:rgba(217, 119, 6, 0.08); border-radius:8px; padding:7px 8px; margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="color:#fbbf24; font-weight:700; font-size:7.1pt;">GROUP: Core Edge Layer (<code>type: "group"</code>)</span>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div style="background:#1e1508; border:1.5px solid #fbbf24; border-radius:6px; padding:6px;">
+              <div style="color:#93c5fd; font-weight:700; font-size:7pt;">📄 auth-gateway.md <span class="callout-pin" style="width:15px; height:15px; font-size:6.8pt;">6</span></div>
+              <div style="color:#cbd5e1; font-size:6.6pt; margin-top:2px;">JWT verify • Rate limit<br/><code>x:0, y:0, w:260</code></div>
+            </div>
+            <div style="background:#1e1508; border:1.5px solid #38bdf8; border-radius:6px; padding:6px;">
+              <div style="color:#7dd3fc; font-weight:700; font-size:7pt;">📄 edge-cache-v2.md</div>
+              <div style="color:#cbd5e1; font-size:6.6pt; margin-top:2px;">Stale-while-revalidate<br/><code>x:320, y:0, w:260</code></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Directional Connector Indicator -->
+        <div style="display:flex; justify-content:center; align-items:center; gap:6px; margin:-8px 0 6px 0;">
+          <span style="color:#fbbf24; font-size:8.5pt; font-weight:800;">↓</span>
+          <span style="background:#261a09; border:1px solid #d97706; color:#fde68a; padding:1px 6px; border-radius:99px; font-size:6.7pt;">Edge: <code>"verifies signature"</code> (<code>fromSide: "bottom"</code>)</span>
+          <span class="callout-pin">7</span>
+        </div>
+
+        <!-- Group Container 2 -->
+        <div style="border:1.5px dashed #ef4444; background:rgba(239, 68, 68, 0.08); border-radius:8px; padding:7px 8px;">
+          <div style="color:#fca5a5; font-weight:700; font-size:7.1pt; margin-bottom:5px;">GROUP: Payment &amp; Compliance Pipeline (<code>color: "1"</code>)</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div style="background:#241010; border:1.5px solid #f87171; border-radius:6px; padding:6px;">
+              <div style="color:#fecaca; font-weight:700; font-size:7pt;">📄 billing-webhook.md</div>
+              <div style="color:#cbd5e1; font-size:6.6pt; margin-top:2px;">Stripe idempotency key<br/><code>x:0, y:220, w:260</code></div>
+            </div>
+            <div style="background:#14221b; border:1.5px solid #34d399; border-radius:6px; padding:6px;">
+              <div style="color:#a7f3d0; font-weight:700; font-size:7pt;">📝 SLA Warning (<code>text</code>)</div>
+              <div style="color:#cbd5e1; font-size:6.6pt; margin-top:2px;">Unblock webhook retry<br/>before Dec 1 freeze!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Point Numbered Callout Legend -->
+  <h3 style="margin:2px 0 5px 0;">Workspace Callout Legend (Controls <code>1</code>–<code>7</code>)</h3>
+  <div class="grid-2" style="gap:7px 12px; font-size:8.1pt;">
+    <div class="card" style="padding:6.5px 10px;">
+      <strong><span class="callout-pin" style="margin-right:4px;">1</span> Multi-View Switcher (<code>views[]</code>):</strong> One <code>.base</code> file stores multiple named layouts—switch instantaneously between a dense <code>table</code> view and a visual <code>cards</code> gallery.
+    </div>
+    <div class="card" style="padding:6.5px 10px;">
+      <strong><span class="callout-pin" style="margin-right:4px;">2</span> Declarative Filter &amp; Sort Pills:</strong> Visual pills reflect the YAML <code>filters</code> block (<code>and</code> / <code>or</code> / <code>not</code>) and sort priority without writing procedural scripts.
+    </div>
+    <div class="card" style="padding:6.5px 10px;">
+      <strong><span class="callout-pin" style="margin-right:4px;">3</span> Two-Way Editable Property Cells:</strong> Every column maps to a YAML frontmatter key; editing a cell in-place updates the target Markdown file on disk.
+    </div>
+    <div class="card" style="padding:6.5px 10px;">
+      <strong><span class="callout-pin" style="margin-right:4px;">4</span> Computed Formula Column (<code>formulas</code>):</strong> Calculates live countdowns, SLA flags, or ratios from note dates and numbers, plus bottom column summaries.
+    </div>
+    <div class="card" style="padding:6.5px 10px;">
+      <strong><span class="callout-pin" style="margin-right:4px;">5</span> Spatial Group Frame (<code>type: "group"</code>):</strong> Bounding-box container listed first in <code>nodes[]</code> so child cards render cleanly inside its labeled border.
+    </div>
+    <div class="card" style="padding:6.5px 10px;">
+      <strong><span class="callout-pin" style="margin-right:4px;">6</span> Live Mounted File Node (<code>type: "file"</code>):</strong> Embeds the actual <code>auth-gateway.md</code> note on the 2D plane—scroll or edit it right inside the canvas!
+    </div>
+  </div>
+  <div class="card" style="padding:6.5px 10px; margin-top:7px; font-size:8.1pt;">
+    <strong><span class="callout-pin" style="margin-right:4px;">7</span> Labeled Directional Edge (<code>edges[]</code>):</strong> Connects exact anchor sides (<code>fromSide: "bottom"</code> → <code>toSide: "top"</code>) with arrow markers and semantic relationship labels so humans and agents can trace data flow visually.
+  </div>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: DESIGNING AGENT-SAFE YAML PROPERTY SCHEMAS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 • Agent-Safe Metadata Design</span>
+    <span>Standardizing Frontmatter Types &amp; AGENTS.md Contracts</span>
+  </div>
+
+  <h2 class="page-title">Designing Agent-Safe YAML Property Schemas</h2>
+  <p class="page-lead" style="margin-bottom:5px; font-size:9.3pt;">
+    A <code>.base</code> database is only as sharp as the YAML frontmatter underneath it. Without an explicit schema contract, AI agents drift across synonyms—writing <code>dueDate</code> on Monday and <code>due_date</code> on Tuesday—silently splitting one column into sparse fragments.
+  </p>
+
+  <div class="figure-box" style="margin:2px 0 6px 0;">
+    <img src="assets/yaml_to_bases_grid.jpg" alt="Architectural Cutaway of Color-Coded Markdown Tablets Feeding a Relational Matrix Grid" style="width:100%; height:215px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption" style="padding:4.5px 10px; font-size:7.8pt;">
+      <strong>Schema-First Precision:</strong> Standardized YAML frontmatter headers act as color-coded keys that slot every atomic Markdown note cleanly into your relational <code>.base</code> Table and Cards layouts.
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 3px 0; font-size:10.4pt;">1. Obsidian's 6 Native Property Types (Backed by <code>.obsidian/types.json</code>)</h3>
+  <table class="clean-table" style="font-size:7.6pt; line-height:1.32; margin:2px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:14%; padding:4.5px 7px;">UI Type</th>
+        <th style="width:17%; padding:4.5px 7px;"><code>types.json</code> ID</th>
+        <th style="width:32%; padding:4.5px 7px;">Exact Agent YAML Syntax</th>
+        <th style="width:37%; padding:4.5px 7px;">Agent Guardrail &amp; Base Filter Behavior</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Text</strong></td>
+        <td style="padding:3.8px 7px;"><code>"text"</code></td>
+        <td style="padding:3.8px 7px;"><code>status: "active"</code> &nbsp;|&nbsp; <code>owner: "[[Ada]]"</code></td>
+        <td style="padding:3.8px 7px;">Always quote wikilinks (<code>"[[Ada]]"</code>)! Unquoted <code>[[Ada]]</code> parses as a nested YAML array.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Number</strong></td>
+        <td style="padding:3.8px 7px;"><code>"number"</code></td>
+        <td style="padding:3.8px 7px;"><code>priority: 1</code> &nbsp;|&nbsp; <code>effort_hrs: 4.5</code></td>
+        <td style="padding:3.8px 7px;">Emit bare numbers without quotes so <code>&lt;</code>, <code>&gt;</code>, and <code>Average</code> summaries compute numerically.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Checkbox</strong></td>
+        <td style="padding:3.8px 7px;"><code>"checkbox"</code></td>
+        <td style="padding:3.8px 7px;"><code>shipped: false</code></td>
+        <td style="padding:3.8px 7px;">Use lowercase YAML booleans (<code>true</code> / <code>false</code>), never <code>"yes"</code> or <code>"True"</code> strings.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Date</strong></td>
+        <td style="padding:3.8px 7px;"><code>"date"</code></td>
+        <td style="padding:3.8px 7px;"><code>due: 2026-12-15</code></td>
+        <td style="padding:3.8px 7px;">Strict ISO-8601 <code>YYYY-MM-DD</code> only; powers <code>date(due) &lt; today()</code> in <code>.base</code> formulas.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Date &amp; time</strong></td>
+        <td style="padding:3.8px 7px;"><code>"datetime"</code></td>
+        <td style="padding:3.8px 7px;"><code>reviewed_at: 2026-11-12T14:30:00</code></td>
+        <td style="padding:3.8px 7px;">ISO-8601 timestamp (<code>YYYY-MM-DDTHH:mm:ss</code>); ideal for meeting logs and sync stamps.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>List / Tags</strong></td>
+        <td style="padding:3.8px 7px;"><code>"multitext"</code> / <code>"tags"</code></td>
+        <td style="padding:3.8px 7px;"><code>tags: [project, q4]</code></td>
+        <td style="padding:3.8px 7px;">Always emit a YAML array even for single items (<code>[q4]</code>) so <code>.contains()</code> never fails.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 2px 0; font-size:10.4pt;">2. Pin a Canonical Property Contract Inside Vault <code>AGENTS.md</code></h3>
+  <p style="font-size:8.05pt; margin-bottom:3px;">
+    Place a concise <code>AGENTS.md</code> in your vault root so Antigravity Desktop and Claude Desktop enforce identical keys on every edit:
+  </p>
+  <pre class="code-block" style="margin:1px 0 0 0; padding:5.5px 9px; font-size:6.85pt; line-height:1.28;"><code># Vault Metadata Schema Contract (AGENTS.md) — Use ONLY canonical snake_case keys:
+- status: "inbox" | "active" | "blocked" | "review" | "done"  (Text)
+- priority: 1 | 2 | 3                                         (Number: 1=Urgent, 3=Low)
+- due: YYYY-MM-DD                                             (Date: strict ISO-8601)
+- owner: "[[Full Name]]"  &amp;  project: "[[Project Note]]"      (Text: ALWAYS quote wikilinks)
+- tags: [lowercase-kebab]                                     (YAML List, no leading #)</code></pre>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: AUTHORING NATIVE .BASE FILES & FORMULAS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 • Native .base Databases &amp; Formulas</span>
+    <span>Complete YAML Query Anatomy &amp; Multi-View Dashboards</span>
+  </div>
+
+  <h2 class="page-title">Authoring Native <code>.base</code> Files &amp; Formulas With AI</h2>
+  <p class="page-lead" style="margin-bottom:5px; font-size:9.35pt;">
+    Every Obsidian <code>.base</code> file is a declarative YAML document with four top-level blocks: global <code>filters</code>, calculated <code>formulas</code>, column <code>properties</code> labels, and a <code>views</code> array defining Table and Cards tabs.
+  </p>
+
+  <h3 style="margin:2px 0 3px 0; font-size:10.4pt;">1. Production <code>roadmap.base</code> Anatomy (Copy-Paste Reference)</h3>
+  <pre class="code-block" style="font-size:6.8pt; line-height:1.27; padding:6px 9px; margin-bottom:6px;"><code>filters:
+  and:
+    - or: [file.inFolder("Projects"), file.inFolder("Specs")]
+    - 'status != "archived"'
+formulas:
+  days_left: 'if(due, (date(due) - today()).days, "")'
+  sla_badge: 'if(status == "done", "Shipped", if(date(due) &lt; today(), "OVERDUE", "On Track"))'
+properties:
+  file.name: { displayName: "Deliverable" }
+  status: { displayName: "Stage" }
+  formula.sla_badge: { displayName: "SLA Health" }
+views:
+  - type: table
+    name: "Active Execution Table"
+    limit: 50
+    groupBy: { property: status, direction: ASC }
+    order: [file.name, status, priority, owner, due, formula.sla_badge, formula.days_left]
+  - type: cards
+    name: "Blocked &amp; Urgent Cards"
+    filters:
+      or: ['status == "blocked"', 'priority == 1']
+    order: [file.name, owner, due, formula.sla_badge]</code></pre>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.4pt;">2. High-Value Built-In <code>.base</code> Functions Agents Should Use</h3>
+  <div class="grid-3" style="margin-bottom:6px; gap:9px;">
+    <div class="card" style="padding:6.5px 8.5px;">
+      <div class="card-title" style="font-size:8.7pt;">File Context</div>
+      <p style="font-size:7.7pt; line-height:1.36; margin:0;">
+        <code>file.inFolder("Specs")</code>, <code>file.hasTag("q4")</code>, <code>file.hasLink("Roadmap")</code>, <code>file.name</code>, and <code>file.mtime</code> filter notes without redundant YAML keys.
+      </p>
+    </div>
+    <div class="card" style="padding:6.5px 8.5px;">
+      <div class="card-title" style="font-size:8.7pt;">Date &amp; Math</div>
+      <p style="font-size:7.7pt; line-height:1.36; margin:0;">
+        Compare <code>date(due) &lt; today()</code>, inspect <code>now()</code>, format decimals via <code>.toFixed(2)</code>, and branch cleanly with <code>if(cond, a, b)</code>.
+      </p>
+    </div>
+    <div class="card" style="padding:6.5px 8.5px;">
+      <div class="card-title" style="font-size:8.7pt;">List &amp; Embeds</div>
+      <p style="font-size:7.7pt; line-height:1.36; margin:0;">
+        Test multi-value lists via <code>tags.contains("urgent")</code>. Embed any view inside Markdown using <code>![[roadmap.base#Blocked &amp; Urgent Cards]]</code>!
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.4pt;">3. Color-Coded Prompt Anatomy: Generating Multi-View <code>.base</code> Cockpits</h3>
+  <div class="card" style="background:#fffdf7; border-color:#fde68a; padding:7.5px 10px; font-size:8pt; line-height:1.52; margin-bottom:6px;">
+    <span class="p-tag p-style">[SCHEMA READ]</span> First read <code>AGENTS.md</code> and <code>.obsidian/types.json</code> to verify exact property names and types.
+    <span class="p-tag p-subj">[DATASET SCOPE]</span> Create <code>Dashboards/engineering-radar.base</code> filtering notes where <code>file.inFolder("Specs")</code> and <code>status != "archived"</code>.
+    <span class="p-tag p-act">[FORMULAS]</span> Add two <code>formulas</code>: <code>age_days</code> from <code>file.ctime</code> and <code>risk_flag</code> flagging items where <code>priority == 1</code> and <code>status == "blocked"</code>.
+    <span class="p-tag p-cam">[VIEWS &amp; ORDER]</span> Configure two <code>views</code>: a grouped <code>type: table</code> ordered by <code>priority</code>, plus a <code>type: cards</code> view limited to <code>limit: 12</code> top risks.
+    <span class="p-tag p-cons">[SYNTAX GUARDRAIL]</span> Output valid standalone YAML only—quote expressions containing operators like <code>!=</code> or <code>&lt;</code> so YAML parsers never choke on punctuation.
+  </div>
+
+  <div class="callout amber" style="margin:0; padding:6.5px 10px; font-size:8.1pt;">
+    <div class="callout-title">Standalone <code>.base</code> Files vs. Inline Embedded Base Blocks</div>
+    Save reusable multi-tab trackers as standalone <code>.base</code> files so they appear in Quick Switcher and Graph View; reserve inline fenced <code>base</code> code blocks inside Markdown notes for one-off contextual mini-tables (such as listing child tasks inside a single project hub note).
+  </div>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: MASTERING THE OPEN JSON CANVAS (.CANVAS) SPEC ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 • Open JSON Canvas 1.0 &amp; Coordinate Math</span>
+    <span>Generating Non-Overlapping Spatial Blueprints With AI</span>
+  </div>
+
+  <h2 class="page-title">Mastering Open JSON Canvas (<code>.canvas</code>) &amp; Grid Math</h2>
+  <p class="page-lead" style="margin-bottom:5px; font-size:9.35pt;">
+    Published under an open specification at <code>jsoncanvas.org</code>, every <code>.canvas</code> file is a standard JSON object with two arrays: <code>nodes[]</code> (ordered back-to-front by z-index) and <code>edges[]</code>. Deterministic grid math turns messy guesses into crisp blueprints.
+  </p>
+
+  <h3 style="margin:2px 0 3px 0; font-size:10.4pt;">1. Exact JSON Canvas 1.0 Schema Reference</h3>
+  <div class="grid-2" style="margin-bottom:5px; gap:10px;">
+    <pre class="code-block" style="margin:0; padding:6px 9px; font-size:6.7pt; line-height:1.27;"><code>{
+  "nodes": [
+    { "id": "grp-core-0000001", "type": "group",
+      "label": "Core Services", "color": "4",
+      "x": -40, "y": -48, "width": 720, "height": 268 },
+    { "id": "nd-auth-00000001", "type": "file",
+      "file": "Specs/auth-gateway.md",
+      "subpath": "#Token Flow", "color": "5",
+      "x": 0, "y": 0, "width": 300, "height": 180 },
+    { "id": "nd-note-002", "type": "text", "color": "2",
+      "text": "### Rate Limit\n1,200 req/min per key",
+      "x": 380, "y": 0, "width": 260, "height": 180 }
+  ],
+  "edges": [
+    { "id": "ed-auth-rate-001",
+      "fromNode": "nd-auth-00000001", "fromSide": "right",
+      "toNode": "nd-note-002", "toSide": "left",
+      "toEnd": "arrow", "label": "enforces" }
+  ]
+}</code></pre>
+
+    <div style="display:flex; flex-direction:column; gap:5px;">
+      <div class="card" style="padding:6px 9px;">
+        <div class="card-title" style="font-size:8.7pt; margin-bottom:2px;">4 Official Node Types (<code>nodes[]</code>)</div>
+        <ul style="font-size:7.6pt; line-height:1.33; margin:0; padding-left:14px;">
+          <li><code>"group"</code>: Visual container (<code>label</code>). <strong>List groups FIRST in <code>nodes[]</code></strong> so they render behind cards!</li>
+          <li><code>"file"</code>: Relative vault path (<code>"Specs/auth.md"</code>) + optional heading <code>subpath</code>.</li>
+          <li><code>"text"</code>: Standalone Markdown card (<code>text</code> with <code>\n</code>).</li>
+          <li><code>"link"</code>: Live external URL card (<code>url</code>).</li>
+        </ul>
+      </div>
+      <div class="card" style="padding:6px 9px;">
+        <div class="card-title" style="font-size:8.7pt; margin-bottom:2px;">Obsidian Preset Palette (<code>color</code>)</div>
+        <p style="font-size:7.55pt; line-height:1.33; margin:0;">
+          Strings <code>"1"</code> Red (blockers), <code>"2"</code> Orange (warnings), <code>"3"</code> Yellow, <code>"4"</code> Green (done), <code>"5"</code> Cyan (APIs), <code>"6"</code> Purple (specs)—or hex <code>"#d97706"</code>.
+        </p>
+      </div>
+      <div class="card" style="padding:6px 9px;">
+        <div class="card-title" style="font-size:8.7pt; margin-bottom:2px;">Clean Orthogonal Edges (<code>edges[]</code>)</div>
+        <p style="font-size:7.55pt; line-height:1.33; margin:0;">
+          Always set <code>fromSide</code> &amp; <code>toSide</code>: left-to-right flows wire <code>"right" → "left"</code>; top-down trees wire <code>"bottom" → "top"</code>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 3px 0; font-size:10.4pt;">2. Anti-Overlap Coordinate Grid Math (Never Stack Nodes at <code>0, 0</code>!)</h3>
+  <p style="font-size:8.05pt; margin-bottom:4px;">
+    When prompted vaguely to <em>"make a canvas,"</em> LLMs often guess overlapping coordinates. Hand your agent these four deterministic layout equations:
+  </p>
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%; padding:4.5px 8px;">Layout Element</th>
+        <th style="width:35%; padding:4.5px 8px;">Deterministic Integer Formula</th>
+        <th style="width:43%; padding:4.5px 8px;">Why It Guarantees Readability</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4px 8px;"><strong>Card Slot <code>(x, y)</code></strong></td>
+        <td style="padding:4px 8px;"><code>x = col * 380</code> &nbsp;|&nbsp; <code>y = row * 240</code></td>
+        <td style="padding:4px 8px;">For <code>300×180</code> cards, leaves an <code>80px</code> horizontal gutter for edge labels and a <code>60px</code> vertical gutter.</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 8px;"><strong>Height by Lines</strong></td>
+        <td style="padding:4px 8px;"><code>height = max(160, 90 + lines * 24)</code></td>
+        <td style="padding:4px 8px;">Prevents vertical scrollbars on multi-bullet <code>text</code> cards at overview zoom.</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 8px;"><strong>Group Bounds</strong></td>
+        <td style="padding:4px 8px;"><code>gx = min_x - 40</code>, <code>gy = min_y - 48</code><br/><code>gw = (max_r - min_x) + 80</code></td>
+        <td style="padding:4px 8px;">Wraps child cards with <code>40px</code> side padding and <code>48px</code> top clearance for the group title bar.</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 8px;"><strong>Integer Pixels</strong></td>
+        <td style="padding:4px 8px;"><code>int(round(coord))</code> (no floats!)</td>
+        <td style="padding:4px 8px;">JSON Canvas 1.0 requires strict integer pixel values for <code>x</code>, <code>y</code>, <code>width</code>, and <code>height</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:6px 10px; font-size:8.1pt;">
+    <div class="callout-title">Strict JSON Hygiene: Zero Comments &amp; Zero Trailing Commas</div>
+    Obsidian's <code>.canvas</code> parser enforces strict RFC 8259 JSON. A single <code>// comment</code> or trailing comma renders an empty canvas—always validate with <code>python3 -m json.tool</code> before saving.
+  </div>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: BI-DIRECTIONAL WORKFLOWS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 • Bi-Directional Agent Workflows</span>
+    <span>Notes ↔ Bases ↔ Canvas Synthesis &amp; Scaffolding Loops</span>
+  </div>
+
+  <h2 class="page-title">Bi-Directional Workflows: Notes ↔ Bases ↔ Canvas</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Because all three formats live as plain text in your workspace, information flows effortlessly in <strong>both directions</strong>: synthesize scattered notes upward into dashboards, or sketch rough boxes on a canvas and let an AI agent scaffold your vault downward.
+  </p>
+
+  <div class="figure-box" style="margin:2px 0 8px 0;">
+    <img src="assets/spatial_canvas_constellation.jpg" alt="Elevated Isometric Obsidian Drafting Table With Luminous Spatial Group Frames and Orthogonal Connectors" style="width:100%; height:216px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Spatial-to-Relational Roundtrip:</strong> Sketch high-level group frames and rough concept cards visually on an infinite <code>.canvas</code> table, then instruct Antigravity or Claude Desktop to turn every card into a structured Markdown spec and live <code>.base</code> tracker.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:11px; margin-bottom:7px;">
+    <!-- Loop 1: Bottom-Up -->
+    <div class="card-amber" style="padding:9px 11px;">
+      <div class="card-title" style="font-size:9.4pt;"><span class="num-badge">A</span> Bottom-Up Synthesis (Notes → Views)</div>
+      <p style="font-size:8.05pt; margin-bottom:5px;">
+        <strong>When to use:</strong> You have 30+ messy meeting notes, ADRs, or research clippings in a folder and need operational clarity fast.
+      </p>
+      <ol style="font-size:7.95pt; margin:0; padding-left:16px;">
+        <li><strong>Audit &amp; Normalize:</strong> Ask Claude Desktop or Antigravity to scan <code>Projects/Q4/*.md</code> and backfill missing <code>status</code>, <code>owner</code>, <code>priority</code>, and ISO <code>due</code> YAML frontmatter per <code>AGENTS.md</code>.</li>
+        <li><strong>Generate Operational Base:</strong> Have the agent author <code>Projects/Q4/roadmap.base</code> with an execution Table tab and a blocked-items Cards tab.</li>
+        <li><strong>Map Dependencies:</strong> Have the agent inspect <code>[[wikilinks]]</code> between those 30 notes and emit <code>Projects/Q4/architecture.canvas</code> grouping upstream vs. downstream services on a <code>380×240</code> grid.</li>
+      </ol>
+    </div>
+
+    <!-- Loop 2: Top-Down -->
+    <div class="card" style="padding:9px 11px; border-color:#bae6fd; background:#f8fafc;">
+      <div class="card-title" style="font-size:9.4pt;"><span class="num-badge sky">B</span> Top-Down Scaffolding (Canvas → Vault)</div>
+      <p style="font-size:8.05pt; margin-bottom:5px;">
+        <strong>When to use:</strong> You prefer brainstorming visually—dragging out 12 rough <code>text</code> cards and arrows on <code>brainstorm.canvas</code> during a whiteboard session.
+      </p>
+      <ol style="font-size:7.95pt; margin:0; padding-left:16px;">
+        <li><strong>Read Visual Topology:</strong> Point Antigravity at <code>brainstorm.canvas</code>. It parses <code>nodes[]</code>, parent <code>group</code> bounds, and <code>edges[]</code> to infer hierarchy and dependencies!</li>
+        <li><strong>Scaffold Linked Specs:</strong> For every <code>text</code> card, the agent creates a dedicated <code>Specs/&lt;slug&gt;.md</code> note populated with YAML properties (setting <code>category</code> from the enclosing Canvas group and <code>depends_on</code> from incoming arrows).</li>
+        <li><strong>Upgrade Cards In-Place:</strong> The agent converts those temporary <code>"type": "text"</code> nodes in <code>brainstorm.canvas</code> into live <code>"type": "file"</code> nodes and generates <code>Specs/tracker.base</code>!</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin:2px 0 0 0;">
+    <div class="callout-title">Pro Technique: Non-Destructive Canvas Upgrades With Backup Snapshots</div>
+    Before letting an agent rewrite an existing hand-arranged <code>.canvas</code> file (such as converting <code>text</code> cards to <code>file</code> cards), instruct it to preserve your exact <code>x</code>, <code>y</code>, <code>width</code>, <code>height</code>, and <code>color</code> attributes verbatim—modifying only <code>"type": "file"</code> and <code>"file": "Specs/..."</code> so your spatial muscle memory stays untouched.
+  </div>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE AGENT RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 • 5 Copy-Paste Agent Recipes</span>
+    <span>Production Prompts for Claude Desktop &amp; Antigravity</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste <code>.base</code> &amp; <code>.canvas</code> Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Drop any of these five battle-tested prompts directly into Claude Desktop (with Filesystem MCP) or Antigravity Desktop to build complete, zero-plugin relational and spatial systems inside your vault in under sixty seconds.
+  </p>
+
+  <table class="clean-table" style="font-size:7.85pt; margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Recipe &amp; Target Files</th>
+        <th style="width:24%;">YAML Schema &amp; Layout Spec</th>
+        <th style="width:57%;">Copy-Paste Prompt for Claude Desktop / Antigravity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Personal CRM &amp; Follow-Up Radar</strong><br/><code>People/*.md</code> + <code>crm.base</code></td>
+        <td>Props: <code>role</code>, <code>org</code>, <code>cadence_days</code> (Number), <code>last_met</code> (Date).<br/>Views: Overdue Table + VIP Cards.</td>
+        <td><em>"Scan <code>People/*.md</code> and ensure every note has YAML keys <code>org</code>, <code>role</code>, <code>cadence_days</code> (number, default 30), and ISO <code>last_met</code>. Then create <code>People/crm.base</code> with formula <code>days_since: '(today() - date(last_met)).days'</code> and <code>needs_ping: 'if((today() - date(last_met)).days &gt; cadence_days, \"Ping Now\", \"Warm\")'</code>. Add a Table sorted by <code>days_since</code> DESC and a Cards view filtered to <code>Ping Now</code>."</em></td>
+      </tr>
+      <tr>
+        <td><strong>2. Literature &amp; Evidence Matrix</strong><br/><code>Papers/*.md</code> + <code>evidence.base</code></td>
+        <td>Props: <code>year</code> (Number), <code>methodology</code>, <code>verdict</code>, <code>topics</code> (List).<br/>Views: Synthesis Table + Topic Cards.</td>
+        <td><em>"Read all notes in <code>Papers/</code>, standardize frontmatter to <code>authors</code> (list), <code>year</code> (number), <code>methodology</code>, <code>sample_size</code> (number), and <code>verdict</code> (supports/mixed/refutes). Generate <code>Papers/evidence.base</code> with a Table grouped by <code>verdict</code> showing <code>Average</code> on <code>sample_size</code>, plus a Cards view for papers where <code>year &gt;= 2025</code>."</em></td>
+      </tr>
+      <tr>
+        <td><strong>3. Microservice Architecture Mapper</strong><br/><code>arch-map.canvas</code></td>
+        <td>4 layered <code>group</code> lanes (Clients, Gateway, Services, Stores) on <code>col*380, row*240</code> grid.</td>
+        <td><em>"Inspect our repo's <code>services/</code> folders and <code>Docs/ADR/*.md</code>. Generate <code>Docs/arch-map.canvas</code> following JSON Canvas 1.0: place 4 horizontal <code>group</code> containers first in <code>nodes[]</code>, mount matching ADR notes as <code>file</code> nodes and external APIs as <code>text</code> nodes using <code>x = col * 380</code>, <code>y = row * 240</code> (zero overlaps), and connect calls via labeled orthogonal <code>edges[]</code>."</em></td>
+      </tr>
+      <tr>
+        <td><strong>4. Product Launch Cockpit + Dependency Map</strong><br/><code>launch.base</code> + <code>deps.canvas</code></td>
+        <td>Synchronized pair: <code>.base</code> tracks owner/SLA; <code>.canvas</code> maps critical-path blockers in red (<code>color: "1"</code>).</td>
+        <td><em>"Across <code>Launch/*.md</code>, normalize <code>status</code>, <code>owner</code>, <code>due</code>, and <code>blocked_by</code> (quoted wikilink list). Create <code>Launch/launch.base</code> with Table and Cards views, AND generate <code>Launch/deps.canvas</code> mounting every launch note as a <code>file</code> node colored <code>\"1\"</code> if blocked or <code>\"4\"</code> if done, wiring <code>blocked_by</code> links as left-to-right arrows."</em></td>
+      </tr>
+      <tr>
+        <td><strong>5. Legacy Dataview-to-Native-<code>.base</code> Migrator</strong><br/>Vault-wide <code>*.base</code></td>
+        <td>Converts read-only community <code>dataview</code> DQL blocks into fast two-way native <code>.base</code> files + embeds.</td>
+        <td><em>"Find every note in my vault containing legacy Dataview TABLE or LIST queries. For each query, translate its <code>FROM</code>, <code>WHERE</code>, <code>FLATTEN</code>/calculated columns, and <code>SORT</code> clauses into a standalone native <code>.base</code> file in <code>Bases/</code>, then replace the old block with a clean <code>![[Bases/name.base]]</code> embed after showing me a diff preview."</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:0;">
+    <div class="callout-title">Embed Multiple Views Inside One Executive Summary Note</div>
+    Once your agent creates <code>Launch/launch.base</code> and <code>Launch/deps.canvas</code>, create a single <code>Launch/README.md</code> hub note containing <code>![[launch.base#Blocked &amp; Urgent Cards]]</code> right above <code>![[deps.canvas]]</code>—giving stakeholders a live relational table and spatial map on one scrollable page.
+  </div>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: VALIDATION SCRIPTS & TYPES.JSON POLISH ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 • Automated Verification</span>
+    <span>Collision Checks &amp; .obsidian/types.json Registry</span>
+  </div>
+
+  <h2 class="page-title">Validation Scripts &amp; Layout Polish in Antigravity</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Professional agent workflows never trust raw LLM JSON blindly. Adding a tiny 25-line Python check inside Antigravity Desktop catches broken file paths, duplicate IDs, float coordinates, and overlapping cards in milliseconds before you even switch windows to Obsidian.
+  </p>
+
+  <h3 style="margin:3px 0 4px 0;">1. The 25-Line <code>validate_canvas.py</code> Pre-Flight Script</h3>
+  <p style="font-size:8.3pt; margin-bottom:4px;">
+    Save this helper in a local <code>_scripts/validate_canvas.py</code> file (or let Antigravity run it automatically after generating any <code>.canvas</code> board):
+  </p>
+  <pre class="code-block" style="font-size:7pt; line-height:1.33; margin-bottom:8px;"><code>import json, sys, pathlib
+
+vault = pathlib.Path(sys.argv[1]).resolve()
+canvas_path = pathlib.Path(sys.argv[2]).resolve()
+data = json.loads(canvas_path.read_text(encoding="utf-8"))  # Fails fast on trailing commas!
+
+nodes, edges = data.get("nodes", []), data.get("edges", [])
+ids = [n["id"] for n in nodes] + [e["id"] for e in edges]
+assert len(ids) == len(set(ids)), "Duplicate node/edge ID detected!"
+
+cards = [n for n in nodes if n["type"] != "group"]
+for n in nodes:
+    for k in ("x", "y", "width", "height"):
+        assert isinstance(n[k], int), f"Node {n['id']} {k}={n[k]} must be integer!"
+    if n["type"] == "file":
+        assert (vault / n["file"]).exists(), f"Missing vault file: {n['file']}"
+
+for i, a in enumerate(cards):
+    for b in cards[i + 1:]:
+        overlap = (a["x"] &lt; b["x"] + b["width"] and a["x"] + a["width"] &gt; b["x"] and
+                   a["y"] &lt; b["y"] + b["height"] and a["y"] + a["height"] &gt; b["y"])
+        assert not overlap, f"Bounding-box collision between {a['id']} and {b['id']}!"
+print(f"OK: {len(nodes)} nodes, {len(edges)} edges, 0 broken paths, 0 card overlaps.")</code></pre>
+
+  <h3 style="margin:4px 0 4px 0;">2. Syncing <code>.obsidian/types.json</code> So Property Pickers Just Work</h3>
+  <div class="grid-2" style="gap:11px; margin-bottom:7px;">
+    <div>
+      <p style="font-size:8.25pt;">
+        When an AI agent introduces a brand-new YAML property across twenty Markdown files (such as <code>due</code> or <code>cadence_days</code>), Obsidian infers its type on first scan—unless an older note accidentally stored a string in that field, triggering a type-warning icon in Properties view and breaking numeric or date sorting inside <code>.base</code> tables.
+      </p>
+      <p style="font-size:8.25pt; margin-bottom:0;">
+        <strong>The Fix:</strong> Have Antigravity inspect and update <code>.obsidian/types.json</code> whenever you add a new canonical field to <code>AGENTS.md</code>. Locking <code>"due": "date"</code> and <code>"priority": "number"</code> ensures native calendar pickers, checkboxes, and <code>.base</code> column summaries behave deterministically across your entire vault.
+      </p>
+    </div>
+    <pre class="code-block" style="margin:0; font-size:7.15pt; line-height:1.36;"><code>// .obsidian/types.json (valid strict JSON)
+{
+  "types": {
+    "aliases": "aliases",
+    "tags": "tags",
+    "type": "text",
+    "status": "text",
+    "owner": "text",
+    "project": "text",
+    "priority": "number",
+    "cadence_days": "number",
+    "due": "date",
+    "last_met": "date",
+    "reviewed_at": "datetime",
+    "shipped": "checkbox"
+  }
+}</code></pre>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">Git Hygiene for Plain-Text Vaults: Diff-Friendly YAML &amp; Sorted Canvas Keys</div>
+    Commit your <code>.md</code>, <code>.base</code>, <code>.canvas</code>, and <code>.obsidian/types.json</code> files to Git! Instruct agents to preserve existing node IDs when updating a <code>.canvas</code> board rather than regenerating random UUIDs—keeping your <code>git diff</code> clean and human-reviewable.
+  </div>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 • End-to-End Cross-Tool Synergy</span>
+    <span>From Raw Unstructured Inputs to Live Cockpits &amp; Maps</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy Pipeline: Raw Inputs to Visual Vault</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Native <code>.base</code> views and <code>.canvas</code> boards shine brightest as the visual presentation layer at the end of an automated AI research and engineering pipeline—turning messy transcripts, repositories, and PDFs into a living operating system.
+  </p>
+
+  <!-- Pipeline SVG Diagram -->
+  <div class="figure-box" style="background:#161006; padding:12px 13px; border-color:#78350f; margin-bottom:10px;">
+    <svg viewBox="0 0 700 226" width="100%" height="226" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Raw Sources -->
+      <rect x="10" y="18" width="142" height="190" rx="9" fill="#211608" stroke="#d97706" stroke-width="1.4"/>
+      <text x="20" y="38" fill="#fde68a" font-size="8" font-weight="700">STAGE 1 • RAW INPUTS</text>
+      <text x="20" y="55" fill="#ffffff" font-size="10.2" font-weight="800">Unstructured Drop</text>
+      <rect x="20" y="67" width="122" height="34" rx="5" fill="#140d04" stroke="#5c3a11"/>
+      <text x="28" y="81" fill="#fde68a" font-size="7.8" font-weight="700">A. Meeting Transcripts</text>
+      <text x="28" y="93" fill="#94a3b8" font-size="7.1">Action items, owners, dates</text>
+      <rect x="20" y="109" width="122" height="34" rx="5" fill="#140d04" stroke="#5c3a11"/>
+      <text x="28" y="123" fill="#7dd3fc" font-size="7.8" font-weight="700">B. Git Codebase &amp; PRs</text>
+      <text x="28" y="135" fill="#94a3b8" font-size="7.1">Services, APIs, Graphify AST</text>
+      <rect x="20" y="151" width="122" height="34" rx="5" fill="#140d04" stroke="#5c3a11"/>
+      <text x="28" y="165" fill="#6ee7b7" font-size="7.8" font-weight="700">C. Research PDFs &amp; Clips</text>
+      <text x="28" y="177" fill="#94a3b8" font-size="7.1">Papers, specs, benchmarks</text>
+      <text x="81" y="199" text-anchor="middle" fill="#fbbf24" font-size="7.2" font-weight="600">_inbox/ Staging Folder</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M152 113 L178 113" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="176,108 184,113 176,118" fill="#fbbf24"/>
+
+      <!-- Stage 2: Agent Extraction -->
+      <rect x="184" y="18" width="156" height="190" rx="9" fill="#2b1d0b" stroke="#fbbf24" stroke-width="1.7"/>
+      <text x="195" y="38" fill="#fde68a" font-size="8" font-weight="700">STAGE 2 • AI SYNTHESIS</text>
+      <text x="195" y="55" fill="#ffffff" font-size="10.2" font-weight="800">Claude / Antigravity</text>
+      <text x="195" y="74" fill="#e2e8f0" font-size="7.9">1. Reads AGENTS.md schema</text>
+      <text x="195" y="90" fill="#e2e8f0" font-size="7.9">2. Splits atomic .md notes</text>
+      <text x="195" y="106" fill="#e2e8f0" font-size="7.9">3. Injects typed YAML props</text>
+      <text x="195" y="122" fill="#e2e8f0" font-size="7.9">4. Wires [[wikilinks]]</text>
+      <text x="195" y="138" fill="#e2e8f0" font-size="7.9">5. Runs validate_canvas.py</text>
+      <rect x="195" y="152" width="134" height="42" rx="6" fill="#140d04" stroke="#d97706"/>
+      <text x="262" y="168" text-anchor="middle" fill="#fde68a" font-size="7.6" font-weight="700">Zero Schema Drift</text>
+      <text x="262" y="182" text-anchor="middle" fill="#cbd5e1" font-size="7.1">Verified vs .obsidian/types.json</text>
+
+      <!-- Arrow 2->3 (3 branches) -->
+      <path d="M340 58 L374 58" stroke="#34d399" stroke-width="2"/>
+      <polygon points="372,53 380,58 372,63" fill="#34d399"/>
+      <path d="M340 113 L374 113" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="372,108 380,113 372,118" fill="#fbbf24"/>
+      <path d="M340 168 L374 168" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="372,163 380,168 372,173" fill="#38bdf8"/>
+
+      <!-- Stage 3A: .md Layer -->
+      <rect x="380" y="16" width="166" height="58" rx="8" fill="#0d2922" stroke="#34d399" stroke-width="1.4"/>
+      <text x="391" y="33" fill="#6ee7b7" font-size="7.8" font-weight="700">ATOMIC KNOWLEDGE (.md)</text>
+      <text x="391" y="48" fill="#ffffff" font-size="9.4" font-weight="800">Specs/, People/, Papers/</text>
+      <text x="391" y="63" fill="#d1fae5" font-size="7.5">Clean prose + ISO YAML frontmatter</text>
+
+      <!-- Stage 3B: .base Layer -->
+      <rect x="380" y="84" width="166" height="58" rx="8" fill="#261a09" stroke="#fbbf24" stroke-width="1.4"/>
+      <text x="391" y="101" fill="#fde68a" font-size="7.8" font-weight="700">OPERATIONAL COCKPIT (.base)</text>
+      <text x="391" y="116" fill="#ffffff" font-size="9.4" font-weight="800">Execution Tables &amp; Cards</text>
+      <text x="391" y="131" fill="#fef3c7" font-size="7.5">Live SLA formulas &amp; inline triage</text>
+
+      <!-- Stage 3C: .canvas Layer -->
+      <rect x="380" y="152" width="166" height="58" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.4"/>
+      <text x="391" y="169" fill="#7dd3fc" font-size="7.8" font-weight="700">EXECUTIVE TOPOLOGY (.canvas)</text>
+      <text x="391" y="184" fill="#ffffff" font-size="9.4" font-weight="800">2D Architecture Boards</text>
+      <text x="391" y="199" fill="#e2e8f0" font-size="7.5">Color-coded groups &amp; critical paths</text>
+
+      <!-- Arrow to Stage 4 -->
+      <path d="M546 113 L572 113" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="570,108 578,113 570,118" fill="#f59e0b"/>
+
+      <!-- Stage 4: Human Review & Loop -->
+      <rect x="578" y="18" width="112" height="190" rx="9" fill="#1e1508" stroke="#f59e0b" stroke-width="1.6"/>
+      <text x="634" y="40" text-anchor="middle" fill="#fde68a" font-size="7.8" font-weight="700">HUMAN LOOP</text>
+      <text x="634" y="58" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">Daily Triage</text>
+      <text x="634" y="82" text-anchor="middle" fill="#cbd5e1" font-size="7.5">• Edit status cells</text>
+      <text x="634" y="98" text-anchor="middle" fill="#cbd5e1" font-size="7.5">• Drag new cards</text>
+      <text x="634" y="114" text-anchor="middle" fill="#cbd5e1" font-size="7.5">• Mobile sync</text>
+      <text x="634" y="130" text-anchor="middle" fill="#cbd5e1" font-size="7.5">• Git versioned</text>
+      <rect x="588" y="148" width="92" height="46" rx="6" fill="#3b2509" stroke="#fbbf24"/>
+      <text x="634" y="166" text-anchor="middle" fill="#fef3c7" font-size="7.4" font-weight="700">Feeds Next</text>
+      <text x="634" y="180" text-anchor="middle" fill="#fef3c7" font-size="7.4" font-weight="700">Agent Sprint ↺</text>
+    </svg>
+  </div>
+
+  <h3>Four-Stage Weekly Operating Rhythm</h3>
+  <div class="grid-2" style="gap:9px 12px; font-size:8.2pt;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Capture Raw Signal Into <code>_inbox/</code></div>
+      Drop raw call transcripts, PDF papers, or Graphify codebase reports into a dedicated <code>_inbox/</code> folder without worrying about formatting or metadata during deep work.
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Run Schema-Guided Extraction</div>
+      Ask Claude Desktop or Antigravity to distill <code>_inbox/</code> items into typed notes inside <code>Specs/</code>, <code>People/</code>, or <code>Papers/</code> strictly adhering to your <code>AGENTS.md</code> YAML keys.
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">3</span> Refresh Operational <code>.base</code> &amp; <code>.canvas</code></div>
+      Your existing <code>.base</code> tables pick up new notes automatically via folder/tag filters! Have the agent update <code>architecture.canvas</code> whenever new cross-service links appear.
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">4</span> Review on Desktop or Mobile, Then Commit</div>
+      Triage priorities in your <code>.base</code> Table over morning coffee on iPad or iPhone, sketch new edges on Canvas, and commit the plain-text diff cleanly to Git.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 • Troubleshooting Clinic &amp; Pre-Flight</span>
+    <span>7 Common Failure Modes &amp; 6-Point Launch Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Nearly every broken <code>.base</code> column or unreadable <code>.canvas</code> board traces back to one of seven syntax mismatches. Keep this diagnostic table handy for ten-second fixes.
+  </p>
+
+  <h3 style="margin:2px 0 4px 0;">Top 7 Issues &amp; 10-Second Fixes</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Symptom in Obsidian</th>
+        <th style="width:29%;">Root Cause on Disk</th>
+        <th style="width:47%;">10-Second Deterministic Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. All <code>.canvas</code> cards stacked in a pile at <code>(0, 0)</code></strong></td>
+        <td>Agent omitted grid spacing or set constant <code>x: 0, y: 0</code> across nodes.</td>
+        <td>Re-prompt with explicit grid math: <code>x = col * 380</code>, <code>y = row * 240</code>, and run <code>validate_canvas.py</code> to assert zero bounding-box overlaps.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Opening a <code>.canvas</code> file shows a blank/error pane</strong></td>
+        <td>Trailing comma after last array item or <code>//</code> comments inside JSON.</td>
+        <td>Run <code>python3 -m json.tool board.canvas &gt; /dev/null</code> to pinpoint the offending line and strip trailing commas/comments.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>.base</code> date sorting &amp; <code>today()</code> formulas fail</strong></td>
+        <td>Human-written date strings like <code>Nov 12, 2026</code> or <code>12/11/26</code> in YAML.</td>
+        <td>Normalize all YAML date fields to unquoted or quoted strict ISO-8601 <code>YYYY-MM-DD</code> (e.g., <code>due: 2026-11-12</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>.contains()</code> filter misses matching notes in <code>.base</code></strong></td>
+        <td>Property mixes scalar strings (<code>tags: "q4"</code>) in some notes and YAML lists in others.</td>
+        <td>Standardize multi-value fields as YAML arrays everywhere (<code>tags: [q4]</code>), or wrap mixed properties with <code>list(tags).contains("q4")</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Canvas <code>file</code> node says "File not found"</strong></td>
+        <td>Agent wrote an OS absolute path (<code>/Users/...</code>) or omitted the <code>.md</code> extension.</td>
+        <td>JSON Canvas <code>"file"</code> paths must be vault-root relative WITH extension (e.g., <code>"Specs/auth-gateway.md"</code>, no leading slash).</td>
+      </tr>
+      <tr>
+        <td><strong>6. Warning triangle next to property in Sidebar</strong></td>
+        <td>Note value conflicts with global type registered in <code>.obsidian/types.json</code>.</td>
+        <td>Check <code>.obsidian/types.json</code>; convert stray quoted numbers (<code>priority: "1"</code> → <code>1</code>) or unquoted wikilink arrays (<code>"[[Ada]]"</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>7. Long Markdown text cut off inside Canvas cards</strong></td>
+        <td>Fixed <code>height: 120</code> used on a 10-line bulleted <code>"type": "text"</code> node.</td>
+        <td>Scale height dynamically by line count: <code>height = max(160, 90 + line_count * 24)</code> and widen dense cards to <code>width: 320</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0;">6-Point Pre-Flight Checklist Before Shipping Any Agent Output</h3>
+  <div class="checklist-grid">
+    <div class="check-card">
+      <strong>☑ 1. Schema Contract Present:</strong> Root <code>AGENTS.md</code> defines canonical <code>snake_case</code> keys and allowed enum values.
+    </div>
+    <div class="check-card">
+      <strong>☑ 2. Quoted YAML Wikilinks &amp; ISO Dates:</strong> Every wikilink in frontmatter is quoted (<code>"[[Target]]"</code>) and dates match <code>YYYY-MM-DD</code>.
+    </div>
+    <div class="check-card">
+      <strong>☑ 3. Valid <code>.obsidian/types.json</code>:</strong> New numeric, checkbox, list, and date fields are registered cleanly in <code>types.json</code>.
+    </div>
+    <div class="check-card">
+      <strong>☑ 4. Quoted <code>.base</code> Expressions:</strong> Filter and formula strings containing <code>!=</code>, <code>:</code>, or <code>&lt;</code> are wrapped in single quotes in YAML.
+    </div>
+    <div class="check-card">
+      <strong>☑ 5. Groups First &amp; Integer Coords:</strong> In <code>.canvas</code>, <code>group</code> nodes appear first in <code>nodes[]</code> and all <code>x, y, width, height</code> are integers.
+    </div>
+    <div class="check-card">
+      <strong>☑ 6. Zero Collisions &amp; Valid Paths:</strong> <code>validate_canvas.py</code> reports <code>0</code> missing vault files, unique IDs, and <code>0</code> overlapping cards.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>
