@@ -5,9 +5,9 @@
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-10%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-120%20Pages-059669?style=for-the-badge)
-![Ecosystems](https://img.shields.io/badge/Scope-1%20Ecosystem-7c3aed?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-14%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-168%20Pages-059669?style=for-the-badge)
+![Ecosystems](https://img.shields.io/badge/Scope-2%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
 
@@ -18,6 +18,8 @@ Every handbook in this repository is authored as a self-contained **12-page visu
 Click any cover card or **Read / Download PDF** link below to view the full handbook directly in GitHub or download a local copy.
 
 <!-- CATALOG:START -->
+**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture)
+
 ### Google AI & Creative Studios
 Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, agentic coding IDEs, source-grounded research tools, and autonomous browser workflows.
 
@@ -114,6 +116,48 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
   </tr>
 </table>
 
+### AI Agent Engineering & Architecture
+Vendor-neutral 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktree fleets, and semantic RAG memory.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/spec-driven-context-engineering/Spec_Driven_Dev_and_Context_Engineering_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/spec-driven-context-engineering/cover.png" alt="Spec-Driven Dev &amp; Context Engineering Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/spec-driven-context-engineering/Spec_Driven_Dev_and_Context_Engineering_Complete_How_To_Guide.pdf">Spec-Driven Dev &amp; Context Engineering</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Cross-vendor context architecture (AGENTS.md, CLAUDE.md, Cursor rules), progressive disclosure, and Spec-to-Plan-to-Tasks agent workflows.</p>
+      <p><code>Context Engineering</code> &middot; <code>AGENTS.md</code> &middot; <code>Spec-Driven Dev</code></p>
+      <p><a href="guides/agent-engineering/spec-driven-context-engineering/Spec_Driven_Dev_and_Context_Engineering_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/spec-driven-context-engineering">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/subagents-and-orchestration/Subagents_and_Agent_Orchestration_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/subagents-and-orchestration/cover.png" alt="Subagents &amp; Agent Orchestration Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/subagents-and-orchestration/Subagents_and_Agent_Orchestration_Complete_How_To_Guide.pdf">Subagents &amp; Agent Orchestration</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Designing specialist subagents, context forks, least-privilege tool scoping, lifecycle hooks, and multi-agent coordinator-worker swarms.</p>
+      <p><code>Subagents</code> &middot; <code>Orchestration</code> &middot; <code>Least Privilege</code></p>
+      <p><a href="guides/agent-engineering/subagents-and-orchestration/Subagents_and_Agent_Orchestration_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/subagents-and-orchestration">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/git-worktrees-and-parallel-safety/Git_Worktrees_and_Parallel_Agent_Safety_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/git-worktrees-and-parallel-safety/cover.png" alt="Git Worktrees &amp; Parallel Agent Safety Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/git-worktrees-and-parallel-safety/Git_Worktrees_and_Parallel_Agent_Safety_Complete_How_To_Guide.pdf">Git Worktrees &amp; Parallel Agent Safety</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Running parallel coding agents without file collisions—covering Git worktree fleets, isolated ports/databases, safety hooks, and teardown.</p>
+      <p><code>Git Worktrees</code> &middot; <code>Parallel Agents</code> &middot; <code>Safety Hooks</code></p>
+      <p><a href="guides/agent-engineering/git-worktrees-and-parallel-safety/Git_Worktrees_and_Parallel_Agent_Safety_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/git-worktrees-and-parallel-safety">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/vector-memory-and-rag/Vector_Memory_and_Semantic_Search_RAG_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/vector-memory-and-rag/cover.png" alt="Vector Memory &amp; Semantic Search (RAG) Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/vector-memory-and-rag/Vector_Memory_and_Semantic_Search_RAG_Complete_How_To_Guide.pdf">Vector Memory &amp; Semantic Search (RAG)</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Building persistent semantic memory for AI agents with structure-aware chunking, Chroma, pgvector, Qdrant, local Ollama, and hybrid retrieval.</p>
+      <p><code>Vector Memory</code> &middot; <code>RAG</code> &middot; <code>Embeddings</code></p>
+      <p><a href="guides/agent-engineering/vector-memory-and-rag/Vector_Memory_and_Semantic_Search_RAG_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/vector-memory-and-rag">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+</table>
+
 ### Quick-Reference Index
 | Guide | Ecosystem | Version | Updated | Pages | Direct Links |
 | :--- | :--- | :---: | :---: | :---: | :--- |
@@ -127,6 +171,10 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
 | **Google NotebookLM** — Zero-hallucination research studio for 500+ sources, live interactive Join Audio Overviews, Video Overviews, and clickable Mind Maps. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-notebooklm/Google_NotebookLM_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-notebooklm) |
 | **Gemini Deep Research, Canvas & Gems** — Autonomous multi-hundred-site research dossiers, split-screen Canvas live apps with embedded AI, and custom Drive-synced Gems. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-gemini-deep-research-canvas-and-gems/Google_Gemini_Deep_Research_Canvas_and_Gems_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-gemini-deep-research-canvas-and-gems) |
 | **Google Project Mariner** — Autonomous browser-use agent & Gemini Agent Mode running up to 10 parallel cloud browsers, Teach & Repeat skills, and safety gates. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-project-mariner/Google_Project_Mariner_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-project-mariner) |
+| **Spec-Driven Dev & Context Engineering** — Cross-vendor context architecture (AGENTS.md, CLAUDE.md, Cursor rules), progressive disclosure, and Spec-to-Plan-to-Tasks agent workflows. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/spec-driven-context-engineering/Spec_Driven_Dev_and_Context_Engineering_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/spec-driven-context-engineering) |
+| **Subagents & Agent Orchestration** — Designing specialist subagents, context forks, least-privilege tool scoping, lifecycle hooks, and multi-agent coordinator-worker swarms. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/subagents-and-orchestration/Subagents_and_Agent_Orchestration_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/subagents-and-orchestration) |
+| **Git Worktrees & Parallel Agent Safety** — Running parallel coding agents without file collisions—covering Git worktree fleets, isolated ports/databases, safety hooks, and teardown. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/git-worktrees-and-parallel-safety/Git_Worktrees_and_Parallel_Agent_Safety_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/git-worktrees-and-parallel-safety) |
+| **Vector Memory & Semantic Search (RAG)** — Building persistent semantic memory for AI agents with structure-aware chunking, Chroma, pgvector, Qdrant, local Ollama, and hybrid retrieval. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/vector-memory-and-rag/Vector_Memory_and_Semantic_Search_RAG_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/vector-memory-and-rag) |
 <!-- CATALOG:END -->
 
 ---

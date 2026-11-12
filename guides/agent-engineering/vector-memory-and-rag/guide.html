@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vector Memory &amp; Semantic Search (RAG): The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Agent Engineering Series &bull; v1.0 Edition</div>
+    <h1>Mastering <span>Vector Memory &amp; RAG</span></h1>
+    <p class="cover-sub">
+      The complete practical handbook to building semantic recall for AI agents—covering structure-aware chunking, local Ollama vs. cloud embeddings, Chroma &amp; <code>pgvector</code>, hybrid BM25 search, and on-demand MCP servers.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Chroma &amp; Postgres <code>pgvector</code></span>
+      <span class="cover-badge">Local Ollama &amp; OpenAI Embeddings</span>
+      <span class="cover-badge">Structure-Aware Chunking</span>
+      <span class="cover-badge">Hybrid BM25 + RRF Fusion</span>
+      <span class="cover-badge">MCP <code>search_vault</code> Server</span>
+      <span class="cover-badge">Episodic &amp; Semantic Hygiene</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="3D semantic vector constellation illuminated inside a dark obsidian glass chamber" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Recall by Meaning, Not Wording</div>
+      <div class="cover-stat-desc">Find forgotten incidents, architecture trade-offs, and paraphrased notes in milliseconds across 10,000+ files.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">100% Offline or Pennies via API</div>
+      <div class="cover-stat-desc">Run privately for $0.00 on laptop RAM with Ollama, or index a 5,000-note vault for ~$0.09 via API.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">One MCP Server, Every Agent</div>
+      <div class="cover-stat-desc">Expose <code>search_vault</code> once to power Claude Code, Antigravity, Cursor, and VS Code without bloating <code>AGENTS.md</code>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Architecture &amp; Mental Model</span>
+    <span>Vector Memory &amp; RAG Complete Guide</span>
+  </div>
+
+  <h2 class="page-title">Structural Maps vs. Semantic Metal Detectors</h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    Tools like <code>ripgrep</code>, AST parsers, and knowledge graphs give your agent <strong>structural memory</strong>—they know how explicitly linked pieces connect. <strong>Semantic vector memory</strong> adds the missing half: instant recall by <em>meaning</em>, even when your query shares zero words with the note you wrote six months ago.
+  </p>
+
+  <h3 style="margin:5px 0 3px 0;">Quick Navigation</h3>
+  <div class="toc-list" style="gap:4px 18px; margin:3px 0 8px 0;">
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>1. Structural vs. Semantic Memory</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>7. Hybrid Search (BM25 + RRF + Reranking)</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>2. Choosing Your Stack &amp; Embedding Model</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>8. 5 Copy-Paste RAG &amp; Memory Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>3. RAG &amp; MCP Retrieval Inspector UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>9. Exposing Memory to Agents via MCP</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>4. Embeddings &amp; Structure-Aware Chunking</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>10. Evaluation &amp; Cross-Tool Memory Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>5. Metadata, Grounding &amp; Incremental Sync</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item" style="padding:2.5px 0;"><span><strong>6. End-to-End Build: Chroma &amp; <code>pgvector</code></strong></span><span class="toc-pg">p. 7</span></div>
+  </div>
+
+  <h3 style="margin:6px 0 4px 0;">Ingestion vs. Retrieval: The Two-Track RAG Loop</h3>
+  <div class="figure-box" style="background:#07131d; padding:8px 12px; margin:4px 0 7px 0;">
+    <svg viewBox="0 0 700 144" width="100%" height="136" xmlns="http://www.w3.org/2000/svg">
+      <!-- Indexing Track -->
+      <text x="12" y="15" fill="#22d3ee" font-size="8.4" font-weight="800" letter-spacing="0.6">TRACK A &bull; INDEXING (RUNS ONCE, THEN INCREMENTALLY ON FILE EDIT)</text>
+      <rect x="12" y="21" width="132" height="42" rx="7" fill="#0f293a" stroke="#22d3ee" stroke-width="1.4"/>
+      <text x="78" y="38" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Vault &amp; Codebase</text>
+      <text x="78" y="52" text-anchor="middle" fill="#a5f3fc" font-size="8">.md, .txt, .py, .ts, PDFs</text>
+
+      <path d="M144 42 L166 42" stroke="#22d3ee" stroke-width="1.8"/><polygon points="165,38 172,42 165,46" fill="#22d3ee"/>
+
+      <rect x="172" y="21" width="150" height="42" rx="7" fill="#0f293a" stroke="#22d3ee" stroke-width="1.4"/>
+      <text x="247" y="38" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Structure Chunker</text>
+      <text x="247" y="52" text-anchor="middle" fill="#a5f3fc" font-size="8">400–800 tok + breadcrumbs</text>
+
+      <path d="M322 42 L344 42" stroke="#22d3ee" stroke-width="1.8"/><polygon points="343,38 350,42 343,46" fill="#22d3ee"/>
+
+      <rect x="350" y="21" width="150" height="42" rx="7" fill="#0f293a" stroke="#a78bfa" stroke-width="1.4"/>
+      <text x="425" y="38" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Embedding Model</text>
+      <text x="425" y="52" text-anchor="middle" fill="#ddd6fe" font-size="8">Text &rarr; 768d / 1536d floats</text>
+
+      <path d="M500 42 L522 42" stroke="#a78bfa" stroke-width="1.8"/><polygon points="521,38 528,42 521,46" fill="#a78bfa"/>
+
+      <!-- Vector DB Box spanning both tracks -->
+      <rect x="528" y="21" width="160" height="114" rx="9" fill="#0b1f2e" stroke="#38bdf8" stroke-width="2"/>
+      <text x="608" y="46" text-anchor="middle" fill="#22d3ee" font-size="9" font-weight="800">VECTOR + LEXICAL STORE</text>
+      <text x="608" y="63" text-anchor="middle" fill="#ffffff" font-size="10.5" font-weight="800">Chroma / pgvector</text>
+      <text x="608" y="80" text-anchor="middle" fill="#cbd5e1" font-size="8.2">&bull; HNSW Cosine Vectors</text>
+      <text x="608" y="94" text-anchor="middle" fill="#cbd5e1" font-size="8.2">&bull; BM25 Keyword Index</text>
+      <text x="608" y="108" text-anchor="middle" fill="#cbd5e1" font-size="8.2">&bull; Source + Heading Meta</text>
+      <text x="608" y="123" text-anchor="middle" fill="#67e8f9" font-size="7.8" font-weight="700">SHA-256 Upsert Ready</text>
+
+      <!-- Retrieval Track -->
+      <text x="12" y="86" fill="#fb923c" font-size="8.4" font-weight="800" letter-spacing="0.6">TRACK B &bull; RETRIEVAL (RUNS IN MILLISECONDS WHENEVER YOU OR YOUR AGENT QUERIES)</text>
+      <rect x="12" y="93" width="132" height="42" rx="7" fill="#1e1b2e" stroke="#fb923c" stroke-width="1.4"/>
+      <text x="78" y="110" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Agent Question</text>
+      <text x="78" y="124" text-anchor="middle" fill="#fed7aa" font-size="8">"2am DB row loss bug?"</text>
+
+      <path d="M144 114 L166 114" stroke="#fb923c" stroke-width="1.8"/><polygon points="165,110 172,114 165,118" fill="#fb923c"/>
+
+      <rect x="172" y="93" width="150" height="42" rx="7" fill="#1e1b2e" stroke="#a78bfa" stroke-width="1.4"/>
+      <text x="247" y="110" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Same Embedder + BM25</text>
+      <text x="247" y="124" text-anchor="middle" fill="#ddd6fe" font-size="8">Query vector + lexical tokens</text>
+
+      <path d="M322 108 L528 108" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <path d="M528 120 L504 120" stroke="#34d399" stroke-width="1.8"/><polygon points="505,116 498,120 505,124" fill="#34d399"/>
+
+      <rect x="350" y="93" width="148" height="42" rx="7" fill="#062e26" stroke="#34d399" stroke-width="1.5"/>
+      <text x="424" y="110" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Top-K Cited Chunks</text>
+      <text x="424" y="124" text-anchor="middle" fill="#a7f3d0" font-size="8">Injected via MCP into LLM</text>
+    </svg>
+  </div>
+
+  <h3 style="margin:6px 0 4px 0;">Complements, Not Competitors: When Structural vs. Semantic Wins</h3>
+  <table class="clean-table compact-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Dimension</th>
+        <th style="width:40%;">Structural Memory (<code>grep</code>, AST, Knowledge Graphs)</th>
+        <th style="width:40%;">Semantic Memory (Embeddings + Vector Store)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Core Question</strong></td>
+        <td><em>"How are known entities explicitly connected?"</em> (The Map)</td>
+        <td><em>"What existing text means something close to this?"</em> (Metal Detector)</td>
+      </tr>
+      <tr>
+        <td><strong>Wins When&hellip;</strong></td>
+        <td>Multi-hop dependency checks (<em>"what imports <code>AuthService</code>?"</em>), exact symbol lookups, and verified provenance chains.</td>
+        <td>Fuzzy recall (<em>"that postmortem where vacuum froze writes"</em>), vocabulary mismatch (<em>latency</em> vs. <em>slowness</em>), and unlinked notes.</td>
+      </tr>
+      <tr>
+        <td><strong>Fails When&hellip;</strong></td>
+        <td>You forgot to add a <code>[[wikilink]]</code> or don't know the exact phrase/filename used in the original document.</td>
+        <td>Searching exact identifiers (<code>ERR_CONN_RESET_9</code> vs. <code>_8</code>) or assuming geometric closeness proves causal dependency.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="padding:7px 12px; margin:0; font-size:8.6pt;">
+    <strong>The Winning Synthesis:</strong> Treat your Markdown files and knowledge graph as the <strong>curated source of truth</strong>, and your vector store as a <strong>disposable, rebuildable recall index</strong>. Every vector chunk stores its exact file path and heading so semantic hits walk straight back into your graph!
+  </div>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: STACK & EMBEDDING SELECTION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Stack &amp; Models</span>
+    <span>Selecting a Vector Store &amp; Local vs. Cloud Embeddings</span>
+  </div>
+
+  <h2 class="page-title">Choosing Your Vector Stack &amp; Embedding Model</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Don't over-engineer Day 1. Start local with zero servers to babysit; graduate to Postgres or dedicated cluster engines only when multi-user concurrency, transactional joins, or million-chunk scale demand it.
+  </p>
+
+  <h3 style="margin:5px 0 3px 0;">1. Vector Store Decision Matrix</h3>
+  <table class="clean-table compact-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Vector Store</th>
+        <th style="width:24%;">Runs As</th>
+        <th style="width:28%;">Sweet Spot</th>
+        <th style="width:30%;">Honest Trade-Offs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Chroma</strong><br/><span style="color:#0891b2; font-weight:700;">Default Start</span></td>
+        <td>Embedded Python lib (<code>./memory_db</code>) or Cloud</td>
+        <td>Personal vaults &amp; local agent memory up to ~100K+ chunks, zero ops</td>
+        <td>3 lines to first query; disable usage stats via <code>anonymized_telemetry=False</code>. Single-writer focus.</td>
+      </tr>
+      <tr>
+        <td><strong><code>pgvector</code></strong><br/><span style="color:#64748b;">Postgres 13+</span></td>
+        <td><code>CREATE EXTENSION vector;</code> in PostgreSQL</td>
+        <td>Teams already on Postgres needing ACID joins, backups &amp; Row-Level Security</td>
+        <td>You manage Postgres &amp; HNSW indexes; vectors &gt;2,000 dims (3072d) need <code>halfvec</code> casting.</td>
+      </tr>
+      <tr>
+        <td><strong>Qdrant</strong><br/><span style="color:#64748b;">Local / Server</span></td>
+        <td><code>QdrantClient(path=...)</code>, Docker, or Cloud</td>
+        <td>Rich JSON payload filtering with smooth jump from local folder to Rust cluster</td>
+        <td>More concepts (points, payloads); use <code>collection_exists</code> over deprecated <code>recreate_collection</code>.</td>
+      </tr>
+      <tr>
+        <td><strong><code>sqlite-vec</code></strong><br/><span style="color:#64748b;">SQLite C Ext</span></td>
+        <td>Single <code>.db</code> file loaded directly into SQLite</td>
+        <td>Ultra-portable CLI tools, desktop apps, and pairing with SQLite <code>FTS5</code></td>
+        <td>Fast brute-force / quantized scans up to tens of thousands of chunks; minimal infra footprint.</td>
+      </tr>
+      <tr>
+        <td><strong>Hosted DBs</strong><br/><span style="color:#64748b;">Pinecone, Weaviate, Turbopuffer</span></td>
+        <td>Fully managed cloud API</td>
+        <td>Multi-device SaaS apps, tens of millions of vectors, and zero-DBA SLAs</td>
+        <td>Chunk text + vectors leave your machine; check region residency, retention SLAs, and metered tiers.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:6px 0 3px 0;">2. Cloud API vs. 100% Local Ollama Embedding Models</h3>
+  <table class="clean-table compact-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Model Name</th>
+        <th style="width:15%;">Runs On</th>
+        <th style="width:11%;">Dims</th>
+        <th style="width:16%;">Context / Cost</th>
+        <th style="width:34%;">Practical Engineering Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>text-embedding-3-small</code></td>
+        <td>OpenAI API</td>
+        <td><code>1536</code></td>
+        <td>8K &bull; ~$0.02/1M</td>
+        <td>Cloud default; Batch API ~$0.01/1M. Supports Matryoshka <code>dimensions</code> shrinking.</td>
+      </tr>
+      <tr>
+        <td><code>text-embedding-3-large</code></td>
+        <td>OpenAI API</td>
+        <td><code>3072</code></td>
+        <td>8K &bull; ~$0.13/1M</td>
+        <td>Higher nuance ceiling; pass <code>dimensions=1024</code> or <code>halfvec</code> for <code>pgvector</code> HNSW.</td>
+      </tr>
+      <tr>
+        <td><code>nomic-embed-text</code></td>
+        <td>Ollama Local</td>
+        <td><code>768</code></td>
+        <td>2K–8K &bull; <strong>$0.00</strong></td>
+        <td>274 MB; fast on laptop CPU / Apple Silicon. Pass <code>num_ctx: 8192</code> for chunks &gt;2K tokens.</td>
+      </tr>
+      <tr>
+        <td><code>mxbai-embed-large</code></td>
+        <td>Ollama Local</td>
+        <td><code>1024</code></td>
+        <td><strong>512 cap</strong> &bull; <strong>$0.00</strong></td>
+        <td>670 MB; strong English benchmark score, but truncates past <strong>512 tokens</strong>—chunk tight!</td>
+      </tr>
+      <tr>
+        <td><code>bge-m3</code> / <code>qwen3-embedding</code></td>
+        <td>Ollama Local</td>
+        <td><code>1024+</code></td>
+        <td>8K/32K &bull; <strong>$0.00</strong></td>
+        <td>Top local picks for 100+ languages &amp; long code/docs (<code>qwen3-embedding:0.6b</code> is ~639 MB).</td>
+      </tr>
+      <tr>
+        <td><code>embeddinggemma</code></td>
+        <td>Ollama Local</td>
+        <td><code>768</code></td>
+        <td>2K &bull; <strong>$0.00</strong></td>
+        <td>Google's 300M on-device model (~622 MB, Ollama &ge;0.11.10); crisp multilingual local recall.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="padding:7px 11px; margin:4px 0 0 0; font-size:8.35pt;">
+    <div class="callout-title" style="font-size:8.8pt;">Cardinal Rule: Never Mix Embedding Models Inside One Collection!</div>
+    Vectors from <code>nomic-embed-text</code> and <code>text-embedding-3-small</code> live in incompatible coordinate spaces—even two 768d models assign totally different directions to the same idea. Always query with the <strong>exact model</strong> that built the index; if you switch models, wipe and re-embed.
+  </div>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKBENCH & MCP INSPECTOR UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Visual Diagnostics</span>
+    <span>Inspecting Chunks, Similarity Bars, Hybrid Boosts &amp; MCP Payloads</span>
+  </div>
+
+  <h2 class="page-title">RAG Workbench &amp; MCP Retrieval Inspector: UI Tour</h2>
+  <p class="page-lead">
+    Before wiring a vector store into your coding agent, always test it in the <strong>MCP Inspector</strong> (<code>mcp dev memory_server.py</code>). Seeing chunk boundaries, cosine similarity scores, and BM25 rank boosts side by side turns retrieval tuning from guesswork into a 5-minute visual check.
+  </p>
+
+  <!-- Annotated Dark-Mode MCP & RAG Inspector Mockup -->
+  <div class="ui-window" style="margin-bottom:10px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">MCP Inspector &bull; vault-memory</span>
+        <span style="color:#64748b;">|</span>
+        <span style="color:#22d3ee; font-weight:600;">stdio connected</span>
+      </div>
+      <div style="display:flex; gap:7px; align-items:center;">
+        <span class="callout-pin">2</span>
+        <span style="background:#0f293a; border:1px solid #0891b2; padding:2px 8px; border-radius:6px; color:#a5f3fc;">Model: nomic-embed-text (768d &bull; cosine)</span>
+        <span style="background:#065f46; padding:2px 8px; border-radius:6px; color:#a7f3d0; font-weight:700;">14,820 Chunks</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 185px 1fr; gap:1px; background:#1f2937;">
+      <!-- Left Tool Call Pane -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; gap:7px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:7pt; font-weight:700; color:#94a3b8;">EXPOSED MCP TOOLS</span>
+          <span class="callout-pin">1</span>
+        </div>
+        <div style="background:#0891b2; color:#fff; padding:4px 7px; border-radius:5px; font-weight:700;">&#9654; search_vault(query, limit)</div>
+        <div style="background:#1e293b; color:#cbd5e1; padding:4px 7px; border-radius:5px;">store_memory(content, ...)</div>
+        <div style="background:#1e293b; color:#cbd5e1; padding:4px 7px; border-radius:5px;">reindex_vault()</div>
+
+        <div style="border-top:1px solid #1e293b; padding-top:6px; margin-top:2px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="font-size:7pt; font-weight:700; color:#94a3b8;">TOOL ARGUMENTS</span>
+            <span class="callout-pin">3</span>
+          </div>
+          <div style="background:#07131d; border:1px solid #334155; border-radius:5px; padding:5px 6px; font-family:monospace; font-size:6.8pt; color:#e2e8f0; line-height:1.45;">
+            query: <span style="color:#67e8f9;">"2am row loss ERR_CONN_RESET_9"</span><br/>
+            limit: <span style="color:#fbbf24;">3</span><br/>
+            where: <span style="color:#c4b5fd;">{"area": "infra"}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Retrieval Results & Diagnostics -->
+      <div style="background:#0b0f19; padding:9px; display:flex; flex-direction:column; gap:7px;">
+        <!-- Hit 1 -->
+        <div style="background:#111827; border:1px solid #22d3ee; border-radius:7px; padding:7px 9px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <div>
+              <span class="callout-pin">4</span>
+              <strong style="color:#67e8f9; margin-left:4px;">ops/atlas-migration.md &rsaquo; Postmortem &rsaquo; Root Cause</strong>
+              <span style="color:#94a3b8; font-size:6.8pt; margin-left:6px;">sha256:9f3a1c&hellip; &bull; 318 tok</span>
+            </div>
+            <span style="background:#065f46; color:#a7f3d0; padding:1.5px 6px; border-radius:4px; font-weight:700; font-size:6.9pt;">RRF #1 (0.0328)</span>
+          </div>
+          <!-- Score Bars -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:5px; background:#0f172a; padding:4px 7px; border-radius:5px;">
+            <div style="display:flex; align-items:center; gap:5px;">
+              <span class="callout-pin">5</span>
+              <span style="color:#cbd5e1; font-size:6.9pt;">Cosine: <strong style="color:#22d3ee;">0.89</strong></span>
+              <div style="flex:1; height:6px; background:#1e293b; border-radius:3px; overflow:hidden;"><div style="width:89%; height:100%; background:#22d3ee;"></div></div>
+            </div>
+            <div style="display:flex; align-items:center; gap:5px;">
+              <span class="callout-pin">6</span>
+              <span style="color:#cbd5e1; font-size:6.9pt;">BM25 Exact: <strong style="color:#fb923c;">+Rank 1</strong> (<code>ERR_CONN_RESET_9</code>)</span>
+            </div>
+          </div>
+          <div style="color:#e2e8f0; font-size:7.1pt; line-height:1.4;">
+            <code>[Postmortem &gt; Root Cause]</code> During the 02:14 UTC deploy, PgBouncer dropped idle TLS sockets with <code>ERR_CONN_RESET_9</code>, aborting unbatched migration writes across 40k customer rows&hellip;
+          </div>
+        </div>
+
+        <!-- Hit 2 -->
+        <div style="background:#111827; border:1px solid #334155; border-radius:7px; padding:6px 9px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <strong style="color:#cbd5e1;">ops/pgbouncer-tuning.md &rsaquo; Idle Timeouts</strong>
+            <span style="color:#94a3b8; font-size:6.9pt;">Cosine: <strong style="color:#38bdf8;">0.74</strong> &bull; BM25: Rank 6 &bull; RRF #2 (0.0310)</span>
+          </div>
+          <div style="color:#94a3b8; font-size:6.9pt;">
+            <code>[Idle Timeouts]</code> Set <code>server_idle_timeout = 120</code> when running multi-million row schema backfills&hellip;
+          </div>
+        </div>
+
+        <!-- Returned Wire Payload -->
+        <div style="background:#07131d; border:1px dashed #0891b2; border-radius:6px; padding:5px 8px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="color:#a5f3fc; font-family:monospace; font-size:6.9pt;">MCP Wire Output &rarr; 612 tokens returned (vs. 4,700,000 tokens in full vault = 99.98% context saved)</span>
+          <span class="callout-pin">7</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Inspector Reference</h3>
+  <div class="grid-2" style="gap:7px 14px; font-size:8.55pt;">
+    <div><span class="callout-pin">1</span> <strong>Granular MCP Tool Surface:</strong> Keep read-only <code>search_vault</code> separate from write tools (<code>store_memory</code>, <code>reindex_vault</code>) so you can grant safe search-only permissions whenever desired.</div>
+    <div><span class="callout-pin">2</span> <strong>Model &amp; Metric Lock Banner:</strong> Confirms the active embedder, vector dimension (<code>768d</code>), and <code>cosine</code> space so you immediately spot mismatched index configurations.</div>
+    <div><span class="callout-pin">3</span> <strong>Scoped Query + <code>where</code> Pre-Filter:</strong> Combine natural language, exact error codes, and metadata filters (<code>{"area": "infra"}</code>) to eliminate cross-project noise before ranking.</div>
+    <div><span class="callout-pin">4</span> <strong>Provenance Breadcrumb &amp; Hash:</strong> Shows file path, Markdown heading chain, token count (<code>318 tok</code>), and deterministic SHA-256 ID for click-through verification.</div>
+    <div><span class="callout-pin">5</span> <strong>Dense Cosine Similarity (<code>1 - dist</code>):</strong> Captures semantic paraphrase closeness (<em>"2am row loss"</em> &rarr; <em>"02:14 UTC deploy... 40k customer rows"</em>) at <code>0.89</code>.</div>
+    <div><span class="callout-pin">6</span> <strong>Lexical BM25 Boost + RRF Rank:</strong> Locks onto exact literal strings like <code>ERR_CONN_RESET_9</code> (which pure vectors blur with <code>_8</code>) and fuses both lists via Reciprocal Rank Fusion.</div>
+  </div>
+  <div style="margin-top:5px; font-size:8.55pt;">
+    <span class="callout-pin">7</span> <strong>Compact Cited Payload:</strong> Instead of stuffing thousands of lines into <code>AGENTS.md</code>, the agent receives only ~600 cited tokens right when needed.
+  </div>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: EMBEDDINGS, COSINE & STRUCTURE-AWARE CHUNKING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Chunking Mastery</span>
+    <span>Embeddings, Cosine Similarity &amp; Structure-Aware Splitting</span>
+  </div>
+
+  <h2 class="page-title">Why Structure-Aware Chunking Decides Your Ceiling</h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    An embedding compresses an entire passage into a <strong>single point</strong> in high-dimensional space. Cram five unrelated topics into one giant chunk and that point drifts to the mushy average of all five—matching nothing well. Slice too thin and single sentences lose their subject.
+  </p>
+
+  <div class="figure-box" style="background:#041019; margin:4px 0 8px 0;">
+    <img src="assets/structure_aware_chunking.jpg" alt="Chaotic shattered glass shards on the left contrasted with precision-cut cyan crystal blocks with metadata pins on the right" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr; background:#0f172a; color:#f8fafc; padding:5px 12px; font-size:7.6pt; border-top:1px solid #334155;">
+      <div><strong style="color:#f87171;">LEFT &bull; NAIVE FIXED-CHARACTER CUTS:</strong> Slices mid-function, orphans pronouns, and shatters tables.</div>
+      <div style="padding-left:10px; border-left:1px solid #334155;"><strong style="color:#22d3ee;">RIGHT &bull; STRUCTURE-AWARE CHUNKS:</strong> Splits cleanly at headings, keeps code atomic &amp; attaches metadata pins.</div>
+    </div>
+  </div>
+
+  <h3 style="margin:6px 0 4px 0;">Cosine Similarity Intuition (3 Realities Every Builder Needs)</h3>
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9.3pt;"><span class="num-badge">1</span> Paraphrases Cluster</div>
+      <p style="font-size:8pt; margin:0;"><em>"Postgres migration corrupted rows"</em> and <em>"database upgrade broke data"</em> score ~<code>+0.78</code> with zero shared words, vs. ~<code>+0.12</code> for sourdough.</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9.3pt;"><span class="num-badge teal">2</span> Scores &ne; Probabilities</div>
+      <p style="font-size:8pt; margin:0;">A <code>0.58</code> in <code>nomic-embed-text</code> can beat <code>0.79</code> in another model. Rank hits <em>within</em> one query; calibrate cutoffs visually on 20 real notes.</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9.3pt;"><span class="num-badge amber">3</span> Explicitly Set Cosine</div>
+      <p style="font-size:8pt; margin:0;">Chroma defaults to squared <code>L2</code>! Always pass <code>metadata={"hnsw:space": "cosine"}</code> so <code>1 - distance</code> equals cosine similarity.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:6px 0 4px 0;">The 5 Golden Rules of Structure-Aware Chunking</h3>
+  <table class="clean-table compact-table" style="margin-bottom:0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Chunking Rule</th>
+        <th style="width:23%;">Recommended Target</th>
+        <th style="width:50%;">Why It Prevents Retrieval Failures</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Split on Structure First</strong></td>
+        <td><code>#</code> / <code>##</code> / <code>###</code> or AST nodes</td>
+        <td>Authors already group coherent ideas under Markdown headings or classes/functions. Use token slicing only as a fallback when one section exceeds budget.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Right-Size Token Window</strong></td>
+        <td><code>400–800</code> tokens<br/>(<code>512</code> safe default)</td>
+        <td>Big enough to carry a complete explanation, small enough to fit inside strict local model caps (like <code>mxbai-embed-large</code>'s 512-token ceiling) without dilution.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Sliding Window Overlap</strong></td>
+        <td><code>10–15%</code> overlap<br/>(<code>64</code> tok on <code>512</code>)</td>
+        <td>When an oversized section must be sub-split, repeating the trailing 64 tokens at the start of the next chunk ensures no key causal link is severed at a cut boundary.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Atomic Code &amp; Tables</strong></td>
+        <td>Never cut mid-fence or mid-table</td>
+        <td>Half a Python signature or table rows detached from their column headers embed as noise. Isolate fenced code blocks before paragraph splitting.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Strip Noisy YAML Blobs</strong></td>
+        <td>Parse frontmatter into <code>metadatas</code></td>
+        <td>Keep <code>tags</code>, <code>date</code>, and <code>status</code> as filterable metadata fields instead of polluting the semantic vector with raw YAML boilerplate.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: CHUNK METADATA, GROUNDING & INCREMENTAL SYNC ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Grounding &amp; Lifecycle</span>
+    <span>Self-Contained Chunk Headers, Citation Prompts &amp; Incremental Sync</span>
+  </div>
+
+  <h2 class="page-title">Chunk Metadata, Prompt Grounding &amp; Memory Hygiene</h2>
+  <p class="page-lead">
+    A bare paragraph reading <em>"We lost 40k rows in 90 seconds"</em> has no idea which system or year it belongs to. Prepending a structured header right onto the embedded text routinely improves recall more than buying a larger embedding model.
+  </p>
+
+  <h3>1. Color-Coded Anatomy of a Self-Contained Chunk</h3>
+  <div class="card" style="margin-bottom:9px; background:#ffffff; border:1.5px solid #cbd5e1;">
+    <div style="font-size:8.5pt; line-height:1.82;">
+      <span class="p-tag p-style">[SOURCE PATH] projects/atlas/db-migration.md</span>
+      <span class="p-tag p-cam">[HEADING BREADCRUMB] Incident Postmortem &gt; Write-Lock Risks</span>
+      <span class="p-tag p-sfx">[METADATA] stored_at: 2026-09-03 &bull; kind: incident &bull; sha256: 9f3a1c8b</span><br/>
+      <span class="p-tag p-subj">[EMBEDDED TEXT] [projects/atlas/db-migration.md &gt; Incident Postmortem &gt; Write-Lock Risks] Running ALTER TABLE ADD COLUMN with a volatile default took an ACCESS EXCLUSIVE lock on orders, stalling checkout writes for 90s.</span>
+    </div>
+  </div>
+
+  <h3>2. Color-Coded Grounded RAG System Instruction (Zero-Hallucination Pattern)</h3>
+  <div class="card" style="margin-bottom:9px; background:#ffffff; border:1.5px solid #cbd5e1;">
+    <div style="font-size:8.45pt; line-height:1.78;">
+      <span class="p-tag p-style">[ROLE] You are an engineering research assistant grounded strictly in retrieved vault chunks.</span>
+      <span class="p-tag p-act">[EVIDENCE RULE] Answer using ONLY facts present in the retrieved context blocks; never extrapolate missing parameters.</span>
+      <span class="p-tag p-light">[INLINE CITATIONS] Cite every factual claim inline as [source_path &gt; heading].</span>
+      <span class="p-tag p-dial">[RECENCY PRIORITY] If two retrieved memories conflict, prefer the newer stored_at timestamp and note the supersede.</span>
+      <span class="p-tag p-cons">[ABSTENTION] If retrieved chunks do not contain the answer, state "Not found in vault" and suggest a follow-up query.</span>
+    </div>
+  </div>
+
+  <h3>3. Incremental Re-Indexing, Tombstone Deletions &amp; Episodic vs. Semantic Memory</h3>
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Content-Hash Upsert &amp; Clean Deletes</div>
+      <p style="font-size:8.2pt; margin-bottom:5px;">Compute deterministic IDs via <code>sha256(f"{source}::{idx}::{text}")[:24]</code> and always call <code>collection.upsert()</code> (plain <code>add()</code> silently ignores duplicate IDs!).</p>
+      <p style="font-size:8.2pt; margin:0;"><strong>Orphan GC rule:</strong> When a note is edited or deleted, old chunk hashes stay behind as ghosts. Run a blunt, bug-proof wipe before re-ingesting that file:<br/><code>coll.delete(where={"source": rel_path})</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">B</span> Episodic vs. Semantic Write-Back</div>
+      <p style="font-size:8.2pt; margin-bottom:5px;"><strong>Episodic (<code>kind="episode"</code>):</strong> Dated session summaries (<em>"what we debugged today"</em>). Append-only; filter by recency and prune monthly.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong>Semantic (<code>kind="fact"</code>):</strong> Distilled current truths. Before inserting, query <code>k=1</code>: if similarity &ge;<code>0.93</code>, skip near-duplicates; if a fact changed (e.g., migrated DBs), <strong>supersede</strong> by upserting onto the old ID!</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="padding:7px 12px; margin:0; font-size:8.5pt;">
+    <strong>Why Delete Beats Bury:</strong> An outdated architectural rule retrieved at <code>0.88</code> similarity misleads coding agents with high confidence. Whenever a tech decision changes, run <code>coll.delete()</code> or overwrite the exact fact ID—never hope new notes will simply outrank stale ones.
+  </div>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: END-TO-END PYTHON BUILD ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Reference Implementation</span>
+    <span>Runnable Python Core: Chunker, Chroma Store, Swappable Backends &amp; pgvector</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Build: Local Chroma + Ollama &amp; <code>pgvector</code></h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    Install once with <code>pip install chromadb ollama openai tiktoken rank_bm25</code>. Because the store accepts any <code>embed_fn(texts)</code> function, switching between free offline Ollama and OpenAI APIs is a one-line import swap.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:5px;">
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#0891b2; margin-bottom:2px;">1. <code>chunking.py</code> &bull; Heading + Atomic Fence Splitter</div>
+      <pre class="code-block tight"><code>import re, tiktoken
+_enc = tiktoken.get_encoding("cl100k_base")
+FENCE = chr(96) * 3  # Markdown code fence
+
+def _win(txt: str, cap=512, ov=64):
+    toks = _enc.encode(txt)
+    if len(toks) &lt;= cap: return [txt]
+    out, i = [], 0
+    while i &lt; len(toks):
+        out.append(_enc.decode(toks[i:i + cap]))
+        if i + cap &gt;= len(toks): break
+        i += cap - ov
+    return out
+
+def chunk_markdown(text: str, src="") -&gt; list[dict]:
+    text = re.sub(r"\A---\n.*?\n---\n", "", text, flags=re.S)
+    parts = re.split(f"({FENCE}.*?{FENCE})", text, flags=re.S)
+    out, stack, buf = [], [], ""
+    def flush():
+        nonlocal buf
+        hdr = " &gt; ".join(h[1] for h in stack)
+        for p in (_win(buf.strip()) if buf.strip() else []):
+            out.append({"heading": hdr, "text": p})
+        buf = ""
+    for part in parts:
+        if part.startswith(FENCE):
+            flush(); buf = part; flush(); continue
+        for ln in part.split("\n"):
+            m = re.match(r"^(#{1,6})\s+(.*)", ln)
+            if m:
+                flush(); lv = len(m.group(1))
+                stack = [h for h in stack if h[0] &lt; lv]
+                stack.append((lv, m.group(2).strip()))
+            else: buf += ln + "\n"
+    flush()
+    return [{**c, "text": f"[{src} &gt; {c['heading']}]\n"
+             + c["text"]} for c in out]</code></pre>
+    </div>
+
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#0891b2; margin-bottom:2px;">2. <code>vault_db.py</code> &bull; Idempotent Chroma Store</div>
+      <pre class="code-block tight"><code>import hashlib
+from pathlib import Path
+import chromadb
+from chromadb.config import Settings
+from chunking import chunk_markdown
+
+def get_coll(path="./memory_db", name="vault"):
+    cfg = Settings(anonymized_telemetry=False)
+    cli = chromadb.PersistentClient(path=path, settings=cfg)
+    return cli.get_or_create_collection(
+        name=name, metadata={"hnsw:space": "cosine"}
+    )
+
+def cid(src: str, i: int, txt: str) -&gt; str:
+    raw = f"{src}::{i}::{txt}".encode()
+    return hashlib.sha256(raw).hexdigest()[:24]
+
+def ingest_file(root: Path, file: Path, embed_fn):
+    coll, rel = get_coll(), str(file.relative_to(root))
+    coll.delete(where={"source": rel})  # purge stale
+    chunks = chunk_markdown(file.read_text("utf-8"), rel)
+    if not chunks: return 0
+    txts = [c["text"] for c in chunks]
+    coll.upsert(
+        ids=[cid(rel, i, t) for i, t in enumerate(txts)],
+        documents=txts, embeddings=embed_fn(txts),
+        metadatas=[{"source": rel, "heading": c["heading"]}
+                   for c in chunks],
+    )
+    return len(chunks)
+
+def search(query: str, embed_fn, k=6, where=None):
+    r = get_coll().query(query_embeddings=embed_fn([query]),
+                         n_results=k, where=where)
+    return [{"similarity": 1 - d, **m, "text": doc}
+            for doc, m, d in zip(
+                r["documents"][0], r["metadatas"][0],
+                r["distances"][0])]</code></pre>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:0;">
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#7c3aed; margin-bottom:2px;">3. Swappable Backends (Ollama Local vs. OpenAI)</div>
+      <pre class="code-block tight"><code># OPTION A: Local Ollama (ollama pull nomic-embed-text)
+import ollama
+def embed_local(texts: list[str]):
+    return ollama.embed(
+        model="nomic-embed-text", input=texts,
+        options={"num_ctx": 4096},  # prevent 2K cut
+    )["embeddings"]
+
+# OPTION B: Cloud API Batch (needs OPENAI_API_KEY)
+from openai import OpenAI
+_oa = OpenAI()
+def embed_cloud(texts: list[str]):
+    res = _oa.embeddings.create(
+        model="text-embedding-3-small", input=texts
+    )
+    return [d.embedding for d in res.data]</code></pre>
+    </div>
+
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#0d9488; margin-bottom:2px;">4. Production Upgrade: Postgres <code>pgvector</code> HNSW</div>
+      <pre class="code-block tight"><code>-- Run once in psql (match vector(N) to your model)
+CREATE EXTENSION IF NOT EXISTS vector;
+CREATE TABLE chunks (
+  id TEXT PRIMARY KEY, source TEXT NOT NULL,
+  heading TEXT, content TEXT NOT NULL,
+  embedding vector(768) -- 768 nomic | 1536 openai
+);
+CREATE INDEX ON chunks
+  USING hnsw (embedding vector_cosine_ops);
+
+# psycopg v3 + pgvector (&lt;=&gt; is cosine distance)
+from pgvector.psycopg import register_vector
+register_vector(conn)
+rows = conn.execute(
+  "SELECT source, 1 - (embedding &lt;=&gt; %s) AS sim "
+  "FROM chunks ORDER BY embedding &lt;=&gt; %s LIMIT 5",
+  (qvec, qvec)).fetchall()</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: HYBRID SEARCH, RRF & RERANKING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Precision Upgrade</span>
+    <span>Hybrid BM25 + Vector Retrieval, Reciprocal Rank Fusion &amp; Reranking</span>
+  </div>
+
+  <h2 class="page-title">Hybrid Search: Fixing the Exact-Keyword Blind Spot</h2>
+  <p class="page-lead">
+    Pure embeddings smooth away character-level precision—to a vector model, <code>ERR_CONN_RESET_9</code>, <code>SKU-4810B</code>, or <code>useAuthSession()</code> look nearly identical to close neighbors. Pairing dense vectors with classic <strong>BM25 lexical search</strong> gives you the best of both worlds.
+  </p>
+
+  <div class="figure-box" style="background:#041019;">
+    <img src="assets/hybrid_rag_retrieval_funnel.jpg" alt="Geometric coral-amber laser grid and flowing electric cyan harmonic wave converging through a crystalline prism to spotlight three glowing gems" style="width:100%; height:216px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; background:#0f172a; color:#f8fafc; padding:6px 11px; font-size:7.6pt; border-top:1px solid #334155;">
+      <div><strong style="color:#fb923c;">LEFT &bull; BM25 LEXICAL GRID:</strong> Nails exact SKUs, error codes, function names &amp; rare acronyms.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#22d3ee;">RIGHT &bull; SEMANTIC WAVE FIELD:</strong> Captures fuzzy intent, paraphrases &amp; conceptual themes.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#a7f3d0;">CENTER &bull; RRF + RERANK PRISM:</strong> Fuses rank positions &amp; spotlights top-3 gems.</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:12px; margin-bottom:8px;">
+    <div>
+      <h3 style="margin-top:2px;">Reciprocal Rank Fusion (<code>hybrid.py</code>)</h3>
+      <p style="font-size:8.25pt; margin-bottom:5px;">
+        Never average raw BM25 scores (unbounded <code>0..25+</code>) with cosine similarity (<code>-1..1</code>). Fuse by <strong>rank position</strong> using <code>RRF_K = 60</code>:
+      </p>
+      <pre class="code-block tight"><code>import re
+from rank_bm25 import BM25Okapi
+from vault_db import get_coll, search
+
+tok = lambda s: re.findall(r"\w+", s.lower())
+
+def hybrid_search(query: str, embed_fn, k=6, leg=20):
+    vec_hits = search(query, embed_fn, k=leg)
+    got = get_coll().get(
+        include=["documents", "metadatas"]
+    )
+    docs, metas = got["documents"], got["metadatas"]
+    bm25 = BM25Okapi([tok(d) for d in docs])
+    sc = bm25.get_scores(tok(query))
+    kw_idx = [i for i in sorted(range(len(sc)),
+              key=lambda i: sc[i], reverse=True)[:leg]
+              if sc[i] &gt; 0]
+
+    rrf, items = {}, {}
+    for r, h in enumerate(vec_hits):
+        key = (h["source"], h["text"][:80])
+        rrf[key] = rrf.get(key, 0.0) + 1.0 / (61 + r)
+        items[key] = h
+    for r, idx in enumerate(kw_idx):
+        key = (metas[idx]["source"], docs[idx][:80])
+        rrf[key] = rrf.get(key, 0.0) + 1.0 / (61 + r)
+        items.setdefault(
+            key, {**metas[idx], "text": docs[idx]}
+        )
+
+    top = sorted(rrf.items(),
+                 key=lambda x: x[1], reverse=True)[:k]
+    return [{"rrf": s, **items[k_]} for k_, s in top]</code></pre>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div class="card" style="margin-top:2px;">
+        <div class="card-title"><span class="num-badge">1</span> Why <code>1 / (60 + rank)</code> Works</div>
+        <p style="font-size:8.15pt; margin:0;">A chunk ranked <code>#1</code> by BM25 (exact match on <code>ERR_CONN_RESET_9</code>) jumps immediately into the winners circle even if vector search ranked it <code>#18</code>—while chunks respected by <em>both</em> legs float effortlessly to <code>#1</code> overall. Zero fragile weight tuning required.</p>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="num-badge teal">2</span> Metadata Pre-Filtering (<code>where=</code>)</div>
+        <p style="font-size:8.15pt; margin:0;">Before adding complex ML, scope queries with cheap metadata tags: <code>where={"area": "billing"}</code> or SQL <code>WHERE tenant_id = $1</code>. Eliminating 80% of irrelevant folders upfront gives instant precision for free.</p>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="num-badge purple">3</span> Cross-Encoder Reranking (Final Polish)</div>
+        <p style="font-size:8.15pt; margin:0;">When your right chunk appears in the top 20 but not the top 3, pass the fused 20 candidates through a cross-encoder (local <code>BAAI/bge-reranker-v2-m3</code> or Voyage's rerank API) to read <code>(query, chunk)</code> jointly and pick the exact top 5.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Playbook</span>
+    <span>5 Copy-Paste Vector Memory &amp; RAG Architectures</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World RAG &amp; Agent Memory Recipes</h2>
+  <p class="page-lead">
+    Match your exact use case to one of these five proven blueprints—from a 10-minute personal Obsidian second brain to a multi-tenant SaaS knowledge engine with database-enforced security.
+  </p>
+
+  <table class="clean-table" style="font-size:8.15pt; margin-bottom:10px;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Recipe &amp; Goal</th>
+        <th style="width:23%;">Recommended Stack</th>
+        <th style="width:24%;">Chunk &amp; Index Strategy</th>
+        <th style="width:32%;">Key Implementation Pattern</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Obsidian Second-Brain MCP Server</strong></td>
+        <td>Local Chroma + Ollama <code>nomic-embed-text</code> + FastMCP / SDK v2</td>
+        <td>Markdown heading splitter (<code>512</code> tok, <code>64</code> overlap) + frontmatter tags</td>
+        <td>Expose <code>search_vault</code> + <code>store_memory</code> via MCP. <em>Zero-code alt:</em> install Obsidian <strong>Smart Connections</strong> (offline lookup) or <strong>Obsidian Copilot</strong> (hybrid QA).</td>
+      </tr>
+      <tr>
+        <td><strong>2. Codebase Architecture Semantic Search</strong></td>
+        <td>Qdrant local or Chroma + <code>qwen3-embedding:0.6b</code> (32K ctx) + BM25</td>
+        <td>Split along AST classes/functions (never mid-block); prepend <code>[filepath :: symbol]</code></td>
+        <td>Pair with <code>ripgrep</code>: use hybrid search to discover <em>"where do we throttle webhook retries?"</em>, then follow exact symbol imports via AST/LSP.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Customer Support Docs (Zero Hallucination)</strong></td>
+        <td>OpenAI <code>text-embedding-3-small</code> + Hybrid RRF + Cross-Encoder Reranker</td>
+        <td><code>400</code>-token help-article sections tagged with <code>product_tier</code> &amp; <code>doc_url</code></td>
+        <td>Rerank top 20 &rarr; feed top 4 with strict abstention prompt: <em>"Cite <code>[Article URL]</code> for every step; escalate if confidence is partial."</em></td>
+      </tr>
+      <tr>
+        <td><strong>4. Multi-Tenant Postgres <code>pgvector</code> w/ RLS</strong></td>
+        <td>PostgreSQL 17 + <code>pgvector</code> 0.8 HNSW + <code>text-embedding-3-large</code> (<code>halfvec</code>)</td>
+        <td><code>chunks</code> table joined to <code>documents</code> with <code>tenant_id UUID NOT NULL</code></td>
+        <td>Enforce <code>ENABLE ROW LEVEL SECURITY</code> on <code>tenant_id = current_setting('app.tenant_id')::uuid</code> + iterative HNSW scans so tenants never leak chunks.</td>
+      </tr>
+      <tr>
+        <td><strong>5. 100% Air-Gapped Laptop Vault</strong></td>
+        <td>Pre-pulled Ollama (<code>embeddinggemma</code> or <code>nomic</code>) + Chroma (telemetry OFF)</td>
+        <td>Separate <code>vault-private</code> collection on encrypted local SSD</td>
+        <td>Set <code>Settings(anonymized_telemetry=False)</code>; pre-pull weights once on Wi-Fi. Runs on CPU/Apple Silicon RAM with zero network packets ever sent.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2">
+    <div class="callout" style="margin:0; padding:9px 12px; font-size:8.45pt;">
+      <div class="callout-title">Real-World Cost Math: Cents, Not Dollars</div>
+      A hefty <strong>5,000-note vault</strong> (~700 words/note &asymp; <strong>4.7M tokens</strong>) costs just <strong>~$0.09 total</strong> to embed from scratch with <code>text-embedding-3-small</code> ($0.02/1M), or <strong>~$0.61</strong> with <code>-3-large</code>. Daily incremental edits cost ~$0.0001, and local Ollama models cost <strong>$0.00 forever</strong>—no GPU required!
+    </div>
+    <div class="callout emerald" style="margin:0; padding:9px 12px; font-size:8.45pt;">
+      <div class="callout-title">Privacy Pro-Move: Split-Collection Routing</div>
+      Want frontier cloud embeddings on public research while keeping finance, health, and client notes strictly local? Index confidential folders with Ollama into <code>vault-private</code> and general notes into <code>vault-public</code>; let <code>search_vault</code> query each with its own model and label origins!
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: EXPOSING MEMORY VIA MCP & CLI ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Agent Integration</span>
+    <span>Wrapping Your Vector Store as an On-Demand MCP Server</span>
+  </div>
+
+  <h2 class="page-title">Exposing Vector Memory to AI Agents via MCP</h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    Stuffing past notes into <code>AGENTS.md</code> taxes every single prompt turn whether relevant or not. Wrapping your hybrid retriever in a 40-line <strong>Model Context Protocol (MCP)</strong> server gives Claude Code, Antigravity, Cursor, and VS Code an on-demand <code>search_vault</code> superpower at zero idle token cost.
+  </p>
+
+  <h3 style="margin:4px 0 2px 0;">Complete MCP Server (<code>memory_server.py</code> &bull; Official Python SDK v2)</h3>
+  <pre class="code-block tight" style="margin-bottom:5px; line-height:1.25;"><code># pip install "mcp[cli]" chromadb ollama rank_bm25   (v1 tutorials use FastMCP; v2 uses MCPServer)
+import datetime, hashlib, sys
+from mcp.server import MCPServer
+from embed_ollama import embed_local as embed
+from vault_db import get_coll
+from hybrid import hybrid_search
+
+mcp = MCPServer("vault-memory")
+def _log(msg: str):  # CRITICAL: stdio uses stdout for JSON-RPC — never call bare print()!
+    print(f"[vault-memory] {msg}", file=sys.stderr)
+
+@mcp.tool()
+def search_vault(query: str, limit: int = 6, path_prefix: str = "") -&gt; str:
+    """Semantic + BM25 keyword search across the user's knowledge vault and past decisions.
+    Call this BEFORE answering questions about past incidents, architecture, or user preferences.
+    Returns cited blocks formatted as [source_path &gt; heading] ready for inline citation."""
+    hits = [h for h in hybrid_search(query, embed, k=limit * 2)
+            if not path_prefix or h["source"].startswith(path_prefix)][:limit]
+    if not hits: return "No matching memories found."
+    return "\n\n---\n\n".join(f"[{h['source']} &gt; {h.get('heading') or 'root'}]\n{h['text']}" for h in hits)
+
+@mcp.tool()
+def store_memory(content: str, heading: str = "decisions", kind: str = "fact") -&gt; str:
+    """Save a self-contained debugging takeaway, architecture fact, or episode (1-5 sentences)."""
+    ts = datetime.datetime.now().isoformat(timespec="seconds")
+    mid = f"{kind}::" + hashlib.sha256(content.strip().lower().encode()).hexdigest()[:20]
+    get_coll().upsert(ids=[mid], documents=[content], embeddings=embed([content]),
+                      metadatas=[{"source": f"agent/{kind}", "heading": heading, "kind": kind, "stored_at": ts}])
+    _log(f"upserted {mid}"); return f"Stored {mid} at {ts}."</code></pre>
+
+  <h3 style="margin:5px 0 2px 0;">One Server, Every Coding Agent: Registration Cheat Sheet</h3>
+  <table class="clean-table compact-table" style="margin-bottom:5px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Agent Client</th>
+        <th style="width:31%;">Config File / CLI Command</th>
+        <th style="width:49%;">Exact Wiring &amp; Crucial Gotcha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Code</strong></td>
+        <td>Terminal one-liner (<code>--scope user</code>)</td>
+        <td><code>claude mcp add vault-memory --scope user -- /abs/.venv/bin/mcp run /abs/memory_server.py</code> &rarr; check via <code>claude mcp list</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Antigravity &amp; Cursor</strong></td>
+        <td><code>mcp_config.json</code> or <code>~/.cursor/mcp.json</code></td>
+        <td>Top-level key is <code>"mcpServers"</code> with <code>"command": "/abs/.venv/bin/mcp"</code> and <code>"args": ["run", "/abs/memory_server.py"]</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Desktop</strong></td>
+        <td><code>~/Library/Application Support/Claude/claude_desktop_config.json</code></td>
+        <td>Uses <code>"mcpServers"</code>; put <code>OPENAI_API_KEY</code> in <code>"env"</code> if using cloud embeddings, then <strong>fully quit &amp; relaunch</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>VS Code Copilot</strong></td>
+        <td><code>.vscode/mcp.json</code> (Agent Mode)</td>
+        <td><strong>Key-name trap:</strong> VS Code requires top-level <code>"servers"</code> (not <code>"mcpServers"</code>) plus <code>"type": "stdio"</code>!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="padding:6.5px 11px; margin:4px 0 0 0; font-size:8.3pt;">
+    <strong>Why Tool Docstrings Are Everything:</strong> Agents decide whether to invoke <code>search_vault</code> solely by reading its Python docstring! Always state <em>when</em> to call it (<em>"Call this BEFORE answering questions about past incidents..."</em>) and verify in browser first via <code>uv run --with "mcp[cli]" mcp dev memory_server.py</code>.
+  </div>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: EVALUATION & CROSS-TOOL MEMORY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Synergy &amp; Evaluation</span>
+    <span>Combining AGENTS.md, Knowledge Graphs, Vector RAG &amp; Recall@5 Regression Gates</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Memory Pipeline &amp; <code>Recall@5</code> Evaluation</h2>
+  <p class="page-lead">
+    Production agent engineering layers three complementary memory tiers—always-on rules, structural graphs, and semantic RAG—backed by a tiny golden-set benchmark so chunking tweaks never silently regress quality.
+  </p>
+
+  <!-- 6-Stage Cross-Tool Memory & Eval SVG -->
+  <div class="figure-box" style="background:#07131d; padding:11px 13px; margin-bottom:9px;">
+    <svg viewBox="0 0 700 158" width="100%" height="158" xmlns="http://www.w3.org/2000/svg">
+      <!-- Row 1 -->
+      <rect x="10" y="8" width="206" height="60" rx="8" fill="#0f293a" stroke="#22d3ee" stroke-width="1.6"/>
+      <circle cx="29" cy="26" r="10" fill="#22d3ee"/><text x="29" y="30" text-anchor="middle" fill="#041019" font-size="9.5" font-weight="800">1</text>
+      <text x="45" y="30" fill="#ffffff" font-size="10.2" font-weight="800">AGENTS.md Rules</text>
+      <text x="20" y="46" fill="#cbd5e1" font-size="8.4">Keep &lt;150 lines: build/test cmds,</text>
+      <text x="20" y="58" fill="#cbd5e1" font-size="8.4">non-negotiable invariants &amp; style.</text>
+
+      <path d="M216 38 L242 38" stroke="#22d3ee" stroke-width="2"/><polygon points="241,33 248,38 241,43" fill="#22d3ee"/>
+
+      <rect x="248" y="8" width="204" height="60" rx="8" fill="#1e1b38" stroke="#a78bfa" stroke-width="1.6"/>
+      <circle cx="267" cy="26" r="10" fill="#a78bfa"/><text x="267" y="30" text-anchor="middle" fill="#041019" font-size="9.5" font-weight="800">2</text>
+      <text x="283" y="30" fill="#ffffff" font-size="10.2" font-weight="800">Hybrid Vector Recall</text>
+      <text x="258" y="46" fill="#ddd6fe" font-size="8.4">Agent calls MCP search_vault() to</text>
+      <text x="258" y="58" fill="#ddd6fe" font-size="8.4">surface forgotten notes &amp; incidents.</text>
+
+      <path d="M452 38 L478 38" stroke="#a78bfa" stroke-width="2"/><polygon points="477,33 484,38 477,43" fill="#a78bfa"/>
+
+      <rect x="484" y="8" width="206" height="60" rx="8" fill="#2b1912" stroke="#fb923c" stroke-width="1.6"/>
+      <circle cx="503" cy="26" r="10" fill="#fb923c"/><text x="503" y="30" text-anchor="middle" fill="#041019" font-size="9.5" font-weight="800">3</text>
+      <text x="519" y="30" fill="#ffffff" font-size="10.2" font-weight="800">Graph / AST Traversal</text>
+      <text x="494" y="46" fill="#fed7aa" font-size="8.4">Walk [[wikilinks]], Graphify edges</text>
+      <text x="494" y="58" fill="#fed7aa" font-size="8.4">&amp; code imports from retrieved hits.</text>
+
+      <!-- Snake connector -->
+      <path d="M587 68 L587 82 L113 82 L113 92" fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="4 3"/>
+      <polygon points="108,90 113,97 118,90" fill="#64748b"/>
+
+      <!-- Row 2 -->
+      <rect x="10" y="96" width="206" height="56" rx="8" fill="#062e26" stroke="#34d399" stroke-width="1.6"/>
+      <circle cx="29" cy="114" r="10" fill="#34d399"/><text x="29" y="118" text-anchor="middle" fill="#041019" font-size="9.5" font-weight="800">4</text>
+      <text x="45" y="118" fill="#ffffff" font-size="10.2" font-weight="800">Cited Answer + Write-Back</text>
+      <text x="20" y="133" fill="#a7f3d0" font-size="8.4">Cite [path &gt; heading]; dual-write</text>
+      <text x="20" y="144" fill="#a7f3d0" font-size="8.4">new dependencies to note + store.</text>
+
+      <path d="M216 124 L242 124" stroke="#34d399" stroke-width="2"/><polygon points="241,119 248,124 241,129" fill="#34d399"/>
+
+      <rect x="248" y="96" width="204" height="56" rx="8" fill="#0f293a" stroke="#38bdf8" stroke-width="1.6"/>
+      <circle cx="267" cy="114" r="10" fill="#38bdf8"/><text x="267" y="118" text-anchor="middle" fill="#041019" font-size="9.5" font-weight="800">5</text>
+      <text x="283" y="118" fill="#ffffff" font-size="10.2" font-weight="800">Nightly Sync &amp; Dedup</text>
+      <text x="258" y="133" fill="#bae6fd" font-size="8.4">Cron re-ingests changed files &amp;</text>
+      <text x="258" y="144" fill="#bae6fd" font-size="8.4">blocks &ge;0.93 near-duplicate facts.</text>
+
+      <path d="M452 124 L478 124" stroke="#38bdf8" stroke-width="2"/><polygon points="477,119 484,124 477,129" fill="#38bdf8"/>
+
+      <rect x="484" y="96" width="206" height="56" rx="8" fill="#0f172a" stroke="#f472b6" stroke-width="1.6"/>
+      <circle cx="503" cy="114" r="10" fill="#f472b6"/><text x="503" y="118" text-anchor="middle" fill="#041019" font-size="9.5" font-weight="800">6</text>
+      <text x="519" y="118" fill="#ffffff" font-size="10.2" font-weight="800">Golden-Set Recall@5</text>
+      <text x="494" y="133" fill="#fbcfe8" font-size="8.4">Run 20 real Q&rarr;expected-file pairs</text>
+      <text x="494" y="144" fill="#fbcfe8" font-size="8.4">before shipping model/chunk edits.</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="gap:12px;">
+    <div>
+      <h3 style="margin-top:0;">Turn These 6 Quality Dials in Exact Order</h3>
+      <table class="clean-table" style="font-size:8.05pt; margin:4px 0 0 0;">
+        <thead>
+          <tr>
+            <th style="width:12%;">#</th>
+            <th style="width:36%;">Dial to Turn</th>
+            <th style="width:52%;">Symptom It Cures</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td><strong>Chunk structure &amp; size</strong></td><td>Right note missing, or mushy multi-topic soup</td></tr>
+          <tr><td><strong>2</strong></td><td><strong>Prepend breadcrumb</strong></td><td>Orphan paragraphs lacking system/topic identity</td></tr>
+          <tr><td><strong>3</strong></td><td><strong>Embedding model</strong></td><td>Weak paraphrase matching or multilingual gaps</td></tr>
+          <tr><td><strong>4</strong></td><td><strong>Hybrid BM25 + RRF</strong></td><td>Whiffs on error codes, SKUs, or symbol names</td></tr>
+          <tr><td><strong>5</strong></td><td><strong>Metadata <code>where=</code></strong></td><td>Cross-project noise polluting top results</td></tr>
+          <tr><td><strong>6</strong></td><td><strong>Cross-encoder rerank</strong></td><td>Right hit sits at rank 8–15 instead of rank 1–3</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <h3 style="margin-top:0;">15-Line <code>Recall@5</code> Regression Gate</h3>
+      <p style="font-size:8.2pt; margin-bottom:4px;">Save 20 real questions paired with the file you expect back. Run in 2 seconds after any pipeline tweak:</p>
+      <pre class="code-block tight" style="margin:0;"><code>GOLDEN = [
+  ("2am row loss", "ops/atlas-migration.md"),
+  ("webhook backoff", "arch/webhooks.md"),
+  ("ERR_CONN_RESET_9", "ops/atlas-migration.md"),
+]
+
+def eval_recall_at_k(search_fn, k=5) -&gt; float:
+    hits = 0
+    for q, exp in GOLDEN:
+        srcs = {h["source"] for h in search_fn(q, k=k)}
+        if exp in srcs:
+            hits += 1
+        else:
+            print(f"MISS: {q!r} -&gt; {srcs}")
+    pct = hits / len(GOLDEN)
+    print(f"Recall@{k}: {hits}/{len(GOLDEN)} ({pct:.0%})")
+    return pct</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Clinic &amp; Quick Reference</span>
+    <span>Top 7 RAG Failure Modes, 10-Second Fixes &amp; Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Almost every "dumb RAG" complaint traces back to one of seven mechanical bugs. Keep this diagnostic table within reach whenever retrieval scores look suspicious or an MCP client refuses to connect.
+  </p>
+
+  <h3>Top 7 RAG &amp; Agent Memory Failure Modes</h3>
+  <table class="clean-table" style="font-size:8.1pt; margin-bottom:9px;">
+    <thead>
+      <tr>
+        <th style="width:33%;">Symptom / Failure Mode</th>
+        <th style="width:67%;">Root Cause &amp; 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Dimension error or pure-nonsense hits after changing models</strong></td>
+        <td><strong>Model mismatch:</strong> Index holds 768d Ollama vectors while query embeds 1536d OpenAI (or Chroma's 384d ONNX default). Wipe <code>./memory_db</code> and re-embed 100% of chunks with one model.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Everything scores ~0.58 and matches unrelated topics</strong></td>
+        <td><strong>Giant "vector soup" chunks:</strong> Whole notes embedded as single points. Split on Markdown headings first, cap at <code>400–800</code> tokens with <code>10–15%</code> overlap, and prepend <code>[path &gt; heading]</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Edited or deleted notes still return old ghost facts</strong></td>
+        <td><strong>Orphan content hashes / <code>add()</code> bug:</strong> Always write with <code>coll.upsert()</code>, and run <code>coll.delete(where={"source": rel_path})</code> before re-ingesting any modified or deleted file.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Exact error codes, SKUs, or function names miss completely</strong></td>
+        <td><strong>Dense embedding blind spot:</strong> Vector models blur character-level tokens. Add the 15-line <code>rank_bm25</code> keyword leg and fuse via Reciprocal Rank Fusion (<code>RRF_K = 60</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>5. Local Ollama recall degrades on longer code/prose chunks</strong></td>
+        <td><strong>Silent context truncation:</strong> <code>mxbai-embed-large</code> truncates past 512 tokens; <code>nomic-embed-text</code> defaults to 2048. Keep chunks &le;512 tokens or pass <code>options={"num_ctx": 8192}</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. MCP server shows red dot or agent never calls <code>search_vault</code></strong></td>
+        <td><strong>GUI <code>$PATH</code> / stdio / key trap:</strong> Use absolute paths to <code>.venv/bin/mcp</code>, log only to <code>sys.stderr</code> (never <code>print()</code>), use <code>"servers"</code> in VS Code vs. <code>"mcpServers"</code> elsewhere, and write explicit <em>"Call BEFORE..."</em> docstrings.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Agent cites a 6-month-old reversed decision as truth</strong></td>
+        <td><strong>Episodic/semantic mix-up:</strong> Tag entries with <code>stored_at</code> + <code>kind</code>, block near-duplicates (&ge;<code>0.93</code>), and <strong>supersede</strong> changed facts by upserting onto the existing ID instead of appending contradictions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:4px;">
+    <div class="card-title" style="font-size:10.1pt; color:#22d3ee; margin-bottom:6px;">
+      6-Point Vector Memory Pre-Flight Checklist (Verify Before Shipping)
+    </div>
+    <div class="grid-2" style="gap:6px 16px; font-size:8.35pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Single Model + Cosine Space Locked:</strong> <code>hnsw:space = "cosine"</code> set explicitly; index &amp; query share one exact model.</div>
+      <div>&#9744; <strong>4. Hybrid BM25 + RRF Active:</strong> Lexical leg tokenized identically to corpus so exact IDs and symbols rank #1.</div>
+      <div>&#9744; <strong>2. Structure-First Chunks + Breadcrumbs:</strong> Split on headings/AST (&le;<code>512</code> tok, fenced code intact) with <code>[source &gt; heading]</code> prepended.</div>
+      <div>&#9744; <strong>5. Clean MCP Surface &amp; Privacy Posture:</strong> Stdio logs go to <code>stderr</code>, Chroma telemetry disabled, sensitive vaults local.</div>
+      <div>&#9744; <strong>3. Delete-Then-Upsert Sync Wired:</strong> File edits clear stale chunks via <code>where={"source": path}</code> before upserting hashes.</div>
+      <div>&#9744; <strong>6. 20-Query <code>Recall@5</code> Benchmarked:</strong> Tested against 20 real questions in MCP Inspector before agent rollout!</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Vector Memory &amp; Semantic Search (RAG) &bull; AI Agent Engineering Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

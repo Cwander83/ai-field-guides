@@ -4,6 +4,11 @@
       "id": "google",
       "title": "Google AI & Creative Studios",
       "description": "Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, agentic coding IDEs, source-grounded research tools, and autonomous browser workflows."
+    },
+    {
+      "id": "agent-engineering",
+      "title": "AI Agent Engineering & Architecture",
+      "description": "Vendor-neutral 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktree fleets, and semantic RAG memory."
     }
   ],
   "guides": [
@@ -175,6 +180,74 @@
         "Browser Agent",
         "Automation",
         "Computer Use"
+      ]
+    },
+    {
+      "id": "agent-engineering/spec-driven-context-engineering",
+      "category": "agent-engineering",
+      "title": "Spec-Driven Dev & Context Engineering",
+      "subtitle": "Cross-vendor context architecture (AGENTS.md, CLAUDE.md, Cursor rules), progressive disclosure, and Spec-to-Plan-to-Tasks agent workflows.",
+      "pdf": "guides/agent-engineering/spec-driven-context-engineering/Spec_Driven_Dev_and_Context_Engineering_Complete_How_To_Guide.pdf",
+      "cover": "guides/agent-engineering/spec-driven-context-engineering/cover.png",
+      "source_dir": "guides/agent-engineering/spec-driven-context-engineering",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "Context Engineering",
+        "AGENTS.md",
+        "Spec-Driven Dev"
+      ]
+    },
+    {
+      "id": "agent-engineering/subagents-and-orchestration",
+      "category": "agent-engineering",
+      "title": "Subagents & Agent Orchestration",
+      "subtitle": "Designing specialist subagents, context forks, least-privilege tool scoping, lifecycle hooks, and multi-agent coordinator-worker swarms.",
+      "pdf": "guides/agent-engineering/subagents-and-orchestration/Subagents_and_Agent_Orchestration_Complete_How_To_Guide.pdf",
+      "cover": "guides/agent-engineering/subagents-and-orchestration/cover.png",
+      "source_dir": "guides/agent-engineering/subagents-and-orchestration",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "Subagents",
+        "Orchestration",
+        "Least Privilege"
+      ]
+    },
+    {
+      "id": "agent-engineering/git-worktrees-and-parallel-safety",
+      "category": "agent-engineering",
+      "title": "Git Worktrees & Parallel Agent Safety",
+      "subtitle": "Running parallel coding agents without file collisions\u2014covering Git worktree fleets, isolated ports/databases, safety hooks, and teardown.",
+      "pdf": "guides/agent-engineering/git-worktrees-and-parallel-safety/Git_Worktrees_and_Parallel_Agent_Safety_Complete_How_To_Guide.pdf",
+      "cover": "guides/agent-engineering/git-worktrees-and-parallel-safety/cover.png",
+      "source_dir": "guides/agent-engineering/git-worktrees-and-parallel-safety",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "Git Worktrees",
+        "Parallel Agents",
+        "Safety Hooks"
+      ]
+    },
+    {
+      "id": "agent-engineering/vector-memory-and-rag",
+      "category": "agent-engineering",
+      "title": "Vector Memory & Semantic Search (RAG)",
+      "subtitle": "Building persistent semantic memory for AI agents with structure-aware chunking, Chroma, pgvector, Qdrant, local Ollama, and hybrid retrieval.",
+      "pdf": "guides/agent-engineering/vector-memory-and-rag/Vector_Memory_and_Semantic_Search_RAG_Complete_How_To_Guide.pdf",
+      "cover": "guides/agent-engineering/vector-memory-and-rag/cover.png",
+      "source_dir": "guides/agent-engineering/vector-memory-and-rag",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "Vector Memory",
+        "RAG",
+        "Embeddings"
       ]
     }
   ]

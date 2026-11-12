@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mastering Subagents &amp; Orchestration: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Agent Engineering Series &bull; v1.0 Edition</div>
+    <h1>Mastering <span>Subagents &amp; Orchestration</span></h1>
+    <p class="cover-sub">
+      The practical visual field guide to designing, permission-scoping, and orchestrating specialized AI coding teams—from single context windows to parallel worktree fleets and adversarial review loops.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Context Isolation Architecture</span>
+      <span class="cover-badge"><code>.claude/agents/</code> &amp; YAML Config</span>
+      <span class="cover-badge">Forks vs. Clean-Slate Workers</span>
+      <span class="cover-badge">Least-Privilege &amp; <code>PreToolUse</code> Hooks</span>
+      <span class="cover-badge">Fan-Out, Worktrees &amp; Critic Loops</span>
+      <span class="cover-badge">Claude &bull; Antigravity &bull; Cursor &bull; Codex</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Central orchestrator crystal dispatching specialized light streams to satellite agent rings" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Protect Your Main Context</div>
+      <div class="cover-stat-desc">Keep 80,000+ tokens of noisy file searches and test logs out of your lead session—only crisp summaries return.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Config-Enforced Safety</div>
+      <div class="cover-stat-desc">Prompts persuade, but configuration forbids. Lock scouts to read-only tools and gate shell calls with hooks.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Portable Across Ecosystems</div>
+      <div class="cover-stat-desc">Master one blueprint that maps cleanly across Claude Code, Google Antigravity, Cursor, Copilot, and Codex.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CONTEXT ISOLATION MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Core Foundations</span>
+    <span>Mastering Subagents &amp; Orchestration</span>
+  </div>
+
+  <h2 class="page-title">Why Context Isolation Beats One Giant Chat Thread</h2>
+  <p class="page-lead">
+    A <strong>subagent</strong> is a focused specialist spawned by your main coding agent to execute one bounded job inside <strong>its own private context window</strong>, governed by <strong>its own system prompt, model, and tool permissions</strong>, returning only a distilled final report.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Context Isolation Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Invocation, Forks &amp; Concurrency</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Four Architectures &amp; Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Least-Privilege &amp; Security Hooks</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Live Dispatch &amp; Config UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Five Copy-Paste Orchestration Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Visual Topologies &amp; YAML Reference</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Vendor Ecosystem Mapping</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Three Production Agent Blueprints</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. End-to-End Pipeline &amp; Cost Math</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Pre-Flight Checklist &amp; Clinic</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>The Context Economy: Expensive Exploration Dies Locally, Cheap Truth Flows Up</h3>
+  <div class="figure-box" style="background:#0f0a1e; padding:12px 14px;">
+    <svg viewBox="0 0 700 188" width="100%" height="188" xmlns="http://www.w3.org/2000/svg">
+      <!-- Coordinator Top Box -->
+      <rect x="170" y="8" width="360" height="48" rx="9" fill="#2e1065" stroke="#a78bfa" stroke-width="1.8"/>
+      <text x="350" y="26" text-anchor="middle" fill="#ffffff" font-size="11.2" font-weight="800">Lead Coordinator Session (Stays Crisp at ~8K Tokens)</text>
+      <text x="350" y="43" text-anchor="middle" fill="#ddd6fe" font-size="8.8">Holds user goal &bull; Composes tight briefings &bull; Synthesizes 300-word reports</text>
+
+      <!-- Outbound Delegation Arrows -->
+      <path d="M235 56 L112 86" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="4 2"/>
+      <path d="M350 56 L350 86" stroke="#34d399" stroke-width="1.8" stroke-dasharray="4 2"/>
+      <path d="M465 56 L588 86" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="4 2"/>
+
+      <!-- Return Summary Arrows -->
+      <path d="M135 86 L258 56" stroke="#a78bfa" stroke-width="2.1"/>
+      <path d="M368 86 L368 56" stroke="#a78bfa" stroke-width="2.1"/>
+      <path d="M565 86 L442 56" stroke="#a78bfa" stroke-width="2.1"/>
+
+      <rect x="64" y="63" width="76" height="15" rx="4" fill="#0f0a1e" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="102" y="73" text-anchor="middle" fill="#7dd3fc" font-size="7.6" font-weight="700">300-wd brief &uarr;</text>
+      <rect x="376" y="63" width="70" height="15" rx="4" fill="#0f0a1e" stroke="#34d399" stroke-width="0.9"/>
+      <text x="411" y="73" text-anchor="middle" fill="#6ee7b7" font-size="7.6" font-weight="700">diff + status &uarr;</text>
+      <rect x="562" y="63" width="68" height="15" rx="4" fill="#0f0a1e" stroke="#fbbf24" stroke-width="0.9"/>
+      <text x="596" y="73" text-anchor="middle" fill="#fde68a" font-size="7.6" font-weight="700">SHIP / FIX &uarr;</text>
+
+      <!-- Worker 1: Researcher -->
+      <rect x="12" y="88" width="212" height="88" rx="8" fill="#171532" stroke="#38bdf8" stroke-width="1.4"/>
+      <text x="24" y="106" fill="#7dd3fc" font-size="9.6" font-weight="800">1. Codebase Scout (Haiku / Flash)</text>
+      <text x="24" y="121" fill="#cbd5e1" font-size="8.3">Tools: Read, Grep, Glob (Read-Only)</text>
+      <rect x="24" y="130" width="188" height="34" rx="5" fill="#090714" stroke="#1e293b"/>
+      <text x="32" y="144" fill="#94a3b8" font-size="7.8">Absorbs 55 file reads &amp; 48K tokens</text>
+      <text x="32" y="157" fill="#38bdf8" font-size="7.8" font-weight="700">Discarded on exit &mdash; zero main bloat!</text>
+
+      <!-- Worker 2: Implementer -->
+      <rect x="244" y="88" width="212" height="88" rx="8" fill="#171532" stroke="#34d399" stroke-width="1.4"/>
+      <text x="256" y="106" fill="#6ee7b7" font-size="9.6" font-weight="800">2. Slice Builder (Sonnet / Pro)</text>
+      <text x="256" y="121" fill="#cbd5e1" font-size="8.3">Tools: Read, Edit, Write, Bash + Worktree</text>
+      <rect x="256" y="130" width="188" height="34" rx="5" fill="#090714" stroke="#1e293b"/>
+      <text x="264" y="144" fill="#94a3b8" font-size="7.8">Absorbs compiler retries &amp; 35K logs</text>
+      <text x="264" y="157" fill="#34d399" font-size="7.8" font-weight="700">Commits clean slice in isolated checkout</text>
+
+      <!-- Worker 3: Reviewer -->
+      <rect x="476" y="88" width="212" height="88" rx="8" fill="#171532" stroke="#fbbf24" stroke-width="1.4"/>
+      <text x="488" y="106" fill="#fde68a" font-size="9.6" font-weight="800">3. Skeptical Critic (Sonnet / Pro)</text>
+      <text x="488" y="121" fill="#cbd5e1" font-size="8.3">Tools: Read, Grep, Bash (No Write/Edit)</text>
+      <rect x="488" y="130" width="188" height="34" rx="5" fill="#090714" stroke="#1e293b"/>
+      <text x="496" y="144" fill="#94a3b8" font-size="7.8">Audits full diff cold without bias</text>
+      <text x="496" y="157" fill="#fbbf24" font-size="7.8" font-weight="700">Returns structured SHIP or FIX verdict</text>
+    </svg>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">The Law-Firm Analogy That Explains Every Design Rule in This Guide</div>
+    Think of your main session as a <strong>senior partner</strong> and every subagent as a <strong>brilliant junior associate with total amnesia</strong>. A fresh subagent knows <em>nothing</em> about your chat history except the briefing paragraph you pass it, and can only touch the exact tools on its allowlist. It reads 400 pages of discovery in a back room and hands you a crisp one-page memo—keeping your main desk clear for high-judgment decisions.
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: ARCHITECTURES & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Architecture Selection</span>
+    <span>Choosing Between Inline, Subagents, Forks &amp; Peer Swarms</span>
+  </div>
+
+  <h2 class="page-title">Four Multi-Agent Topologies &amp; When to Delegate</h2>
+  <p class="page-lead">
+    "Multi-agent coding" actually describes four distinct operating patterns. Picking the right pattern before you write a prompt saves both wall-clock time and 3x&ndash;5x in wasted token spend.
+  </p>
+
+  <div class="grid-2" style="gap:9px 12px; margin-bottom:8px;">
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge">1</span> Single Agent (Inline Default)</div>
+      <p style="font-size:8.35pt; margin:0;">One context window, one tool loop. Best for 30-second targeted edits, interactive steering, and sequential steps that all rely on the exact same files already in memory.</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge cyan">2</span> Focused Subagent (Hub-and-Spoke)</div>
+      <p style="font-size:8.35pt; margin:0;">Coordinator spawns clean-slate specialists (<code>researcher</code>, <code>test-writer</code>, <code>reviewer</code>) via sequential pipelines, parallel fan-out, or intent routing, then merges their summaries.</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge purple">3</span> Context Fork (<code>/subtask</code> &bull; <code>fork</code>)</div>
+      <p style="font-size:8.35pt; margin:0;">Clones your <em>entire active conversation</em> into a background branch sharing your prompt cache. Ideal when a side task needs everything discussed so far without polluting your main thread.</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge amber">4</span> Peer Swarm / Agent Team</div>
+      <p style="font-size:8.35pt; margin:0;">Multiple long-lived peer sessions collaborating across a shared message board or task roster (Antigravity <code>/teamwork</code> Swarms, Claude Agent Teams) on multi-hour parallel builds.</p>
+    </div>
+  </div>
+
+  <h3>The Money-Saving Decision Matrix: Inline vs. Subagent vs. Fork vs. Swarm</h3>
+  <table class="clean-table" style="font-size:8.25pt;">
+    <thead>
+      <tr>
+        <th style="width:18%;">Task Signal</th>
+        <th style="width:20%;">Do Inline (Main)</th>
+        <th style="width:22%;">Focused Subagent</th>
+        <th style="width:20%;">Context Fork</th>
+        <th style="width:20%;">Peer Swarm / Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Output Volume</strong></td>
+        <td>Small code diff you will keep editing</td>
+        <td>Floods of grep hits, stack traces, or test logs</td>
+        <td>Side artifact (PR notes, unit test draft)</td>
+        <td>Multiple full subsystems + integration checks</td>
+      </tr>
+      <tr>
+        <td><strong>Context Needed</strong></td>
+        <td>Already loaded in current chat</td>
+        <td>Fits cleanly in a 4-sentence briefing</td>
+        <td>Needs 100% of current chat decisions</td>
+        <td>Shared design spec + live peer board updates</td>
+      </tr>
+      <tr>
+        <td><strong>Back-and-Forth</strong></td>
+        <td>High interactive human steering</td>
+        <td>Self-contained input &rarr; report contract</td>
+        <td>Fire-and-forget from current state</td>
+        <td>Agents negotiate API contracts laterally</td>
+      </tr>
+      <tr>
+        <td><strong>Safety Posture</strong></td>
+        <td>Uses your session's full toolset</td>
+        <td>Strict least-privilege (e.g., read-only)</td>
+        <td>Inherits parent tools &amp; prompt cache</td>
+        <td>Per-worker git worktrees + dedicated verifier</td>
+      </tr>
+      <tr>
+        <td><strong>Token Cost</strong></td>
+        <td><strong>1x</strong> (lowest baseline)</td>
+        <td><strong>1.2x&ndash;3x</strong> (cheap model offset)</td>
+        <td><strong>Low first turn</strong> (shared cache hit!)</td>
+        <td><strong>4x&ndash;8x</strong> (highest; reserve for big scope)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin-top:4px; padding:8px 12px;">
+    <div class="callout-title">What Subagents Are NOT: 4 Myths That Burn Budgets</div>
+    <strong>1. Not automatic edit safety:</strong> Two workers editing the same file concurrently will overwrite each other unless you partition folders or enable <code>isolation: worktree</code>. &bull; <strong>2. Not a free cache:</strong> Every fresh spawn re-reads files unless you <em>resume</em> its Agent ID. &bull; <strong>3. Not zero-cost:</strong> Five parallel agents spend ~5x the tokens. &bull; <strong>4. Not a replacement for Skills:</strong> If a reusable workflow needs main-chat context (like formatting a commit), make it a <code>SKILL.md</code>, not a subagent.
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED UI & CONFIG TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Anatomy &amp; Live Workspace</span>
+    <span>Touring a Subagent Definition File &amp; Live Dispatch Tree</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Subagent Spec &amp; Live Dispatch Monitor</h2>
+  <p class="page-lead">
+    Every modern subagent system pairs a declarative <strong>definition file</strong> (left) with a live <strong>task &amp; transcript monitor</strong> (right) so you can inspect active models, tool boundaries, and isolated worktrees at a glance.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:10px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">Agent Orchestrator Workspace</span>
+        <span style="color:#64748b;">&bull;</span>
+        <span style="color:#c4b5fd; font-weight:600;">repo: payments-api (branch: feat/csv-export)</span>
+      </div>
+      <div style="display:flex; gap:7px; align-items:center;">
+        <span style="background:#1e1b4b; border:1px solid #4c1d95; padding:2px 8px; border-radius:6px; color:#ddd6fe;">Coordinator: Opus / Pro</span>
+        <span style="background:#065f46; padding:2px 8px; border-radius:6px; color:#a7f3d0; font-weight:700;">3 Subagents Active</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.08fr 1fr; gap:1px; background:#1e293b;">
+      <!-- Left Pane: Agent Markdown File -->
+      <div style="background:#0b0917; padding:9px 11px; font-family:'SF Mono', Menlo, monospace; font-size:7.15pt; line-height:1.46;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e1b4b; padding-bottom:4px; margin-bottom:5px;">
+          <span style="color:#a78bfa; font-weight:700;">.claude/agents/skeptical-reviewer.md</span>
+          <span class="callout-pin">1</span>
+        </div>
+        <div style="color:#64748b;">---</div>
+        <div><span style="color:#7dd3fc;">name:</span> <span style="color:#fde68a;">skeptical-reviewer</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <span><span style="color:#7dd3fc;">description:</span> <span style="color:#86efac;">Adversarial diff auditor. Use proactively after implementation before claiming work is done.</span></span>
+          <span class="callout-pin">2</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span><span style="color:#7dd3fc;">tools:</span> <span style="color:#f9a8d4;">Read, Grep, Glob, Bash</span> &nbsp;<span style="color:#64748b;"># no Edit/Write!</span></span>
+          <span class="callout-pin">3</span>
+        </div>
+        <div><span style="color:#7dd3fc;">model:</span> <span style="color:#c4b5fd;">sonnet</span> &nbsp;&bull;&nbsp; <span style="color:#7dd3fc;">maxTurns:</span> <span style="color:#fca5a5;">25</span> &nbsp;&bull;&nbsp; <span style="color:#7dd3fc;">color:</span> <span style="color:#fca5a5;">red</span></div>
+        <div style="color:#64748b; margin-bottom:4px;">---</div>
+        <div style="color:#e2e8f0; font-family:-apple-system, sans-serif; font-size:7.3pt; line-height:1.4;">
+          Assume the change is broken until proven otherwise.<br/>
+          1. Run <code>git diff</code> and read every modified file in full.<br/>
+          2. Execute the test suite and verify exit codes.<br/>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:3px; background:#171532; padding:3px 6px; border-radius:4px; border-left:2px solid #fbbf24;">
+            <span>Return ONLY: <strong>VERDICT: SHIP | FIX</strong> + <code>[file:line]</code> evidence.</span>
+            <span class="callout-pin">4</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Pane: Live Dispatch Tree -->
+      <div style="background:#0f0d1f; padding:9px 11px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e1b4b; padding-bottom:4px;">
+          <span style="font-weight:700; color:#e2e8f0; font-size:7.3pt;">LIVE /tasks &amp; SUBAGENT DISPATCH TREE</span>
+          <span class="callout-pin">5</span>
+        </div>
+
+        <div style="background:#171532; border-left:3px solid #22d3ee; border-radius:5px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between; color:#f8fafc;">
+            <strong>&#10003; codebase-researcher (ag_01h9)</strong>
+            <span style="color:#67e8f9; font-size:6.8pt;">haiku &bull; 4.1s</span>
+          </div>
+          <div style="color:#94a3b8; font-size:6.9pt;">Read 38 files &rarr; returned 260-token route &amp; auth brief</div>
+        </div>
+
+        <div style="background:#171532; border-left:3px solid #34d399; border-radius:5px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; color:#f8fafc;">
+            <strong>&#9679; api-slice-builder (ag_02k4)</strong>
+            <div style="display:flex; gap:5px; align-items:center;">
+              <span style="background:#064e3b; color:#a7f3d0; padding:1px 5px; border-radius:4px; font-size:6.5pt;">worktree</span>
+              <span class="callout-pin">6</span>
+            </div>
+          </div>
+          <div style="color:#cbd5e1; font-size:6.9pt;">Editing <code>src/routes/orders.ts</code> in isolated git branch</div>
+        </div>
+
+        <div style="background:#171532; border-left:3px solid #f43f5e; border-radius:5px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; color:#f8fafc;">
+            <strong>&#8635; skeptical-reviewer (ag_03m8)</strong>
+            <span class="callout-pin">7</span>
+          </div>
+          <div style="color:#fecdd3; font-size:6.9pt;">Round 1 returned <strong>FIX</strong> (CSV formula injection on line 88) &rarr; Resumed via <code>SendMessage(ag_03m8)</code> for Round 2!</div>
+        </div>
+
+        <div style="background:#111827; border:1px dashed #475569; border-radius:5px; padding:4px 7px; color:#cbd5e1; font-size:6.8pt;">
+          <strong>Fork running:</strong> <code>/subtask</code> drafting release notes (shared prompt cache)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Architecture &amp; Control Reference</h3>
+  <div class="grid-2" style="gap:6px 14px; font-size:8.55pt;">
+    <div><span class="callout-pin">1</span> <strong>Version-Controlled Agent File:</strong> Checked into <code>.claude/agents/</code> (also auto-detected by Cursor and VS Code!) so your entire engineering team shares identical specialists.</div>
+    <div><span class="callout-pin">2</span> <strong>Classifier <code>description</code>:</strong> The orchestrator reads this string to decide <em>when</em> to auto-delegate. Include trigger phrases like <em>"Use proactively after..."</em>.</div>
+    <div><span class="callout-pin">3</span> <strong>Explicit Tool Allowlist:</strong> Omitting <code>Edit</code> and <code>Write</code> guarantees the reviewer cannot "helpfully" rewrite broken code while auditing it.</div>
+    <div><span class="callout-pin">4</span> <strong>Machine-Carriable Output Contract:</strong> Forcing a predictable <code>VERDICT: SHIP | FIX</code> structure lets the coordinator branch cleanly without guessing.</div>
+    <div><span class="callout-pin">5</span> <strong>Live <code>/tasks</code> Panel:</strong> Displays every running and recent subagent with its active model, effort level, turn count, and color badge; press <code>Enter</code> to inspect its raw log.</div>
+    <div><span class="callout-pin">6</span> <strong>Worktree Isolation Badge:</strong> Confirms parallel builders are writing to separate temporary git checkouts so file edits never collide.</div>
+  </div>
+  <div style="margin-top:5px; font-size:8.55pt;">
+    <span class="callout-pin">7</span> <strong>Agent ID &amp; Stateful Resume:</strong> Every completed worker returns a handle (like <code>ag_03m8</code>). Messaging that ID resumes its full memory for Round 2 instead of paying to re-read the repository from scratch.
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: VISUAL DEEP DIVE & FRONTMATTER REFERENCE ==================== -->
+<section class="page">
+  <div class="page-header" style="margin-bottom:10px;">
+    <span class="section-tag">04 &bull; Configuration Reference</span>
+    <span>Visual Topologies &amp; Complete YAML Frontmatter Schema</span>
+  </div>
+
+  <h2 class="page-title">The 4 Topologies &amp; Subagent Frontmatter Reference</h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    A subagent file is plain Markdown: YAML frontmatter between <code>---</code> fences on top, and the specialist's system prompt below. Only <code>name</code> and <code>description</code> are mandatory—every other key sharpens cost, isolation, or safety.
+  </p>
+
+  <div class="figure-box" style="background:#080512; margin:4px 0 8px 0;">
+    <img src="assets/four_agent_architectures.jpg" alt="Four glass architectural dioramas: Single Sphere, Hub-and-Spoke Star, Bifurcating Prism Fork, and Hexagonal Peer Swarm Mesh" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); background:#120b24; color:#f8fafc; padding:5px 10px; font-size:7.35pt; border-top:1px solid #3b2768;">
+      <div><strong style="color:#fde68a;">1. SINGLE AGENT:</strong> One shared context &amp; tool loop.</div>
+      <div style="padding-left:7px; border-left:1px solid #3b2768;"><strong style="color:#7dd3fc;">2. HUB &amp; SPOKE:</strong> Coordinator dispatches scoped workers.</div>
+      <div style="padding-left:7px; border-left:1px solid #3b2768;"><strong style="color:#c4b5fd;">3. CONTEXT FORK:</strong> Splits live thread w/ shared cache.</div>
+      <div style="padding-left:7px; border-left:1px solid #3b2768;"><strong style="color:#6ee7b7;">4. PEER SWARM:</strong> Lateral mesh on shared task board.</div>
+    </div>
+  </div>
+
+  <h3 style="margin:6px 0 4px 0;">Complete Subagent YAML Frontmatter Reference</h3>
+  <style>
+    .compact-fm-table th { padding: 5px 8px !important; font-size: 7.9pt !important; }
+    .compact-fm-table td { padding: 4.3px 8px !important; font-size: 7.85pt !important; line-height: 1.34 !important; }
+  </style>
+  <table class="clean-table compact-fm-table" style="margin:3px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Field</th>
+        <th style="width:11%;">Req?</th>
+        <th style="width:70%;">Behavior, Precedence &amp; Practical Guidance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>name</code></td>
+        <td><strong>Yes</strong></td>
+        <td>Unique lowercase-hyphen ID (e.g., <code>codebase-researcher</code>). Avoid colons (reserved for plugin namespaces).</td>
+      </tr>
+      <tr>
+        <td><code>description</code></td>
+        <td><strong>Yes</strong></td>
+        <td>Natural-language classifier trigger telling the coordinator <em>when</em> to delegate (all agents share a 15K-token startup budget).</td>
+      </tr>
+      <tr>
+        <td><code>tools</code></td>
+        <td>No</td>
+        <td>Explicit allowlist (<code>Read, Grep, Glob, Bash</code>). <strong>Warning:</strong> omitting <code>tools</code> inherits every session &amp; MCP tool!</td>
+      </tr>
+      <tr>
+        <td><code>disallowedTools</code></td>
+        <td>No</td>
+        <td>Denylist subtracted <em>before</em> <code>tools</code> resolves (e.g., <code>Write, Edit, Agent, mcp__github</code>).</td>
+      </tr>
+      <tr>
+        <td><code>model</code></td>
+        <td>No</td>
+        <td><code>haiku</code>, <code>sonnet</code>, <code>opus</code>, full ID, or <code>inherit</code>. Precedence: per-call &rarr; frontmatter &rarr; <code>CLAUDE_CODE_SUBAGENT_MODEL</code> &rarr; parent.</td>
+      </tr>
+      <tr>
+        <td><code>permissionMode</code></td>
+        <td>No</td>
+        <td><code>default</code>, <code>acceptEdits</code>, <code>auto</code>, <code>dontAsk</code> (pre-allowed only), <code>plan</code> (read-only), or <code>bypassPermissions</code> (CI containers only).</td>
+      </tr>
+      <tr>
+        <td><code>hooks</code></td>
+        <td>No</td>
+        <td>Agent-scoped lifecycle scripts (<code>PreToolUse</code>, <code>PostToolUse</code>, <code>Stop</code>) to validate CLI arguments or auto-format edits.</td>
+      </tr>
+      <tr>
+        <td><code>isolation</code> &bull; <code>maxTurns</code> &bull; <code>memory</code></td>
+        <td>No</td>
+        <td><code>isolation: worktree</code> prevents parallel edit collisions; <code>maxTurns</code> caps runaway spend; <code>memory: project</code> persists notes.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:6px 11px; font-size:8.25pt;">
+    <div class="callout-title" style="font-size:8.6pt;">Pre-Flight Validation Tip: Catch YAML Typos Before Starting a Session</div>
+    Broken YAML or missing <code>name</code> / <code>description</code> keys cause silent skips at startup. Run <code>claude plugin validate .claude/agents</code> (and <code>/doctor</code> to spot duplicate names) right after editing!
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: ANATOMY & 3 PRODUCTION BLUEPRINTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Production Blueprints</span>
+    <span>Prompt Anatomy &amp; Three Steal-Ready Specialist Agents</span>
+  </div>
+
+  <h2 class="page-title">Prompt Anatomy &amp; 3 Production-Grade Subagents</h2>
+  <p class="page-lead">
+    You do not need twenty exotic agents. Ninety percent of real-world engineering teams get maximum leverage from just three tightly scoped specialists: a <strong>Scout</strong>, a <strong>Test-Runner</strong>, and a <strong>Skeptical Critic</strong>.
+  </p>
+
+  <h3>The 5-Part Subagent Specification Formula (Color-Coded)</h3>
+  <div class="card" style="margin-bottom:8px; background:#ffffff; border:1.5px solid #cbd5e1; padding:8px 11px;">
+    <div style="font-size:8.4pt; line-height:1.72;">
+      <span class="p-tag p-style">[1. ROUTING DESCRIPTION] "Read-only codebase scout. Use proactively before planning or multi-file edits to locate symbols &amp; conventions."</span>
+      <span class="p-tag p-subj">[2. LEAST-PRIVILEGE TOOLS] tools: Read, Grep, Glob &bull; model: haiku (fast, cheap, zero write risk).</span>
+      <span class="p-tag p-act">[3. ROLE &amp; ANTI-BIAS STANCE] "You never modify files or propose speculative rewrites—report verified repository facts only."</span>
+      <span class="p-tag p-cam">[4. STEPWISE SOP] "1. Glob target directories. 2. Grep call sites. 3. Read entry points and existing test harnesses in full."</span>
+      <span class="p-tag p-cons">[5. STRICT OUTPUT CONTRACT] "Return ONLY four headings: Findings (with file:line), Key Files, Conventions, and Open Questions."</span>
+    </div>
+  </div>
+
+  <h3>Three Battle-Tested Agents Ready for <code>.claude/agents/</code> (or Any Repo)</h3>
+  <div class="grid-3" style="gap:9px; margin-bottom:8px;">
+    <!-- Agent 1 -->
+    <div class="card" style="padding:9px 10px; border-top:3.5px solid #0284c7;">
+      <div class="card-title" style="font-size:9.1pt; color:#0369a1;">1. <code>codebase-researcher</code></div>
+      <p style="font-size:7.9pt; margin-bottom:5px;"><strong>Posture:</strong> Read-only scout on a fast, low-cost model.</p>
+      <pre class="code-block" style="font-size:6.85pt; line-height:1.38;"><code>---
+name: codebase-researcher
+description: Read-only repo
+  investigator. Use before
+  planning or implementation.
+tools: Read, Grep, Glob
+model: haiku
+color: cyan
+---
+Never edit files. Map exact
+entry points &amp; conventions.
+Return ONLY:
+## Findings (file:line)
+## Key Files
+## Conventions Observed
+## Open Questions</code></pre>
+    </div>
+
+    <!-- Agent 2 -->
+    <div class="card" style="padding:9px 10px; border-top:3.5px solid #059669;">
+      <div class="card-title" style="font-size:9.1pt; color:#047857;">2. <code>test-writer</code></div>
+      <p style="font-size:7.9pt; margin-bottom:5px;"><strong>Posture:</strong> Edit-capable, scoped strictly to test suites.</p>
+      <pre class="code-block" style="font-size:6.85pt; line-height:1.38;"><code>---
+name: test-writer
+description: Writes &amp; runs unit
+  and route tests after code
+  changes. Use proactively.
+tools: Read, Write, Edit,
+  Grep, Glob, Bash
+model: sonnet
+---
+1. Match existing fixtures &amp;
+   naming in tests/.
+2. Write failing cases first,
+   then run suite until green.
+3. Never alter prod src/ code;
+   report prod bugs upstream!</code></pre>
+    </div>
+
+    <!-- Agent 3 -->
+    <div class="card" style="padding:9px 10px; border-top:3.5px solid #e11d48;">
+      <div class="card-title" style="font-size:9.1pt; color:#be123c;">3. <code>skeptical-reviewer</code></div>
+      <p style="font-size:7.9pt; margin-bottom:5px;"><strong>Posture:</strong> Blind adversarial verifier; returns verdict only.</p>
+      <pre class="code-block" style="font-size:6.85pt; line-height:1.38;"><code>---
+name: skeptical-reviewer
+description: Adversarial diff
+  reviewer. Use before telling
+  the user work is complete.
+tools: Read, Grep, Glob, Bash
+model: sonnet
+maxTurns: 25
+---
+Assume changes are broken until
+proven. Read full changed files
+&amp; run tests yourself. Return:
+## VERDICT: SHIP | FIX
+## Blocking [file:line]
+## Verification Evidence</code></pre>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Why Separating the Implementer from the Reviewer Changes Everything</div>
+    When the same agent writes a feature and checks its own work in one conversation, it suffers from <strong>confirmation bias</strong>—anchored by its own earlier rationalizations. Spawning <code>skeptical-reviewer</code> in a clean context forces cold, independent verification of the actual <code>git diff</code> and exit codes!
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: INVOCATION, FORKS & CONCURRENCY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Runtime Mechanics</span>
+    <span>Invocation Modes, Context Forks, Resuming &amp; Nesting Limits</span>
+  </div>
+
+  <h2 class="page-title">Invocation Mechanics, Context Forks &amp; Concurrency</h2>
+  <p class="page-lead">
+    Understanding what crosses the context boundary at launch—and when to reach for a <strong>fork</strong> or <strong>resume</strong> instead of a fresh spawn—eliminates the "amnesia tax" between pipeline stages.
+  </p>
+
+  <h3>Four Ways to Trigger a Subagent (From Soft Routing to Guaranteed Pinning)</h3>
+  <table class="clean-table" style="font-size:8.2pt;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Trigger Mechanism</th>
+        <th style="width:32%;">Syntax Example</th>
+        <th style="width:46%;">Guarantee &amp; Under-the-Hood Behavior</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Automatic Delegation</strong></td>
+        <td><em>"Audit the auth module and summarize risks."</em></td>
+        <td>Coordinator matches task intent against loaded <code>description</code> strings and calls the <code>Agent</code> tool automatically.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Natural-Language Name</strong></td>
+        <td><em>"Use the skeptical-reviewer agent on my diff."</em></td>
+        <td>Very high likelihood; coordinator still composes the task briefing passed across the boundary.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Explicit <code>@</code> Mention</strong></td>
+        <td><code>@agent-skeptical-reviewer check HEAD~1</code></td>
+        <td><strong>Guaranteed execution</strong> of that exact subagent. Note: your coordinator still writes the subagent's briefing prompt!</td>
+      </tr>
+      <tr>
+        <td><strong>4. Whole-Session Mode</strong></td>
+        <td><code>claude --agent skeptical-reviewer</code></td>
+        <td>Runs your <em>main thread itself</em> under that agent's system prompt, tool allowlist, and model from turn one.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Clean-Slate Subagent vs. Context Fork (<code>/subtask</code> &bull; <code>fork</code>)</h3>
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge cyan">A</span> Clean-Slate Subagent (Default)</div>
+      <ul style="font-size:8.2pt; margin:4px 0 0 0; padding-left:16px;">
+        <li><strong>Sees at startup:</strong> Its own Markdown prompt, the coordinator's briefing, repo <code>CLAUDE.md</code> / <code>AGENTS.md</code>, git status snapshot, and preloaded <code>skills</code>.</li>
+        <li><strong>Watch out:</strong> Built-in lightweight scouts (like <code>Explore</code>) skip <code>CLAUDE.md</code> to save tokens—restate critical folder exclusions directly in your prompt!</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge purple">B</span> Context Fork (<code>/subtask</code> or <code>fork</code>)</div>
+      <ul style="font-size:8.2pt; margin:4px 0 0 0; padding-left:16px;">
+        <li><strong>Sees at startup:</strong> Your <em>complete parent conversation history</em>, tools, and system prompt—while keeping all new tool calls isolated in the background!</li>
+        <li><strong>Cache superpower:</strong> Shares the parent's <strong>prompt cache</strong>, making its first turn dramatically cheaper than re-briefing 40K tokens of context from scratch.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Three Runtime Rules Every Orchestrator Should Know</h3>
+  <div class="grid-3" style="gap:9px;">
+    <div class="card" style="padding:9px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Resume, Don't Respawn</div>
+      <p style="font-size:8pt; margin:0;">Completed agents retain an <strong>Agent ID</strong>. Asking the coordinator to <em>"resume that same reviewer"</em> sends a follow-up via <code>SendMessage</code> with full history intact—zero re-reading!</p>
+    </div>
+    <div class="card" style="padding:9px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge teal">2</span> Nesting Depth Cap (3)</div>
+      <p style="font-size:8pt; margin:0;">Subagents can spawn child helpers up to <strong>3 layers deep</strong> by default (tuned via <code style="font-size:7pt;">..._MAX_SUBAGENT_SPAWN_DEPTH</code>; set <code>1</code> for flat hub-and-spoke). Forks never re-fork.</p>
+    </div>
+    <div class="card" style="padding:9px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge amber">3</span> Concurrency Ceiling (20)</div>
+      <p style="font-size:8pt; margin:0;">Up to <strong>20 background subagents</strong> run simultaneously before queueing (tuned via <code style="font-size:7pt;">..._MAX_CONCURRENT_SUBAGENTS</code>). Press <code>Ctrl+B</code> anytime to background a live run.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: LEAST-PRIVILEGE & SECURITY HOOKS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Defense in Depth</span>
+    <span>Least-Privilege Tool Scoping, Permission Modes &amp; Command Hooks</span>
+  </div>
+
+  <h2 class="page-title">Least-Privilege Scoping &amp; Command-Inspecting Hooks</h2>
+  <p class="page-lead">
+    Once subagents run unattended in the background—often reading untrusted web pages, GitHub issues, or third-party READMEs—prompt politeness is not a security boundary. Enforce blast-radius limits in configuration.
+  </p>
+
+  <div class="figure-box" style="background:#080512; margin:4px 0 8px 0;">
+    <img src="assets/least_privilege_shields.jpg" alt="Concentric violet and cyan security domes allowing narrow emerald beams through precision apertures while deflecting red sparks" style="width:100%; height:216px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); background:#120b24; color:#f8fafc; padding:5px 10px; font-size:7.4pt; border-top:1px solid #3b2768;">
+      <div><strong style="color:#6ee7b7;">LAYER 1 &bull; TOOLS:</strong> Strip <code>Write</code>, <code>Edit</code> &amp; <code>Agent</code></div>
+      <div style="padding-left:8px; border-left:1px solid #3b2768;"><strong style="color:#7dd3fc;">LAYER 2 &bull; MODE:</strong> Use <code>plan</code> or <code>dontAsk</code></div>
+      <div style="padding-left:8px; border-left:1px solid #3b2768;"><strong style="color:#fca5a5;">LAYER 3 &bull; HOOKS:</strong> Validate exact CLI args</div>
+    </div>
+  </div>
+
+  <h3>Layer 1 &amp; 2: Tool Filtering Dials &amp; Per-Agent Permission Modes</h3>
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9.1pt;">Allowlist vs. Denylist + Spawn Locking</div>
+      <ul style="font-size:8.05pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Narrow job? Use <code>tools</code>:</strong> <code>tools: Read, Grep, Glob</code> guarantees zero file writes and zero shell access.</li>
+        <li><strong>Broad job? Use <code>disallowedTools</code>:</strong> Subtract dangerous capabilities like <code>Write, Edit, mcp__github</code>.</li>
+        <li><strong>Restrict who spawns whom:</strong> A main coordinator with <code>tools: Agent(researcher, test-writer), Read</code> is structurally blocked from spawning any unlisted editor!</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9.1pt;">Choosing <code>permissionMode</code> Safely</div>
+      <ul style="font-size:8.05pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><code>plan</code>: Enforces structural read-only mode inside scouts.</li>
+        <li><code>acceptEdits</code>: Smooth local coding inside isolated worktrees.</li>
+        <li><code>dontAsk</code>: Auto-denies anything outside pre-approved rules—ideal for unattended background runs.</li>
+        <li><strong>Note:</strong> If your parent session runs <code>bypassPermissions</code>, children inherit it—reserve bypass strictly for disposable containers!</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Layer 3: Argument-Level Guardrails with a <code>PreToolUse</code> Bash Hook</h3>
+  <p style="font-size:8.4pt; margin-bottom:5px;">
+    Giving an analyst <code>tools: Bash</code> lets it run <code>psql</code>—but also <code>rm -rf</code>! Pair frontmatter <code>hooks</code> with a 10-line validator script where <code>exit 2</code> blocks bad commands and feeds <code>stderr</code> straight back to the subagent:
+  </p>
+  <div class="grid-2" style="gap:10px;">
+    <pre class="code-block" style="font-size:7pt; line-height:1.38;"><code># .claude/agents/db-analyst.md
+---
+name: db-analyst
+description: Read-only SQL reporting analyst.
+tools: Bash, Read
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "./scripts/readonly-sql.sh"
+---</code></pre>
+    <pre class="code-block" style="font-size:7pt; line-height:1.38;"><code>#!/usr/bin/env bash
+# ./scripts/readonly-sql.sh (remember: chmod +x!)
+CMD=$(jq -r '.tool_input.command // empty')
+if echo "$CMD" | grep -qiE \
+  '\b(INSERT|UPDATE|DELETE|DROP|ALTER|TRUNCATE|rm)\b'; then
+  echo "Blocked: SELECT queries only." &gt;&amp;2
+  exit 2   # Hard-blocks call &amp; informs agent!
+fi
+exit 0</code></pre>
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD ORCHESTRATION RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Orchestration Playbook</span>
+    <span>Five Copy-Paste Multi-Agent Workflows for Daily Engineering</span>
+  </div>
+
+  <h2 class="page-title">5 Copy-Paste Orchestration Recipes That Pay Off Daily</h2>
+  <p class="page-lead">
+    Drop these five battle-tested prompts straight into your coordinator session. Each combines explicit boundaries, isolation, and convergence rules so agents finish cleanly without babysitting.
+  </p>
+
+  <table class="clean-table" style="font-size:8.1pt;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Recipe &amp; Pattern</th>
+        <th style="width:23%;">Agents &amp; Isolation Setup</th>
+        <th style="width:56%;">Copy-Paste Kickoff Prompt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Sharded Repo Security &amp; Architecture Audit</strong><br/><span style="color:#6d28d9; font-weight:600;">Parallel Fan-Out &rarr; Merge</span></td>
+        <td>3x <code>codebase-researcher</code><br/>Model: <code>haiku</code> / <code>flash</code><br/>Workspace: shared read-only</td>
+        <td><em>"Spawn 3 parallel <code>codebase-researcher</code> subagents covering <code>src/auth/</code>, <code>src/billing/</code>, and <code>src/webhooks/</code>. Each must return a 250-word report of entry points, external calls, and authz gaps. Merge all three into one prioritized risk table."</em></td>
+      </tr>
+      <tr>
+        <td><strong>2. Writer + Blind Adversarial Critic Gate</strong><br/><span style="color:#6d28d9; font-weight:600;">Sequential + Bounded Loop</span></td>
+        <td>Main builder + <code>skeptical-reviewer</code><br/>Cap: 3 rounds max<br/>Uses stateful <strong>Resume</strong></td>
+        <td><em>"Implement cursor pagination on <code>GET /orders</code>. Then run <code>skeptical-reviewer</code> on the diff. If it returns <code>FIX</code>, patch blocking items and <strong>resume the exact same reviewer</strong> to re-verify. Stop at <code>SHIP</code> or escalate after 3 rounds."</em></td>
+      </tr>
+      <tr>
+        <td><strong>3. Competing Hypothesis Bug Hunt</strong><br/><span style="color:#6d28d9; font-weight:600;">Parallel Evidence Race</span></td>
+        <td>2x read-only debug scouts<br/>Model: <code>sonnet</code> / <code>pro</code><br/><code>maxTurns: 20</code> each</td>
+        <td><em>"Users see intermittent 502s on checkout. Spawn 2 parallel scouts: Scout A investigates connection-pool exhaustion in <code>src/db/</code>; Scout B investigates Stripe webhook retries in <code>src/payments/</code>. Require <code>file:line</code> proof to crown a winner."</em></td>
+      </tr>
+      <tr>
+        <td><strong>4. Spec-to-Slice Parallel Feature Build</strong><br/><span style="color:#6d28d9; font-weight:600;">Worktree Builder Fan-Out</span></td>
+        <td>2x builders w/ <code>isolation: worktree</code> (or <code>workspace: "share"</code>) + 1x verifier</td>
+        <td><em>"From our approved API contract, spawn Builder A in a worktree owning <code>src/api/export/</code> and Builder B in a worktree owning <code>src/ui/export/</code>. Neither may touch outside files. Merge both branches and run <code>test-writer</code> end-to-end."</em></td>
+      </tr>
+      <tr>
+        <td><strong>5. Zero-Regression Migration Pipeline</strong><br/><span style="color:#6d28d9; font-weight:600;">4-Hop Handoff Chain</span></td>
+        <td><code>researcher</code> &rarr; Migrator &rarr; <code>test-writer</code> &rarr; <code>skeptical-reviewer</code></td>
+        <td><em>"Run a 4-stage pipeline to upgrade our auth middleware: (1) <code>codebase-researcher</code> lists every callsite; (2) migrate callsites in main thread; (3) <code>test-writer</code> adds regression coverage; (4) <code>skeptical-reviewer</code> verifies backward compatibility."</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:8px;">
+    <div class="callout" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">The 4-Sentence Briefing Formula</div>
+      Whenever you (or your coordinator) brief a clean-slate subagent, pack four crisp elements: <strong>1. Goal</strong> (one sentence) &bull; <strong>2. Context</strong> (exact paths + prior stage summary, including disproved dead ends!) &bull; <strong>3. Constraints</strong> (off-limits folders) &bull; <strong>4. Deliverable</strong> (exact report headings).
+    </div>
+    <div class="callout emerald" style="margin:0; padding:9px 12px;">
+      <div class="callout-title">Context-Repair Rescue Trick</div>
+      Did a messy search or giant log paste bloat your main conversation? Spawn one fresh subagent to <em>redo</em> that investigation cleanly in isolation, keep its 200-word summary, and run <code>/compact</code>—buying back sharp model attention immediately!
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: CROSS-VENDOR MAPPING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Cross-Vendor Rosetta Stone</span>
+    <span>Mapping Subagents Across Claude Code, Antigravity, Cursor, Copilot &amp; Codex</span>
+  </div>
+
+  <h2 class="page-title">One Mental Model Across Every Major Coding Agent</h2>
+  <p class="page-lead">
+    In 2026, subagent concepts converged across the entire industry—and several editors even auto-load <code>.claude/agents/</code> directly! Use this Rosetta Stone to translate any orchestration workflow in seconds.
+  </p>
+
+  <table class="clean-table" style="font-size:7.8pt; table-layout:fixed;">
+    <thead>
+      <tr>
+        <th style="width:14%;">Capability</th>
+        <th style="width:21%;">Claude Code</th>
+        <th style="width:22%;">Google Antigravity</th>
+        <th style="width:20%;">Cursor (3.x)</th>
+        <th style="width:23%;">Copilot &amp; OpenAI Codex</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Definition Location</strong></td>
+        <td><code>.claude/agents/*.md</code><br/><code>~/.claude/agents/</code></td>
+        <td>Built-in + Plugin agents + dynamic <code>define_subagent</code></td>
+        <td><code>.cursor/agents/*.md</code><br/>(also reads <code>.claude/</code>!)</td>
+        <td>Copilot: <code>.github/agents/</code><br/>Codex: <code>.codex/agents/*.toml</code></td>
+      </tr>
+      <tr>
+        <td><strong>Explicit Dispatch</strong></td>
+        <td><code>@agent-name</code>, prose, or <code>claude --agent</code></td>
+        <td><code>invoke_subagent</code> tool, <code>/browser</code>, <code>/teamwork</code></td>
+        <td><code>/name</code> slash command in chat or prose</td>
+        <td>Copilot: <code>agents:</code> allowlist<br/>Codex: <code>spawn_agent</code> prompt</td>
+      </tr>
+      <tr>
+        <td><strong>Tool &amp; Sandbox Lock</strong></td>
+        <td><code>tools</code> / <code>disallowedTools</code> + <code>PreToolUse</code> hooks</td>
+        <td><code>EnableWriteTools</code>, <code>EnableMCPTools</code>, sandbox</td>
+        <td><code>readonly: true</code> flag in YAML frontmatter</td>
+        <td>Copilot: <code>['read','search']</code><br/>Codex: <code>sandbox_mode</code></td>
+      </tr>
+      <tr>
+        <td><strong>Parallel Git Isolation</strong></td>
+        <td><code>isolation: worktree</code> in frontmatter</td>
+        <td><code>Workspace: "share"</code> or <code>"branch"</code> clone</td>
+        <td>Worktree env on request or <code>/in-cloud</code> VM</td>
+        <td>Copilot: cloud PR branch<br/>Codex: session worktrees</td>
+      </tr>
+      <tr>
+        <td><strong>Context Fork &amp; Resume</strong></td>
+        <td><code>/subtask</code> fork + <code>SendMessage</code> to ID</td>
+        <td><code>fork:"coordinator"</code> + <code>send_message(id)</code></td>
+        <td><code>Resume agent &lt;id&gt;</code>; <code>/goal</code> long runs</td>
+        <td>Copilot: UI <code>handoffs</code><br/>Codex: <code>resume_agent</code></td>
+      </tr>
+      <tr>
+        <td><strong>Peer Team Mode</strong></td>
+        <td>Agent Teams &amp; cross-session messaging</td>
+        <td>Native <code>swarm</code> board (<code>/teamwork</code>)</td>
+        <td>Agents Window multi-VM &amp; <code>/autopilot</code></td>
+        <td>VS Code Agent Host (5-deep) &amp; Agent Merge</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The Polyglot Repository Layout: Commit Once, Run in Every Client</h3>
+  <div class="grid-2" style="gap:12px; align-items:stretch;">
+    <pre class="code-block" style="font-size:6.8pt; line-height:1.52;"><code>my-repository/
+&#9500;&#9472; AGENTS.md              # Universal repo rules &amp; cmds
+&#9500;&#9472; .claude/agents/        # Canonical Markdown agents
+&#9474;  &#9500;&#9472; researcher.md       # Read by Claude/Cursor/VSCode
+&#9474;  &#9492;&#9472; reviewer.md         # Adversarial diff gate
+&#9500;&#9472; .agents/skills/        # On-demand SKILL.md playbooks
+&#9500;&#9472; .cursor/agents/        # Optional Cursor overrides
+&#9500;&#9472; .github/agents/        # Optional Copilot handoffs
+&#9492;&#9472; .codex/agents/*.toml   # Optional Codex TOML roles</code></pre>
+    <div class="card" style="padding:10px 12px; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div class="card-title">Cross-Compatibility Rules of Thumb</div>
+        <ul style="font-size:8.15pt; margin:4px 0 0 0; padding-left:16px;">
+          <li><strong>Start with <code>AGENTS.md</code> + <code>.claude/agents/</code>:</strong> Both Cursor and VS Code detect <code>.claude/agents/*.md</code> natively, while Antigravity, Codex, and Cursor all obey root <code>AGENTS.md</code> instructions.</li>
+          <li><strong>Know what silently drops:</strong> Advanced Claude fields (<code>hooks</code>, <code>permissionMode</code>, <code>memory</code>, <code>isolation</code>) are ignored by other clients—keep core role rules in the Markdown body too!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: END-TO-END PIPELINE & COST OPTIMIZATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Production Pipeline &amp; Economics</span>
+    <span>End-to-End Multi-Agent Feature Pipeline &amp; Token Budget Engineering</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Orchestration Pipeline &amp; Cost Engineering</h2>
+  <p class="page-lead">
+    Smart orchestration pairs a <strong>frontier reasoning coordinator</strong> with <strong>fast, inexpensive specialist workers</strong>—delivering cleaner architecture and independent verification at a fraction of an all-frontier swarm bill.
+  </p>
+
+  <!-- 6-Stage Pipeline SVG -->
+  <div class="figure-box" style="background:#0f0a1e; padding:11px 13px; margin-bottom:9px;">
+    <svg viewBox="0 0 700 164" width="100%" height="164" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="10" y="8" width="206" height="62" rx="8" fill="#1e1b4b" stroke="#a78bfa" stroke-width="1.6"/>
+      <circle cx="30" cy="27" r="10" fill="#7c3aed"/><text x="30" y="31" text-anchor="middle" fill="#fff" font-size="9" font-weight="800">1</text>
+      <text x="46" y="31" fill="#ffffff" font-size="10.2" font-weight="800">Coordinator Scope</text>
+      <text x="20" y="47" fill="#ddd6fe" font-size="8.4">Frontier model clarifies spec &amp;</text>
+      <text x="20" y="59" fill="#ddd6fe" font-size="8.4">partitions non-overlapping slices.</text>
+
+      <path d="M216 39 L244 39" stroke="#a78bfa" stroke-width="2"/><polygon points="242,34 249,39 242,44" fill="#a78bfa"/>
+
+      <!-- Stage 2 -->
+      <rect x="249" y="8" width="206" height="62" rx="8" fill="#0f293a" stroke="#38bdf8" stroke-width="1.6"/>
+      <circle cx="269" cy="27" r="10" fill="#0284c7"/><text x="269" y="31" text-anchor="middle" fill="#fff" font-size="9" font-weight="800">2</text>
+      <text x="285" y="31" fill="#ffffff" font-size="10.2" font-weight="800">Parallel Scout Fan-Out</text>
+      <text x="259" y="47" fill="#bae6fd" font-size="8.4">2&ndash;3 Haiku/Flash scouts absorb</text>
+      <text x="259" y="59" fill="#bae6fd" font-size="8.4">80K+ raw reads at ~1/10th cost.</text>
+
+      <path d="M455 39 L483 39" stroke="#38bdf8" stroke-width="2"/><polygon points="481,34 488,39 481,44" fill="#38bdf8"/>
+
+      <!-- Stage 3 -->
+      <rect x="488" y="8" width="202" height="62" rx="8" fill="#172554" stroke="#60a5fa" stroke-width="1.6"/>
+      <circle cx="508" cy="27" r="10" fill="#2563eb"/><text x="508" y="31" text-anchor="middle" fill="#fff" font-size="9" font-weight="800">3</text>
+      <text x="524" y="31" fill="#ffffff" font-size="10.2" font-weight="800">Briefing Synthesis</text>
+      <text x="498" y="47" fill="#dbeafe" font-size="8.4">Coordinator merges 300-word</text>
+      <text x="498" y="59" fill="#dbeafe" font-size="8.4">reports into exact slice contracts.</text>
+
+      <!-- Turnaround connector -->
+      <path d="M589 70 L589 83 L113 83 L113 94" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4 3"/>
+      <polygon points="108,92 113,99 118,92" fill="#94a3b8"/>
+
+      <!-- Stage 4 -->
+      <rect x="10" y="99" width="206" height="58" rx="8" fill="#063729" stroke="#34d399" stroke-width="1.6"/>
+      <circle cx="30" cy="117" r="10" fill="#059669"/><text x="30" y="121" text-anchor="middle" fill="#fff" font-size="9" font-weight="800">4</text>
+      <text x="46" y="121" fill="#ffffff" font-size="10.2" font-weight="800">Worktree Builders</text>
+      <text x="20" y="137" fill="#a7f3d0" font-size="8.4">Sonnet/Pro workers implement</text>
+      <text x="20" y="149" fill="#a7f3d0" font-size="8.4">&amp; run unit suites in git worktrees.</text>
+
+      <path d="M216 128 L244 128" stroke="#34d399" stroke-width="2"/><polygon points="242,123 249,128 242,133" fill="#34d399"/>
+
+      <!-- Stage 5 -->
+      <rect x="249" y="99" width="206" height="58" rx="8" fill="#3b0a1d" stroke="#fb7185" stroke-width="1.6"/>
+      <circle cx="269" cy="117" r="10" fill="#e11d48"/><text x="269" y="121" text-anchor="middle" fill="#fff" font-size="9" font-weight="800">5</text>
+      <text x="285" y="121" fill="#ffffff" font-size="10.2" font-weight="800">Blind Critic Gate (&le;3x)</text>
+      <text x="259" y="137" fill="#fecdd3" font-size="8.4">Skeptical reviewer checks diff;</text>
+      <text x="259" y="149" fill="#fecdd3" font-size="8.4">resumes by ID until SHIP verdict.</text>
+
+      <path d="M455 128 L483 128" stroke="#fb7185" stroke-width="2"/><polygon points="481,123 488,128 481,133" fill="#fb7185"/>
+
+      <!-- Stage 6 -->
+      <rect x="488" y="99" width="202" height="58" rx="8" fill="#2e1065" stroke="#fbbf24" stroke-width="1.8"/>
+      <circle cx="508" cy="117" r="10" fill="#d97706"/><text x="508" y="121" text-anchor="middle" fill="#fff" font-size="9" font-weight="800">6</text>
+      <text x="524" y="121" fill="#fde68a" font-size="10.2" font-weight="800">Human Diff Sign-Off</text>
+      <text x="498" y="137" fill="#fef3c7" font-size="8.4">Agents clear the runway; you</text>
+      <text x="498" y="149" fill="#fef3c7" font-size="8.4">inspect clean PR &amp; merge!</text>
+    </svg>
+  </div>
+
+  <h3>6 Token &amp; Cost Guardrails That Prevent Multi-Agent Bill Shock</h3>
+  <div class="grid-2" style="gap:9px 12px;">
+    <div class="card" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Tier Models by Judgment Needed</div>
+      <p style="font-size:8.1pt; margin:0;">Keep <code>opus</code> / <code>gemini-pro</code> on your coordinator, pin <code>haiku</code> / <code>flash</code> on file scouts, and use <code>sonnet</code> on builders. Set <code>CLAUDE_CODE_SUBAGENT_MODEL</code> as a safe floor.</p>
+    </div>
+    <div class="card" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge cyan">2</span> Cap Fan-Out Width at 3&ndash;5 Workers</div>
+      <p style="font-size:8.1pt; margin:0;">Five parallel subagents spend ~5x tokens, and ten verbose return summaries will overflow your coordinator's context window! Never fan out what one <code>Grep</code> can answer.</p>
+    </div>
+    <div class="card" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge purple">3</span> Guard the 15K Description Budget</div>
+      <p style="font-size:8.1pt; margin:0;">Every installed agent's <code>description</code> loads into session preamble on turn 1. Keep descriptions to 1&ndash;2 crisp sentences; put detailed instructions in the Markdown body.</p>
+    </div>
+    <div class="card" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge teal">4</span> Set <code>maxTurns</code> &amp; Round Caps</div>
+      <p style="font-size:8.1pt; margin:0;">Put <code>maxTurns: 20&ndash;30</code> on exploratory or review agents, and cap critic loops at 3 rounds where only <em>blocking</em> defects trigger another iteration.</p>
+    </div>
+    <div class="card" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge amber">5</span> Use Forks &amp; <code>cacheTtl: 1h</code></div>
+      <p style="font-size:8.1pt; margin:0;">Use <code>/subtask</code> forks when side tasks need heavy shared history (free prompt-cache hit!), and set <code>experimental: { cacheTtl: 1h }</code> on long-running specialists.</p>
+    </div>
+    <div class="card" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge rose">6</span> Enforce Terse Output Contracts</div>
+      <p style="font-size:8.1pt; margin:0;">Every token a subagent returns gets billed again on every subsequent turn of your main session. Demand 250-word bulleted memos citing <code>file:line</code>.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; Orchestration Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Cheat Sheet</h2>
+  <p class="page-lead">
+    Keep this back-page clinic within reach whenever a custom subagent fails to trigger, loses context across stages, or stalls silently in the background.
+  </p>
+
+  <h3>Top 7 Subagent &amp; Orchestration Pitfalls (&amp; Their 10-Second Fixes)</h3>
+  <table class="clean-table" style="font-size:8.15pt;">
+    <thead>
+      <tr>
+        <th style="width:32%;">Symptom / Failure Mode</th>
+        <th style="width:68%;">Root Cause &amp; 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Coordinator never auto-delegates to my custom agent</strong></td>
+        <td>Vague <code>description</code> (e.g., <em>"Helps with tests"</em>). Rewrite as a sharp trigger: <em>"Use proactively right after code edits to write and run unit tests"</em>—or pin via <code>@agent-name</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Newly created agent file is completely invisible</strong></td>
+        <td><code>.claude/agents/</code> folder did not exist at session start, or YAML frontmatter has syntax errors / colons in <code>name</code>. Restart session and run <code>claude plugin validate .claude/agents</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 2 worker repeats Stage 1's mistakes or searches</strong></td>
+        <td>Amnesia across clean-slate hops. Require Stage 1's output contract to list <em>disproved dead ends</em>, pass its report into Stage 2's prompt, or use <code>/subtask</code> (fork) / <code>SendMessage</code> resume.</td>
+      </tr>
+      <tr>
+        <td><strong>Two parallel builders overwrote each other's edits</strong></td>
+        <td>Shared git checkout with overlapping files. Add <code>isolation: worktree</code> (or Antigravity <code>Workspace: "share"</code>) per builder, or partition strict non-overlapping directory ownership.</td>
+      </tr>
+      <tr>
+        <td><strong>Critic review loop burns tokens forever on tiny nits</strong></td>
+        <td>Fresh reviewer respawned each round without convergence rules. Always <strong>resume the same reviewer ID</strong>, split <em>Blocking</em> vs. <em>Non-Blocking</em>, and cap at 3 rounds max.</td>
+      </tr>
+      <tr>
+        <td><strong>Background subagent hangs mid-run without finishing</strong></td>
+        <td>Waiting on an interactive tool approval prompt surfaced in your main window—or folder trust wasn't accepted for project hooks. Answer the prompt or use <code>acceptEdits</code> / <code>dontAsk</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Built-in <code>Explore</code> scout ignored my <code>CLAUDE.md</code> rules</strong></td>
+        <td>By design, lightweight built-in Explore/Plan scouts skip <code>CLAUDE.md</code> to save startup tokens. Put critical constraints (like <em>"ignore <code>vendor/</code>"</em>) directly in the delegation prompt—or use your own custom scout!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:6px; background:#120b24; border-color:#3b2768;">
+    <div class="card-title" style="font-size:10pt; color:#c4b5fd; margin-bottom:5px;">
+      Orchestration Pre-Flight Checklist: 6 Habits Before You Dispatch a Fleet
+    </div>
+    <div class="grid-2" style="gap:5px 16px; font-size:8.3pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Commit the Core Triad First:</strong> <code>researcher</code>, <code>test-writer</code>, and <code>skeptical-reviewer</code>.</div>
+      <div>&#9744; <strong>4. Isolate Parallel Editors:</strong> Enable <code>isolation: worktree</code> or disjoint folder boundaries.</div>
+      <div>&#9744; <strong>2. Enforce Least Privilege in YAML:</strong> Strip <code>Write</code> / <code>Edit</code> from scouts &amp; critics; gate <code>Bash</code> with hooks.</div>
+      <div>&#9744; <strong>5. Resume By Agent ID:</strong> Continue multi-round reviews via <code>SendMessage</code> instead of respawning.</div>
+      <div>&#9744; <strong>3. Write Output Contracts:</strong> Specify exact headings &amp; <code>file:line</code> citations so reports carry cleanly.</div>
+      <div>&#9744; <strong>6. Bound Every Loop:</strong> Set <code>maxTurns</code> + a 3-round escalation rule before walking away!</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:7px; padding:7px 12px;">
+    <div class="callout-title">Your Fastest 5-Minute Win Today</div>
+    Drop <code>codebase-researcher.md</code> and <code>skeptical-reviewer.md</code> (from Page 6) into your repo's <code>.claude/agents/</code> folder, commit them to Git, and run your very next feature as <strong>Scout &rarr; Build &rarr; Blind Critic</strong>. You will feel the jump in context clarity on turn one!
+  </div>
+
+  <div class="page-footer">
+    <span>Mastering Subagents &amp; Orchestration &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

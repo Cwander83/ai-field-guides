@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mastering Spec-Driven Dev &amp; Context Engineering: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Agent Engineering Series &bull; v1.0 Edition</div>
+    <h1>Mastering <span>Spec-Driven Dev &amp; Context Engineering</span></h1>
+    <p class="cover-sub">
+      The complete visual handbook to ending agent thrash&mdash;architecting lean cross-vendor context files, progressive disclosure layers, executable <code>Spec &rarr; Plan &rarr; Tasks</code> workflows, and rock-solid session hygiene.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">One Canon (<code>AGENTS.md</code>)</span>
+      <span class="cover-badge"><code>CLAUDE.md</code> &amp; <code>.mdc</code> Adapters</span>
+      <span class="cover-badge">4-Layer Progressive Disclosure</span>
+      <span class="cover-badge"><code>Spec &rarr; Plan &rarr; Tasks</code></span>
+      <span class="cover-badge">Verifiable Acceptance Checks</span>
+      <span class="cover-badge">Compaction &amp; Handoff Hygiene</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Architectural Blueprint Prism Transforming Tangled Threads Into Structured Golden Modules" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">One Canon, Thin Adapters</div>
+      <div class="cover-stat-desc">Maintain one crisp <code>AGENTS.md</code> shared across Claude Code, Cursor, Antigravity, Copilot, Gemini CLI, and Codex.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">60&ndash;75% Leaner Context</div>
+      <div class="cover-stat-desc">Eliminate attention dilution with a 4-layer stack of path-scoped globs, trigger pointers, and on-demand skills.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Proof Over Vibe-Prompting</div>
+      <div class="cover-stat-desc">Replace fragile mega-prompts with durable repo specs and runnable acceptance checks that any fresh agent can verify.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>Spec-Driven Development &amp; Context Engineering</span>
+  </div>
+
+  <h2 class="page-title">Why Agents Thrash &amp; The Core Mental Model</h2>
+  <p class="page-lead">
+    <strong>&ldquo;The spec is the source of truth; the prompt is just the delivery truck.&rdquo;</strong> When an AI coding agent loops, forgets conventions, or ships plausible-looking code that fails review, typing a longer, sterner chat prompt is the most expensive trap in modern software engineering.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Why Agents Thrash &amp; Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Verifiable Criteria &amp; Context Rot</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. 5-Min Audit &amp; Cross-Vendor Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Context &amp; Spec Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated &ldquo;One Canon&rdquo; Repo Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Team Scale, Monorepos &amp; Git Hygiene</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. 4-Layer Progressive Disclosure</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. End-to-End Synergy Walkthrough</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. High-Signal <code>AGENTS.md</code> &amp; JIT Triggers</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Workflow: <code>Spec &rarr; Plan &rarr; Tasks</code></strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Principle: Durable Files Beat Chat</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Why Longer Prompts Lose (And Durable Files Compound)</h3>
+  <p style="font-size:9pt;">
+    A chat prompt is ephemeral: it lives in one window, for one agent session, invisible to teammates, and evaporates on compaction. Durable repository files&mdash;<strong>Context Files</strong> (the employee handbook) and <strong>Specs</strong> (the work order)&mdash;compound across every future session, subagent, and engineer on your team.
+  </p>
+
+  <h3>Architecture: &ldquo;One Canon, Thin Adapters&rdquo; + Executable Work Orders</h3>
+  <div class="figure-box" style="background:#130f0a; padding:12px 14px; border-color:#475569;">
+    <svg viewBox="0 0 700 186" width="100%" height="186" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Thin Adapters -->
+      <rect x="10" y="8" width="160" height="58" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.3"/>
+      <text x="20" y="25" fill="#fde68a" font-size="8.4" font-weight="700">CLAUDE CODE ADAPTER</text>
+      <text x="20" y="41" fill="#ffffff" font-size="11.2" font-weight="800">CLAUDE.md</text>
+      <text x="20" y="55" fill="#cbd5e1" font-size="8.4">@AGENTS.md + compact rules</text>
+
+      <rect x="183" y="8" width="160" height="58" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.3"/>
+      <text x="193" y="25" fill="#7dd3fc" font-size="8.4" font-weight="700">CURSOR ADAPTERS</text>
+      <text x="193" y="41" fill="#ffffff" font-size="11.2" font-weight="800">.cursor/rules/*.mdc</text>
+      <text x="193" y="55" fill="#cbd5e1" font-size="8.4">00-core + path globs</text>
+
+      <rect x="356" y="8" width="160" height="58" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.3"/>
+      <text x="366" y="25" fill="#ddd6fe" font-size="8.4" font-weight="700">ANTIGRAVITY &amp; GEMINI</text>
+      <text x="366" y="41" fill="#ffffff" font-size="11.2" font-weight="800">.agents/ &amp; GEMINI.md</text>
+      <text x="366" y="55" fill="#cbd5e1" font-size="8.4">Native AGENTS.md + SKILL.md</text>
+
+      <rect x="529" y="8" width="161" height="58" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.3"/>
+      <text x="539" y="25" fill="#6ee7b7" font-size="8.4" font-weight="700">COPILOT &bull; CODEX &bull; 20+</text>
+      <text x="539" y="41" fill="#ffffff" font-size="11.2" font-weight="800">Native Readers</text>
+      <text x="539" y="55" fill="#cbd5e1" font-size="8.4">Read AGENTS.md directly</text>
+
+      <!-- Connectors down to Canon -->
+      <path d="M90 66 L90 84 M263 66 L263 84 M436 66 L436 84 M609 66 L609 84" stroke="#fbbf24" stroke-width="1.8"/>
+
+      <!-- Center Canon Bar -->
+      <rect x="10" y="84" width="680" height="42" rx="8" fill="#291a09" stroke="#fbbf24" stroke-width="1.8"/>
+      <text x="350" y="102" text-anchor="middle" fill="#fde68a" font-size="11.2" font-weight="800">
+        SINGLE CANONICAL HANDBOOK: /AGENTS.md (&le;300 Lines &bull; Commands &bull; Non-Negotiables &bull; Trigger Pointers)
+      </text>
+      <text x="350" y="117" text-anchor="middle" fill="#e2e8f0" font-size="8.8">
+        One fact lives in one place &mdash; thin adapters link here instead of duplicating rules that silently drift apart
+      </text>
+
+      <!-- Bottom Work Order Pipeline -->
+      <rect x="10" y="138" width="212" height="40" rx="7" fill="#0f172a" stroke="#38bdf8" stroke-width="1.3"/>
+      <text x="22" y="155" fill="#7dd3fc" font-size="9.3" font-weight="800">1. Work Order (docs/specs/*)</text>
+      <text x="22" y="169" fill="#cbd5e1" font-size="8.2">spec.md &rarr; plan.md &rarr; tasks.md</text>
+
+      <path d="M222 158 L244 158" stroke="#fbbf24" stroke-width="2"/><polygon points="243,154 250,158 243,162" fill="#fbbf24"/>
+
+      <rect x="250" y="138" width="198" height="40" rx="7" fill="#0f172a" stroke="#fbbf24" stroke-width="1.3"/>
+      <text x="262" y="155" fill="#fde68a" font-size="9.3" font-weight="800">2. Stateless Agent (&ldquo;Truck&rdquo;)</text>
+      <text x="262" y="169" fill="#cbd5e1" font-size="8.2">Short pointer prompt + JIT layers</text>
+
+      <path d="M448 158 L470 158" stroke="#34d399" stroke-width="2"/><polygon points="469,154 476,158 469,162" fill="#34d399"/>
+
+      <rect x="476" y="138" width="214" height="40" rx="7" fill="#064e3b" stroke="#34d399" stroke-width="1.4"/>
+      <text x="488" y="155" fill="#a7f3d0" font-size="9.3" font-weight="800">3. Verified Output (Exit 0)</text>
+      <text x="488" y="169" fill="#ecfdf5" font-size="8.2">Tests green + ACs proven on disk</text>
+    </svg>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">The Whole Philosophy in Three Sentences</div>
+    <strong>1. Write down what you repeat:</strong> If you correct an agent twice, put that rule in a repo file, not your next chat message. <strong>2. Pay for context only when needed:</strong> Load deep reference manuals just in time instead of taxing every turn. <strong>3. Make &ldquo;done&rdquo; executable:</strong> Phrase acceptance criteria as runnable CLI checks so the machine verifies its own work.
+  </div>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: PREREQUISITES, AUDIT & CROSS-VENDOR MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Ecosystem Map</span>
+    <span>Prerequisites, 5-Minute Repo Audit &amp; Cross-Vendor File Matrix</span>
+  </div>
+
+  <h2 class="page-title">5-Minute Repo Audit &amp; Cross-Vendor Context Matrix</h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    Every major AI coding tool reads persistent Markdown context from your repository&mdash;yet each uses different filenames, glob frontmatter, and load mechanics. Run this 5-minute audit before writing a single new rule.
+  </p>
+
+  <h3 style="margin:6px 0 4px 0;">Prerequisites &amp; The 5-Minute Readiness Audit</h3>
+  <div class="grid-3" style="margin-bottom:7px; gap:9px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge amber">1</span> CLI Verifiability</div>
+      <p style="font-size:7.9pt; margin:0;">Confirm build, types, and tests run from one shell command (<code>pnpm check</code>, <code>pytest</code>, <code>cargo test</code>). Without CLI checks, agents only guess.</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">2</span> Line &amp; Fossil Audit</div>
+      <p style="font-size:7.9pt; margin:0;">Run <code>wc -l AGENTS.md CLAUDE.md</code>. Any root file over <code>300</code> lines&mdash;or citing renamed scripts&mdash;actively degrades accuracy.</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge teal">3</span> Behavioral Probe</div>
+      <p style="font-size:7.9pt; margin:0;">Ask a fresh session: <em>&ldquo;List the exact build/test commands and hard rules loaded, plus source files.&rdquo;</em> Mismatches expose blind spots.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:6px 0 4px 0;">Cross-Vendor Context File Decision Matrix (2026 Standard)</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:4px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:18%; padding:5.5px 8px;">Ecosystem</th>
+        <th style="width:27%; padding:5.5px 8px;">Global &amp; Project Root Files</th>
+        <th style="width:25%; padding:5.5px 8px;">Path-Scoped / On-Demand</th>
+        <th style="width:30%; padding:5.5px 8px;">Verified Loading Mechanics</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:5px 8px;"><strong>Open Canon</strong><br/><span style="color:#64748b;font-size:7.3pt;"><code>AGENTS.md</code> (LF AAIF)</span></td>
+        <td style="padding:5px 8px;"><code>./AGENTS.md</code> at repo root (plain Markdown, &le;300 lines)</td>
+        <td style="padding:5px 8px;">Nested <code>apps/*/AGENTS.md</code> in monorepo subtrees</td>
+        <td style="padding:5px 8px;">Read natively by <strong>20+ tools</strong>. Nearest file wins for subtree; Codex caps at <code>32 KiB</code>.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>Claude Code</strong><br/><span style="color:#64748b;font-size:7.3pt;">Anthropic CLI &amp; IDE</span></td>
+        <td style="padding:5px 8px;"><code>~/.claude/CLAUDE.md</code> (user), <code>./CLAUDE.md</code> (git), <code>./CLAUDE.local.md</code> (local)</td>
+        <td style="padding:5px 8px;"><code>.claude/rules/*.md</code> (<code>paths:</code> globs) + <code>@path/file</code> imports</td>
+        <td style="padding:5px 8px;">Files <strong>concatenate</strong> root-down. Inspect via <code>/context</code> &amp; <code>/memory</code>; HTML comments hidden.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>Cursor</strong><br/><span style="color:#64748b;font-size:7.3pt;">AI Code Editor</span></td>
+        <td style="padding:5px 8px;"><code>.cursor/rules/*.mdc</code> + native <code>AGENTS.md</code> + Team Rules</td>
+        <td style="padding:5px 8px;">4 modes: <code>alwaysApply</code>, Auto (<code>globs:</code>), Agent (<code>description:</code>), Manual</td>
+        <td style="padding:5px 8px;">Requires <code>.mdc</code> (legacy <code>.cursorrules</code> deprecated). Precedence: <strong>Team &gt; Project &gt; User</strong>.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>Antigravity &amp; Gemini CLI</strong><br/><span style="color:#64748b;font-size:7.3pt;">Google Agent Suite</span></td>
+        <td style="padding:5px 8px;"><code>~/.gemini/GEMINI.md</code>, repo <code>AGENTS.md</code> / <code>GEMINI.md</code>, <code>.agents/rules/</code></td>
+        <td style="padding:5px 8px;"><code>.agents/skills/&lt;name&gt;/SKILL.md</code> + JIT subtree discovery</td>
+        <td style="padding:5px 8px;"><code>AGENTS.md</code> native (or set <code>context.fileName</code> in <code>settings.json</code>); check <code>/memory show</code>.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>Copilot, Codex &amp; Windsurf</strong><br/><span style="color:#64748b;font-size:7.3pt;">GitHub &bull; OpenAI &bull; Codeium</span></td>
+        <td style="padding:5px 8px;"><code>AGENTS.md</code> across Copilot Chat/Cloud/CLI, Codex &amp; Windsurf</td>
+        <td style="padding:5px 8px;"><code>.github/instructions/*.instructions.md</code> (<code>applyTo</code> globs)</td>
+        <td style="padding:5px 8px;">Copilot also reads <code>CLAUDE.md</code> &amp; <code>copilot-instructions.md</code>. Prefer <code>AGENTS.md</code> over <code>.windsurfrules</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:4px 0 0 0; padding:8px 11px; font-size:8.45pt;">
+    <div class="callout-title">Crucial Honesty Rule: Prose Concatenates&mdash;Permissions Enforce!</div>
+    Across tools, Markdown instruction files accumulate in context rather than deterministically overriding one another. If two files say <em>&ldquo;use 2 spaces&rdquo;</em> and <em>&ldquo;use tabs,&rdquo;</em> the model flips a coin. De-duplicate prose to a single home, and enforce hard bans (like blocking <code>rm -rf</code> or <code>git push</code>) via <code>settings.json</code> permissions, OS sandboxes, or hooks.
+  </div>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED CONTEXT ARCHITECTURE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Repository Blueprint</span>
+    <span>Touring a Production &ldquo;One Canon, Thin Adapters&rdquo; Repository</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: The &ldquo;One Canon&rdquo; Repository Layout</h2>
+  <p class="page-lead">
+    Here is how a clean, multi-tool repository looks in practice. Every project-wide convention lives once inside <code>AGENTS.md</code>, tool adapters stay under 35 lines, and deep subsystem docs or feature specs stay out of memory until needed.
+  </p>
+
+  <!-- Annotated Dark-Mode Repo & Context Inspector UI Mockup -->
+  <div class="ui-window" style="margin-bottom:11px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">Context Architecture Inspector</span>
+        <span style="color:#64748b;">&bull;</span>
+        <span style="color:#fbbf24; font-weight:600;">Repo: acme-expenses</span>
+      </div>
+      <div style="display:flex; gap:7px; align-items:center;">
+        <span style="background:#1e293b; border:1px solid #334155; padding:2px 8px; border-radius:6px; color:#fde68a;">Layer 0: 94 / 300 lines</span>
+        <span style="background:#065f46; padding:2px 8px; border-radius:6px; color:#a7f3d0; font-weight:700;">check-context.sh: PASS</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 168px 1fr 196px; gap:1px; background:#1f2937;">
+      <!-- Left Repo Tree -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; gap:4.5px; font-family:'SF Mono', Menlo, monospace; font-size:7pt;">
+        <div style="font-family:sans-serif; font-size:6.8pt; font-weight:700; color:#94a3b8; letter-spacing:0.05em; margin-bottom:2px;">EXPLORER &bull; REPO ROOT</div>
+        <div style="background:#291a09; border:1px solid #fbbf24; color:#fde68a; padding:3px 6px; border-radius:4px; display:flex; justify-content:space-between; align-items:center;">
+          <span>AGENTS.md</span><span class="callout-pin">1</span>
+        </div>
+        <div style="color:#cbd5e1; padding:2px 6px; display:flex; justify-content:space-between; align-items:center;">
+          <span>CLAUDE.md</span><span class="callout-pin">2</span>
+        </div>
+        <div style="color:#64748b; padding:1px 6px;">CLAUDE.local.md (gitignored)</div>
+        <div style="color:#7dd3fc; padding:2px 6px; display:flex; justify-content:space-between; align-items:center;">
+          <span>.cursor/rules/10-web.mdc</span><span class="callout-pin">3</span>
+        </div>
+        <div style="color:#c4b5fd; padding:2px 6px;">.agents/skills/db-migrate/</div>
+        <div style="color:#cbd5e1; padding:2px 6px; display:flex; justify-content:space-between; align-items:center;">
+          <span>docs/agent/*.md</span><span class="callout-pin">4</span>
+        </div>
+        <div style="color:#6ee7b7; padding:2px 6px; display:flex; justify-content:space-between; align-items:center;">
+          <span>docs/specs/csv-export/</span><span class="callout-pin">5</span>
+        </div>
+        <div style="color:#94a3b8; padding:1px 14px;">&#9500; spec.md &bull; plan.md</div>
+        <div style="color:#94a3b8; padding:1px 14px;">&#9492; tasks.md</div>
+        <div style="color:#cbd5e1; padding:2px 6px;">apps/web/AGENTS.md</div>
+      </div>
+
+      <!-- Center Canon & Adapter Editor -->
+      <div style="background:#0b0f19; padding:9px; display:flex; flex-direction:column; gap:7px;">
+        <div style="background:#111827; border:1px solid #374151; border-radius:6px; padding:6px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#fde68a; font-weight:700; font-size:7.3pt;">AGENTS.md &mdash; Vendor-Neutral Canon (58 lines)</span>
+            <span style="color:#94a3b8; font-size:6.7pt;">&lt;!-- Verified: 2026-11 --&gt;</span>
+          </div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.85pt; color:#e2e8f0; line-height:1.42;">
+            <span style="color:#38bdf8;">## Authoritative Commands</span><br/>
+            - Build: <code>pnpm build</code> &bull; Types+Lint: <code>pnpm check</code> &bull; Unit: <code>pnpm test</code> (~40s)<br/>
+            <span style="color:#38bdf8;">## Non-Negotiables</span><br/>
+            1. DB access ONLY via <code>packages/core/src/repos/*</code> (never raw SQL).<br/>
+            2. Every API route MUST call <code>requireRole()</code>; money uses <code>Decimal</code>.<br/>
+            3. <span style="color:#fbbf24;">If this file &amp; code disagree, code wins: flag staleness &amp; propose fix.</span> <span class="callout-pin">6</span><br/>
+            <span style="color:#38bdf8;">## Conditional Pointers (Read ONLY When Relevant)</span><br/>
+            - Export pipeline &rarr; <code>docs/agent/export.md</code> &bull; DB schema &rarr; <code>docs/agent/migrations.md</code>
+          </div>
+        </div>
+
+        <div style="background:#111827; border:1px solid #334155; border-radius:6px; padding:6px 8px;">
+          <div style="color:#7dd3fc; font-weight:700; font-size:7.3pt; margin-bottom:2px;">CLAUDE.md &mdash; Thin Tool Adapter (18 lines)</div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.85pt; color:#cbd5e1; line-height:1.4;">
+            <span style="color:#fbbf24;">@AGENTS.md</span><br/>
+            - Enter Plan Mode before touching &gt;3 files; never <code>git push</code> unasked.<br/>
+            - <strong>Compact Instructions:</strong> Keep active spec path, verified ACs &amp; session bans.
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Context Meter & Active Task -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:6.8pt; font-weight:700; color:#94a3b8; border-bottom:1px solid #1e293b; padding-bottom:4px;">
+          ACTIVE SESSION CONTEXT
+        </div>
+
+        <div style="background:#1e293b; border-left:3px solid #fbbf24; border-radius:5px; padding:5px 7px;">
+          <strong style="color:#f8fafc; font-size:7.3pt;">Always-On Prefix (3.1k tok)</strong>
+          <div style="color:#cbd5e1; font-size:6.8pt;"><code>AGENTS.md</code> + <code>CLAUDE.md</code> (94% free window remaining!)</div>
+        </div>
+
+        <div style="background:#1e293b; border-left:3px solid #38bdf8; border-radius:5px; padding:5px 7px;">
+          <strong style="color:#f8fafc; font-size:7.3pt;">Auto-Attached Glob Rule</strong>
+          <div style="color:#94a3b8; font-size:6.8pt;"><code>globs: "apps/web/**/*.tsx"</code><br/>Loaded when UI file opened</div>
+        </div>
+
+        <div style="background:#1e293b; border-left:3px solid #34d399; border-radius:5px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#f8fafc; font-size:7.3pt;">Work Order: tasks.md</strong><span class="callout-pin">7</span>
+          </div>
+          <div style="color:#a7f3d0; font-size:6.8pt; font-family:monospace; margin-top:2px;">
+            [x] T1 csv.ts (exit 0)<br/>
+            [x] T2 repo stream (exit 0)<br/>
+            [ ] T3 GET /export + AC-2
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Architecture Reference</h3>
+  <div class="grid-2" style="gap:7px 14px; font-size:8.65pt;">
+    <div><span class="callout-pin">1</span> <strong>Root Canon (<code>AGENTS.md</code>):</strong> The single source of repo-wide commands, 3&ndash;7 non-negotiables, and trigger pointers. Never duplicated elsewhere.</div>
+    <div><span class="callout-pin">2</span> <strong>Thin Adapter (<code>CLAUDE.md</code>):</strong> Pulls in <code>@AGENTS.md</code> on line 1 and adds <em>only</em> Claude-specific mechanics (plan threshold, compact instructions).</div>
+    <div><span class="callout-pin">3</span> <strong>Path-Scoped Glob Rules (<code>.mdc</code> / <code>.claude/rules</code>):</strong> Attach React, SQL, or API rules <em>only</em> when the agent touches matching file globs.</div>
+    <div><span class="callout-pin">4</span> <strong>On-Demand Reference (<code>docs/agent/*.md</code>):</strong> Deep architecture guides, migration runbooks, and testing handbooks read solely on trigger.</div>
+    <div><span class="callout-pin">5</span> <strong>Feature Spec Folder (<code>docs/specs/&lt;slug&gt;/</code>):</strong> Holds <code>spec.md</code>, <code>plan.md</code>, and <code>tasks.md</code> under version control alongside your code.</div>
+    <div><span class="callout-pin">6</span> <strong>Staleness Circuit-Breaker:</strong> Explicitly authorizes the agent to trust live code over outdated docs&mdash;and report the stale line aloud!</div>
+  </div>
+  <div style="margin-top:6px; font-size:8.65pt;">
+    <span class="callout-pin">7</span> <strong>Executable Checklist (<code>tasks.md</code>):</strong> Tracks verified progress on disk (<code>[x]</code> = verify command exited <code>0</code>) so any fresh session can pick up instantly at <code>T3</code>.
+  </div>
+
+  <div class="callout amber" style="margin-top:10px;">
+    <div class="callout-title">House Rule of the Layout: One Fact Lives in One Place</div>
+    The moment you copy a convention from <code>AGENTS.md</code> into <code>CLAUDE.md</code> or <code>00-core.mdc</code>, you schedule a future <strong>Conflict Weave</strong> bug when one copy gets updated and the other rots. Adapters point back to the canon&mdash;never restate it!
+  </div>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: PROGRESSIVE DISCLOSURE & 4-LAYER ARCHITECTURE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Progressive Disclosure</span>
+    <span>Cutting Context Bloat with the 4-Layer Context Stack</span>
+  </div>
+
+  <h2 class="page-title">Progressive Disclosure &amp; The 4-Layer Architecture</h2>
+  <p class="page-lead">
+    Every line in your root context file is re-processed on <em>every turn of every session</em>. Bloated 700-line handbooks create three compounding penalties: <strong>attention dilution</strong> (crucial rules get lost in the middle), <strong>silent rule collisions</strong>, and <strong>broken prompt-cache prefixes</strong>.
+  </p>
+
+  <div class="figure-box" style="background:#120c05;">
+    <img src="assets/progressive_disclosure_layers.jpg" alt="Four Translucent Isometric Glass Strata Connected by Selective Vertical Golden Light Shafts" style="width:100%; height:222px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.4pt; border-top:1px solid #334155; gap:8px;">
+      <div><strong style="color:#fbbf24;">LAYER 0 &bull; ALWAYS ON:</strong><br/><code>AGENTS.md</code> + thin adapters (&le;300 lines; every turn).</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#38bdf8;">LAYER 1 &bull; PATH-SCOPED:</strong><br/><code>globs:</code>, <code>paths:</code> &amp; nested <code>AGENTS.md</code> (~1 screen).</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#a78bfa;">LAYER 2 &bull; ON-DEMAND DOCS:</strong><br/><code>docs/agent/*.md</code> deep-dives read via trigger table.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#34d399;">LAYER 3 &bull; SKILLS &amp; FLOWS:</strong><br/><code>SKILL.md</code> &amp; slash workflows loaded per job.</div>
+    </div>
+  </div>
+
+  <h3>Before &amp; After: Putting a 740-Line <code>CLAUDE.md</code> on a Diet</h3>
+  <div class="grid-2" style="margin-bottom:9px;">
+    <div class="card" style="border-top:4px solid #ef4444; background:#fef2f2; border-color:#fecaca;">
+      <div class="card-title" style="color:#991b1b;">&#10007; Before: 740-Line &ldquo;Omnibus&rdquo; File</div>
+      <ul style="font-size:8.2pt; margin:4px 0 0 0; color:#450a0a;">
+        <li><strong>Pep-talk filler:</strong> 4 paragraphs of <em>&ldquo;You are an expert senior TypeScript architect, write clean code...&rdquo;</em></li>
+        <li><strong>Stale traps:</strong> Lists <code>pnpm lint</code> and <code>pnpm deploy</code> (renamed months ago&mdash;still followed blindly!).</li>
+        <li><strong>Internal contradictions:</strong> Says <em>&ldquo;2-space indent&rdquo;</em> on line 42 and <em>&ldquo;tabs in frontend&rdquo;</em> on line 510.</li>
+        <li><strong>Inline manuals:</strong> 90-line DB migration runbook + 120-line testing essay taxing simple CSS edits.</li>
+        <li><strong>Grievance log:</strong> 60 lines of dated complaints (<em>&ldquo;In March you used moment.js...&rdquo;</em>).</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top:4px solid #059669; background:#ecfdf5; border-color:#a7f3d0;">
+      <div class="card-title" style="color:#065f46;">&#10003; After: 95-Line Layered System</div>
+      <ul style="font-size:8.2pt; margin:4px 0 0 0; color:#064e3b;">
+        <li><strong>Lean Canon (55 lines):</strong> 2-line repo summary, verified commands + runtimes, and 5 crisp non-negotiables.</li>
+        <li><strong>Thin Adapter (40 lines):</strong> <code>CLAUDE.md</code> imports <code>@AGENTS.md</code> and sets compaction rules.</li>
+        <li><strong>Path Resolution (Layer 1):</strong> <code>.claude/rules/frontend.md</code> scopes tab formatting strictly to <code>apps/web/**/*</code>.</li>
+        <li><strong>On-Demand Lore (Layer 2):</strong> Runbooks moved to <code>docs/agent/migrations.md</code> behind a 5-row pointer table.</li>
+        <li><strong>Result:</strong> <strong>60&ndash;75% fewer prefix tokens</strong> per turn and zero stale-command misfires!</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">The Week-One Hire Litmus Test (Keep Cures, Delete Symptoms)</div>
+    Before adding any line to Layer 0, ask: <em>&ldquo;Would a capable new engineer need this in week one on almost every task?&rdquo;</em> If it applies to only one folder or workflow, push it to Layer 1, 2, or 3. And replace sprawling incident grievances with positive cures (e.g., <em>&ldquo;Dates use Temporal/date-fns; never import moment&rdquo;</em>).
+  </div>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: ANATOMY OF HIGH-SIGNAL AGENTS.MD & SKILL TRIGGERS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Canon &amp; Triggers</span>
+    <span>Authoring High-Signal AGENTS.md Files &amp; Just-in-Time Skill Triggers</span>
+  </div>
+
+  <h2 class="page-title">Anatomy of a High-Signal <code>AGENTS.md</code> &amp; JIT Triggers</h2>
+  <p class="page-lead">
+    Frontier coding models do not need flattery or restatements of standard ESLint rules&mdash;they can read your linter config directly. What they cannot guess are your repo's architectural boundaries, command quirks, and where hidden bodies are buried.
+  </p>
+
+  <h3>The 6-Part High-Signal Context Blueprint (Color-Coded Anatomy)</h3>
+  <div class="card" style="margin-bottom:10px; background:#ffffff; border:1.5px solid #cbd5e1;">
+    <div style="font-size:8.45pt; line-height:1.78;">
+      <span class="p-tag p-style">[1. AUDIT HEADER &amp; MAP] &lt;!-- Verified: 2026-11 &bull; Owner: @platform --&gt; TS monorepo: apps/web, apps/api, packages/core (pure domain, zero I/O).</span><br/>
+      <span class="p-tag p-subj">[2. EXACT COMMANDS + TIMING] Build: pnpm build (root only) &bull; Check: pnpm check &bull; Unit: pnpm test (~40s; do not abort early).</span><br/>
+      <span class="p-tag p-act">[3. RANKED NON-NEGOTIABLES] 1) DB queries ONLY in packages/core/src/repos/*. 2) Routes MUST call requireRole(). 3) Money = Decimal, never number.</span><br/>
+      <span class="p-tag p-cam">[4. STALENESS BREAKER] If this file contradicts live code or package.json, trust the code, state the mismatch, and propose an edit here.</span><br/>
+      <span class="p-tag p-sfx">[5. TRIGGER POINTERS] Touching exports &rarr; read docs/agent/export.md FIRST &bull; Editing DB schema &rarr; read docs/agent/migrations.md FIRST.</span><br/>
+      <span class="p-tag p-cons">[6. COMPACT SURVIVAL] On /compact, preserve: active spec path, verified [x] vs pending [ ] tasks, and any session-specific &ldquo;never do X&rdquo; rules.</span>
+    </div>
+  </div>
+
+  <h3>Scoping Rules: From Global User Defaults Down to Subtrees</h3>
+  <table class="clean-table" style="font-size:8.25pt;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Scope Tier</th>
+        <th style="width:30%;">Example Paths</th>
+        <th style="width:48%;">What Belongs Here (And What Never Does)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Global User Scope</strong></td>
+        <td><code>~/.claude/CLAUDE.md</code><br/><code>~/.gemini/GEMINI.md</code></td>
+        <td>Your personal communication style, OS shell preferences, and cross-project git habits. <strong>Never</strong> put repo-specific rules here where teammates lack them.</td>
+      </tr>
+      <tr>
+        <td><strong>Project Root Canon</strong></td>
+        <td><code>./AGENTS.md</code> + thin <code>./CLAUDE.md</code></td>
+        <td>Repo-wide build/test commands, architectural boundaries, security invariants, and the Layer-2 trigger index. Checked into Git.</td>
+      </tr>
+      <tr>
+        <td><strong>Personal Local</strong></td>
+        <td><code>./CLAUDE.local.md</code></td>
+        <td>Your local sandbox URLs, test user credentials pointers, or WIP experiments for this repo. Always add to <code>.gitignore</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Subtree / Glob</strong></td>
+        <td><code>apps/web/AGENTS.md</code><br/><code>.cursor/rules/*.mdc</code> (<code>globs:</code>)</td>
+        <td><em>&ldquo;Extra law for this neighborhood only&rdquo;</em> (e.g., TanStack Query + colocated <code>.test.tsx</code> inside <code>apps/web</code>). Never re-state root policy.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Making Just-in-Time Pointers &amp; Skills Fire Reliably</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">A</span> Write Triggers, Not Bibliographies</div>
+      <p style="font-size:8.3pt; margin:0;">Agents skip passive lists like <em>&ldquo;See docs/agent/ for helpful guides.&rdquo;</em> Write explicit <strong>IF &rarr; THEN</strong> conditions: <code>If your task touches billing or webhooks &rarr; read docs/agent/stripe-webhooks.md before planning.</code></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">B</span> Graduate Workflows to <code>SKILL.md</code></div>
+      <p style="font-size:8.3pt; margin:0;">In Antigravity, Claude Code, and Cursor 2.4+ (<code>.agents/skills/&lt;name&gt;/SKILL.md</code>), only the short YAML <code>description</code> loads at startup&mdash;the full 200-line SOP + helper scripts load <em>only</em> when the task matches!</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: THE SPEC-DRIVEN WORKFLOW ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Spec-Driven Workflow</span>
+    <span>Turning Ephemeral Prompts Into Durable Spec &rarr; Plan &rarr; Tasks Artifacts</span>
+  </div>
+
+  <h2 class="page-title">The Spec-Driven Workflow: <code>Spec &rarr; Plan &rarr; Tasks</code></h2>
+  <p class="page-lead">
+    When you jump straight from a vague chat prompt to code generation, the agent silently guesses scope, auth, formatting, and scale. Splitting work into three small Markdown files shifts your human effort to the highest-leverage 15 minutes: reviewing the route <em>before</em> wheels roll.
+  </p>
+
+  <div class="figure-box" style="background:#120c05;">
+    <img src="assets/spec_plan_tasks_pipeline.jpg" alt="Three Interconnected Crystalline Mechanical Stations Representing Spec Orb, Plan Tree Matrix, and Interlocking Tasks Cube" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); background:#0f172a; color:#f8fafc; padding:6px 11px; font-size:7.6pt; border-top:1px solid #334155; gap:10px;">
+      <div><strong style="color:#fbbf24;">1. spec.md (WHAT &amp; WHY):</strong><br/>Goals, explicit Non-Goals, requirements &amp; runnable Acceptance Criteria.</div>
+      <div style="padding-left:9px; border-left:1px solid #334155;"><strong style="color:#38bdf8;">2. plan.md (TECHNICAL HOW):</strong><br/>File-by-file map, edge cases owned, test strategy &amp; rejected alternatives.</div>
+      <div style="padding-left:9px; border-left:1px solid #334155;"><strong style="color:#34d399;">3. tasks.md (EXECUTION UNITS):</strong><br/>Dependency-ordered steps (<code>T1..Tn</code>), each paired with an exact <code>Verify:</code> command.</div>
+    </div>
+  </div>
+
+  <h3>Plain Markdown vs. Spec Toolkits: Choosing Your Machinery</h3>
+  <table class="clean-table" style="font-size:8.2pt;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Approach / Toolkit</th>
+        <th style="width:35%;">Core Commands &amp; Artifact Flow</th>
+        <th style="width:42%;">Best Fit &amp; Trade-Offs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Plain Markdown</strong><br/><span style="color:#64748b;font-size:7.6pt;">Zero-Install Baseline</span></td>
+        <td><code>docs/specs/&lt;slug&gt;/{spec,plan,tasks}.md</code></td>
+        <td><strong>Start here!</strong> Zero dependencies, zero lock-in, works identically across every CLI, IDE, and cloud agent today.</td>
+      </tr>
+      <tr>
+        <td><strong>GitHub Spec Kit</strong><br/><span style="color:#64748b;font-size:7.6pt;"><code>uv tool install specify-cli</code></span></td>
+        <td><code>/speckit.constitution &rarr; .specify &rarr; .clarify &rarr; .plan &rarr; .tasks &rarr; .implement &rarr; .converge</code></td>
+        <td>Enforced phase gates across ~30 agent integrations. Shines on greenfield builds and strict cross-artifact audits.</td>
+      </tr>
+      <tr>
+        <td><strong>OpenSpec (OPSX)</strong><br/><span style="color:#64748b;font-size:7.6pt;"><code>Fission-AI/OpenSpec</code></span></td>
+        <td><code>/opsx:explore &rarr; /opsx:propose &rarr; /opsx:apply &rarr; /opsx:verify &rarr; /opsx:archive</code></td>
+        <td>Lightweight, brownfield-first delta specs (<code>ADDED / MODIFIED / REMOVED</code>) that merge cleanly into living system specs.</td>
+      </tr>
+      <tr>
+        <td><strong>Native Agent Modes</strong><br/><span style="color:#64748b;font-size:7.6pt;">Antigravity &bull; Claude &bull; Gemini</span></td>
+        <td><code>/grill-me</code> + <code>/plan</code> Artifacts, Claude Plan Mode, Gemini CLI <code>/spec:create</code></td>
+        <td>Built right into your daily harness&mdash;pair them with a committed <code>docs/specs/</code> file so plans survive beyond the chat!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin-top:7px;">
+    <div class="callout-title">Honest Sizing Rule: When Lazy One-Shot Prompts Win vs. When Specs Win</div>
+    <strong>Skip the spec</strong> for disposable spikes, throwaway scripts, or visual exploration where blast radius is zero. <strong>Always write a spec</strong> when work touches auth, money, database schemas, public APIs, or spans multiple sessions/teammates. Never build production-grade features with demo-grade one-liners!
+  </div>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: VERIFIABLE ACCEPTANCE CRITERIA & CONTEXT ROT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Verification &amp; Token Budget</span>
+    <span>Executable Acceptance Criteria, Compaction &amp; Stopping Context Rot</span>
+  </div>
+
+  <h2 class="page-title">Verifiable Acceptance Criteria &amp; Stopping Context Rot</h2>
+  <p class="page-lead">
+    Two habits separate effortless agent sessions from late-afternoon meltdowns: phrasing every requirement so the agent can <em>prove</em> it mechanically, and managing your context window before &ldquo;lost in the middle&rdquo; attention poverty sets in.
+  </p>
+
+  <h3>1. Rewriting Vague Wishes Into Agent-Verifiable Criteria</h3>
+  <table class="clean-table" style="font-size:8.15pt;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Vague Wish (Unverifiable Vibes)</th>
+        <th style="width:73%;">Executable Criterion (<code>GIVEN / WHEN / THEN</code> + Named Check)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><em>&ldquo;Export should be fast &amp; scale well&rdquo;</em></td>
+        <td><strong>AC-1:</strong> GIVEN <code>10,000</code> seeded rows WHEN <code>GET /export</code> runs THEN completes in <code>&lt;5s</code> with RSS delta <code>&lt;150MB</code> &mdash; <code>Verified by: pnpm test -- export.perf</code></td>
+      </tr>
+      <tr>
+        <td><em>&ldquo;Only team admins can export&rdquo;</em></td>
+        <td><strong>AC-2:</strong> GIVEN role <code>member</code> WHEN <code>GET /export</code> THEN HTTP <code>403</code>; GIVEN <code>admin</code> THEN <code>200</code> + DOM button visible only to admin &mdash; <code>Verified by: export.auth.test.ts</code></td>
+      </tr>
+      <tr>
+        <td><em>&ldquo;Format the CSV cleanly&rdquo;</em></td>
+        <td><strong>AC-3:</strong> UTF-8, RFC-4180 escaped, header <code>Date,Merchant,Amount,Category,Owner</code>, ISO-8601 dates, 2-decimal <code>Decimal</code> &mdash; <code>Verified by: export.format.test.ts</code></td>
+      </tr>
+      <tr>
+        <td><em>&ldquo;Handle errors &amp; edge cases&rdquo;</em></td>
+        <td><strong>AC-4:</strong> Zero-row month returns <code>200</code> header-only CSV; malformed <code>month=05/2026</code> returns <code>400 {&quot;error&quot;:&quot;invalid_month&quot;}</code> &mdash; <code>Verified by: export.edge.test.ts</code></td>
+      </tr>
+      <tr>
+        <td><em>&ldquo;Don't break existing features&rdquo;</em></td>
+        <td><strong>AC-5:</strong> <code>pnpm check &amp;&amp; pnpm test</code> both exit <code>0</code> with zero previously passing tests deleted or skipped &mdash; <code>Verified by: paste command output tail</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2. Context Window Economics: <code>/clear</code> vs. <code>/compact</code> vs. Handoffs</h3>
+  <div class="grid-3" style="margin-bottom:9px;">
+    <div class="card" style="border-top:3.5px solid #2563eb;">
+      <div class="card-title"><code>/clear</code> (Unrelated Switch)</div>
+      <p style="font-size:8.2pt; margin:0;">Finished fixing a CSS bug and moving to API auth? Run <code>/clear</code> (or open a new chat) immediately. Hauling three finished tasks into task four wastes tokens and breeds cross-task confusion.</p>
+    </div>
+    <div class="card" style="border-top:3.5px solid #d97706;">
+      <div class="card-title">Focused <code>/compact</code> (Seams)</div>
+      <p style="font-size:8.2pt; margin:0;">Never wait for emergency auto-compaction at 95% capacity. Compact right after a task's test turns green, passing a steering focus: <code>/compact focus on T4 streaming; keep spec path &amp; pending ACs</code>.</p>
+    </div>
+    <div class="card" style="border-top:3.5px solid #059669;">
+      <div class="card-title"><code>HANDOFF.md</code> (Shift Relay)</div>
+      <p style="font-size:8.2pt; margin:0;">Pausing mid-feature or switching from a research agent to a fresh builder? Write a 1-page <code>HANDOFF-&lt;slug&gt;.md</code> capturing <em>Verified Done</em>, <em>Settled Decisions</em>, <em>Landmines</em>, and <em>Next Action</em>.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">What Survives Compaction? Externalize State to Disk First!</div>
+    When a session compacts, chat reasoning, stack traces, and hook outputs get summarized away, and path-scoped rules detach until you touch those files again&mdash;while <strong>root <code>AGENTS.md</code> / <code>CLAUDE.md</code> and disk files (<code>spec.md</code>, <code>plan.md</code>, <code>tasks.md</code>) remain 100% intact</strong>. Always tick <code>[x]</code> in <code>tasks.md</code> and record tricky findings in <code>plan.md</code> <em>before</em> running <code>/compact</code>!
+  </div>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Playbook</span>
+    <span>5 Battle-Tested Context &amp; Spec Recipes for Daily Engineering</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Context &amp; Spec Recipes</h2>
+  <p class="page-lead">
+    Notice how short and calm your prompts become once truth lives in repository files. Copy and adapt these five high-leverage prompt recipes in Claude Code, Cursor, Antigravity, Copilot, or Codex CLI.
+  </p>
+
+  <table class="clean-table" style="font-size:8.1pt;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Recipe &amp; Goal</th>
+        <th style="width:21%;">When to Run It</th>
+        <th style="width:58%;">Copy-Paste Prompt / Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Greenfield Spec &rarr; Plan Kickoff</strong></td>
+        <td>Right after drafting <code>spec.md</code>, before writing any code</td>
+        <td><em>&ldquo;Read <code>docs/specs/&lt;slug&gt;/spec.md</code> and follow all <code>AGENTS.md</code> pointers. Draft <code>plan.md</code> (approach, file changes, edge cases, test map, rejected alternatives) and <code>tasks.md</code> (ordered tasks, each with a runnable <code>Verify:</code> command). Map every AC to &ge;1 test. Write zero implementation code yet.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>2. Bloated <code>CLAUDE.md</code> Diet Refactor</strong></td>
+        <td>Root context file exceeds 300 lines or feels ignored</td>
+        <td><em>&ldquo;Audit <code>CLAUDE.md</code> against live <code>package.json</code> and repo paths. Extract universal commands, 5 non-negotiables, and a conditional trigger table into a &le;150-line <code>AGENTS.md</code>; move subsystem guides into <code>docs/agent/*.md</code>; shrink <code>CLAUDE.md</code> to a thin <code>@AGENTS.md</code> adapter. List every deleted stale line.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>3. Cross-Vendor Adapter Setup</strong></td>
+        <td>Mixed team using Claude, Cursor, Antigravity &amp; Copilot</td>
+        <td><em>&ldquo;Set up One Canon, Thin Adapters: keep <code>AGENTS.md</code> as the single source of truth; create <code>CLAUDE.md</code> starting with <code>@AGENTS.md</code> + compact rules; create <code>.cursor/rules/00-core.mdc</code> (<code>alwaysApply: true</code>) pointing to <code>@AGENTS.md</code>; move React-only rules to <code>.cursor/rules/10-ui.mdc</code> with <code>globs:</code>.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>4. Legacy Bugfix Spec Gate</strong></td>
+        <td>Tricky regression in unfamiliar or fragile legacy code</td>
+        <td><em>&ldquo;Do not patch code yet. Investigate the bug, then create <code>docs/specs/bug-&lt;id&gt;/spec.md</code> stating root cause, blast radius, and 3 GIVEN/WHEN/THEN ACs. Task T1 must add a failing reproduction test that exits non-zero today; Task T2 applies the minimal fix and proves full-suite green.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>5. Session Handoff &amp; Clean Verifier</strong></td>
+        <td>Ending a long session OR auditing finished feature code</td>
+        <td><strong>End of shift:</strong> <em>&ldquo;Write <code>HANDOFF-&lt;slug&gt;.md</code>: verified <code>[x]</code> tasks, settled decisions, landmines/failures hit, and exact next command.&rdquo;</em><br/><strong>Fresh-session audit:</strong> <em>&ldquo;Verify code against <code>docs/specs/&lt;slug&gt;/spec.md</code>. Run every AC check verbatim, paste output tails, and report PASS/FAIL without editing code.&rdquo;</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:8px;">
+    <div class="callout" style="margin:0;">
+      <div class="callout-title">Secret Weapon: Verification Without Authorship</div>
+      Always run Recipe 5's <strong>Clean Verifier</strong> in a brand-new session! An implementation agent carries subtle confirmation bias toward shortcuts it took 40 turns ago; a fresh verifier has zero ego in the code and judges strictly against <code>spec.md</code>.
+    </div>
+    <div class="callout emerald" style="margin:0;">
+      <div class="callout-title">The Second-Correction Reflex</div>
+      Whenever you catch yourself typing <em>&ldquo;No, remember we use Decimal for money&rdquo;</em> for the second time, pause 20 seconds: run <code>/learn</code> or add one bullet to <code>AGENTS.md</code> so no human on your team ever pays that tuition again.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: TEAM CONVENTIONS, MONOREPOS & GIT HYGIENE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Team Scale &amp; Governance</span>
+    <span>Monorepo Sub-Scopes, Git Hygiene &amp; Preventing Documentation Drift</span>
+  </div>
+
+  <h2 class="page-title">Team Conventions, Monorepo Scopes &amp; Git Hygiene</h2>
+  <p class="page-lead">
+    Context files are executable code&mdash;they run on a probabilistic LLM interpreter on every developer's laptop. Treating them with real software engineering discipline prevents three teammates' agents from pulling your codebase in three incompatible directions.
+  </p>
+
+  <h3>1. Git Hygiene: What to Commit vs. What to Gitignore</h3>
+  <div class="grid-2" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">&#10003;</span> Commit to Git (Shared Team Truth)</div>
+      <ul style="font-size:8.2pt; margin:4px 0 0 0;">
+        <li>Root <code>AGENTS.md</code> and subtree <code>packages/*/AGENTS.md</code></li>
+        <li>Thin adapters: <code>CLAUDE.md</code>, <code>.cursor/rules/*.mdc</code>, <code>.claude/rules/*.md</code></li>
+        <li>Shared playbooks &amp; skills: <code>docs/agent/*.md</code>, <code>.agents/skills/</code></li>
+        <li>Feature work orders: <code>docs/specs/&lt;YYYY-MM-slug&gt;/{spec,plan,tasks}.md</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">&#8856;</span> Gitignore (Personal / Ephemeral)</div>
+      <ul style="font-size:8.2pt; margin:4px 0 0 0;">
+        <li><code>CLAUDE.local.md</code> &amp; <code>.claude/settings.local.json</code></li>
+        <li>Personal voice/editor preferences (keep in <code>~/.claude</code> or <code>~/.gemini</code>)</li>
+        <li>Auto-memory scratchpads (<code>~/.claude/projects/*/memory/</code>)</li>
+        <li>Temporary <code>HANDOFF-*.md</code> relay notes (fold into spec changelog &amp; delete on merge!)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>2. Monorepo Conflict Policy &amp; Ownership (Paste Into Root Canon)</h3>
+  <pre class="code-block"><code># CODEOWNERS &mdash; protect shared agent instructions like production code
+/AGENTS.md          @acme/platform-leads
+/docs/agent/        @acme/platform-leads
+/.cursor/rules/     @acme/platform-leads
+
+# Conflict Policy (include inside /AGENTS.md for deterministic tie-breaking)
+If loaded instructions conflict: (1) direct human prompt in this session wins;
+(2) else rule scoped closest to the edited file path wins (e.g. apps/web/AGENTS.md);
+(3) else root /AGENTS.md wins. Always name conflicting sources in your reply.</code></pre>
+
+  <h3>3. Four Rituals That Eliminate Context Drift Forever</h3>
+  <table class="clean-table" style="font-size:8.15pt;">
+    <thead>
+      <tr>
+        <th style="width:26%;">Governance Ritual</th>
+        <th style="width:74%;">How High-Performing Engineering Teams Run It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Ride-Along PR Checkbox</strong></td>
+        <td>Add one checkbox to <code>.github/pull_request_template.md</code>: <em>&ldquo;If this PR renames scripts, moves paths, or changes conventions, I updated <code>AGENTS.md</code> / <code>docs/agent/*</code> in this same commit.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>2. <code>check-context.sh</code> in CI</strong></td>
+        <td>Run a 20-line shell check on every PR verifying: (a) every backticked repo path in <code>AGENTS.md</code> exists on disk, (b) every cited <code>pnpm &lt;script&gt;</code> exists in <code>package.json</code>, and (c) root <code>AGENTS.md</code> stays <code>&le;350</code> lines.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Point at Living Config</strong></td>
+        <td>Never hardcode <em>&ldquo;We use Node 20.11&rdquo;</em> in prose (guaranteed future lie). Write <em>&ldquo;Runtime versions are pinned in <code>.nvmrc</code> and <code>package.json</code>&mdash;read them directly.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>4. Quarterly Delete Audit</strong></td>
+        <td>Every 90 days, check <code>&lt;!-- Last verified --&gt;</code> headers and delete rules that models now handle natively or linters enforce automatically. Deletion is maintenance!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: END-TO-END SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; End-to-End Synergy</span>
+    <span>Context Layers + Specs + Subagents + Worktrees Working Together</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Synergy: One Feature, Zero Thrashing</h2>
+  <p class="page-lead">
+    See how every layer connects on a real feature&mdash;shipping a streaming <code>10,000</code>-row <strong>Team Expense CSV Export</strong> without security leaks, memory timeouts, or mid-session amnesia.
+  </p>
+
+  <!-- 6-Stage Synergy Pipeline SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:10px 12px; margin-bottom:9px;">
+    <svg viewBox="0 0 700 160" width="100%" height="160" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="8" width="206" height="60" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.7"/>
+      <circle cx="28" cy="27" r="10" fill="#d97706"/><text x="28" y="31" text-anchor="middle" fill="#fff" font-size="9.2" font-weight="800">1</text>
+      <text x="44" y="31" fill="#0f172a" font-size="10.2" font-weight="800">Lean Layer-0 Load</text>
+      <text x="20" y="47" fill="#334155" font-size="8.6">Agent boots w/ 94-line AGENTS.md</text>
+      <text x="20" y="59" fill="#334155" font-size="8.6">(knows requireRole &amp; Decimal law).</text>
+
+      <path d="M218 38 L241 38" stroke="#d97706" stroke-width="2"/><polygon points="240,33 247,38 240,43" fill="#d97706"/>
+
+      <!-- Stage 2 -->
+      <rect x="247" y="8" width="206" height="60" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.7"/>
+      <circle cx="267" cy="27" r="10" fill="#2563eb"/><text x="267" y="31" text-anchor="middle" fill="#fff" font-size="9.2" font-weight="800">2</text>
+      <text x="283" y="31" fill="#0f172a" font-size="10.2" font-weight="800">Explorer Subagent</text>
+      <text x="259" y="47" fill="#334155" font-size="8.6">Read-only subagent scans streaming</text>
+      <text x="259" y="59" fill="#334155" font-size="8.6">precedents; keeps main chat clean.</text>
+
+      <path d="M457 38 L480 38" stroke="#2563eb" stroke-width="2"/><polygon points="479,33 486,38 479,43" fill="#2563eb"/>
+
+      <!-- Stage 3 -->
+      <rect x="486" y="8" width="206" height="60" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.7"/>
+      <circle cx="506" cy="27" r="10" fill="#7c3aed"/><text x="506" y="31" text-anchor="middle" fill="#fff" font-size="9.2" font-weight="800">3</text>
+      <text x="522" y="31" fill="#0f172a" font-size="10.2" font-weight="800">Spec &rarr; Plan Gate</text>
+      <text x="498" y="47" fill="#334155" font-size="8.6">spec.md (AC 1&ndash;7) &rarr; human reviews</text>
+      <text x="498" y="59" fill="#334155" font-size="8.6">plan.md &amp; tasks.md in 10 minutes.</text>
+
+      <!-- Connector Row 1 to Row 2 -->
+      <path d="M589 68 L589 82 L111 82 L111 94" fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="4 3"/>
+      <polygon points="106,92 111,99 116,92" fill="#64748b"/>
+
+      <!-- Stage 4 -->
+      <rect x="8" y="98" width="206" height="56" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.7"/>
+      <circle cx="28" cy="116" r="10" fill="#059669"/><text x="28" y="120" text-anchor="middle" fill="#fff" font-size="9.2" font-weight="800">4</text>
+      <text x="44" y="120" fill="#0f172a" font-size="10.2" font-weight="800">Worktree + JIT Build</text>
+      <text x="20" y="136" fill="#334155" font-size="8.6">Executes T1&ndash;T6 in git worktree;</text>
+      <text x="20" y="147" fill="#334155" font-size="8.6">globs attach UI rules only on T5.</text>
+
+      <path d="M218 126 L241 126" stroke="#059669" stroke-width="2"/><polygon points="240,121 247,126 240,131" fill="#059669"/>
+
+      <!-- Stage 5 -->
+      <rect x="247" y="98" width="206" height="56" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1.7"/>
+      <circle cx="267" cy="116" r="10" fill="#ea580c"/><text x="267" y="120" text-anchor="middle" fill="#fff" font-size="9.2" font-weight="800">5</text>
+      <text x="283" y="120" fill="#0f172a" font-size="10.2" font-weight="800">Seam Compaction</text>
+      <text x="259" y="136" fill="#334155" font-size="8.6">Ticks [x] in tasks.md after T4;</text>
+      <text x="259" y="147" fill="#334155" font-size="8.6">runs focused /compact for UI pass.</text>
+
+      <path d="M457 126 L480 126" stroke="#ea580c" stroke-width="2"/><polygon points="479,121 486,126 479,131" fill="#ea580c"/>
+
+      <!-- Stage 6 -->
+      <rect x="486" y="98" width="206" height="56" rx="8" fill="#130f0a" stroke="#fbbf24" stroke-width="1.7"/>
+      <circle cx="506" cy="116" r="10" fill="#fbbf24"/><text x="506" y="120" text-anchor="middle" fill="#130f0a" font-size="9.2" font-weight="800">6</text>
+      <text x="522" y="120" fill="#ffffff" font-size="10.2" font-weight="800">Clean-Eyes Verify</text>
+      <text x="498" y="136" fill="#fde68a" font-size="8.6">Fresh session runs AC 1&ndash;7 checks,</text>
+      <text x="498" y="147" fill="#cbd5e1" font-size="8.6">proves exit 0 &amp; ships PR + docs.</text>
+    </svg>
+  </div>
+
+  <h3>Turn-by-Turn Feature Execution Walkthrough</h3>
+  <table class="clean-table" style="font-size:8.15pt;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Session / Turn</th>
+        <th style="width:41%;">Action &amp; Context Loaded</th>
+        <th style="width:40%;">What This Prevents</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Turn 1: Align &amp; Plan</strong></td>
+        <td>Approve <code>spec.md</code>; run Recipe 1. Agent reads <code>AGENTS.md</code> trigger &rarr; pulls <code>docs/agent/export.md</code> &rarr; outputs <code>plan.md</code> + <code>tasks.md</code> (<code>T1..T7</code>).</td>
+        <td>Catches inline-SQL temptation &amp; client-disconnect cursor leak during a 10-minute Markdown review instead of post-code surgery.</td>
+      </tr>
+      <tr>
+        <td><strong>Turn 2: Backend Slice (<code>T1&ndash;T4</code>)</strong></td>
+        <td><em>&ldquo;Execute T1&ndash;T4 in tasks.md.&rdquo;</em> Agent builds pure RFC-4180 serializer, cursor stream, <code>requireRole(&quot;admin&quot;)</code> route &amp; 10k-row perf test.</td>
+        <td>First naive buffer attempt fails <strong>AC-3</strong> (<code>&lt;150MB</code> memory check)&mdash;the agent catches its own mistake immediately and switches to streaming!</td>
+      </tr>
+      <tr>
+        <td><strong>Turn 3: Seam + UI Slice (<code>T5&ndash;T6</code>)</strong></td>
+        <td>Agent marks <code>[x] T1&ndash;T4</code> in <code>tasks.md</code>; you run <code>/compact focus on T5&ndash;T6 web UI</code>. Touching <code>TeamExpenses.tsx</code> auto-attaches <code>10-web.mdc</code>.</td>
+        <td>Backend test logs are compacted away cleanly while frontend TanStack Query &amp; Playwright visibility rules attach right on cue.</td>
+      </tr>
+      <tr>
+        <td><strong>Turn 4: Fresh Audit (<code>T7</code>)</strong></td>
+        <td>Open a <strong>brand-new session</strong> (or subagent) and run Recipe 5's Clean Verifier against <code>spec.md</code> + <code>pnpm check &amp;&amp; pnpm test</code>.</td>
+        <td>Produces an objective 7-for-7 PASS receipt ready to paste directly into your GitHub Pull Request description.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:6px;">
+    <div class="callout-title">Subagent Isolation Multiplier: Keep Exploration Out of Implementation</div>
+    When investigating an unfamiliar subsystem, delegate discovery to a read-only <strong>Research Subagent</strong> (in Antigravity, Claude Code, or Codex) that writes a 40-line summary to <code>docs/agent/notes/</code>. Its 50,000 tokens of grep dead-ends never pollute your builder agent's context window!
+  </div>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Power-User Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Keep this final page beside your editor. Almost every case of &ldquo;the model got dumber today&rdquo; traces back to one of seven structural context or specification bugs&mdash;each with a 10-second fix.
+  </p>
+
+  <h3>Top 7 Context &amp; Spec Failure Modes (And 10-Second Structural Fixes)</h3>
+  <table class="clean-table" style="font-size:8.1pt;">
+    <thead>
+      <tr>
+        <th style="width:31%;">Symptom You Observe</th>
+        <th style="width:69%;">Root Cause &amp; Immediate Structural Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Agent ignores a rule you definitely wrote down</strong></td>
+        <td>Rule is buried inside a 600-line file (attention dilution) or contradicted by another file. Trim Layer 0 under 300 lines, inspect loaded files via <code>/context</code> or <code>/memory</code>, and move must-never-fail bans to <code>settings.json</code> / hooks.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Agent re-litigates settled choices after <code>/compact</code></strong></td>
+        <td>Decisions lived only in chat history, which gets summarized away. Record settled choices in <code>plan.md</code> or <code>HANDOFF.md</code> <em>before</em> compacting, and pass a focus instruction: <code>/compact focus on &lt;task&gt;</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Agent edits <code>spec.md</code> to match its buggy code</strong></td>
+        <td>Missing spec governance boundary. Add to <code>AGENTS.md</code>: <em>&ldquo;<code>spec.md</code> is read-only after approval; never weaken ACs without human sign-off,&rdquo;</em> and verify in a fresh session.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Agent runs dead commands (<code>pnpm lint</code> vs <code>check</code>)</strong></td>
+        <td><strong>Stale Override</strong> anti-pattern&mdash;obediently following an outdated line. Delete dead lines, add the Staleness Circuit-Breaker to <code>AGENTS.md</code>, and run <code>check-context.sh</code> in CI.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Teammate's agent behaves differently on same branch</strong></td>
+        <td>Hidden collision with personal <code>~/.claude/CLAUDE.md</code>, <code>~/.gemini/GEMINI.md</code>, or Cursor User Rules. Keep global files strictly personal and promote team conventions into committed <code>AGENTS.md</code> via PR.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Sharp for 20 minutes, then sloppy &amp; repetitive</strong></td>
+        <td>Context accumulation (&ldquo;lost in the middle&rdquo;). Save Verified <code>[x]</code> state to <code>tasks.md</code>, run <code>/clear</code>, and launch a clean window with a 3-line pointer prompt to the next unchecked task.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Path-scoped rule never attaches when editing</strong></td>
+        <td>Used <code>.md</code> instead of required <code>.mdc</code> inside <code>.cursor/rules/</code>, or glob typo in <code>globs:</code> / <code>paths:</code> YAML frontmatter. Fix frontmatter and verify with a fresh-session behavioral probe.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:8px; background:#130f0a; border-color:#451a03;">
+    <div class="card-title" style="font-size:10.2pt; color:#fbbf24; margin-bottom:6px;">
+      6-Point Pre-Flight Checklist: Before Kicking Off Any Serious Feature
+    </div>
+    <div class="grid-2" style="gap:6px 16px; font-size:8.35pt; color:#f1f5f9;">
+      <div>&#9744; <strong>1. One Lean Canon:</strong> Root <code>AGENTS.md</code> is &le;300 lines with exact verified commands and thin tool adapters.</div>
+      <div>&#9744; <strong>4. Runnable ACs:</strong> Every requirement in <code>spec.md</code> names a CLI command or test file that exits <code>0</code>.</div>
+      <div>&#9744; <strong>2. Trigger Pointers Ready:</strong> Specialist runbooks live in <code>docs/agent/*.md</code> or <code>SKILL.md</code> behind explicit IF &rarr; THEN triggers.</div>
+      <div>&#9744; <strong>5. Clean Context Window:</strong> Ran <code>/clear</code> from prior work; plan to <code>/compact</code> proactively at green task seams.</div>
+      <div>&#9744; <strong>3. Plan Reviewed First:</strong> Reviewed <code>plan.md</code> &amp; <code>tasks.md</code> before allowing multi-file code edits.</div>
+      <div>&#9744; <strong>6. Fresh-Eyes Audit:</strong> Scheduled a clean-session verifier pass + context ride-along check before opening PR!</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Spec-Driven Dev &amp; Context Engineering &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

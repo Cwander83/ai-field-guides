@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mastering Git Worktrees &amp; Parallel Agent Safety: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Agent Engineering Series &bull; v1.0 Edition</div>
+    <h1>Mastering <span>Git Worktrees &amp; Agent Safety</span></h1>
+    <p class="cover-sub">
+      The practical visual field guide to running parallel AI coding agents at full speed without file overwrites, port clashes, corrupted lockfiles, or rogue Git commands.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Shared <code>.git</code> Plumbing</span>
+      <span class="cover-badge">1-Agent-1-Branch Discipline</span>
+      <span class="cover-badge">Env, Port &amp; DB Isolation</span>
+      <span class="cover-badge"><code>PreToolUse</code> Safety Hooks</span>
+      <span class="cover-badge">Serial Human + CI Merge Gate</span>
+      <span class="cover-badge">Claude, Antigravity, Orca &amp; Cursor</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Glowing emerald Git object vault feeding four isolated crystal agent workshop bays" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero File Collisions</div>
+      <div class="cover-stat-desc">Give every parallel agent its own sibling working directory, index, and branch backed by a single shared <code>.git</code> store.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Full Runtime Separation</div>
+      <div class="cover-stat-desc">Isolate untracked state—<code>node_modules</code>, <code>.env.local</code>, deterministic ports <code>3001..3009</code>, and test databases.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Defense-in-Depth Guardrails</div>
+      <div class="cover-stat-desc">Layer path-fencing <code>PreToolUse</code> hooks, <code>pre-commit</code> door inspectors, OS sandboxes, and a serial PR merge gate.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & WHY AGENTS COLLIDE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Failure Modes</span>
+    <span>Mastering Git Worktrees &amp; Parallel Agent Safety</span>
+  </div>
+
+  <h2 class="page-title">Why Parallel Agents Collide in a Single Directory</h2>
+  <p class="page-lead">
+    Git protects committed history inside <code>.git</code>, but gives your on-disk <strong>working tree</strong> zero concurrency protection. Pointing two autonomous coding agents at one folder turns shared mutable files into silent data loss before a commit ever exists.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. The 5 Agent Collision Patterns</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Safety Hook &amp; Bootstrap Blueprint</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Worktrees vs. Clones vs. Containers</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Serial Merge Gate &amp; Clean Teardown</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Fleet Workspace Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Copy-Paste Fleet Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Git Worktrees End-to-End Lifecycle</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Native Support</strong> (Claude, AGY, Orca)</span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Isolation Beyond Git</strong> (Env, Ports, DB)</span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. 6-Stage End-to-End Fleet Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>The 5 Real-World Parallel Collision Patterns</h3>
+  <div class="grid-2" style="gap:7px 11px; margin-bottom:7px; font-size:8.45pt;">
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge rose">1</span> Dirty Index Theft &amp; Silent Overwrites</div>
+      <p style="margin:0;">Agent A edits <code>checkout.ts</code> and stages it; 20 seconds later Agent B writes a stale edit plan over the same file—erasing A's work before any commit records it.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge amber">2</span> Branch Switching Mid-Test</div>
+      <p style="margin:0;">While Agent A runs a 90-second test suite, Agent B runs <code>git checkout -b hotfix</code>. Both agents now fight over one <code>HEAD</code>, staging index, and half-rebased tree.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge purple">3</span> Lockfile &amp; Dependency Clobber</div>
+      <p style="margin:0;">Concurrent <code>npm install</code> or shared Python <code>.venv</code> editable installs corrupt <code>node_modules</code> and generate 5,000-line lockfile conflicts.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge blue">4</span> Port &amp; Test Database Clashes</div>
+      <p style="margin:0;">Two dev servers crash with <code>EADDRINUSE</code> on port <code>3000</code>, or two integration suites truncate the same <code>users</code> table in a shared local database.</p>
+    </div>
+  </div>
+  <div class="callout rose" style="margin:0 0 8px 0; padding:7px 11px; font-size:8.45pt;">
+    <div class="callout-title" style="font-size:8.8pt;">5. Blind Cleanup Commands (<code>git checkout -- .</code> &amp; Feedback Repair Loops)</div>
+    When Agent A sees mysterious test failures caused by Agent B's half-saved edits, A runs <code>git checkout -- .</code> or widens types to <code>any</code> to force tests green—destroying sibling work in an expensive token-burning loop.
+  </div>
+
+  <h3>Architecture: One Shared <code>.git</code> Warehouse, Isolated Agent Workshops</h3>
+  <div class="figure-box" style="background:#04130e; padding:10px 12px; margin-bottom:4px;">
+    <svg viewBox="0 0 700 148" width="100%" height="148" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Shared Git Core -->
+      <rect x="135" y="6" width="430" height="44" rx="8" fill="#063729" stroke="#34d399" stroke-width="1.6"/>
+      <text x="350" y="24" text-anchor="middle" fill="#ffffff" font-size="10.8" font-weight="800">MAIN REPOSITORY &bull; ~/code/myapp/.git (GIT_COMMON_DIR)</text>
+      <text x="350" y="39" text-anchor="middle" fill="#a7f3d0" font-size="8.6">Single immutable object store &bull; Shared refs &amp; remotes &bull; Human checkout stays cleanly on [main]</text>
+
+      <!-- Connectors -->
+      <path d="M230 50 L115 74 M350 50 L350 74 M470 50 L585 74" stroke="#2dd4bf" stroke-width="1.8"/>
+
+      <!-- Worktree A -->
+      <rect x="12" y="74" width="212" height="66" rx="8" fill="#0b241c" stroke="#34d399" stroke-width="1.3"/>
+      <text x="24" y="91" fill="#6ee7b7" font-size="9.2" font-weight="800">WORKTREE 1 &bull; ../wt-auth</text>
+      <text x="24" y="105" fill="#e2e8f0" font-size="8.2">Branch: agent-a/oauth &bull; Own HEAD/index</text>
+      <text x="24" y="118" fill="#cbd5e1" font-size="8.1">Own node_modules &bull; PORT=3001</text>
+      <text x="24" y="131" fill="#94a3b8" font-size="7.9">.git file &rarr; .git/worktrees/wt-auth</text>
+
+      <!-- Worktree B -->
+      <rect x="244" y="74" width="212" height="66" rx="8" fill="#0b2229" stroke="#38bdf8" stroke-width="1.3"/>
+      <text x="256" y="91" fill="#7dd3fc" font-size="9.2" font-weight="800">WORKTREE 2 &bull; ../wt-billing</text>
+      <text x="256" y="105" fill="#e2e8f0" font-size="8.2">Branch: agent-b/stripe &bull; Own HEAD/index</text>
+      <text x="256" y="118" fill="#cbd5e1" font-size="8.1">Own node_modules &bull; PORT=3002</text>
+      <text x="256" y="131" fill="#94a3b8" font-size="7.9">.git file &rarr; .git/worktrees/wt-billing</text>
+
+      <!-- Worktree C -->
+      <rect x="476" y="74" width="212" height="66" rx="8" fill="#231b0b" stroke="#fbbf24" stroke-width="1.3"/>
+      <text x="488" y="91" fill="#fde68a" font-size="9.2" font-weight="800">WORKTREE 3 &bull; ../wt-review</text>
+      <text x="488" y="105" fill="#e2e8f0" font-size="8.2">Detached HEAD &bull; Read-Only PR Check</text>
+      <text x="488" y="118" fill="#cbd5e1" font-size="8.1">Clean npm ci &bull; PORT=3003</text>
+      <text x="488" y="131" fill="#94a3b8" font-size="7.9">Zero branch switches in human repo</text>
+    </svg>
+  </div>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: DECISION MATRIX & PREREQUISITES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Isolation Architecture</span>
+    <span>Worktrees vs. Clones vs. Containers &amp; Fleet Prerequisites</span>
+  </div>
+
+  <h2 class="page-title">Choosing the Right Isolation Layer for Your Fleet</h2>
+  <p class="page-lead">
+    Not every parallel task needs a full virtual machine—and "just clone the repo five times" creates silent fetch drift and gigabytes of wasted history. Use this matrix to match isolation weight to task risk.
+  </p>
+
+  <h3>Isolation Strategy Decision Matrix</h3>
+  <table class="clean-table" style="font-size:8.35pt;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Mechanism</th>
+        <th style="width:15%;">Spawn Speed</th>
+        <th style="width:16%;">Disk Footprint</th>
+        <th style="width:23%;">Runtime &amp; Security Boundary</th>
+        <th style="width:27%;">Best Fit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>git worktree</code></strong><br/><span style="color:#059669;font-weight:700;font-size:7.6pt;">Recommended Default</span></td>
+        <td><strong>0.2–2 sec checkout</strong><br/>(+ fast hardlinked <code>pnpm</code> install)</td>
+        <td><strong>Minimal</strong><br/>1 shared <code>.git</code> object store; working files only</td>
+        <td>Separate files, index &amp; branch; pair w/ per-folder <code>PORT</code>, DB &amp; OS sandbox</td>
+        <td>Daily 2–6 agent parallel feature builds, bugfixes, refactors &amp; detached PR reviews</td>
+      </tr>
+      <tr>
+        <td><strong>Full <code>git clone</code></strong><br/><span style="color:#64748b;font-size:7.6pt;">Separate Local Repo</span></td>
+        <td><strong>15–120 sec</strong><br/>Full network or local history copy</td>
+        <td><strong>Heavy (N &times; repo)</strong><br/>5 agents on a 2 GB repo = 10+ GB duplicated</td>
+        <td>Separate <code>.git</code> config/remotes, but <strong>no automatic branch-lock</strong> across clones</td>
+        <td>Testing destructive Git history rewrites (<code>filter-repo</code>) or alternate remote URLs</td>
+      </tr>
+      <tr>
+        <td><strong>Worktree + Container</strong><br/><span style="color:#0284c7;font-size:7.6pt;">Docker / Devcontainer</span></td>
+        <td><strong>3–15 sec</strong><br/>Cached base image + bind mount</td>
+        <td><strong>Moderate</strong><br/>Shared Docker layers + per-worktree volume</td>
+        <td><strong>Kernel namespace isolation</strong>: hides <code>~/.ssh</code>, <code>~/.aws</code>, ports &amp; host filesystem</td>
+        <td>Unattended overnight runs, auditing untrusted packages, or running risky migrations</td>
+      </tr>
+      <tr>
+        <td><strong>Cloud Sandbox VM</strong><br/><span style="color:#7c3aed;font-size:7.6pt;">Actions VM / MicroVM</span></td>
+        <td><strong>10–45 sec</strong><br/>Ephemeral cloud image boot</td>
+        <td><strong>Zero local disk</strong><br/>Runs entirely off your laptop</td>
+        <td><strong>Hard hardware/VM boundary</strong> + egress firewall &amp; repo-scoped token</td>
+        <td>Async background fleets (20+ tickets), heavy CI test sharding, or mobile dispatch</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Why "Just Give Each Agent a <code>git clone</code>" Backfires</h3>
+  <div class="grid-3" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">1</span> Fetch Drift</div>
+      <p style="font-size:8.2pt; margin:0;">Running <code>git fetch</code> in Clone A leaves Clones B and C building on stale 3-day-old <code>main</code> commits, creating avoidable merge conflicts.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Blind Branch Clashes</div>
+      <p style="font-size:8.2pt; margin:0;">Two separate clones happily check out the exact same branch name locally and only collide when both try to push.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge blue">3</span> Scattered Visibility</div>
+      <p style="font-size:8.2pt; margin:0;"><code>git worktree list</code> inventories every active agent workshop in one command; scattered clones hide orphaned work across folders.</p>
+    </div>
+  </div>
+
+  <h3>4-Point Fleet Readiness Prerequisites (Verify Once)</h3>
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Git 2.30+ &amp; Clean Tooling</div>
+      <p style="font-size:8.2pt; margin:0;">Verify <code>git --version</code> (supports <code>lock</code>, <code>move</code>, <code>repair</code>, and <code>--porcelain</code>), plus <code>jq</code> for parsing JSON hook payloads and <code>gh auth status</code> for PR gates.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Fast Deterministic Checks</div>
+      <p style="font-size:8.2pt; margin:0;">Guardrails can only enforce checks that exist. Ensure <code>lint</code>, <code>typecheck</code>, and unit <code>test</code> scripts run cleanly and exit non-zero on failure.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:0;">
+    <div class="callout-title">Golden Precondition: Never Launch a Fleet From a Red <code>main</code></div>
+    Always run <code>git pull --ff-only &amp;&amp; npm test</code> in your human checkout <em>before</em> spawning worktrees. Launching four agents from a broken baseline guarantees all four will burn their first hour diagnosing and divergently "fixing" a bug none of them caused!
+  </div>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Visual Cockpit</span>
+    <span>Annotated Fleet Workspace &amp; Worktree Terminal Tour</span>
+  </div>
+
+  <h2 class="page-title">Anatomy of a Well-Organized Multi-Agent Fleet</h2>
+  <p class="page-lead">
+    Keep linked worktrees as <strong>sibling folders</strong> beside your main repository (<code>../wt-auth</code>, <code>../wt-billing</code>)—or inside a gitignored <code>.worktrees/</code> directory—so file watchers, bundlers, and search tools never index duplicate trees.
+  </p>
+
+  <!-- Annotated Dark-Mode Fleet Terminal & Workspace UI Mockup -->
+  <div class="ui-window" style="margin-bottom:10px;">
+    <div class="ui-topbar" style="white-space:nowrap;">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#f8fafc;">Fleet Cockpit &mdash; tmux / Orca / Antigravity</span>
+        <span style="color:#64748b;">&bull;</span>
+        <span style="color:#34d399; font-weight:600;">checkout-api</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="callout-pin">5</span>
+        <span style="background:#064e3b; border:1px solid #10b981; padding:2px 7px; border-radius:6px; color:#a7f3d0; font-weight:700;">PreToolUse: ACTIVE</span>
+        <span style="background:#0f172a; border:1px solid #334155; padding:2px 7px; border-radius:6px; color:#cbd5e1;">Sandbox: workspace-write</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 168px 1fr 186px; gap:1px; background:#16382c;">
+      <!-- Left Sibling Directory Tree -->
+      <div style="background:#071712; padding:9px; display:flex; flex-direction:column; gap:4px; font-family:'SF Mono', Menlo, monospace; font-size:7.1pt;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+          <span style="font-family:sans-serif; font-size:6.9pt; font-weight:700; color:#6ee7b7;">SIBLING FOLDERS</span>
+          <span class="callout-pin">1</span>
+        </div>
+        <div style="background:#0f2920; border-left:2.5px solid #38bdf8; padding:4px 6px; border-radius:4px; color:#f8fafc;">
+          <strong>checkout-api/</strong> <span style="color:#7dd3fc;">[main]</span><br/>
+          <span style="color:#94a3b8; font-size:6.6pt;">Human-only &bull; .git/ store</span>
+        </div>
+        <div style="background:#0f2920; border-left:2.5px solid #34d399; padding:4px 6px; border-radius:4px; color:#f8fafc;">
+          <strong>wt-auth/</strong> <span style="color:#6ee7b7;">[agent-a]</span><br/>
+          <span style="color:#94a3b8; font-size:6.6pt;">.env.local &bull; node_modules</span>
+        </div>
+        <div style="background:#0f2920; border-left:2.5px solid #fbbf24; padding:4px 6px; border-radius:4px; color:#f8fafc;">
+          <strong>wt-billing/</strong> <span style="color:#fde68a;">[agent-b]</span><br/>
+          <span style="color:#94a3b8; font-size:6.6pt;">.env.local &bull; node_modules</span>
+        </div>
+        <div style="background:#0f2920; border-left:2.5px solid #c084fc; padding:4px 6px; border-radius:4px; color:#f8fafc;">
+          <strong>wt-review/</strong> <span style="color:#e9d5ff;">[detach]</span><br/>
+          <span style="color:#94a3b8; font-size:6.6pt;">Read-only PR #42 check</span>
+        </div>
+      </div>
+
+      <!-- Center Terminal Pane -->
+      <div style="background:#040d0a; padding:9px 10px; font-family:'SF Mono', Menlo, monospace; font-size:7.1pt; line-height:1.48;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <span style="color:#6ee7b7; font-weight:700;">$ git worktree list -v</span>
+          <span class="callout-pin">2</span>
+        </div>
+        <div style="background:#091d16; border:1px solid #16382c; border-radius:5px; padding:5px 7px; margin-bottom:7px; color:#cbd5e1; font-size:6.75pt;">
+          ~/code/checkout-api &nbsp;9b7e2aa <span style="color:#38bdf8;">[main]</span><br/>
+          ~/code/wt-auth &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4c18d0f <span style="color:#34d399;">[agent-a/oauth-pkce]</span> locked<br/>
+          ~/code/wt-billing &nbsp;&nbsp;&nbsp;8f02a91 <span style="color:#fbbf24;">[agent-b/stripe-tax]</span> locked<br/>
+          ~/code/wt-review &nbsp;&nbsp;&nbsp;&nbsp;4c18d0f <span style="color:#c084fc;">(detached HEAD)</span>
+        </div>
+
+        <div style="background:#1c1115; border:1px solid #be123c; border-radius:5px; padding:5px 7px; margin-bottom:7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:6px;">
+            <span style="color:#fda4af; font-weight:700;">[HOOK INTERCEPT &bull; exit 2] Blocked in ../wt-billing</span>
+            <span class="callout-pin" style="flex-shrink:0;">6</span>
+          </div>
+          <div style="color:#fecdd3; font-size:6.7pt;">
+            Attempted: <code>git push --force origin main</code><br/>
+            Feedback to agent: "Push to agent-b/stripe-tax and open a PR instead."
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; background:#091d16; border:1px solid #1f513f; border-radius:5px; padding:4px 7px; color:#a7f3d0; font-size:6.8pt;">
+          <span><strong>[Stop Gate]</strong> <code>tsc --noEmit</code> PASS &bull; <code>vitest</code> 42/42 PASS (1.8s)</span>
+          <span class="callout-pin" style="flex-shrink:0;">3</span>
+        </div>
+      </div>
+
+      <!-- Right Port, DB & Lock Status Rail -->
+      <div style="background:#071712; padding:9px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:6.9pt; font-weight:700; color:#6ee7b7;">RUNTIME LANES</span>
+          <span class="callout-pin">4</span>
+        </div>
+        <div style="background:#0c241c; border-radius:5px; padding:5px 7px; font-size:6.9pt;">
+          <strong style="color:#38bdf8;">main (Human):</strong> <code>:3000</code><br/>
+          <span style="color:#94a3b8;">DB: <code>app_dev</code></span>
+        </div>
+        <div style="background:#0c241c; border-radius:5px; padding:5px 7px; font-size:6.9pt;">
+          <strong style="color:#34d399;">wt-auth:</strong> <code>:3001</code><br/>
+          <span style="color:#94a3b8;">DB: <code>app_test_wt1</code></span>
+        </div>
+        <div style="background:#0c241c; border-radius:5px; padding:5px 7px; font-size:6.9pt;">
+          <strong style="color:#fbbf24;">wt-billing:</strong> <code>:3002</code><br/>
+          <span style="color:#94a3b8;">DB: <code>app_test_wt2</code></span>
+        </div>
+        <div style="background:#0c241c; border:1px solid #1f513f; border-radius:5px; padding:5px 7px; font-size:6.8pt;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#f8fafc;">Merge Queue (2)</strong>
+            <span class="callout-pin">7</span>
+          </div>
+          <span style="color:#a7f3d0;">PR #42 CI Green &rarr; Ready</span><br/>
+          <span style="color:#fde68a;">PR #43 Waiting Rebase</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Fleet Cockpit Reference</h3>
+  <div class="grid-2" style="gap:6px 14px; font-size:8.5pt;">
+    <div><span class="callout-pin">1</span> <strong>Sibling Worktree Layout:</strong> Placing <code>../wt-auth</code> next to <code>checkout-api/</code> prevents nested <code>tsconfig.json</code>, ESLint, or bundler crawl issues.</div>
+    <div><span class="callout-pin">2</span> <strong>Live Fleet Inventory (<code>git worktree list -v</code>):</strong> Shows every directory, exact commit SHA, checked-out branch, and active <code>locked</code> ownership flag.</div>
+    <div><span class="callout-pin">3</span> <strong>Automated <code>Stop</code> Gate:</strong> Blocks an agent from declaring victory until <code>tsc --noEmit</code> and fast unit tests actually pass inside its worktree.</div>
+    <div><span class="callout-pin">4</span> <strong>Deterministic Port &amp; DB Lanes:</strong> Each workshop receives a dedicated port (<code>3001</code>, <code>3002</code>) and isolated database schema so live servers never clash.</div>
+    <div><span class="callout-pin">5</span> <strong>Active Sandbox &amp; Hook Banner:</strong> Confirms OS filesystem confinement (<code>.git</code> &amp; <code>~/.ssh</code> protected) and repo-committed hook enforcement.</div>
+    <div><span class="callout-pin">6</span> <strong><code>PreToolUse</code> Real-Time Intercept:</strong> Catches destructive shell commands <em>before execution</em> via exit code <code>2</code> and teaches the agent the safe path.</div>
+  </div>
+  <div style="margin-top:5px; font-size:8.5pt;">
+    <span class="callout-pin">7</span> <strong>Serial Merge Gate Queue:</strong> Human checkout stays cleanly on <code>main</code> while completed agent branches land one PR at a time through CI.
+  </div>
+
+  <div class="callout emerald" style="margin-top:9px;">
+    <div class="callout-title">Folder Placement Rule: Sibling Directories Beat Unignored Subfolders</div>
+    Prefer sibling paths like <code>../wt-auth</code>. If your harness stores worktrees inside the repo (such as <code>.worktrees/</code> or <code>.claude/worktrees/</code>), verify <code>git check-ignore -q .worktrees</code> passes <em>before</em> spawning so you never accidentally commit an entire nested checkout!
+  </div>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: GIT WORKTREES END-TO-END ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Git Plumbing &amp; Lifecycle</span>
+    <span>Git Worktrees End-to-End &amp; The 1-Agent-1-Branch Rule</span>
+  </div>
+
+  <h2 class="page-title">Git Worktrees End-to-End: Plumbing &amp; Daily Commands</h2>
+  <p class="page-lead">
+    When you run <code>git worktree add</code>, Git does not duplicate your repository history. Instead, the new folder gets a tiny 1-line <code>.git</code> pointer file linking back to <code>.git/worktrees/&lt;name&gt;/</code> for its private <code>HEAD</code> and staging index.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/worktree_shared_git_core.jpg" alt="Central crystalline Git object store connected by light conduits to three lightweight floating platforms" style="width:100%; height:232px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; background:#061812; color:#f8fafc; padding:6px 11px; font-size:7.6pt; border-top:1px solid #1a4334;">
+      <div><strong style="color:#34d399;">SHARED (<code>GIT_COMMON_DIR</code>):</strong> Commits, blobs, branches, tags, remotes &amp; 1 fetch for all.</div>
+      <div style="padding-left:9px; border-left:1px solid #1a4334;"><strong style="color:#38bdf8;">PRIVATE (<code>GIT_DIR</code>):</strong> Per-worktree <code>HEAD</code>, staging index, and working files on disk.</div>
+      <div style="padding-left:9px; border-left:1px solid #1a4334;"><strong style="color:#fbbf24;">VS. CLONES (BACKGROUND):</strong> Zero multi-GB object duplication or stale-base fetch drift.</div>
+    </div>
+  </div>
+
+  <h3>The Complete Worktree Command Lifecycle</h3>
+  <div class="code-snippet">
+    <span class="c-comment"># 1. Spawn a sibling worktree on a brand-new branch explicitly rooted at main:</span><br/>
+    <span class="c-kw">git worktree add</span> ../wt-auth <span class="c-flag">-b</span> agent-a/oauth-pkce main<br/>
+    <span class="c-comment"># 2. Stamp ownership &amp; prevent accidental pruning (survives reboots):</span><br/>
+    <span class="c-kw">git worktree lock</span> ../wt-auth <span class="c-flag">--reason</span> <span class="c-str">"agent-a / PROJ-201 / OAuth PKCE"</span><br/>
+    <span class="c-comment"># 3. Inspect all active workshops (add --porcelain for scripts, or check plumbing):</span><br/>
+    <span class="c-kw">git worktree list</span> <span class="c-flag">-v</span> &nbsp;&amp;&amp;&nbsp; <span class="c-kw">git</span> <span class="c-flag">-C</span> ../wt-auth rev-parse <span class="c-flag">--git-dir --git-common-dir</span><br/>
+    <span class="c-comment"># 4. Relocate safely (NEVER use raw 'mv', which breaks the .git pointer contract):</span><br/>
+    <span class="c-kw">git worktree move</span> ../wt-auth ../wt-auth-v2 &nbsp;&nbsp;<span class="c-comment"># (or 'git worktree repair' if already moved)</span><br/>
+    <span class="c-comment"># 5. After PR merges: unlock, remove directory, delete merged branch &amp; prune stale metadata:</span><br/>
+    <span class="c-kw">git worktree unlock</span> ../wt-auth &amp;&amp; <span class="c-kw">git worktree remove</span> ../wt-auth<br/>
+    <span class="c-kw">git branch</span> <span class="c-flag">-d</span> agent-a/oauth-pkce &amp;&amp; <span class="c-kw">git worktree prune</span> <span class="c-flag">-v</span>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title"><span class="num-badge">A</span> Naming Scheme That Scales</div>
+      <p style="font-size:8.2pt; margin:0;">Encode owner + task in both places: folder <code>../&lt;repo&gt;-&lt;agent&gt;-&lt;slug&gt;</code> (or <code>../wt-&lt;slug&gt;</code>) and branch <code>&lt;agent&gt;/&lt;slug&gt;</code>. Keep a human-only checkout permanently parked on <code>main</code>.</p>
+    </div>
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title"><span class="num-badge amber">B</span> Safe Order of Demolition</div>
+      <p style="font-size:8.2pt; margin:0;">Always <strong>merge (or abandon) first &rarr; <code>worktree remove</code> second &rarr; <code>branch -d</code> last</strong>. Deleting a branch before removing its worktree orphans commits!</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:0;">
+    <div class="callout-title">The Iron Rule: Why Git Refuses Double Branch Checkouts</div>
+    Try checking out <code>main</code> in a second worktree and Git halts immediately: <code>fatal: 'main' is already checked out</code>. <strong>Celebrate that error!</strong> Git natively enforces the <em>1-Agent-1-Branch</em> rule so two worktrees can never silently advance the same branch tip behind each other's backs. Never pass <code>-f</code> to override it; for read-only inspection, pass <code>--detach</code> instead.
+  </div>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: ISOLATION BEYOND GIT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Runtime &amp; State Isolation</span>
+    <span>Isolation Beyond Git: Dependencies, Env Files, Ports &amp; Databases</span>
+  </div>
+
+  <h2 class="page-title">Isolation Beyond Git: What Worktrees Do <em>Not</em> Copy</h2>
+  <p class="page-lead">
+    A fresh <code>git worktree add</code> checks out <strong>tracked source files only</strong>. Everything gitignored—dependencies, secret <code>.env</code> files, build caches, ports, and test databases—must be provisioned per workshop or agents will still collide at runtime.
+  </p>
+
+  <h3>The 4 Non-Git State Lanes Every Workshop Needs</h3>
+  <div class="grid-2" style="margin-bottom:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Per-Worktree Dependencies</div>
+      <p style="font-size:8.25pt; margin-bottom:4px;">Never share a parent <code>node_modules</code> or shared Python virtualenv across worktrees:</p>
+      <ul style="font-size:8.1pt; margin:0;">
+        <li><strong>Fastest JS/TS:</strong> <code>pnpm install --frozen-lockfile --prefer-offline</code> hardlinks from one global content store in ~2 seconds!</li>
+        <li><strong>npm projects:</strong> Use <code>npm ci</code> (never bare <code>npm install</code>, which mutates <code>package-lock.json</code>).</li>
+        <li><strong>Python trap:</strong> Create a fresh <code>python3 -m venv .venv</code> inside <em>each</em> worktree—an editable <code>pip install -e .</code> in a shared venv points imports at whichever folder installed last!</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Explicit <code>.env.local</code> Provisioning</div>
+      <p style="font-size:8.25pt; margin-bottom:4px;">Do not let agents symlink <code>../myapp/.env</code> (one edit mutates every sibling):</p>
+      <ul style="font-size:8.1pt; margin:0;">
+        <li><strong>Copy, then override:</strong> Copy <code>.env.local</code> into the new worktree during bootstrap, then append workshop-specific overrides (<code>PORT</code>, <code>DATABASE_URL</code>, <code>NEXT_PUBLIC_APP_URL</code>).</li>
+        <li><strong>macOS bonus:</strong> On APFS drives, <code>cp -c</code> performs instant copy-on-write cloning even for large local fixture folders.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Deterministic Port Offsets (<code>3001..3009</code>)</div>
+      <p style="font-size:8.25pt; margin-bottom:4px;">Reserve <code>:3000</code> for your human <code>main</code> checkout and assign each agent slot a fixed offset:</p>
+      <ul style="font-size:8.1pt; margin:0;">
+        <li>Slot <code>1</code> &rarr; App <code>PORT=3001</code>, API <code>4001</code>, Vite HMR <code>24679</code>.</li>
+        <li>Slot <code>2</code> &rarr; App <code>PORT=3002</code>, API <code>4002</code>, Vite HMR <code>24680</code>.</li>
+        <li>Write <code>PORT</code> directly into the worktree's <code>.env.local</code> so every terminal command inherits it automatically.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">4</span> Isolated Test DBs &amp; <code>TMPDIR</code></div>
+      <p style="font-size:8.25pt; margin-bottom:4px;">Parallel integration tests sharing one DB cause phantom flakes at midnight:</p>
+      <ul style="font-size:8.1pt; margin:0;">
+        <li><strong>SQLite:</strong> Store at <code>./.tmp/test.db</code> inside the worktree—instant zero-config isolation!</li>
+        <li><strong>Postgres:</strong> Point each worktree at its own DB or schema (<code>postgres://localhost/app_test_wt1</code>) and run migrations on bootstrap.</li>
+        <li><strong>Temp caches:</strong> Export <code>TMPDIR="$PWD/.tmp"</code> so test runners never clobber <code>/tmp</code> sockets.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Quick Audit: Tracked vs. Untracked State on <code>git worktree add</code></h3>
+  <table class="clean-table" style="font-size:8.25pt; margin-bottom:4px;">
+    <thead>
+      <tr>
+        <th style="width:26%;">Resource</th>
+        <th style="width:24%;">Included Automatically?</th>
+        <th style="width:50%;">Safe Fleet Bootstrap Rule</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>src/</code>, <code>AGENTS.md</code>, <code>.claude/settings.json</code></td>
+        <td><strong style="color:#059669;">Yes</strong> (Tracked in Git)</td>
+        <td>Commit rules, skills, and hook configs to <code>main</code> so every worktree inherits them automatically.</td>
+      </tr>
+      <tr>
+        <td><code>node_modules/</code>, <code>.venv/</code>, <code>.husky/_/</code></td>
+        <td><strong style="color:#e11d48;">No</strong> (Gitignored)</td>
+        <td>Run <code>pnpm install --frozen-lockfile</code> / <code>npm ci</code> (also regenerates Husky v9 shims!).</td>
+      </tr>
+      <tr>
+        <td><code>.env.local</code>, <code>PORT</code>, Test DB</td>
+        <td><strong style="color:#e11d48;">No</strong> (Local runtime)</td>
+        <td>Generate via a 1-command bootstrap script assigning unique <code>PORT</code> + <code>DATABASE_URL</code> per slot.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: BOOTSTRAP & SAFETY HOOKS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Automated Guardrails</span>
+    <span>Bootstrap Script &amp; Color-Coded Safety Hook Blueprint</span>
+  </div>
+
+  <h2 class="page-title">Turning Norms Into Physics: Hooks &amp; Path Fences</h2>
+  <p class="page-lead">
+    Polite prompt instructions eventually lose to a confused model at step 60. Guard every workshop at <strong>two distinct doorways</strong>: an agent-native <code>PreToolUse</code> hook that blocks dangerous commands <em>before execution</em>, and a Git <code>pre-commit</code> hook that blocks broken code <em>before packaging</em>.
+  </p>
+
+  <h3>Color-Coded Anatomy of a Fleet Safety Hook &amp; Bootstrap Stack</h3>
+  <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; margin-bottom:8px; padding:8px 11px;">
+    <div style="font-size:8.35pt; line-height:1.74;">
+      <span class="p-tag p-subj">[1. BOOTSTRAP ENV] Spawn <code>../wt-$SLUG</code> from green <code>main</code>, copy <code>.env.local</code>, set <code>PORT=$((3000+SLOT))</code>, run <code>pnpm i --prefer-offline</code>.</span><br/>
+      <span class="p-tag p-style">[2. SESSION CONTEXT] On <code>SessionStart</code>, inject exact <code>$PWD</code>, assigned branch name, and assigned port/DB into agent memory.</span><br/>
+      <span class="p-tag p-dial">[3. PATH FENCE] In <code>PreToolUse</code> (<code>Edit|Write|Bash</code>), resolve target paths and <code>exit 2</code> if anything escapes <code>$WORKTREE_ROOT</code>.</span><br/>
+      <span class="p-tag p-act">[4. GIT BLOCKER] Intercept <code>git reset --hard</code>, <code>push --force</code>, <code>checkout main</code>, <code>clean -fd</code>, and <code>--no-verify</code> with <code>exit 2</code>.</span><br/>
+      <span class="p-tag p-sfx">[5. PROVE-IT GATE] Wire <code>.githooks/pre-commit</code> (lint + <code>tsc --noEmit</code> + <code>.env</code> secret block) + <code>Stop</code> hook running fast tests.</span>
+    </div>
+  </div>
+
+  <h3>Drop-In <code>PreToolUse</code> Path-Fence &amp; Destructive-Git Guard (<code>.claude/hooks/fleet-guard.sh</code>)</h3>
+  <div class="code-snippet" style="font-size:7.35pt; line-height:1.42; margin-bottom:8px;">
+    <span class="c-comment">#!/usr/bin/env bash  # Commit + chmod +x; wire to PreToolUse matcher "Bash|Edit|Write" in .claude/settings.json</span><br/>
+    <span class="c-kw">set</span> -euo pipefail<br/>
+    payload=$(cat); root=$(git rev-parse --show-toplevel)<br/>
+    tool=$(jq -r <span class="c-str">'.tool_name // ""'</span> &lt;&lt;&lt;"$payload")<br/>
+    cmd=$(jq -r <span class="c-str">'.tool_input.command // ""'</span> &lt;&lt;&lt;"$payload")<br/>
+    f=$(jq -r <span class="c-str">'.tool_input.file_path // ""'</span> &lt;&lt;&lt;"$payload")<br/>
+    deny() { echo <span class="c-str">"BLOCKED BY FLEET POLICY: $1"</span> &gt;&amp;2; <span class="c-warn">exit 2</span>; } <span class="c-comment"># CRITICAL: exit 2 blocks; exit 1 only logs!</span><br/><br/>
+    <span class="c-comment"># A) Path Fence: forbid editing any sibling worktree, parent checkout, or home credential file</span><br/>
+    <span class="c-kw">if</span> [[ -n "$f" ]]; <span class="c-kw">then</span><br/>
+    &nbsp;&nbsp;abs=$(python3 -c <span class="c-str">'import os,sys; print(os.path.realpath(sys.argv[1]))'</span> "$f")<br/>
+    &nbsp;&nbsp;[[ "$abs" == "$root"/* ]] || deny <span class="c-str">"File '$abs' is outside your worktree ($root). Stay in your lane."</span><br/>
+    <span class="c-kw">fi</span><br/>
+    <span class="c-comment"># B) Destructive Git &amp; Cross-Directory Command Blocker</span><br/>
+    <span class="c-kw">case</span> "$cmd" <span class="c-kw">in</span><br/>
+    &nbsp;&nbsp;*<span class="c-str">"reset --hard"</span>*|*<span class="c-str">"checkout -- ."</span>*|*<span class="c-str">"clean -f"</span>*) deny <span class="c-str">"Destructive discard blocked. Commit or stash instead."</span> ;;<br/>
+    &nbsp;&nbsp;*<span class="c-str">"push --force"</span>*|*<span class="c-str">"push -f "</span>*|*<span class="c-str">"push origin main"</span>*) deny <span class="c-str">"Never force-push or push main. Push your branch &amp; open a PR."</span> ;;<br/>
+    &nbsp;&nbsp;*<span class="c-str">"checkout main"</span>*|*<span class="c-str">"switch main"</span>*|*<span class="c-str">"--no-verify"</span>*) deny <span class="c-str">"Stay on your worktree branch and keep Git hooks enabled."</span> ;;<br/>
+    &nbsp;&nbsp;*<span class="c-str">"../"</span>*|*<span class="c-str">"rm -rf /"</span>*|*<span class="c-str">"rm -rf ~"</span>*) deny <span class="c-str">"Cross-directory '..' traversal and root recursive deletes are forbidden."</span> ;;<br/>
+    <span class="c-kw">esac</span>; exit 0
+  </div>
+
+  <div class="grid-2">
+    <div class="callout amber" style="margin:0; padding:8px 11px; font-size:8.3pt;">
+      <div class="callout-title">Watch Out for the Exit-Code <code>1</code> Trap!</div>
+      In Claude Code hooks, <code>exit 1</code> is treated as a <em>non-blocking script error</em> and the dangerous command still runs! Always return <strong><code>exit 2</code></strong> (with clear corrective instructions on <code>stderr</code>) to hard-block execution.
+    </div>
+    <div class="callout emerald" style="margin:0; padding:8px 11px; font-size:8.3pt;">
+      <div class="callout-title">Test Your Hook in 5 Seconds Without an Agent</div>
+      Pipe a mock JSON payload straight in your shell:<br/>
+      <code>echo '{"tool_input":{"command":"git reset --hard"}}' | .claude/hooks/fleet-guard.sh; echo $?</code> &rarr; must print <code>2</code>!
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: MERGING & CLEAN TEARDOWN ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Fleet Traffic Control</span>
+    <span>The Serial Merge Gate, Conflict Protocol &amp; Clean Teardown</span>
+  </div>
+
+  <h2 class="page-title">Parallel Development, Serial Integration</h2>
+  <p class="page-lead">
+    The secret to landing five parallel agent branches without breaking <code>main</code> is simple: <strong>build in parallel, merge serially one PR at a time.</strong> Every remaining branch rebases onto the newly updated <code>main</code> inside its own workshop before advancing.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/runtime_port_and_hook_lanes.jpg" alt="Three luminous color-coded highway lanes passing through laser checkpoint rings into a single merge prism" style="width:100%; height:232px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; background:#061812; color:#f8fafc; padding:6px 11px; font-size:7.6pt; border-top:1px solid #1a4334;">
+      <div><strong style="color:#34d399;">PARALLEL LANES:</strong> Isolated worktrees + ports build simultaneously at machine speed.</div>
+      <div style="padding-left:9px; border-left:1px solid #1a4334;"><strong style="color:#38bdf8;">CHECKPOINT RINGS:</strong> <code>PreToolUse</code>, <code>pre-commit</code>, clean CI runner &amp; detached human review.</div>
+      <div style="padding-left:9px; border-left:1px solid #1a4334;"><strong style="color:#fbbf24;">SERIAL MERGE PRISM:</strong> Land 1 PR &rarr; rebase next agent branch &rarr; re-test &rarr; squash merge.</div>
+    </div>
+  </div>
+
+  <h3>The 4-Step Serial Merge &amp; Teardown Protocol</h3>
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title"><span class="num-badge">1</span> Review via <code>--detach</code> Worktree</div>
+      <p style="font-size:8.2pt; margin:0;">Never switch branches in your human checkout. Run <code>git worktree add ../wt-review --detach origin/agent-a/oauth</code>, run <code>pnpm i &amp;&amp; pnpm test</code>, and audit test diffs for softened assertions or widened <code>any</code> types.</p>
+    </div>
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title"><span class="num-badge teal">2</span> Squash-Merge PR #1 Through CI</div>
+      <p style="font-size:8.2pt; margin:0;">Enable GitHub <strong>Require branches to be up to date</strong> + <code>CODEOWNERS</code> on <code>.claude/</code> and <code>.githooks/</code>. Run <code>gh pr merge 41 --squash --delete-branch</code> to collapse noisy micro-commits into one clean commit.</p>
+    </div>
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title"><span class="num-badge purple">3</span> Rebase Queued Agents In-Place</div>
+      <p style="font-size:8.2pt; margin:0;">Inside <code>../wt-billing</code>, run <code>git fetch origin &amp;&amp; git rebase origin/main</code>. If shared barrel exports or routes conflict, ask <strong>that workshop's owning agent</strong> to reconcile its change against upstream <code>main</code>, then re-run tests!</p>
+    </div>
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title"><span class="num-badge amber">4</span> Demolish &amp; Prune Cleanly</div>
+      <p style="font-size:8.2pt; margin:0;">Pull fresh <code>main</code> locally, then retire merged workshops: <code>git worktree unlock ../wt-auth &amp;&amp; git worktree remove ../wt-auth</code>, <code>git branch -d agent-a/oauth</code>, and <code>git worktree prune -n</code> (dry run) &rarr; <code>-v</code>.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:0;">
+    <div class="callout-title">Operator Superpower: Control Any Workshop From Your Main Seat With <code>git -C</code></div>
+    Stay parked in your human <code>main</code> folder and inspect or push any sibling workshop without <code>cd</code>-ing back and forth: <code>git -C ../wt-auth log --oneline main..HEAD</code> or <code>git -C ../wt-auth status -s</code>.
+  </div>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Playbooks</span>
+    <span>5 Real-World Worktree Fleet Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Copy-Paste Worktree Recipes for Daily Engineering</h2>
+  <p class="page-lead">
+    Keep these five battle-tested patterns handy whenever you want to parallelize a multi-slice roadmap, compare competing designs side by side, or ship an urgent hotfix without disturbing a running agent.
+  </p>
+
+  <table class="clean-table" style="font-size:8.15pt;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Scenario</th>
+        <th style="width:49%;">Exact Commands / Script Pattern</th>
+        <th style="width:30%;">Why It Works Safely</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. 3-Slice Parallel Feature Build</strong><br/><span style="color:#059669;font-size:7.5pt;">DB + API + UI in parallel</span></td>
+        <td>
+          <code>git worktree add ../wt-schema -b ag1/schema main</code><br/>
+          <code>git worktree add ../wt-api -b ag2/api-routes main</code><br/>
+          <code>git worktree add ../wt-ui -b ag3/react-views main</code><br/>
+          Assign disjoint directories per prompt; merge <code>schema</code> &rarr; <code>api</code> &rarr; <code>ui</code>.
+        </td>
+        <td>Scoping each agent to disjoint folders eliminates 90% of semantic merge conflicts up front while multiplying throughput 3x.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Competing Architecture Bake-Off</strong><br/><span style="color:#0284c7;font-size:7.5pt;">Race 2 designs on 1 spec</span></td>
+        <td>
+          <code>git worktree add ../wt-redis -b exp/redis-cache main</code><br/>
+          <code>git worktree add ../wt-sqlite -b exp/sqlite-lru main</code><br/>
+          Give both agents the exact same benchmark test; run servers on <code>:3001</code> &amp; <code>:3002</code>; merge winner, <code>remove</code> + <code style="white-space:nowrap;">branch -D</code> loser.
+        </td>
+        <td>Lets you evaluate real latency, code clarity, and bundle size across two live implementations before committing to one.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Urgent Prod Hotfix Mid-Run</strong><br/><span style="color:#d97706;font-size:7.5pt;">Zero stashing or pausing</span></td>
+        <td>
+          Leave overnight agent humming in <code>../wt-refactor</code>.<br/>
+          <code>git fetch origin</code><br/>
+          <code>git worktree add ../wt-hotfix -b fix/null-session origin/main</code><br/>
+          Patch, test on <code>:3009</code>, push PR, merge, then <code>git worktree remove ../wt-hotfix</code>.
+        </td>
+        <td>You never touch <code>git stash</code> or interrupt a 45-minute autonomous refactor; the overnight agent simply rebases later.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Read-Only PR &amp; Security Audit</strong><br/><span style="color:#7c3aed;font-size:7.5pt;">Zero branch claim</span></td>
+        <td>
+          <code>git fetch origin pull/108/head:pr-108</code><br/>
+          <code>git worktree add ../wt-audit --detach pr-108</code><br/>
+          <code>cd ../wt-audit &amp;&amp; pnpm i --frozen-lockfile &amp;&amp; codex --sandbox read-only</code>
+        </td>
+        <td><code>--detach</code> + <code>read-only</code> OS sandbox lets a reviewer agent inspect and test untrusted PR code without touching your checkout.</td>
+      </tr>
+      <tr>
+        <td><strong>5. One-Command Fleet Bootstrapper</strong><br/><span style="color:#0d9488;font-size:7.5pt;"><code>scripts/wt-spawn.sh</code></span></td>
+        <td>
+          <code>SLOT=$1; SLUG=$2; DIR="../wt-${SLUG}"; PORT=$((3000+SLOT))</code><br/>
+          <code>git worktree add "$DIR" -b "agent-${SLOT}/${SLUG}" main</code><br/>
+          <code>cp .env.local "$DIR/.env.local" &amp;&amp; echo "PORT=$PORT" &gt;&gt; "$DIR/.env.local"</code><br/>
+          <code>(cd "$DIR" &amp;&amp; pnpm i --frozen-lockfile --prefer-offline)</code><br/>
+          <code>git worktree lock "$DIR" --reason "slot-$SLOT / $SLUG"</code>
+        </td>
+        <td>Reduces workshop creation—branch, lock, secrets, unique port, and dependencies—to one repeatable 4-second command: <code>./scripts/wt-spawn.sh 1 auth</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:6px;">
+    <div class="callout-title">Weekly Housekeeping One-Liner: Spot Forgotten Orphan Worktrees</div>
+    Run <code>git worktree list --porcelain</code> (or compare against a <code>.fleet/registry.tsv</code> log) every Friday afternoon. Any unlocked worktree whose branch already merged into <code>main</code> can be reclaimed in seconds—keeping disk space and mental overhead crystal clear.
+  </div>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: NATIVE TOOL SUPPORT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Native Harness Integration</span>
+    <span>Built-In Worktree Support: Claude Code, Antigravity, Orca &amp; Cursor</span>
+  </div>
+
+  <h2 class="page-title">Native Worktree Flags Across Modern Agent Harnesses</h2>
+  <p class="page-lead">
+    Before running manual <code>git worktree add</code> commands, check whether your coding harness manages worktrees natively. Built-in flags automatically place folders, track session state, and clean up idle trees—<strong>never fight your harness!</strong>
+  </p>
+
+  <h3>Harness-by-Harness Worktree &amp; Sandbox Reference</h3>
+  <table class="clean-table" style="font-size:8.15pt;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Tool / Harness</th>
+        <th style="width:36%;">Native Worktree Command / Config</th>
+        <th style="width:44%;">Built-In Guardrails &amp; Key Gotchas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Code</strong><br/><span style="color:#64748b;font-size:7.5pt;">Anthropic CLI &amp; IDE</span></td>
+        <td>
+          <code>claude --worktree feat-auth</code> (<code style="white-space:nowrap;">-w</code>)<br/>
+          <code>claude -w feat-auth --tmux</code><br/>
+          In-session tool: <code>EnterWorktree</code>
+        </td>
+        <td>Creates isolated worktrees under <code>.claude/worktrees/</code>; supports <code>WorktreeCreate</code> / <code>PreToolUse</code> / <code>Stop</code> hooks in committed <code>.claude/settings.json</code> + macOS Seatbelt / Linux bubblewrap <code>/sandbox</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Google Antigravity</strong><br/><span style="color:#64748b;font-size:7.5pt;">App, IDE &amp; <code>agy</code> CLI</span></td>
+        <td>
+          Subagents: <code>Workspace: "share"</code> (worktree)<br/>
+          Swarms (<code>/teamwork</code>): <code>workspace: "share"</code><br/>
+          Full clone mode: <code>workspace: "branch"</code>
+        </td>
+        <td><code>"share"</code> gives each parallel author its own working copy sharing <code>.git</code>; read-only researchers keep <code>"inherit"</code>. <code>proceed-in-sandbox</code> + Non-Workspace File Access <code>deny</code> fences paths.</td>
+      </tr>
+      <tr>
+        <td><strong>Orca</strong><br/><span style="color:#64748b;font-size:7.5pt;">Multi-Agent Orchestrator</span></td>
+        <td>
+          <code>orca worktree create</code> &bull; <code>orca worktree list</code><br/>
+          <code>orca worktree ps</code> &bull; <code>orca worktree rm</code>
+        </td>
+        <td>Manages child worktrees, dedicated PTY terminals, sleeping recipe VMs, and cross-agent handoffs with live status tracking via <code>orca worktree ps --json</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Cursor</strong><br/><span style="color:#64748b;font-size:7.5pt;">Parallel Background/Local</span></td>
+        <td>
+          Parallel Agent Worktrees UI +<br/>
+          <code>.cursor/worktrees.json</code> (setup steps)
+        </td>
+        <td>Automates dependency install &amp; <code>.env</code> copy per spawned worktree. Commit <code>.cursor/permissions.json</code> with strict <strong>Allowlist</strong> mode (prefix-matched; deny wins).</td>
+      </tr>
+      <tr>
+        <td><strong>Codex CLI &amp; aider</strong><br/><span style="color:#64748b;font-size:7.5pt;">Terminal Agents</span></td>
+        <td>
+          Pair w/ <code>wt-spawn.sh</code>, then launch:<br/>
+          <code>codex --sandbox workspace-write</code><br/>
+          <code>aider --git-commit-verify --auto-test</code>
+        </td>
+        <td>Codex's <code>workspace-write</code> keeps <code>.git</code> <strong>read-only</strong> at the OS kernel level! In aider, <strong>always pass <code>--git-commit-verify</code></strong> (its default skips <code>pre-commit</code> hooks).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Detect Before Creating + The Truth About Permission-Bypass Flags</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">1</span> Auto-Detect Existing Worktrees</div>
+      <p style="font-size:8.15pt; margin:0;">Inside scripts or skills, compare <code>git rev-parse --git-dir</code> vs. <code>--git-common-dir</code> (and verify <code>--show-superproject-working-tree</code> is empty to rule out submodules). If they differ, the agent is <em>already</em> inside an isolated worktree—don't nest another!</p>
+    </div>
+    <div class="callout rose" style="margin:0; padding:8px 11px; font-size:8.15pt;">
+      <div class="callout-title">2. Never Run Bypass Flags on a Credentialed Host</div>
+      Flags like <code>--dangerously-skip-permissions</code>, <code>--yolo</code>, and <em>Run Everything</em> let a confused or prompt-injected agent overwrite <code>.git</code>, delete hooks, and read <code>~/.ssh</code>. Reserve them <strong>strictly</strong> for disposable, credential-free containers!
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: END-TO-END FLEET PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; End-to-End Architecture</span>
+    <span>The 6-Stage Parallel Fleet Pipeline &amp; Worked 3-Agent Walkthrough</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Fleet Pipeline: Spawn to Clean Repository</h2>
+  <p class="page-lead">
+    Here is how every piece in this guide locks together into one repeatable engineering pipeline—turning three concurrent tickets into three clean, linear commits on <code>main</code> with zero lost work.
+  </p>
+
+  <!-- 6-Stage Fleet Lifecycle SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:10px 12px; margin-bottom:9px;">
+    <svg viewBox="0 0 700 162" width="100%" height="162" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="8" width="208" height="62" rx="9" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+      <circle cx="28" cy="27" r="10" fill="#059669"/><text x="28" y="31" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="800">1</text>
+      <text x="44" y="31" fill="#0f172a" font-size="10.4" font-weight="800">Spawn + Bootstrap</text>
+      <text x="20" y="47" fill="#334155" font-size="8.7">Create sibling worktrees from green</text>
+      <text x="20" y="59" fill="#334155" font-size="8.7">main; copy .env; assign ports 3001+.</text>
+
+      <path d="M219 39 L242 39" stroke="#059669" stroke-width="2.2"/><polygon points="241,34 248,39 241,44" fill="#059669"/>
+
+      <!-- Stage 2 -->
+      <rect x="248" y="8" width="204" height="62" rx="9" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.8"/>
+      <circle cx="268" cy="27" r="10" fill="#0284c7"/><text x="268" y="31" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="800">2</text>
+      <text x="284" y="31" fill="#0f172a" font-size="10.4" font-weight="800">Isolated Dev &amp; Test</text>
+      <text x="260" y="47" fill="#334155" font-size="8.7">Agents edit &amp; run dev servers in</text>
+      <text x="260" y="59" fill="#334155" font-size="8.7">parallel; commit small checkpoints.</text>
+
+      <path d="M455 39 L478 39" stroke="#0284c7" stroke-width="2.2"/><polygon points="477,34 484,39 477,44" fill="#0284c7"/>
+
+      <!-- Stage 3 -->
+      <rect x="484" y="8" width="208" height="62" rx="9" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+      <circle cx="504" cy="27" r="10" fill="#d97706"/><text x="504" y="31" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="800">3</text>
+      <text x="520" y="31" fill="#0f172a" font-size="10.4" font-weight="800">Hook Guardrails</text>
+      <text x="496" y="47" fill="#334155" font-size="8.7">PreToolUse blocks escapes (exit 2);</text>
+      <text x="496" y="59" fill="#334155" font-size="8.7">pre-commit + Stop enforce green tests.</text>
+
+      <!-- Wrap connector -->
+      <path d="M588 70 L588 84 L112 84 L112 95" fill="none" stroke="#64748b" stroke-width="1.8" stroke-dasharray="4 3"/>
+      <polygon points="107,93 112,100 117,93" fill="#64748b"/>
+
+      <!-- Stage 4 -->
+      <rect x="8" y="99" width="208" height="56" rx="9" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+      <circle cx="28" cy="118" r="10" fill="#7c3aed"/><text x="28" y="122" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="800">4</text>
+      <text x="44" y="122" fill="#0f172a" font-size="10.4" font-weight="800">Rebase &amp; Verify</text>
+      <text x="20" y="138" fill="#334155" font-size="8.7">Push branch, audit in --detach tree,</text>
+      <text x="20" y="149" fill="#334155" font-size="8.7">rebase queued branches on new main.</text>
+
+      <path d="M219 127 L242 127" stroke="#7c3aed" stroke-width="2.2"/><polygon points="241,122 248,127 241,132" fill="#7c3aed"/>
+
+      <!-- Stage 5 -->
+      <rect x="248" y="99" width="204" height="56" rx="9" fill="#ecfdf5" stroke="#0d9488" stroke-width="1.8"/>
+      <circle cx="268" cy="118" r="10" fill="#0d9488"/><text x="268" y="122" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="800">5</text>
+      <text x="284" y="122" fill="#0f172a" font-size="10.4" font-weight="800">Serial Squash Merge</text>
+      <text x="260" y="138" fill="#334155" font-size="8.7">CI passes on exact merge state;</text>
+      <text x="260" y="149" fill="#334155" font-size="8.7">human merges 1 PR at a time.</text>
+
+      <path d="M455 127 L478 127" stroke="#0d9488" stroke-width="2.2"/><polygon points="477,122 484,127 477,132" fill="#0d9488"/>
+
+      <!-- Stage 6 -->
+      <rect x="484" y="99" width="208" height="56" rx="9" fill="#061812" stroke="#34d399" stroke-width="1.8"/>
+      <circle cx="504" cy="118" r="10" fill="#34d399"/><text x="504" y="122" text-anchor="middle" fill="#061812" font-size="9.5" font-weight="800">6</text>
+      <text x="520" y="122" fill="#ffffff" font-size="10.4" font-weight="800">Teardown &amp; Prune</text>
+      <text x="496" y="138" fill="#a7f3d0" font-size="8.7">unlock &rarr; worktree remove &rarr; branch -d</text>
+      <text x="496" y="149" fill="#a7f3d0" font-size="8.7">&rarr; worktree prune -v; main stays clean.</text>
+    </svg>
+  </div>
+
+  <h3>Concrete 3-Agent Walkthrough: Shipping Cart Totals, Discounts &amp; Docs Together</h3>
+  <table class="clean-table" style="font-size:8.2pt;">
+    <thead>
+      <tr>
+        <th style="width:18%;">Timeline Beat</th>
+        <th style="width:44%;">What Happens Across the Fleet</th>
+        <th style="width:38%;">Safety Mechanism in Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>09:00 &bull; Spawn</strong></td>
+        <td>Run <code>wt-spawn.sh</code> for <code>wt-totals</code> (<code>:3001</code>), <code>wt-discounts</code> (<code>:3002</code>), and <code>wt-docs</code> (<code>:3003</code>) off green <code>main</code>.</td>
+        <td>Shared <code>.git</code> spawns all 3 in &lt;10s; <code>git worktree lock</code> tags each owner and ticket.</td>
+      </tr>
+      <tr>
+        <td><strong>09:22 &bull; Mid-Run</strong></td>
+        <td>Agent 2 hits a lint error and tries <code>git commit --no-verify</code>; Agent 1 runs integration tests against <code>app_test_wt1</code>.</td>
+        <td><code>PreToolUse</code> exits <code>2</code>, forcing Agent 2 to fix the lint error properly; DB isolation prevents test crossfire.</td>
+      </tr>
+      <tr>
+        <td><strong>09:45 &bull; Merge #1</strong></td>
+        <td><code>wt-totals</code> passes its <code>Stop</code> gate; PR #1 passes CI and squash-merges into <code>main</code> (updating <code>src/index.ts</code>).</td>
+        <td>Branch protection requires PR + green status checks; human checkout never left <code>main</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>09:52 &bull; Rebase #2</strong></td>
+        <td>Inside <code>wt-discounts</code>, run <code>git fetch &amp;&amp; git rebase origin/main</code>; <code>src/index.ts</code> conflicts on barrel exports.</td>
+        <td>Agent 2 reconciles both export lines inside <code>wt-discounts</code>, re-runs <code>pnpm test</code>, pushes, and merges cleanly!</td>
+      </tr>
+      <tr>
+        <td><strong>10:05 &bull; Cleanup</strong></td>
+        <td>PR #3 (<code>wt-docs</code>) rebases with zero conflicts and merges; all 3 workshops are unlocked, removed, and pruned.</td>
+        <td><code>git worktree list</code> returns to a single clean <code>[main]</code> line with 3 crisp squashed commits in history.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:6px;">
+    <div class="callout-title">Steady-State Scaling Rule: 3 to 5 Concurrent Workshops per Human Reviewer</div>
+    Fleet throughput is bounded by human code review at the merge gate—not by how many terminals your laptop can spawn. Three to five parallel workshops is the sweet spot for one engineer with solid CI; beyond that, shrink ticket scope or add a second gatekeeper rather than loosening review!
+  </div>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Clinic &amp; Pre-Flight</span>
+    <span>Top 7 Worktree &amp; Fleet Errors + 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Fleet Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Ninety percent of worktree hiccups diagnose themselves with <code>git worktree list -v</code> and <code>git -C &lt;path&gt; status</code>. Use this table for 10-second recoveries when an agent or folder misbehaves.
+  </p>
+
+  <h3>Top 7 Worktree &amp; Parallel-Agent Errors (10-Second Fixes)</h3>
+  <table class="clean-table" style="font-size:8.05pt; margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:36%;">Error / Symptom</th>
+        <th style="width:64%;">Root Cause &amp; 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>fatal: 'branch' is already checked out at '...'</code></td>
+        <td>Git's Iron Rule protecting you! Create a distinct branch (<code>git worktree add ../wt-new -b agent-c/task main</code>) or pass <code>--detach</code> for read-only review. <strong>Never</strong> pass <code>-f</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Deleted folder with <code>rm -rf</code>; Git still lists it / blocks branch</strong></td>
+        <td>Orphaned metadata in <code>.git/worktrees/</code>. Run <code>git worktree unlock &lt;path&gt;</code> (if locked), preview with <code>git worktree prune -n</code>, then clear with <code>git worktree prune -v</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Ran <code>mv</code> on a worktree; Git says <code>not a git repository</code></strong></td>
+        <td>Moving by hand broke the absolute path contract inside <code>.git</code>. From your main repo run <code>git worktree repair &lt;new-path&gt;</code> (next time use <code>git worktree move</code>).</td>
+      </tr>
+      <tr>
+        <td><code>Error: listen EADDRINUSE: address already in use :::3000</code></td>
+        <td>Two workshops bound default port <code>3000</code>. Write a unique <code>PORT=3001</code> / <code>3002</code> into each worktree's <code>.env.local</code> so dev servers and Playwright runs stay in separate lanes.</td>
+      </tr>
+      <tr>
+        <td><strong><code>PreToolUse</code> hook prints an error, but command still runs!</strong></td>
+        <td>Your script exited with <code>1</code> (non-blocking warning). Change the block branch to <strong><code>exit 2</code></strong> (or emit JSON <code>permissionDecision: "deny"</code>) and verify <code>chmod +x</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Husky <code>pre-commit</code> fires in <code>main</code>, silent in worktrees</strong></td>
+        <td>Relative <code>core.hooksPath</code> (<code>.husky/_</code>) is gitignored in fresh checkouts. Run <code>npm ci</code> / <code>pnpm install</code> inside the worktree so the <code>prepare</code> script regenerates shims.</td>
+      </tr>
+      <tr>
+        <td><strong>5,000-line <code>package-lock.json</code> merge conflict at PR time</strong></td>
+        <td>Agents ran bare <code>npm install</code> concurrently. Standardize on <code>npm ci</code> / <code>pnpm i --frozen-lockfile</code>; to fix now, merge <code>package.json</code>, run <code>npm install</code> once, and commit.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:4px;">
+    <div class="card-title" style="font-size:10.1pt; color:#34d399; margin-bottom:6px;">
+      6-Point Fleet Pre-Flight Checklist (Verify Before Dispatching Parallel Agents)
+    </div>
+    <div class="grid-2" style="gap:6px 16px; font-size:8.25pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Green Human <code>main</code>:</strong> <code>git pull --ff-only &amp;&amp; npm test</code> passes before any branch sprouts; humans stay on <code>main</code>, agents never do.</div>
+      <div>&#9744; <strong>4. Active Path &amp; Git Fence:</strong> Committed <code>PreToolUse</code> hook returns <code>exit 2</code> on cross-folder edits, <code>reset --hard</code>, and <code>--no-verify</code>.</div>
+      <div>&#9744; <strong>2. 1-Agent-1-Worktree-1-Branch:</strong> Spawned via native tool (<code>--worktree</code>, <code>share</code>, <code>orca</code>) or sibling <code>git worktree add -b</code> + <code>lock</code>.</div>
+      <div>&#9744; <strong>5. Sandbox On, Bypass Off:</strong> OS sandbox enabled (<code>workspace-write</code> / <code>/sandbox</code>); zero <code>--yolo</code> flags on credentialed hosts.</div>
+      <div>&#9744; <strong>3. Isolated Runtime Lanes:</strong> Fresh per-worktree <code>pnpm i</code> / <code>.venv</code>, copied <code>.env.local</code>, unique <code>PORT</code>, and separate test DB.</div>
+      <div>&#9744; <strong>6. Serial Merge &amp; Prune:</strong> Require up-to-date PR checks, merge 1 PR at a time, rebase remaining workshops, then <code>remove</code> + <code>prune</code>.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Git Worktrees &amp; Parallel Agent Safety &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>
