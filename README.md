@@ -5,8 +5,8 @@
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-42%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-504%20Pages-059669?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-45%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-540%20Pages-059669?style=for-the-badge)
 ![Ecosystems](https://img.shields.io/badge/Scope-6%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
@@ -308,7 +308,7 @@ Publication-grade 12-page visual handbooks for building production full-stack AI
 </table>
 
 ### AI Agent Engineering & Architecture
-Practical 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktrees, vector RAG, security, evals, System One decision models, and local on-device AI.
+Practical 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktrees, production MCP servers, Chrome DevTools & Playwright browser agents, vector RAG, security, evals, System One decisions, and local on-device AI.
 
 <table>
   <tr>
@@ -383,10 +383,28 @@ Practical 12-page visual handbooks for context engineering, multi-agent orchestr
       <p><a href="guides/agent-engineering/jev-and-system-one-decisions/Jev_and_System_One_Decisions_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/jev-and-system-one-decisions">&#128736; Editable Source</a></p>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/building-production-mcp-servers/Building_Production_MCP_Servers_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/building-production-mcp-servers/cover.png" alt="Building Production MCP Servers Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/building-production-mcp-servers/Building_Production_MCP_Servers_Complete_How_To_Guide.pdf">Building Production MCP Servers</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Architect, test, and ship high-reliability Model Context Protocol servers in TypeScript (SDK v2) and Python (FastMCP)—mastering stateless Streamable HTTP factories, Zod v4 &amp; outputSchema, OAuth 2.1, MCP Inspector, and 10-question evals.</p>
+      <p><code>MCP SDK v2</code> &middot; <code>FastMCP</code> &middot; <code>Streamable HTTP</code></p>
+      <p><a href="guides/agent-engineering/building-production-mcp-servers/Building_Production_MCP_Servers_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/building-production-mcp-servers">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/chrome-devtools-and-playwright-agents/Chrome_DevTools_and_Playwright_Agents_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/chrome-devtools-and-playwright-agents/cover.png" alt="Browser Agents with Chrome DevTools MCP &amp; Playwright Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/chrome-devtools-and-playwright-agents/Chrome_DevTools_and_Playwright_Agents_Complete_How_To_Guide.pdf">Browser Agents with Chrome DevTools MCP &amp; Playwright</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Pair live Chrome DevTools MCP diagnostics (accessibility uid snapshots, LCP subpart traces, HttpOnly cookie forensics, and heap leak diffs) with deterministic Playwright E2E regression gates.</p>
+      <p><code>Chrome DevTools MCP</code> &middot; <code>Playwright</code> &middot; <code>CWV &amp; A11y</code></p>
+      <p><a href="guides/agent-engineering/chrome-devtools-and-playwright-agents/Chrome_DevTools_and_Playwright_Agents_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/chrome-devtools-and-playwright-agents">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
 </table>
 
 ### Obsidian & AI Knowledge Systems
-Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-native Second Brains—covering Claude Desktop & Antigravity Desktop workflows, native Bases & JSON Canvas, autonomous LLM Wikis, Graphify knowledge graphs, and multi-device vault security.
+Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-native Second Brains—covering Claude Desktop & Antigravity Desktop workflows, multimodal Web Clipper/PDF/voice capture pipelines, native Bases & JSON Canvas, autonomous LLM Wikis, Graphify knowledge graphs, and multi-device vault security.
 
 <table>
   <tr>
@@ -434,7 +452,14 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
       <p><code>Vault Privacy</code> &middot; <code>Obsidian Sync &amp; Git</code> &middot; <code>Agent Governance</code></p>
       <p><a href="guides/obsidian/vault-security-privacy-and-sync/Obsidian_Vault_Security_Privacy_and_Sync_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/obsidian/vault-security-privacy-and-sync">&#128736; Editable Source</a></p>
     </td>
-    <td width="50%"></td>
+    <td width="50%" valign="top">
+      <a href="guides/obsidian/obsidian-capture-and-multimodal-pipelines/Obsidian_Capture_and_Multimodal_Pipelines_Complete_How_To_Guide.pdf"><img src="guides/obsidian/obsidian-capture-and-multimodal-pipelines/cover.png" alt="Obsidian Multimodal Capture &amp; Pipelines Cover" width="100%" /></a>
+      <h3><a href="guides/obsidian/obsidian-capture-and-multimodal-pipelines/Obsidian_Capture_and_Multimodal_Pipelines_Complete_How_To_Guide.pdf">Obsidian Multimodal Capture &amp; Pipelines</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turn web articles, academic PDFs, voice memos, and whiteboard photos into structured vault notes—mastering Obsidian Web Clipper templates, Interpreter {{&quot;...&quot;}} prompts, Knap filters, PDF++ citations, and quarantine-safe _inbox/ routing.</p>
+      <p><code>Web Clipper</code> &middot; <code>Interpreter AI</code> &middot; <code>PDF &amp; Voice Pipelines</code></p>
+      <p><a href="guides/obsidian/obsidian-capture-and-multimodal-pipelines/Obsidian_Capture_and_Multimodal_Pipelines_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/obsidian/obsidian-capture-and-multimodal-pipelines">&#128736; Editable Source</a></p>
+    </td>
   </tr>
 </table>
 
@@ -478,11 +503,14 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **Prompt Injection & Agent Security** — Defending tool-calling and browsing AI agents against indirect prompt injection, poisoned MCP servers, secret exfiltration, and unsafe output sinks. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/prompt-injection-and-agent-security/Prompt_Injection_and_Agent_Security_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/prompt-injection-and-agent-security) |
 | **Local & On-Device AI Stack** — Running private, zero-per-token LLMs and embeddings on your own hardware—mastering GGUF quantization, Apple Silicon memory math, Ollama, and llama.cpp. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/local-and-on-device-ai/Local_and_On_Device_AI_Stack_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/local-and-on-device-ai) |
 | **Jev & System One Decisions** — Replacing fragile LLM JSON parsing with fast, calibrated System One decisions—mastering Choice, Score, and Noul primitives, parallel fan-out, and confidence-gated routing. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/jev-and-system-one-decisions/Jev_and_System_One_Decisions_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/jev-and-system-one-decisions) |
+| **Building Production MCP Servers** — Architect, test, and ship high-reliability Model Context Protocol servers in TypeScript (SDK v2) and Python (FastMCP)—mastering stateless Streamable HTTP factories, Zod v4 & outputSchema, OAuth 2.1, MCP Inspector, and 10-question evals. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/building-production-mcp-servers/Building_Production_MCP_Servers_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/building-production-mcp-servers) |
+| **Browser Agents with Chrome DevTools MCP & Playwright** — Pair live Chrome DevTools MCP diagnostics (accessibility uid snapshots, LCP subpart traces, HttpOnly cookie forensics, and heap leak diffs) with deterministic Playwright E2E regression gates. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/chrome-devtools-and-playwright-agents/Chrome_DevTools_and_Playwright_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/chrome-devtools-and-playwright-agents) |
 | **Obsidian + Desktop AI Agents** — Operating your Obsidian vault side-by-side with Claude Desktop and Google Antigravity Desktop—mastering Cowork folders, Local REST API MCP, the native Obsidian CLI, vault AGENTS.md rules, and scheduled briefings. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-desktop-ai-agents/Obsidian_and_Desktop_AI_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-desktop-ai-agents) |
 | **Obsidian Bases & JSON Canvas with AI** — Turning flat Markdown notes into live relational databases and spatial visual boards—having Claude Desktop and Antigravity generate native .base views, YAML schemas, and .canvas architecture maps. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-bases-and-json-canvas-agents/Obsidian_Bases_and_JSON_Canvas_with_AI_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-bases-and-json-canvas-agents) |
 | **Autonomous LLM Wiki & Research Vault** — Building a Karpathy-style self-maintaining knowledge base in Obsidian where Claude Desktop and Antigravity compile raw PDFs, transcripts, and web clips into interlinked evergreen concept notes. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/autonomous-llm-wiki-vault/Autonomous_LLM_Wiki_and_Research_Vault_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/autonomous-llm-wiki-vault) |
 | **AI Agents + Graphify + Obsidian** — Building persistent, queryable knowledge graphs from codebases and notes that you explore visually in Obsidian and expose to AI agents via MCP. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/graphify-and-obsidian-knowledge-graphs) |
 | **Obsidian Vault Security, Privacy & Sync** — Protecting private journals, API secrets, and multi-device sync when AI agents touch your vault—mastering privacy zones, sandboxes, prompt-injection defenses, and conflict-free Obsidian Sync + Git. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/vault-security-privacy-and-sync/Obsidian_Vault_Security_Privacy_and_Sync_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/vault-security-privacy-and-sync) |
+| **Obsidian Multimodal Capture & Pipelines** — Turn web articles, academic PDFs, voice memos, and whiteboard photos into structured vault notes—mastering Obsidian Web Clipper templates, Interpreter {{"..."}} prompts, Knap filters, PDF++ citations, and quarantine-safe _inbox/ routing. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-capture-and-multimodal-pipelines/Obsidian_Capture_and_Multimodal_Pipelines_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-capture-and-multimodal-pipelines) |
 <!-- CATALOG:END -->
 
 ---

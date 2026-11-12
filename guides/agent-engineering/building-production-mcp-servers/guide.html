@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Building Production MCP Servers: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI AGENT ENGINEERING &amp; ARCHITECTURE &bull; FIELD GUIDE</div>
+    <h1>Building Production <span>MCP Servers</span></h1>
+    <p class="cover-sub">
+      The complete 12-page visual handbook to designing, validating, securing, and evaluating Model Context Protocol servers using TypeScript SDK v2 and Python FastMCP.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">TypeScript SDK v2</span>
+      <span class="cover-badge">Python FastMCP</span>
+      <span class="cover-badge">Streamable HTTP &amp; stdio</span>
+      <span class="cover-badge">Zod v4 &amp; outputSchema</span>
+      <span class="cover-badge">OAuth 2.1 &amp; Tool Hints</span>
+      <span class="cover-badge">MCP Inspector &amp; Evals</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Crystalline API bridge guiding modular tool capsules through glass validation rings into an indigo-and-teal core reactor" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">SDK v2 &amp; FastMCP</div>
+      <div class="cover-stat-desc">Build schema-strict tools in TypeScript <code>@modelcontextprotocol/server</code> v2 or Python <code>FastMCP</code> with Pydantic v2 validation.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Stateless Factories</div>
+      <div class="cover-stat-desc">Spawn a fresh <code>McpServer</code> per HTTP request while pooling upstream clients at module scope for effortless horizontal scale.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Evaluated Reliability</div>
+      <div class="cover-stat-desc">Verify contracts with <code>scripts/smoke.ts</code>, MCP Inspector, and a 10-question multi-hop evaluation harness before shipping.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & AGENT-CENTRIC MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Building Production MCP Servers</span>
+  </div>
+
+  <h2 class="page-title">Agent-Centric Design vs. Raw REST Wrappers</h2>
+  <p class="page-lead">
+    An MCP server is not a thin proxy over HTTP endpoints—it is an <strong>ergonomic user interface for a language model</strong>. Great servers pack high-signal data into tight context budgets while keeping destructive actions crystal clear.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Agent-Centric Design &amp; Primitives</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Python FastMCP &amp; Pydantic v2</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. SDK v2 Setup &amp; Transport Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Errors, OAuth 2.1 &amp; Security</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. MCP Inspector &amp; Trace UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Five Copy-Paste Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Stateless Factory &amp; Dual Transports</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Packaging &amp; Multi-Host Rollout</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Tool Schemas &amp; structuredContent</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. 10-Question Eval Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting Clinic &amp; Checklist</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <div class="grid-3" style="margin: 2px 0 6px 0;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">T</span> Tools (Model-Controlled)</div>
+      <p style="font-size:8.0pt; margin:0;">Executable functions the LLM chooses to invoke—from read-only searches to side-effecting writes—guided by JSON schemas and annotations.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge indigo">R</span> Resources (App-Controlled)</div>
+      <p style="font-size:8.0pt; margin:0;">Read-only data addressed by URI or <code>ResourceTemplate</code> (e.g., <code>example://teams</code>) that host apps fetch and attach as context.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">P</span> Prompts (User-Controlled)</div>
+      <p style="font-size:8.0pt; margin:0;">Named message templates with <code>completable()</code> argument autocomplete that users trigger explicitly via slash commands or menus.</p>
+    </div>
+  </div>
+
+  <h3>Architecture: Host &rarr; Client &rarr; Transport &rarr; Stateless Factory &rarr; Upstream</h3>
+  <div class="figure-box" style="background:#060a1f; padding:10px 12px;">
+    <svg viewBox="0 0 700 176" width="100%" height="176" xmlns="http://www.w3.org/2000/svg">
+      <!-- Host App -->
+      <rect x="10" y="18" width="128" height="114" rx="8" fill="#131c42" stroke="#818cf8" stroke-width="1.6"/>
+      <text x="74" y="38" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">AI Host App</text>
+      <text x="74" y="53" text-anchor="middle" fill="#c7d2fe" font-size="7.8">Claude, IDE, Agent</text>
+      <rect x="20" y="64" width="108" height="56" rx="6" fill="#090d24" stroke="#4f46e5" stroke-width="1.2"/>
+      <text x="74" y="83" text-anchor="middle" fill="#a5b4fc" font-size="8.6" font-weight="700">MCP Client</text>
+      <text x="74" y="97" text-anchor="middle" fill="#94a3b8" font-size="7.4">Negotiates caps</text>
+      <text x="74" y="109" text-anchor="middle" fill="#94a3b8" font-size="7.4">Routes JSON-RPC</text>
+
+      <!-- Arrow 1 -->
+      <path d="M138 75 L186 75" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="186,70 194,75 186,80" fill="#2dd4bf"/>
+      <text x="166" y="65" text-anchor="middle" fill="#5eead4" font-size="7.4" font-weight="700">JSON-RPC</text>
+
+      <!-- Transport Layer -->
+      <rect x="195" y="18" width="140" height="114" rx="8" fill="#0c2938" stroke="#2dd4bf" stroke-width="1.6"/>
+      <text x="265" y="38" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">Transport Layer</text>
+      <rect x="205" y="49" width="120" height="34" rx="5" fill="#061724" stroke="#0d9488"/>
+      <text x="265" y="63" text-anchor="middle" fill="#5eead4" font-size="8.2" font-weight="700">Streamable HTTP</text>
+      <text x="265" y="75" text-anchor="middle" fill="#cbd5e1" font-size="7.1">POST /mcp + AuthInfo</text>
+      <rect x="205" y="90" width="120" height="32" rx="5" fill="#061724" stroke="#38bdf8"/>
+      <text x="265" y="104" text-anchor="middle" fill="#7dd3fc" font-size="8.2" font-weight="700">stdio Subprocess</text>
+      <text x="265" y="116" text-anchor="middle" fill="#cbd5e1" font-size="7.1">stdin/stdout &bull; stderr logs</text>
+
+      <!-- Arrow 2 -->
+      <path d="M335 75 L379 75" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="379,70 387,75 379,80" fill="#818cf8"/>
+      <text x="361" y="65" text-anchor="middle" fill="#c7d2fe" font-size="7.2" font-weight="700">per-call</text>
+
+      <!-- Stateless Factory -->
+      <rect x="388" y="18" width="152" height="114" rx="8" fill="#131c42" stroke="#2dd4bf" stroke-width="1.6"/>
+      <text x="464" y="38" text-anchor="middle" fill="#5eead4" font-size="9.5" font-weight="800">createServer() Factory</text>
+      <text x="464" y="51" text-anchor="middle" fill="#cbd5e1" font-size="7.3">Fresh McpServer per HTTP req</text>
+      <rect x="398" y="60" width="132" height="28" rx="5" fill="#090d24" stroke="#4f46e5"/>
+      <text x="464" y="73" text-anchor="middle" fill="#e2e8f0" font-size="7.7" font-weight="700">Zod v4 / Pydantic Guard</text>
+      <text x="464" y="83" text-anchor="middle" fill="#94a3b8" font-size="6.9">Rejects bad args cleanly</text>
+      <rect x="398" y="94" width="132" height="28" rx="5" fill="#090d24" stroke="#0d9488"/>
+      <text x="464" y="107" text-anchor="middle" fill="#5eead4" font-size="7.7" font-weight="700">25K Char Paginator</text>
+      <text x="464" y="117" text-anchor="middle" fill="#94a3b8" font-size="6.9">Slices items, not strings</text>
+
+      <!-- Arrow 3 -->
+      <path d="M540 75 L576 75" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="576,70 584,75 576,80" fill="#2dd4bf"/>
+
+      <!-- Upstream Service -->
+      <rect x="585" y="18" width="105" height="114" rx="8" fill="#0b1f2e" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="637" y="42" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Upstream API</text>
+      <text x="637" y="57" text-anchor="middle" fill="#7dd3fc" font-size="7.5">Pooled Client</text>
+      <rect x="595" y="69" width="85" height="51" rx="5" fill="#060f1a" stroke="#334155"/>
+      <text x="637" y="86" text-anchor="middle" fill="#cbd5e1" font-size="7.3">30s Timeout +</text>
+      <text x="637" y="98" text-anchor="middle" fill="#cbd5e1" font-size="7.3">AbortSignal</text>
+      <text x="637" y="110" text-anchor="middle" fill="#5eead4" font-size="7.2" font-weight="700">Module Scope</text>
+
+      <!-- Bottom Banner -->
+      <rect x="10" y="142" width="680" height="24" rx="5" fill="#0f1738" stroke="#334155"/>
+      <text x="350" y="157" text-anchor="middle" fill="#cbd5e1" font-size="7.9">
+        API Coverage vs. Workflows: Expose granular endpoints when uncertain; add composite workflow tools for high-frequency multi-step tasks.
+      </text>
+    </svg>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Context Efficiency Rule: Respect CHARACTER_LIMIT = 25_000</div>
+    Never dump raw 100KB REST payloads into a model's context window. Cap every tool response around <code>25_000</code> characters by reducing returned items (e.g., halving the array and setting <code>next_offset</code>), defaulting to concise Markdown, and offering <code>response_format="json"</code> for programmatic chains.
+  </div>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SDK V2 SETUP, MIGRATION & TRANSPORT MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; SDK Setup &amp; Transports</span>
+    <span>TypeScript SDK v2, Python FastMCP &amp; Transport Selection</span>
+  </div>
+
+  <h2 class="page-title">SDK v2 Setup, v1-to-v2 Migration &amp; Transports</h2>
+  <p class="page-lead">
+    Always start new TypeScript servers on <strong>SDK v2</strong> (<code>@modelcontextprotocol/server</code>) with <code>zod ^4.2.0</code> and Node <code>&gt;=20.3</code>, or build in Python with <strong>FastMCP</strong> and Pydantic v2. Never mix v1 and v2 imports inside one repository.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div>
+      <h3>TypeScript SDK v2 Install &amp; Imports</h3>
+      <pre class="code-block"><code><span class="tok-cmt"># Core v2 server + Zod 4.2+ (Node &gt;=20.3)</span>
+npm install @modelcontextprotocol/server zod@^4.2.0
+npm install @modelcontextprotocol/express @modelcontextprotocol/node express
+npm install -D @modelcontextprotocol/client typescript tsx
+
+<span class="tok-kw">import</span> { McpServer, createMcpHandler } <span class="tok-kw">from</span> <span class="tok-str">"@modelcontextprotocol/server"</span>;
+<span class="tok-kw">import</span> { serveStdio } <span class="tok-kw">from</span> <span class="tok-str">"@modelcontextprotocol/server/stdio"</span>;
+<span class="tok-kw">import</span> * <span class="tok-kw">as</span> z <span class="tok-kw">from</span> <span class="tok-str">"zod/v4"</span>;</code></pre>
+      <div class="callout indigo" style="margin:4px 0 0 0; padding:7px 10px;">
+        <div class="callout-title">Migrating Legacy <code>@modelcontextprotocol/sdk</code> v1 Projects</div>
+        Legacy v1 receives bug and security fixes only. Upgrade cleanly with the official codemod, resolve any flagged call sites, and verify types:<br/>
+        <code>npx @modelcontextprotocol/codemod@latest v1-to-v2 .</code><br/>
+        Key rewrites: <code>server.tool</code> &rarr; <code>registerTool</code>, <code>StdioServerTransport</code> &rarr; <code>serveStdio</code>, <code>McpError</code> &rarr; <code>ProtocolError</code>, <code>extra.signal</code> &rarr; <code>ctx.mcpReq.signal</code>.
+      </div>
+    </div>
+
+    <div>
+      <h3>Python FastMCP + Pydantic v2 Stack</h3>
+      <pre class="code-block"><code><span class="tok-cmt"># Python 3.10+ with official mcp SDK &amp; httpx</span>
+pip install mcp pydantic httpx
+
+<span class="tok-kw">from</span> mcp.server.fastmcp <span class="tok-kw">import</span> FastMCP, Context
+<span class="tok-kw">from</span> pydantic <span class="tok-kw">import</span> BaseModel, Field, ConfigDict, field_validator
+<span class="tok-kw">import</span> httpx
+
+mcp = FastMCP(<span class="tok-str">"github_mcp"</span>) <span class="tok-cmt"># {service}_mcp convention</span></code></pre>
+      <div class="card" style="padding:8px 10px; margin-top:4px;">
+        <div class="card-title"><span class="num-badge">!</span> Naming &amp; Schema Discipline</div>
+        <ul style="font-size:8.0pt; margin:0;">
+          <li><strong>Node/TS package:</strong> <code>{service}-mcp-server</code> (lowercase hyphens, no versions).</li>
+          <li><strong>Python server:</strong> <code>{service}_mcp</code> (lowercase underscores).</li>
+          <li><strong>Zod version floor:</strong> Keep <code>zod</code> at <code>^4.2.0</code>; versions before <code>4.1.13</code> silently drop <code>.describe()</code> text from advertised JSON schemas!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>Transport Decision Matrix: Pick the Right Wire Protocol</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Transport Mode</th>
+        <th style="width:24%;">Best Use Case</th>
+        <th style="width:29%;">SDK v2 / FastMCP Wiring</th>
+        <th style="width:29%;">Operational Tradeoffs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>stdio</code></strong><br/><span class="badge-pill badge-teal">Local Default</span></td>
+        <td>CLI tools, desktop apps, and local IDEs spawning the server as a child process.</td>
+        <td><code>serveStdio(createServer)</code> in TS v2; <code>mcp.run()</code> in FastMCP.</td>
+        <td>Zero network config; single client per process. <strong>Never write to stdout</strong>—log strictly to <code>console.error</code> / <code>stderr</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Stateless Streamable HTTP</strong><br/><span class="badge-pill badge-indigo">Remote Recommended</span></td>
+        <td>Cloud APIs, multi-user deployments, containers, serverless, and load-balanced pods.</td>
+        <td><code>createMcpHandler(createServer)</code> + <code>createMcpExpressApp()</code> + <code>toNodeHandler()</code>.</td>
+        <td>Zero session affinity required; scales horizontally out of the box; supports 2025-era and 2026-07-28 clients alike.</td>
+      </tr>
+      <tr>
+        <td><strong>Stateful HTTP Sessions</strong></td>
+        <td>Long-lived subscriptions or server-initiated requests needing sticky in-memory session state.</td>
+        <td>Session store + <code>StreamableHTTPServerTransport</code> or Hono/Fastify session adapters.</td>
+        <td>Requires sticky routing or external Redis state; avoid unless tools genuinely need multi-turn server memory.</td>
+      </tr>
+      <tr>
+        <td><strong>Legacy SSE</strong><br/><span class="badge-pill badge-rose">Deprecated</span></td>
+        <td>Only for maintaining compatibility with un-upgraded 2024 MCP clients.</td>
+        <td>Separate <code>GET /sse</code> + <code>POST /messages</code> legacy endpoints.</td>
+        <td>Two-endpoint complexity, proxy buffering issues, and deprecated in the modern MCP spec. Migrate to Streamable HTTP.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED MCP INSPECTOR & TRACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Live Inspection UI</span>
+    <span>MCP Inspector &amp; JSON-RPC Trace Walkthrough</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: MCP Inspector &amp; JSON-RPC Trace</h2>
+  <p class="page-lead">
+    Launch <code>npx @modelcontextprotocol/inspector node dist/index.js</code> to test every schema, behavioral hint, error banner, and live JSON-RPC frame before connecting an agent host.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">MCP Inspector</span>
+        <span style="color:#64748b;">&bull;</span>
+        <span style="color:#5eead4; font-weight:600;">github-mcp-server (v1.0.0)</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span style="background:#064e3b; border:1px solid #0d9488; padding:2px 8px; border-radius:5px; color:#5eead4; font-weight:700;">Connected &bull; 2026-07-28</span>
+        <span style="background:#1e1b4b; border:1px solid #4f46e5; padding:2px 8px; border-radius:5px; color:#c7d2fe;">Tools (4) &bull; Resources (2)</span>
+      </div>
+    </div>
+
+    <!-- Top Connection & Tabs Bar -->
+    <div style="background:#0f172a; padding:6px 10px; border-bottom:1px solid #1e293b; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+      <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+        <span class="callout-pin">1</span>
+        <span style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#7dd3fc;">Transport: Streamable HTTP</span>
+        <span style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#cbd5e1;">URL: https://mcp.acme.dev/mcp</span>
+        <span style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#86efac;">Auth: Bearer ***9f2a</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <span style="background:#0d9488; color:#ffffff; padding:2px 8px; border-radius:4px; font-weight:700;">Tools</span>
+        <span style="background:#1e293b; color:#cbd5e1; padding:2px 8px; border-radius:4px; display:inline-flex; align-items:center; gap:4px;">Resources <span class="callout-pin indigo">6</span></span>
+        <span style="background:#1e293b; color:#cbd5e1; padding:2px 8px; border-radius:4px;">Prompts</span>
+      </div>
+    </div>
+
+    <!-- Main 3-Column Inspector Body -->
+    <div style="display:grid; grid-template-columns: 0.9fr 1.05fr 1.15fr; gap:1px; background:#1e293b;">
+      <!-- Left: Tool List & Hints -->
+      <div style="background:#0b0f19; padding:8px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; border-bottom:1px solid #1e293b; padding-bottom:4px;">
+          <strong style="color:#f8fafc; font-size:7.3pt;">TOOLS LIST</strong>
+          <span class="callout-pin">2</span>
+        </div>
+        <div style="background:#132a36; border:1px solid #0d9488; border-radius:5px; padding:5px 6px; margin-bottom:5px;">
+          <div style="color:#5eead4; font-weight:700;">example_search_users</div>
+          <div style="color:#94a3b8; font-size:6.6pt; margin:2px 0;">Search users by name or email</div>
+          <div style="display:flex; gap:3px; flex-wrap:wrap;">
+            <span style="background:#065f46; color:#a7f3d0; padding:1px 4px; border-radius:3px; font-size:6.3pt;">readOnly</span>
+            <span style="background:#1e293b; color:#cbd5e1; padding:1px 4px; border-radius:3px; font-size:6.3pt;">idempotent</span>
+          </div>
+        </div>
+        <div style="background:#111827; border:1px solid #1f2937; border-radius:5px; padding:5px 6px; margin-bottom:5px;">
+          <div style="color:#e2e8f0; font-weight:700;">example_get_user</div>
+          <div style="color:#94a3b8; font-size:6.6pt; margin:2px 0;">Fetch user + outputSchema</div>
+          <span style="background:#065f46; color:#a7f3d0; padding:1px 4px; border-radius:3px; font-size:6.3pt;">readOnly</span>
+        </div>
+        <div style="background:#111827; border:1px solid #1f2937; border-radius:5px; padding:5px 6px;">
+          <div style="color:#fca5a5; font-weight:700;">example_delete_user</div>
+          <div style="color:#94a3b8; font-size:6.6pt; margin:2px 0;">Permanent account removal</div>
+          <span style="background:#7f1d1d; color:#fecaca; padding:1px 4px; border-radius:3px; font-size:6.3pt;">destructive</span>
+        </div>
+      </div>
+
+      <!-- Middle: Input Form -->
+      <div style="background:#0d1324; padding:8px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; border-bottom:1px solid #1e293b; padding-bottom:4px;">
+          <strong style="color:#f8fafc; font-size:7.3pt;">INPUT SCHEMA (ZOD v4)</strong>
+          <span class="callout-pin indigo">3</span>
+        </div>
+        <div style="margin-bottom:5px;">
+          <div style="color:#94a3b8; font-size:6.6pt;">query <span style="color:#f87171;">*required</span> (min 2, max 200)</div>
+          <div style="background:#090d16; border:1px solid #334155; border-radius:4px; padding:3px 6px; color:#86efac; font-family:monospace;">"marketing"</div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px; margin-bottom:5px;">
+          <div>
+            <div style="color:#94a3b8; font-size:6.6pt;">limit (default 20)</div>
+            <div style="background:#090d16; border:1px solid #334155; border-radius:4px; padding:3px 6px; color:#fbbf24; font-family:monospace;">10</div>
+          </div>
+          <div>
+            <div style="color:#94a3b8; font-size:6.6pt;">offset (default 0)</div>
+            <div style="background:#090d16; border:1px solid #334155; border-radius:4px; padding:3px 6px; color:#fbbf24; font-family:monospace;">0</div>
+          </div>
+        </div>
+        <div style="margin-bottom:7px;">
+          <div style="color:#94a3b8; font-size:6.6pt;">response_format (enum)</div>
+          <div style="background:#090d16; border:1px solid #334155; border-radius:4px; padding:3px 6px; color:#7dd3fc; font-family:monospace;">"json"</div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="background:#0d9488; color:#ffffff; padding:3px 10px; border-radius:4px; font-weight:700;">Run Tool</span>
+          <span style="color:#64748b; font-size:6.5pt;">additionalProperties: false</span>
+        </div>
+      </div>
+
+      <!-- Right: Response & Error -->
+      <div style="background:#0b0f19; padding:8px 9px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e293b; padding-bottom:4px;">
+          <strong style="color:#f8fafc; font-size:7.3pt;">RESPONSE INSPECTOR</strong>
+          <span class="callout-pin">4</span>
+        </div>
+        <div style="background:#061724; border:1px solid #0d9488; border-radius:5px; padding:5px 6px; font-family:monospace; font-size:6.6pt; color:#cbd5e1;">
+          <span style="color:#5eead4;">content[0].text:</span> "{\"total\":14,\"users\":[...]}"<br/>
+          <span style="color:#818cf8;">structuredContent:</span> { total: 14, count: 10, has_more: true, next_offset: 10 }
+        </div>
+        <div style="background:#2a1215; border:1px solid #f43f5e; border-radius:5px; padding:5px 6px; display:flex; justify-content:space-between; align-items:flex-start; gap:6px;">
+          <div style="font-size:6.6pt; color:#fecdd3;">
+            <strong style="color:#fb7185;">isError: true</strong> &mdash; "Not found. Check the ID; example_search_users returns valid user IDs."
+          </div>
+          <span class="callout-pin indigo">5</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom JSON-RPC Frame Log -->
+    <div style="background:#070a12; border-top:1px solid #1e293b; padding:6px 10px; font-family:monospace; font-size:6.6pt; color:#94a3b8; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <span style="color:#5eead4;">&rarr; tools/call</span> { "name": "example_search_users", "arguments": { "query": "marketing" } } &nbsp;|&nbsp;
+        <span style="color:#818cf8;">&larr; 200 OK (42ms)</span> &nbsp;|&nbsp;
+        <span style="color:#fbbf24;">notifications/cancelled</span> wired to <code>ctx.mcpReq.signal</code>
+      </div>
+      <span class="callout-pin">7</span>
+    </div>
+  </div>
+
+  <h3>Inspector Control Legend: What to Verify on Every Build</h3>
+  <div class="grid-2" style="font-size:8.05pt; gap:6px 12px;">
+    <div>
+      <p style="margin-bottom:4px;"><span class="callout-pin">1</span> <strong>Transport &amp; Bearer Auth Bar:</strong> Switch between <code>stdio</code> subprocess launch and remote Streamable HTTP with custom <code>Authorization: Bearer</code> headers.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin">2</span> <strong>Tool List &amp; Hint Badges:</strong> Confirm snake_case service prefixes and accurate <code>readOnlyHint</code> / <code>destructiveHint</code> badges appear immediately.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin indigo">3</span> <strong>Zod v4 / Pydantic Form:</strong> Verify every parameter displays rich <code>.describe()</code> help text, defaults, min/max bounds, and strict rejection of unknown keys.</p>
+      <p style="margin-bottom:0;"><span class="callout-pin">4</span> <strong>Dual Response Inspector:</strong> Ensure <code>structuredContent</code> matches your <code>outputSchema</code> and mirrors the serialized JSON in <code>content[0].text</code>.</p>
+    </div>
+    <div>
+      <p style="margin-bottom:4px;"><span class="callout-pin indigo">5</span> <strong><code>isError: true</code> Recovery Banner:</strong> Trigger a bad ID or 429 deliberately and read the message as an agent would—it must name the exact next tool or fix.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin indigo">6</span> <strong>Resources &amp; URI Templates Tab:</strong> Test static URIs and <code>ResourceTemplate</code> placeholders, ensuring missing IDs raise <code>ResourceNotFoundError</code>.</p>
+      <p style="margin-bottom:0;"><span class="callout-pin">7</span> <strong>JSON-RPC Frame &amp; Cancellation Log:</strong> Confirm zero stray stdout noise on <code>stdio</code> and verify client cancellation aborts upstream HTTP calls cleanly.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: STATELESS FACTORY & DUAL TRANSPORTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Runtime Architecture</span>
+    <span>Stateless Server Factories &amp; Dual-Transport Entrypoints</span>
+  </div>
+
+  <h2 class="page-title">The Stateless <code>createServer()</code> Factory &amp; Dual Transports</h2>
+  <p class="page-lead">
+    The single most important architectural rule in TypeScript SDK v2 is isolating per-request protocol state inside a cheap <code>createServer()</code> factory while keeping heavy upstream clients pooled at module scope.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/stateless_factory_transports.jpg" alt="Isometric technical diorama showing parallel HTTP streams hitting a modular factory node that spawns translucent server pods over one shared crystalline database reservoir" />
+    <div class="figure-caption">
+      <strong>Stateless Concurrency Model:</strong> Each incoming HTTP request spawns a lightweight, isolated <code>McpServer</code> pod via <code>createServer()</code> while closing over a single shared upstream API client, connection pool, and token verifier at module scope.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div>
+      <h3>Why Shared Singletons Crash Under Load</h3>
+      <div class="callout amber" style="margin:2px 0 6px 0; padding:7px 10px;">
+        <div class="callout-title">The Concurrency Trap: Error <code>-32603</code></div>
+        If you instantiate <code>const server = new McpServer(...)</code> once at module scope and return it from <code>createServer()</code>, your smoke test passes because it sends requests sequentially. In production, the moment two HTTP calls overlap, the second request fails with <code>-32603 Internal server error</code>!
+      </div>
+      <ul style="font-size:8.0pt; margin:0;">
+        <li><strong>Per-connection vs. per-request:</strong> <code>serveStdio(createServer)</code> invokes your factory once for the subprocess; <code>createMcpHandler(createServer)</code> invokes it fresh on <strong>every HTTP request</strong>.</li>
+        <li><strong>Keep factories fast:</strong> Build HTTP agents, Redis pools, and config once at module scope, then close over them inside <code>createServer()</code>.</li>
+        <li><strong>Host/Origin safety:</strong> <code>createMcpExpressApp()</code> binds <code>127.0.0.1</code> and blocks DNS rebinding. On <code>0.0.0.0</code>, pass <code>allowedHosts: ["mcp.example.com"]</code>.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>One File Serving Both Transports</h3>
+      <pre class="code-block"><code><span class="tok-cmt">// Shared client lives at module scope; factory stays cheap</span>
+<span class="tok-kw">function</span> <span class="tok-fn">createServer</span>(): McpServer {
+  <span class="tok-kw">const</span> server = <span class="tok-kw">new</span> McpServer({ name: <span class="tok-str">"example-mcp-server"</span>, version: <span class="tok-str">"1.0.0"</span> });
+  <span class="tok-fn">registerUserTools</span>(server);
+  <span class="tok-kw">return</span> server;
+}
+<span class="tok-kw">if</span> (process.env.TRANSPORT === <span class="tok-str">"http"</span>) {
+  <span class="tok-kw">const</span> handler = <span class="tok-fn">createMcpHandler</span>(createServer);
+  <span class="tok-kw">const</span> app = <span class="tok-fn">createMcpExpressApp</span>();
+  <span class="tok-kw">const</span> nodeHandler = <span class="tok-fn">toNodeHandler</span>(handler);
+  app.<span class="tok-fn">all</span>(<span class="tok-str">"/mcp"</span>, (req, res) =&gt; <span class="tok-kw">void</span> <span class="tok-fn">nodeHandler</span>(req, res, req.body));
+  app.<span class="tok-fn">listen</span>(Number(process.env.PORT ?? <span class="tok-num">3000</span>), <span class="tok-str">"127.0.0.1"</span>);
+} <span class="tok-kw">else</span> {
+  <span class="tok-fn">serveStdio</span>(createServer);
+  console.<span class="tok-fn">error</span>(<span class="tok-str">"example-mcp-server running on stdio"</span>); <span class="tok-cmt">// stderr only!</span>
+}</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: TOOL REGISTRATION ANATOMY & SCHEMAS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Tool Contracts</span>
+    <span>Zod v4 Schemas, structuredContent &amp; Behavioral Hints</span>
+  </div>
+
+  <h2 class="page-title">Tool Registration Anatomy: Schemas &amp; Hints</h2>
+  <p class="page-lead">
+    Every tool registration defines a machine-verifiable contract: strict Zod v4 input validation, behavioral hints for host approval UIs, cancellation-aware upstream calls, and item-halving pagination under <code>CHARACTER_LIMIT</code>.
+  </p>
+
+  <div class="card" style="padding:8px 11px; margin-bottom:6px; font-size:8.2pt;">
+    <div style="font-weight:700; margin-bottom:4px; color:#0f172a;">Color-Coded <code>server.registerTool(...)</code> Anatomy</div>
+    <div>
+      <span class="p-tag p-sfx">1. Service-Prefixed Name:</span> <code>"github_search_issues"</code> (snake_case, verb-first, zero ambiguity across multi-server hosts) &rarr;
+      <span class="p-tag p-style">2. Description &amp; Examples:</span> State purpose, return shape, sibling tool to use instead, and 2 concrete example queries (JSDoc is ignored!) &rarr;
+      <span class="p-tag p-subj">3. z.strictObject Input:</span> Rejects unknown keys; every field uses <code>.describe()</code> with examples &rarr;
+      <span class="p-tag p-act">4. Annotations:</span> <code>readOnlyHint</code>, <code>destructiveHint</code>, <code>idempotentHint</code>, <code>openWorldHint</code> &rarr;
+      <span class="p-tag p-cam">5. Cancellation Signal:</span> <code>AbortSignal.any([ctx.mcpReq.signal, AbortSignal.timeout(30_000)])</code> &rarr;
+      <span class="p-tag p-light">6. Dual Output:</span> Return <code>structuredContent</code> validated by <code>outputSchema</code> plus serialized JSON or Markdown text.
+    </div>
+  </div>
+
+  <pre class="code-block"><code><span class="tok-kw">const</span> SearchInput = z.<span class="tok-fn">strictObject</span>({
+  query: z.<span class="tok-fn">string</span>().<span class="tok-fn">min</span>(<span class="tok-num">2</span>).<span class="tok-fn">max</span>(<span class="tok-num">200</span>).<span class="tok-fn">describe</span>(<span class="tok-str">"Match against names/emails, e.g. 'marketing'"</span>),
+  limit: z.<span class="tok-fn">number</span>().<span class="tok-fn">int</span>().<span class="tok-fn">min</span>(<span class="tok-num">1</span>).<span class="tok-fn">max</span>(<span class="tok-num">100</span>).<span class="tok-fn">default</span>(<span class="tok-num">20</span>).<span class="tok-fn">describe</span>(<span class="tok-str">"Max users to return"</span>),
+  offset: z.<span class="tok-fn">number</span>().<span class="tok-fn">int</span>().<span class="tok-fn">min</span>(<span class="tok-num">0</span>).<span class="tok-fn">default</span>(<span class="tok-num">0</span>).<span class="tok-fn">describe</span>(<span class="tok-str">"Pagination offset"</span>),
+  response_format: z.<span class="tok-fn">enum</span>(ResponseFormat).<span class="tok-fn">default</span>(ResponseFormat.MARKDOWN)
+});
+server.<span class="tok-fn">registerTool</span>(<span class="tok-str">"example_search_users"</span>, {
+  title: <span class="tok-str">"Search Users"</span>,
+  description: <span class="tok-str">"Search users by name or email. Use example_get_user if you already know the ID."</span>,
+  inputSchema: SearchInput,
+  annotations: { readOnlyHint: <span class="tok-kw">true</span>, destructiveHint: <span class="tok-kw">false</span>, idempotentHint: <span class="tok-kw">true</span>, openWorldHint: <span class="tok-kw">true</span> }
+}, <span class="tok-kw">async</span> ({ query, limit, offset, response_format }, ctx) =&gt; {
+  <span class="tok-kw">const</span> raw = <span class="tok-kw">await</span> <span class="tok-fn">apiRequest</span>(<span class="tok-str">"users/search"</span>, { q: query, limit, offset }, ctx.mcpReq.signal);
+  <span class="tok-kw">const</span> data = UserPageSchema.<span class="tok-fn">parse</span>(raw); <span class="tok-cmt">// Strips unadvertised upstream fields</span>
+  <span class="tok-kw">return</span> <span class="tok-fn">paginateUnderCharLimit</span>(data, offset, response_format, <span class="tok-num">25_000</span>);
+});</code></pre>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div>
+      <h3>Behavioral Annotations Matrix</h3>
+      <table class="clean-table" style="font-size:7.6pt;">
+        <thead>
+          <tr>
+            <th style="width:32%;">Hint</th>
+            <th style="width:18%;">Default</th>
+            <th style="width:50%;">When to Set <code>true</code></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>readOnlyHint</code></td><td><code>false</code></td><td>Never mutates state (safe for auto-approve).</td></tr>
+          <tr><td><code>destructiveHint</code></td><td><code>true</code></td><td>Deletes, overwrites, or triggers irreversible changes.</td></tr>
+          <tr><td><code>idempotentHint</code></td><td><code>false</code></td><td>Repeating identical args produces no extra effect.</td></tr>
+          <tr><td><code>openWorldHint</code></td><td><code>true</code></td><td>Talks to external APIs, web, or third-party systems.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3><code>outputSchema</code> &amp; Item-Halving Rules</h3>
+      <ul style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li><strong>Always-JSON tools only:</strong> Declare <code>outputSchema</code> only when a tool always returns structured JSON (omit on dual Markdown/JSON tools).</li>
+        <li><strong>Mirror text &amp; object:</strong> When returning <code>structuredContent</code>, serialize the same object as JSON in <code>content[0].text</code> for backward-compatible clients.</li>
+        <li><strong>Zod 4 API shifts:</strong> Replace v3 <code>.strict()</code> with <code>z.strictObject({...})</code>, <code>z.nativeEnum(E)</code> with <code>z.enum(E)</code>, and <code>z.string().email()</code> with <code>z.email()</code>.</li>
+        <li><strong>Slice arrays, never strings:</strong> Halve items in a <code>while</code> loop until <code>text.length &lt;= 25_000</code> so <code>next_offset</code> aligns cleanly.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: PYTHON FASTMCP & PYDANTIC V2 ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Python FastMCP</span>
+    <span>Pydantic v2 Validation, Async httpx &amp; Resources</span>
+  </div>
+
+  <h2 class="page-title">Python <code>FastMCP</code> &amp; Pydantic v2 Production Patterns</h2>
+  <p class="page-lead">
+    In Python, <code>mcp.server.fastmcp</code> turns typed Pydantic v2 models and docstrings directly into JSON Schemas. Pair strict <code>ConfigDict</code> settings with a shared <code>httpx.AsyncClient</code> and async lifespan hooks.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div>
+      <h3>Pydantic v2 Strict Input &amp; Validators</h3>
+      <pre class="code-block"><code><span class="tok-kw">class</span> <span class="tok-type">ResponseFormat</span>(str, Enum):
+    MARKDOWN = <span class="tok-str">"markdown"</span>; JSON = <span class="tok-str">"json"</span>
+
+<span class="tok-kw">class</span> <span class="tok-type">UserSearchInput</span>(BaseModel):
+    model_config = <span class="tok-fn">ConfigDict</span>(
+        str_strip_whitespace=<span class="tok-kw">True</span>, validate_assignment=<span class="tok-kw">True</span>, extra=<span class="tok-str">"forbid"</span>
+    )
+    query: str = <span class="tok-fn">Field</span>(..., min_length=<span class="tok-num">2</span>, max_length=<span class="tok-num">200</span>, description=<span class="tok-str">"Query e.g. 'team:mkt'"</span>)
+    limit: int = <span class="tok-fn">Field</span>(default=<span class="tok-num">20</span>, ge=<span class="tok-num">1</span>, le=<span class="tok-num">100</span>)
+    response_format: ResponseFormat = ResponseFormat.MARKDOWN
+
+    @<span class="tok-fn">field_validator</span>(<span class="tok-str">"query"</span>)
+    @<span class="tok-kw">classmethod</span>
+    <span class="tok-kw">def</span> <span class="tok-fn">non_blank</span>(cls, v: str) -&gt; str:
+        <span class="tok-kw">if not</span> v.<span class="tok-fn">strip</span>(): <span class="tok-kw">raise</span> ValueError(<span class="tok-str">"Query cannot be empty"</span>)
+        <span class="tok-kw">return</span> v</code></pre>
+    </div>
+
+    <div>
+      <h3><code>@mcp.tool</code> &amp; Shared <code>httpx.AsyncClient</code></h3>
+      <pre class="code-block"><code>mcp = <span class="tok-fn">FastMCP</span>(<span class="tok-str">"example_mcp"</span>)
+_http = httpx.<span class="tok-fn">AsyncClient</span>(base_url=API_BASE_URL, timeout=<span class="tok-num">30.0</span>)
+
+@mcp.<span class="tok-fn">tool</span>(name=<span class="tok-str">"example_search_users"</span>, annotations={
+    <span class="tok-str">"title"</span>: <span class="tok-str">"Search Example Users"</span>, <span class="tok-str">"readOnlyHint"</span>: <span class="tok-kw">True</span>,
+    <span class="tok-str">"destructiveHint"</span>: <span class="tok-kw">False</span>, <span class="tok-str">"openWorldHint"</span>: <span class="tok-kw">True</span>
+})
+<span class="tok-kw">async def</span> <span class="tok-fn">example_search_users</span>(params: UserSearchInput, ctx: Context) -&gt; str:
+    <span class="tok-str">"""Search users by name, email, or team."""</span>
+    <span class="tok-kw">await</span> ctx.<span class="tok-fn">report_progress</span>(<span class="tok-num">0.2</span>, <span class="tok-str">"Querying upstream directory"</span>)
+    <span class="tok-kw">try</span>:
+        resp = <span class="tok-kw">await</span> _http.<span class="tok-fn">get</span>(<span class="tok-str">"/users/search"</span>, params=params.<span class="tok-fn">model_dump</span>())
+        resp.<span class="tok-fn">raise_for_status</span>()
+        <span class="tok-kw">return</span> <span class="tok-fn">format_users</span>(resp.<span class="tok-fn">json</span>(), params.response_format)
+    <span class="tok-kw">except</span> (httpx.HTTPStatusError, httpx.TimeoutException) <span class="tok-kw">as</span> exc:
+        <span class="tok-kw">return</span> <span class="tok-fn">handle_api_error</span>(exc)</code></pre>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <h3>Resources, Prompts &amp; Lifespan State</h3>
+      <pre class="code-block"><code>@<span class="tok-fn">asynccontextmanager</span>
+<span class="tok-kw">async def</span> <span class="tok-fn">app_lifespan</span>():
+    pool = <span class="tok-kw">await</span> <span class="tok-fn">create_db_pool</span>()
+    <span class="tok-kw">yield</span> {<span class="tok-str">"db"</span>: pool}
+    <span class="tok-kw">await</span> pool.<span class="tok-fn">close</span>()
+
+@mcp.<span class="tok-fn">resource</span>(<span class="tok-str">"config://settings/{key}"</span>)
+<span class="tok-kw">async def</span> <span class="tok-fn">get_setting</span>(key: str) -&gt; str:
+    <span class="tok-kw">return</span> json.<span class="tok-fn">dumps</span>(<span class="tok-fn">load_safe_setting</span>(key))
+
+@mcp.<span class="tok-fn">prompt</span>()
+<span class="tok-kw">def</span> <span class="tok-fn">team_audit_prompt</span>(team: str) -&gt; str:
+    <span class="tok-kw">return</span> <span class="tok-str">"Audit access for team "</span> + team + <span class="tok-str">" using example_search_users."</span></code></pre>
+    </div>
+
+    <div>
+      <h3>Python Production Rules</h3>
+      <div class="card" style="padding:8px 10px;">
+        <ul style="font-size:8.0pt; margin:0;">
+          <li><strong>Never block the event loop:</strong> Always use <code>httpx.AsyncClient</code> inside <code>async def</code> tools—never call synchronous <code>requests.get()</code>.</li>
+          <li><strong>Use Pydantic v2 idioms:</strong> Use <code>model_config = ConfigDict(...)</code>, <code>@field_validator</code> with <code>@classmethod</code>, and <code>model_dump()</code> (never deprecated v1 <code>Config</code> or <code>.dict()</code>).</li>
+          <li><strong>Markdown vs. JSON formatting:</strong> Format Markdown with human-readable UTC timestamps and <code>Name (ID)</code> headers; strip bulky avatar arrays.</li>
+          <li><strong>Context superpowers:</strong> Inject <code>ctx: Context</code> for <code>ctx.report_progress()</code>, <code>ctx.log_info()</code>, <code>ctx.elicit()</code>, and lifespan connections.</li>
+          <li><strong>Dual run modes:</strong> Default to <code>mcp.run()</code> for local <code>stdio</code>, or pass <code>mcp.run(transport="streamable_http", port=8000)</code> for HTTP.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: ERROR CHANNELS, OAUTH 2.1 & SECURITY HARDENING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Security &amp; Auth</span>
+    <span>Error Channels, OAuth 2.1 Bearer Auth &amp; Hardening</span>
+  </div>
+
+  <h2 class="page-title">Error Channels, OAuth 2.1 Auth &amp; Hardening</h2>
+  <p class="page-lead">
+    Remote MCP servers must separate model-facing recovery hints from client-level JSON-RPC errors, enforce resource-scoped OAuth 2.1 tokens, and treat every upstream payload and path parameter as untrusted.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/inspector_and_eval_gate.jpg" alt="Architectural dark glass inspection console and cube sorter gating luminous geometric artifacts through ten glowing emerald check prisms before a deployment portal" />
+    <div class="figure-caption">
+      <strong>Defense-in-Depth Validation Gate:</strong> Every inbound call clears Host/Origin checks, OAuth 2.1 token audience verification, strict schema validation, and path/SSRF allowlists before touching downstream services.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div>
+      <h3>Two Distinct MCP Error Channels</h3>
+      <ul style="font-size:7.95pt; margin:0 0 6px 0;">
+        <li><strong>Tool Errors (<code>isError: true</code>):</strong> Seen directly by the LLM! Return <code>{ isError: true, content: [...] }</code> or throw a normal <code>Error</code> with an actionable next step (e.g., <em>"Rate limit exceeded. Wait 60s."</em>).</li>
+        <li><strong>Protocol Errors (<code>ProtocolError</code>):</strong> JSON-RPC errors handled by the host application; the model never sees them. Throw <code>ProtocolError(ProtocolErrorCode.InvalidParams, ...)</code> or <code>ResourceNotFoundError(uri.href)</code> inside resource and prompt handlers.</li>
+      </ul>
+      <div class="card" style="padding:7px 10px;">
+        <div class="card-title"><span class="num-badge amber">!</span> Hardening Checklist</div>
+        <ul style="font-size:7.8pt; margin:0;">
+          <li><strong>Path traversal:</strong> Resolve paths with <code>realpath()</code> and assert <code>resolved.startsWith(ROOT + path.sep)</code>.</li>
+          <li><strong>SSRF &amp; URL safety:</strong> Allowlist schemes (<code>https:</code>) and block RFC1918 / link-local metadata IPs (<code>169.254.169.254</code>).</li>
+          <li><strong>Upstream sanitization:</strong> Validate API JSON via <code>Schema.parse(raw)</code> and strip raw HTML/script payloads.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <h3>OAuth 2.1 Bearer Auth &amp; Per-Caller Context</h3>
+      <pre class="code-block"><code><span class="tok-kw">const</span> serverUrl = <span class="tok-kw">new</span> URL(<span class="tok-str">"https://mcp.example.com/mcp"</span>);
+<span class="tok-kw">const</span> verifier: OAuthTokenVerifier = {
+  <span class="tok-kw">async</span> <span class="tok-fn">verifyAccessToken</span>(token): Promise&lt;AuthInfo&gt; {
+    <span class="tok-kw">const</span> claims = <span class="tok-kw">await</span> <span class="tok-fn">verifyJwt</span>(token);
+    <span class="tok-kw">if</span> (!claims) <span class="tok-kw">throw new</span> <span class="tok-fn">OAuthError</span>(OAuthErrorCode.InvalidToken, <span class="tok-str">"Bad token"</span>);
+    <span class="tok-kw">return</span> {
+      token, clientId: claims.clientId, scopes: claims.scopes,
+      expiresAt: claims.exp, <span class="tok-cmt">// Required: tokens without exp are rejected</span>
+      resource: <span class="tok-kw">new</span> URL(claims.aud) <span class="tok-cmt">// Must match expectedResource</span>
+    };
+  }
+};
+<span class="tok-kw">const</span> app = <span class="tok-fn">createMcpExpressApp</span>({ host: <span class="tok-str">"0.0.0.0"</span>, allowedHosts: [<span class="tok-str">"mcp.example.com"</span>] });
+<span class="tok-kw">const</span> auth = <span class="tok-fn">requireBearerAuth</span>({ verifier, requiredScopes: [<span class="tok-str">"mcp"</span>], expectedResource: serverUrl });
+<span class="tok-kw">const</span> handler = <span class="tok-fn">createMcpHandler</span>(({ authInfo }) =&gt; <span class="tok-fn">createServer</span>(authInfo));
+app.<span class="tok-fn">all</span>(<span class="tok-str">"/mcp"</span>, auth, (req, res) =&gt; <span class="tok-kw">void</span> <span class="tok-fn">toNodeHandler</span>(handler)(req, res, req.body));</code></pre>
+      <p style="font-size:7.8pt; margin:0; color:#475569;">Inside tools, inspect <code>ctx.http?.authInfo</code> (undefined on <code>stdio</code>) to enforce tenant isolation and per-tool scopes.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE PRODUCTION RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Cookbook</span>
+    <span>Five Battle-Tested MCP Server Patterns</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste MCP Recipes</h2>
+  <p class="page-lead">
+    Drop these five production primitives directly into your TypeScript v2 or Python FastMCP server to eliminate common protocol bugs, context overflows, and silent startup failures.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Pattern &amp; Goal</th>
+        <th style="width:54%;">Copy-Paste TypeScript v2 / FastMCP Snippet</th>
+        <th style="width:25%;">Production Guarantee</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Dual-Transport Entrypoint</strong><br/>Serve local <code>stdio</code> by default and Streamable HTTP when <code>TRANSPORT=http</code>.</td>
+        <td>
+          <code>if (process.env.TRANSPORT === "http") {</code><br/>
+          <code>&nbsp;&nbsp;const h = createMcpHandler(createServer);</code><br/>
+          <code>&nbsp;&nbsp;const app = createMcpExpressApp();</code><br/>
+          <code>&nbsp;&nbsp;app.all("/mcp", (q, s) =&gt; void toNodeHandler(h)(q, s, q.body));</code><br/>
+          <code>&nbsp;&nbsp;app.listen(3000, "127.0.0.1");</code><br/>
+          <code>} else { serveStdio(createServer); }</code>
+        </td>
+        <td>One build artifact runs locally in IDEs and remotely in Docker/cloud with DNS-rebinding guards intact.</td>
+      </tr>
+      <tr>
+        <td><strong>2. <code>CHARACTER_LIMIT</code> Safe Paginator</strong><br/>Stay under 25,000 chars without slicing JSON mid-field.</td>
+        <td>
+          <code>let items = data.users, res = render(items, offset);</code><br/>
+          <code>while (items.length &gt; 1 &amp;&amp; res.text.length &gt; 25_000) {</code><br/>
+          <code>&nbsp;&nbsp;items = items.slice(0, Math.ceil(items.length / 2));</code><br/>
+          <code>&nbsp;&nbsp;res = render(items, offset);</code><br/>
+          <code>}</code><br/>
+          <code>return { content: [{ type: "text", text: res.text }] };</code>
+        </td>
+        <td>Guarantees valid JSON/Markdown and sets <code>next_offset</code> accurately to the first omitted record.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>outputSchema</code> + <code>structuredContent</code></strong><br/>Return machine-validated JSON for typed downstream pipelines.</td>
+        <td>
+          <code>server.registerTool("example_get_user", {</code><br/>
+          <code>&nbsp;&nbsp;inputSchema: z.strictObject({ user_id: z.string().min(1) }),</code><br/>
+          <code>&nbsp;&nbsp;outputSchema: UserSchema,</code><br/>
+          <code>&nbsp;&nbsp;annotations: { readOnlyHint: true }</code><br/>
+          <code>}, async ({ user_id }, ctx) =&gt; {</code><br/>
+          <code>&nbsp;&nbsp;const u = UserSchema.parse(await fetchUser(user_id, ctx.mcpReq.signal));</code><br/>
+          <code>&nbsp;&nbsp;return { content: [{ type: "text", text: JSON.stringify(u) }], structuredContent: u };</code><br/>
+          <code>});</code>
+        </td>
+        <td>Strips unexpected upstream keys and satisfies both structured-output clients and plain-text agents.</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>scripts/smoke.ts</code> Self-Check</strong><br/>Verify built server over real <code>stdio</code> before shipping.</td>
+        <td>
+          <code>const client = new Client({ name: "smoke", version: "1.0.0" });</code><br/>
+          <code>await client.connect(new StdioClientTransport({</code><br/>
+          <code>&nbsp;&nbsp;command: "node", args: ["dist/index.js"],</code><br/>
+          <code>&nbsp;&nbsp;env: { ...getDefaultEnvironment(), API_KEY: process.env.API_KEY ?? "" }</code><br/>
+          <code>}));</code><br/>
+          <code>const bad = await client.callTool({ name: "example_search_users", arguments: { query: "j" } });</code><br/>
+          <code>assert.equal(bad.isError, true);</code>
+        </td>
+        <td>Catches broken builds, missing env forwarding, and silent Zod schema regressions in under 2 seconds.</td>
+      </tr>
+      <tr>
+        <td><strong>5. HTTP Status Error Mapper</strong><br/>Turn 401/403/404/429 into model-actionable recovery advice.</td>
+        <td>
+          <code>function httpErrorMessage(status: number): string {</code><br/>
+          <code>&nbsp;&nbsp;switch (status) {</code><br/>
+          <code>&nbsp;&nbsp;&nbsp;&nbsp;case 401: return "Invalid API key. Check EXAMPLE_API_KEY.";</code><br/>
+          <code>&nbsp;&nbsp;&nbsp;&nbsp;case 404: return "Not found. Run example_search_users for IDs.";</code><br/>
+          <code>&nbsp;&nbsp;&nbsp;&nbsp;case 429: return "Rate limited. Wait 60s before retrying.";</code><br/>
+          <code>&nbsp;&nbsp;&nbsp;&nbsp;default: return "Upstream HTTP " + status + ".";</code><br/>
+          <code>&nbsp;&nbsp;}</code><br/>
+          <code>}</code>
+        </td>
+        <td>Prevents blind retry loops by telling the LLM whether to stop, wait, or call a discovery tool first.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:2px; padding:7px 11px;">
+    <div class="callout-title">Pro Tip: Pair <code>npm run build &amp;&amp; npm run smoke</code> in Every CI Run</div>
+    Because <code>tsx</code> skips TypeScript type-checking during local dev, always run <code>npm run build</code> (<code>tsc</code>) followed by <code>tsx scripts/smoke.ts</code> against <code>dist/index.js</code> so you verify the exact compiled binary hosts execute.
+  </div>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: PACKAGING, DISTRIBUTION & MULTI-HOST ROLLOUT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Packaging &amp; Rollout</span>
+    <span>npm, uvx, .mcpb Bundles, Docker &amp; Host Configs</span>
+  </div>
+
+  <h2 class="page-title">Packaging, Distribution &amp; Multi-Host Rollout</h2>
+  <p class="page-lead">
+    Ship one predictable server artifact across local laptops and cloud clusters. Clean entrypoints, minimal Docker images, and portable JSON configs let teams adopt your tools in seconds.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div>
+      <h3>1. Local <code>npx</code> &amp; <code>uvx</code> Package Metadata</h3>
+      <pre class="code-block"><code><span class="tok-cmt">// package.json (Node/TypeScript)</span>
+{
+  <span class="tok-str">"name"</span>: <span class="tok-str">"example-mcp-server"</span>,
+  <span class="tok-str">"type"</span>: <span class="tok-str">"module"</span>,
+  <span class="tok-str">"bin"</span>: { <span class="tok-str">"example-mcp-server"</span>: <span class="tok-str">"dist/index.js"</span> },
+  <span class="tok-str">"files"</span>: [<span class="tok-str">"dist"</span>],
+  <span class="tok-str">"engines"</span>: { <span class="tok-str">"node"</span>: <span class="tok-str">"&gt;=20.3"</span> }
+}</code></pre>
+      <p style="font-size:7.9pt; margin:0;">Start <code>src/index.ts</code> with <code>#!/usr/bin/env node</code> so <code>npx -y example-mcp-server</code> works immediately. For Python, declare <code>[project.scripts]</code> in <code>pyproject.toml</code> so hosts can run <code>uvx example-mcp</code>, or zip into a desktop <code>.mcpb</code> bundle with a <code>manifest.json</code>.</p>
+    </div>
+
+    <div>
+      <h3>2. Stateless Docker Image (Streamable HTTP)</h3>
+      <pre class="code-block"><code><span class="tok-kw">FROM</span> node:22-slim
+<span class="tok-kw">WORKDIR</span> /app
+<span class="tok-kw">COPY</span> package*.json ./
+<span class="tok-kw">RUN</span> npm ci --omit=dev
+<span class="tok-kw">COPY</span> dist ./dist
+<span class="tok-kw">ENV</span> TRANSPORT=http PORT=3000
+<span class="tok-kw">USER</span> node
+<span class="tok-kw">EXPOSE</span> 3000
+<span class="tok-kw">CMD</span> [<span class="tok-str">"node"</span>, <span class="tok-str">"dist/index.js"</span>]</code></pre>
+      <p style="font-size:7.9pt; margin:0;">Bind to <code>0.0.0.0</code> inside containers and configure <code>allowedHosts</code> + <code>requireBearerAuth</code>. Never bake API secrets into image layers—inject them at runtime.</p>
+    </div>
+  </div>
+
+  <h3>3. Registering Your Server Across Major AI Hosts</h3>
+  <table class="clean-table" style="font-size:7.8pt;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Host Environment</th>
+        <th style="width:46%;">Configuration / CLI Registration</th>
+        <th style="width:32%;">Key Environment Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Code</strong></td>
+        <td><code>claude mcp add example -- npx -y example-mcp-server</code><br/>Remote: <code>claude mcp add --transport http example https://mcp.acme.dev/mcp</code></td>
+        <td>Supports project-scoped <code>.mcp.json</code> checked into Git (pass secrets via <code>${EXAMPLE_API_KEY}</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Desktop</strong></td>
+        <td>Edit <code>claude_desktop_config.json</code> under <code>"mcpServers"</code> with <code>"command": "npx"</code>, <code>"args": ["-y", "example-mcp-server"]</code>, or drop a <code>.mcpb</code> bundle.</td>
+        <td>Desktop GUI spawns isolated env—list required API keys explicitly inside the entry's <code>"env"</code> object.</td>
+      </tr>
+      <tr>
+        <td><strong>Google Antigravity</strong></td>
+        <td>Add server under MCP settings (<code>mcp_config.json</code>) using either <code>command</code>/<code>args</code> for <code>stdio</code> or <code>serverUrl</code> for Streamable HTTP.</td>
+        <td>Exposes tools alongside built-in workspace capabilities; pair with <code>SKILL.md</code> workflows for higher-level playbooks.</td>
+      </tr>
+      <tr>
+        <td><strong>Codex / OpenAI Agents SDK</strong></td>
+        <td><code>MCPServerStdio(params={"command": "uvx", "args": ["example-mcp"]})</code> or <code>MCPServerStreamableHttp(url=...)</code>.</td>
+        <td>Supports explicit tool filtering and tracing spans across multi-agent handoffs.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin-top:2px; padding:7px 11px;">
+    <div class="callout-title">Security Boundary for Shared Team Configs</div>
+    Commit server coordinates (command, URL, and variable names like <code>${EXAMPLE_API_KEY}</code>) to repository configs, but keep actual tokens inside user-local <code>.env</code> or OS keychain vaults.
+  </div>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY & 10-QUESTION EVAL PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Verification &amp; Evals</span>
+    <span>From Smoke Checks to 10-Question Multi-Hop Evaluations</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy &amp; 10-Question Eval Pipeline</h2>
+  <p class="page-lead">
+    Compiling cleanly only proves syntax. True MCP quality is measured by whether a cold LLM—given <em>only</em> your tool schemas and descriptions—can solve realistic, multi-hop research tasks without getting lost.
+  </p>
+
+  <h3>Four-Stage Verification &amp; Evaluation Pipeline</h3>
+  <div class="figure-box" style="background:#060a1f; padding:10px 12px;">
+    <svg viewBox="0 0 700 132" width="100%" height="132" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="14" width="145" height="98" rx="8" fill="#131c42" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="80" y="34" text-anchor="middle" fill="#c7d2fe" font-size="9.2" font-weight="800">1. Static Gate</text>
+      <text x="80" y="50" text-anchor="middle" fill="#ffffff" font-size="7.8">tsc / py_compile</text>
+      <text x="80" y="65" text-anchor="middle" fill="#94a3b8" font-size="7.1">Strict types, Zod v4.2+</text>
+      <text x="80" y="78" text-anchor="middle" fill="#94a3b8" font-size="7.1">No v1/v2 mix</text>
+      <rect x="24" y="88" width="112" height="16" rx="4" fill="#090d24" stroke="#4f46e5"/>
+      <text x="80" y="99" text-anchor="middle" fill="#a5b4fc" font-size="7.0" font-weight="700">npm run build</text>
+
+      <path d="M153 63 L175 63" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="175,58 183,63 175,68" fill="#2dd4bf"/>
+
+      <!-- Stage 2 -->
+      <rect x="184" y="14" width="150" height="98" rx="8" fill="#0c2938" stroke="#2dd4bf" stroke-width="1.5"/>
+      <text x="259" y="34" text-anchor="middle" fill="#5eead4" font-size="9.2" font-weight="800">2. Smoke Client</text>
+      <text x="259" y="50" text-anchor="middle" fill="#ffffff" font-size="7.8">scripts/smoke.ts</text>
+      <text x="259" y="65" text-anchor="middle" fill="#cbd5e1" font-size="7.1">Real stdio/HTTP calls</text>
+      <text x="259" y="78" text-anchor="middle" fill="#cbd5e1" font-size="7.1">Tests isError on bad args</text>
+      <rect x="200" y="88" width="118" height="16" rx="4" fill="#061724" stroke="#0d9488"/>
+      <text x="259" y="99" text-anchor="middle" fill="#5eead4" font-size="7.0" font-weight="700">npm run smoke</text>
+
+      <path d="M334 63 L356 63" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="356,58 364,63 356,68" fill="#2dd4bf"/>
+
+      <!-- Stage 3 -->
+      <rect x="365" y="14" width="145" height="98" rx="8" fill="#131c42" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="437" y="34" text-anchor="middle" fill="#7dd3fc" font-size="9.2" font-weight="800">3. MCP Inspector</text>
+      <text x="437" y="50" text-anchor="middle" fill="#ffffff" font-size="7.8">Interactive Audit</text>
+      <text x="437" y="65" text-anchor="middle" fill="#cbd5e1" font-size="7.1">Inspect JSON Schemas</text>
+      <text x="437" y="78" text-anchor="middle" fill="#cbd5e1" font-size="7.1">Verify structuredContent</text>
+      <rect x="380" y="88" width="114" height="16" rx="4" fill="#090d24" stroke="#38bdf8"/>
+      <text x="437" y="99" text-anchor="middle" fill="#7dd3fc" font-size="7.0" font-weight="700">Visual QA Gate</text>
+
+      <path d="M510 63 L532 63" stroke="#34d399" stroke-width="2"/>
+      <polygon points="532,58 540,63 532,68" fill="#34d399"/>
+
+      <!-- Stage 4 -->
+      <rect x="541" y="14" width="151" height="98" rx="8" fill="#062e26" stroke="#10b981" stroke-width="1.8"/>
+      <text x="616" y="34" text-anchor="middle" fill="#6ee7b7" font-size="9.2" font-weight="800">4. 10-Q Eval Gate</text>
+      <text x="616" y="50" text-anchor="middle" fill="#ffffff" font-size="7.8">evaluation.py</text>
+      <text x="616" y="65" text-anchor="middle" fill="#cbd5e1" font-size="7.1">10 read-only multi-hop</text>
+      <text x="616" y="78" text-anchor="middle" fill="#cbd5e1" font-size="7.1">Logs accuracy &amp; tool calls</text>
+      <rect x="556" y="88" width="120" height="16" rx="4" fill="#041c17" stroke="#10b981"/>
+      <text x="616" y="99" text-anchor="middle" fill="#6ee7b7" font-size="7.0" font-weight="700">Agent Feedback Loop</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div>
+      <h3>Designing 10 High-Signal Evaluation Questions</h3>
+      <ul style="font-size:8.0pt; margin:0;">
+        <li><strong>Read-only &amp; independent:</strong> Never require writes or depend on earlier question state.</li>
+        <li><strong>Multi-hop &amp; non-keyword:</strong> Paraphrase concepts so the agent must page, cross-reference IDs, and synthesize across multiple tool calls.</li>
+        <li><strong>Stable &amp; verifiable:</strong> Query closed/historical records (e.g., Q4 archived repos) whose single string answer never drifts over time.</li>
+        <li><strong>Format-explicit:</strong> State exact output formats in the question (e.g., <em>"Use YYYY/MM/DD"</em> or <em>"Provide only the username"</em>).</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>XML Harness Format &amp; Runner</h3>
+      <pre class="code-block"><code>&lt;evaluation&gt;
+  &lt;qa_pair&gt;
+    &lt;question&gt;Find the repository archived in Q3 2023 with the most prior forks. What was its primary language?&lt;/question&gt;
+    &lt;answer&gt;Python&lt;/answer&gt;
+  &lt;/qa_pair&gt;
+&lt;/evaluation&gt;
+
+<span class="tok-cmt"># Run against stdio or live Streamable HTTP endpoint</span>
+python scripts/evaluation.py -t http -u https://mcp.acme.dev/mcp \
+  -H "Authorization: Bearer $TOKEN" -o eval_report.md evaluation.xml</code></pre>
+    </div>
+  </div>
+
+  <div class="callout indigo" style="margin-top:4px; padding:7px 11px;">
+    <div class="callout-title">Mine the Eval Report for Tool-Design Bugs</div>
+    When accuracy dips or tool-call counts spike, read the agent's per-task feedback in <code>eval_report.md</code>: missing pagination hints, vague parameter descriptions, or oversized responses almost always explain why an agent stalled.
+  </div>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Clinic &amp; Pre-Flight</span>
+    <span>Top 7 Production Failures &amp; 6-Point Launch Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Diagnose the seven most common MCP production failures in ten seconds, then clear the six-point pre-flight gate before publishing or deploying.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Error</th>
+        <th style="width:33%;">Root Cause</th>
+        <th style="width:40%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Broken <code>stdio</code> JSON-RPC</strong><br/>Host disconnects with parse error.</td>
+        <td>Code or a dependency called <code>console.log()</code> or <code>print()</code>, writing logs to <code>stdout</code>.</td>
+        <td>Route every log exclusively to <code>console.error()</code> / <code>sys.stderr</code>; keep <code>stdout</code> pure JSON-RPC.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Concurrent <code>-32603</code> Failures</strong><br/>Smoke test passes; parallel HTTP fails.</td>
+        <td>Factory returns one shared module-level <code>McpServer</code> instance across HTTP requests.</td>
+        <td>Instantiate <code>new McpServer(...)</code> and register tools <em>inside</em> <code>createServer()</code> on every call.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Empty Schema Descriptions</strong><br/>Model guesses field formats blindly.</td>
+        <td>Project installed Zod <code>&lt;4.2.0</code> (pre-<code>4.1.13</code> strips <code>.describe()</code> text) or omitted <code>.describe()</code>.</td>
+        <td>Pin <code>"zod": "^4.2.0"</code>, import via <code>import * as z from "zod/v4"</code>, and add <code>.describe()</code> everywhere.</td>
+      </tr>
+      <tr>
+        <td><strong>4. v1 / v2 Type &amp; Import Clashes</strong><br/><code>registerTool</code> missing or type errors.</td>
+        <td>Mixed legacy <code>@modelcontextprotocol/sdk</code> v1 imports with v2 <code>@modelcontextprotocol/server</code>.</td>
+        <td>Remove v1 packages or run <code>npx @modelcontextprotocol/codemod@latest v1-to-v2 .</code> across the project.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Truncated Mid-Word Payloads</strong><br/>Invalid JSON or lost records.</td>
+        <td>Sliced response text at 25,000 characters instead of trimming whole result items.</td>
+        <td>Halve the array in a <code>while</code> loop until rendered output fits <code>25_000</code>, then set <code>next_offset</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Hanging Upstream Fetches</strong><br/>Cancelled calls leak sockets &amp; quota.</td>
+        <td><code>fetch()</code> lacked a timeout and ignored the client's MCP cancellation token.</td>
+        <td>Pass <code>signal: AbortSignal.any([ctx.mcpReq.signal, AbortSignal.timeout(30_000)])</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Wrong Tool Invoked</strong><br/>Agent calls sibling server's <code>search</code>.</td>
+        <td>Unprefixed generic names (<code>list_items</code>, <code>create_issue</code>) collide across connected servers.</td>
+        <td>Namespace every tool as <code>{service}_{action}_{resource}</code> and mention sibling tools in descriptions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Production Pre-Flight Checklist</h3>
+  <div class="grid-2" style="gap:8px 12px; margin-top:2px;">
+    <div class="card" style="padding:8px 10px;">
+      <ul style="font-size:8.0pt; margin:0; list-style:none; padding-left:0;">
+        <li style="margin-bottom:5px;"><strong>&#9744; 1. Clean Factory Isolation:</strong> <code>createServer()</code> constructs a fresh <code>McpServer</code> per call; shared HTTP pools live at module scope.</li>
+        <li style="margin-bottom:5px;"><strong>&#9744; 2. Strict Contracts &amp; Hints:</strong> Zod v4 <code>z.strictObject</code> / Pydantic v2 <code>extra="forbid"</code>, rich <code>.describe()</code>, and accurate annotations on every tool.</li>
+        <li style="margin-bottom:0;"><strong>&#9744; 3. Bounded Context Payloads:</strong> Pagination (<code>limit</code>/<code>offset</code>/<code>next_offset</code>) and item-halving cap responses under <code>25_000</code> characters.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <ul style="font-size:8.0pt; margin:0; list-style:none; padding-left:0;">
+        <li style="margin-bottom:5px;"><strong>&#9744; 4. Auth &amp; Signal Wiring:</strong> <code>requireBearerAuth</code> + <code>expectedResource</code> on remote HTTP; <code>ctx.mcpReq.signal</code> + 30s timeout on upstream calls.</li>
+        <li style="margin-bottom:5px;"><strong>&#9744; 5. Build &amp; Smoke Verified:</strong> <code>npm run build &amp;&amp; npm run smoke</code> (or <code>py_compile</code>) and MCP Inspector checks pass with zero stdout pollution.</li>
+        <li style="margin-bottom:0;"><strong>&#9744; 6. 10-Question Eval Passed:</strong> Multi-hop read-only <code>evaluation.xml</code> passes with high accuracy and crisp tool-call efficiency.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Building Production MCP Servers &bull; AI Agent Engineering Series</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>
