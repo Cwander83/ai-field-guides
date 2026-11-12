@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Jev &amp; System One Decisions: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">Agent Engineering Series &bull; Version 1.0 &bull; November 2026</div>
+    <h1>Jev &amp; <span>System One Decisions</span></h1>
+    <p class="cover-sub">
+      Stop asking a chat LLM for JSON and praying the parser holds. Send lean structured state and parallel typed questions, get calibrated probabilities in ~100ms, and let deterministic code make the call.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge"><code>Choice</code> &bull; <code>Score</code> &bull; <code>Noul</code></span>
+      <span class="cover-badge">RLCD Calibrated Probabilities</span>
+      <span class="cover-badge">Parallel Speculative Fan-Out</span>
+      <span class="cover-badge">Confidence-Gated Routing</span>
+      <span class="cover-badge"><code>typesafe-sdk</code> &amp; <code>@typesafe-ai/sdk</code></span>
+      <span class="cover-badge">LLM Guardrails &amp; RAG Reranking</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Precision Optical Manifold Splitting an Input Light Stream Into Calibrated Channels" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Judgment vs. Decision</div>
+      <div class="cover-stat-desc">Jev supplies calibrated probabilities; your ordinary <code>if</code> statements own every branch, tool call, and mutation.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">One Call, Many Questions</div>
+      <div class="cover-stat-desc">Evaluate 10+ independent questions in parallel at near-constant latency&mdash;$0.042/M input tokens and $0 output tokens.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Uncertainty You Can Gate</div>
+      <div class="cover-stat-desc">Trained via RLCD so low-confidence edge cases escalate cleanly to humans or frontier models instead of hallucinating.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>Jev &amp; System One Decisions</span>
+  </div>
+
+  <h2 class="page-title">Why <code>JSON.parse()</code> Breaks &amp; The System One Contract</h2>
+  <p class="page-lead">
+    Most production AI bugs live in the glue layer where you prompt a chat model for a paragraph and write brittle regex or schema parsers to extract a boolean or route key. <strong>System One models</strong> delete that parsing layer entirely.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. System One Contract &amp; Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. SaaS Blueprint &amp; One-File Policy</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Setup Paths, Gateways &amp; Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste System One Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated System One Inspector Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Model Jaggedness &amp; Hard Boundaries</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Three Primitives: Choice, Score, Noul</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. System 1 + System 2 Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. State Craft &amp; Request Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Confidence &amp; 4 Core Routing Patterns</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Law: Model Judges, Code Decides</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>What Jev Is (And Why RLCD Beats RLHF for Software Control Flow)</h3>
+  <div class="grid-3" style="margin-bottom:8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Zero Text Generation</div>
+      <p style="font-size:8.3pt; margin:0;">Jev (TypeSafe AI) never writes prose, explanations, or markdown fences. Every answer is strictly a probability distribution over options <em>you</em> defined.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Trained With RLCD</div>
+      <p style="font-size:8.3pt; margin:0;">Chat LLMs use RLHF (optimizing for pleasing prose). Jev uses <strong>Reinforcement Learning for Calibrated Decisions</strong> so <code>0.80</code> tracks an ~80% empirical hit rate.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Not a Coding Agent</div>
+      <p style="font-size:8.3pt; margin:0;">Never set <code>jev-latest</code> as the brain of Claude Code or Cursor. Use your coding agent to write product code that calls Jev on hot request paths.</p>
+    </div>
+  </div>
+
+  <h3>Architecture: Unstructured State In, Typed Probabilistic Judgments Out</h3>
+  <div class="figure-box" style="background:#0b120d; padding:12px 14px; border-color:#334155;">
+    <svg viewBox="0 0 700 176" width="100%" height="176" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1: App State -->
+      <rect x="10" y="16" width="188" height="144" rx="9" fill="#111827" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="22" y="36" fill="#7dd3fc" font-size="8.5" font-weight="800">1. YOUR APPLICATION</text>
+      <text x="22" y="52" fill="#ffffff" font-size="10.5" font-weight="800">Shape Lean State</text>
+      <text x="22" y="70" fill="#cbd5e1" font-size="8.2">&bull; Filter irrelevant fields first</text>
+      <text x="22" y="85" fill="#cbd5e1" font-size="8.2">&bull; Bundle ticket + order + policy</text>
+      <text x="22" y="100" fill="#cbd5e1" font-size="8.2">&bull; Attach N atomic questions</text>
+      <rect x="22" y="116" width="164" height="30" rx="5" fill="#1e293b" stroke="#475569"/>
+      <text x="104" y="135" text-anchor="middle" fill="#bae6fd" font-size="8.2" font-family="monospace">POST /v1/systemone</text>
+
+      <!-- Arrow 1 -->
+      <path d="M198 88 L228 88" stroke="#a3e635" stroke-width="2.2"/>
+      <polygon points="227,83 235,88 227,93" fill="#a3e635"/>
+
+      <!-- Box 2: Jev Parallel Engine -->
+      <rect x="235" y="16" width="228" height="144" rx="9" fill="#132010" stroke="#a3e635" stroke-width="1.8"/>
+      <text x="248" y="36" fill="#bef264" font-size="8.5" font-weight="800">2. JEV SYSTEM ONE (PARALLEL)</text>
+      <rect x="248" y="46" width="202" height="30" rx="5" fill="#0f172a" stroke="#3f6212"/>
+      <text x="256" y="65" fill="#d9f99d" font-size="8.5" font-weight="700">Choice  &rarr;  winner + probs + conf</text>
+      <rect x="248" y="83" width="202" height="30" rx="5" fill="#0f172a" stroke="#3f6212"/>
+      <text x="256" y="102" fill="#7dd3fc" font-size="8.5" font-weight="700">Score   &rarr;  0..K value + legend + conf</text>
+      <rect x="248" y="120" width="202" height="30" rx="5" fill="#0f172a" stroke="#3f6212"/>
+      <text x="256" y="139" fill="#fde68a" font-size="8.5" font-weight="700">Noul    &rarr;  P(yes) in 0.0 .. 1.0</text>
+
+      <!-- Arrow 2 -->
+      <path d="M463 88 L493 88" stroke="#a3e635" stroke-width="2.2"/>
+      <polygon points="492,83 500,88 492,93" fill="#a3e635"/>
+
+      <!-- Box 3: Code Owns Control Flow -->
+      <rect x="500" y="16" width="190" height="144" rx="9" fill="#111827" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="512" y="36" fill="#fde68a" font-size="8.5" font-weight="800">3. DETERMINISTIC CODE</text>
+      <text x="512" y="52" fill="#ffffff" font-size="10.5" font-weight="800">Own Every Decision</text>
+      <text x="512" y="71" fill="#86efac" font-size="8.3" font-weight="700">conf &ge; 0.85 &rarr; Auto-Execute</text>
+      <text x="512" y="88" fill="#fde68a" font-size="8.3" font-weight="700">0.50..0.85  &rarr; User Confirm</text>
+      <text x="512" y="105" fill="#fca5a5" font-size="8.3" font-weight="700">conf &lt; 0.50 &rarr; Human Queue</text>
+      <rect x="512" y="118" width="166" height="28" rx="5" fill="#1e293b" stroke="#475569"/>
+      <text x="595" y="136" text-anchor="middle" fill="#e2e8f0" font-size="8.1">Zero schema errors or tool loops</text>
+    </svg>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">The Core Separation of Powers</div>
+    <strong>Jev supplies the judgment; your code supplies the decision.</strong> Because Jev is stateless, cannot call tools, and cannot emit unparsed text, a wrong prediction is just a bounded value you can gate on confidence&mdash;never a rogue agent loop.
+  </div>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, TIERS & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup, Pricing &amp; Ecosystem</span>
+    <span>SDK Installation, Gateway Routing &amp; Architecture Selection</span>
+  </div>
+
+  <h2 class="page-title">Four Paths to First Decision &amp; Architecture Matrix</h2>
+  <p class="page-lead">
+    Every client speaks the exact same JSON contract over <code>POST https://api.typesafe.ai/v1/systemone</code>. Start in the browser Playground in 60 seconds, then drop the Python or TypeScript SDK into your server routes.
+  </p>
+
+  <h3>1. Install Official SDKs, Coding-Agent Skill &amp; Gateways</h3>
+  <pre class="code-block"><code># 1. Server-side API key from https://console.typesafe.ai/keys (NEVER expose in browser/NEXT_PUBLIC_)
+export TYPESAFE_API_KEY="ts_..."
+
+# 2. Official Python (3.10+) &amp; TypeScript/Node (20+) SDKs
+uv add typesafe-sdk                  # or: pip install typesafe-sdk
+npm install @typesafe-ai/sdk
+
+# 3. Teach your coding agent (Claude Code, Cursor, Codex, OpenCode) Jev's exact API &amp; patterns
+claude plugin marketplace add typesafe-ai/skills &amp;&amp; claude plugin install typesafe@typesafe-ai
+npx skills add typesafe-ai/skills --skill typesafe-ai
+
+# 4. Optional AI Gateways (confirm current model strings in gateway docs before pinning)
+# Vercel AI Gateway: baseURL "https://ai-gateway.vercel.sh/typesafe", model "typesafe-ai/jev"
+# OpenRouter:        base_url "https://openrouter.ai/api",            model "~typesafe/jev-latest"</code></pre>
+
+  <h3>2. Economics &amp; Specs at a Glance (<code>jev-1.13.0</code> / <code>jev-latest</code>)</h3>
+  <div class="grid-3" style="margin-bottom:8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">$</span> $42 / Billion Input Toks</div>
+      <p style="font-size:8.2pt; margin:0;">Equals <strong>$0.042 per 1M input tokens</strong> (~$0.00002 for a 500-token ticket + 6 questions). <strong>Output tokens are $0.00 (free).</strong></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">64k</span> Context &amp; Throughput</div>
+      <p style="font-size:8.2pt; margin:0;"><code>64k</code> tokens per request (<code>32k</code> budget for <code>state</code> + longest question). Dynamic rate limits around 250k tok/s &amp; 1,200 RPM.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">0</span> Zero Training on Data</div>
+      <p style="font-size:8.2pt; margin:0;">Text/JSON/arrays only (pre-OCR images first). Requests never train base weights; Enterprise plans add Zero Data Retention (ZDR).</p>
+    </div>
+  </div>
+
+  <h3>3. Decision Matrix: Rules vs. Generative LLM vs. System One (Jev)</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Dimension</th>
+        <th style="width:24%;">Deterministic Code Rules</th>
+        <th style="width:28%;">Generative LLM (JSON Mode)</th>
+        <th style="width:30%;">Jev (System One Decision Model)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Return Contract</strong></td>
+        <td>Exact primitive value</td>
+        <td>Generated prose/JSON you must validate</td>
+        <td><strong>Typed value + full distribution + <code>confidence</code></strong></td>
+      </tr>
+      <tr>
+        <td><strong>Sweet Spot</strong></td>
+        <td>Math, dates, counts, exact regex/SQL</td>
+        <td>Drafting prose, multi-step synthesis, code</td>
+        <td><strong>High-frequency classification, rubrics &amp; gates</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Unseen Edge Input</strong></td>
+        <td>Silently misses or hits wrong branch</td>
+        <td>Often copes; occasionally invents fields/facts</td>
+        <td><strong>Spreads probability &amp; lowers <code>confidence</code></strong></td>
+      </tr>
+      <tr>
+        <td><strong>Typical Latency</strong></td>
+        <td>Microseconds (in-process)</td>
+        <td>1&ndash;8+ seconds (scales with output tokens)</td>
+        <td><strong>~70&ndash;500 ms</strong> (vendor figure; verify per region)</td>
+      </tr>
+      <tr>
+        <td><strong>Who Owns Flow?</strong></td>
+        <td>Your code</td>
+        <td>Often delegated to an autonomous loop</td>
+        <td><strong>Strictly your code</strong> (model never acts)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <div class="callout-title">Security Alert: Verify Official TypeSafe Domains Before Sending Keys!</div>
+    Several unaffiliated third-party lookalike domains (<code>thejevai.com</code>, <code>jevaimodel.net</code>, <code>jevmodel.net</code>, <code>bestjevai.com</code>) market themselves using the Jev name. Only send credentials to <code>https://api.typesafe.ai/v1/systemone</code>, <code>https://console.typesafe.ai</code>, and <code>https://docs.typesafe.ai</code>.
+  </div>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Workspace &amp; Payload Tour</span>
+    <span>Inside a Live Parallel System One Request &amp; Threshold Inspector</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: System One Playground &amp; Inspector</h2>
+  <p class="page-lead">
+    Open <code>console.typesafe.ai/playground</code> to test state filtering and question criteria interactively before writing code. Here is how a single parallel request evaluates all three primitives at once.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:10px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <strong style="margin-left:6px; color:#f8fafc;">TypeSafe System One Inspector &middot; POST /v1/systemone</strong>
+      </div>
+      <div>
+        <span style="color:#bef264; font-family:monospace;">model: jev-1.13.0 (pinned)</span> <span class="callout-pin">1</span>
+        &nbsp;<span style="color:#94a3b8;">118 ms &middot; in: 342 tok &middot; out: 29 tok ($0)</span> <span class="callout-pin">6</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 43% 57%; border-bottom:1px solid #1f2937;">
+      <!-- Left Pane: Lean State -->
+      <div style="padding:10px 12px; border-right:1px solid #1f2937; background:#090d16;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <strong style="color:#7dd3fc; font-size:7.6pt; letter-spacing:0.04em;">LEAN FILTERED STATE (JSON)</strong>
+          <span class="callout-pin">2</span>
+        </div>
+        <pre style="margin:0; font-family:monospace; font-size:7pt; line-height:1.38; color:#cbd5e1; white-space:pre-wrap;">{
+  "ticket": {
+    "text": "Export crashes Safari on macOS. Chrome works, but 4 enterprise reps use Safari only."
+  },
+  "account": { "tier": "enterprise" },
+  "sla_policy": "Blocking issues w/o workaround page on-call."
+}</pre>
+        <div style="margin-top:8px; padding:6px 8px; background:#111827; border-radius:6px; border:1px solid #1e293b;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#fde68a; font-size:7.4pt;">CODE GATE (lib/decisions.ts)</strong>
+            <span class="callout-pin">7</span>
+          </div>
+          <div style="font-family:monospace; font-size:6.9pt; color:#e2e8f0; margin-top:3px;">
+            dept.conf (0.96) &ge; 0.60 &rarr; OK<br/>
+            severity.conf (0.35) &lt; 0.50 &rarr; <span style="color:#fbbf24;">TRIAGE_REVIEW</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Pane: Parallel Answers -->
+      <div style="padding:10px 12px; background:#0d131f;">
+        <div style="margin-bottom:7px; padding:7px 9px; background:#111c2d; border-radius:6px; border-left:3px solid #a3e635;">
+          <div style="display:flex; justify-content:space-between;">
+            <span><strong style="color:#bef264;">department</strong> <code>type: "choice"</code> (+ <code>other</code> fallback)</span>
+            <span class="callout-pin">3</span>
+          </div>
+          <div style="font-family:monospace; font-size:7.1pt; margin-top:3px; color:#f8fafc;">
+            choice: <strong>"engineering"</strong> &middot; confidence: <strong style="color:#86efac;">0.96</strong><br/>
+            <span style="color:#94a3b8;">probs: { engineering: 0.98, support: 0.02, billing: 0.00, other: 0.00 }</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom:7px; padding:7px 9px; background:#111c2d; border-radius:6px; border-left:3px solid #38bdf8;">
+          <div style="display:flex; justify-content:space-between;">
+            <span><strong style="color:#7dd3fc;">bug_severity</strong> <code>type: "score"</code> (3 situational levels)</span>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="font-family:monospace; font-size:7.1pt; margin-top:3px; color:#f8fafc;">
+            score: <strong>1.43</strong> (0&times;0.00 + 1&times;0.57 + 2&times;0.43) &middot; confidence: <strong style="color:#fde68a;">0.35</strong><br/>
+            <span style="color:#94a3b8;">split between L1 ("workaround: Chrome") &amp; L2 ("Safari-only reps")</span>
+          </div>
+        </div>
+
+        <div style="padding:7px 9px; background:#111c2d; border-radius:6px; border-left:3px solid #fbbf24;">
+          <div style="display:flex; justify-content:space-between;">
+            <span><strong style="color:#fde68a;">needs_oncall_page</strong> <code>type: "noul"</code></span>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="font-family:monospace; font-size:7.1pt; margin-top:3px; color:#f8fafc;">
+            noul: <strong>0.18</strong> &middot; <span style="color:#94a3b8;">P(yes) given <code>sla_policy</code> &amp; <code>ticket.text</code></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Inspector Legend</h3>
+  <div class="grid-2" style="font-size:8.35pt; gap:8px 14px; margin-bottom:6px;">
+    <div><span class="callout-pin">1</span> <strong>Pinned Version ID:</strong> Exploring with <code>jev-latest</code> is fine, but production pins <code>jev-1.13.0</code> so tuned thresholds never drift on release day.</div>
+    <div><span class="callout-pin">2</span> <strong>Filtered Named State:</strong> Passes only the exact fields questions read&mdash;keeping policy facts in <code>state</code> and out of hardcoded prompts.</div>
+    <div><span class="callout-pin">3</span> <strong>Choice Distribution:</strong> Picks <code>"engineering"</code> across unordered options (up to 255) with an <code>other</code> safety valve and <code>0.96</code> peakedness.</div>
+    <div><span class="callout-pin">4</span> <strong>Probability-Weighted Score:</strong> Lands between rubric levels (<code>1.43</code>) and exposes honest ambiguity (<code>confidence: 0.35</code>) when Chrome vs. Safari split.</div>
+    <div><span class="callout-pin">5</span> <strong>Binary Noul Probability:</strong> Returns one number <code>0.0&rarr;1.0</code> representing <code>P(yes)</code>&mdash;no separate confidence field needed for 2 outcomes.</div>
+    <div><span class="callout-pin">6</span> <strong>Zero-Cost Output Billing:</strong> All three answers evaluated in one parallel trip; you pay strictly for the <code>342</code> input tokens.</div>
+  </div>
+  <div style="font-size:8.35pt; margin-bottom:6px;">
+    <span class="callout-pin">7</span> <strong>Deterministic Policy Gate:</strong> Because <code>bug_severity.confidence</code> is <code>0.35</code>, your TypeScript route escalates severity review to a human lead while routing straight to Engineering.
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">Notice Why Low Confidence Here Is a Feature, Not a Bug</div>
+    A chat LLM forced into JSON mode picks <code>"severity": "P1"</code> or <code>"P2"</code> with fake 100% certainty. Jev shows a <code>57% / 43%</code> split because a workaround exists for the app (Chrome) yet not for Safari-locked users&mdash;flagging the exact ambiguity a human should arbitrate!
+  </div>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: THE THREE PRIMITIVES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Core Primitives</span>
+    <span>Choosing &amp; Designing Choice, Score &amp; Noul Questions</span>
+  </div>
+
+  <h2 class="page-title">Mastering the Three Primitives: <code>Choice</code>, <code>Score</code> &amp; <code>Noul</code></h2>
+  <p class="page-lead">
+    Every judgment in System One maps to one of three shapes. Choose by the mathematical structure of the answer you need&mdash;and batch all of them into a single request.
+  </p>
+
+  <div class="figure-box" style="margin:3px 0 7px 0;">
+    <img src="assets/three_primitives_manifold.jpg" alt="Three Precision Optical Instruments Representing Choice, Score, and Noul" style="width:100%; height:180px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption" style="padding:5px 10px;">
+      <strong>Pick by Output Geometry:</strong> Use <code>Choice</code> for unordered sets (up to 255 keys), <code>Score</code> for ordered situational rubrics (2&ndash;10 levels), and <code>Noul</code> for atomic yes/no probabilities (<code>0.0&ndash;1.0</code>).
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:5px; gap:8px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge">1</span> <code>Choice</code> (Unordered)</div>
+      <ul style="font-size:7.85pt; padding-left:14px; margin:0;">
+        <li>Returns <code>choice</code>, <code>probabilities</code>, and <code>confidence</code> (up to <strong>255 keys</strong>).</li>
+        <li><strong>Always include <code>other: null</code></strong> so out-of-scope inputs never force a bad match.</li>
+        <li>Disambiguate close twins with <code>{what, not_for, examples}</code> objects.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge teal">2</span> <code>Score</code> (2&ndash;10 Levels)</div>
+      <ul style="font-size:7.85pt; padding-left:14px; margin:0;">
+        <li>Returns <code>score</code> (<code>&Sigma; i&middot;p_i</code>), <code>legend</code>, <code>probabilities</code>, <code>confidence</code>.</li>
+        <li><strong>Describe situations, never degrees:</strong> write <em>&ldquo;Broken, workaround exists&rdquo;</em>, not <em>&ldquo;Medium&rdquo;</em>.</li>
+        <li>Measure <strong>one dimension</strong> per Score; give extreme cases their own top level.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge amber">3</span> <code>Noul</code> (Binary <code>P(yes)</code>)</div>
+      <ul style="font-size:7.85pt; padding-left:14px; margin:0;">
+        <li>Returns single float <code>noul</code> in <code>0.0..1.0</code>.</li>
+        <li><strong>One condition per Noul:</strong> split <em>&ldquo;angry AND wants refund&rdquo;</em> into two Nouls.</li>
+        <li>Phrase positively (<code>1.0 = yes</code>). Note: <code>0.5</code> means <em>unsure</em>, never &ldquo;medium skill&rdquo;!</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:5px 0 3px 0;">Upgrading Confused Options With Structured Criteria (Python SDK)</h3>
+  <pre class="code-block" style="font-size:7.05pt; line-height:1.34; padding:7px 9px; margin:2px 0 4px 0;"><code>from typesafe_sdk import Choice, Noul, TypeSafeClient
+
+with TypeSafeClient(model="jev-1.13.0") as client:  # reads TYPESAFE_API_KEY
+    res = client.system_one(
+        state="Has my returned pair of size-10 trail runners reached your warehouse yet?",
+        questions={
+            "intent": Choice(
+                instructions="Which return workflow applies to this message?",
+                criteria={
+                    "return_policy": {"what": "Eligibility rules or starting a new return",
+                                      "not_for": "Progress of a parcel already shipped back",
+                                      "examples": ["Can I return worn shoes?", "How long is the return window?"]},
+                    "return_status": {"what": "Tracking or refund timing of a return already sent",
+                                      "not_for": "Asking whether an item is eligible to be returned",
+                                      "examples": ["Did my return arrive?", "When will my refund post?"]},
+                    "other": None,
+                },
+            ),
+            "already_shipped": Noul(instructions="Does the customer state they already sent the item back?"),
+        },
+    )  # Cookbook result: 13 batched questions in 1 call ran 12.2x cheaper &amp; 10.0x faster than 13 single calls!</code></pre>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: STATE CRAFT & QUESTION ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; State Craft &amp; Request Design</span>
+    <span>Filtering Distractors, Dot-Path Targeting &amp; Structured Fan-Out</span>
+  </div>
+
+  <h2 class="page-title">State Craft: Why Input Hygiene Is 80% of Accuracy</h2>
+  <p class="page-lead">
+    Unlike chat sessions where teams dump entire database rows into context &ldquo;just in case,&rdquo; Jev accuracy drops sharply when <code>state</code> contains irrelevant noise. Filter ruthlessly in code before calling the API.
+  </p>
+
+  <h3>Color-Coded Anatomy of a High-Signal System One Request</h3>
+  <div class="card" style="background:#ffffff; border-color:#cbd5e1; margin-bottom:8px; font-size:8.45pt; line-height:1.68;">
+    <div><span class="p-tag p-light">[1. PINNED MODEL]</span> <code>"model": "jev-1.13.0"</code> &mdash; Locks exact weights so calibrated thresholds never shift unexpectedly.</div>
+    <div><span class="p-tag p-style">[2. NAMED STATE OBJECT]</span> <code>"state": {"ticket": {"msg": "..."}, "order": {"charges": [...]}, "refund_policy": "..."}</code> &mdash; Separates facts &amp; policy from judgment logic.</div>
+    <div><span class="p-tag p-subj">[3. DOT-PATH POINTER]</span> <code>"instructions": "Does refund_policy support the request in ticket.msg given order.charges?"</code> &mdash; Directs attention to exact fields.</div>
+    <div><span class="p-tag p-act">[4. SITUATIONAL CRITERIA]</span> <code>"criteria": {"true": "Explicit duplicate captured charge covered by policy", "false": "Single valid charge or outside policy"}</code></div>
+    <div><span class="p-tag p-cam">[5. ESCAPE VALVE]</span> <code>"other": null</code> on every <code>Choice</code> &mdash; Prevents forced high-confidence misclassifications on out-of-distribution inputs.</div>
+    <div><span class="p-tag p-cons">[6. ATOMIC DECOMPOSITION]</span> Ask 3 simple questions (<code>refund_asked</code>, <code>duplicate_charge</code>, <code>policy_covers</code>) and combine with <code>&amp;&amp;</code> in code!</div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Put Policy in <code>state</code>, Not Prompts</div>
+      <p style="font-size:8.25pt; margin:0;">Pass your live <code>refund_policy</code> or plan entitlements inside <code>state</code>, and keep <code>instructions</code> generic (<em>&ldquo;Does <code>refund_policy</code> cover this request?&rdquo;</em>). When business policy changes tomorrow, zero question definitions or thresholds need rewriting.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">B</span> Structured Dict Instructions</div>
+      <p style="font-size:8.25pt; margin:0;"><code>instructions</code> and <code>criteria</code> accept JSON objects as well as strings! Pass labeled candidate records inside each question to run 50-way entity deduplication or passage reranking in a single HTTP round trip.</p>
+    </div>
+  </div>
+
+  <h3>Worked Pattern: Single-Trip Entity Deduplication Across Candidate Records</h3>
+  <pre class="code-block"><code>from typesafe_sdk import Noul, TypeSafeClient
+
+def build_dedupe_questions(candidates: list[dict]) -> dict[str, Noul]:
+    return {
+        f"same_as_{c['id']}": Noul(
+            instructions={
+                "candidate_record": {"name": c["name"], "city": c["city"], "last_company": c["last_company"]},
+                "question": "Is the incoming 'resume' in state for the exact same person as 'candidate_record'?",
+            }
+        )
+        for c in candidates
+    }
+
+with TypeSafeClient(model="jev-1.13.0") as client:
+    res = client.system_one(state={"resume": parsed_resume_text}, questions=build_dedupe_questions(top_25_rows))
+matches = [cid for cid, ans in res.nouls.items() if ans.noul > 0.85]  # Zero prose, 1 round trip!</code></pre>
+
+  <div class="callout blue">
+    <div class="callout-title">When to Make a Second Request Instead of Batching</div>
+    Batch everything into one request <em>unless</em> Question B's option keys literally depend on Question A's winner (e.g., walking a 5,000-node taxonomy tree) or you must fetch an external database row first. Otherwise, speculative single-trip batching always wins.
+  </div>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: CONFIDENCE & 4 PATTERNS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Uncertainty &amp; Routing</span>
+    <span>Three-Band Confidence Thresholds &amp; Four Canonical Patterns</span>
+  </div>
+
+  <h2 class="page-title">Confidence Gating &amp; The Four Core Patterns</h2>
+  <p class="page-lead">
+    <strong>Rank with probabilities; gate automation with confidence.</strong> Calibration applies across populations, not single calls&mdash;so risk-sensitive actions always pair answer values with explicit confidence floors.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/confidence_routing_gate.jpg" alt="Calibrated Fiber-Optic Threshold Gate Separating Express Automation From Human Escalation" style="width:100%; height:224px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Three-Band Risk Control:</strong> Never apply one global threshold. Showing an account balance tolerates <code>confidence &ge; 0.60</code>; moving money demands <code>&gt; 0.90</code> plus confirmation; <code>&lt; 0.50</code> routes straight to a human.
+    </div>
+  </div>
+
+  <h3>The Four Architectural Patterns That Cover 95% of Production Workloads</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Pattern</th>
+        <th style="width:42%;">How It Works in Code</th>
+        <th style="width:36%;">High-Leverage Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Speculative Fan-Out</strong></td>
+        <td>Send all candidate questions in one call (<code>category</code>, <code>bug_severity</code>, <code>refund_asked</code>); ignore unused keys on non-matching branches.</td>
+        <td>Support &amp; intake pipelines avoiding serial waterfall latency.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Confidence-Gated Routing</strong></td>
+        <td>Branch on <code>(answer, confidence)</code> pairs: auto-act above high bar, ask user to confirm in middle band, escalate below floor.</td>
+        <td>Refunds, transfers, account mutations, autonomous tool gates.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Composite Scoring</strong></td>
+        <td>Ask 3&ndash;5 atomic <code>Score</code>/<code>Noul</code> dimensions, normalize each to <code>0..1</code>, and compute weighted sums in code (<code>0.4*py + 0.4*arch...</code>).</td>
+        <td>Lead prioritization, candidate rubrics (IC vs. EM weights from 1 call), spam risk.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Intent Routing</strong></td>
+        <td>Place Jev at the front door to pick between a $0 SQL handler, a cheap small LLM, a frontier reasoning model, or a human specialist.</td>
+        <td>Slashing frontier LLM bills by 60&ndash;80% without losing quality on hard queries.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Composite Scoring + Three-Band Routing Snippet</h3>
+  <pre class="code-block"><code># Tune weights in Git PRs without touching prompts — reuse identical atomic answers across multiple policies!
+spam_risk = (
+    0.45 * answers["requests_credentials"].noul
+    + 0.30 * answers["sender_identity_mismatch"].noul
+    + 0.25 * answers["unexpected_reward"].noul
+)
+if spam_risk >= 0.70:
+    quarantine_message(msg_id)          # High risk -> deterministic quarantine
+elif spam_risk >= 0.35:
+    enqueue_human_review(msg_id)        # Middle band -> human moderator queue
+else:
+    deliver_to_inbox(msg_id)            # Low risk -> fast delivery</code></pre>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: PRODUCTION SAAS BLUEPRINT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Full-Stack SaaS Integration</span>
+    <span>One-File Policy Governance, Server Route Handlers &amp; Delivery Gates</span>
+  </div>
+
+  <h2 class="page-title">Production Blueprint: One-File Policy &amp; Quality Gates</h2>
+  <p class="page-lead">
+    Keep every question definition and numeric threshold inside <strong>one dedicated policy file</strong> (<code>lib/decisions.ts</code>) so product and security reviews read a single 60-line file instead of hunting across route handlers.
+  </p>
+
+  <h3 style="margin:5px 0 3px 0;">1. Centralize Questions &amp; Thresholds (<code>lib/decisions.ts</code>)</h3>
+  <pre class="code-block" style="font-size:6.95pt; line-height:1.33; padding:6.5px 9px; margin:2px 0 6px 0;"><code>import { choice, noul, score } from "@typesafe-ai/sdk";
+
+export const INTAKE_QUESTIONS = {
+  request_type: choice("What is the user asking for?", {
+    new_report: "Generate a new competitive audit report", edit_report: "Modify an existing report",
+    billing: "Invoices, refunds, or payment failures",     support: "Product bug or how-to question", other: null,
+  }),
+  is_abusive:       noul("Does the message contain threats, slurs, or harassment?"),
+  refund_requested: noul("Is the user explicitly asking for money back or account credit?"),
+  urgency:          score("How time-sensitive is this request?", [
+    "Can wait indefinitely", "Needed this week", "Needed today", "Production outage or active revenue loss",
+  ]),
+};
+
+export const QUALITY_QUESTIONS = {
+  rubric_fit: score("How completely does 'report' satisfy the delivery rubric?", [
+    "Empty or off-topic", "Partial sections; misses core ask",
+    "Answers ask but thin evidence", "Complete, specific, and thoroughly evidenced",
+  ]),
+  claims_supported: noul("Is every factual claim in 'report' supported by a cited passage in 'sources'?"),
+};
+
+export const THRESHOLDS = {
+  minIntakeConfidence: 0.60, refundToHuman: 0.70, minRubricScore: 2.20, minCitationSupport: 0.75,
+} as const;</code></pre>
+
+  <h3 style="margin:5px 0 3px 0;">2. Pre-Delivery Quality Gate Around Paid Deliverables (<code>lib/quality-gate.ts</code>)</h3>
+  <pre class="code-block" style="font-size:6.95pt; line-height:1.33; padding:6.5px 9px; margin:2px 0 6px 0;"><code>import { TypeSafeClient } from "@typesafe-ai/sdk";
+import { QUALITY_QUESTIONS, THRESHOLDS } from "@/lib/decisions";
+
+const client = new TypeSafeClient({ model: "jev-1.13.0" }); // Server-only TYPESAFE_API_KEY
+
+export async function gatePaidDeliverable(report: string, sources: string[]) {
+  const { answers } = await client.systemOne({ state: { report, sources }, questions: QUALITY_QUESTIONS });
+
+  if (answers.rubric_fit.confidence < 0.50) {
+    return { action: "human_review" as const, reason: "ambiguous_rubric_fit" };
+  }
+  if (answers.rubric_fit.score < THRESHOLDS.minRubricScore ||
+      answers.claims_supported.noul < THRESHOLDS.minCitationSupport) {
+    // Never bill a customer for a hallucinated or incomplete LLM draft!
+    return { action: "retry_draft" as const, fit: answers.rubric_fit.score, cited: answers.claims_supported.noul };
+  }
+  return { action: "ship" as const };
+}</code></pre>
+
+  <div class="callout" style="margin:4px 0;">
+    <div class="callout-title">Observability Habit: Log the Replay Tuple, Mind Debug Bodies</div>
+    Persist <code>{model, question_version, answers, confidence, chosen_action}</code> to Postgres so you can replay threshold changes offline. Note that setting <code>TYPESAFE_LOG_LEVEL=debug</code> redacts auth headers but logs raw request/response bodies&mdash;keep debug off in PII environments!
+  </div>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Playbook</span>
+    <span>5 Battle-Tested Recipes for Reranking, Guardrails, Evals &amp; Benchmarking</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste System One Recipes</h2>
+  <p class="page-lead">
+    Drop these five patterns into your Python or TypeScript stack to replace dedicated cross-encoders, binary moderation walls, and flaky LLM-judge parsers.
+  </p>
+
+  <table class="clean-table" style="font-size:8.2pt;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Recipe &amp; Goal</th>
+        <th style="width:77%;">Copy-Paste Production Pattern</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Zero-Service RAG Reranker</strong><br/><span style="color:#64748b; font-size:7.6pt;">Filter noisy vector chunks in 1 call</span></td>
+        <td>Build one <code>Noul</code> per retrieved chunk: <code>q = {f"p{i}": Noul(instructions={"query": query, "passage": c.text, "q": "Does passage help answer query?"}) for i, c in enumerate(chunks)}</code>. Keep chunks with <code>ans.noul &gt; 0.60</code> sorted descending.</td>
+      </tr>
+      <tr>
+        <td><strong>2. 4-Outcome LLM Safety Battery</strong><br/><span style="color:#64748b; font-size:7.6pt;">Route <code>pass</code>, <code>review</code>, <code>block</code>, <code>support</code></span></td>
+        <td>Screen inputs/outputs with parallel Nouls (<code>jailbreak</code>, <code>harmful_request</code>, <code>medical_dosage</code>, <code>self_harm</code>) + 1 harm <code>Score</code>. Route <code>self_harm &gt; 0.5</code> to crisis resources (<code>support</code>), mild medical asks to <code>review</code>, and high-severity exploits to <code>block</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Atomic Tool-Call Verifier</strong><br/><span style="color:#64748b; font-size:7.6pt;">Catch bad agent args before execution</span></td>
+        <td>Before executing a high-impact agent tool call, send <code>state={"user_ask": ask, "proposed_call": call}</code> with atomic Nouls: <code>right_tool</code>, <code>matches_user_scope</code>, <code>units_consistent</code>, <code>no_invented_ids</code>. Require <code>all(n &gt; 0.85)</code> to run.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Fast CI Eval Suite Scorer</strong><br/><span style="color:#64748b; font-size:7.6pt;">Deterministic exit-code PR gate</span></td>
+        <td>Validate Jev on 20+ human-labeled JSONL rows first; then gate PRs in milliseconds:<br/><code>passed = sum(client.system_one(c["state"], QS).choices["intent"].choice == c["expected"] for c in rows)</code> &rarr; <code>sys.exit(0 if passed / len(rows) &gt;= 0.90 else 1)</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Honest LLM A/B Adapter</strong><br/><span style="color:#64748b; font-size:7.6pt;">Benchmark Jev vs. GPT/Claude/Gemini</span></td>
+        <td>Run identical questions against frontier LLMs on <em>your</em> dataset before committing:<br/><code>pip install 'system-one-adapter[openai,anthropic,gemini]'</code> &rarr; <code>SystemOneAdapterClient(structured_outputs=True, llm_answer_mode="probabilities").system_one(..., provider="openai", model="gpt-4o-mini")</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:6px;">
+    <div class="callout emerald" style="margin:0;">
+      <div class="callout-title">Why Four Guardrail Outcomes Beat Two</div>
+      Binary <code>allow / block</code> walls frustrate legitimate edge users and fail vulnerable ones. Caching one Jev probability vector lets you apply <code>strict</code> vs. <code>permissive</code> product policies in pure code!
+    </div>
+    <div class="callout amber" style="margin:0;">
+      <div class="callout-title">Calibrate Before You Gate CI</div>
+      Being fast and cheap never guarantees domain alignment. Always measure Jev's agreement against 20&ndash;50 human-labeled rows on your own traffic before letting it block pull requests or customers.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: JAGGEDNESS & BOUNDARIES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Model Jaggedness &amp; Governance</span>
+    <span>Where System One Breaks &amp; How Code Compensates Cleanly</span>
+  </div>
+
+  <h2 class="page-title">Know the Edges: <code>jev-1.13</code> Jaggedness &amp; Hard Rules</h2>
+  <p class="page-lead">
+    TypeSafe publishes explicit failure modes (&ldquo;jaggedness&rdquo;) for <code>jev-1.13</code>. Respecting what Jev <em>cannot</em> do is what separates rock-solid production pipelines from mysterious accuracy drops.
+  </p>
+
+  <h3>The 7 Documented Jaggedness Traps (And Exact Code Fixes)</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:23%;">Jaggedness Trap</th>
+        <th style="width:36%;">What Goes Wrong</th>
+        <th style="width:41%;">The Clean Engineering Pattern</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Counting &amp; Arithmetic</strong></td>
+        <td>Asking <em>&ldquo;Are more than 5 of these 40 items defective?&rdquo;</em> fails&mdash;Jev is not a calculator.</td>
+        <td>Fan out <strong>40 parallel <code>Noul</code> questions</strong> (one per item) in one call, then run <code>sum(p &gt; 0.7 for p in nouls) &gt; 5</code> in code!</td>
+      </tr>
+      <tr>
+        <td><strong>2. Date &amp; Time Ordering</strong></td>
+        <td>Reads dates as text tokens rather than ordered timestamps (<em>&ldquo;Is Date A 30 days before B?&rdquo;</em>).</td>
+        <td>Extract date fields with <code>Choice</code> (month/day/year + <code>not_stated</code>) or regex, then compare with native <code>datetime</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Hyper-Literal Reading</strong></td>
+        <td>Answers the exact words written, not implied business intent.</td>
+        <td>State boundary conditions explicitly inside <code>criteria</code>; align <code>instructions</code> and <code>criteria</code> so they never contradict.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Double Negatives</strong></td>
+        <td>Multi-hop indirection or <em>&ldquo;Is it untrue that X lacked Y?&rdquo;</em> degrades calibration.</td>
+        <td>Ask direct, single-hop positive questions pointed at named <code>state</code> paths.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Cross-Question Sums</strong></td>
+        <td><code>Noul(X) + Noul(not X)</code> is not constrained to equal <code>1.00</code> across independent questions.</td>
+        <td>Never rely on cross-question probability identities; use a single <code>Choice</code> if options must sum to <code>1.0</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Adversarial State</strong></td>
+        <td>Prompt injections inside untrusted user text can nudge probabilities.</td>
+        <td>Strip untrusted markup, write explicit criteria, and never let low/medium confidence trigger destructive actions alone.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Alias Drift (<code>jev-latest</code>)</strong></td>
+        <td>New model releases move probabilities slightly against tuned thresholds.</td>
+        <td>Pin <code>model="jev-1.13.0"</code> in production and log <code>response.model</code> on every decision trace.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Worked Fix: Counting Defects Without Asking the Model to Count</h3>
+  <pre class="code-block"><code># WRONG: Noul("Do at least 3 reviews mention shipping damage?") -> unreliable mental math!
+# RIGHT: 1 atomic Noul per review in a single batched call + deterministic Python sum:
+questions = {
+    f"dmg_{i}": Noul(instructions={"review": r, "q": "Does 'review' report physical shipping damage?"})
+    for i, r in enumerate(reviews)
+}
+resp = client.system_one(state={"product_sku": sku}, questions=questions)
+damaged_count = sum(1 for ans in resp.nouls.values() if ans.noul >= 0.75)</code></pre>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Architecture</span>
+    <span>The System 1 + System 2 Sandwich Around Frontier LLMs</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: The System 1 + System 2 Sandwich</h2>
+  <p class="page-lead">
+    Kahneman's <em>Thinking, Fast and Slow</em> becomes a concrete software architecture when you wrap fast, sub-cent System One judgments (Jev) on <strong>both sides</strong> of slow, creative System Two reasoning (Claude, GPT, Gemini).
+  </p>
+
+  <div class="figure-box" style="background:#f8fafc; padding:12px 14px; border-color:#cbd5e1;">
+    <svg viewBox="0 0 700 172" width="100%" height="172" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="14" width="154" height="62" rx="8" fill="#ecfccb" stroke="#65a30d" stroke-width="1.6"/>
+      <text x="18" y="32" fill="#365314" font-size="8.4" font-weight="800">1. JEV INTAKE &amp; SAFETY</text>
+      <text x="18" y="47" fill="#1e293b" font-size="8.1">Choice + Noul guardrail battery</text>
+      <text x="18" y="61" fill="#475569" font-size="7.7">Blocks abuse; routes simple SQL</text>
+
+      <path d="M162 45 L182 45" stroke="#65a30d" stroke-width="2"/><polygon points="181,41 188,45 181,49" fill="#65a30d"/>
+
+      <!-- Stage 2 -->
+      <rect x="188" y="14" width="154" height="62" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.6"/>
+      <text x="198" y="32" fill="#075985" font-size="8.4" font-weight="800">2. JEV MODEL ROUTER</text>
+      <text x="198" y="47" fill="#1e293b" font-size="8.1">Difficulty &amp; Risk Scores</text>
+      <text x="198" y="61" fill="#475569" font-size="7.7">Picks mini vs. frontier model</text>
+
+      <path d="M342 45 L362 45" stroke="#0284c7" stroke-width="2"/><polygon points="361,41 368,45 361,49" fill="#0284c7"/>
+
+      <!-- Stage 3 -->
+      <rect x="368" y="14" width="154" height="62" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.6"/>
+      <text x="378" y="32" fill="#92400e" font-size="8.4" font-weight="800">3. JEV RAG RERANKER</text>
+      <text x="378" y="47" fill="#1e293b" font-size="8.1">1 Noul per retrieved chunk</text>
+      <text x="378" y="61" fill="#475569" font-size="7.7">Prunes distractors before LLM</text>
+
+      <path d="M522 45 L542 45" stroke="#7c3aed" stroke-width="2"/><polygon points="541,41 548,45 541,49" fill="#7c3aed"/>
+
+      <!-- Stage 4: System 2 -->
+      <rect x="548" y="14" width="144" height="62" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="1.8"/>
+      <text x="558" y="32" fill="#c7d2fe" font-size="8.4" font-weight="800">4. SYSTEM 2 LLM</text>
+      <text x="558" y="47" fill="#ffffff" font-size="8.5" font-weight="700">Drafts Rich Prose</text>
+      <text x="558" y="61" fill="#cbd5e1" font-size="7.7">Clean context, pure writing</text>
+
+      <!-- Return connector -->
+      <path d="M620 76 L620 96 L350 96 L350 108" fill="none" stroke="#475569" stroke-width="1.6" stroke-dasharray="4,3"/>
+      <polygon points="346,107 350,114 354,107" fill="#475569"/>
+
+      <!-- Stage 5: Outbound Gate -->
+      <rect x="115" y="114" width="470" height="46" rx="8" fill="#0f172a" stroke="#a3e635" stroke-width="1.8"/>
+      <text x="350" y="133" text-anchor="middle" fill="#bef264" font-size="9.2" font-weight="800">
+        5. JEV DELIVERY &amp; CITATION GATE (Rubric Score + Groundedness Noul + Promptfoo CI Suite)
+      </text>
+      <text x="350" y="149" text-anchor="middle" fill="#e2e8f0" font-size="8">
+        Ships verified deliverables &bull; Retries unsupported claims &bull; Escalates low-confidence edge cases to humans
+      </text>
+    </svg>
+  </div>
+
+  <h3>How Each Tool Plays to Its Exact Strength</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Pipeline Stage</th>
+        <th style="width:26%;">Engine Assigned</th>
+        <th style="width:52%;">Why This Division Wins on Cost, Latency &amp; Reliability</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Intake &amp; Guardrails</strong></td>
+        <td>Jev (<code>Choice</code> + <code>Noul</code>)</td>
+        <td>Screens jailbreaks and routes <code>order_status</code> to $0 SQL handlers in ~100ms before waking any generative LLM.</td>
+      </tr>
+      <tr>
+        <td><strong>Complexity Routing</strong></td>
+        <td>Jev (<code>Score</code> &times; 2)</td>
+        <td>Sends 75% of routine tasks to fast mini models, saving frontier reasoning tokens strictly for reconciled hard evidence.</td>
+      </tr>
+      <tr>
+        <td><strong>Passage Filtering</strong></td>
+        <td>Vector DB + Jev <code>Noul</code>s</td>
+        <td>Drops irrelevant vector chunks so the System 2 writer sees only crisp supporting evidence (higher faithfulness, lower input bill).</td>
+      </tr>
+      <tr>
+        <td><strong>Synthesis &amp; Code</strong></td>
+        <td>Frontier LLM (System 2)</td>
+        <td>Freed from awkward JSON classification duties to do what LLMs do best: nuanced prose, code edits, and synthesis.</td>
+      </tr>
+      <tr>
+        <td><strong>Outbound Verification</strong></td>
+        <td>Jev + Deterministic Code</td>
+        <td>Grades rubric completeness and per-claim citation support in one parallel check before charging or showing the customer.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">The Recommended 30-Day Rollout Order</div>
+    <strong>Week 1:</strong> Test real tickets in Playground &amp; ship one read-only intake classifier logged beside existing code. <strong>Week 2:</strong> Collect 30 human labels &amp; tune <code>lib/decisions.ts</code> thresholds. <strong>Week 3:</strong> Enable confidence-gated routing + paid-deliverable quality gate.
+  </div>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Production Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Keep this page next to your <code>lib/decisions.ts</code> policy file. Nearly every surprising probability or API error maps to one of seven mechanical fixes below.
+  </p>
+
+  <h3>Top 7 System One Pitfalls &amp; 10-Second Fixes</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:32%;">Symptom You Observe</th>
+        <th style="width:68%;">Root Cause &amp; Immediate 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. <code>confidence</code> stays stuck below <code>0.40</code></strong></td>
+        <td>Overlapping rubric levels, compound multi-part question, or missing facts in <code>state</code>. Split into 1 dimension per question and rewrite <code>Score</code> levels as concrete situations.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Model confuses two similar <code>Choice</code> keys</strong></td>
+        <td>Short string labels blur boundary cases. Upgrade both keys to structured objects with explicit <code>what</code>, <code>not_for</code>, and <code>examples</code> arrays, plus <code>other: null</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Easy cases fail when full JSON row is passed</strong></td>
+        <td>Context rot from noisy distractor fields. Filter <code>state</code> in code first so only fields cited by your questions cross the wire, and reference exact dot-paths.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Counts, totals, or date checks are wrong</strong></td>
+        <td>Asking Jev to do math or calendar ordering. Emit <strong>one <code>Noul</code> per item</strong> (or extract date parts) and run arithmetic/date comparisons in native Python/TypeScript.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Threshold pass rates shifted without code edits</strong></td>
+        <td>Using floating alias <code>jev-latest</code> across a model update. Pin exact version <code>jev-1.13.0</code> in production and re-calibrate on your golden JSONL set before bumping.</td>
+      </tr>
+      <tr>
+        <td><strong>6. HTTP <code>401</code>, <code>422</code>, or <code>429 / 529</code></strong></td>
+        <td><code>401</code>: internal whitespace or wrong <code>TYPESAFE_API_KEY</code> (verify <code>api.typesafe.ai</code> domain!). <code>422</code>: inspect body for malformed criteria field. <code>429/529</code>: enable SDK exponential backoff.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Coding agent invents non-existent SDK methods</strong></td>
+        <td>Outdated training priors or stale skill. Run <code>npx skills add typesafe-ai/skills --skill typesafe-ai</code> (or update plugin) so the agent reads current SDK signatures.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:8px; padding:13px 15px;">
+    <div class="card-title" style="color:#bef264; font-size:10.4pt; margin-bottom:7px;">
+      6-Point Pre-Flight Checklist: Before Shipping Any System One Decision
+    </div>
+    <div class="grid-2" style="font-size:8.25pt; gap:8px 16px; color:#e2e8f0;">
+      <div>
+        <strong>&#9744; 1. Server-Only Key &amp; Verified Domain:</strong> <code>TYPESAFE_API_KEY</code> lives strictly on the server talking to <code>api.typesafe.ai</code> (never browser code or lookalike URLs).<br/><br/>
+        <strong>&#9744; 2. One-File Policy &amp; Pinned Model:</strong> All questions and risk-tiered <code>THRESHOLDS</code> live side-by-side in one file with <code>model</code> pinned to <code>jev-1.13.0</code>.<br/><br/>
+        <strong>&#9744; 3. Atomic &amp; Escape-Hatched Primitives:</strong> Every question tests one condition, <code>Noul</code>s read positively (<code>1 = yes</code>), and every <code>Choice</code> includes <code>other: null</code>.
+      </div>
+      <div>
+        <strong>&#9744; 4. Ruthlessly Filtered State:</strong> Code strips unrelated fields before calling <code>system_one()</code>; zero math, counting, or date comparisons inside instructions.<br/><br/>
+        <strong>&#9744; 5. Confidence Fallbacks Wired:</strong> Low-confidence predictions route explicitly to human review, user confirmation, or retry&mdash;never blind execution.<br/><br/>
+        <strong>&#9744; 6. Validated on Labeled Traffic:</strong> Calibrated against 20&ndash;50 real labeled examples (and benchmarked via <code>system-one-adapter</code>) before gating users or CI!
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Jev &amp; System One Decisions &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>
