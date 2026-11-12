@@ -5,8 +5,8 @@
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-14%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-168%20Pages-059669?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-18%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-216%20Pages-059669?style=for-the-badge)
 ![Ecosystems](https://img.shields.io/badge/Scope-2%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
@@ -117,7 +117,7 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
 </table>
 
 ### AI Agent Engineering & Architecture
-Vendor-neutral 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktree fleets, and semantic RAG memory.
+Vendor-neutral 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktrees, RAG & knowledge graphs, security, evals, and local on-device AI.
 
 <table>
   <tr>
@@ -156,6 +156,42 @@ Vendor-neutral 12-page visual handbooks for context engineering, multi-agent orc
       <p><a href="guides/agent-engineering/vector-memory-and-rag/Vector_Memory_and_Semantic_Search_RAG_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/vector-memory-and-rag">&#128736; Editable Source</a></p>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/ai-evals-and-regression-testing/AI_Evals_and_Regression_Testing_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/ai-evals-and-regression-testing/cover.png" alt="AI Evals &amp; Regression Testing Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/ai-evals-and-regression-testing/AI_Evals_and_Regression_Testing_Complete_How_To_Guide.pdf">AI Evals &amp; Regression Testing</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turning LLM vibe-checks into deterministic CI deploy gates with golden datasets, code scorers, calibrated LLM-as-judge, and Promptfoo.</p>
+      <p><code>AI Evals</code> &middot; <code>CI Gating</code> &middot; <code>Promptfoo</code></p>
+      <p><a href="guides/agent-engineering/ai-evals-and-regression-testing/AI_Evals_and_Regression_Testing_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/ai-evals-and-regression-testing">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/prompt-injection-and-agent-security/Prompt_Injection_and_Agent_Security_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/prompt-injection-and-agent-security/cover.png" alt="Prompt Injection &amp; Agent Security Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/prompt-injection-and-agent-security/Prompt_Injection_and_Agent_Security_Complete_How_To_Guide.pdf">Prompt Injection &amp; Agent Security</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Defending tool-calling and browsing AI agents against indirect prompt injection, poisoned MCP servers, secret exfiltration, and unsafe output sinks.</p>
+      <p><code>Agent Security</code> &middot; <code>Prompt Injection</code> &middot; <code>MCP Safety</code></p>
+      <p><a href="guides/agent-engineering/prompt-injection-and-agent-security/Prompt_Injection_and_Agent_Security_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/prompt-injection-and-agent-security">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/local-and-on-device-ai/Local_and_On_Device_AI_Stack_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/local-and-on-device-ai/cover.png" alt="Local &amp; On-Device AI Stack Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/local-and-on-device-ai/Local_and_On_Device_AI_Stack_Complete_How_To_Guide.pdf">Local &amp; On-Device AI Stack</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Running private, zero-per-token LLMs and embeddings on your own hardware—mastering GGUF quantization, Apple Silicon memory math, Ollama, and llama.cpp.</p>
+      <p><code>Local AI</code> &middot; <code>Ollama</code> &middot; <code>Apple Silicon</code></p>
+      <p><a href="guides/agent-engineering/local-and-on-device-ai/Local_and_On_Device_AI_Stack_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/local-and-on-device-ai">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/graphify-and-obsidian-knowledge-graphs/cover.png" alt="AI Agents + Graphify + Obsidian Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf">AI Agents + Graphify + Obsidian</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Building persistent, queryable knowledge graphs from codebases and notes that you explore visually in Obsidian and expose to AI agents via MCP.</p>
+      <p><code>Knowledge Graphs</code> &middot; <code>Obsidian</code> &middot; <code>Graphify MCP</code></p>
+      <p><a href="guides/agent-engineering/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/graphify-and-obsidian-knowledge-graphs">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
 </table>
 
 ### Quick-Reference Index
@@ -175,6 +211,10 @@ Vendor-neutral 12-page visual handbooks for context engineering, multi-agent orc
 | **Subagents & Agent Orchestration** — Designing specialist subagents, context forks, least-privilege tool scoping, lifecycle hooks, and multi-agent coordinator-worker swarms. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/subagents-and-orchestration/Subagents_and_Agent_Orchestration_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/subagents-and-orchestration) |
 | **Git Worktrees & Parallel Agent Safety** — Running parallel coding agents without file collisions—covering Git worktree fleets, isolated ports/databases, safety hooks, and teardown. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/git-worktrees-and-parallel-safety/Git_Worktrees_and_Parallel_Agent_Safety_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/git-worktrees-and-parallel-safety) |
 | **Vector Memory & Semantic Search (RAG)** — Building persistent semantic memory for AI agents with structure-aware chunking, Chroma, pgvector, Qdrant, local Ollama, and hybrid retrieval. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/vector-memory-and-rag/Vector_Memory_and_Semantic_Search_RAG_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/vector-memory-and-rag) |
+| **AI Evals & Regression Testing** — Turning LLM vibe-checks into deterministic CI deploy gates with golden datasets, code scorers, calibrated LLM-as-judge, and Promptfoo. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/ai-evals-and-regression-testing/AI_Evals_and_Regression_Testing_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/ai-evals-and-regression-testing) |
+| **Prompt Injection & Agent Security** — Defending tool-calling and browsing AI agents against indirect prompt injection, poisoned MCP servers, secret exfiltration, and unsafe output sinks. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/prompt-injection-and-agent-security/Prompt_Injection_and_Agent_Security_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/prompt-injection-and-agent-security) |
+| **Local & On-Device AI Stack** — Running private, zero-per-token LLMs and embeddings on your own hardware—mastering GGUF quantization, Apple Silicon memory math, Ollama, and llama.cpp. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/local-and-on-device-ai/Local_and_On_Device_AI_Stack_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/local-and-on-device-ai) |
+| **AI Agents + Graphify + Obsidian** — Building persistent, queryable knowledge graphs from codebases and notes that you explore visually in Obsidian and expose to AI agents via MCP. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/graphify-and-obsidian-knowledge-graphs) |
 <!-- CATALOG:END -->
 
 ---

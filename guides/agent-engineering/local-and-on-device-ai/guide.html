@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Local &amp; On-Device AI Stack: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AGENT ENGINEERING SERIES &bull; VERSION 1.0 &bull; NOVEMBER 2026</div>
+    <h1>Local &amp; On-Device <span>AI Stack</span></h1>
+    <p class="cover-sub">
+      The complete visual handbook to running open weights on your own silicon&mdash;mastering <code>GGUF</code> &amp; <code>MLX</code> runtimes, quantization math, Apple Silicon unified memory, zero-cost local embeddings, and hybrid cloud routing.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge"><code>Ollama</code> &bull; <code>llama.cpp</code> &bull; <code>MLX</code></span>
+      <span class="cover-badge"><code>Q4_K_M</code> &amp; <code>imatrix</code> Math</span>
+      <span class="cover-badge">Unified RAM &amp; <code>num_ctx</code></span>
+      <span class="cover-badge"><code>localhost:11434/v1</code> Swap</span>
+      <span class="cover-badge">Zero-Cost Local Embeddings</span>
+      <span class="cover-badge">Air-Gapped Hybrid Routing</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Brushed Titanium and Warm Copper System-on-Chip Glowing with Tangerine and Cyan Unified Memory Traces" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">100% Air-Gapped Privacy</div>
+      <div class="cover-stat-desc">Keep client contracts, unreleased source code, and sensitive notes strictly on loopback silicon&mdash;unplug Wi-Fi and keep working.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero Per-Token Economics</div>
+      <div class="cover-stat-desc">Embed millions of chunks, classify nightly batches, and run background triage agents for $0.00 beyond wall-outlet electricity.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">One-Line OpenAI Swap</div>
+      <div class="cover-stat-desc">Write against standard <code>/v1/chat/completions</code> and <code>/v1/embeddings</code> routes so switching local vs. frontier cloud is pure config.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>Local &amp; On-Device AI Stack</span>
+  </div>
+
+  <h2 class="page-title">Own the Other Half: The Local AI Mental Model</h2>
+  <p class="page-lead">
+    Local inference is not a replacement for frontier cloud models&mdash;it is the complementary second engine sitting right under your desk. Mastering the four layers underneath <code>localhost</code> lets you run private workloads for free and diagnose instantly when a local model feels slow or forgetful.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. The 4-Layer Local Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Embeddings, Speed &amp; <code>brain.py</code> RAG</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Runtimes, Formats &amp; RAM Sizing</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Local Stack Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Live Telemetry Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Hybrid Routing &amp; Coding Agents</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Quantization Math (<code>FP16 &rarr; IQ3_M</code>)</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Private Hybrid Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Unified Memory &amp; <code>num_ctx</code> Trap</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Ollama CLI, JSON &amp; SDK Swap</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Rule: Bandwidth &amp; RAM Govern All</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Honest Division of Labor: Where Local Wins vs. Where Cloud Still Leads</h3>
+  <div class="grid-2" style="margin-bottom:9px; gap:11px;">
+    <div class="card" style="padding:9px 11px; border-left:3.5px solid #059669;">
+      <div class="card-title" style="font-size:9.3pt;">&#10003; Local Silicon Wins Decisively</div>
+      <p style="font-size:8.15pt; margin:0;"><strong>Strict data residency</strong> (zero third-party logs), <strong>bulk embeddings</strong> (millions of docs for $0), <strong>air-gapped travel/field work</strong>, bounded extraction/summarization, and custom <strong>LoRA fine-tuning</strong> with pinned weights that never silently deprecate.</p>
+    </div>
+    <div class="card" style="padding:9px 11px; border-left:3.5px solid #ea580c;">
+      <div class="card-title" style="font-size:9.3pt;">&#9889; Hosted Frontier Still Leads</div>
+      <p style="font-size:8.15pt; margin:0;"><strong>Hard multi-step architectural reasoning</strong>, <strong>massive 100K&ndash;1M+ context windows</strong> (where local KV caches blow past laptop RAM), and <strong>complex 15-tool agent loops</strong> where quantized 8B&ndash;14B models occasionally drop JSON arguments.</p>
+    </div>
+  </div>
+
+  <h3>Architecture: The 4-Layer Local Inference Stack</h3>
+  <div class="figure-box" style="background:#140904; padding:11px 13px; border-color:#475569;">
+    <svg viewBox="0 0 700 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Layer 4: Application -->
+      <rect x="12" y="6" width="676" height="34" rx="7" fill="#1e293b" stroke="#38bdf8" stroke-width="1.4"/>
+      <text x="24" y="21" fill="#7dd3fc" font-size="8.3" font-weight="800">LAYER 4 &bull; YOUR APPLICATION OR CODING AGENT</text>
+      <text x="24" y="33" fill="#e2e8f0" font-size="8.3">Python / TS OpenAI SDK &bull; brain.py RAG &bull; Continue / Aider / OpenCode &bull; Speaks standard HTTP, agnostic to model location</text>
+
+      <!-- HTTP Arrow -->
+      <path d="M350 40 L350 52" stroke="#fb923c" stroke-width="2"/><polygon points="345,50 350,56 355,50" fill="#fb923c"/>
+      <text x="362" y="51" fill="#fed7aa" font-size="7.8" font-weight="700">POST /v1/chat/completions &amp; /v1/embeddings</text>
+
+      <!-- Layer 3: OpenAI-Compatible Local Server -->
+      <rect x="12" y="56" width="676" height="36" rx="7" fill="#291308" stroke="#fb923c" stroke-width="1.6"/>
+      <text x="24" y="71" fill="#fed7aa" font-size="8.3" font-weight="800">LAYER 3 &bull; OPENAI-COMPATIBLE LOOPBACK SERVER (PROCESS &amp; REGISTRY MANAGER)</text>
+      <text x="24" y="85" fill="#ffffff" font-size="8.4">Ollama (localhost:11434/v1) &nbsp;&bull;&nbsp; llama-server (127.0.0.1:8080/v1) &nbsp;&bull;&nbsp; LM Studio (localhost:1234/v1)</text>
+
+      <!-- Arrow -->
+      <path d="M220 92 L220 104 M480 92 L480 104" stroke="#34d399" stroke-width="1.8"/>
+
+      <!-- Layer 2: Inference Runtimes -->
+      <rect x="12" y="104" width="330" height="34" rx="7" fill="#0f172a" stroke="#34d399" stroke-width="1.3"/>
+      <text x="24" y="118" fill="#6ee7b7" font-size="8.2" font-weight="800">LAYER 2A &bull; LLAMA.CPP ENGINE</text>
+      <text x="24" y="131" fill="#cbd5e1" font-size="8">Cross-platform C++: Metal, CUDA, Vulkan, ROCm &amp; CPU</text>
+
+      <rect x="358" y="104" width="330" height="34" rx="7" fill="#0f172a" stroke="#a78bfa" stroke-width="1.3"/>
+      <text x="370" y="118" fill="#ddd6fe" font-size="8.2" font-weight="800">LAYER 2B &bull; APPLE MLX ENGINE (OLLAMA 0.19+)</text>
+      <text x="370" y="131" fill="#cbd5e1" font-size="8">Native Apple Silicon unified-memory kernels + LoRA</text>
+
+      <!-- Arrow -->
+      <path d="M350 138 L350 148" stroke="#94a3b8" stroke-width="1.8"/>
+
+      <!-- Layer 1: Model File -->
+      <rect x="12" y="148" width="676" height="30" rx="7" fill="#111827" stroke="#94a3b8" stroke-width="1.2"/>
+      <text x="350" y="162" text-anchor="middle" fill="#fb923c" font-size="8.5" font-weight="800">LAYER 1 &bull; SELF-CONTAINED WEIGHT ARTIFACT ON DISK (mmap + dequantize)</text>
+      <text x="350" y="173" text-anchor="middle" fill="#cbd5e1" font-size="7.9">model-Q4_K_M.gguf or MLX Safetensors = Quantized Tensors + Tokenizer + Jinja Chat Template + RoPE Metadata</text>
+    </svg>
+  </div>
+
+  <div class="callout amber" style="margin:6px 0 0 0; padding:8px 12px;">
+    <div class="callout-title">The Universal Fuel Nozzle: Target the Endpoint, Never the Vendor</div>
+    Every major local runtime exposes the exact same HTTP JSON contract as OpenAI. Pointing your app at <code>OPENAI_BASE_URL=http://localhost:11434/v1</code> instead of <code>https://api.openai.com/v1</code> turns &ldquo;local vs. cloud&rdquo; from a multi-week rewrite into a single environment variable.
+  </div>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: RUNTIME & FORMAT ECOSYSTEM MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Runtimes, Formats &amp; Sizing</span>
+    <span>Choosing Engines, Weight Containers &amp; Hardware Tiers</span>
+  </div>
+
+  <h2 class="page-title">Runtime &amp; Format Matrix + Hardware Sizing</h2>
+  <p class="page-lead" style="margin-bottom:6px; font-size:9.8pt;">
+    Most frustration in local AI comes from picking the wrong container format for your chip or pulling a model whose KV cache quietly exceeds usable RAM. Match your runtime and weight size to your metal first.
+  </p>
+
+  <h3 style="margin:3px 0 3px 0; font-size:10.6pt;">Weight Containers Compared: <code>GGUF</code> vs. <code>Safetensors / MLX</code></h3>
+  <div class="grid-2" style="margin-bottom:5px; gap:9px;">
+    <div class="card" style="padding:6px 10px;">
+      <div class="card-title" style="font-size:8.9pt; margin-bottom:2px;"><span class="num-badge amber">A</span> <code>GGUF</code> (Universal Single-File Crate)</div>
+      <p style="font-size:7.75pt; margin:0; line-height:1.38;">Created by <code>ggml-org/llama.cpp</code> to replace GGML. Packs quantized weights, vocabulary, Jinja chat template, and architecture metadata into <strong>one <code>mmap</code>-ready file</strong> via <code>convert-hf-to-gguf.py</code> + <code>llama-quantize</code> (published by <code>ggml-org</code>, <code>unsloth</code>, and <code>bartowski</code>).</p>
+    </div>
+    <div class="card" style="padding:6px 10px;">
+      <div class="card-title" style="font-size:8.9pt; margin-bottom:2px;"><span class="num-badge purple">B</span> <code>MLX</code> Safetensors (Apple Silicon Native)</div>
+      <p style="font-size:7.75pt; margin:0; line-height:1.38;">Apple's array framework reads 4-bit/8-bit <code>Safetensors</code> repos (<code>mlx-community/*</code>) directly across unified memory. Delivers peak M-series throughput (especially on MoE models), on-device LoRA training, and powers supported Mac models automatically in <strong>Ollama 0.19+</strong>.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 3px 0; font-size:10.6pt;">Local Inference Runtime Decision Matrix (2026)</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:17%; padding:4.5px 7px;">Runtime</th>
+        <th style="width:19%; padding:4.5px 7px;">Native Formats</th>
+        <th style="width:18%; padding:4.5px 7px;">Default Endpoint</th>
+        <th style="width:46%; padding:4.5px 7px;">Sweet Spot &amp; Engineering Trade-Offs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Ollama</strong><br/><span style="color:#64748b;font-size:7pt;">CLI + Daemon</span></td>
+        <td style="padding:4px 7px;"><code>GGUF</code> + <code>MLX</code> (v0.19+)</td>
+        <td style="padding:4px 7px;"><code>localhost:11434/v1</code></td>
+        <td style="padding:4px 7px;"><strong>Best everyday default.</strong> One-command pulls, automatic lifecycle unloading, <code>Modelfile</code> customization, and dual llama.cpp/MLX acceleration.</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>llama.cpp</strong><br/><span style="color:#64748b;font-size:7pt;"><code>llama-server</code> / CLI</span></td>
+        <td style="padding:4px 7px;"><code>GGUF</code></td>
+        <td style="padding:4px 7px;"><code>127.0.0.1:8080/v1</code></td>
+        <td style="padding:4px 7px;"><strong>Maximum low-level control &amp; portability.</strong> Runs on Metal, CUDA, Vulkan, ROCm, and CPU; exposes granular KV, batch, grammar, and speculative flags.</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Apple MLX</strong><br/><span style="color:#64748b;font-size:7pt;"><code>mlx_lm.server</code></span></td>
+        <td style="padding:4px 7px;"><code>Safetensors</code> (MLX)</td>
+        <td style="padding:4px 7px;"><code>127.0.0.1:8080/v1</code></td>
+        <td style="padding:4px 7px;"><strong>Peak Mac throughput &amp; local LoRA.</strong> Fastest prefill/decode on M1&ndash;M4 silicon and native Python/Swift embedding; macOS Apple Silicon only.</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>LM Studio</strong><br/><span style="color:#64748b;font-size:7pt;">GUI + <code>lms</code> CLI</span></td>
+        <td style="padding:4px 7px;"><code>GGUF</code> &amp; <code>MLX</code></td>
+        <td style="padding:4px 7px;"><code>localhost:1234/v1</code></td>
+        <td style="padding:4px 7px;"><strong>Visual exploration &amp; hardware fit checks.</strong> Built-in Hugging Face browser estimates GPU fit before download and runs a headless local server.</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>vLLM</strong><br/><span style="color:#64748b;font-size:7pt;">Multi-User GPU</span></td>
+        <td style="padding:4px 7px;"><code>Safetensors</code> (AWQ/FP8)</td>
+        <td style="padding:4px 7px;"><code>localhost:8000/v1</code></td>
+        <td style="padding:4px 7px;"><strong>Team GPU workstation / Linux server.</strong> PagedAttention shines under high parallel concurrency on NVIDIA/AMD GPUs; overkill for single laptops.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:4px 0 3px 0; font-size:10.6pt;">Hardware Tier Sizing Guide (Unified Memory / Dedicated VRAM)</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:12%; padding:4.5px 7px;">RAM Tier</th>
+        <th style="width:17%; padding:4.5px 7px;">Usable AI Budget</th>
+        <th style="width:35%; padding:4.5px 7px;">Comfortable Daily Sweet Spot</th>
+        <th style="width:21%; padding:4.5px 7px;">Stretch (Short Ctx)</th>
+        <th style="width:15%; padding:4.5px 7px;">Avoid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4px 7px;"><strong>16 GB</strong></td>
+        <td style="padding:4px 7px;"><code>~10&ndash;11 GB</code></td>
+        <td style="padding:4px 7px;"><code>4B&ndash;8B Q4_K_M / Q5_K_M</code> (~40&ndash;55 tok/s) + embedder</td>
+        <td style="padding:4px 7px;"><code>14B Q4_K_M</code> (&le;4K)</td>
+        <td style="padding:4px 7px;"><code>27B&ndash;32B+</code></td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>32 GB</strong></td>
+        <td style="padding:4px 7px;"><code>~21&ndash;24 GB</code></td>
+        <td style="padding:4px 7px;"><code>14B Q6_K</code> or <code>30B MoE Q4_K_M</code> (~25&ndash;45 tok/s)</td>
+        <td style="padding:4px 7px;"><code>32B Q4_K_M</code> (8K)</td>
+        <td style="padding:4px 7px;"><code>70B Dense</code></td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>64 GB</strong></td>
+        <td style="padding:4px 7px;"><code>~44&ndash;48 GB</code></td>
+        <td style="padding:4px 7px;"><code>32B Q5_K_M</code> (32K) or <code>70B Q4_K_M</code> (~14&ndash;22 tok/s)</td>
+        <td style="padding:4px 7px;"><code>70B Q5_K_M</code></td>
+        <td style="padding:4px 7px;"><code>120B+ Dense</code></td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>128 GB</strong></td>
+        <td style="padding:4px 7px;"><code>~92&ndash;100 GB</code></td>
+        <td style="padding:4px 7px;"><code>70B Q8_0</code> + resident <code>8B</code> coder + embedder + 64K ctx</td>
+        <td style="padding:4px 7px;"><code>120B+ Q4</code> / MoEs</td>
+        <td style="padding:4px 7px;">FP16 405B</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:6px 10px; font-size:8.1pt;">
+    <div class="callout-title" style="font-size:8.6pt;">Plan Around 60&ndash;75% of Nominal Unified Memory</div>
+    On macOS, kernel, WindowServer, IDE, and browser claim <code>4&ndash;8 GB</code> before weights load. Directional tok/s ranges reflect September 2026 M-series estimates&mdash;always verify on your own chip via Activity Monitor and <code>llama-bench</code>.
+  </div>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED TELEMETRY & WORKSPACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Telemetry &amp; Workspace Tour</span>
+    <span>Reading Live Memory, Offload, KV Cache &amp; Throughput Signals</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Local Inference &amp; Memory Telemetry</h2>
+  <p class="page-lead">
+    Never guess whether your model is running on the GPU, truncating your prompt, or spilling into slow CPU swap. Here is how to read every critical signal across <code>ollama ps</code>, <code>llama-server</code> logs, and your active <code>Modelfile</code>.
+  </p>
+
+  <!-- Annotated Dark-Mode Telemetry Mockup -->
+  <div class="ui-window" style="margin-bottom:11px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">Local Stack Telemetry Console</span>
+        <span style="color:#64748b;">&bull;</span>
+        <span style="color:#fb923c; font-weight:600;">Apple M3 Max &bull; 64 GB Unified</span>
+      </div>
+      <div style="display:flex; gap:7px; align-items:center;">
+        <span style="background:#1e293b; border:1px solid #334155; padding:2px 8px; border-radius:6px; color:#fed7aa;">Wired Limit: 48.0 GB</span>
+        <span style="background:#065f46; padding:2px 8px; border-radius:6px; color:#a7f3d0; font-weight:700;">Swap Used: 0 MB</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.12fr 0.88fr; gap:1px; background:#1f2937;">
+      <!-- Left Column: ollama ps + llama-server telemetry -->
+      <div style="background:#0b0f19; padding:9px; display:flex; flex-direction:column; gap:7px;">
+        <div style="background:#111827; border:1px solid #374151; border-radius:6px; padding:6px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="color:#fed7aa; font-weight:700; font-size:7.3pt;">$ ollama ps &mdash; Loaded Resident Models</span>
+            <span style="color:#34d399; font-size:6.8pt;">:11434 ACTIVE</span>
+          </div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.65pt; color:#e2e8f0; line-height:1.48;">
+            <span style="color:#94a3b8;">NAME &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIZE &nbsp;&nbsp;&nbsp;&nbsp;PROCESSOR &nbsp;&nbsp;&nbsp;CONTEXT &nbsp;UNTIL</span><br/>
+            <span>qwen-local-16k:latest &nbsp;21.4 GB &nbsp;</span><span style="color:#34d399; font-weight:700;">100% GPU</span> <span class="callout-pin">1</span><span> &nbsp;16384 </span><span class="callout-pin">2</span><span> &nbsp;29m </span><span class="callout-pin">3</span><br/>
+            <span>nomic-embed-text &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;370 MB &nbsp;&nbsp;100% GPU &nbsp;&nbsp;&nbsp;&nbsp;8192 &nbsp;&nbsp;&nbsp;&nbsp;Forever</span>
+          </div>
+        </div>
+
+        <div style="background:#111827; border:1px solid #334155; border-radius:6px; padding:6px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="color:#7dd3fc; font-weight:700; font-size:7.3pt;">llama-server / Engine Slot Telemetry</span>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.7pt; color:#cbd5e1; line-height:1.46;">
+            <div>llm_load_tensors: Metal/MLX mapped <strong style="color:#f8fafc;">19.85 GiB</strong> (Q4_K_M, 4.83 bpw)</div>
+            <div>llama_kv_cache_init: <span style="color:#fb923c;">type_k = q8_0, type_v = q8_0</span>, flash_attn = 1 <span class="callout-pin">5</span></div>
+            <div>kv_buffer_size = <strong style="color:#34d399;">1.42 GiB</strong> (saved 1.42 GiB vs FP16 KV!)</div>
+            <div style="margin-top:3px; padding-top:3px; border-top:1px dashed #334155; color:#fde68a;">
+              prompt eval: <strong>1,842 tokens</strong> in 2.24s (<strong style="color:#38bdf8;">822.3 tok/s pp</strong>)<br/>
+              eval time: &nbsp;&nbsp;<strong>312 tokens</strong> in 13.56s (<strong style="color:#34d399;">23.01 tok/s tg</strong>) <span class="callout-pin">6</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Modelfile + Memory Breakdown -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; gap:7px;">
+        <div style="background:#1e293b; border:1px solid #475569; border-radius:6px; padding:6px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#fed7aa; font-size:7.3pt;">Pinned Modelfile (qwen-local-16k)</strong>
+            <span class="callout-pin">7</span>
+          </div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.7pt; color:#e2e8f0; line-height:1.44;">
+            <span style="color:#fb923c;">FROM</span> qwen2.5-coder:32b-instruct-q4_K_M<br/>
+            <span style="color:#38bdf8;">PARAMETER</span> num_ctx 16384<br/>
+            <span style="color:#38bdf8;">PARAMETER</span> num_gpu 999<br/>
+            <span style="color:#38bdf8;">PARAMETER</span> temperature 0.15<br/>
+            <span style="color:#34d399;">SYSTEM</span> &quot;Answer concisely from repo facts.&quot;
+          </div>
+        </div>
+
+        <div style="background:#111827; border-left:3px solid #fb923c; border-radius:5px; padding:6px 8px;">
+          <strong style="color:#f8fafc; font-size:7.2pt;">Unified Memory Budget Bar (22.9 / 48.0 GB)</strong>
+          <div style="height:8px; background:#1e293b; border-radius:4px; overflow:hidden; display:flex; margin:5px 0;">
+            <div style="width:41%; background:#fb923c;" title="Weights"></div>
+            <div style="width:4%; background:#38bdf8;" title="KV Cache"></div>
+            <div style="width:3%; background:#a78bfa;" title="Embedder + Runtime"></div>
+          </div>
+          <div style="font-size:6.65pt; color:#cbd5e1; line-height:1.38;">
+            <span style="color:#fb923c;">&#9632;</span> Weights: 19.9 GB &nbsp;
+            <span style="color:#38bdf8;">&#9632;</span> KV: 1.4 GB &nbsp;
+            <span style="color:#a78bfa;">&#9632;</span> Overhead: 1.6 GB<br/>
+            <span style="color:#6ee7b7;">Headroom remaining: 25.1 GB (Zero swap risk)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Telemetry Reference</h3>
+  <div class="grid-2" style="gap:7px 14px; font-size:8.55pt;">
+    <div><span class="callout-pin">1</span> <strong>GPU Offload Split (<code>PROCESSOR</code>):</strong> Must read <code>100% GPU</code> for crisp speed. Even a <code>85% GPU / 15% CPU</code> split slashes generation throughput by 3&ndash;5x.</div>
+    <div><span class="callout-pin">2</span> <strong>Active Context Window (<code>CONTEXT</code>):</strong> Confirms the live <code>num_ctx</code> slot (<code>16384</code>). Any prompt longer than this number is silently clipped from the front!</div>
+    <div><span class="callout-pin">3</span> <strong>Residency Timer (<code>UNTIL</code>):</strong> Governed by <code>OLLAMA_KEEP_ALIVE</code>. Shows when idle weights will evict from RAM (or <code>Forever</code> when pinned with <code>-1</code>).</div>
+    <div><span class="callout-pin">4</span> <strong>Engine Loader Log:</strong> Confirms whether <code>llama.cpp</code> Metal or Apple <code>MLX</code> mapped the file and prints exact bits-per-weight (<code>4.83 bpw</code>).</div>
+    <div><span class="callout-pin">5</span> <strong>Quantized KV + Flash Attention:</strong> Setting <code>q8_0</code> KV cache with Flash Attention cuts context memory in half while preserving output fidelity.</div>
+    <div><span class="callout-pin">6</span> <strong>Prefill (<code>pp</code>) vs. Decode (<code>tg</code>):</strong> Separates compute-bound prompt reading (<code>822 tok/s</code>) from memory-bandwidth-bound token writing (<code>23 tok/s</code>).</div>
+  </div>
+  <div style="margin-top:6px; font-size:8.55pt;">
+    <span class="callout-pin">7</span> <strong>Declarative <code>Modelfile</code>:</strong> Bakes your verified <code>num_ctx</code>, GPU offload, and system prompt into a versionable local alias via <code>ollama create</code>.
+  </div>
+
+  <div class="callout emerald" style="margin-top:9px;">
+    <div class="callout-title">Two-Command Sanity Habit Whenever Performance Feels Off</div>
+    Run <code>ollama ps</code> alongside macOS <strong>Activity Monitor &rarr; Memory Pressure</strong>. If Memory Pressure stays green and <code>PROCESSOR</code> shows <code>100% GPU</code>, your model is running at full silicon bandwidth; yellow/red pressure means SSD swap is throttling you.
+  </div>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: QUANTIZATION DEMYSTIFIED ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Precision &amp; Compression</span>
+    <span>How K-Quants &amp; Importance Matrices Shrink Models 3&ndash;4x</span>
+  </div>
+
+  <h2 class="page-title">Quantization Demystified: <code>FP16</code> Down to <code>IQ3_M</code></h2>
+  <p class="page-lead">
+    A 32-billion-parameter model occupies <code>64 GB</code> in raw 16-bit floats&mdash;impossible on a 32 GB laptop. Quantization compresses those weights down toward 4&ndash;5 bits per parameter, shrinking the file to <code>~19.5 GB</code> while retaining roughly 95&ndash;97% of reference capability.
+  </p>
+
+  <div class="figure-box" style="background:#140904;">
+    <img src="assets/quantization_compression.jpg" alt="Heavy Golden-Amber Blocks Compressing Through Crystalline Lens Into Compact Copper-Cyan Super-Block Prisms" style="width:100%; height:250px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.35pt; border-top:1px solid #334155; gap:8px;">
+      <div><strong style="color:#fde68a;">FP16 &bull; 16.0 bpw:</strong><br/>Uncompressed training baseline; 2 bytes/param.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#38bdf8;">Q8_0 &bull; ~8.5 bpw:</strong><br/>Near-lossless 8-bit blocks; ~50% smaller than FP16.</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#fb923c;">Q4_K_M / Q5_K_M:</strong><br/>Mixed K-quant super-blocks (~4.8&ndash;5.7 bpw sweet spot).</div>
+      <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#34d399;">IQ3_M &bull; ~3.5 bpw:</strong><br/><code>imatrix</code>-calibrated low-bit rescue for tight RAM.</div>
+    </div>
+  </div>
+
+  <h3>Why &ldquo;4-Bit&rdquo; Actually Averages ~4.8 Bits Per Weight</h3>
+  <p style="font-size:8.65pt; margin-bottom:6px;">
+    Modern <strong>K-quants</strong> (<code>Q4_K_S</code>, <code>Q4_K_M</code>, <code>Q4_K_L</code>) do not crush every tensor uniformly. They group weights into <strong>super-blocks</strong> with shared floating-point scales and keep sensitive attention/output layers at 6-bit or 8-bit precision (controlled by <code>_S</code>/<code>_M</code>/<code>_L</code>). Below 4 bits, <strong><code>IQ</code> quants</strong> (e.g., <code>IQ4_XS</code>, <code>IQ3_M</code>) run a calibration corpus through an <strong>importance matrix (<code>imatrix</code>)</strong> during quantization to protect the specific weights that spike activations most.
+  </p>
+
+  <table class="clean-table" style="font-size:7.9pt; margin:4px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:15%; padding:5px 8px;">Quant Tag</th>
+        <th style="width:13%; padding:5px 8px;">Avg. bpw</th>
+        <th style="width:19%; padding:5px 8px;">8B / 32B Size</th>
+        <th style="width:17%; padding:5px 8px;">Quality Rule*</th>
+        <th style="width:36%; padding:5px 8px;">When to Pick It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4.5px 8px;"><code>FP16 / BF16</code></td>
+        <td style="padding:4.5px 8px;"><code>16.0</code></td>
+        <td style="padding:4.5px 8px;"><code>16 GB / 64 GB</code></td>
+        <td style="padding:4.5px 8px;"><code>100%</code> (Ref)</td>
+        <td style="padding:4.5px 8px;">Reference yardstick &amp; source input for <code>llama-quantize</code>; rarely served locally.</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><code>Q8_0</code></td>
+        <td style="padding:4.5px 8px;"><code>~8.5</code></td>
+        <td style="padding:4.5px 8px;"><code>8.5 GB / 34 GB</code></td>
+        <td style="padding:4.5px 8px;"><code>~99%+</code></td>
+        <td style="padding:4.5px 8px;">Near-lossless ceiling when you have abundant RAM and want exact reference parity.</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><code>Q6_K / Q5_K_M</code></td>
+        <td style="padding:4.5px 8px;"><code>~6.6 / 5.7</code></td>
+        <td style="padding:4.5px 8px;"><code>5.8&ndash;6.6 / 23&ndash;26 GB</code></td>
+        <td style="padding:4.5px 8px;"><code>~97&ndash;99%</code></td>
+        <td style="padding:4.5px 8px;"><strong>Upgrade pick</strong> for coding, strict JSON schemas, and digit-accurate extraction.</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong><code>Q4_K_M</code></strong></td>
+        <td style="padding:4.5px 8px;"><strong><code>~4.8</code></strong></td>
+        <td style="padding:4.5px 8px;"><strong><code>4.9 GB / 19.5 GB</code></strong></td>
+        <td style="padding:4.5px 8px;"><strong><code>~95&ndash;97%</code></strong></td>
+        <td style="padding:4.5px 8px;"><strong>Universal default</strong> (and Ollama's registry default). Best size, speed &amp; quality trade.</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><code>IQ3_M / Q3_K_M</code></td>
+        <td style="padding:4.5px 8px;"><code>~3.5</code></td>
+        <td style="padding:4.5px 8px;"><code>3.6 GB / 14.2 GB</code></td>
+        <td style="padding:4.5px 8px;"><code>~89&ndash;92%</code></td>
+        <td style="padding:4.5px 8px;">Squeezing a larger parameter class (e.g., 70B onto 36&ndash;48 GB); always prefer <code>imatrix</code> <code>IQ</code>.</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><code>Q2_K</code></td>
+        <td style="padding:4.5px 8px;"><code>~2.6</code></td>
+        <td style="padding:4.5px 8px;"><code>2.8 GB / 11 GB</code></td>
+        <td style="padding:4.5px 8px;"><code>~80&ndash;85%</code></td>
+        <td style="padding:4.5px 8px;">Emergency curiosity only; drop down to a smaller model at <code>Q4_K_M</code> instead!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:0; padding:8px 12px; font-size:8.45pt;">
+    <div class="callout-title">Task Sensitivity Rule: Coding &amp; Tool-Calling Feel Quantization First</div>
+    <em>*Quality percentages are community rules of thumb, not universal benchmarks.</em> Conversational prose hides quantization noise effortlessly, whereas <strong>code syntax, multi-argument tool calls, and exact numerical extraction</strong> degrade noticeably below <code>Q4_K_M</code>. A crisp <code>14B @ Q5_K_M</code> almost always beats a lobotomized <code>32B @ Q2_K</code>!
+  </div>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: UNIFIED MEMORY MATH & NUM_CTX TRAP ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Unified Memory &amp; KV Cache</span>
+    <span>Preventing Silent Context Truncation &amp; Swap Thrashing</span>
+  </div>
+
+  <h2 class="page-title">Unified Memory Math &amp; The <code>num_ctx</code> Trap</h2>
+  <p class="page-lead">
+    On Apple Silicon, CPU, GPU, and Neural Engine cores share a single high-bandwidth memory pool without slow PCIe copies&mdash;yet that shared pool must simultaneously hold macOS, your IDE, model weights, and a KV cache that grows linearly with every token.
+  </p>
+
+  <div class="figure-box" style="background:#140904;">
+    <img src="assets/unified_memory_silicon.jpg" alt="Isometric 3D Cutaway of Unified Silicon Memory Pool Shared Across CPU, GPU, and Neural Cores" style="width:100%; height:248px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); background:#0f172a; color:#f8fafc; padding:6px 11px; font-size:7.45pt; border-top:1px solid #334155; gap:10px;">
+      <div><strong style="color:#fb923c;">ZERO-COPY UNIFIED POOL:</strong><br/>GPU reads mapped tensors directly without PCIe bus bottlenecks.</div>
+      <div style="padding-left:9px; border-left:1px solid #334155;"><strong style="color:#38bdf8;">WIRED MEMORY CEILING:</strong><br/>macOS reserves ~25&ndash;35% for kernel/GUI; never budget 100% of sticker RAM.</div>
+      <div style="padding-left:9px; border-left:1px solid #334155;"><strong style="color:#34d399;">LINEAR KV SCALING:</strong><br/><code>2 &times; layers &times; kv_heads &times; head_dim &times; bytes</code> per context token.</div>
+    </div>
+  </div>
+
+  <h3>The Golden Sizing Equation &amp; The Two-Sided <code>num_ctx</code> Trap</h3>
+  <div class="grid-2" style="margin-bottom:8px; gap:11px;">
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title" style="font-size:9.2pt;"><span class="num-badge amber">1</span> Trap A: Silent Context Truncation</div>
+      <p style="font-size:8.05pt; margin:0;">To protect 8&ndash;16 GB laptops, local servers often default <code>num_ctx</code> to <code>2048</code> or <code>4096</code> tokens&mdash;even if the model card advertises <code>128K</code>! Feed a 9,000-token file into a <code>4096</code> slot and the server <strong>silently drops the oldest 5,000 tokens</strong> without raising an error.</p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title" style="font-size:9.2pt;"><span class="num-badge teal">2</span> Trap B: KV Cache Swap Blow-Up</div>
+      <p style="font-size:8.05pt; margin:0;">Blindly setting <code>num_ctx 131072</code> in <code>FP16</code> (<code>2 bytes/val</code>) allocates <code>8&ndash;16+ GB</code> of KV buffer overnight, pushing unified memory onto SSD swap (<code>~2 tok/s</code>). <strong>Fix:</strong> right-size <code>num_ctx</code> (<code>8K&ndash;32K</code>) and set <code>OLLAMA_KV_CACHE_TYPE=q8_0</code> (<code>1 byte/val</code>, 50% smaller!).</p>
+    </div>
+  </div>
+
+  <h3 style="margin:6px 0 4px 0;">Anatomy of a Tuned Local Configuration (Daemon Env + <code>Modelfile</code>)</h3>
+  <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:8px 11px;">
+    <div style="font-size:8.15pt; line-height:1.72;">
+      <span class="p-tag p-light">[1. DAEMON KV &amp; FLASH ENV] OLLAMA_FLASH_ATTENTION=1 &amp; OLLAMA_KV_CACHE_TYPE=q8_0 &rarr; halves KV RAM with near-zero quality loss.</span><br/>
+      <span class="p-tag p-style">[2. BASE ARTIFACT] FROM qwen2.5-coder:14b-instruct-q5_K_M &rarr; pins exact parameter count &amp; quantization tier.</span><br/>
+      <span class="p-tag p-subj">[3. RIGHT-SIZED CONTEXT] PARAMETER num_ctx 16384 &rarr; fits full repo diffs + RAG chunks (~9.5 GB weights + ~0.9 GB KV = ~12 GB total).</span><br/>
+      <span class="p-tag p-act">[4. FULL SILICON OFFLOAD] PARAMETER num_gpu 999 &rarr; forces every transformer layer onto Metal / CUDA / MLX cores.</span><br/>
+      <span class="p-tag p-cam">[5. DETERMINISTIC SAMPLER] PARAMETER temperature 0.15 &bull; PARAMETER top_p 0.9 &rarr; crisp code &amp; extraction stability.</span><br/>
+      <span class="p-tag p-cons">[6. BAKED SYSTEM GUARD] SYSTEM &quot;Use only supplied context; state explicitly if input appears truncated.&quot;</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: OLLAMA CLI, STRUCTURED OUTPUTS & SDK SWAP ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; CLI, Lifecycles &amp; SDKs</span>
+    <span>Daily Ollama Operations, JSON Schemas &amp; Zero-Lock-In Clients</span>
+  </div>
+
+  <h2 class="page-title">Ollama CLI, Structured Outputs &amp; The SDK Swap</h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    Once <code>ollama serve</code> is running, you manage weights like Docker images from your terminal and call them from Python or TypeScript using the exact same official <code>openai</code> client you already ship in production.
+  </p>
+
+  <h3 style="margin:5px 0 4px 0;">Essential Ollama CLI &amp; Memory Lifecycle Commands</h3>
+  <table class="clean-table" style="font-size:8pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:36%; padding:5.5px 9px;">Command / Env Variable</th>
+        <th style="width:64%; padding:5.5px 9px;">What It Does &amp; Pro Engineering Habit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:5px 9px;"><code>ollama pull &lt;model&gt;</code> &bull; <code>ollama show &lt;model&gt;</code></td>
+        <td style="padding:5px 9px;">Downloads weights and prints exact quant, parameter count, default <code>num_ctx</code>, and Jinja template. <strong>Always inspect with <code>show</code>!</strong></td>
+      </tr>
+      <tr>
+        <td style="padding:5px 9px;"><code>ollama create my-coder -f Modelfile</code></td>
+        <td style="padding:5px 9px;">Compiles a zero-copy alias baking in your custom <code>num_ctx</code>, <code>num_gpu</code>, and system prompt without duplicating gigabytes on disk.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 9px;"><code>ollama ps</code> &bull; <code>ollama stop &lt;model&gt;</code></td>
+        <td style="padding:5px 9px;">Shows live RAM/VRAM split and immediately evicts a heavy model when you need memory back for Docker or builds.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 9px;"><code>OLLAMA_KEEP_ALIVE=30m</code> (<code>0</code> or <code>-1</code>)</td>
+        <td style="padding:5px 9px;">Controls residency timeout (default <code>5m</code>). Pass <code>keep_alive: 0</code> after batch jobs to free RAM instantly, or <code>-1</code> to pin all day.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 9px;"><code>ollama list</code> &bull; <code>ollama rm &lt;model&gt;</code></td>
+        <td style="padding:5px 9px;">Audits disk footprint under <code>~/.ollama/models</code>. Ten forgotten 32B experiments silently burn <code>200+ GB</code> of SSD!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:11px; margin-bottom:7px;">
+    <div>
+      <h3 style="margin:3px 0 4px 0; font-size:10.2pt;">1. Python &amp; TypeScript OpenAI SDK Swap</h3>
+      <pre class="code-block" style="font-size:7.05pt; line-height:1.38;"><code># Python: pip install openai
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    base_url=os.getenv("LLM_BASE_URL", "http://localhost:11434/v1"),
+    api_key=os.getenv("OPENAI_API_KEY", "ollama"), # ignored locally
+)
+
+stream = client.chat.completions.create(
+    model=os.getenv("LLM_MODEL", "qwen3.5:4b"), # verify via ollama list
+    messages=[{"role": "user", "content": "Summarize diff risks."}],
+    temperature=0.2,
+    stream=True,
+)
+for chunk in stream:
+    print(chunk.choices[0].delta.content or "", end="", flush=True)
+
+// TypeScript: identical swap in official 'openai' or Vercel AI SDK
+// const client = new OpenAI({ baseURL: "http://localhost:11434/v1", apiKey: "ollama" });</code></pre>
+    </div>
+
+    <div>
+      <h3 style="margin:3px 0 4px 0; font-size:10.2pt;">2. Grammar-Enforced Structured JSON Output</h3>
+      <pre class="code-block" style="font-size:7.05pt; line-height:1.38;"><code># Constrain token sampling to a strict Pydantic / JSON Schema
+from pydantic import BaseModel
+from openai import OpenAI
+
+class CommitAudit(BaseModel):
+    risk_level: str          # "low" | "medium" | "high"
+    touches_auth: bool
+    summary: str
+
+client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+
+parsed = client.beta.chat.completions.parse(
+    model="qwen-local-16k",
+    messages=[
+        {"role": "system", "content": "Extract structured audit JSON."},
+        {"role": "user", "content": "Modified requireRole() in api/auth.ts"},
+    ],
+    response_format=CommitAudit,
+    temperature=0.0,
+)
+audit: CommitAudit = parsed.choices[0].message.parsed</code></pre>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:3px 0 0 0; padding:8px 12px; font-size:8.45pt;">
+    <div class="callout-title">Why Schema Constrained Decoding Changes the Game for Small Models</div>
+    Asking a 4B&ndash;8B model in prose to <em>&ldquo;reply with valid JSON only&rdquo;</em> still leaks Markdown code fences on 5&ndash;10% of runs. Passing a formal <code>response_format</code> JSON Schema compiles a token-level grammar mask inside <code>llama.cpp</code> / Ollama so invalid syntax tokens have zero probability of being sampled.
+  </div>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: LOCAL EMBEDDINGS, SPEED TUNING & BRAIN.PY RAG ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Embeddings &amp; Offline RAG</span>
+    <span>Local Encoders, Prefill vs. Decode &amp; Private Search</span>
+  </div>
+
+  <h2 class="page-title">Local Embeddings, Speed Tuning &amp; <code>brain.py</code> RAG</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Local embeddings are the single highest-ROI workload in on-device AI: encoder models weigh only <code>270 MB&ndash;1.2 GB</code>, embed thousands of chunks for $0.00, and never break your vector database when a cloud vendor retires an API model.
+  </p>
+
+  <h3 style="margin:4px 0 3px 0;">Top Local Embedding Encoders Compared (Verify via <code>ollama show</code>)</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin:3px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%; padding:4.5px 8px;">Encoder Model</th>
+        <th style="width:16%; padding:4.5px 8px;">Params / Size</th>
+        <th style="width:15%; padding:4.5px 8px;">Dims / Max Ctx</th>
+        <th style="width:46%; padding:4.5px 8px;">Best Use Case &amp; Prefix / Truncation Gotcha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong><code>nomic-embed-text</code></strong></td>
+        <td style="padding:4.5px 8px;"><code>137M / ~274 MB</code></td>
+        <td style="padding:4.5px 8px;"><code>768d / 8,192</code></td>
+        <td style="padding:4.5px 8px;"><strong>Best everyday English default.</strong> Prepend <code>search_document: </code> and <code>search_query: </code> task prefixes for peak recall!</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong><code>mxbai-embed-large</code></strong></td>
+        <td style="padding:4.5px 8px;"><code>335M / ~670 MB</code></td>
+        <td style="padding:4.5px 8px;"><code>1024d / 512</code></td>
+        <td style="padding:4.5px 8px;">Sharp short-passage accuracy&mdash;<strong>watch the 512-token cap!</strong> Chunk under ~350 words so tails never clip.</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong><code>bge-m3</code></strong></td>
+        <td style="padding:4.5px 8px;"><code>567M / ~1.2 GB</code></td>
+        <td style="padding:4.5px 8px;"><code>1024d / 8,192</code></td>
+        <td style="padding:4.5px 8px;"><strong>Multilingual &amp; dense+lexical powerhouse</strong> across 100+ languages and long technical Markdown files.</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong><code>embeddinggemma</code></strong></td>
+        <td style="padding:4.5px 8px;"><code>300M / ~622 MB</code></td>
+        <td style="padding:4.5px 8px;"><code>768d / 2,048</code></td>
+        <td style="padding:4.5px 8px;">Compact Google open-weight on-device encoder; pairs cleanly with Matryoshka dimension truncation &amp; mobile RAG.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:6px;">
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge amber">pp</span> Prompt Eval (Prefill) = Compute Wall</div>
+      <p style="font-size:7.85pt; margin:0;">Reading your input before token #1 appears. Pasting 40K raw tokens stalls laptops for minutes. Tune <code>num_batch</code> (<code>512&ndash;1024</code>), turn on Flash Attention, and retrieve top-4 RAG chunks instead of whole files.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge teal">tg</span> Token Gen (Decode) = Bandwidth Wall</div>
+      <p style="font-size:7.85pt; margin:0;">Every output token reads the entire model from RAM (<code>Max tok/s &approx; Bandwidth / Weight GB</code>). Offload 100% to GPU/MLX, cap CPU <code>num_thread</code> to P-cores, and benchmark honestly via <code>llama-bench -p 512 -n 128</code>.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 3px 0; font-size:10.2pt;">Complete Air-Gapped Semantic Second Brain (<code>brain.py</code> &mdash; Zero Network Egress)</h3>
+  <pre class="code-block" style="font-size:6.9pt; line-height:1.36; margin:2px 0 0 0;"><code>import math, pathlib, sys
+from openai import OpenAI
+
+client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+EMBED_MODEL, CHAT_MODEL = "nomic-embed-text", "qwen3.5:4b"  # verify installed tags via ollama list
+
+def chunk_words(text: str, size: int = 450, overlap: int = 60) -&gt; list[str]:
+    w = text.split()
+    return [" ".join(w[i:i + size]) for i in range(0, len(w), size - overlap)] if w else []
+
+def embed(texts: list[str], prefix: str) -&gt; list[list[float]]:
+    res = client.embeddings.create(model=EMBED_MODEL, input=[f"{prefix}{t}" for t in texts])
+    return [item.embedding for item in res.data]
+
+def cosine(a: list[float], b: list[float]) -&gt; float:
+    na, nb = math.sqrt(sum(x * x for x in a)), math.sqrt(sum(y * y for y in b))
+    return sum(x * y for x, y in zip(a, b)) / (na * nb) if (na and nb) else 0.0
+
+chunks = [c for p in pathlib.Path("~/notes").expanduser().rglob("*.md") for c in chunk_words(p.read_text(errors="ignore"))]
+vecs = embed(chunks, prefix="search_document: ")  # swap in sqlite-vec / LanceDB to persist on disk
+q = " ".join(sys.argv[1:]) or "What did I write about KV cache sizing?"
+qv = embed([q], prefix="search_query: ")[0]
+top_ctx = "\n---\n".join(c for c, _ in sorted(zip(chunks, vecs), key=lambda cv: cosine(qv, cv[1]), reverse=True)[:4])
+
+ans = client.chat.completions.create(
+    model=CHAT_MODEL, temperature=0.1,
+    messages=[{"role": "system", "content": "Answer strictly from Context. Say if missing."},
+              {"role": "user", "content": f"Context:\n{top_ctx}\n\nQuestion: {q}"}],
+)
+print(ans.choices[0].message.content)</code></pre>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Playbook</span>
+    <span>5 Production-Ready Local Inference, Embedding &amp; Server Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Local Stack Recipes</h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    Drop these five battle-tested configurations straight into your shell or Python service to lock in memory-safe context windows, cloud fallback routing, deterministic schemas, and raw <code>llama-server</code> speed.
+  </p>
+
+  <table class="clean-table" style="font-size:7.9pt; margin:4px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%; padding:6px 8px;">Recipe &amp; Goal</th>
+        <th style="width:78%; padding:6px 8px;">Copy-Paste Command / Production Snippet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:5.5px 8px;"><strong>1. Tuned <code>Modelfile</code> + <code>q8_0</code> KV Cache</strong><br/><span style="color:#64748b;font-size:7.2pt;">Eliminates silent 4K truncation &amp; halves KV RAM</span></td>
+        <td style="padding:5.5px 8px;">
+          <code>launchctl setenv OLLAMA_FLASH_ATTENTION 1 &amp;&amp; launchctl setenv OLLAMA_KV_CACHE_TYPE q8_0</code><br/>
+          Save <code>Modelfile</code>: <code>FROM qwen2.5-coder:14b</code> &bull; <code>PARAMETER num_ctx 16384</code> &bull; <code>PARAMETER num_gpu 999</code> &bull; <code>PARAMETER temperature 0.1</code><br/>
+          Build &amp; verify: <code>ollama create coder-16k -f Modelfile &amp;&amp; ollama show coder-16k</code>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:5.5px 8px;"><strong>2. Drop-In Cloud &harr; Local Client Router</strong><br/><span style="color:#64748b;font-size:7.2pt;">One factory routes by sensitivity or task tier</span></td>
+        <td style="padding:5.5px 8px;">
+          <code>def get_llm(tier="local"):</code><br/>
+          <code>&nbsp;&nbsp;if tier == "local": return OpenAI(base_url="http://127.0.0.1:11434/v1", api_key="ollama"), "coder-16k"</code><br/>
+          <code>&nbsp;&nbsp;return OpenAI(base_url="https://api.openai.com/v1", api_key=os.environ["OPENAI_API_KEY"]), "gpt-5"</code>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:5.5px 8px;"><strong>3. Local JSON-Schema Extractor</strong><br/><span style="color:#64748b;font-size:7.2pt;">Zero markdown-fence failures on 4B&ndash;14B weights</span></td>
+        <td style="padding:5.5px 8px;">
+          <code>curl http://127.0.0.1:11434/api/chat -d '{"model":"coder-16k","stream":false,"options":{"temperature":0},</code><br/>
+          <code>"messages":[{"role":"user","content":"Invoice #409 total $84.50 USD"}],</code><br/>
+          <code>"format":{"type":"object","properties":{"id":{"type":"string"},"usd":{"type":"number"}},"required":["id","usd"]}}'</code>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:5.5px 8px;"><strong>4. Batched Local Embedding Indexer</strong><br/><span style="color:#64748b;font-size:7.2pt;">Embeds 100s of docs/sec w/ asymmetric prefixes</span></td>
+        <td style="padding:5.5px 8px;">
+          <code>batches = [docs[i:i+64] for i in range(0, len(docs), 64)] # stay under model token cap per item</code><br/>
+          <code>vecs = [d.embedding for b in batches for d in client.embeddings.create(</code><br/>
+          <code>&nbsp;&nbsp;model="nomic-embed-text", input=[f"search_document: {t[:16000]}" for t in b]).data]</code>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:5.5px 8px;"><strong>5. Production <code>llama-server</code> Launch</strong><br/><span style="color:#64748b;font-size:7.2pt;">Direct C++ engine w/ Jinja, Flash-Attn &amp; quantized KV</span></td>
+        <td style="padding:5.5px 8px;">
+          <code>llama-server -hf ggml-org/Qwen2.5-Coder-14B-Instruct-Q4_K_M-GGUF</code><br/>
+          <code>&nbsp;&nbsp;-ngl 999 -c 16384 -b 1024 --flash-attn -ctk q8_0 -ctv q8_0 --jinja</code><br/>
+          <code>&nbsp;&nbsp;--host 127.0.0.1 --port 8080 # confirm flags on your build via llama-server --help</code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:8px;">
+    <div class="callout" style="margin:0;">
+      <div class="callout-title">Measure Honestly With <code>llama-bench</code></div>
+      Before switching quantizations or thread counts, run <code>llama-bench -m model.gguf -p 512 -n 128</code>. Comparing controlled <code>pp512</code> and <code>tg128</code> runs side by side exposes real hardware wins in 20 seconds.
+    </div>
+    <div class="callout amber" style="margin:0;">
+      <div class="callout-title">Monthly SSD Cleanup Ritual</div>
+      Run <code>du -sh ~/.ollama/models ~/.cache/huggingface</code> once a month. Prune retired models via <code>ollama rm &lt;tag&gt;</code> so stale 20 GB weight blobs never starve macOS virtual memory headroom.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: HYBRID ROUTING & CODING AGENT INTEGRATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Hybrid Routing &amp; Coding Agents</span>
+    <span>Wiring Local Engines Into Continue, OpenCode, Aider &amp; Subagents</span>
+  </div>
+
+  <h2 class="page-title">Hybrid Local + Cloud Routing &amp; Coding Agents</h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    The sharpest engineers in 2026 rarely run 100% cloud or 100% local. They wire a <strong>Hybrid Split</strong>: free, instant, private local models handle high-frequency autocomplete, repo indexing, and log triage, while frontier cloud APIs step in only for deep multi-file architecture.
+  </p>
+
+  <h3 style="margin:5px 0 4px 0;">Role-Based Hybrid Assignment Matrix</h3>
+  <table class="clean-table" style="font-size:8pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%; padding:5px 8px;">Agent Role</th>
+        <th style="width:29%; padding:5px 8px;">Recommended Engine</th>
+        <th style="width:48%; padding:5px 8px;">Why This Split Wins</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:5px 8px;"><strong>Tab Autocomplete (FIM)</strong></td>
+        <td style="padding:5px 8px;">Local <code>1.5B&ndash;3B Coder Q4/Q8</code></td>
+        <td style="padding:5px 8px;">Fires on every keystroke; local silicon delivers <code>65&ndash;90 tok/s</code> with sub-100ms latency and zero API rate limits.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>Codebase Semantic Index</strong></td>
+        <td style="padding:5px 8px;">Local <code>nomic-embed-text</code></td>
+        <td style="padding:5px 8px;">Re-indexes thousands of edited files continuously on branch switches without uploading proprietary source trees.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>Log Triage &amp; PII Scrub</strong></td>
+        <td style="padding:5px 8px;">Local <code>8B&ndash;14B Q5_K_M</code></td>
+        <td style="padding:5px 8px;">Summarizes 5,000-line test failures and strips customer tokens/emails locally before any escalation leaves the machine.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>Hard Multi-File Plan/Edit</strong></td>
+        <td style="padding:5px 8px;">Frontier Cloud (or <code>32B&ndash;70B</code> air-gapped)</td>
+        <td style="padding:5px 8px;">Reserves paid API budget strictly for high-leverage system design, subtle race conditions, and complex tool chains.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:5px 0 4px 0;">Wiring Local Endpoints Into Popular Coding Harnesses</h3>
+  <pre class="code-block" style="font-size:7.05pt; line-height:1.38;"><code># 1. Continue (~/.continue/config.yaml) — Local FIM + Local RAG + Hybrid Chat
+models:
+  - name: Local Qwen Autocomplete
+    provider: ollama
+    model: qwen2.5-coder:1.5b
+    roles: [autocomplete]
+  - name: Local 16K Coder (Air-Gapped Chat)
+    provider: ollama
+    model: coder-16k          # custom Modelfile with num_ctx 16384!
+    roles: [chat, edit]
+  - name: Local Repo Embedder
+    provider: ollama
+    model: nomic-embed-text
+    roles: [embed]
+
+# 2. Aider &amp; OpenCode CLI — Point at Loopback (Always pair with an &ge;16K num_ctx alias!)
+export OLLAMA_API_BASE=http://127.0.0.1:11434
+aider --model ollama_chat/coder-16k --edit-format whole   # 'whole' or 'diff' suits 14B-32B best
+# In OpenCode (~/.config/opencode/opencode.json): add provider w/ baseURL "http://127.0.0.1:11434/v1"</code></pre>
+
+  <div class="callout emerald" style="margin:6px 0 0 0; padding:8px 12px; font-size:8.45pt;">
+    <div class="callout-title">Loopback Security Non-Negotiable: Never Bind <code>0.0.0.0</code> Unprotected!</div>
+    Local inference servers ship with <strong>zero authentication by default</strong>. Keep <code>OLLAMA_HOST=127.0.0.1:11434</code> (and <code>llama-server --host 127.0.0.1</code>) bound strictly to loopback. If you expose a desktop GPU to your laptop across a LAN, tunnel over <strong>Tailscale / WireGuard</strong> or an authenticated reverse proxy&mdash;never open raw port <code>11434</code> on café or office Wi-Fi.
+  </div>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy</span>
+    <span>End-to-End Private Hybrid Agent &amp; Escalation Architecture</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Private Hybrid Agent Pipeline</h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    Watch how local encoders, quantized local chat models, policy gates, and optional cloud escalation combine into a fast, privacy-preserving engineering assistant that handles 80% of daily queries for $0.00.
+  </p>
+
+  <!-- Private Hybrid Agent Architecture SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:10px 12px; margin-bottom:9px;">
+    <svg viewBox="0 0 700 166" width="100%" height="166" xmlns="http://www.w3.org/2000/svg">
+      <!-- Loopback Trust Zone Box -->
+      <rect x="6" y="6" width="466" height="154" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="1.6" stroke-dasharray="5 3"/>
+      <text x="18" y="21" fill="#9a3412" font-size="8.2" font-weight="800">AIR-GAPPED LOOPBACK TRUST ZONE (127.0.0.1 &bull; $0.00 / TOKEN &bull; RAW DATA STAYS HERE)</text>
+
+      <!-- Stage 1: Watcher -->
+      <rect x="16" y="30" width="134" height="54" rx="7" fill="#ffffff" stroke="#fb923c" stroke-width="1.5"/>
+      <circle cx="31" cy="46" r="9" fill="#ea580c"/><text x="31" y="49.5" text-anchor="middle" fill="#fff" font-size="8.5" font-weight="800">1</text>
+      <text x="45" y="49" fill="#0f172a" font-size="9.2" font-weight="800">Local Ingestor</text>
+      <text x="24" y="63" fill="#475569" font-size="7.8">Watches repo, ~/notes</text>
+      <text x="24" y="74" fill="#475569" font-size="7.8">&amp; CI logs; chunks text.</text>
+
+      <path d="M150 57 L168 57" stroke="#ea580c" stroke-width="1.8"/><polygon points="167,53 173,57 167,61" fill="#ea580c"/>
+
+      <!-- Stage 2: Embed + Vector Store -->
+      <rect x="173" y="30" width="138" height="54" rx="7" fill="#ffffff" stroke="#0d9488" stroke-width="1.5"/>
+      <circle cx="188" cy="46" r="9" fill="#0d9488"/><text x="188" y="49.5" text-anchor="middle" fill="#fff" font-size="8.5" font-weight="800">2</text>
+      <text x="202" y="49" fill="#0f172a" font-size="9.2" font-weight="800">Embed + Store</text>
+      <text x="181" y="63" fill="#475569" font-size="7.8">nomic-embed-text &rarr;</text>
+      <text x="181" y="74" fill="#475569" font-size="7.8">sqlite-vec / LanceDB.</text>
+
+      <path d="M311 57 L329 57" stroke="#0d9488" stroke-width="1.8"/><polygon points="328,53 334,57 328,61" fill="#0d9488"/>
+
+      <!-- Stage 3: Local Triage Model -->
+      <rect x="334" y="30" width="128" height="54" rx="7" fill="#140904" stroke="#fb923c" stroke-width="1.6"/>
+      <circle cx="349" cy="46" r="9" fill="#fb923c"/><text x="349" y="49.5" text-anchor="middle" fill="#140904" font-size="8.5" font-weight="800">3</text>
+      <text x="363" y="49" fill="#ffffff" font-size="9.2" font-weight="800">Local Triage</text>
+      <text x="342" y="63" fill="#fed7aa" font-size="7.8">14B Q5_K_M answers</text>
+      <text x="342" y="74" fill="#cbd5e1" font-size="7.8">80% + scrubs secrets.</text>
+
+      <!-- Down from Stage 3 to Gate -->
+      <path d="M398 84 L398 98" stroke="#ea580c" stroke-width="1.8"/><polygon points="394,97 398,103 402,97" fill="#ea580c"/>
+
+      <!-- Stage 4: Policy & Escalation Gate -->
+      <rect x="16" y="103" width="446" height="47" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+      <circle cx="33" cy="120" r="9" fill="#2563eb"/><text x="33" y="123.5" text-anchor="middle" fill="#fff" font-size="8.5" font-weight="800">4</text>
+      <text x="48" y="122" fill="#0f172a" font-size="9.3" font-weight="800">Sensitivity &amp; Complexity Router Gate (Same OpenAI SDK Shape)</text>
+      <text x="48" y="137" fill="#334155" font-size="7.65">IF confidential OR confidence &ge; 0.85 &rarr; answer locally. ELSE &rarr; escalate scrubbed 600-tok brief &rarr;</text>
+
+      <!-- Escalation Arrow Across Boundary -->
+      <path d="M462 126 L494 126" stroke="#7c3aed" stroke-width="2"/><polygon points="493,122 500,126 493,130" fill="#7c3aed"/>
+
+      <!-- Stage 5: Optional Frontier Escalation -->
+      <rect x="500" y="24" width="192" height="126" rx="9" fill="#0f172a" stroke="#7c3aed" stroke-width="1.6"/>
+      <circle cx="518" cy="44" r="9" fill="#7c3aed"/><text x="518" y="47.5" text-anchor="middle" fill="#fff" font-size="8.5" font-weight="800">5</text>
+      <text x="533" y="47" fill="#ddd6fe" font-size="9.5" font-weight="800">Frontier Escalation</text>
+      <text x="512" y="66" fill="#e2e8f0" font-size="8">&bull; Receives ONLY scrubbed,</text>
+      <text x="512" y="78" fill="#e2e8f0" font-size="8">&nbsp; distilled problem brief</text>
+      <text x="512" y="94" fill="#e2e8f0" font-size="8">&bull; Solves hard multi-step</text>
+      <text x="512" y="106" fill="#e2e8f0" font-size="8">&nbsp; design or 15-tool plan</text>
+      <text x="512" y="124" fill="#6ee7b7" font-size="8" font-weight="700">&bull; Offline? Falls back cleanly</text>
+      <text x="512" y="136" fill="#6ee7b7" font-size="8" font-weight="700">&nbsp; to local 32B/70B model!</text>
+    </svg>
+  </div>
+
+  <h3>Stage-by-Stage Engineering Breakdown</h3>
+  <div class="grid-2" style="gap:9px 12px; margin-bottom:8px;">
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge amber">1&ndash;2</span> Continuous Zero-Bill Indexing</div>
+      <p style="font-size:8pt; margin:0;">File watchers re-chunk changed Markdown, PDFs, and code into <code>sqlite-vec</code> or <code>LanceDB</code> via <code>nomic-embed-text</code>. Re-indexing 50,000 chunks overnight costs pennies of electricity and leaks zero customer bytes.</p>
+    </div>
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge teal">3</span> Local Triage + PII Sanitizer</div>
+      <p style="font-size:8pt; margin:0;">A resident <code>8B&ndash;14B</code> model answers factual lookups directly from retrieved chunks, scores its own confidence via JSON schema, and redacts API keys, names, or account IDs if escalation is required.</p>
+    </div>
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">4</span> Policy Gate &amp; Token Compression</div>
+      <p style="font-size:8pt; margin:0;">Files tagged <code>confidential</code> never cross the gate. For non-sensitive hard bugs, local triage shrinks 25,000 tokens of raw logs into a crisp 600-token reproducer&mdash;slashing cloud API spend by 90%+.</p>
+    </div>
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge purple">5</span> Graceful Offline Degradation</div>
+      <p style="font-size:8pt; margin:0;">Because Stages 3 and 5 share the identical OpenAI SDK interface, boarding an airplane or losing Wi-Fi simply flips the escalation target to your heaviest local model instead of crashing your workflow.</p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:0; padding:8px 12px; font-size:8.4pt;">
+    <div class="callout-title">Prove Air-Gapped Claims Empirically, Never by Assumption</div>
+    Before processing regulated data, verify zero egress once: disable Wi-Fi/Ethernet (or monitor with Little Snitch / <code>lsof -i -P | grep ollama</code>) and run your full pipeline end to end. Watch out for telemetry flags in third-party wrapper UIs!
+  </div>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Power-User Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Keep this page handy whenever a local model crawls, forgets instructions, or mangles JSON. Nearly every local AI failure traces back to one of seven mechanical root causes&mdash;each solvable in seconds.
+  </p>
+
+  <h3 style="margin:4px 0 4px 0;">Top 7 Local AI Pitfalls &amp; 10-Second Structural Fixes</h3>
+  <table class="clean-table" style="font-size:7.9pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:31%; padding:5.5px 8px;">Symptom You Observe</th>
+        <th style="width:69%; padding:5.5px 8px;">Root Cause &amp; Immediate 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:5px 8px;"><strong>1. Model ignores early rules or RAG chunks</strong></td>
+        <td style="padding:5px 8px;"><strong>Silent context truncation:</strong> prompt exceeded default <code>2048</code>/<code>4096</code> <code>num_ctx</code>. Check <code>ollama show &lt;model&gt;</code>, bake <code>PARAMETER num_ctx 16384</code> into a <code>Modelfile</code>, and check embedder caps (<code>mxbai</code> = <code>512</code>).</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>2. Speed collapses to <code>1&ndash;3 tok/s</code>; Mac lags</strong></td>
+        <td style="padding:5px 8px;"><strong>SSD swap thrashing:</strong> weights + KV cache exceeded wired unified memory. Enable <code>OLLAMA_KV_CACHE_TYPE=q8_0</code>, trim <code>num_ctx</code>, unload other models (<code>ollama ps</code>), or drop from <code>Q6_K</code> to <code>Q4_K_M</code>.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>3. <code>ollama ps</code> shows <code>0% GPU</code> (CPU crawl)</strong></td>
+        <td style="padding:5px 8px;"><strong>Failed GPU offload:</strong> layer count overflowed GPU budget or Metal/CUDA backend stalled. Pass <code>PARAMETER num_gpu 999</code> (<code>-ngl 999</code>) and verify total footprint fits inside ~70% of nominal RAM.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>4. First token takes 45&ndash;90 seconds to appear</strong></td>
+        <td style="padding:5px 8px;"><strong>Compute-bound prefill (<code>pp</code>) wall:</strong> feeding 30K+ raw tokens per turn. Turn on <code>OLLAMA_FLASH_ATTENTION=1</code>, raise <code>num_batch</code> (<code>512&ndash;1024</code>), and retrieve concise top-k RAG chunks instead of whole files.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>5. Broken JSON or dropped tool calls</strong></td>
+        <td style="padding:5px 8px;"><strong>Over-quantization or chat-template mismatch:</strong> avoid <code>Q2/Q3</code> for structured work; step up to <code>Q5_K_M</code>/<code>Q6_K</code>, pass <code>--jinja</code> in <code>llama-server</code>, and enforce grammar-masked <code>response_format</code> schemas.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>6. Local RAG returns irrelevant chunks</strong></td>
+        <td style="padding:5px 8px;"><strong>Missing task prefixes or vector drift:</strong> prepend <code>search_document: </code> / <code>search_query: </code> when required (<code>nomic-embed-text</code>), and always rebuild the entire index whenever you change embedding models!</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>7. 10-sec reload pauses OR 200 GB full disk</strong></td>
+        <td style="padding:5px 8px;"><strong>Lifecycle &amp; storage drift:</strong> <code>5m</code> default <code>keep_alive</code> unloads weights between edits; set <code>OLLAMA_KEEP_ALIVE=30m</code> during coding sessions and run <code>ollama list</code> + <code>ollama rm</code> weekly to reclaim SSD space.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:7px; background:#140904; border-color:#7c2d12;">
+    <div class="card-title" style="font-size:10.1pt; color:#fb923c; margin-bottom:6px;">
+      6-Point Pre-Flight Checklist: Before Shipping Any Local or Hybrid Workflow
+    </div>
+    <div class="grid-2" style="gap:5.5px 16px; font-size:8.3pt; color:#f1f5f9;">
+      <div>&#9744; <strong>1. Tag &amp; Template Verified:</strong> Ran <code>ollama show &lt;model&gt;</code> to confirm exact quant, max context, and chat template.</div>
+      <div>&#9744; <strong>4. Schema Grammar Enforced:</strong> Structured outputs use formal JSON Schema / Pydantic masks at <code>temperature=0</code>.</div>
+      <div>&#9744; <strong>2. Memory Math Green:</strong> Weights + <code>q8_0</code> KV cache + 2 GB overhead sit comfortably inside 70% RAM (<code>100% GPU</code>).</div>
+      <div>&#9744; <strong>5. Embedder Prefixes Matched:</strong> Indexing &amp; query paths apply required task prefixes and stay below chunk token caps.</div>
+      <div>&#9744; <strong>3. Explicit <code>num_ctx</code> Pinned:</strong> Saved a custom <code>Modelfile</code> so 2K/4K defaults never silently clip prompts.</div>
+      <div>&#9744; <strong>6. Loopback &amp; Swap Ready:</strong> Server binds strictly to <code>127.0.0.1</code> and client code routes via <code>LLM_BASE_URL</code> config!</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Local &amp; On-Device AI Stack &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

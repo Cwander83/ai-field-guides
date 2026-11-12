@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Agents + Graphify + Obsidian: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AGENT ENGINEERING SERIES &bull; VERSION 1.0 &bull; NOVEMBER 2026</div>
+    <h1>AI Agents + Graphify <span>+ Obsidian</span></h1>
+    <p class="cover-sub">
+      The complete visual handbook to building a persistent, confidence-tagged knowledge graph across code, docs, papers, and diagrams&mdash;queried in milliseconds by AI agents via MCP and explored visually in Obsidian.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">AST + Multimodal Extraction</span>
+      <span class="cover-badge"><code>EXTRACTED</code> / <code>INFERRED</code> Tags</span>
+      <span class="cover-badge"><code>GRAPH_REPORT.md</code> &amp; Leiden Clusters</span>
+      <span class="cover-badge">Quarantine Vault Pattern</span>
+      <span class="cover-badge"><code>graphify</code> &amp; <code>graph-query-mcp</code></span>
+      <span class="cover-badge">Two-Way Obsidian MCP Loop</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Luminous Amethyst, Orchid, and Electric-Cyan Knowledge Graph Constellation Inside a Dark Obsidian Sanctuary" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Structure Beats Blind Grep</div>
+      <div class="cover-stat-desc">Stop burning context windows on linear file scans; trace multi-hop call paths, God Nodes, and subsystem clusters in under 50ms.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">One Map for Humans &amp; Agents</div>
+      <div class="cover-stat-desc">Every build exports <code>graph.json</code> for instant MCP tool calls alongside a linked <code>obsidian/</code> vault you can walk by hand.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Epistemic Honesty Built In</div>
+      <div class="cover-stat-desc">Every edge carries an explicit <code>EXTRACTED</code>, <code>INFERRED</code>, or <code>AMBIGUOUS</code> tag so agents never confuse guesses with facts.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>AI Agents + Graphify + Obsidian</span>
+  </div>
+
+  <h2 class="page-title">Why Grep &amp; Vector Chunks Miss Architectural Structure</h2>
+  <p class="page-lead">
+    Without a structural map, an AI coding agent treats every architectural question like a blind scavenger hunt: <code>grep</code> tells it <em>where</em> a symbol appears, and chunked vector search finds paragraphs that <em>sound similar</em>&mdash;neither knows <em>how</em> five modules and two design docs actually connect.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Why Grep Misses Structure &amp; Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Two-Way Vault Loop &amp; Auto-Freshness</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Install, Extraction Modes &amp; Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Daily Graph Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Obsidian + Graphify UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Token Economics, Git &amp; Federation</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. First Build &amp; Reading <code>GRAPH_REPORT.md</code></strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Memory Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Obsidian Setup &amp; Safe Vault Patterns</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Three Levels of AI Agent Integration</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Principle: Graph First, Files Second</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Three Tools, Three Jobs: One Shared Map</h3>
+  <p style="font-size:8.95pt;">
+    <strong>Graphify</strong> is the librarian: it parses code via <code>tree-sitter</code> and extracts concepts from Markdown, PDFs, and diagrams into an in-process <code>NetworkX</code> graph (<code>graph.json</code>, <code>GRAPH_REPORT.md</code>, and <code>graphify-out/obsidian/</code>)&mdash;no Neo4j server required. <strong>Obsidian</strong> is the visual map room where every node becomes a <code>[[wikilink]]</code> note and spatial Canvas. Your <strong>AI Agent</strong> (Claude Code, Cursor, Codex, Antigravity, Gemini CLI) is the researcher that queries the catalog via MCP before opening raw files.
+  </p>
+
+  <h3>Architecture: The Shared Human&ndash;Agent Knowledge Graph Loop</h3>
+  <div class="figure-box" style="background:#120722; padding:11px 13px; border-color:#4c1d95;">
+    <svg viewBox="0 0 700 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Input Corpus -->
+      <rect x="10" y="20" width="152" height="144" rx="9" fill="#1e1035" stroke="#a855f7" stroke-width="1.4"/>
+      <text x="22" y="40" fill="#f5d0fe" font-size="8.5" font-weight="700">1. MULTIMODAL INPUTS</text>
+      <text x="22" y="58" fill="#ffffff" font-size="10.8" font-weight="800">Repo + Notes + Raw</text>
+      <text x="22" y="77" fill="#cbd5e1" font-size="8.3">&bull; Code (.py .ts .go .rs)</text>
+      <text x="22" y="92" fill="#cbd5e1" font-size="8.3">&bull; Docs &amp; ADRs (.md .rst)</text>
+      <text x="22" y="107" fill="#cbd5e1" font-size="8.3">&bull; Papers &amp; Specs (.pdf)</text>
+      <text x="22" y="122" fill="#cbd5e1" font-size="8.3">&bull; Diagrams (.png .webp)</text>
+      <rect x="22" y="134" width="128" height="19" rx="4" fill="#2e1065"/>
+      <text x="86" y="147" text-anchor="middle" fill="#e9d5ff" font-size="7.7" font-weight="700">SHA256 Incremental Cache</text>
+
+      <!-- Arrow 1 -->
+      <path d="M162 92 L192 92" stroke="#e879f9" stroke-width="2"/>
+      <polygon points="190,87 198,92 190,97" fill="#e879f9"/>
+
+      <!-- Graphify Engine -->
+      <rect x="198" y="20" width="206" height="144" rx="9" fill="#270e45" stroke="#e879f9" stroke-width="1.8"/>
+      <text x="212" y="40" fill="#f5d0fe" font-size="8.5" font-weight="700">2. GRAPHIFY EXTRACTION</text>
+      <text x="212" y="58" fill="#ffffff" font-size="11" font-weight="800">AST + Semantic + Leiden</text>
+      <text x="212" y="75" fill="#e2e8f0" font-size="8.2">&bull; graph.json (persistent NetworkX)</text>
+      <text x="212" y="89" fill="#e2e8f0" font-size="8.2">&bull; GRAPH_REPORT.md (God Nodes)</text>
+      <text x="212" y="103" fill="#e2e8f0" font-size="8.2">&bull; obsidian/ ([[wikilink]] vault)</text>
+      <rect x="212" y="115" width="54" height="18" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="0.9"/>
+      <text x="239" y="127" text-anchor="middle" fill="#a7f3d0" font-size="7.1" font-weight="700">EXTRACTED</text>
+      <rect x="272" y="115" width="52" height="18" rx="4" fill="#1e3a8a" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="298" y="127" text-anchor="middle" fill="#bae6fd" font-size="7.1" font-weight="700">INFERRED</text>
+      <rect x="330" y="115" width="60" height="18" rx="4" fill="#78350f" stroke="#fbbf24" stroke-width="0.9"/>
+      <text x="360" y="127" text-anchor="middle" fill="#fde68a" font-size="7.1" font-weight="700">AMBIGUOUS</text>
+      <text x="212" y="151" fill="#f0abfc" font-size="7.8" font-weight="600">Honesty-tagged multi-hop edges</text>
+
+      <!-- Upper branch to Obsidian -->
+      <path d="M404 56 L442 56" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="440,51 448,56 440,61" fill="#38bdf8"/>
+
+      <!-- Lower branch to AI Agent -->
+      <path d="M404 128 L442 128" stroke="#34d399" stroke-width="2"/>
+      <polygon points="440,123 448,128 440,133" fill="#34d399"/>
+
+      <!-- Obsidian Box -->
+      <rect x="448" y="12" width="242" height="68" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="460" y="30" fill="#7dd3fc" font-size="8.3" font-weight="700">3A. OBSIDIAN VISUAL LAYER (HUMAN)</text>
+      <text x="460" y="46" fill="#ffffff" font-size="10.2" font-weight="800">Explore Clusters, Canvas &amp; Backlinks</text>
+      <text x="460" y="61" fill="#cbd5e1" font-size="8.1">Sync into _graphify/ quarantine; query YAML</text>
+      <text x="460" y="72" fill="#cbd5e1" font-size="8.1">via Dataview; spot surprising cross-links.</text>
+
+      <!-- Two-way vertical bridge -->
+      <path d="M569 82 L569 102" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="3 2"/>
+      <polygon points="565,86 569,80 573,86" fill="#f59e0b"/>
+      <polygon points="565,98 569,104 573,98" fill="#f59e0b"/>
+      <text x="580" y="95" fill="#fde68a" font-size="7.6" font-weight="700">Local REST MCP (27124)</text>
+
+      <!-- AI Agent Box -->
+      <rect x="448" y="104" width="242" height="68" rx="8" fill="#063729" stroke="#34d399" stroke-width="1.5"/>
+      <text x="460" y="122" fill="#6ee7b7" font-size="8.3" font-weight="700">3B. AI CODING AGENT (MCP + SKILL)</text>
+      <text x="460" y="138" fill="#ffffff" font-size="10.2" font-weight="800">find_path &bull; get_neighbors (&lt;50ms)</text>
+      <text x="460" y="153" fill="#d1fae5" font-size="8.1">Traverses structure w/ zero context spill &amp;</text>
+      <text x="460" y="164" fill="#d1fae5" font-size="8.1">writes linked synthesis notes to _inbox/.</text>
+    </svg>
+  </div>
+
+  <div class="callout amber" style="margin:6px 0 0 0;">
+    <div class="callout-title">Built-In Hallucination Guardrail: Every Edge States Its Provenance</div>
+    Graphify tags every relationship as <code>EXTRACTED</code> (proven directly in AST imports, function calls, or explicit citations), <code>INFERRED</code> (reasoned semantically by the model across docs/code), or <code>AMBIGUOUS</code> (conflicting signals surfaced deliberately). Teaching your agent to cite these tags separates hard dependency truth from plausible architectural hunches.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: INSTALLATION, EXTRACTION MODES & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Ecosystem Matrix</span>
+    <span>Installation, AST vs. Semantic Passes &amp; Architecture Selection</span>
+  </div>
+
+  <h2 class="page-title">Installation, Extraction Modes &amp; Decision Matrix</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Graphify runs locally on Python <code>3.10+</code> (<code>NetworkX</code> + <code>tree-sitter</code> + <code>graspologic</code>) without external servers or Docker containers, and installs as a native skill across Claude Code, Cursor, Codex, Antigravity, Gemini CLI, Copilot CLI, OpenCode, and Aider.
+  </p>
+
+  <h3 style="margin:3px 0 3px 0; font-size:10.8pt;">1. Install <code>graphify</code> &amp; Register the Agent Skill (60 Seconds)</h3>
+  <p style="font-size:8.35pt; margin-bottom:4px;">
+    <strong>PyPI Package Note:</strong> On PyPI the package is published as <code>graphifyy</code> (double <code>y</code>), while the CLI command and skill are <code>graphify</code> and <code>/graphify</code>. Prefer <code>pipx</code> or <code>uv</code> to avoid <code>externally-managed-environment</code> errors:
+  </p>
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.2pt; line-height:1.36; margin:2px 0 6px 0;"><code># Recommended isolated CLI install (pipx or Astral uv) + skill registration:
+pipx install graphifyy &amp;&amp; graphify install    # or: uv tool install graphifyy &amp;&amp; graphify install
+graphify --help                               # verify --update, --watch, --mcp, --wiki flags
+# Fallback manual skill install (if installing skill directly without global CLI):
+mkdir -p ~/.claude/skills/graphify &amp;&amp; curl -fsSL \
+  https://raw.githubusercontent.com/safishamsi/graphify/v1/skills/graphify/skill.md -o ~/.claude/skills/graphify/SKILL.md</code></pre>
+
+  <h3 style="margin:5px 0 4px 0; font-size:10.8pt;">2. Two Extraction Passes: Deterministic AST vs. Multimodal Semantic LLM</h3>
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div class="card" style="padding:7.5px 10px; border-top:3.5px solid #059669;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge teal">A</span> Deterministic Code Pass ($0 LLM Cost)</div>
+      <p style="font-size:7.95pt; margin:0;">
+        Parses <code>.py</code>, <code>.ts</code>, <code>.js</code>, <code>.go</code>, <code>.rs</code>, <code>.java</code>, <code>.c</code>, <code>.cpp</code>, <code>.rb</code>, <code>.cs</code>, <code>.kt</code>, <code>.scala</code>, and <code>.php</code> locally via <code>tree-sitter</code> AST + call-graph resolution. Produces high-confidence <code>EXTRACTED</code> edges in seconds and runs 100% LLM-free inside <code>--watch</code> mode.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-top:3.5px solid #9333ea;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">B</span> Semantic &amp; Vision Pass (Multimodal)</div>
+      <p style="font-size:7.95pt; margin:0;">
+        Extracts concepts, citations, and <code>INFERRED</code> bridges across <code>.md</code>/<code>.rst</code> notes, <code>.pdf</code> papers, and <code>.png</code>/<code>.jpg</code>/<code>.webp</code> whiteboard diagrams via vision + LLM. Add <code>--mode deep</code> for denser cross-domain inference, or pull external URLs via <code>/graphify add &lt;url&gt;</code>.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 3px 0; font-size:10.8pt;">3. Memory Architecture Decision Matrix: Choosing the Right Tool</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:3px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:20%; padding:5px 8px;">Memory Layer</th>
+        <th style="width:31%; padding:5px 8px;">Questions It Answers Best</th>
+        <th style="width:24%; padding:5px 8px;">Setup &amp; Runtime Cost</th>
+        <th style="width:25%; padding:5px 8px;">Primary Blind Spot</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong>Plain <code>AGENTS.md</code> / <code>CLAUDE.md</code></strong></td>
+        <td style="padding:4.5px 8px;">Build/test commands, coding laws, and static folder map (&le;300 lines)</td>
+        <td style="padding:4.5px 8px;">Zero dependencies; loaded in every prompt prefix</td>
+        <td style="padding:4.5px 8px;">Cannot map hundreds of live call chains or evolving note links</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong>Vector RAG / Semantic Search</strong></td>
+        <td style="padding:4.5px 8px;"><em>&ldquo;Find prose passages or snippets semantically similar to X&rdquo;</em></td>
+        <td style="padding:4.5px 8px;">Embedding index + vector store; chunk updates</td>
+        <td style="padding:4.5px 8px;">Chunking slices relationships; blind to 3-hop dependency paths</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong>Graphify + Obsidian + MCP</strong></td>
+        <td style="padding:4.5px 8px;"><em>&ldquo;What connects A to B?&rdquo;</em>, blast radius, God Nodes &amp; visual review</td>
+        <td style="padding:4.5px 8px;">Local files only (<code>graph.json</code>); <code>&lt;50ms</code> MCP queries</td>
+        <td style="padding:4.5px 8px;">Stores topology, not full line-by-line bodies (read target file next)</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 8px;"><strong>Enterprise Graph DB (Neo4j)</strong></td>
+        <td style="padding:4.5px 8px;">Millions of live production records &amp; multi-tenant Cypher analytics</td>
+        <td style="padding:4.5px 8px;">Running DB server/container + schema ops</td>
+        <td style="padding:4.5px 8px;">Heavyweight overkill for repo/vault scale (export later via <code>--neo4j</code>)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.3pt;">
+    <div class="callout-title">Smart First-Build Budgeting: Start Narrow, Then Rely on <code>--update</code></div>
+    First-time extraction over hundreds of PDFs or high-res screenshots consumes LLM tokens, whereas code AST parsing is nearly free. Benchmark quality and cost on one focused subfolder first (such as <code>./src</code> or a Karpathy-style <code>./raw</code> drop-folder), then use <code>--update</code> so the <code>graphify-out/cache/</code> SHA256 store skips every unchanged file forever after.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED OBSIDIAN + GRAPHIFY VAULT UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Workspace Interface Tour</span>
+    <span>Inside a Production Obsidian + Graphify Knowledge Vault</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Obsidian + Graphify Knowledge Vault</h2>
+  <p class="page-lead">
+    Every build generates <code>graphify-out/obsidian/</code>&mdash;one Markdown note per node, YAML frontmatter, <code>[[wikilink]]</code> edges, and a spatial Canvas. Here is how human notes, quarantined graph snapshots, Leiden cluster colors, and God Nodes coexist safely.
+  </p>
+
+  <!-- Annotated Dark-Mode Obsidian + Graphify Workspace Mockup -->
+  <div class="ui-window" style="margin-bottom:10px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">Obsidian Vault &mdash; acme-platform-brain</span>
+        <span style="color:#64748b;">&bull;</span>
+        <span style="color:#f0abfc; font-weight:600;">412 Nodes &bull; 9 Leiden Clusters</span>
+      </div>
+      <div style="display:flex; gap:7px; align-items:center;">
+        <span style="background:#2e1065; border:1px solid #7e22ce; padding:2px 8px; border-radius:6px; color:#f5d0fe;">Filter: path:_graphify depth:2</span>
+        <span style="background:#065f46; padding:2px 8px; border-radius:6px; color:#a7f3d0; font-weight:700;">REST MCP: 27124 LIVE</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 168px 1fr 208px; gap:1px; background:#2e1550;">
+      <!-- Left File Explorer -->
+      <div style="background:#120822; padding:8px; display:flex; flex-direction:column; gap:4px; font-family:'SF Mono', Menlo, monospace; font-size:6.9pt;">
+        <div style="font-family:sans-serif; font-size:6.7pt; font-weight:700; color:#a78bfa; letter-spacing:0.05em; margin-bottom:2px;">VAULT EXPLORER</div>
+        <div style="color:#cbd5e1; padding:2px 5px;">&#128193; 00-Architecture/ (Human)</div>
+        <div style="color:#94a3b8; padding:1px 12px;">&#9492; ADR-014-Idempotency.md</div>
+        <div style="color:#6ee7b7; padding:2px 5px;">&#128193; _inbox/ (Agent Writes)</div>
+        <div style="background:#2b0f4c; border:1px solid #c026d3; color:#f5d0fe; padding:3px 6px; border-radius:4px; display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
+          <span>&#128274; _graphify/</span><span class="callout-pin">1</span>
+        </div>
+        <div style="color:#fde68a; padding:2px 8px; display:flex; justify-content:space-between; align-items:center;">
+          <span>&#9500; GRAPH_REPORT.md</span><span class="callout-pin">2</span>
+        </div>
+        <div style="color:#7dd3fc; padding:2px 8px; display:flex; justify-content:space-between; align-items:center;">
+          <span>&#9500; Communities.canvas</span><span class="callout-pin">3</span>
+        </div>
+        <div style="color:#f0abfc; background:#1e0b36; border-radius:3px; padding:2px 8px;">&#9500; BillingOrchestrator.md</div>
+        <div style="color:#94a3b8; padding:1px 8px;">&#9500; StripeWebhook.md</div>
+        <div style="color:#94a3b8; padding:1px 8px;">&#9492; RetryPolicy.md</div>
+      </div>
+
+      <!-- Center Active Node Note -->
+      <div style="background:#0d0717; padding:8px 9px; display:flex; flex-direction:column; gap:6px;">
+        <div style="background:#170c2b; border:1px solid #4c1d95; border-radius:6px; padding:5px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <span style="color:#f0abfc; font-weight:700; font-size:7.2pt;">YAML Frontmatter (Dataview-Queryable)</span>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.75pt; color:#cbd5e1; line-height:1.38;">
+            ---<br/>
+            node_type: <span style="color:#7dd3fc;">&quot;class&quot;</span> &bull; community: <span style="color:#e879f9;">3 (&quot;PaymentsCore&quot;)</span> &bull; degree: <span style="color:#fde68a;">34</span><br/>
+            source_path: <span style="color:#6ee7b7;">&quot;src/billing/orchestrator.ts&quot;</span><br/>
+            ---
+          </div>
+        </div>
+
+        <div style="background:#140a24; border:1px solid #3b1c63; border-radius:6px; padding:6px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#ffffff; font-weight:800; font-size:7.8pt;"># BillingOrchestrator</span>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.75pt; color:#e2e8f0; line-height:1.45;">
+            <span style="color:#a78bfa;">## Outgoing Structural &amp; Semantic Edges</span><br/>
+            &bull; calls &rarr; <span style="color:#7dd3fc;">[[StripeWebhookValidator]]</span> <span style="background:#064e3b;color:#a7f3d0;padding:0.5px 4px;border-radius:3px;">EXTRACTED</span><br/>
+            &bull; dispatches &rarr; <span style="color:#7dd3fc;">[[RetryBackoffWorker]]</span> <span style="background:#064e3b;color:#a7f3d0;padding:0.5px 4px;border-radius:3px;">EXTRACTED</span><br/>
+            &bull; implements &rarr; <span style="color:#f0abfc;">[[ADR-014-Idempotency]]</span> <span style="background:#1e3a8a;color:#bae6fd;padding:0.5px 4px;border-radius:3px;">INFERRED</span><br/>
+            &bull; overlaps &rarr; <span style="color:#fde68a;">[[LegacyInvoiceQueue]]</span> <span style="background:#78350f;color:#fde68a;padding:0.5px 4px;border-radius:3px;">AMBIGUOUS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Local Graph + God Nodes -->
+      <div style="background:#120822; padding:8px; display:flex; flex-direction:column; gap:6px;">
+        <div style="background:#0b0514; border:1px solid #4c1d95; border-radius:6px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <strong style="color:#f5d0fe; font-size:7pt;">LOCAL GRAPH (2-HOP)</strong>
+            <span class="callout-pin">6</span>
+          </div>
+          <svg viewBox="0 0 180 86" width="100%" height="82" xmlns="http://www.w3.org/2000/svg">
+            <line x1="90" y1="43" x2="34" y2="20" stroke="#e879f9" stroke-width="1.4"/>
+            <line x1="90" y1="43" x2="38" y2="68" stroke="#e879f9" stroke-width="1.4"/>
+            <line x1="90" y1="43" x2="146" y2="22" stroke="#38bdf8" stroke-width="1.4"/>
+            <line x1="90" y1="43" x2="148" y2="67" stroke="#34d399" stroke-width="1.4" stroke-dasharray="3 2"/>
+            <line x1="34" y1="20" x2="38" y2="68" stroke="#a855f7" stroke-width="0.9"/>
+            <circle cx="90" cy="43" r="9" fill="#e879f9" stroke="#ffffff" stroke-width="1.4"/>
+            <circle cx="34" cy="20" r="6" fill="#c026d3"/>
+            <circle cx="38" cy="68" r="6" fill="#c026d3"/>
+            <circle cx="146" cy="22" r="6" fill="#38bdf8"/>
+            <circle cx="148" cy="67" r="6" fill="#34d399"/>
+            <text x="90" y="64" text-anchor="middle" fill="#f8fafc" font-size="6.8" font-weight="700">BillingOrchestrator</text>
+            <text x="34" y="11" text-anchor="middle" fill="#f5d0fe" font-size="6">Webhook</text>
+            <text x="146" y="13" text-anchor="middle" fill="#bae6fd" font-size="6">AuthGuard</text>
+            <text x="148" y="81" text-anchor="middle" fill="#a7f3d0" font-size="6">ADR-014</text>
+          </svg>
+        </div>
+
+        <div style="background:#1b0c33; border-left:3px solid #e879f9; border-radius:5px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#fde68a; font-size:7.1pt;">GOD NODES &amp; BACKLINKS</strong><span class="callout-pin">7</span>
+          </div>
+          <div style="color:#cbd5e1; font-size:6.7pt; margin-top:2px; line-height:1.38;">
+            1. <code>BillingOrchestrator</code> (deg 34)<br/>
+            2. <code>AuthSessionGuard</code> (deg 29)<br/>
+            &bull; <strong>18 Backlinks</strong> citing this node
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Numbered Workspace Reference</h3>
+  <div class="grid-2" style="gap:7px 14px; font-size:8.55pt;">
+    <div><span class="callout-pin">1</span> <strong>Quarantine Subfolder (<code>_graphify/</code>):</strong> Holds the generated vault snapshot in one isolated, replaceable folder so refreshes never touch human notes.</div>
+    <div><span class="callout-pin">2</span> <strong>Headline Briefing (<code>GRAPH_REPORT.md</code>):</strong> Summarizes God Nodes, surprising cross-type bridges, and 4&ndash;5 high-leverage starter questions.</div>
+    <div><span class="callout-pin">3</span> <strong>Community Canvas (<code>.canvas</code>):</strong> Infinite 2D board laying out Leiden clusters spatially so subsystem architecture is obvious at a glance.</div>
+    <div><span class="callout-pin">4</span> <strong>YAML Frontmatter:</strong> Stores <code>node_type</code>, <code>community</code>, <code>degree</code>, and <code>source_path</code> for live SQL-style <strong>Dataview</strong> tables.</div>
+    <div><span class="callout-pin">5</span> <strong>Confidence-Tagged <code>[[Wikilinks]]</code>:</strong> Every edge becomes a clickable Obsidian link paired with its <code>EXTRACTED</code>, <code>INFERRED</code>, or <code>AMBIGUOUS</code> badge.</div>
+    <div><span class="callout-pin">6</span> <strong>2-Hop Local Graph:</strong> Colors nodes by Leiden cluster (orchid = Payments, cyan = Auth, emerald = ADRs) without full-vault hairball clutter.</div>
+  </div>
+  <div style="margin-top:6px; font-size:8.55pt;">
+    <span class="callout-pin">7</span> <strong>God Nodes &amp; Backlinks Sidebar:</strong> Reveals highest-degree architectural bottlenecks alongside every note and agent summary linking back to the active node.
+  </div>
+
+  <div class="callout amber" style="margin-top:9px;">
+    <div class="callout-title">Three-Zone Folder Rule: Never Hand-Edit Inside <code>_graphify/</code></div>
+    Keep three clean ownership zones in one vault: <strong>1) Human folders</strong> (<code>00-Architecture/</code>, <code>Projects/</code>) edited only by you; <strong>2) Agent drop-box</strong> (<code>_inbox/</code>) where MCP agents write synthesis notes; and <strong>3) Read-only snapshot</strong> (<code>_graphify/</code>) replaced cleanly on every sync.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: BUILDING YOUR FIRST GRAPH & READING GRAPH_REPORT.MD ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; First Build &amp; Output</span>
+    <span>Running Graphify &amp; Decoding GRAPH_REPORT.md</span>
+  </div>
+
+  <h2 class="page-title">Building Your First Graph &amp; Reading <code>GRAPH_REPORT.md</code></h2>
+  <p class="page-lead">
+    Whether you point Graphify at a polyglot repository or Andrej Karpathy's <code>raw/</code> drop-folder of research papers, tweets, and screenshots, one command distills scattered files into six persistent artifacts inside <code>graphify-out/</code>.
+  </p>
+
+  <div class="figure-box" style="background:#10051c;">
+    <img src="assets/ast_to_vault_bridge.jpg" alt="Isometric Sapphire Code Blocks Refracting Through a Violet Crystal Prism Into Interconnected Amethyst Cards and Nodes" style="width:100%; height:250px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); background:#140826; color:#f8fafc; padding:6px 11px; font-size:7.5pt; border-top:1px solid #3b1c63; gap:10px;">
+      <div><strong style="color:#7dd3fc;">1. MULTIMODAL SOURCE CORPUS:</strong><br/>Code ASTs, Markdown notes, PDFs, diagrams &amp; fetched URLs.</div>
+      <div style="padding-left:9px; border-left:1px solid #3b1c63;"><strong style="color:#e879f9;">2. HYBRID GRAPHIFY PASS:</strong><br/><code>tree-sitter</code> + LLM/vision + Leiden community clustering.</div>
+      <div style="padding-left:9px; border-left:1px solid #3b1c63;"><strong style="color:#34d399;">3. PERSISTENT ARTIFACTS:</strong><br/><code>graph.json</code>, <code>GRAPH_REPORT.md</code> &amp; <code>obsidian/</code> vault.</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin:7px 0; gap:12px;">
+    <div>
+      <h3 style="margin:2px 0 4px 0;">Essential Build &amp; External Feed Commands</h3>
+      <pre class="code-block" style="margin:0;"><code># 1. Graph current repo (or ./raw drop-folder)
+/graphify .
+/graphify ./raw --mode deep   # richer INFERRED links
+
+# 2. Fast SHA256 incremental update
+/graphify . --update
+
+# 3. Pull external papers or threads straight in
+/graphify add https://arxiv.org/abs/1706.03762
+/graphify add https://x.com/karpathy/status/...
+
+# 4. Optional wiki, SVG, Gephi &amp; Neo4j exports
+/graphify . --wiki --svg</code></pre>
+    </div>
+
+    <div>
+      <h3 style="margin:2px 0 4px 0;">Inside <code>graphify-out/</code></h3>
+      <ul style="font-size:8.15pt; margin:0; padding-left:16px; line-height:1.45;">
+        <li><code>GRAPH_REPORT.md</code>: Executive architecture briefing&mdash;<strong>always read this file first</strong>.</li>
+        <li><code>graph.json</code>: Persistent serialized graph queried weeks later with zero file re-reads.</li>
+        <li><code>obsidian/</code>: Turnkey vault with node notes, YAML frontmatter, <code>[[wikilinks]]</code>, and Canvas.</li>
+        <li><code>graph.html</code>: Zero-install interactive browser viewer (click, search, filter clusters).</li>
+        <li><code>wiki/</code>: Agent-crawlable Wikipedia-style articles + <code>index.md</code> (with <code>--wiki</code>).</li>
+        <li><code>cache/</code>: SHA256 hashes ensuring <code>--update</code> skips unchanged files.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 5px 0;">How to Read <code>GRAPH_REPORT.md</code> in 90 Seconds</h3>
+  <div class="grid-3" style="gap:10px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> God Nodes</div>
+      <p style="font-size:7.95pt; margin:0;">Lists highest-degree hubs that everything routes through (e.g., core domain models or central routers). Hand these 5 files to any new engineer or agent first.</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge purple">2</span> Leiden Communities</div>
+      <p style="font-size:7.95pt; margin:0;">Auto-detected clusters via <code>graspologic</code> Leiden partitioning expose your <em>true</em> coupling boundaries&mdash;even when legacy folder hierarchies say otherwise.</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge teal">3</span> Surprising Bridges</div>
+      <p style="font-size:7.95pt; margin:0;">Highlights highest-scoring cross-type edges (<code>code &harr; paper</code> or cross-module leaks) with plain-English explanations plus 4&ndash;5 tailored agent prompts.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: OBSIDIAN SETUP & SAFE VAULT MERGE PATTERNS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Obsidian Vault Architecture</span>
+    <span>Standalone vs. Quarantine Merge Patterns, Color Groups &amp; Dataview</span>
+  </div>
+
+  <h2 class="page-title">Obsidian Setup &amp; Safe Vault Merge Patterns</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Because <code>graphify-out/obsidian/</code> is regenerated as a point-in-time snapshot whenever code or notes change, choosing your vault integration pattern upfront prevents accidental overwrites while making large graphs effortless to browse.
+  </p>
+
+  <h3 style="margin:4px 0 4px 0; font-size:10.8pt;">1. Pick One of Four Vault Integration Patterns Before Importing</h3>
+  <table class="clean-table" style="font-size:8pt; margin:3px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%; padding:5.5px 8px;">Integration Pattern</th>
+        <th style="width:43%; padding:5.5px 8px;">How It Works on Disk</th>
+        <th style="width:34%; padding:5.5px 8px;">Best Fit &amp; Safety Profile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:5px 8px;"><strong>1. Standalone Vault</strong><br/><span style="color:#64748b;font-size:7.4pt;">Zero-Touch Isolation</span></td>
+        <td style="padding:5px 8px;">Obsidian &rarr; <em>Open folder as vault</em> &rarr; select <code>&lt;repo&gt;/graphify-out/obsidian/</code> directly.</td>
+        <td style="padding:5px 8px;"><strong>Safest 60-second start</strong> for codebase exploration; zero contact with personal notes.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>2. Quarantine Subfolder</strong><br/><span style="color:#9333ea;font-size:7.4pt;font-weight:700;">&#9733; Recommended Default</span></td>
+        <td style="padding:5px 8px;">Sync <code>graphify-out/obsidian/</code> into <code>&lt;MainVault&gt;/_graphify/</code>. Filter Graph View with <code>path:_graphify</code>.</td>
+        <td style="padding:5px 8px;">Unifies code/research graph with your daily Second Brain in one cleanly deletable folder.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>3. Selective Harvest</strong><br/><span style="color:#64748b;font-size:7.4pt;">Curated Promotion</span></td>
+        <td style="padding:5px 8px;">Review <code>_graphify/</code>, then copy or promote only proven, high-signal concept notes into permanent folders.</td>
+        <td style="padding:5px 8px;">Ideal for noisy 1,000+ node graphs where only 30 core architectural concepts merit permanent notes.</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 8px;"><strong>4. Taxonomy Redistribution</strong><br/><span style="color:#64748b;font-size:7.4pt;">Advanced Merge</span></td>
+        <td style="padding:5px 8px;">Agent or <code>vault-promote</code> workflow files nodes directly into PARA / ACE folders alongside human notes.</td>
+        <td style="padding:5px 8px;">Use only after tuning extraction quality and backing up your vault in Git or Obsidian Sync.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:5px 0 4px 0; font-size:10.8pt;">2. Mastering Graph View Color Groups, 2-Hop Local Graph &amp; Plugins</h3>
+  <div class="grid-2" style="margin-bottom:6px; gap:11px;">
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:9.2pt;"><span class="num-badge">A</span> Taming Graph View (Zero Plugins Needed)</div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0;">
+        <li><strong>Prefer Local Graph over Global:</strong> Open any God Node, press <code>Cmd/Ctrl + P</code> &rarr; <em>Open local graph</em>, and set <strong>Depth = 2</strong> to inspect clean 2-hop blast radii.</li>
+        <li><strong>Color Groups:</strong> Under Graph View &rarr; <em>Groups</em>, assign distinct hues to <code>path:_graphify</code>, <code>path:00-Architecture</code>, <code>path:_inbox</code>, or Leiden tags (<code>tag:#community-1</code>).</li>
+        <li><strong>Walk via Canvas &amp; Backlinks:</strong> Start on the exported <code>.canvas</code> community map, then step node-by-node through the right-hand <strong>Backlinks</strong> pane.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:9.2pt;"><span class="num-badge teal">B</span> The Only Community Plugins Worth Adding</div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0;">
+        <li><strong>Dataview (Essential):</strong> Turns YAML frontmatter into live audit tables (e.g., list every <code>AMBIGUOUS</code> or <code>INFERRED</code> edge in Community 2).</li>
+        <li><strong>Local REST API (Essential for Write-Back):</strong> Hosts the localhost MCP endpoint so agents read/write vault notes directly.</li>
+        <li><strong>Templater + Excalidraw (Optional):</strong> Enforce YAML schemas on agent notes, and sketch architecture diagrams that Graphify's vision pass folds back into the graph!</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 3px 0; font-size:10.5pt;">Dataview Audit Snippet: Surface Uncertain Edges Instantly</h3>
+  <pre class="code-block" style="padding:6px 9px; font-size:7.2pt; line-height:1.35; margin:2px 0 6px 0;"><code>TABLE community, node_type, source_path FROM "_graphify"
+WHERE contains(edge_confidence, "INFERRED") OR contains(edge_confidence, "AMBIGUOUS")
+SORT degree DESC LIMIT 15</code></pre>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.35pt;">
+    <div class="callout-title">Snapshot Overwrite Trap: Promote Before You Annotate!</div>
+    Re-syncing <code>graphify-out/obsidian/</code> into <code>_graphify/</code> overwrites every file inside that subfolder. Whenever you want to enrich a node with handwritten team context, move or copy that note <em>out</em> to a permanent folder first&mdash;Obsidian automatically updates <code>[[wikilinks]]</code> across your vault!
+  </div>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: THREE LEVELS OF AI AGENT INTEGRATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Agent-to-Graph Wiring</span>
+    <span>Slash Skills, AGENTS.md Graph Pointers &amp; Sub-50ms MCP Servers</span>
+  </div>
+
+  <h2 class="page-title">Three Levels of AI Agent Integration</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    A knowledge graph saves zero tokens if your coding agent forgets it exists and falls back to recursive <code>grep</code>. Wire your agent across three progressive levels&mdash;from interactive slash queries up to sub-50ms in-memory MCP traversal.
+  </p>
+
+  <div class="figure-box" style="background:#10051c; margin:3px 0 6px 0;">
+    <img src="assets/mcp_graph_traversal.jpg" alt="Optical Sapphire-and-Orchid Compass Beam Tracing a Highlighted Golden-Cyan Shortest Path Across Amethyst Crystal Clusters" style="width:100%; height:248px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); background:#140826; color:#f8fafc; padding:5px 10px; font-size:7.3pt; border-top:1px solid #3b1c63; gap:9px;">
+      <div><strong style="color:#f0abfc;">LEVEL 1 &bull; SLASH SKILL:</strong><br/><code>/graphify query</code>, <code>path</code> &amp; <code>explain</code> on demand.</div>
+      <div style="padding-left:8px; border-left:1px solid #3b1c63;"><strong style="color:#fde68a;">LEVEL 2 &bull; AGENTS.MD POINTER:</strong><br/>30-second rule making graph-first the default habit.</div>
+      <div style="padding-left:8px; border-left:1px solid #3b1c63;"><strong style="color:#38bdf8;">LEVEL 3 &bull; LIVE MCP TOOLS:</strong><br/><code>find_path</code> &amp; <code>get_neighbors</code> in <code>&lt;50ms</code> RAM.</div>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 3px 0; font-size:10.5pt;">Level 2 Blueprint: High-Signal <code>AGENTS.md</code> / <code>CLAUDE.md</code> Graph Block</h3>
+  <div class="card" style="margin-bottom:6px; background:#ffffff; border:1.5px solid #cbd5e1; padding:6px 10px;">
+    <div style="font-size:7.8pt; line-height:1.6;">
+      <span class="p-tag p-style">[1. ARTIFACT PATHS] Pre-built graph at graphify-out/graph.json (report: graphify-out/GRAPH_REPORT.md; vault: _graphify/).</span><br/>
+      <span class="p-tag p-subj">[2. GRAPH-FIRST TRIGGER] Before grepping or reading &gt;3 files for architecture, blast-radius, or &ldquo;what connects X to Y&rdquo; tasks, query the graph FIRST.</span><br/>
+      <span class="p-tag p-act">[3. TOOL PRECEDENCE] Prefer MCP tools (find_path, get_neighbors, god_nodes) or /graphify path; read raw source ONLY for narrowed target files.</span><br/>
+      <span class="p-tag p-dial">[4. HONESTY CITATION] Cite EXTRACTED vs INFERRED vs AMBIGUOUS tags in plans; verify INFERRED/AMBIGUOUS links in code before editing.</span><br/>
+      <span class="p-tag p-cons">[5. VAULT BOUNDARY] Never modify generated files inside _graphify/; write agent synthesis notes exclusively into _inbox/ with YAML frontmatter.</span>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 3px 0; font-size:10.5pt;">Level 3 Comparison: Built-In <code>graphify.serve</code> vs. <code>graph-query-mcp</code></h3>
+  <table class="clean-table" style="font-size:7.7pt; margin:2px 0 0 0;">
+    <thead>
+      <tr>
+        <th style="width:21%; padding:4.5px 7px;">MCP Server</th>
+        <th style="width:39%; padding:4.5px 7px;">Registration &amp; Environment</th>
+        <th style="width:40%; padding:4.5px 7px;">Callable Tools &amp; Key Advantage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4.5px 7px;"><strong>Built-In Graphify MCP</strong><br/><span style="color:#64748b;font-size:7.2pt;">Zero Extra Install</span></td>
+        <td style="padding:4.5px 7px;"><code>claude mcp add graphify -- python -m graphify.serve /abs/path/graphify-out/graph.json</code> (or <code>/graphify ./ --mcp</code>)</td>
+        <td style="padding:4.5px 7px;"><code>query_graph</code>, <code>get_node</code>, <code>get_neighbors</code>, <code>get_community</code>, <code>god_nodes</code>, <code>shortest_path</code>, <code>graph_stats</code>. Ships inside <code>graphifyy</code>.</td>
+      </tr>
+      <tr>
+        <td style="padding:4.5px 7px;"><strong><code>graph-query-mcp</code></strong><br/><span style="color:#9333ea;font-size:7.2pt;font-weight:700;">Vault Companion</span></td>
+        <td style="padding:4.5px 7px;"><code>/plugin marketplace add adelaidasofia/graph-query-mcp</code>; set <code>GRAPH_JSON_PATH</code> (+ <code>SECONDARY_GRAPH_JSON_PATH</code>; <code>MYCELIUM_NO_PING=1</code> opts out of install ping).</td>
+        <td style="padding:4.5px 7px;"><code>search_nodes</code>, <code>find_path</code>, <code>get_neighbors</code>, <code>get_top_nodes</code>, <code>query_subgraph</code>, <code>get_community_members</code>. RAM pre-load (<code>&lt;50ms</code>) + dual-vault scope!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: TWO-WAY OBSIDIAN READ/WRITE & AUTOMATED GRAPH FRESHNESS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Two-Way Vault Loop</span>
+    <span>Direct Obsidian MCP Bridges &amp; Git Hook Freshness</span>
+  </div>
+
+  <h2 class="page-title">Two-Way Obsidian Read/Write &amp; Automated Freshness</h2>
+  <p class="page-lead" style="margin-bottom:9px;">
+    Querying <code>graph.json</code> gives your agent structural X-ray vision; adding a direct Obsidian bridge closes the loop&mdash;letting agents file synthesis notes with <code>[[wikilinks]]</code> while Git hooks keep your graph honest on every commit.
+  </p>
+
+  <h3 style="margin:5px 0 4px 0;">1. Connecting Claude Code, Cursor &amp; Codex Directly to Your Obsidian Vault</h3>
+  <p style="font-size:8.6pt; margin-bottom:5px;">
+    Install the <strong>Local REST API</strong> community plugin in Obsidian (<code>Settings &rarr; Community plugins &rarr; Browse</code>), enable it, and copy its Bearer key. It hosts a localhost-only MCP server at <code>https://127.0.0.1:27124/mcp/</code> scoped strictly to the currently open vault (or pair with Obsidian's 1.8+ CLI / filesystem MCP when headless):
+  </p>
+  <pre class="code-block" style="padding:6.5px 9px; margin:3px 0 7px 0;"><code># Register Obsidian's built-in Local REST API MCP server + verify active connections
+claude mcp add --transport http obsidian https://127.0.0.1:27124/mcp/ \
+  --header "Authorization: Bearer YOUR_OBSIDIAN_API_KEY"
+claude mcp list</code></pre>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title" style="font-size:9.2pt;"><span class="num-badge purple">1</span> Direct Vault MCP Capabilities</div>
+      <p style="font-size:8.1pt; margin:0;">
+        Unlocks <code>vault_read</code>, <code>vault_write</code>, <code>vault_append</code>, surgical heading/YAML edits via <code>vault_patch</code>, <code>search_query</code>, and <code>command_execute</code>&mdash;allowing agents to create linked investigation summaries without touching raw source files.
+      </p>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title" style="font-size:9.2pt;"><span class="num-badge amber">2</span> Human vs. Agent Write Separation</div>
+      <p style="font-size:8.1pt; margin:0;">
+        Instruct agents to write new notes <em>only</em> into <code>_inbox/</code> with <code>author: agent</code> frontmatter and <code>[[wikilinks]]</code> pointing at <code>_graphify/</code> nodes. You review and promote keepers into permanent folders at your own pace.
+      </p>
+    </div>
+  </div>
+
+  <h3>2. A Stale Graph Is a Lying Graph: Four Automation Cadences</h3>
+  <table class="clean-table" style="font-size:8.1pt;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Automation Mode</th>
+        <th style="width:32%;">Command / Trigger</th>
+        <th style="width:46%;">Exact Behavior &amp; Ideal Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Incremental Update</strong></td>
+        <td><code>/graphify . --update</code></td>
+        <td>Checks SHA256 hashes in <code>graphify-out/cache/</code>, re-extracts <em>only</em> modified files, and merges edges. Best after adding papers or notes.</td>
+      </tr>
+      <tr>
+        <td><strong>Live Watch Daemon</strong></td>
+        <td><code>/graphify . --watch</code></td>
+        <td>Code saves trigger instant <strong>AST-only rebuilds ($0 LLM cost)</strong>; doc/image edits prompt for <code>--update</code>. Ideal during multi-agent coding sprints.</td>
+      </tr>
+      <tr>
+        <td><strong>Git Commit Hook</strong></td>
+        <td><code>graphify hook install</code></td>
+        <td>Installs an editor-agnostic <code>post-commit</code> hook (coexists with Husky/existing hooks) so active repos stay fresh with zero background process.</td>
+      </tr>
+      <tr>
+        <td><strong>Nightly Cron Sync</strong></td>
+        <td><code>crontab</code> + <code>rsync --delete</code></td>
+        <td>Runs nightly <code>graphify --update --wiki</code> and mirrors <code>obsidian/</code> into <code>_graphify/</code> for large personal or team knowledge vaults.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:5px;">
+    <div class="callout-title">The Compounding Knowledge Flywheel</div>
+    Watch how the full loop compounds: you drop a design doc or merge a PR &rarr; <code>--update</code> refreshes <code>graph.json</code> &rarr; your agent answers a refactor question via <code>find_path</code> &rarr; writes a <code>[[wikilink]]</code> architectural note into <code>_inbox/</code> via <code>vault_write</code> &rarr; the next <code>--update</code> indexes that note right back into the graph!
+  </div>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Playbook</span>
+    <span>5 Battle-Tested Recipes for Daily Engineering &amp; Research</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Graphify + Obsidian Recipes</h2>
+  <p class="page-lead">
+    Drop these five ready-to-run prompts, shell scripts, and JSON configs straight into Claude Code, Cursor, Antigravity, or your repository hooks to turn structural graph queries into an effortless daily reflex.
+  </p>
+
+  <table class="clean-table" style="font-size:8pt;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Recipe &amp; Goal</th>
+        <th style="width:20%;">When to Use It</th>
+        <th style="width:58%;">Copy-Paste Prompt, Script, or Config</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. 60-Second Unfamiliar Repo Onboarding</strong></td>
+        <td>Cloning a new codebase before reading raw files</td>
+        <td>Run <code>/graphify .</code>, then prompt: <em>&ldquo;Read <code>graphify-out/GRAPH_REPORT.md</code> and query the graph MCP tools. List the top 5 God Nodes, summarize each Leiden community in one sentence, and call <code>find_path</code> from the HTTP entry router to persistence, citing <code>EXTRACTED</code> vs <code>INFERRED</code> tags.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>2. Safe Blast-Radius Pre-Refactor Check</strong></td>
+        <td>Before modifying shared auth, billing, or core types</td>
+        <td><em>&ldquo;Do not edit files yet. Call <code>get_neighbors(node='AuthSessionGuard', max_hops=2)</code> and <code>get_community_members</code>. Separate hard <code>EXTRACTED</code> code callers from <code>INFERRED</code> spec/ADR links, flag any <code>AMBIGUOUS</code> edges, and write a blast-radius test plan to <code>_inbox/auth-refactor-plan.md</code>.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>3. Quarantine Subfolder Sync Script</strong></td>
+        <td>Mirroring fresh builds into an existing Obsidian vault</td>
+        <td><code>rsync -a --delete ./graphify-out/obsidian/ &quot;$HOME/Vaults/Main/_graphify/&quot;</code><br/>Mirrors new/updated node notes and prunes deleted symbols inside <code>_graphify/</code> while leaving <code>00-Architecture/</code> and <code>_inbox/</code> 100% untouched.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Dual MCP Config (<code>.mcp.json</code>)</strong></td>
+        <td>Wiring Claude Code or Cursor to Graph + Vault</td>
+        <td><code>{&quot;mcpServers&quot;: {&quot;graphify&quot;: {&quot;command&quot;: &quot;python&quot;, &quot;args&quot;: [&quot;-m&quot;, &quot;graphify.serve&quot;, &quot;./graphify-out/graph.json&quot;]}, &quot;obsidian&quot;: {&quot;url&quot;: &quot;https://127.0.0.1:27124/mcp/&quot;, &quot;headers&quot;: {&quot;Authorization&quot;: &quot;Bearer ${OBSIDIAN_KEY}&quot;}}}}</code></td>
+      </tr>
+      <tr>
+        <td><strong>5. Post-Merge Incremental Git Hook</strong></td>
+        <td>Auto-refreshing after <code>git pull</code> or branch merges</td>
+        <td>Save in <code>.git/hooks/post-merge</code> (<code>chmod +x</code>):<br/><code>#!/usr/bin/env bash</code><br/><code>graphify . --update &gt;/dev/null 2&gt;&amp;1 &amp;&amp; [ -d &quot;$VAULT/_graphify&quot; ] &amp;&amp; rsync -a --delete graphify-out/obsidian/ &quot;$VAULT/_graphify/&quot; &amp;</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:8px;">
+    <div class="callout" style="margin:0;">
+      <div class="callout-title">Bonus Pattern: <code>--wiki</code> for Subagents Without MCP</div>
+      Running <code>/graphify ./raw --wiki</code> builds <code>graphify-out/wiki/index.md</code> plus crisp Markdown articles per Leiden community and God Node. Even lightweight cloud or sandboxed subagents without MCP access can browse your entire architecture via plain <code>read_file</code> calls!
+    </div>
+    <div class="callout emerald" style="margin:0;">
+      <div class="callout-title">Weekly Research &amp; Meeting Synthesis Ritual</div>
+      Drop PDFs, screenshots, and rough meeting notes into <code>raw/</code> all week. Every Friday run <code>/graphify ./raw --update</code>, inspect <code>GRAPH_REPORT.md</code>'s <strong>Surprising Connections</strong>, and ask your agent to draft a linked weekly synthesis note into <code>_inbox/</code>.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: TOKEN ECONOMICS, VAULT HYGIENE & MULTI-REPO FEDERATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Economics, Hygiene &amp; Scale</span>
+    <span>Token Savings Math, .gitignore Rules &amp; Multi-Repo Federation</span>
+  </div>
+
+  <h2 class="page-title">Token Economics, Vault Hygiene &amp; Multi-Repo Scale</h2>
+  <p class="page-lead">
+    Knowing exactly how Graphify spends and saves tokens&mdash;and governing what enters Git versus local caches&mdash;lets you scale from a single weekend project up to federated microservice fleets and shared Architecture Decision Records (ADRs).
+  </p>
+
+  <h3>1. Honest Token Economics: Build Once, Query Cheaply</h3>
+  <div class="grid-3" style="margin-bottom:9px;">
+    <div class="card" style="border-top:3.5px solid #9333ea;">
+      <div class="card-title">50&ndash;70%+ Exploration Cut</div>
+      <p style="font-size:8.1pt; margin:0;">Instead of reading 20 candidate files (40k+ tokens) to trace a flow, an MCP call to <code>find_path</code> returns the exact 4-node chain in ~250 tokens (up to <code>71.5x</code> savings on 52-file multimodal benchmarks).</p>
+    </div>
+    <div class="card" style="border-top:3.5px solid #0284c7;">
+      <div class="card-title">Savings Scale With Size</div>
+      <p style="font-size:8.1pt; margin:0;">On a 6-file toy repo, reading files directly ties (~<code>1x</code>). Past 40&ndash;500+ files, PDFs, and ADRs, structural pruning compounds dramatically while keeping your agent's context window uncluttered.</p>
+    </div>
+    <div class="card" style="border-top:3.5px solid #059669;">
+      <div class="card-title">Prune Noise Before Build</div>
+      <p style="font-size:8.1pt; margin:0;">Exclude <code>node_modules/</code>, <code>.venv/</code>, <code>dist/</code>, <code>.next/</code>, lockfiles, and minified bundles so your graph reflects <em>your</em> architecture rather than 30,000 vendor AST nodes.</p>
+    </div>
+  </div>
+
+  <h3>2. Repository &amp; Vault <code>.gitignore</code> Governance</h3>
+  <pre class="code-block"><code># .gitignore &mdash; ignore heavy caches &amp; browser/vault snapshots; regenerate via git hook
+graphify-out/cache/
+graphify-out/obsidian/
+graphify-out/graph.html
+# Optional team choice: either gitignore graphify-out/graph.json (local hook rebuilds)
+# OR commit lightweight graphify-out/GRAPH_REPORT.md so PR reviewers &amp; cloud agents see God Nodes!</code></pre>
+
+  <h3>3. Scaling Across Microservices &amp; Architecture Decision Records (ADRs)</h3>
+  <table class="clean-table" style="font-size:8.1pt;">
+    <thead>
+      <tr>
+        <th style="width:26%;">Multi-Repo / Team Pattern</th>
+        <th style="width:74%;">Implementation Blueprint</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Dual-Scope MCP Queries</strong></td>
+        <td>Point <code>graph-query-mcp</code>'s <code>GRAPH_JSON_PATH</code> at your active service repo and <code>SECONDARY_GRAPH_JSON_PATH</code> at your shared platform/contracts vault so agents query local code and org-wide architecture side by side.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Federation Umbrella Workspace</strong></td>
+        <td>Create a lightweight workspace directory containing symlinks to <code>services/*/src</code>, <code>proto/</code>, and <code>docs/adr/</code>. Running <code>/graphify . --update</code> surfaces cross-service RPC, Kafka topic, and webhook bridges that single-repo grep can never see.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Explicit ADR Anchor Naming</strong></td>
+        <td>Inside Markdown ADRs (<code>docs/adr/014-idempotency.md</code>), name exact code identifiers (<code>BillingOrchestrator</code>, <code>StripeWebhookValidator</code>) so Graphify links <em>why a decision was made</em> directly to the classes enforcing it.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin-top:6px;">
+    <div class="callout-title">Zero Lock-In Guarantee: Reversible Teardown in 10 Seconds</div>
+    Graphify never mutates your source files. Every artifact is cleanly removable in layers: delete <code>graphify-out/</code> and <code>_graphify/</code>, remove MCP entries with <code>claude mcp remove graphify</code>, and uninstall via <code>pipx uninstall graphifyy</code>&mdash;leaving your codebase and handwritten notes 100% untouched.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy</span>
+    <span>Unifying Graphify + Obsidian + Vector RAG + Spec-Driven Coding Agents</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Structural + Semantic Memory Pipeline</h2>
+  <p class="page-lead">
+    Graphify does not replace specs or content search&mdash;it completes the engineering memory stack. Watch how Obsidian visual review, MCP topology traversal, and targeted file/RAG lookup combine on a cross-cutting feature.
+  </p>
+
+  <!-- Structural + Semantic Memory Synergy SVG -->
+  <div class="figure-box" style="background:#f8fafc; padding:10px 12px; margin-bottom:9px;">
+    <svg viewBox="0 0 700 168" width="100%" height="168" xmlns="http://www.w3.org/2000/svg">
+      <!-- Col 1: Source -->
+      <rect x="8" y="34" width="132" height="100" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="1.7"/>
+      <text x="20" y="54" fill="#6b21a8" font-size="8.2" font-weight="800">1. LIVING SOURCES</text>
+      <text x="20" y="71" fill="#0f172a" font-size="9.8" font-weight="800">Repo + ADRs + raw/</text>
+      <text x="20" y="88" fill="#334155" font-size="8.2">&bull; Source code ASTs</text>
+      <text x="20" y="102" fill="#334155" font-size="8.2">&bull; Specs &amp; PDFs</text>
+      <text x="20" y="116" fill="#334155" font-size="8.2">&bull; Architecture sketches</text>
+
+      <path d="M140 84 L164 84" stroke="#9333ea" stroke-width="2"/><polygon points="162,79 170,84 162,89" fill="#9333ea"/>
+
+      <!-- Col 2: Graphify Pass -->
+      <rect x="170" y="34" width="144" height="100" rx="8" fill="#170a29" stroke="#e879f9" stroke-width="1.7"/>
+      <text x="182" y="54" fill="#f5d0fe" font-size="8.2" font-weight="800">2. GRAPHIFY PASS</text>
+      <text x="182" y="71" fill="#ffffff" font-size="9.8" font-weight="800">AST + Semantic Build</text>
+      <text x="182" y="88" fill="#cbd5e1" font-size="8.1">&bull; graph.json + cache/</text>
+      <text x="182" y="102" fill="#cbd5e1" font-size="8.1">&bull; GRAPH_REPORT.md</text>
+      <text x="182" y="116" fill="#f0abfc" font-size="8.1">&bull; obsidian/ snapshot</text>
+
+      <!-- 3 Parallel Arrows to Memory Lanes -->
+      <path d="M314 54 L348 28" stroke="#9333ea" stroke-width="1.7"/><polygon points="344,25 352,26 348,33" fill="#9333ea"/>
+      <path d="M314 84 L348 84" stroke="#c026d3" stroke-width="1.9"/><polygon points="346,79 354,84 346,89" fill="#c026d3"/>
+      <path d="M314 114 L348 140" stroke="#0284c7" stroke-width="1.7"/><polygon points="348,135 352,142 344,143" fill="#0284c7"/>
+
+      <!-- Col 3: Three Memory Lanes -->
+      <rect x="354" y="6" width="174" height="44" rx="7" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="364" y="23" fill="#5b21b6" font-size="8.4" font-weight="800">3A. Obsidian Human Review</text>
+      <text x="364" y="38" fill="#334155" font-size="7.9">Canvas + 2-hop Local Graph check</text>
+
+      <rect x="354" y="62" width="174" height="44" rx="7" fill="#fdf4ff" stroke="#c026d3" stroke-width="1.6"/>
+      <text x="364" y="79" fill="#86198f" font-size="8.4" font-weight="800">3B. MCP Structural Query</text>
+      <text x="364" y="94" fill="#334155" font-size="7.9">find_path + get_neighbors (&lt;50ms)</text>
+
+      <rect x="354" y="118" width="174" height="44" rx="7" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+      <text x="364" y="135" fill="#075985" font-size="8.4" font-weight="800">3C. Vector RAG / Targeted Read</text>
+      <text x="364" y="150" fill="#334155" font-size="7.9">Exact line bodies on narrowed files</text>
+
+      <!-- Converging Arrows to Col 4 -->
+      <path d="M528 28 L556 62" stroke="#059669" stroke-width="1.6"/>
+      <path d="M528 84 L556 84" stroke="#059669" stroke-width="1.9"/><polygon points="554,79 562,84 554,89" fill="#059669"/>
+      <path d="M528 140 L556 106" stroke="#059669" stroke-width="1.6"/>
+
+      <!-- Col 4: Coding Agent -->
+      <rect x="562" y="28" width="130" height="112" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+      <text x="573" y="48" fill="#065f46" font-size="8.2" font-weight="800">4. CODING AGENT</text>
+      <text x="573" y="65" fill="#0f172a" font-size="9.6" font-weight="800">Surgical Execution</text>
+      <text x="573" y="82" fill="#064e3b" font-size="8">&bull; Drafts verified plan.md</text>
+      <text x="573" y="96" fill="#064e3b" font-size="8">&bull; Edits exact 4 files</text>
+      <text x="573" y="110" fill="#064e3b" font-size="8">&bull; Logs [[links]] to _inbox/</text>
+      <text x="573" y="124" fill="#047857" font-size="8" font-weight="700">&bull; Hook updates graph</text>
+    </svg>
+  </div>
+
+  <h3>End-to-End Synergy Walkthrough: Shipping a Cross-Module Webhook Upgrade</h3>
+  <table class="clean-table" style="font-size:8.1pt;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Pipeline Stage</th>
+        <th style="width:42%;">Human &amp; Agent Action</th>
+        <th style="width:38%;">Failure Prevented</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Build &amp; Cluster</strong></td>
+        <td>Run <code>/graphify . --update</code> and sync <code>_graphify/</code>. Leiden clustering groups billing, retry queues, and webhook handlers.</td>
+        <td>Surfaces an <code>INFERRED</code> link to <code>ADR-014-Idempotency.md</code> that contains zero matching function names for <code>grep</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Visual Sanity Check</strong></td>
+        <td>Open <code>BillingOrchestrator</code> in Obsidian's 2-hop Local Graph; spot a hidden edge to <code>LegacyInvoiceQueue</code>.</td>
+        <td>Catches an undocumented dual-write side effect in 20 seconds before a single line of code is planned.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Graph + Content Read</strong></td>
+        <td>Agent calls <code>find_path</code> + <code>get_neighbors</code> (&lt;50ms), narrows 1,400 repo files down to 4 exact files, and reads only those 4 files.</td>
+        <td>Saves ~45,000 exploration tokens, preserving crisp attention for drafting <code>spec.md</code> and running tests.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Write-Back &amp; Hook</strong></td>
+        <td>Agent passes tests, writes a linked summary via <code>vault_write</code> to <code>_inbox/</code>, and commits; <code>post-commit</code> refreshes <code>graph.json</code>.</td>
+        <td>Next engineer (or tomorrow's fresh agent session) inherits the updated dependency graph automatically.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin-top:6px;">
+    <div class="callout-title">Why Graph + Vector Beat Either Alone</div>
+    Think of <strong>Graphify</strong> as the <em>highway map</em> (which modules depend on each other across multiple hops) and <strong>Vector RAG / <code>read_file</code></strong> as <em>street view</em> (the exact prose or implementation lines inside a chosen node). Query structure first to pick the right 4 files, then read those files cleanly!
+  </div>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Power-User Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Keep this final page beside your terminal and Obsidian workspace. Every common Graphify + Obsidian snag&mdash;from tangled hairball graphs to overwritten notes and MCP connection hiccups&mdash;has a fast 10-second fix.
+  </p>
+
+  <h3>Top 7 Graphify + Obsidian Pitfalls (And 10-Second Structural Fixes)</h3>
+  <table class="clean-table" style="font-size:8.05pt;">
+    <thead>
+      <tr>
+        <th style="width:31%;">Symptom You Observe</th>
+        <th style="width:69%;">Root Cause &amp; Immediate 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Unreadable &ldquo;hairball&rdquo; in Obsidian Graph View</strong></td>
+        <td>Viewing 2,000+ unfiltered nodes globally. Open a God Node, launch <strong>Local Graph</strong> (<code>Depth: 2</code>), filter by <code>path:_graphify -path:tests</code>, and color groups by Leiden community tag.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Handwritten edits in Obsidian vanished after sync</strong></td>
+        <td>Edited notes inside the <code>_graphify/</code> snapshot folder. Restore instantly via <code>Settings &rarr; File recovery &rarr; Snapshots</code>, move curated notes outside <code>_graphify/</code>, and keep <code>_graphify/</code> read-only.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Broken <code>[[wikilinks]]</code> or ghost deleted nodes</strong></td>
+        <td><em>Use [[Wikilinks]]</em> is disabled in Obsidian or old files lingered after <code>cp -r</code>. Enable <code>[[Wikilinks]]</code> under <code>Settings &rarr; Files and links</code> and sync using <code>rsync -a --delete</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Massive 30,000-node bloat &amp; slow builds</strong></td>
+        <td>Indexed <code>node_modules/</code>, <code>.venv/</code>, <code>dist/</code>, or build caches. Ensure dependencies are gitignored, delete <code>graphify-out/</code>, and run <code>/graphify ./src</code> on clean source/docs directories.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Agent cites deleted classes or stale <code>graph.json</code></strong></td>
+        <td>Switched branches or refactored without refreshing. Run <code>/graphify . --update</code> (fast SHA256 delta) and enable <code>graphify hook install</code> so commits rebuild automatically.</td>
+      </tr>
+      <tr>
+        <td><strong>6. <code>pip install graphify</code> fails or <code>/graphify</code> missing</strong></td>
+        <td>PyPI package is named <code>graphifyy</code> (double <code>y</code>) or skill wasn't registered. Run <code>pipx install graphifyy &amp;&amp; graphify install</code> and verify <code>~/.claude/skills/graphify/SKILL.md</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Obsidian MCP <code>Connection refused</code> / TLS error</strong></td>
+        <td>Target vault must be <strong>open in Obsidian</strong> for Local REST API to listen on <code>27124</code>; trust its local self-signed cert or switch to localhost HTTP on port <code>27123</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:8px; background:#150826; border-color:#581c87;">
+    <div class="card-title" style="font-size:10.2pt; color:#e879f9; margin-bottom:6px;">
+      6-Point Pre-Flight Checklist: Before Starting Any Graph-Powered Session
+    </div>
+    <div class="grid-2" style="gap:6px 16px; font-size:8.35pt; color:#f1f5f9;">
+      <div>&#9744; <strong>1. Clean Input Scope:</strong> <code>node_modules/</code>, <code>.venv/</code>, and build folders excluded; <code>graphify --help</code> verified.</div>
+      <div>&#9744; <strong>4. Graph-First <code>AGENTS.md</code>:</strong> Pointer + <code>EXTRACTED</code> / <code>INFERRED</code> citation rule added to root canon.</div>
+      <div>&#9744; <strong>2. Read <code>GRAPH_REPORT.md</code>:</strong> Checked top God Nodes, Leiden clusters, and <code>AMBIGUOUS</code> edge warnings.</div>
+      <div>&#9744; <strong>5. MCP Servers Live:</strong> <code>claude mcp list</code> confirms <code>graphify</code> / <code>graph-query-mcp</code> (+ optional Obsidian REST).</div>
+      <div>&#9744; <strong>3. Quarantine Vault Sync:</strong> Export mirrored via <code>rsync --delete</code> into read-only <code>_graphify/</code>; agent writes to <code>_inbox/</code>.</div>
+      <div>&#9744; <strong>6. Freshness Armed:</strong> <code>graphify hook install</code>, <code>--watch</code>, or <code>--update</code> keeping <code>graph.json</code> truthful!</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Agents + Graphify + Obsidian &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>
