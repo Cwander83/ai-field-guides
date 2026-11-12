@@ -1,12 +1,16 @@
 # Rendered QA preview dumps (keep repo lightweight; cover.png is tracked)
 **/preview_pages/
 
-# Local-only handoffs, private notes & raw inbox staging drafts
+# Local-only authoring, build pipeline, templates, tests & staging drafts
+/AGENTS.md
+/catalog.json
+/inbox/
+/scripts/
+/templates/
+/tests/
 HANDOFF.md
 *.local.md
 .local/
-inbox/*
-!inbox/README.md
 
 # macOS & Editor metadata
 .DS_Store

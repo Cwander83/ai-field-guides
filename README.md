@@ -179,71 +179,10 @@ Vendor-neutral 12-page visual handbooks for context engineering, multi-agent orc
 
 ---
 
-## Updating or Swapping a Guide When a Product Ships Major Changes
+## Inside Every 12-Page Handbook
 
-AI platforms move quickly. Every guide bundle under `guides/<ecosystem>/<slug>/` keeps its finished `.pdf`, `cover.png`, `guide.html`, `style.css`, and `assets/` in **one folder** so refreshing an outdated guide takes a single command:
+Each self-contained bundle under [`guides/`](guides/) includes both the ready-to-read print PDF and its editable web source:
 
-```bash
-# 1. Edit guides/<ecosystem>/<slug>/guide.html (or ask your AI coding agent to update it)
-# 2. Rebuild the PDF in place, refresh cover.png, bump version/date, and sync README.md:
-./scripts/build.sh google/google-flow --version 1.1
-
-# 3. Visually inspect the gitignored 2x Retina QA previews in:
-#    guides/google/google-flow/preview_pages/page_01.png .. page_12.png
-
-# 4. Commit and push the updated handbook:
-git add guides/google/google-flow catalog.json README.md
-git commit -m "docs(google-flow): update handbook to v1.1"
-git push
-```
-
-*(Prior editions remain permanently accessible in Git commit history without cluttering the active bookshelf.)*
-
----
-
-## Adding New Ecosystems & Converting Drafts via `inbox/`
-
-This library is designed to expand across **Google**, **Anthropic**, **OpenAI**, **Apple / macOS**, **Developer Tools**, and custom workflows:
-
-1. **Drop existing notes or drafts into [`inbox/`](inbox/)**: Place any rough Markdown notes, existing PDFs, screenshots, or product links into `inbox/`.
-2. **Point an AI agent at [`AGENTS.md`](AGENTS.md)**: Tell your coding agent *"Convert `inbox/my-tool-notes.md` into a new 12-page field guide under `guides/dev-tools/my-tool`"*.
-3. **Or start manually from [`templates/starter-guide/`](templates/starter-guide/)**:
-   - Copy `templates/starter-guide/` to `guides/<ecosystem>/<slug>/`.
-   - Add an entry to [`catalog.json`](catalog.json) (and add a new object to `"categories"` if introducing a new ecosystem).
-   - Run `./scripts/build.sh <ecosystem>/<slug> --version 1.0`.
-
-### Handy CLI Commands
-
-| Command | What It Does |
-| :--- | :--- |
-| `./scripts/build.sh <ecosystem>/<slug> [--version X.Y]` | Validates `guide.html`, renders PDF via Headless Chrome, updates `cover.png` + QA PNGs, updates `catalog.json`, and syncs `README.md`. |
-| `./scripts/build.sh --all` | Re-renders every guide in `catalog.json` and refreshes `README.md`. |
-| `./scripts/build.sh --covers-and-readme` | Regenerates `cover.png` thumbnails from existing PDFs and syncs `README.md`. |
-| `./scripts/build.sh --readme-only` | Re-generates `README.md` bookshelf & stats blocks after editing `catalog.json`. |
-| `python3 -m unittest discover -s tests -v` | Runs automated test suite for the catalog & `README.md` sync engine. |
-
----
-
-## Repository Layout
-
-```text
-ai-field-guides/
-├── README.md                     # Visual bookshelf (auto-synced between STATS & CATALOG markers)
-├── AGENTS.md                     # Publication standards & QA checklist for AI coding agents
-├── catalog.json                  # Single source of truth for ecosystems, versions, dates & paths
-├── scripts/
-│   ├── build.sh                  # One-command PDF + cover.png + README builder
-│   ├── sync_readme.py            # Deterministic Markdown/HTML bookshelf generator
-│   └── render_pages.swift        # macOS PDFKit renderer for cover.png & 2x Retina QA PNGs
-├── templates/
-│   └── starter-guide/            # 12-page HTML/CSS starter kit for new handbooks
-├── inbox/                        # Drop rough notes, Markdown, or old docs here to convert
-└── guides/
-    └── <ecosystem>/
-        └── <guide-slug>/
-            ├── <Title>_Complete_How_To_Guide.pdf
-            ├── cover.png
-            ├── guide.html
-            ├── style.css
-            └── assets/
-```
+- **`<Title>_Complete_How_To_Guide.pdf`** — Print-verified 12-page US Letter (`8.5in × 11in`) visual handbook ready to view in GitHub, iPad/Kindle, or print.
+- **`guide.html` & `style.css`** — Clean, dependency-free HTML & print CSS source for customizing, remixing, or updating any page in a browser.
+- **`assets/` & `cover.png`** — Custom 16:9 editorial illustrations and bookshelf cover card.
