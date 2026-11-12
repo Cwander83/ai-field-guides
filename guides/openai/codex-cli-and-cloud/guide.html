@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Codex CLI &amp; Codex Cloud: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">OPENAI CODEX, AGENTS &amp; REALTIME STUDIOS &bull; FIELD GUIDE</div>
+    <h1><span>Codex CLI</span> &amp; Codex Cloud</h1>
+    <p class="cover-sub">
+      Mastering OpenAI&rsquo;s twin engineering engines&mdash;combining millisecond-fast local terminal execution on <code>GPT-6.1 Sol</code> with isolated, asynchronous Codex Cloud worker fleets that turn backlogs into review-ready pull requests.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge"><code>~/.codex/config.toml</code></span>
+      <span class="cover-badge"><code>AGENTS.md</code></span>
+      <span class="cover-badge"><code>SKILL.md</code> Modules</span>
+      <span class="cover-badge">GPT-6.1 Sol</span>
+      <span class="cover-badge">3 Sandbox Tiers</span>
+      <span class="cover-badge">Cloud PR Fleet</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Obsidian and jade architectural render of a local terminal monolith linked by emerald fiber-optic beams to hovering cloud container cubes and Git branch nodes" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Sandboxed Terminal Speed</div>
+      <div class="cover-stat-desc">Run rapid edit-test loops locally on <code>GPT-6.1 Sol</code> with deterministic <code>read-only</code>, <code>local-container</code>, and <code>full-host</code> isolation.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Hierarchical Repo Memory</div>
+      <div class="cover-stat-desc">Encode team rules once in <code>AGENTS.md</code> and keep base prompts lean via progressive <code>SKILL.md</code> modules.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Parallel Cloud PR Fleet</div>
+      <div class="cover-stat-desc">Hand off heavy migrations and overnight issue queues via <code>/cloud</code> into isolated containers that ship tested PRs.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Hybrid Architecture</span>
+    <span>Codex CLI &amp; Codex Cloud</span>
+  </div>
+
+  <h2 class="page-title">Local Terminal Speed Meets Isolated Cloud Fleet</h2>
+  <p class="page-lead">
+    Modern software engineering splits naturally into two rhythms: tight, interactive problem solving at your keyboard and heavy, parallelizable chores you would rather delegate overnight. Codex bridges both with one unified configuration, rulebook, and skill format.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Hybrid Architecture &amp; Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Terminal Power &amp; TDD Fix Loops</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Setup, GPT-6.1 Sol &amp; Sandbox Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Codex Cloud Fleets &amp; PR Review Loops</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Codex Terminal UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Mastering <code>config.toml</code> &amp; <code>AGENTS.md</code></strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Security, Secrets &amp; Egress Governance</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Modular <code>SKILL.md</code> &amp; Prompt Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Narrowest Sandbox First</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>One Brain, Two Execution Surfaces</h3>
+  <p style="font-size:8.65pt;">
+    Both <strong>Codex CLI</strong> (running interactively in your shell) and <strong>Codex Cloud</strong> (running asynchronously in ephemeral cloud sandboxes) read the exact same repository constitution (<code>AGENTS.md</code>), modular playbooks (<code>SKILL.md</code>), and runtime preferences (<code>~/.codex/config.toml</code>). You never maintain two sets of instructions: prototype an approach locally in seconds, then spin up a fleet of parallel cloud workers when the task scales across dozens of files or branches.
+  </p>
+
+  <h3>Unified Architecture: Shared Rules Feeding Local &amp; Cloud Runtimes</h3>
+  <div class="figure-box" style="background:#061411; padding:9px 11px; border-color:#065f46;">
+    <svg viewBox="0 0 710 198" width="100%" height="198" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: Shared Config & Rules -->
+      <rect x="8" y="16" width="166" height="150" rx="8" fill="#0b241d" stroke="#34d399" stroke-width="1.6"/>
+      <text x="91" y="34" text-anchor="middle" fill="#6ee7b7" font-size="7.5" font-weight="700">SHARED CONTROL PLANE</text>
+      <rect x="18" y="44" width="146" height="33" rx="5" fill="#071915" stroke="#059669" stroke-width="1"/>
+      <text x="91" y="58" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">AGENTS.md</text>
+      <text x="91" y="70" text-anchor="middle" fill="#a7f3d0" font-size="6.9">Hierarchical repo rules</text>
+
+      <rect x="18" y="83" width="146" height="33" rx="5" fill="#071915" stroke="#059669" stroke-width="1"/>
+      <text x="91" y="97" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">~/.codex/config.toml</text>
+      <text x="91" y="109" text-anchor="middle" fill="#a7f3d0" font-size="6.9">Model, sandbox &amp; MCPs</text>
+
+      <rect x="18" y="122" width="146" height="34" rx="5" fill="#071915" stroke="#059669" stroke-width="1"/>
+      <text x="91" y="136" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">SKILL.md Modules</text>
+      <text x="91" y="148" text-anchor="middle" fill="#a7f3d0" font-size="6.9">On-demand workflows</text>
+
+      <!-- Branching Arrows -->
+      <path d="M174 62 L222 50" stroke="#34d399" stroke-width="1.8" fill="none"/>
+      <polygon points="219,45 228,49 221,55" fill="#34d399"/>
+      <path d="M174 126 L222 136" stroke="#2dd4bf" stroke-width="1.8" fill="none"/>
+      <polygon points="220,130 228,137 219,141" fill="#2dd4bf"/>
+
+      <!-- Top Track: Local Codex CLI -->
+      <rect x="228" y="14" width="276" height="74" rx="8" fill="#091f19" stroke="#10b981" stroke-width="1.7"/>
+      <text x="240" y="31" fill="#6ee7b7" font-size="7.4" font-weight="700">LOCAL TERMINAL &bull; INTERACTIVE &amp; FAST</text>
+      <text x="240" y="46" fill="#ffffff" font-size="9.6" font-weight="800">Codex CLI (GPT-6.1 Sol)</text>
+      <rect x="240" y="54" width="76" height="24" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="0.8"/>
+      <text x="278" y="69" text-anchor="middle" fill="#ecfdf5" font-size="7" font-weight="700">read-only</text>
+      <rect x="323" y="54" width="88" height="24" rx="4" fill="#065f46" stroke="#34d399" stroke-width="0.8"/>
+      <text x="367" y="69" text-anchor="middle" fill="#ecfdf5" font-size="7" font-weight="700">local-container</text>
+      <rect x="418" y="54" width="74" height="24" rx="4" fill="#064e3b" stroke="#f59e0b" stroke-width="0.8"/>
+      <text x="455" y="69" text-anchor="middle" fill="#fde68a" font-size="7" font-weight="700">full-host</text>
+
+      <!-- Bottom Track: Codex Cloud -->
+      <rect x="228" y="100" width="276" height="74" rx="8" fill="#081c24" stroke="#38bdf8" stroke-width="1.7"/>
+      <text x="240" y="117" fill="#7dd3fc" font-size="7.4" font-weight="700">CLOUD CONTAINERS &bull; ASYNC PARALLELISM</text>
+      <text x="240" y="132" fill="#ffffff" font-size="9.6" font-weight="800">Codex Cloud Worker Fleet</text>
+      <rect x="240" y="140" width="78" height="24" rx="4" fill="#0c2d3d" stroke="#38bdf8" stroke-width="0.8"/>
+      <text x="279" y="155" text-anchor="middle" fill="#e0f2fe" font-size="7">Pod #1: Tests</text>
+      <rect x="325" y="140" width="84" height="24" rx="4" fill="#0c2d3d" stroke="#38bdf8" stroke-width="0.8"/>
+      <text x="367" y="155" text-anchor="middle" fill="#e0f2fe" font-size="7">Pod #2: Migrate</text>
+      <rect x="416" y="140" width="76" height="24" rx="4" fill="#0c2d3d" stroke="#38bdf8" stroke-width="0.8"/>
+      <text x="454" y="155" text-anchor="middle" fill="#e0f2fe" font-size="7">Pod #3: Audit</text>
+
+      <!-- /cloud Handoff Vertical Link -->
+      <path d="M367 88 L367 98" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="2 2"/>
+      <text x="412" y="96" fill="#fde68a" font-size="6.8" font-weight="700">/cloud handoff</text>
+
+      <!-- Arrows to Output -->
+      <path d="M504 51 L536 74" stroke="#34d399" stroke-width="1.8" fill="none"/>
+      <polygon points="535,68 542,78 530,77" fill="#34d399"/>
+      <path d="M504 137 L536 114" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+      <polygon points="530,111 542,110 535,120" fill="#38bdf8"/>
+
+      <!-- Right: GitHub / GitLab PRs -->
+      <rect x="542" y="28" width="160" height="132" rx="9" fill="#0b241d" stroke="#34d399" stroke-width="1.8"/>
+      <text x="622" y="50" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">VERIFIED OUTPUTS</text>
+      <text x="622" y="68" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">GitHub &amp; GitLab</text>
+      <text x="622" y="83" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Pull Requests</text>
+      <rect x="556" y="96" width="132" height="50" rx="5" fill="#071915" stroke="#059669" stroke-width="0.9"/>
+      <text x="622" y="112" text-anchor="middle" fill="#a7f3d0" font-size="7.2">Clean branch diffs,</text>
+      <text x="622" y="124" text-anchor="middle" fill="#a7f3d0" font-size="7.2">passing CI test logs &amp;</text>
+      <text x="622" y="136" text-anchor="middle" fill="#a7f3d0" font-size="7.2">human merge review</text>
+
+      <!-- Bottom Summary Strip -->
+      <rect x="8" y="174" width="694" height="18" rx="4" fill="#04100d" stroke="#065f46" stroke-width="0.9"/>
+      <text x="355" y="186" text-anchor="middle" fill="#6ee7b7" font-size="7.2" font-weight="600">Prototype locally in seconds with Codex CLI &rarr; Escalate heavy multi-file batches via /cloud &rarr; Merge verified PRs</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Mental Model Takeaway: Same Constitution, Different Blast Radius</div>
+    Think of Codex CLI as your pair programmer sitting right inside your working tree, and Codex Cloud as a remote engineering pod cloning your repo into a clean container. Because both enforce <code>AGENTS.md</code> and <code>SKILL.md</code>, habits you teach locally scale automatically across your entire cloud fleet.
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, TIERS & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Installation, GPT-6.1 Sol &amp; Safety Tiers</span>
+    <span>Quickstart, Context Budgets &amp; Sandbox Decision Matrix</span>
+  </div>
+
+  <h2 class="page-title">Setup, <code>GPT-6.1 Sol</code> &amp; Approval-Sandbox Matrix</h2>
+  <p class="page-lead">
+    Getting started with Codex CLI takes under sixty seconds. Install the binary, authenticate with your ChatGPT or OpenAI API account, and choose the narrowest sandbox and approval pairing your current task requires.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-mint" style="border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge">1</span> 60-Second Install &amp; Login</div>
+      <pre class="code-block" style="margin:3px 0 4px 0; padding:6px 8px; font-size:7pt; line-height:1.34;"><code># Install globally via npm or Homebrew
+npm install -g @openai/codex
+brew install --cask codex
+
+# Sign in via OAuth (ChatGPT Plus/Pro/Team) or API key
+codex login
+codex --version</code></pre>
+      <p style="font-size:7.8pt; margin:0; color:#334155;">Subscription sign-in shares workspace quotas; API key billing scales seamlessly for high-concurrency CI and Cloud batches.</p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0d9488;">
+      <div class="card-title"><span class="num-badge teal">2</span> <code>GPT-6.1 Sol</code> Speed &amp; Context Tiers</div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0;">
+        <li><strong>~500k+ Context Window:</strong> Holds entire service modules, stack traces, and multi-file test suites without aggressive truncation.</li>
+        <li><strong>High-Velocity Reasoning:</strong> Tuned specifically for terminal tool calls, patch synthesis, and fast edit-compile-test feedback loops.</li>
+        <li><strong>Adaptive Effort Profiles:</strong> Switch between rapid interactive edits locally and deep multi-step planning in Cloud runs via <code>/model</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Decision Matrix: Approval Modes &amp; Sandbox Isolation Tiers</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Axis / Mode</th>
+        <th style="width:24%;"><code>read-only</code> Sandbox</th>
+        <th style="width:28%;"><code>local-container</code> Sandbox</th>
+        <th style="width:28%;"><code>full-host</code> Sandbox</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>What Codex Can Touch</strong></td>
+        <td>Reads repository files and inspects git status; <strong>all file writes and shell mutations blocked</strong>.</td>
+        <td>Reads and writes inside the project workspace inside a jailed OS/container boundary; <strong>network disabled by default</strong>.</td>
+        <td>Direct access to your full host shell, Docker daemon, system packages, and outbound network endpoints.</td>
+      </tr>
+      <tr>
+        <td><strong><code>suggest</code> Mode</strong><br/><span style="color:#059669; font-weight:600;">Default &amp; Safest</span></td>
+        <td>Proposes findings and patch previews; ideal for zero-risk code reviews and architecture Q&amp;A.</td>
+        <td>Prompts before running shell commands or writing files; great for learning an unfamiliar codebase.</td>
+        <td>Prompts before every host command; catches accidental destructive calls on production-adjacent machines.</td>
+      </tr>
+      <tr>
+        <td><strong><code>automatic</code> Mode</strong><br/><span style="color:#0284c7; font-weight:600;">Daily Driver</span></td>
+        <td>Runs read-only grep, tree, and diagnostic queries without interruption.</td>
+        <td><strong>Sweet Spot:</strong> Auto-approves edits and local test runs inside the workspace; asks only if escaping the sandbox.</td>
+        <td>Runs multi-step host tasks autonomously; reserve strictly for isolated VMs or disposable dev machines.</td>
+      </tr>
+      <tr>
+        <td><strong><code>manual</code> Mode</strong><br/><span style="color:#d97706; font-weight:600;">Strict Gate</span></td>
+        <td>Requires explicit confirmation even for non-trivial inspection commands.</td>
+        <td>Every single file diff and test command pauses for human sign-off before execution.</td>
+        <td>Mandatory step-by-step approval for sensitive host migrations, secrets rotation, or release tags.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block" style="padding:5.5px 9px; font-size:7.05pt; margin:0 0 6px 0;"><code># Daily driver launch: automatic approvals inside a jailed local-container sandbox
+codex --sandbox local-container --approval automatic "Fix failing webhook signature tests"
+
+# Safe security audit: zero disk writes allowed
+codex --sandbox read-only --approval suggest "Audit auth middleware for IDOR risks"</code></pre>
+
+  <div class="callout sky" style="margin:2px 0 0 0;">
+    <div class="callout-title">Golden Pairing Rule: Start in <code>local-container</code> + <code>automatic</code></div>
+    Never jump straight to <code>full-host</code> out of convenience. Running <code>automatic</code> inside <code>local-container</code> lets <code>GPT-6.1 Sol</code> iterate through dozens of compile-and-test cycles uninterrupted while guaranteeing it cannot touch <code>~/.ssh</code>, sibling repositories, or live production APIs.
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Workspace Interface Tour</span>
+    <span>Inside an Active Codex CLI Session</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Codex CLI Terminal Cockpit</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Codex CLI packs policy awareness, live diffs, sandbox boundaries, and cloud handoff into one keyboard-first terminal cockpit. Study these seven touchpoints before running your first autonomous loop.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#6ee7b7;">codex &mdash; ~/Codebases/billing-service (GPT-6.1 Sol)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; font-size:7.1pt;">
+        <span style="background:#064e3b; color:#6ee7b7; border:1px solid #10b981; padding:1.5px 6px; border-radius:4px; font-weight:700;">AGENTS.md: root + api/ <span class="callout-pin">2</span></span>
+        <span style="background:#0c2d3d; color:#7dd3fc; border:1px solid #0284c7; padding:1.5px 6px; border-radius:4px; font-weight:700;">MCP: postgres, github (2/2) <span class="callout-pin">6</span></span>
+      </div>
+    </div>
+
+    <!-- Approval & Skill Banner -->
+    <div style="background:#071c16; border-bottom:1px solid #065f46; padding:4.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.2pt;">
+      <span><strong style="color:#34d399;">[APPROVAL: AUTOMATIC]</strong> <span style="color:#cbd5e1;">Workspace edits &amp; tests auto-run; network escalation prompts</span> <span class="callout-pin">1</span></span>
+      <span><strong style="color:#fde68a;">Active Skill:</strong> <code>tdd-webhook-fix/SKILL.md</code> <span class="callout-pin">3</span></span>
+    </div>
+
+    <!-- Main Body + Diff Preview -->
+    <div style="display:grid; grid-template-columns: 1.1fr 1fr; border-bottom:1px solid #065f46;">
+      <!-- Left Terminal Stream -->
+      <div style="padding:8px 11px; border-right:1px solid #065f46;">
+        <div style="margin-bottom:6px;">
+          <div style="color:#94a3b8; font-size:7pt;">Turn 3 &bull; Tool Call: <code>pytest tests/test_webhooks.py -q</code></div>
+          <div style="background:#04110d; border:1px solid #065f46; border-radius:5px; padding:5px 7px; margin-top:3px; color:#a7f3d0; font-size:7pt;">
+            <div>&bull; Verifying HMAC timestamp tolerance... <strong style="color:#34d399;">PASSED (14/14)</strong></div>
+            <div style="color:#94a3b8;">&bull; Runtime: 0.84s inside isolated filesystem cage</div>
+          </div>
+        </div>
+
+        <div>
+          <div style="color:#34d399; font-weight:700; font-size:7.3pt;">&gt; /cloud --parallel 3 &quot;Port this signature fix to Go &amp; Rust SDKs&quot; <span class="callout-pin">7</span></div>
+          <div style="background:#08202c; border:1px solid #0284c7; border-radius:5px; padding:5px 7px; margin-top:3px; color:#e0f2fe; font-size:7pt;">
+            Queued 3 Codex Cloud containers from branch <code>feat/hmac-window</code>.<br/>
+            Tracking PRs: <code>#418</code>, <code>#419</code>, <code>#420</code> &bull; Run <code>codex cloud status</code> anytime.
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Diff Hunk Pane -->
+      <div style="padding:8px 10px; background:#05100d; font-size:7pt;">
+        <div style="font-weight:700; color:#6ee7b7; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+          <span>DIFF PREVIEW: src/verify.ts</span> <span class="callout-pin">4</span>
+        </div>
+        <div style="background:#030b09; border:1px solid #064e3b; border-radius:5px; padding:5px 7px; font-family:monospace; line-height:1.42;">
+          <div style="color:#94a3b8;">@@ -42,4 +42,5 @@ export function verifySig(</div>
+          <div style="color:#fda4af;">-  if (Math.abs(now - ts) &gt; 60) return false;</div>
+          <div style="color:#6ee7b7;">+  const drift = Math.abs(now - ts);</div>
+          <div style="color:#6ee7b7;">+  if (drift &gt; MAX_REPLAY_WINDOW_SEC) return false;</div>
+          <div style="color:#cbd5e1;">   return timingSafeEqual(expected, sig);</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Sandbox & Context Meter -->
+    <div style="background:#0b241d; padding:5.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.2pt;">
+      <div style="display:flex; align-items:center; gap:9px;">
+        <span><strong style="color:#34d399;">Sandbox:</strong> <code>local-container</code> (Net: OFF) <span class="callout-pin">5</span></span>
+        <span style="color:#475569;">|</span>
+        <span><strong style="color:#cbd5e1;">Context:</strong> 78k / 500k+ (15%)</span>
+      </div>
+      <span style="color:#6ee7b7;">Shortcuts: <code>/diff</code> &bull; <code>/skills</code> &bull; <code>/cloud</code></span>
+    </div>
+  </div>
+
+  <h3>Interface Legend: The 7 Live Codex CLI Touchpoints</h3>
+  <div class="grid-2" style="font-size:7.95pt; gap:6px 12px;">
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">1</span> Approval Mode Banner:</strong> Displays whether Codex is running in <code>suggest</code>, <code>automatic</code>, or <code>manual</code> mode so you always know when actions pause for sign-off.
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">2</span> Loaded <code>AGENTS.md</code> Badge:</strong> Confirms every active instruction file merged from global config, repo root, and the current working directory.
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">3</span> Active <code>SKILL.md</code> Indicator:</strong> Lights up when Codex loads a specialized modular skill on demand instead of guessing ad-hoc steps.
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">4</span> Inline Diff Hunk Preview:</strong> Shows exact line-by-line edits and test results before you stage commits or invoke <code>/diff</code> for full review.
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">5</span> Sandbox &amp; Network Meter:</strong> Verifies your active isolation boundary (<code>read-only</code>, <code>local-container</code>, or <code>full-host</code>) and whether network egress is sealed.
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">6</span> MCP Server Status Pill:</strong> Confirms configured tools from <code>~/.codex/config.toml</code> (such as Postgres or GitHub) connected cleanly at startup.
+    </div>
+    <div class="card-mint" style="padding:6.5px 9px; grid-column: span 2;">
+      <strong><span class="callout-pin">7</span> Seamless <code>/cloud</code> Handoff Command:</strong> Escalates the current branch, context summary, and parallel task fan-out straight from your local terminal into asynchronous Codex Cloud worker containers without re-explaining the problem.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: CONFIG.TOML, MCP SERVERS & AGENTS.MD ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Configuration &amp; Repo Constitutions</span>
+    <span>Mastering ~/.codex/config.toml, MCPs &amp; AGENTS.md</span>
+  </div>
+
+  <h2 class="page-title">Mastering <code>config.toml</code>, MCPs &amp; <code>AGENTS.md</code></h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Two plain-text files govern almost everything Codex does: <code>~/.codex/config.toml</code> controls your model, sandbox defaults, and MCP tools, while hierarchical <code>AGENTS.md</code> files serve as your repository&rsquo;s living engineering constitution.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#065f46;">1. <code>~/.codex/config.toml</code> &mdash; Defaults &amp; MCP Wiring</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.85pt; line-height:1.33;"><code>model = "gpt-6.1-sol"
+approval_policy = "automatic"
+sandbox_mode = "local-container"
+
+[sandbox_workspace_write]
+network_access = false
+
+[mcp_servers.postgres_ro]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-postgres"]
+env = { DATABASE_URL = "${STAGING_RO_URL}" }
+
+[mcp_servers.docs]
+url = "https://mcp.internal.company.dev/sse"</code></pre>
+    </div>
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#065f46;">2. Hierarchical <code>AGENTS.md</code> Cascade</p>
+      <div class="card" style="padding:7.5px 9px; font-size:7.75pt; line-height:1.42;">
+        <div style="margin-bottom:4px;"><span class="num-badge" style="width:16px;height:16px;font-size:7pt;">1</span> <strong>Global (<code>~/.codex/AGENTS.md</code>):</strong> Personal preferences&mdash;preferred test flags, commit style, never touch <code>.env</code>.</div>
+        <div style="margin-bottom:4px;"><span class="num-badge teal" style="width:16px;height:16px;font-size:7pt;">2</span> <strong>Repo Root (<code>./AGENTS.md</code>):</strong> Architecture map, build/lint commands, and PR expectations shared via Git.</div>
+        <div><span class="num-badge forest" style="width:16px;height:16px;font-size:7pt;">3</span> <strong>Subdirectory (<code>./services/billing/AGENTS.md</code>):</strong> Local overrides loaded only when editing files inside that service folder.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 6px 0;">
+    <div class="callout-title">Keep <code>AGENTS.md</code> Actionable and Under 150 Lines</div>
+    Treat <code>AGENTS.md</code> as an executive briefing, not a novel: list exact test commands (<code>pnpm test --filter api</code>), forbidden directories, and architectural boundaries. Push rare or step-heavy procedures into on-demand <code>SKILL.md</code> modules instead.
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/sandbox_approval_matrix.jpg" alt="Three glowing protective glass isolation domes shielding emerald code cores representing read-only, local-container, and full-host sandboxes" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Defense in Depth Across Three Isolation Domes:</strong> Whether Codex runs inside a sealed <code>read-only</code> vault, a jailed <code>local-container</code> prism, or a <code>full-host</code> workshop, <code>config.toml</code> enforces tool boundaries deterministically while <code>AGENTS.md</code> supplies project judgment.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: MODULAR SKILLS (SKILL.MD) ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Progressive Disclosure Skills</span>
+    <span>Modular ~/.agents/skills/&lt;name&gt;/SKILL.md</span>
+  </div>
+
+  <h2 class="page-title">On-Demand Skills: Keep Context Lean with <code>SKILL.md</code></h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Stuffing twenty playbooks into <code>AGENTS.md</code> wastes precious context tokens and distracts the model. Codex solves this with <strong>progressive disclosure</strong>: only tiny skill names and trigger descriptions load at startup, while full <code>SKILL.md</code> instructions load only when a task matches.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#065f46;">Skill Folder Layout (User or Repo Scoped)</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.95pt; line-height:1.35;"><code>~/.agents/skills/db-migration/   # Personal across all repos
+# or &lt;repo&gt;/.agents/skills/db-migration/
+├── SKILL.md        # YAML frontmatter + step-by-step playbook
+├── scripts/        # Optional deterministic verification scripts
+└── references/     # Loaded only when deep schema docs needed</code></pre>
+    </div>
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#065f46;">Frontmatter Index (Always Loaded, ~30 Tokens)</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.95pt; line-height:1.35;"><code>---
+name: db-migration
+description: Create, verify, and test reversible SQL
+  migrations in packages/db. Use whenever adding columns,
+  indexes, or altering Prisma/Postgres schemas.
+---</code></pre>
+    </div>
+  </div>
+
+  <h3>Anatomy of a High-Precision <code>SKILL.md</code> Specification</h3>
+  <p style="font-size:8.25pt; margin-bottom:4px;">
+    Great skills trigger reliably without false positives. Combine these five color-coded building blocks inside your frontmatter and instructions:
+  </p>
+
+  <div style="margin-bottom:5px; font-size:7.7pt; display:flex; flex-wrap:wrap; gap:5px;">
+    <span class="p-tag p-trigger">[1. Crisp Trigger Description]</span>
+    <span class="p-tag p-scope">[2. File Scope]</span>
+    <span class="p-tag p-steps">[3. Ordered Workflow]</span>
+    <span class="p-tag p-tools">[4. Scripts &amp; MCPs]</span>
+    <span class="p-tag p-guard">[5. Stop &amp; Safety Guard]</span>
+  </div>
+
+  <div class="card" style="background:#f8fafc; border:1px solid #a7f3d0; padding:8px 10px; margin-bottom:7px; font-size:8.15pt; line-height:1.66;">
+    <span class="p-tag p-trigger">Trigger when the user requests schema changes, table additions, or migration rollbacks.</span>
+    <span class="p-tag p-scope">Restrict edits strictly to packages/db/migrations/ and packages/db/schema.sql.</span>
+    <span class="p-tag p-steps">Step 1: Inspect existing migration order. Step 2: Author forward + down SQL. Step 3: Run reset test twice to prove idempotency.</span>
+    <span class="p-tag p-tools">Execute scripts/check-locks.sh and inspect staging schema via [mcp_servers.postgres_ro].</span>
+    <span class="p-tag p-guard">Never drop non-empty columns without an explicit two-phase deprecation note; halt and report if drift is detected.</span>
+  </div>
+
+  <h3>3-Stage Progressive Loading Lifecycle</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin-bottom:4px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Loading Stage</th>
+        <th style="width:26%;">What Enters Context</th>
+        <th style="width:54%;">Why It Boosts <code>GPT-6.1 Sol</code> Accuracy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Stage 1: Discovery</strong></td>
+        <td><code>name</code> + <code>description</code></td>
+        <td>Costs only ~25&ndash;40 tokens per skill so you can keep 30+ specialized workflows installed with near-zero prompt bloat.</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 2: Activation</strong></td>
+        <td>Full <code>SKILL.md</code> body</td>
+        <td>Injected only after your prompt matches the trigger description (or when you invoke <code>$skill-name</code> explicitly).</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 3: Deep Assets</strong></td>
+        <td><code>scripts/</code> &amp; <code>references/</code></td>
+        <td>Read selectively during execution; deterministic helper scripts execute directly without pasting huge boilerplate into chat.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">Pro Tip: Write Trigger Descriptions Around User Intent, Not Implementation</div>
+    Avoid vague descriptions like &ldquo;Database helper.&rdquo; State concrete situations (&ldquo;Use when modifying SQL tables, indexes, or fixing migration checksum errors&rdquo;) so Codex activates the right skill automatically on the first turn.
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: TERMINAL POWER WORKFLOWS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Interactive Terminal Mastery</span>
+    <span>TDD Loops, Safe Refactoring &amp; MCP Tool Calling</span>
+  </div>
+
+  <h2 class="page-title">Terminal Power Workflows with <code>GPT-6.1 Sol</code></h2>
+  <p class="page-lead">
+    Because <code>GPT-6.1 Sol</code> pairs a ~500k+ token window with low-latency tool execution, Codex CLI shines at tight verify-as-you-go loops. Give it a concrete verification signal up front and watch it self-correct before you review a single line.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card" style="border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge">1</span> Test-Driven Fix Loops (Red &rarr; Green)</div>
+      <p style="font-size:7.95pt; margin-bottom:4px;">Never ask Codex to &ldquo;fix the bug&rdquo; in the abstract. Point it at a failing test or tell it to reproduce the failure first:</p>
+      <ul style="font-size:7.8pt; margin:0;">
+        <li><strong>Reproduce:</strong> Write a failing unit test capturing the edge case and confirm it fails.</li>
+        <li><strong>Patch Narrowly:</strong> Edit only the responsible module while keeping public types intact.</li>
+        <li><strong>Verify Full Suite:</strong> Re-run targeted + integration tests before finishing.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0d9488;">
+      <div class="card-title"><span class="num-badge teal">2</span> Safe Structural Refactoring</div>
+      <p style="font-size:7.95pt; margin-bottom:4px;">When splitting files or renaming shared interfaces across dozens of callers, anchor Codex to compiler and lint gates:</p>
+      <ul style="font-size:7.8pt; margin:0;">
+        <li><strong>Baseline Proof:</strong> Run <code>tsc --noEmit</code> and tests before touching code.</li>
+        <li><strong>Atomic Moves:</strong> Refactor one boundary at a time and re-typecheck after each step.</li>
+        <li><strong>Inspect Cleanly:</strong> Use <code>/diff</code> to audit every changed hunk prior to committing.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Live MCP Tool Calling Inside Your Terminal Loop</h3>
+  <p style="font-size:8.35pt;">
+    Tools wired under <code>[mcp_servers.*]</code> in <code>~/.codex/config.toml</code> become native capabilities inside Codex CLI. Instead of copy-pasting database schemas, Sentry stack traces, or GitHub issue threads into your prompt, let Codex fetch live facts directly inside the reasoning loop:
+  </p>
+
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.05pt; line-height:1.36;"><code># 1. Start an interactive session with automatic workspace execution
+codex --sandbox local-container --approval automatic
+
+# 2. Prompt combining MCP context + TDD verification loop:
+&gt; Fetch GitHub issue #842 via the github MCP server, inspect the failing query plan
+  using postgres_ro, write a regression test in tests/billing.spec.ts that fails
+  against current code, fix the N+1 join, and run pnpm test billing until green.
+
+# 3. Essential interactive slash commands during long sessions:
+/diff       # Inspect colorized git diff of every edit Codex made so far
+/review     # Run a dedicated second-pass bug &amp; regression check on uncommitted changes
+/compact    # Summarize older turns while preserving key file paths and decisions
+/resume     # Reopen a previous terminal session with full conversation state</code></pre>
+
+  <div class="grid-3" style="margin-top:4px; margin-bottom:6px;">
+    <div class="card-mint" style="padding:7.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;">Fast Non-Interactive Pipe</div>
+      <p style="font-size:7.7pt; margin:0;">Run <code>codex exec &quot;Generate changelog from last 15 commits&quot;</code> inside scripts or pre-commit hooks for scripted one-shot output.</p>
+    </div>
+    <div class="card-mint" style="padding:7.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;">Checkpoint Before Risk</div>
+      <p style="font-size:7.7pt; margin:0;">Commit or <code>git stash</code> clean work before multi-file refactors so reverting an unwanted experiment takes a single command.</p>
+    </div>
+    <div class="card-mint" style="padding:7.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;">Headless CI Review</div>
+      <p style="font-size:7.7pt; margin:0;">Pair <code>codex exec --sandbox read-only</code> with PR diffs to catch missing null checks or migration hazards before human review.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Rapid Iteration Habit: Define &ldquo;Done&rdquo; as a Passing Command</div>
+    Prompts ending with <em>&ldquo;and do not finish until <code>pytest</code> and <code>ruff check</code> pass with zero warnings&rdquo;</em> unlock <code>GPT-6.1 Sol</code>&rsquo;s self-healing loop&mdash;turning first-draft syntax slips into zero-touch fixes before you look back at the terminal.
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: CODEX CLOUD FLEETS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Asynchronous Cloud Worker Fleets</span>
+    <span>GitHub/GitLab Wiring, Cloud Containers &amp; PR Review Loops</span>
+  </div>
+
+  <h2 class="page-title">Codex Cloud Fleets: Parallel Containers to Clean PRs</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    When a task spans dozens of packages, takes twenty minutes of test suites, or repeats across multiple services, stop babysitting one terminal tab. <strong>Codex Cloud</strong> clones your repo into isolated cloud containers that run for hours or days and return review-ready PRs.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">1</span> Connecting GitHub / GitLab &amp; Setup</div>
+      <ul style="font-size:7.85pt; margin:2px 0 0 0;">
+        <li><strong>Repo Authorization:</strong> Link your GitHub or GitLab organization inside Codex Cloud settings and select target repositories.</li>
+        <li><strong>Environment Setup Script:</strong> Provide a deterministic setup command (e.g., <code>pnpm install --frozen-lockfile</code>) cached into container snapshots.</li>
+        <li><strong>Cached Warm Boots:</strong> Snapshotted dependency layers launch new worker pods in seconds with your full test toolchain ready.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge">2</span> Fan-Out &amp; PR Review Loops</div>
+      <ul style="font-size:7.85pt; margin:2px 0 0 0;">
+        <li><strong>Parallel Task Fan-Out:</strong> Dispatch 4&ndash;10 independent tasks simultaneously&mdash;each gets its own branch and isolated container.</li>
+        <li><strong><code>/cloud</code> Terminal Handoff:</strong> Escalate local investigations straight from Codex CLI into Cloud without losing context.</li>
+        <li><strong>PR Comment Follow-Ups:</strong> Tag Codex on an open PR or push review notes; the container resumes, fixes feedback, and updates commits.</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:5.5px 9px; font-size:6.95pt; margin:0 0 6px 0;"><code># Dispatch parallel Codex Cloud tasks from CLI or inspect active fleet pods
+codex cloud run --repo acme/core-api --branch main "Migrate v1 auth endpoints to OAuth2 PKCE"
+codex cloud status                                   # View running pods, test exit codes &amp; opened PR links
+codex cloud apply &lt;task-id&gt;                          # Pull a Cloud container's clean patch locally to inspect</code></pre>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/codex_cloud_pr_fleet.jpg" alt="Parallel translucent cloud worker pods assembling modular software blocks and streaming emerald pull requests into a central repository nexus" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Parallel Cloud Fleet Execution:</strong> Each translucent worker pod builds and tests its own isolated branch against your cached environment snapshot, converging verified diffs and passing CI logs into GitHub or GitLab pull requests.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Run Field Blueprints</span>
+    <span>5 Real-World Copy-Paste Codex CLI &amp; Cloud Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Adapt these five battle-tested blueprints for your daily engineering workflow. Notice how each pairs the right sandbox tier with a concrete verification command or Cloud PR handoff.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Recipe &amp; Surface</th>
+        <th style="width:22%;">Sandbox &amp; Tools</th>
+        <th style="width:58%;">Copy-Paste Prompt / Command</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Production Incident Triage</strong><br/><span style="color:#059669; font-weight:600;">Codex CLI (Local)</span></td>
+        <td><code>local-container</code><br/><code>automatic</code><br/>MCP: Sentry / Logs</td>
+        <td>&ldquo;Inspect the 500 spike on <code>POST /v2/checkout</code> using our error-logs MCP. Trace the stack frame in <code>src/checkout/</code>, write a failing unit test reproducing the null payload crash, apply the minimal guard fix, and confirm <code>npm test</code> passes.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>2. Cross-Repo SDK Migration</strong><br/><span style="color:#0284c7; font-weight:600;">Codex Cloud Fleet</span></td>
+        <td>Cloud Containers<br/>3 Parallel Pods<br/>GitHub PR Output</td>
+        <td>&ldquo;<code>/cloud --parallel 3</code> Update deprecated <code>v1.Client</code> imports to <code>v2.UnifiedClient</code> across <code>packages/web</code>, <code>packages/mobile</code>, and <code>packages/cli</code>. Follow each package&rsquo;s <code>AGENTS.md</code>, run full typechecks and tests, and open one clean PR per package.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>3. Test Harness Generation</strong><br/><span style="color:#059669; font-weight:600;">Codex CLI (Local)</span></td>
+        <td><code>local-container</code><br/><code>automatic</code><br/><code>SKILL.md</code> QA module</td>
+        <td>&ldquo;Analyze <code>src/billing/proration.ts</code> for leap-year, negative credit, and timezone rollover edge cases. Generate a Vitest suite in <code>tests/proration.test.ts</code> targeting 95%+ branch coverage without mocking core math helpers. Run coverage until all cases pass.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>4. Read-Only Security Audit</strong><br/><span style="color:#d97706; font-weight:600;">Codex CLI (Safe)</span></td>
+        <td><code>read-only</code><br/><code>suggest</code><br/>Zero Disk Writes</td>
+        <td>&ldquo;Launch with <code>codex --sandbox read-only</code>: Audit every route in <code>api/routes/</code> for missing tenant ownership checks (IDOR), unvalidated SQL interpolation, and SSRF URL fetches. Output a severity-ranked Markdown report with exact <code>file:line</code> citations.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>5. Overnight Cloud Backlog Batch</strong><br/><span style="color:#0284c7; font-weight:600;">Codex Cloud Fleet</span></td>
+        <td>Cloud Containers<br/>Async Overnight<br/><code>AGENTS.md</code> Rules</td>
+        <td>&ldquo;Queue 5 independent Codex Cloud tasks for issues tagged <code>good-for-codex</code> (#301&ndash;#305): in each isolated pod, add tests first, implement the fix strictly within the module boundaries in <code>AGENTS.md</code>, verify lint + tests green, and leave draft PRs ready for morning review.&rdquo;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Recipe Scaling Pattern: Local Prototype &rarr; Cloud Fleet</div>
+    Whenever you discover a multi-step fix that works cleanly on one service in Codex CLI (Recipe 1), freeze the steps into a repo <code>SKILL.md</code> file and launch Recipe 2 in Codex Cloud to roll out the exact same pattern across ten sibling services simultaneously.
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, SECRET HYGIENE & GOVERNANCE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security, Secrets &amp; Enterprise Governance</span>
+    <span>Network Egress, Secret Scopes &amp; CI/CD Review Gates</span>
+  </div>
+
+  <h2 class="page-title">Security, Secret Hygiene &amp; Enterprise Governance</h2>
+  <p class="page-lead">
+    Autonomous agents move fast&mdash;which makes clear boundaries non-negotiable. Codex separates <strong>build-time setup secrets</strong> from <strong>runtime environment access</strong> and disables untrusted outbound networking by default so credentials never leak through generated code or logs.
+  </p>
+
+  <div class="callout rose" style="margin:2px 0 7px 0;">
+    <div class="callout-title">Never Paste Production API Keys into Prompts, <code>AGENTS.md</code>, or <code>SKILL.md</code></div>
+    Prompt files and repo markdown are transmitted to model context and committed to Git. Store credentials strictly in OS environment variables, secret managers, or Codex Cloud&rsquo;s encrypted environment vault&mdash;never inside text instructions.
+  </div>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-dark">
+      <div class="card-title">Network Egress Controls (Local &amp; Cloud)</div>
+      <ul style="font-size:7.85pt; color:#cbd5e1; margin:3px 0 0 0;">
+        <li><strong>Default-Deny Outbound:</strong> Inside <code>local-container</code> and Codex Cloud execution phases, outbound internet access is disabled by default so agents cannot exfiltrate source code or pull unvetted binaries mid-run.</li>
+        <li><strong>Two-Phase Cloud Lifecycle:</strong> Network access is enabled only during the pre-flight <em>setup phase</em> (to install npm/pip packages), then severed before the agent reads prompts or writes code.</li>
+        <li><strong>Domain Allowlists:</strong> Enterprise admins can permit specific internal registries or test endpoints (e.g., <code>registry.npmjs.org</code>, internal PyPI) while blocking arbitrary HTTP calls.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge">!</span> Secret Injection &amp; Scoping</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0;">
+        <li><strong>Setup Secrets vs. Agent Secrets:</strong> Keep private package registry tokens scoped strictly to the container setup step; strip them before agent execution starts.</li>
+        <li><strong>Least-Privilege Test Keys:</strong> Inject only ephemeral staging or local-mock tokens into Cloud test environments&mdash;never production DB or billing credentials.</li>
+        <li><strong>MCP Read-Only Wrappers:</strong> Configure <code>~/.codex/config.toml</code> MCP tools (like Postgres) with read-only database roles for local triage.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Enterprise Audit Logs &amp; CI/CD Review Gates</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Governance Control</th>
+        <th style="width:36%;">How Codex Enforces It</th>
+        <th style="width:40%;">Recommended Team Policy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Workspace Audit Trail</strong></td>
+        <td>Every CLI command, MCP tool call, Cloud container log, and diff artifact is logged with timestamps and user identity.</td>
+        <td>Stream Team/Enterprise audit logs to your SIEM and retain Cloud container test transcripts alongside PR links.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Zero Auto-Merge Rule</strong></td>
+        <td>Codex Cloud opens pull requests or branches but leaves merge authority with GitHub/GitLab branch protection.</td>
+        <td>Require at least one human reviewer plus passing CI checks (<code>CODEOWNERS</code> + secret scanning) before merging.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Managed <code>config.toml</code> Baseline</strong></td>
+        <td>Admins can enforce organization-wide sandbox floors and block <code>full-host</code> escalation on corporate laptops.</td>
+        <td>Pin default <code>sandbox_mode = "local-container"</code> and restrict network egress in managed workstation profiles.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:2px 0 0 0;">
+    <div class="callout-title">Prompt Injection Defense: Separate Untrusted Data from Write Privileges</div>
+    When asking Codex to summarize external web pages, third-party GitHub issues, or untrusted logs, keep the session in <code>read-only</code> sandbox or review every proposed shell tool call in <code>suggest</code> mode so hidden instructions in external text cannot trigger unintended writes.
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; OpenAI Ecosystem Synergy</span>
+    <span>Codex CLI &rarr; Codex Cloud &rarr; Agents SDK / ChatGPT Spaces</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From Terminal Prototype to Production Fleet</h2>
+  <p class="page-lead">
+    Codex does not live in isolation. It forms the engineering backbone of OpenAI&rsquo;s broader ecosystem&mdash;connecting rapid local terminal exploration, scalable Cloud pull-request fleets, and custom production agents built with the OpenAI Agents SDK or ChatGPT Spaces.
+  </p>
+
+  <div class="figure-box" style="background:#061411; padding:10px 12px; border-color:#065f46; margin-bottom:9px;">
+    <svg viewBox="0 0 700 206" width="100%" height="206" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: ChatGPT Spaces / Spec -->
+      <rect x="8" y="18" width="150" height="142" rx="9" fill="#0b241d" stroke="#2dd4bf" stroke-width="1.6"/>
+      <text x="83" y="37" text-anchor="middle" fill="#5eead4" font-size="7.4" font-weight="700">1. DESIGN &amp; SPEC</text>
+      <text x="83" y="54" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">ChatGPT Spaces</text>
+      <text x="83" y="68" text-anchor="middle" fill="#99f6e4" font-size="7.2">Shared Docs &amp; Architecture</text>
+      <line x1="22" y1="77" x2="144" y2="77" stroke="#115e59" stroke-width="1"/>
+      <text x="20" y="93" fill="#e2e8f0" font-size="7.3">&bull; RFCs &amp; API contracts</text>
+      <text x="20" y="107" fill="#e2e8f0" font-size="7.3">&bull; Acceptance criteria</text>
+      <text x="20" y="121" fill="#e2e8f0" font-size="7.3">&bull; Draft AGENTS.md rules</text>
+      <rect x="20" y="133" width="126" height="20" rx="4" fill="#134e4a"/>
+      <text x="83" y="146" text-anchor="middle" fill="#5eead4" font-size="7.1" font-weight="700">Defines WHAT to build</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M158 89 L180 89" stroke="#34d399" stroke-width="2"/>
+      <polygon points="178,84 186,89 178,94" fill="#34d399"/>
+
+      <!-- Stage 2: Codex CLI -->
+      <rect x="186" y="18" width="152" height="142" rx="9" fill="#092920" stroke="#34d399" stroke-width="2"/>
+      <text x="262" y="37" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">2. LOCAL PROTOTYPE</text>
+      <text x="262" y="54" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Codex CLI</text>
+      <text x="262" y="68" text-anchor="middle" fill="#a7f3d0" font-size="7.2">GPT-6.1 Sol + MCPs</text>
+      <line x1="200" y1="77" x2="324" y2="77" stroke="#065f46" stroke-width="1"/>
+      <text x="198" y="93" fill="#ecfdf5" font-size="7.3">&bull; Interactive TDD fix loops</text>
+      <text x="198" y="107" fill="#ecfdf5" font-size="7.3">&bull; Author SKILL.md playbooks</text>
+      <text x="198" y="121" fill="#ecfdf5" font-size="7.3">&bull; Verify inside local-container</text>
+      <rect x="198" y="133" width="128" height="20" rx="4" fill="#064e3b"/>
+      <text x="262" y="146" text-anchor="middle" fill="#6ee7b7" font-size="7.1" font-weight="700">Proves HOW it works locally</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M338 89 L360 89" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="358,84 366,89 358,94" fill="#38bdf8"/>
+
+      <!-- Stage 3: Codex Cloud -->
+      <rect x="366" y="18" width="154" height="142" rx="9" fill="#081d26" stroke="#38bdf8" stroke-width="1.8"/>
+      <text x="443" y="37" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">3. PARALLEL SCALE</text>
+      <text x="443" y="54" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Codex Cloud</text>
+      <text x="443" y="68" text-anchor="middle" fill="#bae6fd" font-size="7.2">/cloud Worker Fleet</text>
+      <line x1="380" y1="77" x2="506" y2="77" stroke="#0369a1" stroke-width="1"/>
+      <text x="378" y="93" fill="#e0f2fe" font-size="7.3">&bull; Multi-repo rollout pods</text>
+      <text x="378" y="107" fill="#e0f2fe" font-size="7.3">&bull; Overnight backlog runs</text>
+      <text x="378" y="121" fill="#e0f2fe" font-size="7.3">&bull; Ships CI-verified PRs</text>
+      <rect x="378" y="133" width="130" height="20" rx="4" fill="#0c4a6e"/>
+      <text x="443" y="146" text-anchor="middle" fill="#7dd3fc" font-size="7.1" font-weight="700">Scales ACROSS repositories</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M520 89 L542 89" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="540,84 548,89 540,94" fill="#a78bfa"/>
+
+      <!-- Stage 4: OpenAI Agents SDK -->
+      <rect x="548" y="18" width="144" height="142" rx="9" fill="#17122b" stroke="#a78bfa" stroke-width="1.6"/>
+      <text x="620" y="37" text-anchor="middle" fill="#ddd6fe" font-size="7.4" font-weight="700">4. PRODUCTION APP</text>
+      <text x="620" y="54" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Agents SDK</text>
+      <text x="620" y="68" text-anchor="middle" fill="#c4b5fd" font-size="7.2">Custom Handoffs &amp; CI Bots</text>
+      <line x1="560" y1="77" x2="680" y2="77" stroke="#5b21b6" stroke-width="1"/>
+      <text x="559" y="93" fill="#ede9fe" font-size="7.3">&bull; Embed Codex via MCP</text>
+      <text x="559" y="107" fill="#ede9fe" font-size="7.3">&bull; Automated triage bots</text>
+      <text x="559" y="121" fill="#ede9fe" font-size="7.3">&bull; Guardrails &amp; eval traces</text>
+      <rect x="559" y="133" width="122" height="20" rx="4" fill="#3b0764"/>
+      <text x="620" y="146" text-anchor="middle" fill="#ddd6fe" font-size="7.1" font-weight="700">Runs IN production pipelines</text>
+
+      <!-- Bottom Loop Banner -->
+      <rect x="8" y="173" width="684" height="24" rx="6" fill="#071915" stroke="#065f46" stroke-width="1"/>
+      <text x="350" y="189" text-anchor="middle" fill="#a7f3d0" font-size="7.5" font-weight="600">End-to-End Flow: Spec in ChatGPT Spaces &rarr; Prototype in Codex CLI &rarr; Fan out via Codex Cloud &rarr; Automate with Agents SDK</text>
+    </svg>
+  </div>
+
+  <h3>Walkthrough: Shipping a Multi-Service Feature End-to-End</h3>
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Spec &amp; Local Proof (Spaces &rarr; Codex CLI)</div>
+      <p style="font-size:8pt; margin:0;">Your team aligns on an API schema change inside <strong>ChatGPT Spaces</strong>, exporting the spec into your repo. You open <strong>Codex CLI</strong> in <code>local-container</code> mode, refine the core TypeScript handler with <code>GPT-6.1 Sol</code>, and capture the migration steps in a reusable <code>SKILL.md</code> module.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> Fleet Rollout &amp; Automation (Cloud &rarr; Agents SDK)</div>
+      <p style="font-size:8pt; margin:0;">You trigger <code>/cloud</code> to roll the verified SDK change across four downstream repos concurrently, review the resulting GitHub PRs, and wire an <strong>OpenAI Agents SDK</strong> triage workflow (or <code>codex exec</code> CI check) to guard future commits automatically.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0;">
+    <div class="callout-title">Unifying Artifact: Version-Controlled <code>AGENTS.md</code> &amp; <code>SKILL.md</code></div>
+    Because every stage of the pipeline reads the same plain-Markdown rules committed alongside your source code, lessons learned from a human PR review feed straight back into <code>AGENTS.md</code>&mdash;making both tomorrow&rsquo;s CLI session and next week&rsquo;s Cloud fleet smarter.
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Most Codex CLI or Codex Cloud hiccups trace back to one of seven predictable setup or sandbox snags. Use these ten-second fixes to get unblocked fast, then verify your repo with the pre-flight checklist.
+  </p>
+
+  <table class="clean-table" style="font-size:7.6pt; margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Error</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. TOML syntax error on CLI launch</strong></td>
+        <td>Unquoted inline tables, stray commas, or duplicate keys in <code>~/.codex/config.toml</code>.</td>
+        <td>Validate TOML with <code>python3 -c &quot;import tomllib; tomllib.load(open(&apos;...&apos;,&apos;rb&apos;))&quot;</code>; quote string values and remove trailing commas.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Sandbox permission denied on write or install</strong></td>
+        <td>Session is running in <code>read-only</code> or trying to write outside the jailed workspace root.</td>
+        <td>Switch to <code>--sandbox local-container</code> for project edits, or install global tools manually outside Codex before retrying.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Custom <code>SKILL.md</code> never triggers automatically</strong></td>
+        <td>Missing YAML frontmatter, file not named <code>SKILL.md</code>, or vague <code>description</code> field.</td>
+        <td>Confirm path is <code>.agents/skills/&lt;name&gt;/SKILL.md</code>, rewrite <code>description</code> with explicit trigger verbs, or invoke <code>$&lt;name&gt;</code> directly.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Codex ignores updated <code>AGENTS.md</code> rules</strong></td>
+        <td>Long-running session cached earlier rules, or a subfolder <code>AGENTS.md</code> overrides root guidance.</td>
+        <td>Check active hierarchy in the session banner, start a fresh session or <code>/compact</code>, and keep rules crisp near the top.</td>
+      </tr>
+      <tr>
+        <td><strong>5. MCP server times out at startup</strong></td>
+        <td>Slow <code>npx</code> download, missing environment variable, or server printing logs to <code>stdout</code>.</td>
+        <td>Pre-install the MCP binary locally, verify <code>env</code> keys in <code>config.toml</code>, and route server logs to <code>stderr</code> only.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Cloud container network block during tests</strong></td>
+        <td>Tests try to hit external APIs after the setup phase sealed outbound networking.</td>
+        <td>Install dependencies in the setup script, mock external HTTP calls in tests, or allowlist required test hosts in org settings.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Dirty worktree or Cloud PR merge conflict</strong></td>
+        <td>Uncommitted local edits collided with <code>codex cloud apply</code>, or base branch moved mid-run.</td>
+        <td><code>git stash</code> local changes before applying Cloud patches, or ask Codex on the PR branch to rebase onto latest <code>main</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Dispatching Autonomous Work</h3>
+  <div class="checklist-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Narrowest Sandbox Active:</strong> Confirmed <code>local-container</code> (or <code>read-only</code> for audits) rather than unnecessary <code>full-host</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Clean Git Working Tree:</strong> Committed or stashed unrelated changes before letting Codex edit or apply Cloud diffs.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Crisp <code>AGENTS.md</code> Commands:</strong> Verified exact test, lint, and typecheck commands sit in the top 50 lines of <code>AGENTS.md</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Lean Progressive Skills:</strong> Moved specialized playbooks into <code>.agents/skills/*/SKILL.md</code> with clear trigger descriptions.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Secrets Out of Prompts:</strong> Confirmed API keys live only in env vars or Cloud setup secrets, never inside Markdown files.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Human Review Gate Armed:</strong> Paired autonomous runs with <code>/diff</code>, <code>/review</code>, and protected PR merge checks.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

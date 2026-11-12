@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OpenAI Realtime Voice &amp; Vision: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">OPENAI CODEX, AGENTS &amp; REALTIME STUDIOS &bull; FIELD GUIDE</div>
+    <h1>OpenAI <span>Realtime Voice</span> &amp; Vision</h1>
+    <p class="cover-sub">
+      Build natural, sub-second speech-to-speech and live camera applications with <code>gpt-realtime-2.1</code>&mdash;mastering ephemeral WebRTC auth, SIP telephony bridges, <code>addImage()</code> visual context, instant VAD barge-in, and non-blocking async MCP tools.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge"><code>gpt-realtime-2.1</code></span>
+      <span class="cover-badge">WebRTC Ephemeral Auth</span>
+      <span class="cover-badge">SIP / PSTN Bridge</span>
+      <span class="cover-badge"><code>addImage()</code> Vision</span>
+      <span class="cover-badge">VAD Barge-In</span>
+      <span class="cover-badge">Async MCP Calls</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Dark plum-obsidian studio illustration of electric rose-magenta acoustic waveforms and optical camera lens rings refracting through a translucent core prism" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Native Speech-to-Speech</div>
+      <div class="cover-stat-desc">Stream audio directly in and out at ~250ms latency while preserving tone, laughter, hesitation, and natural cadence.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Live Camera &amp; Screen Vision</div>
+      <div class="cover-stat-desc">Inject camera or screen frames mid-conversation with <code>addImage()</code> so the assistant sees what you see without stalling audio.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Full-Duplex &amp; Async Tools</div>
+      <div class="cover-stat-desc">Interrupt cleanly with <code>interrupt()</code> and resolve slow CRM or database lookups via non-blocking <code>sendMcpResponse()</code>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Full-Duplex Mental Model</span>
+    <span>OpenAI Realtime Voice &amp; Vision</span>
+  </div>
+
+  <h2 class="page-title">Single-Model Speech-to-Speech &amp; Live Vision</h2>
+  <p class="page-lead">
+    Traditional voice bots chain three separate models together&mdash;speech-to-text, a text LLM, and text-to-speech&mdash;introducing awkward 1.5&ndash;3 second pauses and erasing vocal emotion. OpenAI&rsquo;s <code>gpt-realtime-2.1</code> processes audio and visual frames inside one native multimodal stream.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Single-Model Architecture &amp; Event Loop</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Production Audio Hygiene &amp; Guardrails</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Models &amp; Transport Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Session Inspector UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Latency Budget, Telemetry &amp; Recovery</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Ephemeral WebRTC, WebSockets &amp; SIP</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. <code>addImage()</code> Vision &amp; Voice Personas</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Server VAD, Barge-In &amp; Async MCP</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Never Ship Static Keys</strong></span><span class="toc-pg">p. 5</span></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card" style="border-top:3px solid #94a3b8;">
+      <div class="card-title"><span class="num-badge plum">!</span> Legacy Chained Pipeline (1.5s&ndash;3.0s)</div>
+      <p style="font-size:8pt; margin:0;">
+        Audio &rarr; <strong>STT transcription</strong> (loses sighs, urgency, accents) &rarr; <strong>Text LLM</strong> (waits for full transcript) &rarr; <strong>TTS synthesizer</strong> (reads Markdown stiffly). Interruptions feel clumsy because three independent queues must be flushed in sequence.
+      </p>
+    </div>
+    <div class="card-rose" style="border-top:3px solid #db2777;">
+      <div class="card-title"><span class="num-badge">&#10003;</span> Native Realtime Stream (~250ms)</div>
+      <p style="font-size:8pt; margin:0;">
+        Audio + <code>addImage()</code> frames flow directly into <strong><code>gpt-realtime-2.1</code></strong> over WebRTC, WebSocket, or SIP. The model hears tone, tracks turn boundaries natively, and streams spoken audio back while running background MCP tools.
+      </p>
+    </div>
+  </div>
+
+  <h3>Full-Duplex Transport &amp; Multimodal Event Loop</h3>
+  <div class="figure-box" style="background:#160912; padding:8px 10px; border-color:#831843;">
+    <svg viewBox="0 0 710 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: Capture -->
+      <rect x="8" y="16" width="136" height="148" rx="8" fill="#26101f" stroke="#f472b6" stroke-width="1.5"/>
+      <text x="76" y="34" text-anchor="middle" fill="#f9a8d4" font-size="7.5" font-weight="700">CLIENT CAPTURE</text>
+      <rect x="18" y="44" width="116" height="32" rx="5" fill="#3a162e" stroke="#db2777" stroke-width="0.9"/>
+      <text x="76" y="58" text-anchor="middle" fill="#ffffff" font-size="7.7" font-weight="700">Mic Audio (AEC On)</text>
+      <text x="76" y="70" text-anchor="middle" fill="#fbcfe8" font-size="6.9">Opus / PCM16 / G.711</text>
+      <rect x="18" y="84" width="116" height="32" rx="5" fill="#172436" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="76" y="98" text-anchor="middle" fill="#ffffff" font-size="7.7" font-weight="700">addImage() Frames</text>
+      <text x="76" y="110" text-anchor="middle" fill="#bae6fd" font-size="6.9">Camera / Screen 0.5&ndash;1 fps</text>
+      <rect x="18" y="124" width="116" height="28" rx="5" fill="#2b1925" stroke="#a855f7" stroke-width="0.9"/>
+      <text x="76" y="141" text-anchor="middle" fill="#e9d5ff" font-size="7.2" font-weight="700">Ephemeral Token ek_...</text>
+
+      <!-- Arrow 1 -->
+      <path d="M144 88 L169 88" stroke="#f472b6" stroke-width="2"/>
+      <polygon points="167,83 175,88 167,93" fill="#f472b6"/>
+
+      <!-- Middle-Left: Transport -->
+      <rect x="175" y="24" width="128" height="132" rx="8" fill="#1b1426" stroke="#a855f7" stroke-width="1.5"/>
+      <text x="239" y="42" text-anchor="middle" fill="#d8b4fe" font-size="7.5" font-weight="700">TRANSPORT BRIDGE</text>
+      <rect x="185" y="52" width="108" height="25" rx="4" fill="#2b1e3d"/>
+      <text x="239" y="68" text-anchor="middle" fill="#ffffff" font-size="7.5" font-weight="700">WebRTC (Browser)</text>
+      <rect x="185" y="83" width="108" height="25" rx="4" fill="#2b1e3d"/>
+      <text x="239" y="99" text-anchor="middle" fill="#ffffff" font-size="7.5" font-weight="700">WebSocket (Server)</text>
+      <rect x="185" y="114" width="108" height="25" rx="4" fill="#2b1e3d"/>
+      <text x="239" y="130" text-anchor="middle" fill="#ffffff" font-size="7.5" font-weight="700">SIP / RTP (PSTN)</text>
+
+      <!-- Arrow 2 -->
+      <path d="M303 88 L328 88" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="326,83 334,88 326,93" fill="#38bdf8"/>
+
+      <!-- Center: Native Model -->
+      <rect x="334" y="14" width="174" height="152" rx="9" fill="#331126" stroke="#f472b6" stroke-width="2.1"/>
+      <text x="421" y="33" text-anchor="middle" fill="#f9a8d4" font-size="7.5" font-weight="700">NATIVE MULTIMODAL ENGINE</text>
+      <text x="421" y="50" text-anchor="middle" fill="#ffffff" font-size="10.3" font-weight="800">gpt-realtime-2.1</text>
+      <rect x="346" y="60" width="150" height="32" rx="5" fill="#4c1637" stroke="#db2777" stroke-width="0.9"/>
+      <text x="421" y="74" text-anchor="middle" fill="#fdf2f8" font-size="7.3" font-weight="700">Server VAD &amp; Barge-In Gate</text>
+      <text x="421" y="86" text-anchor="middle" fill="#fbcfe8" font-size="6.8">speech_started &rarr; interrupt()</text>
+      <rect x="346" y="98" width="150" height="32" rx="5" fill="#24132b" stroke="#9333ea" stroke-width="0.9"/>
+      <text x="421" y="112" text-anchor="middle" fill="#f3e8ff" font-size="7.3" font-weight="700">Unified Audio + Image Context</text>
+      <text x="421" y="124" text-anchor="middle" fill="#d8b4fe" font-size="6.8">Prosody-aware speech generation</text>
+      <text x="421" y="151" text-anchor="middle" fill="#fde68a" font-size="7.1" font-weight="700">~250ms First Audio Byte</text>
+
+      <!-- Arrow 3 -->
+      <path d="M508 70 L534 70" stroke="#34d399" stroke-width="2"/>
+      <polygon points="532,65 540,70 532,75" fill="#34d399"/>
+      <path d="M508 118 L534 118" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="532,113 540,118 532,123" fill="#fbbf24"/>
+
+      <!-- Right: Outputs & Async Tools -->
+      <rect x="540" y="16" width="160" height="72" rx="8" fill="#0d261d" stroke="#34d399" stroke-width="1.5"/>
+      <text x="620" y="34" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">SPEAKER PLAYBACK</text>
+      <text x="620" y="50" text-anchor="middle" fill="#ffffff" font-size="8.4" font-weight="700">Full-Duplex Audio Stream</text>
+      <text x="620" y="64" text-anchor="middle" fill="#a7f3d0" font-size="6.9">Truncates cleanly on interrupt()</text>
+      <text x="620" y="76" text-anchor="middle" fill="#a7f3d0" font-size="6.9">+ Synced Transcript Deltas</text>
+
+      <rect x="540" y="96" width="160" height="70" rx="8" fill="#291b09" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="620" y="114" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">ASYNC MCP &amp; FUNCTIONS</text>
+      <text x="620" y="130" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">sendMcpResponse()</text>
+      <text x="620" y="144" text-anchor="middle" fill="#fef3c7" font-size="6.9">Non-blocking CRM / DB calls</text>
+      <text x="620" y="156" text-anchor="middle" fill="#fef3c7" font-size="6.9">Zero dead air while waiting</text>
+
+      <!-- Bottom Return Loop -->
+      <path d="M620 166 L620 179 L421 179 L421 168" fill="none" stroke="#fbbf24" stroke-width="1.3" stroke-dasharray="4 3"/>
+      <polygon points="417,170 421,163 425,170" fill="#fbbf24"/>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:3px 0 0 0;">
+    <div class="callout-title">Why Full-Duplex Streaming Feels Effortlessly Human</div>
+    Because audio input and audio output travel simultaneously without waiting for batch transcription, users can interject mid-sentence with &ldquo;Wait, skip step two&rdquo; and the model immediately stops speaking, adapts to their tone, and pivots in real time.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: MODEL & TRANSPORT MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Models, Cost &amp; Transport Selection</span>
+    <span>Choosing Between Realtime Models &amp; Connection Bridges</span>
+  </div>
+
+  <h2 class="page-title">Model Tiers &amp; Transport Selection Matrix</h2>
+  <p class="page-lead">
+    Every Realtime build begins with two architectural choices: which native speech-to-speech model fits your reasoning and budget profile, and which network transport carries your audio frames cleanly from the user&rsquo;s device to OpenAI.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card-rose" style="border-top:3px solid #db2777;">
+      <div class="card-title"><span class="num-badge">1</span> <code>gpt-realtime-2.1</code> (Flagship)</div>
+      <ul style="font-size:7.95pt; margin:2px 0 0 0;">
+        <li><strong>Best For:</strong> Complex troubleshooting, live camera inspection, multi-tool MCP orchestration, and empathetic customer care.</li>
+        <li><strong>Strengths:</strong> Deepest instruction adherence, nuanced vocal prosody, reliable structured tool schemas, and sharp visual detail on dense UIs or hardware.</li>
+        <li><strong>Tradeoff:</strong> Higher per-minute audio and image token rate; reserve for high-value interactive sessions.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">2</span> <code>gpt-realtime-2.1-mini</code> (High-Volume)</div>
+      <ul style="font-size:7.95pt; margin:2px 0 0 0;">
+        <li><strong>Best For:</strong> Receptionist routing, appointment reminders, voice search, and high-concurrency kiosks or outbound campaigns.</li>
+        <li><strong>Strengths:</strong> Dramatically lower per-minute spend, crisp snappy turn-taking, and low first-byte latency on straightforward intents.</li>
+        <li><strong>Tradeoff:</strong> Lighter multi-step reasoning; keep prompts concise and hand off complex edge cases when needed.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Transport Decision Matrix: WebRTC vs. WebSockets vs. SIP / RTP</h3>
+  <table class="clean-table" style="font-size:7.85pt;">
+    <thead>
+      <tr>
+        <th style="width:16%;">Dimension</th>
+        <th style="width:28%;">WebRTC (<code>@openai/agents/realtime</code>)</th>
+        <th style="width:28%;">WebSockets (Server Relay)</th>
+        <th style="width:28%;">SIP / RTP Telephony (PSTN)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Where It Runs</strong></td>
+        <td><strong>Direct from browser or mobile app</strong> straight to OpenAI edge media servers.</td>
+        <td><strong>Backend-to-OpenAI</strong> (Node.js, Python, or edge workers relaying audio buffers).</td>
+        <td><strong>Carrier trunks</strong> (Twilio, Telnyx, Vonage) bridging traditional phone numbers.</td>
+      </tr>
+      <tr>
+        <td><strong>Authentication</strong></td>
+        <td>Short-lived <strong>ephemeral client secret</strong> (<code>ek_...</code>) minted on your server.</td>
+        <td>Standard server-side <code>OPENAI_API_KEY</code> held securely in backend env vars.</td>
+        <td>Trunk SIP credentials + webhook signature verification on your call controller.</td>
+      </tr>
+      <tr>
+        <td><strong>Audio &amp; Latency</strong></td>
+        <td><strong>Lowest latency (~200&ndash;280ms);</strong> UDP media with built-in jitter buffer &amp; Opus 48kHz.</td>
+        <td>Slightly higher (adds server hop); uses raw <code>PCM16</code> 24kHz or G.711 frames over TCP.</td>
+        <td>Carrier-grade voice (~300&ndash;450ms); uses <code>G.711 mu-law / a-law</code> at 8kHz.</td>
+      </tr>
+      <tr>
+        <td><strong>Live Vision (<code>addImage()</code>)</strong></td>
+        <td><strong>Ideal:</strong> Send camera or <code>getDisplayMedia()</code> screen frames over the data channel.</td>
+        <td>Supported via base64 image events relayed through your WebSocket server.</td>
+        <td>Voice-only on standard PSTN calls (pair with SMS link if visual proof is needed).</td>
+      </tr>
+      <tr>
+        <td><strong>Best Use Cases</strong></td>
+        <td>Web copilots, visual field support, browser tutors, React/Next.js voice apps.</td>
+        <td>Custom DSP pipelines, compliance recording proxies, server-hosted bots.</td>
+        <td>Inbound support hotlines, IVR replacement, booking desks, dispatch phones.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:4px 0 0 0;">
+    <div class="callout-title">Rule of Thumb: Never Proxy Browser Audio Through Your Own WebSocket If WebRTC Fits</div>
+    Proxying microphone chunks from a browser through your Node or Python backend over TCP WebSockets adds head-of-line blocking and extra round-trip jitter. Let browsers talk directly to OpenAI over <strong>WebRTC</strong> using an ephemeral token, and keep your server solely for minting secrets and running privileged MCP tools.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED SESSION INSPECTOR UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Realtime Session Tour</span>
+    <span>Inside a Live Full-Duplex Voice &amp; Vision Cockpit</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Realtime Session Inspector</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Unlike stateless text chat, a Realtime session coordinates audio waveforms, camera frames, voice activity boundaries, and background tool calls simultaneously. Here are the seven live telemetry points inside a healthy session.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:7px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#f9a8d4;">Realtime Cockpit &mdash; sess_rt_09a4 (gpt-realtime-2.1)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; font-size:7.1pt;">
+        <span style="background:#3b0d26; color:#fbcfe8; border:1px solid #db2777; padding:1.5px 6px; border-radius:4px; font-weight:700;">Token: <code>ek_live_...</code> (TTL 42s) <span class="callout-pin">1</span></span>
+        <span style="background:#0c2d1f; color:#6ee7b7; border:1px solid #10b981; padding:1.5px 6px; border-radius:4px; font-weight:700;">&#9679; WebRTC 240ms RTT</span>
+      </div>
+    </div>
+
+    <!-- Waveform & VAD Timeline Strip -->
+    <div style="background:#1c0b17; border-bottom:1px solid #500724; padding:7px 11px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; font-size:7.2pt;">
+        <span><strong style="color:#f472b6;">DUAL-TRACK AUDIO TIMELINE</strong> &bull; <span style="color:#38bdf8;">Mic In</span> vs <span style="color:#f472b6;">Model Out</span></span>
+        <span><span style="color:#fde68a;">VAD <code>speech_started</code> @ 00:14.2</span> <span class="callout-pin">2</span> &nbsp;&bull;&nbsp; <span style="color:#fb7185;"><code>interrupt()</code> truncated 1.8s buffer</span> <span class="callout-pin">3</span></span>
+      </div>
+      <!-- Crisp inline waveform SVG -->
+      <svg viewBox="0 0 680 56" width="100%" height="56" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="680" height="56" rx="5" fill="#12060e" stroke="#4a153b" stroke-width="1"/>
+        <!-- Model Out Track (top half) -->
+        <text x="8" y="15" fill="#f9a8d4" font-size="6.8" font-weight="700">ASSISTANT</text>
+        <path d="M62 15 Q72 4 82 15 T102 15 T122 15 T142 15 T162 15 T182 15 T202 15 T222 15 T242 15 T262 15" fill="none" stroke="#f472b6" stroke-width="1.8"/>
+        <line x1="265" y1="15" x2="365" y2="15" stroke="#6b214f" stroke-width="1" stroke-dasharray="3 3"/>
+        <path d="M445 15 Q455 5 465 15 T485 15 T505 15 T525 15 T545 15 T565 15 T585 15 T605 15" fill="none" stroke="#f472b6" stroke-width="1.8"/>
+        <!-- Mic In Track (bottom half) -->
+        <text x="8" y="42" fill="#7dd3fc" font-size="6.8" font-weight="700">USER MIC</text>
+        <line x1="62" y1="40" x2="232" y2="40" stroke="#1e3a5f" stroke-width="1"/>
+        <path d="M235 40 Q245 27 255 40 T275 40 T295 40 T315 40 T335 40 T355 40" fill="none" stroke="#38bdf8" stroke-width="1.9"/>
+        <line x1="358" y1="40" x2="665" y2="40" stroke="#1e3a5f" stroke-width="1"/>
+        <!-- Barge-In Gate Marker -->
+        <line x1="262" y1="4" x2="262" y2="52" stroke="#fbbf24" stroke-width="1.6"/>
+        <rect x="266" y="21" width="128" height="14" rx="3" fill="#422006" stroke="#f59e0b" stroke-width="0.8"/>
+        <text x="330" y="31" text-anchor="middle" fill="#fde68a" font-size="6.7" font-weight="700">BARGE-IN TRUNCATED</text>
+      </svg>
+    </div>
+
+    <!-- Split Middle: Visual Frames + Transcript & Async Tools -->
+    <div style="display:grid; grid-template-columns: 1.15fr 1fr; border-bottom:1px solid #500724;">
+      <!-- Left: Visual Frames -->
+      <div style="padding:7px 10px; border-right:1px solid #500724;">
+        <div style="font-weight:700; color:#f9a8d4; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+          <span>LIVE VISION STRIP (<code>addImage()</code>)</span> <span class="callout-pin">4</span>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; margin-bottom:5px;">
+          <div style="background:#1e1222; border:1px solid #6b21a8; border-radius:5px; padding:4px; text-align:center;">
+            <div style="height:28px; background:linear-gradient(135deg,#2e1065,#831843); border-radius:3px; margin-bottom:2px;"></div>
+            <span style="color:#d8b4fe; font-size:6.5pt;">00:08s &bull; 960px</span>
+          </div>
+          <div style="background:#1e1222; border:1px solid #6b21a8; border-radius:5px; padding:4px; text-align:center;">
+            <div style="height:28px; background:linear-gradient(135deg,#1e3a8a,#be185d); border-radius:3px; margin-bottom:2px;"></div>
+            <span style="color:#d8b4fe; font-size:6.5pt;">00:11s &bull; 960px</span>
+          </div>
+          <div style="background:#260d1f; border:1.5px solid #f472b6; border-radius:5px; padding:4px; text-align:center;">
+            <div style="height:28px; background:linear-gradient(135deg,#0f766e,#db2777); border-radius:3px; margin-bottom:2px;"></div>
+            <span style="color:#fbcfe8; font-size:6.5pt; font-weight:700;">00:14s &bull; ACTIVE</span>
+          </div>
+        </div>
+        <div style="background:#210c19; border:1px solid #6b214f; border-radius:5px; padding:4.5px 7px; font-size:7pt;">
+          <strong style="color:#f472b6;">Transcript &amp; Tone <span class="callout-pin">5</span>:</strong> &ldquo;Wait&mdash;check breaker B4 instead.&rdquo; &rarr; Assistant shifts to crisp diagnostic tone: <em>&ldquo;Got it, looking at the orange jumper on B4 now...&rdquo;</em>
+        </div>
+      </div>
+
+      <!-- Right: Async MCP Stream -->
+      <div style="padding:7px 10px; background:#180914;">
+        <div style="font-weight:700; color:#fde68a; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+          <span>ASYNC MCP &amp; FUNCTION QUEUE</span> <span class="callout-pin">6</span>
+        </div>
+        <div style="background:#26160b; border:1px solid #d97706; border-radius:5px; padding:4.5px 7px; margin-bottom:4px; font-size:6.95pt;">
+          <div style="color:#fcd34d; font-weight:700;">&#9889; <code>lookup_warranty(serial="B4-992")</code></div>
+          <div style="color:#fef3c7;">Spoken filler sent &bull; Running async (640ms) &bull; Audio stays live</div>
+        </div>
+        <div style="background:#0e261d; border:1px solid #10b981; border-radius:5px; padding:4.5px 7px; font-size:6.95pt;">
+          <div style="color:#6ee7b7; font-weight:700;">&#10003; <code>sendMcpResponse(call_881)</code></div>
+          <div style="color:#d1fae5;">Result injected silently &rarr; Model speaks next sentence seamlessly.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Health Strip -->
+    <div style="background:#220e1c; padding:5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.1pt;">
+      <div style="display:flex; align-items:center; gap:9px;">
+        <span><strong style="color:#f472b6;">AEC:</strong> Hardware ON</span>
+        <span style="color:#6b214f;">|</span>
+        <span><strong style="color:#38bdf8;">ICE Candidate:</strong> <code>srflx/UDP</code></span>
+        <span style="color:#6b214f;">|</span>
+        <span><strong style="color:#34d399;">Codec:</strong> Opus 48kHz <span class="callout-pin">7</span></span>
+      </div>
+      <span style="color:#f9a8d4;">VAD Threshold: <strong>0.55</strong> &bull; Silence: <strong>500ms</strong></span>
+    </div>
+  </div>
+
+  <h3>Interface Legend: The 7 Live Realtime Control Points</h3>
+  <div class="grid-2" style="font-size:7.85pt; gap:5.5px 11px;">
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">1</span> Ephemeral Token Badge:</strong> Shows the short-lived <code>ek_...</code> client secret minted by your backend&mdash;valid just long enough to complete the WebRTC SDP handshake.
+    </div>
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">2</span> Server VAD Markers:</strong> Pinpoints exact millisecond boundaries where OpenAI&rsquo;s voice activity detector detects <code>speech_started</code> and <code>speech_stopped</code>.
+    </div>
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">3</span> <code>interrupt()</code> Truncation Gate:</strong> Fires the moment user speech overlaps assistant playback, clearing buffered audio so the model never talks over the caller.
+    </div>
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">4</span> <code>addImage()</code> Frame Strip:</strong> Displays throttled camera or screen snapshots pushed silently into conversation state without interrupting audio flow.
+    </div>
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">5</span> Synced Transcript &amp; Prosody:</strong> Streams dual transcripts for captions and audit logs while preserving vocal inflection inside the raw audio turn.
+    </div>
+    <div class="card" style="padding:6px 8.5px;">
+      <strong><span class="callout-pin">6</span> Async <code>sendMcpResponse()</code>:</strong> Executes slow CRM, SQL, or API lookups out-of-band so the assistant acknowledges naturally instead of freezing in dead air.
+    </div>
+    <div class="card-rose" style="padding:6px 8.5px; grid-column: span 2;">
+      <strong><span class="callout-pin">7</span> Audio Hygiene &amp; ICE Health Strip:</strong> Verifies browser echo cancellation (AEC), UDP NAT traversal, and matching sample rates (Opus 48kHz / PCM16 24kHz / G.711 8kHz) so self-echo never causes false interruptions.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: WEBRTC EPHEMERAL AUTH, WEBSOCKETS & SIP ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Transports &amp; Zero-Leak Authentication</span>
+    <span>WebRTC Ephemeral Client Secrets, WebSockets &amp; SIP Telephony</span>
+  </div>
+
+  <h2 class="page-title">WebRTC Ephemeral Secrets, WebSockets &amp; SIP</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    <strong>Golden Rule:</strong> Never embed your permanent <code>OPENAI_API_KEY</code> in browser JavaScript or mobile bundles. Instead, mint a single-use ephemeral key on your backend via <code>POST /v1/realtime/client_secrets</code> and hand only that short-lived token to the client.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:5px; gap:9px;">
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">1. Backend Route: Mint Ephemeral Secret (Node / Next.js)</p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.85pt; line-height:1.33;"><code>// POST /api/realtime-token (runs strictly on your server)
+const resp = await fetch('https://api.openai.com/v1/realtime/client_secrets', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + process.env.OPENAI_API_KEY,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    session: { type: 'realtime', model: 'gpt-realtime-2.1' }
+  })
+});
+const { value: ephemeralKey } = await resp.json(); // Expires ~60s</code></pre>
+    </div>
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">2. Browser Client: Connect Over WebRTC</p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.85pt; line-height:1.33;"><code>import { RealtimeAgent, RealtimeSession } from '@openai/agents/realtime';
+
+const agent = new RealtimeAgent({
+  name: 'SupportCopilot',
+  instructions: 'Speak concisely in warm plain sentences.'
+});
+const session = new RealtimeSession(agent);
+const { ephemeralKey } = await fetch('/api/realtime-token', { method: 'POST' }).then(r =&gt; r.json());
+await session.connect({ apiKey: ephemeralKey }); // Auto-uses WebRTC</code></pre>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:9px;">
+    <div class="card" style="padding:7px 9.5px;">
+      <div class="card-title"><span class="num-badge sky">A</span> WebSockets for Server Relays</div>
+      <p style="font-size:7.85pt; margin:0;">
+        When your backend already owns an audio stream (such as a Twilio Media Stream, game server, or compliance proxy), connect directly from Node or Python to <code>wss://api.openai.com/v1/realtime?model=gpt-realtime-2.1</code> using your server-side API key and exchange base64 audio events.
+      </p>
+    </div>
+    <div class="card" style="padding:7px 9.5px;">
+      <div class="card-title"><span class="num-badge deep">B</span> SIP / RTP Telephony Bridges</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Connect Twilio, Telnyx, or enterprise SBC trunks via SIP signaling or carrier WebSocket bridges. Match codec settings to <code>g711_ulaw</code> (North America/Japan) or <code>g711_alaw</code> (Europe/global) at 8kHz so phone calls sound crisp with zero transcoding artifacts.
+      </p>
+    </div>
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/webrtc_sip_duplex_bridge.jpg" alt="Architectural illustration of three luminous pathways—a crystal browser arch, a violet optical fiber conduit, and a rose-gold telephony coil—converging into one glowing rose-magenta audio sphere" style="width:100%; height:235px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Three Transports, One Conversation Engine:</strong> Whether a caller joins via browser <strong>WebRTC</strong> (sapphire arch), a server-hosted <strong>WebSocket</strong> relay (violet fiber), or a PSTN <strong>SIP trunk</strong> (rose-gold coil), every pathway converges into the same <code>gpt-realtime-2.1</code> full-duplex session.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: ADDIMAGE() VISION & VOICE PERSONA ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Multimodal Vision &amp; Voice Design</span>
+    <span>Live Visual Context with addImage() &amp; Spoken Persona Prompts</span>
+  </div>
+
+  <h2 class="page-title">Live Vision via <code>addImage()</code> &amp; Voice Personas</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Unlike text models where you upload an image and wait for a turn, <code>addImage()</code> lets your app push camera or screen frames silently into an ongoing voice conversation&mdash;giving the assistant shared eyes without interrupting audio.
+  </p>
+
+  <pre class="code-block" style="padding:6px 9px; font-size:6.95pt; line-height:1.34; margin:0 0 6px 0;"><code>// Capture a clean 960px JPEG frame every 2 seconds (or on scene change) and push silently:
+const canvas = document.createElement('canvas');
+canvas.width = 960; canvas.height = 540;
+canvas.getContext('2d')?.drawImage(videoEl, 0, 0, 960, 540);
+const frameDataUrl = canvas.toDataURL('image/jpeg', 0.72);
+
+// triggerResponse: false stores the visual frame in context without forcing the model to speak immediately
+await session.addImage(frameDataUrl, { triggerResponse: false });</code></pre>
+
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card" style="padding:6.5px 8.5px; border-top:2.5px solid #db2777;">
+      <div class="card-title">Throttle to 0.5&ndash;1 fps</div>
+      <p style="font-size:7.65pt; margin:0;">Sending 30 frames per second wastes tokens and saturates mobile uplinks. One crisp frame every 1&ndash;2 seconds (or on button tap) covers 95% of visual tasks.</p>
+    </div>
+    <div class="card" style="padding:6.5px 8.5px; border-top:2.5px solid #0284c7;">
+      <div class="card-title">Cap Width at 768&ndash;1024px</div>
+      <p style="font-size:7.65pt; margin:0;">Downscale 4K webcam or Retina screen grabs to <code>960px</code> JPEG at <code>0.72</code> quality before calling <code>addImage()</code> to keep payloads fast.</p>
+    </div>
+    <div class="card" style="padding:6.5px 8.5px; border-top:2.5px solid #7c3aed;">
+      <div class="card-title">Silent Context Updates</div>
+      <p style="font-size:7.65pt; margin:0;">Keep <code>triggerResponse: false</code> for background frames so the model only comments when the user asks or a safety hazard appears.</p>
+    </div>
+  </div>
+
+  <h3>Voice &amp; Vision System Prompt Anatomy (5 Color-Coded Clauses)</h3>
+  <div style="margin-bottom:5px; font-size:7.6pt; display:flex; flex-wrap:wrap; gap:5px;">
+    <span class="p-tag p-voice">[1. Voice &amp; Register]</span>
+    <span class="p-tag p-pace">[2. Pacing &amp; Cadence]</span>
+    <span class="p-tag p-turn">[3. Turn-Taking Politeness]</span>
+    <span class="p-tag p-brev">[4. Spoken Brevity Rules]</span>
+    <span class="p-tag p-vis">[5. Visual Grounding]</span>
+  </div>
+
+  <div class="card" style="background:#fdf7fb; border:1px solid #f9a8d4; padding:8px 10.5px; margin-bottom:6px; font-size:8.1pt; line-height:1.66;">
+    &ldquo;You are Maya, a senior HVAC field coach.
+    <span class="p-tag p-voice">Speak in a warm, steady, reassuring tone like a calm coworker standing beside the technician.</span>
+    <span class="p-tag p-pace">Use a crisp conversational pace and pause naturally after giving one physical step.</span>
+    <span class="p-tag p-turn">If the caller interrupts mid-sentence, stop immediately, acknowledge their question in four words or fewer, and answer it directly.</span>
+    <span class="p-tag p-brev">Keep every reply under two short sentences, use plain spoken words, and never read out bullet lists, asterisks, URLs, or Markdown symbols.</span>
+    <span class="p-tag p-vis">Reference only components clearly visible in the latest camera frame; if wiring labels are blurry, ask the caller to move the camera closer instead of guessing.</span>&rdquo;
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">Write Prompts for Ears, Not Eyes</div>
+    Text LLMs love numbered lists, bold headers, and nested parentheses. Out loud, those sound robotic and inflate turn duration. Explicitly ban Markdown formatting and instruct the model to give <strong>one concrete step at a time</strong>, waiting for the caller&rsquo;s &ldquo;Okay, done&rdquo; before moving on.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: NATIVE VAD, BARGE-IN & ASYNC MCP ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Turn-Taking &amp; Non-Blocking Tools</span>
+    <span>Server VAD, interrupt() Audio Truncation &amp; Async MCP Calls</span>
+  </div>
+
+  <h2 class="page-title">Native VAD, Barge-In &amp; Async MCP Calls</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Natural conversation demands two hard engineering guarantees: when the user cuts in, buffered assistant audio must stop within milliseconds; and when the model runs a slow database query, the voice channel must never go dead silent.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:5px; gap:9px;">
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">1. Tuning Server VAD &amp; Clean <code>interrupt()</code></p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.85pt; line-height:1.33;"><code>// Configure Server VAD turn boundaries on session connect
+turn_detection: {
+  type: 'server_vad',
+  threshold: 0.55,          // Raise to 0.65 in noisy rooms
+  prefix_padding_ms: 300,   // Keep word-start consonants
+  silence_duration_ms: 500  // Wait 500ms before claiming turn
+}
+
+// When user starts talking while playback buffer still plays:
+session.on('audio_interrupted', () =&gt; {
+  player.stopAndFlush();    // Clear WebAudio / speaker queue
+  session.interrupt();      // Truncate unplayed server state
+});</code></pre>
+    </div>
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">2. Non-Blocking Async MCP &amp; Function Responses</p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.85pt; line-height:1.33;"><code>// Do NOT block the audio loop waiting 2s for a CRM database!
+// 1. Let the model speak a quick filler: "Checking order 402..."
+// 2. Run MCP / API call asynchronously in the background:
+const order = await mcpClient.callTool('get_order', { id: '402' });
+
+// 3. Inject completed output back into the live session:
+await session.sendMcpResponse(callId, order);
+// (Or for standard function tools:)
+await session.sendFunctionCallOutput(callId, JSON.stringify(order));</code></pre>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 6px 0;">
+    <div class="callout-title">Why Calling <code>interrupt()</code> Keeps Memory Accurate</div>
+    When a listener barges in two seconds into a ten-second audio reply, the model may have already generated text tokens ahead of the speaker buffer. Calling <code>interrupt()</code> (which triggers <code>conversation.item.truncate</code>) tells OpenAI the exact millisecond the listener actually heard, preventing the model from hallucinating that it finished explaining steps the user never heard.
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/vad_bargein_mcp_stream.jpg" alt="Editorial diagram art showing incoming cyan and outgoing rose-magenta soundwave ribbons parting cleanly at a crystalline rose-gold interruption gate while amber hexagonal tool sparks run asynchronously underneath" style="width:100%; height:235px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Two Parallel Planes of Responsiveness:</strong> Top lane&mdash;incoming and outgoing soundwaves part instantaneously at the <strong>VAD Barge-In Gate</strong> when <code>interrupt()</code> fires. Bottom lane&mdash;glowing <strong>Async MCP Tool Sparks</strong> execute database and API calls off the main audio thread, delivering results via <code>sendMcpResponse()</code> with zero dead air.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: PRODUCTION AUDIO HYGIENE & GUARDRAILS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Acoustic Engineering &amp; Spoken Safety</span>
+    <span>Production Audio Hygiene, Codecs &amp; Deterministic Guardrails</span>
+  </div>
+
+  <h2 class="page-title">Production Audio Hygiene &amp; Guardrails</h2>
+  <p class="page-lead">
+    Ninety percent of &ldquo;the AI interrupted itself&rdquo; or &ldquo;the phone audio sounded robotic&rdquo; bug reports are acoustic and codec hygiene issues&mdash;not model defects. Lock down these four production layers before going live.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card-rose" style="border-top:3px solid #db2777;">
+      <div class="card-title"><span class="num-badge">1</span> Acoustic Echo Cancellation (AEC)</div>
+      <p style="font-size:7.95pt; margin:0 0 4px 0;">
+        Without AEC, your laptop or phone speaker audio feeds straight back into the microphone&mdash;causing the assistant to hear its own voice and trigger a false barge-in loop.
+      </p>
+      <ul style="font-size:7.75pt; margin:0;">
+        <li>In browsers, always request <code>echoCancellation: true</code>, <code>noiseSuppression: true</code>, and <code>autoGainControl: true</code> inside <code>navigator.mediaDevices.getUserMedia()</code>.</li>
+        <li>On custom native apps, pair hardware AEC or WebRTC APM&mdash;never open raw uncancelled mic streams alongside loudspeakers.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">2</span> Match Codec &amp; Sample Rate End-to-End</div>
+      <p style="font-size:7.95pt; margin:0 0 4px 0;">
+        Mismatched sample rates (sending 16kHz PCM into a 24kHz slot, or mixing <code>mu-law</code> and <code>a-law</code>) produce chipmunk pitch shifts or static hiss.
+      </p>
+      <ul style="font-size:7.75pt; margin:0;">
+        <li><strong>WebRTC:</strong> Opus 48kHz negotiated automatically via SDP.</li>
+        <li><strong>WebSocket Server:</strong> <code>pcm16</code> at <code>24000 Hz</code> mono little-endian.</li>
+        <li><strong>PSTN / SIP:</strong> <code>g711_ulaw</code> (US) or <code>g711_alaw</code> (EU) at <code>8000 Hz</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Deterministic Spoken Guardrails &amp; Irreversible Action Gates</h3>
+  <table class="clean-table" style="font-size:7.9pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Guardrail Layer</th>
+        <th style="width:38%;">What Goes Wrong Without It</th>
+        <th style="width:38%;">Production Implementation Pattern</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Two-Step Verbal Confirmation</strong></td>
+        <td>Background TV speech or misheard digits trigger an unwanted refund, cancellation, or wire transfer.</td>
+        <td>Require explicit read-back inside tool logic: return a <code>needsConfirmation</code> state until the user confirms exact amount &amp; target aloud.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Input &amp; Topic Boundaries</strong></td>
+        <td>Callers jailbreak a public voice kiosk into giving medical, legal, or off-brand advice.</td>
+        <td>Combine concise system boundaries with server-side classifier checks on transcripts before executing privileged MCP calls.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Quiet-Environment VAD Tuning</strong></td>
+        <td>Coffeeshop clatter or street traffic keeps resetting <code>speech_started</code>, blocking the assistant from speaking.</td>
+        <td>Enable OpenAI&rsquo;s <code>near_field</code> / <code>far_field</code> input noise reduction and raise VAD <code>threshold</code> from <code>0.50</code> to <code>0.65&ndash;0.72</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Silent Warm Handoff</strong></td>
+        <td>When two tool retries fail or caller frustration spikes, the bot loops apologetically forever.</td>
+        <td>Expose an <code>escalate_to_human</code> tool that transfers the SIP call (or opens live chat) while passing a structured summary card.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout violet" style="margin:2px 0 0 0;">
+    <div class="callout-title">Pro Audio Tip: Never Mix Push-to-Talk Prompts with Server VAD</div>
+    If your UI offers a physical &ldquo;Hold to Talk&rdquo; button, disable <code>turn_detection</code> (<code>null</code>) and commit the buffer explicitly on release. Leaving <code>server_vad</code> active under push-to-talk causes premature cutoffs whenever a user pauses mid-thought while still holding the button.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Ship Blueprints</span>
+    <span>5 Real-World Copy-Paste Realtime Voice &amp; Vision Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Use these five field-tested patterns to go from blank repository to production-grade voice and vision experiences&mdash;pairing the right model, transport, and tool mechanics for each job.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Recipe &amp; Stack</th>
+        <th style="width:22%;">Key APIs &amp; Config</th>
+        <th style="width:58%;">Copy-Paste Implementation Blueprint</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Browser Support Copilot</strong><br/><span style="color:#be185d; font-weight:600;">Ephemeral WebRTC</span></td>
+        <td><code>POST /v1/realtime/client_secrets</code><br/><code>@openai/agents/realtime</code><br/><code>gpt-realtime-2.1</code></td>
+        <td>Add a <code>/api/realtime-token</code> Next.js route that mints a 60s <code>ek_...</code> key using <code>OPENAI_API_KEY</code>. On button click in React, create <code>new RealtimeSession(agent)</code>, call <code>session.connect({ apiKey })</code>, and pass DOM route state via <code>session.update</code> so the copilot explains buttons currently on screen.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Live Camera Field Technician</strong><br/><span style="color:#be185d; font-weight:600;">Visual Diagnostics</span></td>
+        <td><code>addImage()</code><br/><code>getUserMedia(video)</code><br/><code>960px JPEG @ 0.5fps</code></td>
+        <td>Stream rear smartphone camera to a hidden <code>960x540</code> canvas every 2 seconds and push <code>session.addImage(dataUrl, { triggerResponse: false })</code>. Prompt the assistant to confirm wire colors and breaker labels visible in the latest frame before guiding the tech through one physical step at a time.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Twilio / Telnyx SIP Receptionist</strong><br/><span style="color:#be185d; font-weight:600;">PSTN Telephony</span></td>
+        <td><code>gpt-realtime-2.1-mini</code><br/><code>g711_ulaw</code> (8kHz)<br/>SIP / Media Stream</td>
+        <td>Point your Twilio or Telnyx inbound number to your call controller, negotiate <code>g711_ulaw</code> audio with zero resampling, and load a compact greeting prompt on <code>gpt-realtime-2.1-mini</code>. Expose <code>book_appointment</code> and <code>transfer_sip_extension</code> tools for instant call routing under $0.05/min.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Non-Blocking Order Lookup</strong><br/><span style="color:#be185d; font-weight:600;">Async MCP Flow</span></td>
+        <td><code>sendMcpResponse()</code><br/><code>sendFunctionCallOutput()</code><br/>Background Worker</td>
+        <td>Instruct the model: <em>&ldquo;Before calling order tools, say a 4-word filler like Checking your order now.&rdquo;</em> Execute the slow Postgres or Shopify MCP query off the audio thread; when it resolves, inject the JSON with <code>session.sendMcpResponse(callId, data)</code> so the assistant resumes speaking naturally.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Barge-In-Safe Language Tutor</strong><br/><span style="color:#be185d; font-weight:600;">Coaching &amp; Pacing</span></td>
+        <td><code>server_vad</code><br/><code>silence_duration_ms: 850</code><br/><code>interrupt()</code></td>
+        <td>Raise <code>silence_duration_ms</code> from <code>500ms</code> to <code>850ms</code> so language learners have extra breathing room to finish thinking without getting cut off. Wire <code>audio_interrupted</code> to flush local WebAudio queues and call <code>session.interrupt()</code> whenever the student repeats a phrase mid-explanation.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Combining Recipes 1 + 2 + 4: The Multimodal Support Super-App</div>
+    Pair a browser <strong>WebRTC</strong> connection with optional screen-share <code>addImage()</code> snapshots and async <code>sendMcpResponse()</code> account lookups. Your support agent can literally look at a customer&rsquo;s broken checkout screen, check their live Stripe invoice in the background, and walk them to a fix in under 45 seconds.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: LATENCY, TELEMETRY & RECOVERY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Observability &amp; Resilience</span>
+    <span>Latency Budgeting, ICE/TURN Diagnostics &amp; Session Recovery</span>
+  </div>
+
+  <h2 class="page-title">Latency Budgeting, Telemetry &amp; Recovery</h2>
+  <p class="page-lead">
+    Sub-second voice feels effortless only when every hop in the audio path stays inside budget. Instrument these four timing checkpoints and build clean reconnect logic before exposing mobile users to spotty cellular handoffs.
+  </p>
+
+  <h3>End-to-End 800ms Perceived Turn-Around Budget</h3>
+  <div class="grid-3" style="margin-bottom:8px;">
+    <div class="card" style="border-top:3px solid #38bdf8;">
+      <div class="card-title">1. Capture + Network (~55ms)</div>
+      <p style="font-size:7.8pt; margin:0;">Browser Opus frame encoding (~20ms) plus direct UDP WebRTC hop to OpenAI edge (~35ms). TCP proxies or distant TURN relays add 80&ndash;250ms.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #f472b6;">
+      <div class="card-title">2. VAD Endpoint (~350&ndash;500ms)</div>
+      <p style="font-size:7.8pt; margin:0;">Controlled by <code>silence_duration_ms</code>. Dropping from <code>700ms</code> to <code>400ms</code> makes quick Q&amp;A feel electric, while <code>850ms</code> suits reflective coaching.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #10b981;">
+      <div class="card-title">3. First Audio Byte (~220ms)</div>
+      <p style="font-size:7.8pt; margin:0;">Measured from <code>speech_stopped</code> to first received audio packet. Keep system prompts lean and push large docs behind async MCP tools.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card-dark">
+      <div class="card-title">&#128225; WebRTC ICE / TURN Firewall Diagnostics</div>
+      <p style="font-size:7.9pt; color:#f3e8f0; margin:0 0 5px 0;">
+        Corporate VPNs and strict hospital/school Wi-Fi networks frequently block outbound UDP ports, silently breaking plain STUN peer connections:
+      </p>
+      <ul style="font-size:7.75pt; color:#fbcfe8; margin:0;">
+        <li>Log <code>peerConnection.iceConnectionState</code> and selected candidate pair (<code>host</code>, <code>srflx</code>, or <code>relay</code>).</li>
+        <li>Configure a <strong>TURN over TLS (port 443)</strong> fallback ICE server so enterprise users fall back gracefully instead of hanging on <code>connecting</code>.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge deep">!</span> Reconnect &amp; Transcript Audit Trails</div>
+      <p style="font-size:7.9pt; margin:0 0 5px 0;">
+        Mobile callers switch from Wi-Fi to 5G mid-call. Recover smoothly without forcing the user to repeat their story:
+      </p>
+      <ul style="font-size:7.75pt; margin:0;">
+        <li>Persist compacted user/assistant transcript turns and active tool results in local/server state as events arrive.</li>
+        <li>On WebRTC disconnect, mint a fresh ephemeral token, reconnect, and replay the last 4&ndash;6 turns via conversation item injection.</li>
+        <li>Scrub card numbers and SSNs from stored logs using audio/transcript PII redaction before archiving.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0;">
+    <div class="callout-title">Track Time-to-First-Audio-Byte (TTFAB) Separately from Total Turn Duration</div>
+    A 4-second spoken answer feels instant if audio starts in <strong>240ms</strong>, whereas a 1-second answer feels broken if silence stretches past <strong>1.4 seconds</strong> before the first syllable plays. Alert on P95 TTFAB spikes caused by bloated system instructions or oversized <code>addImage()</code> payloads.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Full-Stack OpenAI Agent Architecture</span>
+    <span>Realtime Voice &amp; Vision &rarr; Agents SDK &rarr; ChatGPT Spaces</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Voice to Specialist Agents</h2>
+  <p class="page-lead">
+    Realtime models shine at low-latency conversation and live visual triage&mdash;not deep 30-second code or SQL reasoning. Pair your Realtime frontend with background <strong>Agents SDK</strong> specialists and post-call <strong>ChatGPT Spaces</strong> Pages.
+  </p>
+
+  <div class="figure-box" style="background:#160912; padding:10px 12px; border-color:#831843; margin-bottom:8px;">
+    <svg viewBox="0 0 700 205" width="100%" height="205" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Realtime Voice & Vision -->
+      <rect x="10" y="18" width="196" height="142" rx="9" fill="#331126" stroke="#f472b6" stroke-width="2"/>
+      <text x="108" y="37" text-anchor="middle" fill="#f9a8d4" font-size="7.6" font-weight="700">1. LIVE EDGE INTERFACE</text>
+      <text x="108" y="55" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Realtime Voice &amp; Vision</text>
+      <text x="108" y="69" text-anchor="middle" fill="#fbcfe8" font-size="7.2">WebRTC / SIP + addImage()</text>
+      <line x1="26" y1="78" x2="190" y2="78" stroke="#831843" stroke-width="1"/>
+      <text x="24" y="95" fill="#fdf2f8" font-size="7.4">&bull; ~250ms speech-to-speech</text>
+      <text x="24" y="109" fill="#fdf2f8" font-size="7.4">&bull; Live camera &amp; screen eyes</text>
+      <text x="24" y="123" fill="#fdf2f8" font-size="7.4">&bull; Server VAD &amp; interrupt()</text>
+      <rect x="24" y="134" width="168" height="19" rx="4" fill="#4c1637"/>
+      <text x="108" y="147" text-anchor="middle" fill="#f9a8d4" font-size="7.1" font-weight="700">Owns natural human turn-taking</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M206 89 L236 89" stroke="#fbbf24" stroke-width="2.2"/>
+      <polygon points="234,84 242,89 234,94" fill="#fbbf24"/>
+
+      <!-- Stage 2: Agents SDK Specialist Handoffs -->
+      <rect x="242" y="18" width="212" height="142" rx="9" fill="#181b2e" stroke="#38bdf8" stroke-width="1.8"/>
+      <text x="348" y="37" text-anchor="middle" fill="#7dd3fc" font-size="7.6" font-weight="700">2. ASYNC REASONING BACKPLANE</text>
+      <text x="348" y="55" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Agents SDK Specialists</text>
+      <text x="348" y="69" text-anchor="middle" fill="#bae6fd" font-size="7.2">sendMcpResponse() &amp; Handoffs</text>
+      <line x1="258" y1="78" x2="438" y2="78" stroke="#1e3a8a" stroke-width="1"/>
+      <text x="256" y="95" fill="#e2e8f0" font-size="7.4">&bull; Multi-step billing &amp; policy audits</text>
+      <text x="256" y="109" fill="#e2e8f0" font-size="7.4">&bull; Deep CRM, SQL &amp; RAG retrieval</text>
+      <text x="256" y="123" fill="#e2e8f0" font-size="7.4">&bull; Deterministic guardrail checks</text>
+      <rect x="256" y="134" width="184" height="19" rx="4" fill="#1e293b"/>
+      <text x="348" y="147" text-anchor="middle" fill="#7dd3fc" font-size="7.1" font-weight="700">Executes heavy work off audio thread</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M454 89 L484 89" stroke="#34d399" stroke-width="2.2"/>
+      <polygon points="482,84 490,89 482,94" fill="#34d399"/>
+
+      <!-- Stage 3: ChatGPT Spaces Post-Call Summary -->
+      <rect x="490" y="18" width="200" height="142" rx="9" fill="#0d261d" stroke="#34d399" stroke-width="1.8"/>
+      <text x="590" y="37" text-anchor="middle" fill="#6ee7b7" font-size="7.6" font-weight="700">3. PERSISTENT ARTIFACT LAYER</text>
+      <text x="590" y="55" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">ChatGPT Spaces Pages</text>
+      <text x="590" y="69" text-anchor="middle" fill="#a7f3d0" font-size="7.2">Post-Call Summary &amp; Audit</text>
+      <line x1="506" y1="78" x2="674" y2="78" stroke="#065f46" stroke-width="1"/>
+      <text x="504" y="95" fill="#ecfdf5" font-size="7.4">&bull; Clean call &amp; vision summary</text>
+      <text x="504" y="109" fill="#ecfdf5" font-size="7.4">&bull; Annotated inspection frames</text>
+      <text x="504" y="123" fill="#ecfdf5" font-size="7.4">&bull; Action items &amp; QA scorecard</text>
+      <rect x="504" y="134" width="172" height="19" rx="4" fill="#064e3b"/>
+      <text x="590" y="147" text-anchor="middle" fill="#6ee7b7" font-size="7.1" font-weight="700">Turns ephemeral voice into team memory</text>
+
+      <!-- Bottom Feedback Bar -->
+      <rect x="10" y="173" width="680" height="23" rx="6" fill="#26101f" stroke="#831843" stroke-width="1"/>
+      <text x="350" y="188" text-anchor="middle" fill="#fbcfe8" font-size="7.5" font-weight="600">End-to-End Loop: Caller speaks + shows camera &rarr; Agents SDK runs async MCP lookup &rarr; Voice replies smoothly &rarr; Spaces Page logs outcome</text>
+    </svg>
+  </div>
+
+  <h3>How the Three Layers Cooperate on a Live Customer Inspection</h3>
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Fast Voice Frontline + Background Specialist</div>
+      <p style="font-size:8pt; margin:0;">
+        A homeowner calls in over <strong>WebRTC</strong> and aims their phone camera at a blinking router via <code>addImage()</code>. <code>gpt-realtime-2.1</code> keeps them engaged smoothly while handing off serial-number warranty checks and firmware history to an <strong>Agents SDK</strong> specialist via <code>sendMcpResponse()</code>.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> Zero-Effort Post-Call Documentation</div>
+      <p style="font-size:8pt; margin:0;">
+        The second the call ends, a webhook compiles the redacted transcript, verified hardware snapshot, and replacement ticket into a structured <strong>ChatGPT Spaces Page</strong>&mdash;so dispatch engineers or human supervisors inherit full context without replaying a 12-minute recording.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0;">
+    <div class="callout-title">Architectural Golden Rule: Keep Heavy Reasoning Out of the Hot Audio Loop</div>
+    Never force <code>gpt-realtime-2.1</code> to read 40 pages of policy PDFs inline during a live voice turn. Let a fast background Agents SDK worker query your vector store or database and return a two-sentence spoken summary back through <code>sendMcpResponse()</code>.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Almost every Realtime production hiccup maps to one of these seven transport, audio, or token issues. Run through this clinic and the six-point checklist before shipping to users.
+  </p>
+
+  <table class="clean-table" style="font-size:7.6pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Error</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. WebRTC hangs at <code>connecting</code> behind corporate NAT</strong></td>
+        <td>Strict firewall blocks outbound UDP STUN traffic, preventing peer-to-peer ICE negotiation.</td>
+        <td>Inspect <code>iceConnectionState</code> and add a <strong>TURN over TLS (port 443)</strong> relay fallback in your RTC configuration so corporate browsers connect over HTTPS/TCP.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Self-echo triggers false barge-in loops</strong></td>
+        <td>Speaker playback bleeds back into the microphone and tricks Server VAD into firing <code>speech_started</code>.</td>
+        <td>Enable <code>echoCancellation: true</code> and <code>noiseSuppression: true</code> in <code>getUserMedia()</code>, test with headphones first, and raise VAD <code>threshold</code> to <code>0.60+</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Exposed static API key flagged in client JS</strong></td>
+        <td>Browser bundle passes permanent <code>sk-...</code> <code>OPENAI_API_KEY</code> directly to <code>session.connect()</code>.</td>
+        <td>Move <code>OPENAI_API_KEY</code> strictly to your backend and mint short-lived <code>ek_...</code> tokens via <code>POST /v1/realtime/client_secrets</code> per session.</td>
+      </tr>
+      <tr>
+        <td><strong>4. SIP / G.711 audio sounds distorted or sped up</strong></td>
+        <td>Sample rate or codec mismatch (e.g., feeding 8kHz <code>g711_ulaw</code> carrier audio into a 24kHz PCM16 session).</td>
+        <td>Explicitly declare <code>g711_ulaw</code> (or <code>g711_alaw</code>) on both input and output audio formats in session config, matching your carrier trunk verbatim.</td>
+      </tr>
+      <tr>
+        <td><strong>5. <code>addImage()</code> payloads throttled or lagging audio</strong></td>
+        <td>Client uploads uncompressed 4K PNGs at 15&ndash;30 fps over the WebRTC data channel.</td>
+        <td>Downscale canvas snapshots to <code>960px</code> JPEG at <code>0.72</code> quality, throttle to <code>0.5&ndash;1 fps</code>, and keep <code>triggerResponse: false</code> until needed.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Awkward dead air during tool calls</strong></td>
+        <td>Tool handler awaits a 3-second database query synchronously before the model can speak again.</td>
+        <td>Prompt the model to speak a brief acknowledgment first, run slow MCP queries asynchronously, and return data via <code>sendMcpResponse()</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Ephemeral token expires before user clicks Start</strong></td>
+        <td>App pre-fetches <code>ek_...</code> on page load, but the user waits &gt;60 seconds before clicking &ldquo;Start Voice&rdquo;.</td>
+        <td>Mint the ephemeral secret <strong>on demand inside the Start click handler</strong> right before calling <code>session.connect()</code>, never at initial page render.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Shipping Realtime Voice &amp; Vision</h3>
+  <div class="checklist-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Zero Static Keys in Clients:</strong> Confirmed only short-lived <code>ek_...</code> tokens from <code>/v1/realtime/client_secrets</code> reach browsers.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>AEC &amp; Noise Reduction Active:</strong> Verified hardware echo cancellation works on laptop speakers with zero self-interruption loops.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Clean <code>interrupt()</code> Truncation:</strong> Tested mid-sentence barge-in and confirmed local playback buffers flush immediately.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong><code>addImage()</code> Throttled &amp; Scaled:</strong> Capped frames at &le;1 fps and &le;1024px JPEG with <code>triggerResponse: false</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Async MCP Non-Blocking:</strong> Verified slow tools speak an acknowledgment and resolve cleanly via <code>sendMcpResponse()</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Firewall &amp; Fallback Ready:</strong> Validated TURN/TLS 443 traversal and warm human escalation with PII-redacted transcripts.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

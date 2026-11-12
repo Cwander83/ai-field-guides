@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OpenAI Agents API &amp; SDK: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">OPENAI CODEX, AGENTS &amp; REALTIME STUDIOS &bull; FIELD GUIDE</div>
+    <h1>OpenAI <span>Agents API</span> &amp; SDK</h1>
+    <p class="cover-sub">
+      From minimal Python and TypeScript primitives to production multi-agent systems&mdash;mastering specialist handoffs, typed tool contracts, parallel guardrails, Redis memory, MCP connectors, and live trace observability.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Python &amp; TypeScript</span>
+      <span class="cover-badge">Managed Agents API</span>
+      <span class="cover-badge">Handoffs &amp; Tools</span>
+      <span class="cover-badge">Parallel Guardrails</span>
+      <span class="cover-badge">Built-In Tracing</span>
+      <span class="cover-badge">Redis &amp; MCP State</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Deep Indigo Obsidian Orchestrator Polyhedron Linked by Luminous Glass Bridges to Orbital Agent Satellites and Data Shields" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Minimal Core Primitives</div>
+      <div class="cover-stat-desc">Build deterministic agent loops using just <code>Agent</code>, <code>Runner</code>, tools, handoffs, and guardrails&mdash;with zero bloated abstractions.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Parallel Safety &amp; Traces</div>
+      <div class="cover-stat-desc">Run fast input/output guardrails alongside model turns and inspect every span, latency spike, and token cost out of the box.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Portable State &amp; MCP</div>
+      <div class="cover-stat-desc">Graduate seamlessly from local <code>SQLiteSession</code> prototypes to Redis clusters and persistent MCP servers or the hosted Agents API.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>OpenAI Agents API &amp; SDK</span>
+  </div>
+
+  <h2 class="page-title">Minimal Primitives, Production Harness</h2>
+  <p class="page-lead">
+    OpenAI&rsquo;s <strong>Agents SDK</strong>&mdash;published as <code>openai-agents</code> for Python and <code>@openai/agents</code> for TypeScript&mdash;turns the experimental simplicity of Swarm into a battle-tested runtime, paired with the managed <strong>Agents API</strong> when you want OpenAI to host the loop for you.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Core Loop &amp; Mental Model SVG</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Durable Redis &amp; MCP Server State</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Setup, Parity &amp; API vs. SDK Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Traces &amp; Inspector Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Evals, Custom Exporters &amp; Routing</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Handoffs vs. Agents-as-Tools</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Typed Tool Contracts &amp; Schemas</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Checklist</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Parallel Guardrails &amp; Tracing</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Rule: Keep Specialists Focused</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>From Swarm Experiments to a Production Harness</h3>
+  <p style="font-size:8.65pt;">
+    In early LLM apps, engineers wrote fragile <code>while True</code> loops by hand: parsing tool JSON, catching schema errors, appending messages, and guessing why an agent stalled. The <strong>Agents SDK</strong> replaces that plumbing with a transparent execution loop owned by <code>Runner</code>. You define lightweight <code>Agent</code> objects (instructions, model, tools, handoffs, guardrails) and hand them to <code>Runner.run()</code>. If you prefer zero infrastructure management, the hosted <strong>Agents API</strong> runs the exact same harness server-side with managed threads, retries, and background execution.
+  </p>
+
+  <h3>Inside One <code>Runner</code> Execution Loop</h3>
+  <div class="figure-box" style="background:#090a1a; padding:9px 11px; border-color:#3730a3;">
+    <svg viewBox="0 0 710 198" width="100%" height="198" xmlns="http://www.w3.org/2000/svg">
+      <!-- Node 1: User + Session -->
+      <rect x="8" y="24" width="114" height="128" rx="8" fill="#141736" stroke="#818cf8" stroke-width="1.6"/>
+      <text x="65" y="42" text-anchor="middle" fill="#a5b4fc" font-size="7.4" font-weight="700">1. ENTRY</text>
+      <text x="65" y="59" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Agent + Input</text>
+      <rect x="17" y="70" width="96" height="30" rx="4" fill="#1e1b4b" stroke="#4f46e5" stroke-width="0.9"/>
+      <text x="65" y="83" text-anchor="middle" fill="#e0e7ff" font-size="7.1">Instructions &amp; Model</text>
+      <text x="65" y="94" text-anchor="middle" fill="#a5b4fc" font-size="7.0">+ Session History</text>
+      <text x="65" y="119" text-anchor="middle" fill="#cbd5e1" font-size="7.0">SQLite / Redis / API</text>
+      <text x="65" y="133" text-anchor="middle" fill="#818cf8" font-size="7.0" font-weight="700">Input Guardrail Gate</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M122 86 L144 86" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="142,81 150,86 142,91" fill="#818cf8"/>
+
+      <!-- Node 2: Runner -->
+      <rect x="150" y="18" width="136" height="140" rx="8" fill="#1e1b4b" stroke="#6366f1" stroke-width="2"/>
+      <text x="218" y="37" text-anchor="middle" fill="#c7d2fe" font-size="7.4" font-weight="700">2. ORCHESTRATOR</text>
+      <text x="218" y="55" text-anchor="middle" fill="#ffffff" font-size="10.6" font-weight="800">Runner Loop</text>
+      <rect x="161" y="66" width="114" height="44" rx="5" fill="#141736" stroke="#4338ca" stroke-width="1"/>
+      <text x="218" y="81" text-anchor="middle" fill="#e0e7ff" font-size="7.2">Calls active LLM turn</text>
+      <text x="218" y="93" text-anchor="middle" fill="#e0e7ff" font-size="7.2">Enforces max_turns</text>
+      <text x="218" y="105" text-anchor="middle" fill="#a5b4fc" font-size="7.0">Streams events live</text>
+      <text x="218" y="129" text-anchor="middle" fill="#38bdf8" font-size="7.1" font-weight="700">Next decision branch:</text>
+      <text x="218" y="142" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Tool | Handoff | Final</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M286 86 L308 86" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="306,81 314,86 306,91" fill="#38bdf8"/>
+
+      <!-- Node 3: Branch Execution -->
+      <rect x="314" y="18" width="212" height="140" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="420" y="36" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">3. TOOL, HANDOFF &amp; GUARDRAIL STEP</text>
+      <rect x="325" y="45" width="190" height="28" rx="5" fill="#172554" stroke="#2563eb" stroke-width="0.9"/>
+      <text x="420" y="58" text-anchor="middle" fill="#ffffff" font-size="7.6" font-weight="700">Typed Tools &amp; MCP Connectors</text>
+      <text x="420" y="68" text-anchor="middle" fill="#bae6fd" font-size="6.9">Pydantic/Zod validation + auto schema retry</text>
+
+      <rect x="325" y="80" width="190" height="28" rx="5" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="420" y="93" text-anchor="middle" fill="#ffffff" font-size="7.6" font-weight="700">Handoff to Specialist Agent</text>
+      <text x="420" y="103" text-anchor="middle" fill="#c7d2fe" font-size="6.9">Transfers active agent &amp; conversation context</text>
+
+      <rect x="325" y="115" width="190" height="28" rx="5" fill="#2e1b0e" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="420" y="128" text-anchor="middle" fill="#ffffff" font-size="7.6" font-weight="700">Parallel / Output Guardrails</text>
+      <text x="420" y="138" text-anchor="middle" fill="#fde68a" font-size="6.9">Raises Tripwire exception immediately on violation</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M526 86 L548 86" stroke="#34d399" stroke-width="2"/>
+      <polygon points="546,81 554,86 546,91" fill="#34d399"/>
+
+      <!-- Node 4: Trace & Final Output -->
+      <rect x="554" y="24" width="148" height="128" rx="8" fill="#0d261d" stroke="#34d399" stroke-width="1.6"/>
+      <text x="628" y="42" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">4. OBSERVABILITY</text>
+      <text x="628" y="59" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Trace &amp; Output</text>
+      <rect x="565" y="70" width="126" height="32" rx="4" fill="#11382a" stroke="#10b981" stroke-width="0.9"/>
+      <text x="628" y="84" text-anchor="middle" fill="#ecfdf5" font-size="7.1">Structured finalOutput</text>
+      <text x="628" y="95" text-anchor="middle" fill="#a7f3d0" font-size="6.9">+ saved session state</text>
+      <text x="628" y="119" text-anchor="middle" fill="#6ee7b7" font-size="7.1" font-weight="700">Auto Span Waterfall</text>
+      <text x="628" y="133" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Dashboard &amp; OTLP export</text>
+
+      <!-- Loopback arrow -->
+      <path d="M420 158 L420 179 L218 179 L218 161" fill="none" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <polygon points="214,163 218,156 222,163" fill="#818cf8"/>
+      <text x="420" y="191" text-anchor="middle" fill="#c7d2fe" font-size="7.2" font-weight="600">Tool results &amp; handoffs feed directly back into the next Runner turn until finalOutput or Tripwire</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Why Developers Love This Minimalist Design</div>
+    Instead of learning proprietary graph DSLs, you write ordinary Python functions or TypeScript modules. Every step&mdash;tool calls, handoffs, MCP requests, and guardrail verdicts&mdash;emits structured spans automatically so debugging feels like reading a web request trace.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, PARITY & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup, Language Parity &amp; Hosting Matrix</span>
+    <span>Installation, Python/TS Mapping &amp; Architecture Choice</span>
+  </div>
+
+  <h2 class="page-title">Installation, Language Parity &amp; Decision Matrix</h2>
+  <p class="page-lead">
+    Both the Python and TypeScript SDKs share nearly identical concepts and defaults. Install your language runtime in one command, export <code>OPENAI_API_KEY</code>, and decide whether your loop runs in your own app process or inside OpenAI&rsquo;s managed Agents API.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-indigo" style="border-top:3px solid #4f46e5;">
+      <div class="card-title"><span class="num-badge">1</span> Python SDK (<code>openai-agents</code>)</div>
+      <pre class="code-block" style="margin:3px 0 4px 0; padding:6px 8px; font-size:7pt;"><code># Core SDK + Redis distributed session extra
+pip install "openai-agents[redis]"
+
+# Verify version &amp; export credentials
+export OPENAI_API_KEY="sk-..."</code></pre>
+      <p style="font-size:7.8pt; margin:0; color:#334155;">Requires Python 3.9+. Uses Pydantic v2 for strict tool schemas and async <code>asyncio</code> execution via <code>Runner.run()</code>.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #0891b2;">
+      <div class="card-title"><span class="num-badge cyan">2</span> TypeScript SDK (<code>@openai/agents</code>)</div>
+      <pre class="code-block" style="margin:3px 0 4px 0; padding:6px 8px; font-size:7pt;"><code># Core SDK + Zod v3/v4 schema validation
+npm install @openai/agents zod
+
+# Works on Node 20+, Deno, Bun &amp; Edge runtimes
+export OPENAI_API_KEY="sk-..."</code></pre>
+      <p style="font-size:7.8pt; margin:0; color:#334155;">First-class TypeScript types infer <code>finalOutput</code> directly from your Zod schema with zero manual type casting.</p>
+    </div>
+  </div>
+
+  <h3>Python vs. TypeScript Core API Parity</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Capability</th>
+        <th style="width:38%;">Python (<code>openai-agents</code>)</th>
+        <th style="width:38%;">TypeScript (<code>@openai/agents</code>)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Define an Agent</strong></td>
+        <td><code>Agent(name=..., instructions=...)</code></td>
+        <td><code>new Agent({ name, instructions })</code></td>
+      </tr>
+      <tr>
+        <td><strong>Run Execution Loop</strong></td>
+        <td><code>await Runner.run(agent, prompt)</code></td>
+        <td><code>await run(agent, prompt)</code></td>
+      </tr>
+      <tr>
+        <td><strong>Typed Function Tool</strong></td>
+        <td><code>@function_tool</code> decorator + type hints</td>
+        <td><code>tool({ parameters: z.object(...), execute })</code> / <code>functionTool</code></td>
+      </tr>
+      <tr>
+        <td><strong>Agent Transfer / Tool</strong></td>
+        <td><code>handoff(specialist)</code> / <code>agent.as_tool(...)</code></td>
+        <td><code>handoff(specialist)</code> / <code>agent.asTool(...)</code></td>
+      </tr>
+      <tr>
+        <td><strong>Input / Output Guards</strong></td>
+        <td><code>InputGuardrail</code> / <code>OutputGuardrail</code></td>
+        <td><code>inputGuardrails</code> / <code>outputGuardrails</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Decision Matrix: Hosted Agents API vs. Self-Hosted Agents SDK</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Dimension</th>
+        <th style="width:39.5%;">Hosted OpenAI Agents API</th>
+        <th style="width:39.5%;">Self-Hosted Agents SDK (Python / TS)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Execution &amp; State</strong></td>
+        <td>Managed server-side harness; OpenAI persists threads, background polling, and tool turns automatically.</td>
+        <td>Runs inside your own API server, worker queue, or CLI using <code>SQLiteSession</code> or <code>RedisSession</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Custom Local Code</strong></td>
+        <td>Connects via remote MCP servers, webhooks, or client-side tool callbacks.</td>
+        <td>Direct in-process access to private VPC databases, local files, internal SDKs, and custom middleware.</td>
+      </tr>
+      <tr>
+        <td><strong>Data &amp; Trace Control</strong></td>
+        <td>Zero-maintenance OpenAI dashboard traces and conversation storage with enterprise retention settings.</td>
+        <td>Full control over memory TTLs, custom OTLP/Datadog trace exporters, and PII scrubbing before storage.</td>
+      </tr>
+      <tr>
+        <td><strong>Best Fit</strong></td>
+        <td>Async background jobs, web/mobile copilot backends, and teams minimizing DevOps overhead.</td>
+        <td>Latency-sensitive microservices, private VPC tooling, complex multi-model routing, and custom eval harnesses.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:2px 0 0 0;">
+    <div class="callout-title">Hybrid Tip: Start in the SDK, Offload Long Runs to the Agents API</div>
+    Because both share identical mental models&mdash;structured instructions, typed tools, and trace spans&mdash;you can prototype fast in local TypeScript or Python and move long-running asynchronous workflows to the hosted Agents API without rewriting your prompts.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED TRACE & STUDIO INSPECTOR TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Observability Tour</span>
+    <span>OpenAI Traces Dashboard &amp; Run Waterfall</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: OpenAI Traces &amp; Run Inspector</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Every run in the Agents SDK and Agents API emits a nested tree of spans automatically. Here are the seven diagnostic touchpoints inside the OpenAI Traces dashboard for spotting latency, handoff errors, and guardrail hits in seconds.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#c7d2fe;">platform.openai.com/traces &mdash; trace_9f41c8a2 &bull; SupportTriageWorkflow</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; font-size:7.1pt;">
+        <span style="background:#1e1b4b; color:#a5b4fc; border:1px solid #4f46e5; padding:1.5px 7px; border-radius:4px; font-weight:700;">&#9654; Replay Span in Eval <span class="callout-pin">7</span></span>
+        <span style="background:#064e3b; color:#6ee7b7; border:1px solid #059669; padding:1.5px 7px; border-radius:4px; font-weight:700;">STATUS: SUCCEEDED (1.18s)</span>
+      </div>
+    </div>
+
+    <!-- Summary Telemetry Bar -->
+    <div style="background:#111430; border-bottom:1px solid #312e81; padding:5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.2pt;">
+      <div style="display:flex; gap:12px; align-items:center;">
+        <span><strong style="color:#818cf8;">Model Routing:</strong> <code>gpt-6.1-sol</code> (triage) &rarr; <code>gpt-5.4</code> (billing) <span class="callout-pin">5</span></span>
+        <span style="color:#475569;">|</span>
+        <span><strong style="color:#38bdf8;">Tokens:</strong> 1,420 in (68% cached) / 184 out</span>
+      </div>
+      <span><strong style="color:#34d399;">Session:</strong> <code>RedisSession::acct_4821</code> <span class="callout-pin">6</span></span>
+    </div>
+
+    <!-- Main Split: Waterfall Timeline + Span Detail -->
+    <div style="display:grid; grid-template-columns: 1.55fr 1fr;">
+      <!-- Left: Waterfall -->
+      <div style="padding:8px 10px; border-right:1px solid #312e81;">
+        <div style="color:#a5b4fc; font-weight:700; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;">
+          <span>EXECUTION WATERFALL (1,180 ms total)</span>
+          <span class="callout-pin">1</span>
+        </div>
+
+        <!-- Span Row 1 -->
+        <div style="display:grid; grid-template-columns: 150px 1fr 48px; align-items:center; gap:6px; margin-bottom:4px;">
+          <span style="color:#fde68a; font-weight:600;">&#128737; InputGuardrail: PII <span class="callout-pin">3</span></span>
+          <div style="background:#1e293b; height:11px; border-radius:3px; position:relative;"><div style="width:14%; height:100%; background:#f59e0b; border-radius:3px;"></div></div>
+          <span style="color:#94a3b8; text-align:right;">42 ms</span>
+        </div>
+
+        <!-- Span Row 2 -->
+        <div style="display:grid; grid-template-columns: 150px 1fr 48px; align-items:center; gap:6px; margin-bottom:4px;">
+          <span style="color:#c7d2fe; font-weight:600;">Agent: TriageRouter</span>
+          <div style="background:#1e293b; height:11px; border-radius:3px; position:relative;"><div style="width:28%; height:100%; background:#6366f1; border-radius:3px;"></div></div>
+          <span style="color:#94a3b8; text-align:right;">210 ms</span>
+        </div>
+
+        <!-- Span Row 3 -->
+        <div style="display:grid; grid-template-columns: 150px 1fr 48px; align-items:center; gap:6px; margin-bottom:4px;">
+          <span style="color:#a5b4fc;">&nbsp;&nbsp;&#8627; Handoff &rarr; Billing <span class="callout-pin">2</span></span>
+          <div style="background:#1e293b; height:11px; border-radius:3px; position:relative;"><div style="margin-left:28%; width:5%; height:100%; background:#818cf8; border-radius:3px;"></div></div>
+          <span style="color:#94a3b8; text-align:right;">4 ms</span>
+        </div>
+
+        <!-- Span Row 4 -->
+        <div style="display:grid; grid-template-columns: 150px 1fr 48px; align-items:center; gap:6px; margin-bottom:4px;">
+          <span style="color:#e2e8f0; font-weight:600;">Agent: BillingSpecialist</span>
+          <div style="background:#1e293b; height:11px; border-radius:3px; position:relative;"><div style="margin-left:33%; width:64%; height:100%; background:#4f46e5; border-radius:3px;"></div></div>
+          <span style="color:#94a3b8; text-align:right;">924 ms</span>
+        </div>
+
+        <!-- Span Row 5 -->
+        <div style="display:grid; grid-template-columns: 150px 1fr 48px; align-items:center; gap:6px; margin-bottom:4px;">
+          <span style="color:#7dd3fc;">&nbsp;&nbsp;&#8627; mcp.stripe_lookup <span class="callout-pin">4</span></span>
+          <div style="background:#1e293b; height:11px; border-radius:3px; position:relative;"><div style="margin-left:44%; width:22%; height:100%; background:#0ea5e9; border-radius:3px;"></div></div>
+          <span style="color:#94a3b8; text-align:right;">142 ms</span>
+        </div>
+
+        <!-- Span Row 6 -->
+        <div style="display:grid; grid-template-columns: 150px 1fr 48px; align-items:center; gap:6px;">
+          <span style="color:#6ee7b7;">&#10003; OutputGuardrail: Tone</span>
+          <div style="background:#1e293b; height:11px; border-radius:3px; position:relative;"><div style="margin-left:93%; width:7%; height:100%; background:#10b981; border-radius:3px;"></div></div>
+          <span style="color:#94a3b8; text-align:right;">38 ms</span>
+        </div>
+      </div>
+
+      <!-- Right: Span Inspector Drawer -->
+      <div style="padding:8px 10px; background:#0d102b; font-size:7.05pt;">
+        <div style="color:#818cf8; font-weight:700; margin-bottom:4px;">SELECTED SPAN: <code>mcp.stripe_lookup</code></div>
+        <div style="background:#141736; border:1px solid #312e81; border-radius:5px; padding:5px 7px; margin-bottom:5px;">
+          <div style="color:#7dd3fc; font-weight:700;">Validated Arguments (Zod / Pydantic)</div>
+          <div style="color:#e2e8f0;"><code>{ "invoice_id": "inv_9921", "include_tax": true }</code></div>
+        </div>
+        <div style="background:#141736; border:1px solid #312e81; border-radius:5px; padding:5px 7px; margin-bottom:5px;">
+          <div style="color:#fde68a; font-weight:700;">Guardrail Verdict</div>
+          <div style="color:#cbd5e1;"><code>tripwire_triggered: false</code> (parallel pre-check passed before BillingSpecialist turn)</div>
+        </div>
+        <div style="background:#141736; border:1px solid #312e81; border-radius:5px; padding:5px 7px;">
+          <div style="color:#6ee7b7; font-weight:700;">Session Delta</div>
+          <div style="color:#cbd5e1;">Appended 3 items to <code>acct_4821</code> (TTL: 24h)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Inspector Legend: The 7 Trace Diagnostic Controls</h3>
+  <div class="grid-2" style="font-size:7.95pt; gap:6px 12px;">
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">1</span> Run Waterfall Timeline:</strong> Visualizes overlapping parallel work versus serial round-trips so you spot slow tools or extra model turns immediately.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">2</span> Handoff Transfer Span:</strong> Records the exact moment one agent delegates control to a specialist, along with any filtered history passed forward.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">3</span> Parallel Guardrail Tripwire:</strong> Shows input checks racing alongside the first turn and flags <code>tripwire_triggered: true</code> when blocked early.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">4</span> MCP &amp; Function Tool Latency:</strong> Separates external server/DB time (e.g., <code>142 ms</code>) from LLM inference time and captures schema validation retries.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">5</span> Model Tier &amp; Cache Breakdown:</strong> Tracks prompt-cache hit ratios and lets you verify cheap routing models handle triage before heavy reasoning runs.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">6</span> Session Memory Drawer:</strong> Shows which <code>SQLiteSession</code>, <code>RedisSession</code>, or hosted thread ID read and persisted multi-turn state.
+    </div>
+    <div class="card-indigo" style="padding:6px 9px; grid-column: span 2;">
+      <strong><span class="callout-pin">7</span> One-Click Eval Replay:</strong> Promotes any production trace&mdash;especially tripped guardrails or failed tool calls&mdash;directly into an OpenAI Evals regression test case.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: ORCHESTRATION PATTERNS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Multi-Agent Orchestration</span>
+    <span>Handoffs vs. Agents-as-Tools</span>
+  </div>
+
+  <h2 class="page-title">Orchestration: Handoffs vs. Agents-as-Tools</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Multi-agent engineering boils down to one architectural choice: should the specialist take over the conversation and speak directly to the user (<strong>Handoff</strong>), or perform a focused subtask and return data to a central manager (<strong>Agent-as-Tool</strong>)?
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-indigo" style="border-top:3px solid #4f46e5;">
+      <div class="card-title"><span class="num-badge">A</span> Pattern 1: Specialist Handoffs</div>
+      <p style="font-size:7.95pt; margin:0 0 5px 0;">
+        In a <strong>Handoff</strong>, the current agent invokes a built-in transfer tool (like <code>transfer_to_billing_agent</code>). The <code>Runner</code> swaps the active agent, passes conversation history (optionally pruned via <code>input_filter</code>), and lets the specialist own the user relationship from then on.
+      </p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.85pt;"><code>triage = Agent(
+    name="TriageRouter",
+    instructions="Route billing or tech questions.",
+    handoffs=[billing_agent, tech_agent],
+)</code></pre>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0891b2;">
+      <div class="card-title"><span class="num-badge cyan">B</span> Pattern 2: Agents-as-Tools</div>
+      <p style="font-size:7.95pt; margin:0 0 5px 0;">
+        With <code>agent.as_tool()</code> (Python) or <code>agent.asTool()</code> (TypeScript), a sub-agent runs inside an isolated tool call and returns a string or JSON result back to the <strong>Manager</strong>. The manager keeps full ownership of tone, final synthesis, and multi-source aggregation.
+      </p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.85pt;"><code>manager = Agent(
+    name="ReleaseManager",
+    tools=[
+        research_agent.as_tool(
+            tool_name="fetch_changelog",
+            tool_description="Summarize recent PRs."
+        )
+    ],
+)</code></pre>
+    </div>
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 7px 0;">
+    <img src="assets/specialist_handoff_mesh.jpg" alt="Editorial Isometric Comparison of Orbital Handoff Ring and Hub-and-Spoke Conductor Tool Nodes in Sapphire and Electric Indigo Glass" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Left (Baton-Relay Handoff Ring):</strong> Control passes cleanly from node to node&mdash;ideal for customer triage, bilingual routing, and multi-stage onboarding where each specialist talks directly to the user. <strong>Right (Hub-and-Spoke Manager):</strong> A central conductor invokes specialist agents as tools in parallel and synthesizes one unified response.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:0;">
+    <div class="callout" style="margin:0;">
+      <div class="callout-title">Use Handoffs When:</div>
+      <ul style="font-size:7.85pt; margin:2px 0 0 0;">
+        <li>Different domains need distinct personas, languages, or toolsets.</li>
+        <li>The user will continue chatting back and forth with that specialist.</li>
+      </ul>
+    </div>
+    <div class="callout emerald" style="margin:0;">
+      <div class="callout-title">Use Agents-as-Tools When:</div>
+      <ul style="font-size:7.85pt; margin:2px 0 0 0;">
+        <li>You need one consistent voice synthesizing multiple sub-tasks.</li>
+        <li>Sub-agents should never leak intermediate reasoning to the user.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: STRUCTURED TOOL CONTRACTS & TYPED OUTPUTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Typed Tools &amp; Structured Outputs</span>
+    <span>Pydantic / Zod Contracts &amp; Instruction Anatomy</span>
+  </div>
+
+  <h2 class="page-title">Structured Tool Contracts &amp; Typed Outputs</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Reliable agents never rely on regex parsing. The Agents SDK generates strict JSON Schemas straight from your Python type hints (Pydantic) or TypeScript Zod definitions&mdash;and automatically feeds validation errors back to the model for deterministic self-correction.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin:0 0 3px 0; color:#3730a3;">Python: <code>@function_tool</code> + Pydantic <code>output_type</code></p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.85pt; line-height:1.34;"><code>from pydantic import BaseModel, Field
+from agents import Agent, function_tool
+
+class RefundDecision(BaseModel):
+    approved: bool
+    reason: str
+    credit_cents: int = Field(ge=0)
+
+@function_tool
+def lookup_order(order_id: str) -&gt; dict:
+    """Fetch order status and purchase date by ID."""
+    return db.get_order(order_id)
+
+agent = Agent(
+    name="RefundPolicy",
+    tools=[lookup_order],
+    output_type=RefundDecision,
+)</code></pre>
+    </div>
+
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin:0 0 3px 0; color:#0e7490;">TypeScript: <code>tool()</code> / <code>functionTool</code> + Zod</p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.85pt; line-height:1.34;"><code>import { z } from "zod";
+import { Agent, tool } from "@openai/agents";
+
+const RefundDecision = z.object({
+  approved: z.boolean(),
+  reason: z.string(),
+  creditCents: z.number().int().nonnegative(),
+});
+
+const lookupOrder = tool({
+  name: "lookup_order",
+  description: "Fetch order status and purchase date by ID.",
+  parameters: z.object({ orderId: z.string() }),
+  execute: async ({ orderId }) =&gt; db.getOrder(orderId),
+});
+
+const agent = new Agent({
+  name: "RefundPolicy",
+  tools: [lookupOrder],
+  outputType: RefundDecision,
+});</code></pre>
+    </div>
+  </div>
+
+  <h3>System Prompt &amp; Schema Anatomy: The 5 Color-Coded Building Blocks</h3>
+  <p style="font-size:8.2pt; margin-bottom:4px;">
+    Pair strict schemas with crisp instructions so the model knows <em>when</em> to invoke tools, <em>what</em> it must never invent, and <em>how</em> to populate your typed output:
+  </p>
+
+  <div style="margin-bottom:5px; font-size:7.7pt; display:flex; flex-wrap:wrap; gap:5px;">
+    <span class="p-tag p-role">[1. Agent Role]</span>
+    <span class="p-tag p-tool">[2. Tool Call Rule]</span>
+    <span class="p-tag p-scope">[3. Escalation Scope]</span>
+    <span class="p-tag p-guard">[4. Deterministic Constraint]</span>
+    <span class="p-tag p-out">[5. Typed Output Contract]</span>
+  </div>
+
+  <div class="card" style="background:#f8fafc; border:1px solid #a5b4fc; padding:8px 10px; margin-bottom:7px; font-size:8.15pt; line-height:1.66;">
+    <span class="p-tag p-role">You are the Senior Billing Policy Evaluator for Acme Cloud.</span>
+    <span class="p-tag p-tool">Always call lookup_order(order_id) before evaluating eligibility; never guess invoice totals or purchase dates from memory.</span>
+    <span class="p-tag p-scope">If the order involves enterprise annual contracts or fraud flags, hand off immediately to EnterpriseEscalation instead of issuing a decision.</span>
+    <span class="p-tag p-guard">Approve automatic credits only for charges under 30 days old and under 10,000 cents; reject expired windows politely.</span>
+    <span class="p-tag p-out">Return your final verdict strictly matching the RefundDecision schema with non-negative integer credit_cents.</span>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">How Deterministic Schema Retries Save You From Fragile Parsing</div>
+    If a model forgets a required argument or sends a string instead of an integer, the SDK intercepts the Pydantic or Zod <code>ValidationError</code>, returns the exact field error as a tool observation, and gives the model another turn to fix the payload&mdash;without crashing your API handler.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: DEFENSE-IN-DEPTH GUARDRAILS & TRACING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Safety Gates &amp; Built-In Tracing</span>
+    <span>Parallel Guardrails, Tripwires &amp; Span Telemetry</span>
+  </div>
+
+  <h2 class="page-title">Defense-in-Depth Guardrails &amp; Built-In Tracing</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Treat prompts as guidance and <strong>Guardrails</strong> as enforceable gates. By running fast lightweight classifiers in parallel with your main agent, you block prompt injections, PII leaks, and off-topic abuse without adding extra serial latency.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card" style="border-top:2.5px solid #4f46e5;">
+      <div class="card-title"><span class="num-badge">1</span> Input Guardrails</div>
+      <p style="font-size:7.75pt; margin:0;">Inspect user messages on entry. Default <strong>parallel mode</strong> starts checking while the main model begins thinking&mdash;canceling immediately if a tripwire fires, or set blocking mode to protect costly reasoning tokens.</p>
+    </div>
+    <div class="card" style="border-top:2.5px solid #d97706;">
+      <div class="card-title"><span class="num-badge amber">2</span> Tool Guardrails</div>
+      <p style="font-size:7.75pt; margin:0;">Validate arguments and side-effect scopes right before tool execution (e.g., blocking SQL writes, enforcing customer ID ownership, or masking secrets returned from MCP servers).</p>
+    </div>
+    <div class="card" style="border-top:2.5px solid #059669;">
+      <div class="card-title"><span class="num-badge teal">3</span> Output Guardrails</div>
+      <p style="font-size:7.75pt; margin:0;">Verify the final response before it reaches the customer&mdash;checking for leaked system instructions, banned medical/legal claims, or unverified discount promises.</p>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:6px 9px; font-size:6.85pt; line-height:1.33; margin:0 0 7px 0;"><code>from agents import Agent, GuardrailFunctionOutput, InputGuardrail, InputGuardrailTripwireTriggered, Runner, trace
+
+async def pii_gate(ctx, agent, user_input):
+    verdict = await Runner.run(pii_classifier, user_input, context=ctx.context)
+    return GuardrailFunctionOutput(
+        output_info=verdict.final_output,
+        tripwire_triggered=verdict.final_output.contains_ssn_or_card,
+    )
+
+support_agent = Agent(name="Support", input_guardrails=[InputGuardrail(guardrail_function=pii_gate)])
+
+with trace("CustomerSupportTurn"):
+    try:
+        res = await Runner.run(support_agent, user_message)
+    except InputGuardrailTripwireTriggered:
+        res_text = "Please remove card numbers or SSNs before continuing."</code></pre>
+
+  <div class="figure-box" style="margin:2px 0 6px 0;">
+    <img src="assets/guardrail_trace_observatory.jpg" alt="Multi-Lane Illuminated Data Pipeline Passing Through Electric Indigo Laser Security Gates Casting Holographic Telemetry Ribbons" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Simultaneous Defense &amp; Observability:</strong> Each stream passes through illuminated indigo input, tool, and output security gates while casting real-time span ribbons into the OpenAI Traces observatory&mdash;zero external APM agent required.
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:0;">
+    <div class="callout-title">Group Multi-Turn Workflows With <code>with trace("WorkflowName")</code></div>
+    Wrapping several <code>Runner.run()</code> calls inside a single <code>trace()</code> block links triage, tool retries, and follow-up turns under one searchable parent timeline in the dashboard.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: DURABLE STATE & MCP SERVER SESSIONS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Session Persistence &amp; MCP</span>
+    <span>SQLite Dev Memory, Redis Clusters &amp; Stateful MCP Connectors</span>
+  </div>
+
+  <h2 class="page-title">Durable State &amp; Stateful MCP Server Sessions</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Stateless scripts forget everything after one reply. The Agents SDK provides a drop-in <code>Session</code> protocol&mdash;starting with zero-setup <code>SQLiteSession</code> locally and scaling horizontally with <code>RedisSession</code>&mdash;alongside first-class connectors for persistent MCP tool servers.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card" style="border-top:3px solid #4f46e5;">
+      <div class="card-title"><span class="num-badge">1</span> Local Dev &rarr; Horizontal Redis</div>
+      <p style="font-size:7.85pt; margin:0 0 5px 0;">
+        Pass a <code>session</code> directly to <code>Runner.run()</code>. The SDK automatically loads prior turns before inference and appends new tool and assistant items afterward.
+      </p>
+      <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.8pt; line-height:1.33;"><code># Local dev: zero external infra
+from agents import SQLiteSession
+session = SQLiteSession("user_42", "dev_chat.db")
+
+# Production cluster: pip install "openai-agents[redis]"
+from agents.extensions.memory import RedisSession
+session = RedisSession.from_url(
+    "user_42",
+    url="redis://cache.internal:6379/0",
+    ttl=86400,
+)
+result = await Runner.run(agent, msg, session=session)</code></pre>
+    </div>
+
+    <div class="card-indigo" style="border-top:3px solid #0891b2;">
+      <div class="card-title"><span class="num-badge cyan">2</span> Three Native MCP Transports</div>
+      <ul style="font-size:7.85pt; margin:2px 0 0 0;">
+        <li><strong><code>MCPServerStdio</code>:</strong> Launches local CLI tools (filesystem, git, sqlite) as a child process over stdin/stdout.</li>
+        <li><strong><code>MCPServerSse</code>:</strong> Connects to legacy remote MCP servers using HTTP Server-Sent Events streams.</li>
+        <li><strong><code>MCPServerStreamableHttp</code>:</strong> The modern production transport for cloud-hosted MCP gateways, supporting OAuth headers, clean bidirectional streaming, and load-balanced horizontal scaling.</li>
+      </ul>
+      <p style="font-size:7.6pt; color:#334155; margin:4px 0 0 0;">Call <code>list_tools()</code> caching on connect to avoid redundant schema handshakes.</p>
+    </div>
+  </div>
+
+  <h3>Wiring Persistent MCP Connectors Safely in Python &amp; TypeScript</h3>
+  <p style="font-size:8.25pt; margin-bottom:4px;">
+    Always manage MCP server lifecycles with an async context manager (Python) or explicit <code>try / finally</code> cleanup (TypeScript) so child processes and HTTP keep-alive sockets close cleanly on errors:
+  </p>
+
+  <pre class="code-block" style="padding:6.5px 9px; font-size:6.95pt; line-height:1.34; margin:0 0 7px 0;"><code># Python: Connect streamable HTTP + stdio MCP servers with guaranteed cleanup
+from agents import Agent, Runner
+from agents.mcp import MCPServerStdio, MCPServerStreamableHttp
+
+async with (
+    MCPServerStdio(params={"command": "npx", "args": ["-y", "@modelcontextprotocol/server-git"]}) as git_mcp,
+    MCPServerStreamableHttp(params={"url": "https://mcp.internal.dev/mcp", "headers": {"Authorization": "Bearer ..."}}) as prod_mcp,
+):
+    ops_agent = Agent(name="OpsResponder", mcp_servers=[git_mcp, prod_mcp], instructions="Diagnose incidents safely.")
+    res = await Runner.run(ops_agent, "Check the last 5 commits and inspect failing service health.", session=session)</code></pre>
+
+  <div class="callout sky" style="margin:0;">
+    <div class="callout-title">Tool Filtering Tip: Trim Unused MCP Tools Before Passing to the Agent</div>
+    Large MCP servers can expose 40+ tools, inflating prompt tokens and confusing routing. Use <code>create_static_tool_filter(allowed_tool_names=[...])</code> or dynamic per-user filters on your MCP connector so each specialist sees only the 3&ndash;6 tools it truly needs.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Blueprints</span>
+    <span>5 Real-World Copy-Paste Agent Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Drop these five proven architectural patterns straight into your Python or TypeScript service. Each recipe pairs the exact SDK primitives needed for fast, deterministic execution.
+  </p>
+
+  <table class="clean-table" style="font-size:7.7pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Recipe Name</th>
+        <th style="width:21%;">Primitives Used</th>
+        <th style="width:59%;">Copy-Paste Implementation Blueprint</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Triage Router with Bilingual Handoffs</strong><br/><span style="color:#4f46e5; font-weight:600;">Support Routing</span></td>
+        <td><code>Agent</code><br/><code>handoff()</code><br/><code>gpt-6.1-sol</code></td>
+        <td>Define <code>es_agent</code> and <code>en_agent</code> with localized instructions and tools. Attach <code>handoffs=[es_agent, en_agent]</code> to a lightweight <code>TriageRouter</code> running <code>gpt-6.1-sol</code> with instructions: <em>&ldquo;Detect language on turn one and hand off immediately without answering.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>2. Manager Calling Research Agent as Tool</strong><br/><span style="color:#4f46e5; font-weight:600;">Executive Briefs</span></td>
+        <td><code>agent.as_tool()</code><br/><code>output_type</code><br/><code>asyncio.gather</code></td>
+        <td>Expose <code>web_researcher.as_tool("search_market", ...)</code> and <code>sec_analyst.as_tool("read_filings", ...)</code> on an orchestrator <code>BriefManager</code>. Enable parallel tool calls so both sub-agents execute simultaneously and return clean summaries for final Pydantic synthesis.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Parallel PII Input Guardrail Gate</strong><br/><span style="color:#4f46e5; font-weight:600;">Compliance Shield</span></td>
+        <td><code>InputGuardrail</code><br/><code>Tripwire</code><br/><code>run_in_parallel</code></td>
+        <td>Attach a fast classifier agent inside <code>InputGuardrail</code> checking for SSNs, API keys, or credit cards. Catch <code>InputGuardrailTripwireTriggered</code> around <code>Runner.run()</code> to return a polite redaction notice before any sensitive string enters downstream tool logs.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Persistent Redis Multi-Turn Concierge</strong><br/><span style="color:#4f46e5; font-weight:600;">Horizontally Scaled</span></td>
+        <td><code>RedisSession</code><br/><code>@function_tool</code><br/><code>ttl=86400</code></td>
+        <td>Initialize <code>RedisSession.from_url(f"chat:{tenant}:{user_id}", url=REDIS_URL, ttl=86400)</code> inside your FastAPI or Express handler and pass <code>session=session</code> to <code>Runner.run()</code>. Any stateless container pod resumes the exact multi-turn thread instantaneously.</td>
+      </tr>
+      <tr>
+        <td><strong>5. MCP-Connected Incident Responder</strong><br/><span style="color:#4f46e5; font-weight:600;">Live SRE Triage</span></td>
+        <td><code>MCPServerStreamableHttp</code><br/><code>tool_filter</code><br/><code>trace()</code></td>
+        <td>Open read-only Sentry and GitHub MCP connectors with <code>allowed_tool_names=["get_issue", "get_diff"]</code> inside an <code>async with</code> block. Wrap <code>Runner.run(sre_agent, alert_payload)</code> in <code>with trace("IncidentTriage")</code> to capture root-cause hypotheses and span timings.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Composition Rule: Keep Every Agent Single-Purpose (&lt;12 Tools)</div>
+    When an agent collects more than 10&ndash;12 tools, tool selection accuracy drops. Split sprawling monoliths into focused specialist agents (Recipe 1 or 2), enforce boundaries with Recipe 3, and persist state cleanly with Recipe 4.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: PRODUCTION OPS, EVALS & COST CONTROL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Production Operations &amp; Economics</span>
+    <span>Custom Trace Exporters, Eval Replay &amp; Model Routing</span>
+  </div>
+
+  <h2 class="page-title">Production Ops, Evals &amp; Cost Control</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Shipping agents to production requires predictable latency, strict loop budgets, and continuous regression testing. The SDK exposes clean hooks for custom telemetry pipelines, eval datasets, and tiered model routing.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-dark">
+      <div class="card-title">&#128225; Custom Trace Exporters &amp; OTLP</div>
+      <p style="font-size:7.85pt; color:#cbd5e1; margin:0 0 5px 0;">
+        By default, traces stream asynchronously to OpenAI&rsquo;s dashboard. Register a custom <code>TracingProcessor</code> (or <code>add_trace_processor</code>) to mirror spans into Datadog, Honeycomb, Grafana Tempo, or internal audit buckets without slowing user responses.
+      </p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.75pt; border-color:#4f46e5;"><code>from agents.tracing import add_trace_processor, BatchTraceProcessor
+add_trace_processor(BatchTraceProcessor(OtlpSpanExporter()))</code></pre>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Eval Replay From Failed Spans</div>
+      <p style="font-size:7.85pt; margin:0 0 5px 0;">
+        Never fix a production agent bug by guesswork. Export failed or tripped trace spans directly into an OpenAI Evals suite (or pytest/Vitest fixture) so every prompt or schema tweak is verified against real edge cases before deploy.
+      </p>
+      <ul style="font-size:7.7pt; margin:0;">
+        <li>Assert exact tool-call sequence and handoff destination.</li>
+        <li>Grade final structured outputs with deterministic schema + LLM-as-judge checks.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Execution Budgets &amp; Dynamic Model Tier Routing</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Control Lever</th>
+        <th style="width:32%;">SDK Configuration</th>
+        <th style="width:44%;">Production Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Loop Circuit Breaker</strong></td>
+        <td><code>Runner.run(agent, msg, max_turns=8)</code></td>
+        <td>Raises <code>MaxTurnsExceeded</code> cleanly instead of burning unlimited tokens in a circular tool or handoff loop.</td>
+      </tr>
+      <tr>
+        <td><strong>Fast Triage &amp; Guardrails</strong></td>
+        <td><code>model="gpt-6.1-sol"</code></td>
+        <td>Handles input/output guardrail checks, intent routing, and simple JSON extraction in ~100&ndash;250 ms at a fraction of flagship cost.</td>
+      </tr>
+      <tr>
+        <td><strong>Flagship Reasoning Tier</strong></td>
+        <td><code>model="gpt-5.4"</code> / <code>o3</code></td>
+        <td>Reserved strictly for complex specialist synthesis, multi-step code diagnostics, and high-stakes financial/policy planning.</td>
+      </tr>
+      <tr>
+        <td><strong>Sensitive Data Scrubbing</strong></td>
+        <td><code>RunConfig(trace_include_sensitive_data=False)</code></td>
+        <td>Records span timings, token counts, and tool names while stripping raw prompt/tool payloads in regulated HIPAA/PCI environments.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:0;">
+    <div class="callout-title">Dynamic Routing Rule: Pair <code>gpt-6.1-sol</code> Routers With Flagship Specialists</div>
+    Running a single flagship model for guardrails, routing, and formatting wastes up to 70% of spend and doubles time-to-first-token. Put <code>gpt-6.1-sol</code> on routers, guardrails, and lightweight tools, and hand off only genuinely hard reasoning turns to flagship models.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Architecture</span>
+    <span>Agents SDK + Codex CLI + Realtime Voice + Canvas/Spaces</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Full OpenAI Agent Stack</h2>
+  <p class="page-lead">
+    The Agents API and SDK sit at the center of OpenAI&rsquo;s builder ecosystem&mdash;connecting developer-built tools from <strong>Codex CLI</strong>, sub-second <strong>Realtime Voice</strong> interfaces, and visual <strong>Canvas / Spaces</strong> human-in-the-loop checkpoints into one cohesive architecture.
+  </p>
+
+  <div class="figure-box" style="background:#090a1a; padding:10px 12px; border-color:#3730a3; margin-bottom:8px;">
+    <svg viewBox="0 0 700 210" width="100%" height="210" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1: Codex CLI -->
+      <rect x="8" y="18" width="154" height="145" rx="9" fill="#141736" stroke="#818cf8" stroke-width="1.6"/>
+      <text x="85" y="37" text-anchor="middle" fill="#a5b4fc" font-size="7.5" font-weight="700">1. BUILD &amp; TEST TOOLS</text>
+      <text x="85" y="54" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Codex CLI</text>
+      <text x="85" y="68" text-anchor="middle" fill="#c7d2fe" font-size="7.2">codex exec &bull; Sandboxed</text>
+      <line x1="22" y1="77" x2="148" y2="77" stroke="#312e81" stroke-width="1"/>
+      <text x="20" y="93" fill="#e2e8f0" font-size="7.3">&bull; Generates Zod/Pydantic tools</text>
+      <text x="20" y="107" fill="#e2e8f0" font-size="7.3">&bull; Scaffolds MCP servers</text>
+      <text x="20" y="121" fill="#e2e8f0" font-size="7.3">&bull; Writes replay eval tests</text>
+      <rect x="20" y="133" width="130" height="20" rx="4" fill="#1e1b4b"/>
+      <text x="85" y="146" text-anchor="middle" fill="#a5b4fc" font-size="7.0" font-weight="700">Ships verified SDK code</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M162 90 L183 90" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="181,85 189,90 181,95" fill="#818cf8"/>
+
+      <!-- Box 2: Agents SDK / API -->
+      <rect x="189" y="12" width="164" height="157" rx="9" fill="#1e1b4b" stroke="#6366f1" stroke-width="2.2"/>
+      <text x="271" y="32" text-anchor="middle" fill="#c7d2fe" font-size="7.5" font-weight="700">2. RUNTIME ORCHESTRATOR</text>
+      <text x="271" y="50" text-anchor="middle" fill="#ffffff" font-size="10.8" font-weight="800">Agents SDK / API</text>
+      <text x="271" y="64" text-anchor="middle" fill="#a5b4fc" font-size="7.2">Runner + Redis + MCP</text>
+      <line x1="203" y1="73" x2="339" y2="73" stroke="#4338ca" stroke-width="1"/>
+      <text x="201" y="90" fill="#f8fafc" font-size="7.3">&bull; Routes specialist handoffs</text>
+      <text x="201" y="104" fill="#f8fafc" font-size="7.3">&bull; Runs parallel guardrails</text>
+      <text x="201" y="118" fill="#f8fafc" font-size="7.3">&bull; Streams spans &amp; traces</text>
+      <rect x="201" y="132" width="140" height="24" rx="4" fill="#312e81" stroke="#818cf8" stroke-width="0.9"/>
+      <text x="271" y="147" text-anchor="middle" fill="#e0e7ff" font-size="7.1" font-weight="700">Owns logic, tools &amp; memory</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M353 90 L374 90" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="372,85 380,90 372,95" fill="#38bdf8"/>
+
+      <!-- Box 3: Realtime Voice -->
+      <rect x="380" y="18" width="148" height="145" rx="9" fill="#0f1f2e" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="454" y="37" text-anchor="middle" fill="#7dd3fc" font-size="7.5" font-weight="700">3. VOICE FRONTEND</text>
+      <text x="454" y="54" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Realtime API</text>
+      <text x="454" y="68" text-anchor="middle" fill="#bae6fd" font-size="7.2">WebRTC &bull; VoiceAgent</text>
+      <line x1="393" y1="77" x2="515" y2="77" stroke="#0369a1" stroke-width="1"/>
+      <text x="392" y="93" fill="#e2e8f0" font-size="7.3">&bull; Sub-300ms speech I/O</text>
+      <text x="392" y="107" fill="#e2e8f0" font-size="7.3">&bull; Barge-in &amp; VAD turn sync</text>
+      <text x="392" y="121" fill="#e2e8f0" font-size="7.3">&bull; Spoken specialist handoffs</text>
+      <rect x="392" y="133" width="124" height="20" rx="4" fill="#0c4a6e"/>
+      <text x="454" y="146" text-anchor="middle" fill="#7dd3fc" font-size="7.0" font-weight="700">Speaks to users naturally</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M528 90 L549 90" stroke="#34d399" stroke-width="2"/>
+      <polygon points="547,85 555,90 547,95" fill="#34d399"/>
+
+      <!-- Box 4: Canvas / Spaces HITL -->
+      <rect x="555" y="18" width="137" height="145" rx="9" fill="#0d261d" stroke="#34d399" stroke-width="1.6"/>
+      <text x="623" y="37" text-anchor="middle" fill="#6ee7b7" font-size="7.5" font-weight="700">4. HUMAN CHECKPOINT</text>
+      <text x="623" y="54" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Canvas &amp; Spaces</text>
+      <text x="623" y="68" text-anchor="middle" fill="#a7f3d0" font-size="7.2">Human-in-the-Loop</text>
+      <line x1="567" y1="77" x2="680" y2="77" stroke="#065f46" stroke-width="1"/>
+      <text x="566" y="93" fill="#e2e8f0" font-size="7.3">&bull; Approves high-risk actions</text>
+      <text x="566" y="107" fill="#e2e8f0" font-size="7.3">&bull; Side-by-side artifact edits</text>
+      <text x="566" y="121" fill="#e2e8f0" font-size="7.3">&bull; Shares team runbooks</text>
+      <rect x="566" y="133" width="114" height="20" rx="4" fill="#11382a"/>
+      <text x="623" y="146" text-anchor="middle" fill="#6ee7b7" font-size="7.0" font-weight="700">Keeps humans in command</text>
+
+      <!-- Bottom Loop -->
+      <rect x="8" y="178" width="684" height="24" rx="6" fill="#141736" stroke="#3730a3" stroke-width="1"/>
+      <text x="350" y="194" text-anchor="middle" fill="#c7d2fe" font-size="7.5" font-weight="600">Unified Flow: Codex builds typed tools &rarr; Agents SDK orchestrates state &amp; guards &rarr; Realtime streams voice &rarr; Canvas/Spaces confirms</text>
+    </svg>
+  </div>
+
+  <h3>How These Four Layers Cooperate in Practice</h3>
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Build With Codex, Orchestrate in the SDK</div>
+      <p style="font-size:7.95pt; margin:0;">Use <strong>Codex CLI</strong> to scaffold strictly typed <code>@function_tool</code> handlers, Zod schemas, and unit-tested MCP adapters. Your <strong>Agents SDK</strong> backend mounts those tools behind parallel input guardrails and durable <code>RedisSession</code> threads.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge cyan">2</span> Voice Speed + Human Approval Gates</div>
+      <p style="font-size:7.95pt; margin:0;">Pair a <code>RealtimeSession</code> voice frontend for instant spoken triage while delegating deep database or billing mutations to your Agents SDK backend&mdash;pausing for one-click human approval inside <strong>Canvas</strong> or <strong>Spaces</strong> before irreversible writes.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:0;">
+    <div class="callout-title">One Trace ID Across Voice, Backend Agents &amp; UI</div>
+    Propagate a single <code>trace_id</code> from the Realtime voice client through your Agents SDK backend and MCP calls so product engineers can replay an entire multi-modal customer conversation from one unified timeline.
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Almost every multi-agent bug traces back to one of seven well-known runtime traps. Use this quick clinic to diagnose failures in ten seconds, then clear the six-point pre-flight checklist before shipping to production.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Error</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Infinite handoff ping-pong between two agents</strong></td>
+        <td>Both specialists include each other in <code>handoffs=[...]</code> with overlapping routing instructions.</td>
+        <td>Make handoffs a clean DAG (Router &rarr; Specialist), clarify negative routing boundaries, and cap turns with <code>max_turns=8</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Process crashes with <code>GuardrailTripwireTriggered</code></strong></td>
+        <td><code>Runner.run()</code> raised a tripwire exception that wasn&rsquo;t caught by the API route handler.</td>
+        <td>Wrap <code>Runner.run()</code> in <code>try / except (InputGuardrailTripwireTriggered, OutputGuardrailTripwireTriggered)</code> and return a safe HTTP 400/200 fallback.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Strict JSON schema error on tool / <code>output_type</code></strong></td>
+        <td>OpenAI strict mode rejects optional fields without defaults, untyped <code>dict</code> parameters, or <code>additionalProperties</code>.</td>
+        <td>Use explicit Pydantic models or Zod objects with concrete types, clear field descriptions, and no bare unannotated dictionaries.</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>RedisSession</code> stalls or times out under load</strong></td>
+        <td>A new Redis TCP client is created per request instead of sharing an async connection pool.</td>
+        <td>Instantiate one shared <code>redis.asyncio</code> connection pool at app startup and pass it into <code>RedisSession</code> with an explicit <code>ttl</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Zombie MCP subprocesses or socket leaks</strong></td>
+        <td><code>MCPServerStdio</code> or <code>MCPServerStreamableHttp</code> was opened manually without closing on error.</td>
+        <td>Always enter MCP servers via <code>async with server:</code> (Python) or <code>try { ... } finally { await server.close(); }</code> (TypeScript).</td>
+      </tr>
+      <tr>
+        <td><strong>6. Customer PII appearing in OpenAI trace payloads</strong></td>
+        <td>Default tracing logs raw prompt and tool arguments when compliance requires metadata-only telemetry.</td>
+        <td>Pass <code>RunConfig(trace_include_sensitive_data=False)</code> or scrub fields inside a custom <code>TracingProcessor</code> before export.</td>
+      </tr>
+      <tr>
+        <td><strong>7. <code>MaxTurnsExceeded</code> aborts multi-step workflow</strong></td>
+        <td>An agent hits the default turn cap while sequentially polling 10+ tool calls one by one.</td>
+        <td>Enable parallel tool calling, batch lookups into a single tool, or raise <code>max_turns</code> intentionally for deep research loops.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Production Deploy</h3>
+  <div class="checklist-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Loop Budget Set:</strong> Every <code>Runner.run()</code> call sets an explicit <code>max_turns</code> cap and handles <code>MaxTurnsExceeded</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Tripwires Caught Cleanly:</strong> Both input and output guardrail exceptions return user-friendly fallback replies.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Strict Schemas Verified:</strong> All tools and <code>output_type</code> classes pass Pydantic/Zod strict JSON Schema checks.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Durable Session Pooled:</strong> Replaced local <code>SQLiteSession</code> with pooled <code>RedisSession</code> (plus TTL) or hosted Agents API threads.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>MCP Lifecycles Scoped:</strong> Connected MCP servers run inside context managers with filtered tool allowlists.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Traces &amp; Evals Wired:</strong> <code>trace()</code> spans scrub sensitive data where needed and failed spans feed your eval suite.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>OpenAI Agents API &amp; SDK &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

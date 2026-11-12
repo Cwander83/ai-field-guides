@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ChatGPT Canvas, Spaces &amp; Computer Use: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">OPENAI CODEX, AGENTS &amp; REALTIME STUDIOS &bull; FIELD GUIDE</div>
+    <h1>ChatGPT <span>Canvas, Spaces</span> &amp; Computer Use</h1>
+    <p class="cover-sub">
+      Move beyond single-player chat transcripts into a unified collaborative studio&mdash;editing prose and React prototypes side-by-side in Canvas, co-authoring living Pages inside team Spaces, and delegating multi-app workflows to gated virtual computers.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Split-Pane Canvas</span>
+      <span class="cover-badge">Inline Shortcuts</span>
+      <span class="cover-badge">Version Diffs</span>
+      <span class="cover-badge">Multiplayer Spaces</span>
+      <span class="cover-badge">Shared Pages</span>
+      <span class="cover-badge">Gated Computer Use</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Warm obsidian and amber studio illustration showing dual frosted glass drafting panes beside a multiplayer architectural table with glowing golden cursor prisms and connected cloud portals" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Surgical Split-Pane Canvas</div>
+      <div class="cover-stat-desc">Highlight exact paragraphs or code blocks for targeted rewrites, inline comments, live React previews, and instant diff rollbacks.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Multiplayer Spaces &amp; Pages</div>
+      <div class="cover-stat-desc">Unite teammates, persistent files, custom instructions, and living co-authored Pages in one shared workspace.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Gated Computer Execution</div>
+      <div class="cover-stat-desc">Delegate multi-step browser and connector workflows across Slack, Drive, and Salesforce behind explicit approval gates.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Workspace Evolution</span>
+    <span>ChatGPT Canvas, Spaces &amp; Computer Use</span>
+  </div>
+
+  <h2 class="page-title">From Single-Player Chat to Multiplayer &amp; Delegated Work</h2>
+  <p class="page-lead">
+    Traditional chat threads force you to scroll endlessly through linear replies whenever you revise a document, share context with a team, or ask an assistant to act in another app. ChatGPT separates those jobs into three purpose-built surfaces: <strong>Canvas</strong> for surgical co-editing, <strong>Spaces &amp; Pages</strong> for multiplayer collaboration, and <strong>Agent Mode / Computer Use</strong> for delegated execution.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Core Mental Model &amp; Surface Map</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Projects vs. Multiplayer Spaces &amp; Pages</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Plans, Entitlements &amp; Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Agent Mode &amp; Work Computer Use</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Canvas &amp; Spaces UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Mastering Canvas Surgical Edits</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Governance, Roles &amp; Data Boundaries</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Color-Coded Prompt &amp; Space Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Scope Tight, Gate Writes</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>How the Four ChatGPT Surfaces Fit Together</h3>
+  <div class="figure-box" style="background:#161008; padding:9px 11px; border-color:#92400e;">
+    <svg viewBox="0 0 710 198" width="100%" height="198" xmlns="http://www.w3.org/2000/svg">
+      <!-- 1. Standard Chat -->
+      <rect x="6" y="16" width="154" height="148" rx="8" fill="#1f1a14" stroke="#78716c" stroke-width="1.4"/>
+      <text x="83" y="34" text-anchor="middle" fill="#d6d3d1" font-size="7.4" font-weight="700">LINEAR STREAM</text>
+      <text x="83" y="51" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Standard Chat</text>
+      <rect x="16" y="61" width="134" height="34" rx="5" fill="#292524" stroke="#57534e" stroke-width="0.9"/>
+      <text x="83" y="75" text-anchor="middle" fill="#f5f5f4" font-size="7.2">Fast Q&amp;A, brainstorming,</text>
+      <text x="83" y="87" text-anchor="middle" fill="#a8a29e" font-size="7.1">one-off lookups &amp; triage</text>
+      <text x="83" y="114" text-anchor="middle" fill="#d6d3d1" font-size="7.1">&bull; Ephemeral single thread</text>
+      <text x="83" y="128" text-anchor="middle" fill="#d6d3d1" font-size="7.1">&bull; No shared artifact lock</text>
+      <text x="83" y="149" text-anchor="middle" fill="#a8a29e" font-size="7" font-weight="700">1:1 Ephemeral Dialogue</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M160 90 L178 90" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="176,85 184,90 176,95" fill="#fbbf24"/>
+
+      <!-- 2. Canvas -->
+      <rect x="184" y="16" width="162" height="148" rx="8" fill="#261a09" stroke="#fbbf24" stroke-width="1.8"/>
+      <text x="265" y="34" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">ARTIFACT WORKBENCH</text>
+      <text x="265" y="51" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Canvas</text>
+      <rect x="194" y="61" width="142" height="34" rx="5" fill="#3a260c" stroke="#d97706" stroke-width="0.9"/>
+      <text x="265" y="75" text-anchor="middle" fill="#fffbeb" font-size="7.2">Side-by-side editor for</text>
+      <text x="265" y="87" text-anchor="middle" fill="#fde68a" font-size="7.1">prose, code &amp; live React UI</text>
+      <text x="265" y="114" text-anchor="middle" fill="#fef3c7" font-size="7.1">&bull; Highlight-only surgical diffs</text>
+      <text x="265" y="128" text-anchor="middle" fill="#fef3c7" font-size="7.1">&bull; Inline shortcuts &amp; history</text>
+      <text x="265" y="149" text-anchor="middle" fill="#fbbf24" font-size="7" font-weight="700">Focused Document / Code Loop</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M346 90 L364 90" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="362,85 370,90 362,95" fill="#38bdf8"/>
+
+      <!-- 3. Projects -->
+      <rect x="370" y="16" width="154" height="148" rx="8" fill="#0f1f2b" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="447" y="34" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">PERSONAL FOLDER</text>
+      <text x="447" y="51" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Projects</text>
+      <rect x="380" y="61" width="134" height="34" rx="5" fill="#132c3d" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="447" y="75" text-anchor="middle" fill="#f0f9ff" font-size="7.2">Groups your personal</text>
+      <text x="447" y="87" text-anchor="middle" fill="#bae6fd" font-size="7.1">chats, files &amp; instructions</text>
+      <text x="447" y="114" text-anchor="middle" fill="#e0f2fe" font-size="7.1">&bull; Persistent reference docs</text>
+      <text x="447" y="128" text-anchor="middle" fill="#e0f2fe" font-size="7.1">&bull; Scoped custom memory</text>
+      <text x="447" y="149" text-anchor="middle" fill="#38bdf8" font-size="7" font-weight="700">Single-User Context Hub</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M524 90 L542 90" stroke="#34d399" stroke-width="2"/>
+      <polygon points="540,85 548,90 540,95" fill="#34d399"/>
+
+      <!-- 4. Spaces & Pages -->
+      <rect x="548" y="12" width="156" height="156" rx="8" fill="#0d261d" stroke="#34d399" stroke-width="1.9"/>
+      <text x="626" y="31" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">MULTIPLAYER STUDIO</text>
+      <text x="626" y="48" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Spaces &amp; Pages</text>
+      <rect x="558" y="58" width="136" height="36" rx="5" fill="#11382a" stroke="#059669" stroke-width="0.9"/>
+      <text x="626" y="72" text-anchor="middle" fill="#ecfdf5" font-size="7.2">Shared rooms where humans,</text>
+      <text x="626" y="84" text-anchor="middle" fill="#a7f3d0" font-size="7.1">ChatGPT &amp; agents co-build</text>
+      <text x="626" y="113" text-anchor="middle" fill="#d1fae5" font-size="7.1">&bull; Living co-authored Pages</text>
+      <text x="626" y="127" text-anchor="middle" fill="#d1fae5" font-size="7.1">&bull; Team connectors + agents</text>
+      <text x="626" y="141" text-anchor="middle" fill="#d1fae5" font-size="7.1">&bull; Replaces legacy Library</text>
+      <text x="626" y="158" text-anchor="middle" fill="#34d399" font-size="7" font-weight="700">Team + Agent Collaboration</text>
+
+      <!-- Bottom Span: Agent Mode / Computer Use -->
+      <rect x="6" y="172" width="698" height="21" rx="5" fill="#2b1e0a" stroke="#d97706" stroke-width="1"/>
+      <text x="355" y="186" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="600">Agent Mode &amp; Work Computer Use overlay every workspace: ChatGPT launches a sandboxed browser/desktop to act across external apps behind human confirmation gates.</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">The Core Design Shift: Artifacts Live Beside the Conversation, Not Inside It</div>
+    Whenever a draft grows past three paragraphs, requires teammates, or needs multi-step edits across external apps, promote it out of standard chat. Keep <strong>Canvas</strong> for focused individual drafting, <strong>Spaces &amp; Pages</strong> for living team knowledge, and <strong>Computer Use</strong> for verifiable cross-app actions.
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SURFACE & ENTITLEMENT DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Plans, Quotas &amp; Surface Selection</span>
+    <span>Plan Entitlements &amp; Workspace Decision Matrix</span>
+  </div>
+
+  <h2 class="page-title">Surface &amp; Entitlement Decision Matrix</h2>
+  <p class="page-lead">
+    Every ChatGPT tier unlocks different limits across collaborative workspaces and autonomous virtual computers. Use the tables below to verify what your plan includes and pick the right surface before starting a project.
+  </p>
+
+  <h3>Plan Entitlements Across Collaborative &amp; Agentic Surfaces</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Surface / Capability</th>
+        <th style="width:16%;">Free</th>
+        <th style="width:20%;">Plus</th>
+        <th style="width:20%;">Pro</th>
+        <th style="width:24%;">Team / Enterprise</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Canvas Split-Pane &amp; Shortcuts</strong></td>
+        <td>Included (standard rate limits; HTML/React preview).</td>
+        <td>Higher turn caps, reasoning models &amp; full version diffs.</td>
+        <td>Highest priority throughput &amp; extended context edits.</td>
+        <td>Full Canvas access with zero training on workspace data.</td>
+      </tr>
+      <tr>
+        <td><strong>Projects (Personal Context)</strong></td>
+        <td>Basic thread organization &amp; starter file limits.</td>
+        <td>Up to 25+ reference files per Project &amp; custom instructions.</td>
+        <td>Expanded file caps, deep research &amp; fast switching.</td>
+        <td>Workspace-compliant personal Projects alongside Spaces.</td>
+      </tr>
+      <tr>
+        <td><strong>Multiplayer Spaces</strong></td>
+        <td>View shared links; limited solo workspace trials.</td>
+        <td>Create personal &amp; small-group Spaces with invited peers.</td>
+        <td>Unlimited active Spaces &amp; priority agent concurrency.</td>
+        <td>Org-wide Spaces, RBAC membership &amp; admin audit logs.</td>
+      </tr>
+      <tr>
+        <td><strong>Live Co-Authored Pages</strong></td>
+        <td>Read-only shared Page previews.</td>
+        <td>Create, co-edit &amp; embed charts/Canvas outputs in Pages.</td>
+        <td>Multi-page launches with rich interactive widgets.</td>
+        <td>Company-directory Pages, version retention &amp; export policies.</td>
+      </tr>
+      <tr>
+        <td><strong>Agent Mode &amp; Work Computer Use</strong></td>
+        <td>Not included (standard web search only).</td>
+        <td>Monthly Agent Mode quota; gated browser &amp; app runs.</td>
+        <td>High monthly run allowance &amp; parallel virtual desktops.</td>
+        <td>Admin-governed Slack, Drive &amp; Salesforce connectors + SSO gates.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>When to Use Which Workspace: Quick Routing Flowchart</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:27%;">If Your Immediate Goal Is&hellip;</th>
+        <th style="width:23%;">Best Surface</th>
+        <th style="width:50%;">Why This Surface Wins &amp; How to Start</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Polish a memo, blog post, or single React component</strong></td>
+        <td><strong>Canvas</strong></td>
+        <td>Keeps untouched paragraphs frozen while you highlight lines for surgical rewrites, readability tuning, or live browser rendering. Trigger with <code>/canvas</code> or &ldquo;Open in Canvas.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>Maintain ongoing personal research with PDFs &amp; style rules</strong></td>
+        <td><strong>Projects</strong></td>
+        <td>Gives all your private threads one shared system prompt and file drawer without exposing drafts to coworkers before they are ready.</td>
+      </tr>
+      <tr>
+        <td><strong>Build a product launch, RFP, or playbook with teammates</strong></td>
+        <td><strong>Spaces &amp; Live Pages</strong></td>
+        <td>Replaces scattered chat links with one shared room holding team files, synced connectors, and living <strong>Pages</strong> that humans and ChatGPT co-edit together.</td>
+      </tr>
+      <tr>
+        <td><strong>Update CRM deals, triage Drive folders, or navigate web portals</strong></td>
+        <td><strong>Agent Mode / Computer Use</strong></td>
+        <td>Spins up an isolated cloud desktop &amp; virtual browser that clicks, reads, and drafts cross-app updates&mdash;pausing at confirmation gates before any external write.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">Pro Tip: Promote Cleanly From Personal Draft to Team Asset</div>
+    Start messy exploration in a private <strong>Project</strong>, refine the core deliverable inside <strong>Canvas</strong> until its structure holds, and publish the finished artifact into a shared <strong>Space Page</strong> so teammates inherit clean context without wading through your early prompts.
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Inside a Split-Pane Canvas &amp; Spaces Session</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Canvas Split-Pane &amp; Space Controls</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    When Canvas opens inside a Space or chat, ChatGPT shifts from a single scrolling column into a synchronized dual-pane studio. Learn the seven controls below to steer edits without accidentally rewriting healthy work.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#fde68a;">ChatGPT Space: Q4 Checkout Launch &mdash; Canvas / Page</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; font-size:7.1pt;">
+        <span style="background:#2e2212; color:#fde68a; border:1px solid #d97706; padding:1.5px 6px; border-radius:4px; font-weight:700;">Preview: Code | Live <span class="callout-pin">4</span></span>
+        <span style="background:#1c2a21; color:#6ee7b7; border:1px solid #059669; padding:1.5px 6px; border-radius:4px; font-weight:700;">v4 &bull; Diff Slider <span class="callout-pin">5</span></span>
+        <span style="background:#1e293b; color:#bae6fd; border:1px solid #0284c7; padding:1.5px 6px; border-radius:4px; font-weight:700;">MC &bull; AL &bull; Bot <span class="callout-pin">6</span></span>
+      </div>
+    </div>
+
+    <!-- Split Main Body -->
+    <div style="display:grid; grid-template-columns: 1fr 1.65fr; border-bottom:1px solid #573610;">
+      <!-- Left Conversation Rail -->
+      <div style="padding:8px 10px; border-right:1px solid #573610; background:#19130b;">
+        <div style="font-weight:700; color:#fbbf24; font-size:7.2pt; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;">
+          <span>CONVERSATION RAIL</span> <span class="callout-pin">1</span>
+        </div>
+        <div style="background:#261d12; border:1px solid #573610; border-radius:5px; padding:5px 7px; margin-bottom:5px; color:#e7e5e4; font-size:7.1pt;">
+          <strong style="color:#fde68a;">You:</strong> Tighten the highlighted pricing summary into two crisp bullets, and leave the SLA table untouched.
+        </div>
+        <div style="background:#1e1810; border:1px solid #3f2f1c; border-radius:5px; padding:5px 7px; margin-bottom:5px; color:#d6d3d1; font-size:7.1pt;">
+          <strong style="color:#34d399;">ChatGPT:</strong> Updated lines 14&ndash;19 in <code>CheckoutBrief.tsx</code>. Kept lines 1&ndash;13 and 20&ndash;48 identical.
+        </div>
+        <div style="background:#261d12; border:1px dashed #d97706; border-radius:5px; padding:4.5px 7px; font-size:6.95pt; color:#fde68a; display:flex; justify-content:space-between; align-items:center;">
+          <span>Connectors: <code>@Drive</code> &bull; <code>@Slack</code></span>
+          <span class="callout-pin">7</span>
+        </div>
+      </div>
+
+      <!-- Right Canvas / Page Pane -->
+      <div style="padding:8px 11px; background:#140f08; position:relative;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <span style="color:#a8a29e; font-size:7pt;"><code>src/CheckoutBrief.tsx</code> &bull; Highlighted Region Active</span>
+          <span style="color:#34d399; font-size:7pt; font-weight:700;">Saved to Space Page &bull; 2s ago</span>
+        </div>
+
+        <!-- Untouched Section -->
+        <div style="color:#a8a29e; font-size:7.1pt; padding:3px 6px; border-left:2px solid #44403c; margin-bottom:5px;">
+          <code>// Lines 1&ndash;13: Frozen header &amp; compliance disclaimer (unchanged)</code><br/>
+          &lt;LaunchHeader title=&quot;Q4 Express Checkout&quot; status=&quot;Beta&quot; /&gt;
+        </div>
+
+        <!-- Highlighted Selection + Floating Inline Toolbar -->
+        <div style="background:#2d200a; border:1.5px solid #fbbf24; border-radius:6px; padding:5.5px 8px; margin-bottom:5px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#fde68a; font-weight:700; font-size:7.1pt;">Selected Region (Lines 14&ndash;19) <span class="callout-pin">2</span></span>
+            <span style="background:#1c1917; border:1px solid #fbbf24; border-radius:999px; padding:1.5px 7px; font-size:6.75pt; color:#fef3c7; font-weight:700;">
+              Adjust Length | Reading Level | Port Code | Fix Bugs <span class="callout-pin">3</span>
+            </span>
+          </div>
+          <div style="color:#fef3c7; font-size:7.1pt; line-height:1.36;">
+            &bull; Flat 1.9% card rate with instant settlement for verified team accounts.<br/>
+            &bull; Zero setup fees through Q1; automatic fallback to invoice billing.
+          </div>
+        </div>
+
+        <!-- Inline Pin Comment -->
+        <div style="background:#1a222d; border:1px solid #0284c7; border-radius:5px; padding:4px 7px; font-size:6.95pt; color:#e0f2fe;">
+          <strong style="color:#38bdf8;">ChatGPT Suggestion Pin:</strong> Confirm whether EU SEPA tiers inherit the Q1 fee waiver before publishing to the team Page.
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Shortcut Bar -->
+    <div style="background:#1e160b; padding:4.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7pt; color:#d6d3d1;">
+      <span>Active Space Mode: <strong style="color:#fbbf24;">Co-Editing Page + Canvas</strong></span>
+      <span>Shortcuts: <code>Cmd+K</code> Ask Canvas &bull; <code>Cmd+Z</code> Revert Version Diff</span>
+    </div>
+  </div>
+
+  <h3>Interface Legend: The 7 Canvas &amp; Space Controls</h3>
+  <div class="grid-2" style="font-size:7.95pt; gap:6px 12px;">
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">1</span> Left Conversation Rail:</strong> Holds your running prompts, change summaries, and reasoning trail while keeping the actual deliverable stable on the right.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">2</span> Highlighted Selection Lock:</strong> Selecting lines in the editor restricts ChatGPT&rsquo;s rewrite strictly to that highlighted block, protecting surrounding text.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">3</span> Floating Inline Shortcut Toolbar:</strong> Appears automatically on selection or bottom-right corner with one-click sliders for length, reading level, bug fixes, and language porting.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">4</span> Code / Live Preview Toggle:</strong> Renders HTML, Tailwind, and React components inside an interactive sandbox right inside the Canvas pane.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">5</span> Version History &amp; Diff Slider:</strong> Step backward through every draft snapshot, inspect line-by-line additions or deletions, and restore prior states in one click.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <strong><span class="callout-pin">6</span> Multiplayer Presence Avatars:</strong> Displays teammates and active workspace agents viewing or co-authoring the shared Space Page simultaneously.
+    </div>
+    <div class="card-warm" style="padding:6px 9px; grid-column: span 2;">
+      <strong><span class="callout-pin">7</span> Scoped App &amp; File Mentions (<code>@Drive</code>, <code>@Slack</code>, <code>@Salesforce</code>):</strong> Pull live files or trigger gated agent reads directly from the chat rail without leaving your Canvas draft.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: MASTERING CANVAS SURGICAL EDITS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Precision Co-Editing</span>
+    <span>Mastering Canvas Surgical Edits &amp; Version Diffs</span>
+  </div>
+
+  <h2 class="page-title">Mastering Canvas Surgical Edits</h2>
+  <p class="page-lead">
+    The fastest way to ruin a strong draft in standard chat is asking for a small tweak and watching the model rewrite paragraphs you already approved. Canvas eliminates collateral drift by pairing region highlighting with targeted shortcuts, inline review pins, live UI previews, and reversible version diffs.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-warm" style="border-top:3px solid #d97706;">
+      <div class="card-title"><span class="num-badge">1</span> Partial-Region Highlighting &amp; Direct Typing</div>
+      <p style="font-size:7.95pt; margin:0 0 4px 0;">
+        Drag your cursor over any sentence, bullet list, or function inside the Canvas pane before typing in the chat rail. ChatGPT sees exact start-and-end line markers and applies a scoped diff rather than regenerating the file. You can also click anywhere inside the Canvas to edit words directly like a normal document editor.
+      </p>
+      <p style="font-size:7.8pt; color:#78350f; margin:0;"><strong>Pro Move:</strong> Combine manual tweaks on headings with AI rewrites on dense body paragraphs for effortless human-in-the-loop polish.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">2</span> Targeted Comment Pins &amp; Inline Reviews</div>
+      <p style="font-size:7.95pt; margin:0 0 4px 0;">
+        Click <strong>Suggest edits</strong> (writing) or <strong>Review code</strong> (coding) to let ChatGPT place non-destructive comment pins along the margin instead of changing your text immediately. Each pin explains a logic gap, weak claim, or edge-case bug with an individual <strong>Apply</strong> button.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;"><strong>Pro Move:</strong> Ask for a legal, security, or executive-skeptic pass via pins before committing a single line change.</p>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title"><span class="num-badge amber">A</span> Writing Shortcuts</div>
+      <ul style="font-size:7.75pt; margin:2px 0 0 0;">
+        <li><strong>Adjust Length:</strong> Slider from Shortest to Longest.</li>
+        <li><strong>Reading Level:</strong> Kindergarten through Graduate School.</li>
+        <li><strong>Final Polish &amp; Emojis:</strong> Grammar, flow, and tone cleanup.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title"><span class="num-badge teal">B</span> Coding Shortcuts</div>
+      <ul style="font-size:7.75pt; margin:2px 0 0 0;">
+        <li><strong>Fix Bugs &amp; Add Logs:</strong> Patch defects and trace runtime state.</li>
+        <li><strong>Add Comments:</strong> Clean JSDoc or docstring summaries.</li>
+        <li><strong>Port Language:</strong> Translate cleanly across TS, Python, Go, or C++.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title"><span class="num-badge espresso">C</span> Live Preview &amp; Diff Rollback</div>
+      <ul style="font-size:7.75pt; margin:2px 0 0 0;">
+        <li><strong>Live Preview:</strong> Render HTML, CSS &amp; React components inline.</li>
+        <li><strong>Show Changes:</strong> Highlight green additions &amp; red deletions.</li>
+        <li><strong>Restore Version:</strong> Jump back to any prior save instantaneously.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/canvas_surgical_diff_lens.jpg" alt="Precision golden optical prism magnifying lens isolating one glowing amber manuscript and code ribbon while leaving adjacent layers untouched" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Surgical Precision Without Collateral Edits:</strong> Highlighting a region focuses ChatGPT&rsquo;s edit beam onto a single glowing band of prose or code&mdash;leaving surrounding sections, formatting, and approved logic completely intact while preserving full diff rollback history.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: COLOR-CODED PROMPT & SPACE ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Structured Prompt Engineering</span>
+    <span>Color-Coded Prompt &amp; Space Instruction Anatomy</span>
+  </div>
+
+  <h2 class="page-title">Prompt Anatomy for Surgical Canvas &amp; Shared Spaces</h2>
+  <p class="page-lead">
+    Vague prompts trigger whole-document rewrites and drift across team sessions. Use these six color-coded building blocks to lock scope inside Canvas and give shared Spaces crisp, durable rules that every teammate&rsquo;s thread respects.
+  </p>
+
+  <div style="margin-bottom:6px; font-size:7.75pt; display:flex; flex-wrap:wrap; gap:5px;">
+    <span class="p-tag p-scope">[1. Target Scope / Selection]</span>
+    <span class="p-tag p-intent">[2. Exact Edit Intent]</span>
+    <span class="p-tag p-tone">[3. Voice / Code Standard]</span>
+    <span class="p-tag p-lock">[4. Do-Not-Touch Lock]</span>
+    <span class="p-tag p-out">[5. Output / Page Format]</span>
+    <span class="p-tag p-gate">[6. Connector &amp; Write Gate]</span>
+  </div>
+
+  <h3>Formula 1: Surgical Canvas Rewrite Prompt (Zero Collateral Drift)</h3>
+  <div class="card" style="background:#fffdf7; border:1px solid #fcd34d; padding:8.5px 11px; margin-bottom:7px; font-size:8.25pt; line-height:1.68;">
+    &ldquo;<span class="p-tag p-scope">Edit ONLY my highlighted pricing section (lines 14&ndash;24) inside the active Canvas.</span>
+    <span class="p-tag p-intent">Replace passive onboarding phrasing with three concrete migration steps and add a fallback try/catch block in handleCheckout().</span>
+    <span class="p-tag p-tone">Match concise Stripe-style API docs tone and keep TypeScript strict with zero external npm dependencies.</span>
+    <span class="p-tag p-lock">Do NOT alter the hero header, legal footer, or existing Tailwind color tokens outside lines 14&ndash;24.</span>
+    <span class="p-tag p-out">Show the diff in Canvas and summarize changed lines in two bullets in the chat rail.</span>&rdquo;
+  </div>
+
+  <h3>Formula 2: Persistent Shared Space Custom Instructions</h3>
+  <div class="card" style="background:#f8fafc; border:1px solid #cbd5e1; padding:8.5px 11px; margin-bottom:7px; font-size:8.2pt; line-height:1.66;">
+    &ldquo;<span class="p-tag p-scope">Workspace Role: You are the Launch Operations Editor for the Q4 Checkout Space, serving Product, Legal, and Engineering.</span>
+    <span class="p-tag p-intent">Answer questions by citing uploaded Space files first and updating our living Launch Tracker Page whenever milestones change.</span>
+    <span class="p-tag p-tone">Write in plain, scannable prose with bold action owners and ISO dates (YYYY-MM-DD).</span>
+    <span class="p-tag p-lock">Never overwrite approved Legal sign-off sections on Pages; add proposed updates as inline review notes instead.</span>
+    <span class="p-tag p-out">Format status rollups as a 4-column table (Workstream, Owner, Blocker, Target Date).</span>
+    <span class="p-tag p-gate">Before posting to #launch-ops in @Slack or modifying any @Salesforce or @Drive record, pause and present an explicit confirmation preview.</span>&rdquo;
+  </div>
+
+  <h3>Clause-by-Clause Cheat Sheet: Why Each Tag Prevents Rework</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Prompt Clause</th>
+        <th style="width:36%;">Common Failure Without It</th>
+        <th style="width:40%;">What to Write Instead</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Target Scope / Selection</strong></td>
+        <td>Model regenerates the entire 1,200-word brief or whole React file.</td>
+        <td>Name exact line numbers, heading titles, or highlight the region first.</td>
+      </tr>
+      <tr>
+        <td><strong>Do-Not-Touch Lock</strong></td>
+        <td>Approved pricing numbers, legal wording, or CSS tokens get silently changed.</td>
+        <td>Explicitly freeze protected sections and forbid unrequested refactors.</td>
+      </tr>
+      <tr>
+        <td><strong>Output / Page Format</strong></td>
+        <td>Edits spill into chat text instead of updating the Canvas or Space Page.</td>
+        <td>State whether edits belong in Canvas diff, inline pins, or a named Space Page.</td>
+      </tr>
+      <tr>
+        <td><strong>Connector &amp; Write Gate</strong></td>
+        <td>Agent guesses wrong Slack channel or drafts premature CRM updates.</td>
+        <td>Require a preview card and human approval before any external write action.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Two-Second Sanity Check Before Hitting Enter</div>
+    If your prompt touches an existing Canvas or shared Space Page, verify it contains both a <strong>Scope</strong> (&ldquo;only lines X&ndash;Y&rdquo;) and a <strong>Lock</strong> (&ldquo;leave Z unchanged&rdquo;). Those two phrases eliminate over 80% of unwanted rewrites.
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: PROJECTS VS. SPACES & LIVE PAGES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Multiplayer Workspaces</span>
+    <span>Projects vs. Multiplayer Spaces &amp; Living Pages</span>
+  </div>
+
+  <h2 class="page-title">Projects vs. Multiplayer Spaces &amp; Live Pages</h2>
+  <p class="page-lead">
+    OpenAI evolved the older solo <strong>Library</strong> mindset into two distinct layers: private <strong>Projects</strong> for personal deep work, and multiplayer <strong>Spaces</strong> anchored by living <strong>Pages</strong> where human teammates, ChatGPT, and specialized agents share one persistent source of truth.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">1</span> Retiring the Old Library Mental Model</div>
+      <p style="font-size:7.95pt; margin:0 0 4px 0;">
+        In classic ChatGPT, generated images, docs, and old chats piled up inside a personal chronological <strong>Library</strong>&mdash;fine for solo lookup, painful for team projects. When a teammate needed context, you had to copy-paste prompts or export static PDFs that went stale within hours.
+      </p>
+      <p style="font-size:7.9pt; margin:0;"><strong>Spaces</strong> fix this by binding chats, uploaded knowledge files, synced cloud drives, and editable <strong>Pages</strong> into a single shared room.</p>
+    </div>
+    <div class="card-warm" style="border-top:3px solid #d97706;">
+      <div class="card-title"><span class="num-badge">2</span> Living Pages vs. Static Chat Threads</div>
+      <p style="font-size:7.95pt; margin:0 0 4px 0;">
+        A <strong>Page</strong> inside a Space is a living, block-structured document combining crisp prose, tables, charts, and embedded Canvas prototypes. Instead of burying decisions in message #47 of a thread, humans and ChatGPT update the Page directly.
+      </p>
+      <p style="font-size:7.9pt; margin:0;">Use Pages for PRDs, launch checklists, customer research hubs, and weekly ops briefs that stay continuously current.</p>
+    </div>
+  </div>
+
+  <h3>Side-by-Side Architecture: Personal Projects vs. Multiplayer Spaces</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Capability</th>
+        <th style="width:38%;">Projects (Personal Workbench)</th>
+        <th style="width:42%;">Spaces &amp; Pages (Multiplayer Studio)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Audience &amp; Access</strong></td>
+        <td>Strictly private to your account; ideal for personal notes, coding experiments, and rough drafts.</td>
+        <td>Shared with invited teammates, cross-functional groups, and workspace agents with role-based permissions.</td>
+      </tr>
+      <tr>
+        <td><strong>Knowledge Sources</strong></td>
+        <td>Uploaded PDFs, spreadsheets, and personal custom instructions scoped to your folder.</td>
+        <td>Curated team file library + live synced Drive folders, Slack channels, and CRM context shared across members.</td>
+      </tr>
+      <tr>
+        <td><strong>Primary Output Artifact</strong></td>
+        <td>Private chat threads and individual Canvas documents.</td>
+        <td>Living co-authored <strong>Pages</strong> plus linked Canvas drafts and automated agent digests.</td>
+      </tr>
+      <tr>
+        <td><strong>Agent Collaboration</strong></td>
+        <td>Single-user assistant runs inside your threads.</td>
+        <td>Tag ChatGPT or specialized agents inside shared threads and Pages so every teammate sees updates live.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>4-Step Blueprint: Setting Up a High-Signal Team Space</h3>
+  <div class="grid-2" style="gap:8px;">
+    <div class="card" style="padding:7px 9.5px;">
+      <div class="card-title"><span class="num-badge">1</span> Curate Clean Knowledge Sources</div>
+      <p style="font-size:7.8pt; margin:0;">Upload canonical PDFs, architecture specs, and brand guides (not ten outdated copies). Tag authoritative files with <code>[CANONICAL]</code> in filenames so ChatGPT prioritizes them.</p>
+    </div>
+    <div class="card" style="padding:7px 9.5px;">
+      <div class="card-title"><span class="num-badge amber">2</span> Lock Space Instructions</div>
+      <p style="font-size:7.8pt; margin:0;">Set clear voice, date formatting, citation rules, and connector confirmation guardrails once at the Space level so every teammate gets consistent quality.</p>
+    </div>
+    <div class="card" style="padding:7px 9.5px;">
+      <div class="card-title"><span class="num-badge teal">3</span> Anchor With 2&ndash;3 Core Pages</div>
+      <p style="font-size:7.8pt; margin:0;">Create one <strong>Launch Brief Page</strong>, one <strong>Decision Log Page</strong>, and one <strong>Weekly Status Page</strong> rather than letting answers vanish in chat history.</p>
+    </div>
+    <div class="card" style="padding:7px 9.5px;">
+      <div class="card-title"><span class="num-badge sky">4</span> Invite Humans + Agents Together</div>
+      <p style="font-size:7.8pt; margin:0;">Add engineering, PM, and legal reviewers with Editor or Commenter roles, and assign recurring research or triage tasks to workspace agents inside the same Space.</p>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: AGENT MODE & COMPUTER USE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Autonomous Execution &amp; Guardrails</span>
+    <span>Agent Mode, Work Computer Use &amp; Confirmation Gates</span>
+  </div>
+
+  <h2 class="page-title">Agent Mode &amp; ChatGPT Work Computer Use</h2>
+  <p class="page-lead">
+    When information lives behind authenticated web portals or spans multiple business apps, copy-pasting screenshots slows you down. <strong>Agent Mode</strong> equips ChatGPT with a sandboxed virtual browser, terminal, and authorized connectors&mdash;executing multi-step workflows while pausing at strict human confirmation gates before irreversible actions.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card" style="border-top:3px solid #d97706;">
+      <div class="card-title"><span class="num-badge">1</span> Virtual Browser &amp; Desktop</div>
+      <p style="font-size:7.8pt; margin:0;">ChatGPT operates a live cloud workstation&mdash;clicking buttons, filling structured forms, inspecting tables, and running Python scripts inside an observable activity stream.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">2</span> Work App Connectors</div>
+      <p style="font-size:7.8pt; margin:0;">Pair virtual browsing with native workspace connectors for <strong>Slack</strong>, <strong>Google Drive</strong>, and <strong>Salesforce</strong> to read live records without brittle screen scraping.</p>
+    </div>
+    <div class="card-warm" style="border-top:3px solid #e11d48;">
+      <div class="card-title"><span class="num-badge espresso">3</span> Confirmation Gates &amp; Takeover</div>
+      <p style="font-size:7.8pt; margin:0;">Execution automatically pauses for <strong>Human Approval</strong> before sending messages, editing CRM records, or submitting payments&mdash;and lets you take over the cursor for 2FA logins.</p>
+    </div>
+  </div>
+
+  <div class="callout rose" style="margin:2px 0 7px 0;">
+    <div class="callout-title">Read Freely, Gate Every Write: The Non-Negotiable Safety Contract</div>
+    Authorize agents to <strong>search Slack threads, read Google Drive specs, and audit Salesforce opportunities</strong> autonomously, then enforce a mandatory confirmation gate on every state change. Always review the exact proposed diff card (target channel, record ID, field values) before clicking <strong>Approve</strong>.
+  </div>
+
+  <div class="figure-box" style="margin:2px 0 0 0;">
+    <img src="assets/spaces_virtual_computer_hub.jpg" alt="Isometric architectural studio showing collaborative desks linked into glowing golden canvas sheets while an autonomous cursor orbits three virtual desktop screens behind a translucent amber shield gate" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Collaborative Spaces Meet Gated Virtual Desktops:</strong> Human teams co-author shared golden Pages on the left while an autonomous agent operates sandboxed desktop views on the right&mdash;passing every external write back through a protective confirmation shield gate.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Use Playbooks</span>
+    <span>5 Real-World Copy-Paste Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Drop any prompt below straight into ChatGPT Canvas, a team Space, or an Agent Mode session. Each recipe pairs tight scoping with explicit output targets and safe confirmation boundaries so you get production-grade results on the first run.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Recipe &amp; Surface</th>
+        <th style="width:19%;">Controls Used</th>
+        <th style="width:60%;">Copy-Paste Prompt Blueprint</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Executive Memo Surgical Polish</strong><br/><span style="color:#b45309; font-weight:700;">Canvas (Writing)</span></td>
+        <td>Highlight Selection<br/><code>Reading Level</code><br/><code>Version Diff</code></td>
+        <td>&ldquo;Open this memo in Canvas. Highlighted lines 10&ndash;28 only: tighten the financial rationale to three executive bullets at a crisp business reading level, quantify Q3 cost savings, and leave the Risk Matrix and Appendix untouched. Highlight your additions in the Canvas diff.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>2. Interactive React Prototype + Diffs</strong><br/><span style="color:#b45309; font-weight:700;">Canvas (Code + Live)</span></td>
+        <td><code>Live Preview</code><br/><code>Fix Bugs</code><br/><code>Restore v1</code></td>
+        <td>&ldquo;Build a single-file React + Tailwind ROI calculator in Canvas with live preview enabled. Keep all state in React hooks with zero external packages. After rendering v1, add an accessible CSV export button while leaving existing slider calculations untouched so I can compare the version diff.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>3. Cross-Functional Product Launch Space</strong><br/><span style="color:#b45309; font-weight:700;">Spaces &amp; Pages</span></td>
+        <td>Space Files<br/><code>Living Page</code><br/>Inline Pins</td>
+        <td>&ldquo;In this Launch Space, read our uploaded PRD PDF and Design Spec. Create a shared Page titled Q4 Launch Command Center with four sections: Scope, Milestones Table, Open Risks, and QA Sign-Off. Flag any timeline mismatch between the PRD and Design Spec as inline comment pins.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>4. Salesforce-to-Drive CRM Hygiene</strong><br/><span style="color:#b45309; font-weight:700;">Agent Mode / Computer Use</span></td>
+        <td><code>@Salesforce</code><br/><code>@Google Drive</code><br/>Confirm Gate</td>
+        <td>&ldquo;Enter Agent Mode. Query <code>@Salesforce</code> for Enterprise opportunities untouched for 14+ days, cross-check call notes inside <code>@Google Drive</code> folder Sales-Q4, and stage recommended Next Step updates in a Canvas review table. Pause at a confirmation gate before writing any field back to Salesforce.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>5. Weekly Slack &amp; Calendar Ops Brief</strong><br/><span style="color:#b45309; font-weight:700;">Spaces + Connectors</span></td>
+        <td><code>@Slack</code><br/><code>Living Page</code><br/>Confirm Gate</td>
+        <td>&ldquo;Read the last 7 days of <code>#eng-releases</code> and <code>#support-escalations</code> via <code>@Slack</code> plus this week&rsquo;s milestone calendar. Append a dated summary to our Weekly Ops Brief Page with Shipped, Blocked, and Decisions Needed. Draft a 5-bullet recap for <code>#leadership</code> and wait for my approval before posting.&rdquo;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">Combining Canvas + Spaces for Maximum Leverage</div>
+    Draft fast, experimental UI or copy inside a <strong>Canvas</strong> tab first, verify it with Live Preview and Version Diffs, and then promote the clean result into a team <strong>Space Page</strong>. That keeps messy trial-and-error iterations out of your shared team history.
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: GOVERNANCE, PERMISSIONS & DATA BOUNDARIES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security &amp; Enterprise Governance</span>
+    <span>Space Roles, Connector Scopes &amp; Computer Use Guardrails</span>
+  </div>
+
+  <h2 class="page-title">Workspace Governance, Permissions &amp; Boundaries</h2>
+  <p class="page-lead">
+    Multiplayer Spaces and virtual computers multiply team velocity&mdash;which means permissions, connector scopes, and training boundaries must be crystal clear before you invite colleagues or connect production systems.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-dark">
+      <div class="card-title">Space Membership Roles &amp; Page Controls</div>
+      <ul style="font-size:7.85pt; color:#fef3c7; margin:2px 0 0 0;">
+        <li><strong>Owner / Admin:</strong> Manages member invites, Space-wide custom instructions, connector bindings, and archive/deletion controls.</li>
+        <li><strong>Editor:</strong> Co-authors live Pages, uploads Space reference files, opens Canvas drafts, and runs authorized agents.</li>
+        <li><strong>Commenter / Viewer:</strong> Leaves inline margin feedback and reads live Pages without altering canonical instructions or files.</li>
+        <li><strong>External Sharing Rule:</strong> Lock external link sharing off for internal Spaces containing customer PII or unreleased roadmaps.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">!</span> Connector Scopes &amp; Training Opt-Out</div>
+      <ul style="font-size:7.85pt; margin:2px 0 0 0;">
+        <li><strong>Zero Training by Default (Team / Enterprise):</strong> Conversations, Space files, Canvas drafts, and connector payloads are excluded from model training.</li>
+        <li><strong>Consumer Tiers (Plus / Pro):</strong> Disable <em>Improve the model for everyone</em> in Data Controls when working with confidential drafts.</li>
+        <li><strong>Per-User OAuth Enforcement:</strong> Connectors respect each user&rsquo;s existing Google Drive, Slack, and Salesforce ACLs&mdash;ChatGPT never elevates privileges.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Safe Delegation Guardrails for Agent Mode &amp; Computer Use</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Guardrail Layer</th>
+        <th style="width:36%;">Risk Prevented</th>
+        <th style="width:40%;">Recommended Workspace Configuration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Domain Allowlists &amp; Blocklists</strong></td>
+        <td>Agent wandering onto untrusted web domains or exfiltrating sensitive snippets via URLs.</td>
+        <td>Restrict virtual browser sessions to approved SaaS portals (docs, CRM, staging dashboards) in Admin Settings.</td>
+      </tr>
+      <tr>
+        <td><strong>Mandatory Write Confirmation</strong></td>
+        <td>Accidental mass Slack pings, wrong CRM stage transitions, or unreviewed file overwrites.</td>
+        <td>Keep confirmation gates enabled for all mutations, external emails, form submissions, and financial actions.</td>
+      </tr>
+      <tr>
+        <td><strong>Ephemeral Credential Hygiene</strong></td>
+        <td>Long-lived admin tokens lingering inside shared automated sessions.</td>
+        <td>Use Takeover Mode for interactive 2FA logins and never paste raw API secrets or passwords into Space instructions.</td>
+      </tr>
+      <tr>
+        <td><strong>Read-Only Service Accounts</strong></td>
+        <td>Excessive blast radius during exploratory research or reporting runs.</td>
+        <td>Bind reporting Spaces to least-privilege read scopes; reserve write connectors for dedicated gated workflows.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:2px 0 0 0;">
+    <div class="callout-title">Audit Trail Advantage: Every Agent Click &amp; Page Edit Leaves Receipts</div>
+    Before rolling out Agent Mode team-wide, run a one-week pilot inside a single Operations Space with three editors. Inspect the virtual computer&rsquo;s step log and Page version history every Friday to tune instruction locks and connector scopes.
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; End-to-End OpenAI Ecosystem</span>
+    <span>Spaces &amp; Pages &rarr; Codex CLI/Cloud &rarr; Agents SDK</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From Space Page to Production</h2>
+  <p class="page-lead">
+    ChatGPT Canvas and Spaces sit at the front of OpenAI&rsquo;s product stack. Once your team aligns on a spec inside a living Space Page and validates a UI prototype in Canvas, you can hand clean requirements straight into <strong>Codex CLI / Cloud PRs</strong> and automate recurring workflows with the <strong>OpenAI Agents SDK</strong>.
+  </p>
+
+  <div class="figure-box" style="background:#161008; padding:10px 12px; border-color:#92400e; margin-bottom:8px;">
+    <svg viewBox="0 0 700 205" width="100%" height="205" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Spaces & Pages -->
+      <rect x="8" y="16" width="198" height="145" rx="9" fill="#271b0b" stroke="#fbbf24" stroke-width="1.8"/>
+      <text x="107" y="35" text-anchor="middle" fill="#fde68a" font-size="7.5" font-weight="700">1. ALIGN &amp; PROTOTYPE</text>
+      <text x="107" y="53" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Spaces, Pages &amp; Canvas</text>
+      <line x1="22" y1="63" x2="192" y2="63" stroke="#78350f" stroke-width="1"/>
+      <text x="22" y="80" fill="#fef3c7" font-size="7.4">&bull; Team gathers Drive &amp; Slack context</text>
+      <text x="22" y="95" fill="#fef3c7" font-size="7.4">&bull; Co-authors living PRD Page</text>
+      <text x="22" y="110" fill="#fef3c7" font-size="7.4">&bull; Prototypes UI in Canvas Live Preview</text>
+      <rect x="22" y="126" width="170" height="22" rx="4" fill="#3a260c"/>
+      <text x="107" y="140" text-anchor="middle" fill="#fbbf24" font-size="7.2" font-weight="700">Output: Approved Spec + JSX</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M206 88 L236 88" stroke="#fbbf24" stroke-width="2.2"/>
+      <polygon points="234,83 243,88 234,93" fill="#fbbf24"/>
+
+      <!-- Stage 2: Codex CLI / Cloud -->
+      <rect x="243" y="16" width="206" height="145" rx="9" fill="#0f212e" stroke="#38bdf8" stroke-width="1.8"/>
+      <text x="346" y="35" text-anchor="middle" fill="#7dd3fc" font-size="7.5" font-weight="700">2. IMPLEMENT &amp; VERIFY</text>
+      <text x="346" y="53" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Codex CLI &amp; Codex Cloud</text>
+      <line x1="257" y1="63" x2="435" y2="63" stroke="#0369a1" stroke-width="1"/>
+      <text x="257" y="80" fill="#e0f2fe" font-size="7.4">&bull; Reads Space spec &amp; Canvas export</text>
+      <text x="257" y="95" fill="#e0f2fe" font-size="7.4">&bull; Edits multi-file repo + runs unit tests</text>
+      <text x="257" y="110" fill="#e0f2fe" font-size="7.4">&bull; Opens reviewed GitHub Pull Request</text>
+      <rect x="257" y="126" width="178" height="22" rx="4" fill="#133348"/>
+      <text x="346" y="140" text-anchor="middle" fill="#7dd3fc" font-size="7.2" font-weight="700">Output: Tested Production PR</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M449 88 L479 88" stroke="#34d399" stroke-width="2.2"/>
+      <polygon points="477,83 486,88 477,93" fill="#34d399"/>
+
+      <!-- Stage 3: Agents SDK & Computer Use -->
+      <rect x="486" y="16" width="206" height="145" rx="9" fill="#0d261d" stroke="#34d399" stroke-width="1.8"/>
+      <text x="589" y="35" text-anchor="middle" fill="#6ee7b7" font-size="7.5" font-weight="700">3. AUTOMATE &amp; OPERATE</text>
+      <text x="589" y="53" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Agents SDK &amp; Ops Runs</text>
+      <line x1="500" y1="63" x2="678" y2="63" stroke="#047857" stroke-width="1"/>
+      <text x="500" y="80" fill="#d1fae5" font-size="7.4">&bull; Graduates proven Agent Mode runs</text>
+      <text x="500" y="95" fill="#d1fae5" font-size="7.4">&bull; Schedules CRM, Slack &amp; Drive syncs</text>
+      <text x="500" y="110" fill="#d1fae5" font-size="7.4">&bull; Enforces typed tool schemas &amp; traces</text>
+      <rect x="500" y="126" width="178" height="22" rx="4" fill="#113d2d"/>
+      <text x="589" y="140" text-anchor="middle" fill="#6ee7b7" font-size="7.2" font-weight="700">Output: Repeatable Production Ops</text>
+
+      <!-- Feedback Return Loop -->
+      <path d="M589 161 L589 186 L107 186 L107 163" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <polygon points="103,166 107,158 111,166" fill="#fbbf24"/>
+      <text x="348" y="181" text-anchor="middle" fill="#fde68a" font-size="7.3" font-weight="600">Release metrics, PR links &amp; customer feedback flow back into the Space Launch Page automatically</text>
+    </svg>
+  </div>
+
+  <h3>How Teams Bridge All Three Stages Without Copy-Paste Friction</h3>
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Canvas &amp; Pages as Pre-Code Alignment</div>
+      <p style="font-size:7.9pt; margin:0;">Instead of prompting Codex from vague bullet fragments, finalize your data schema, edge cases, and React layout inside a Canvas + Space Page first. Export the spec markdown straight into your repo&rsquo;s <code>docs/</code> or pass it to <code>codex</code> so engineering builds against verified requirements.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Graduating Agent Mode to Agents SDK</div>
+      <p style="font-size:7.9pt; margin:0;">Use interactive <strong>Computer Use</strong> inside a Space to prototype a weekly CRM or support triage workflow by hand. Once the steps stabilize, codify those same Slack, Drive, and Salesforce tools inside the <strong>OpenAI Agents SDK</strong> for scheduled, trace-logged production automation.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Rule of Thumb: Prototype visually in ChatGPT, Harden in Codex &amp; Agents SDK</div>
+    Use Canvas and Spaces where speed, visual previews, and human team discussion matter most; hand off to Codex Cloud for multi-file test suites and to the Agents SDK whenever an operational task runs daily.
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:5px;">
+    Most workspace snags come from ambiguous scope, preview sandbox rules, or paused authentication gates. Keep this seven-issue diagnostic chart handy for ten-second fixes.
+  </p>
+
+  <table class="clean-table" style="font-size:7.55pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Issue</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Canvas fails to open split pane</strong></td>
+        <td>Prompt was too short or looked like simple Q&amp;A, keeping output in inline chat.</td>
+        <td>Prefix your prompt with <code>Open in Canvas:</code> or click the <strong>Open in Canvas</strong> icon under the generated code/text block.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Full rewrite overwrote untouched sections</strong></td>
+        <td>No region was highlighted in the Canvas pane and prompt lacked a Do-Not-Touch lock.</td>
+        <td>Click <strong>Show Changes</strong> &rarr; <strong>Restore Previous Version</strong>, highlight only the target lines, and add &ldquo;leave all other lines identical.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>3. Live preview shows a blank screen</strong></td>
+        <td>Component imports an unbundled third-party npm library or throws a runtime reference error.</td>
+        <td>Click <strong>Fix Bugs</strong> in the Canvas toolbar, inspect console errors, and stick to standard React hooks, Tailwind, and self-contained components.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Space file permission mismatch</strong></td>
+        <td>A teammate lacks underlying Google Drive/Slack access or holds Viewer-only Space rights.</td>
+        <td>Verify Space membership is <strong>Editor</strong> and confirm the user has native read access to the linked Drive folder or upload a Space-local copy.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Computer Use stalled at login / 2FA</strong></td>
+        <td>Protected portal presented SSO, MFA push, or human-verification challenge.</td>
+        <td>Click <strong>Take Control / Takeover Mode</strong> in the virtual desktop pane, complete sign-in manually, and hand control back to resume.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Confirmation gate timed out</strong></td>
+        <td>An external write pause sat unanswered past the active session window.</td>
+        <td>Ask the agent to re-stage the pending diff card from its last verified read step and approve promptly while the session is active.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Stale connector cache in Space</strong></td>
+        <td>A Google Doc or Salesforce record changed minutes ago, after the thread&rsquo;s initial context fetch.</td>
+        <td>Re-mention the connector explicitly (<code>@Google Drive refresh [doc name]</code>) in a fresh turn so the Space pulls the latest snapshot.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Launching a Team Space or Agent Run</h3>
+  <div class="checklist-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Right Surface Picked:</strong> Solo files stay in <strong>Projects</strong>, line edits in <strong>Canvas</strong>, team work in <strong>Spaces &amp; Pages</strong>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Selection &amp; Locks Applied:</strong> Highlighted exact Canvas lines and added a Do-Not-Touch clause before rewriting.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Canonical Space Files Clean:</strong> Duplicate stale PDFs removed; Space custom instructions define tone and Page rules.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Connector ACLs Verified:</strong> Confirmed <code>@Slack</code>, <code>@Drive</code>, and <code>@Salesforce</code> use least-privilege permissions.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Confirmation Gates Armed:</strong> External posts, emails, and CRM field updates require explicit human click-to-approve.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Version &amp; Rollback Checked:</strong> Verified Canvas version history and Page revision snapshots before sharing widely.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>ChatGPT Canvas, Spaces &amp; Computer Use &bull; Field Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

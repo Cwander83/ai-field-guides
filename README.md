@@ -5,9 +5,9 @@
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-31%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-372%20Pages-059669?style=for-the-badge)
-![Ecosystems](https://img.shields.io/badge/Scope-4%20Ecosystems-7c3aed?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-35%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-420%20Pages-059669?style=for-the-badge)
+![Ecosystems](https://img.shields.io/badge/Scope-5%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
 
@@ -18,7 +18,7 @@ Every handbook in this repository is authored as a self-contained **12-page visu
 Click any cover card or **Read / Download PDF** link below to view the full handbook directly in GitHub or download a local copy.
 
 <!-- CATALOG:START -->
-**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems)
+**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems)
 
 ### Google AI & Creative Studios
 Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, agentic coding IDEs, source-grounded research tools, and autonomous browser workflows.
@@ -194,6 +194,48 @@ Publication-grade 12-page visual handbooks for Anthropic's agentic coding, auton
   </tr>
 </table>
 
+### OpenAI Codex, Agents & Realtime Studios
+Publication-grade 12-page visual handbooks for OpenAI's agentic developer and workspace platform—covering Codex CLI & Codex Cloud, the OpenAI Agents API & SDK, ChatGPT Canvas, Spaces & Computer Use, and low-latency Realtime Voice & Vision agents.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/openai/codex-cli-and-cloud/OpenAI_Codex_CLI_and_Cloud_Complete_How_To_Guide.pdf"><img src="guides/openai/codex-cli-and-cloud/cover.png" alt="OpenAI Codex CLI &amp; Codex Cloud Cover" width="100%" /></a>
+      <h3><a href="guides/openai/codex-cli-and-cloud/OpenAI_Codex_CLI_and_Cloud_Complete_How_To_Guide.pdf">OpenAI Codex CLI &amp; Codex Cloud</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Configure TOML sandboxes, AGENTS.md constitutions, on-demand SKILL.md modules, GPT-6.1 Sol tiers, and parallel Codex Cloud PR containers.</p>
+      <p><code>Codex CLI</code> &middot; <code>Codex Cloud</code> &middot; <code>GPT-6.1 Sol</code></p>
+      <p><a href="guides/openai/codex-cli-and-cloud/OpenAI_Codex_CLI_and_Cloud_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/openai/codex-cli-and-cloud">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/openai/agents-api-and-sdk/OpenAI_Agents_API_and_SDK_Complete_How_To_Guide.pdf"><img src="guides/openai/agents-api-and-sdk/cover.png" alt="OpenAI Agents API &amp; SDK Cover" width="100%" /></a>
+      <h3><a href="guides/openai/agents-api-and-sdk/OpenAI_Agents_API_and_SDK_Complete_How_To_Guide.pdf">OpenAI Agents API &amp; SDK</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Architect production multi-agent systems with handoffs, Agents-as-Tools, parallel input/output guardrails, built-in tracing, and stateful MCP sessions.</p>
+      <p><code>Agents SDK</code> &middot; <code>Agents API</code> &middot; <code>Guardrails &amp; Handoffs</code></p>
+      <p><a href="guides/openai/agents-api-and-sdk/OpenAI_Agents_API_and_SDK_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/openai/agents-api-and-sdk">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/openai/chatgpt-canvas-and-spaces/ChatGPT_Canvas_Spaces_and_Computer_Use_Complete_How_To_Guide.pdf"><img src="guides/openai/chatgpt-canvas-and-spaces/cover.png" alt="ChatGPT Canvas, Spaces &amp; Computer Use Cover" width="100%" /></a>
+      <h3><a href="guides/openai/chatgpt-canvas-and-spaces/ChatGPT_Canvas_Spaces_and_Computer_Use_Complete_How_To_Guide.pdf">ChatGPT Canvas, Spaces &amp; Computer Use</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Master surgical split-pane Canvas diffs, multiplayer Spaces and Pages, and gated Agent Mode browser and desktop workflows.</p>
+      <p><code>ChatGPT Canvas</code> &middot; <code>Spaces &amp; Pages</code> &middot; <code>Computer Use</code></p>
+      <p><a href="guides/openai/chatgpt-canvas-and-spaces/ChatGPT_Canvas_Spaces_and_Computer_Use_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/openai/chatgpt-canvas-and-spaces">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/openai/realtime-voice-and-vision/OpenAI_Realtime_Voice_and_Vision_Complete_How_To_Guide.pdf"><img src="guides/openai/realtime-voice-and-vision/cover.png" alt="OpenAI Realtime Voice &amp; Vision Cover" width="100%" /></a>
+      <h3><a href="guides/openai/realtime-voice-and-vision/OpenAI_Realtime_Voice_and_Vision_Complete_How_To_Guide.pdf">OpenAI Realtime Voice &amp; Vision</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Build sub-second speech-to-speech and live vision agents across WebRTC, WebSockets, and SIP telephony with native VAD barge-in and async MCP.</p>
+      <p><code>Realtime API</code> &middot; <code>WebRTC &amp; SIP</code> &middot; <code>Voice &amp; Vision</code></p>
+      <p><a href="guides/openai/realtime-voice-and-vision/OpenAI_Realtime_Voice_and_Vision_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/openai/realtime-voice-and-vision">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+</table>
+
 ### AI Agent Engineering & Architecture
 Practical 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktrees, vector RAG, security, evals, System One decision models, and local on-device AI.
 
@@ -346,6 +388,10 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **Claude Sheets & Interactive Artifacts** — Building live multi-tab spreadsheets with cross-sheet formulas, dropdowns, charts, multiplayer edits, and .xlsx round-tripping alongside interactive MCP-connected Artifacts. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-sheets-and-artifacts/Claude_Sheets_and_Artifacts_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-sheets-and-artifacts) |
 | **Claude Code Autonomous Loops & Code Artifacts** — Running unattended multi-turn /goal completion contracts, supervising parallel sessions in claude agents, CLI-to-Desktop /resume, and publishing live PR walkthrough Artifacts. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-code-autonomous-loops/Claude_Code_Autonomous_Loops_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-code-autonomous-loops) |
 | **Claude Managed Agents & MCP Connectors** — Connecting Remote HTTPS/SSE and local stdio MCP servers across Claude surfaces and self-hosting cma-server agent sandboxes with scoped OAuth and Bedrock/Vertex routing. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-managed-agents-and-mcp/Claude_Managed_Agents_and_MCP_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-managed-agents-and-mcp) |
+| **OpenAI Codex CLI & Codex Cloud** — Configure TOML sandboxes, AGENTS.md constitutions, on-demand SKILL.md modules, GPT-6.1 Sol tiers, and parallel Codex Cloud PR containers. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/codex-cli-and-cloud/OpenAI_Codex_CLI_and_Cloud_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/codex-cli-and-cloud) |
+| **OpenAI Agents API & SDK** — Architect production multi-agent systems with handoffs, Agents-as-Tools, parallel input/output guardrails, built-in tracing, and stateful MCP sessions. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/agents-api-and-sdk/OpenAI_Agents_API_and_SDK_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/agents-api-and-sdk) |
+| **ChatGPT Canvas, Spaces & Computer Use** — Master surgical split-pane Canvas diffs, multiplayer Spaces and Pages, and gated Agent Mode browser and desktop workflows. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/chatgpt-canvas-and-spaces/ChatGPT_Canvas_Spaces_and_Computer_Use_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/chatgpt-canvas-and-spaces) |
+| **OpenAI Realtime Voice & Vision** — Build sub-second speech-to-speech and live vision agents across WebRTC, WebSockets, and SIP telephony with native VAD barge-in and async MCP. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/realtime-voice-and-vision/OpenAI_Realtime_Voice_and_Vision_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/realtime-voice-and-vision) |
 | **Spec-Driven Dev & Context Engineering** — Cross-vendor context architecture (AGENTS.md, CLAUDE.md, Cursor rules), progressive disclosure, and Spec-to-Plan-to-Tasks agent workflows. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/spec-driven-context-engineering/Spec_Driven_Dev_and_Context_Engineering_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/spec-driven-context-engineering) |
 | **Subagents & Agent Orchestration** — Designing specialist subagents, context forks, least-privilege tool scoping, lifecycle hooks, and multi-agent coordinator-worker swarms. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/subagents-and-orchestration/Subagents_and_Agent_Orchestration_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/subagents-and-orchestration) |
 | **Git Worktrees & Parallel Agent Safety** — Running parallel coding agents without file collisions—covering Git worktree fleets, isolated ports/databases, safety hooks, and teardown. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/git-worktrees-and-parallel-safety/Git_Worktrees_and_Parallel_Agent_Safety_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/git-worktrees-and-parallel-safety) |
