@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claude Cowork &amp; Computer Use: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">ANTHROPIC CLAUDE &amp; WORKSPACE STUDIOS &bull; FIELD GUIDE</div>
+    <h1>Claude <span>Cowork</span> &amp; Computer Use</h1>
+    <p class="cover-sub">
+      Delegating real desktop work, cloud remote sessions, and recurring tasks without surrendering your mouse&mdash;mastering One Claude, the 3-tier tool hierarchy, Background macOS Spaces, and safety gates.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">One Claude Unified Recents</span>
+      <span class="cover-badge">3-Tier Execution Routing</span>
+      <span class="cover-badge">Background macOS Spaces</span>
+      <span class="cover-badge">Scoped Local Folder Mounts</span>
+      <span class="cover-badge">Cloud &amp; Chrome Schedules</span>
+      <span class="cover-badge">Human-in-the-Loop Gates</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Precision Obsidian-Indigo Workstation with Glowing Violet Workflow Ribbons Routing Between Cloud Orb, Minimalist Browser Pane, and Background Desktop Frames" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Start Anywhere, Continue Everywhere</div>
+      <div class="cover-stat-desc">Kick off a task on Claude Desktop, monitor live progress from iOS or Android on your commute, and review results in one unified Recents list.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Keep Your Cursor Free</div>
+      <div class="cover-stat-desc">Background Computer Use operates inside an isolated macOS Space behind the scenes&mdash;auto-pausing cleanly if you ever step into that window.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Fastest Tool First, Safe by Design</div>
+      <div class="cover-stat-desc">Claude routes through direct MCP APIs first, built-in browser second, and desktop UI clicks last&mdash;pausing for approval before payments or sends.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; One Claude Architecture</span>
+    <span>Claude Cowork &amp; Computer Use</span>
+  </div>
+
+  <h2 class="page-title">The &ldquo;One Claude&rdquo; Mental Model &amp; Execution Routing</h2>
+  <p class="page-lead">
+    Instead of treating chat, browser automation, and desktop control as separate apps, Anthropic unified them into <strong>One Claude</strong>. Whether you open <strong>Claude Desktop</strong> on macOS, <code>claude.ai</code> on the web, or the <strong>iOS/Android mobile app</strong>, every Cowork task lives inside one synchronized <strong>Recents</strong> timeline backed by cloud remote sessions.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. One Claude &amp; 3-Tier Routing Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Two Recurring Schedule Engines</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Plans, macOS Setup &amp; Tool Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Cowork Workspace UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Governance, Privacy &amp; Safety Gates</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. The 3-Tier Tool Hierarchy Deep Dive</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Morning Briefing Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Task Anatomy &amp; Scoped Folder Mounts</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Background macOS Computer Use</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: API First, Clicks Last</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Cloud Remote Sessions vs. Local Desktop Reach</h3>
+  <p style="font-size:8.8pt;">
+    When a Cowork task relies on web connectors (Gmail, Slack, Notion, HubSpot, Drive) or research, it runs inside an encrypted <strong>cloud remote session</strong>&mdash;so you can start it from your phone or close your laptop lid while Claude finishes. Whenever a task needs files in a mounted local folder or native macOS apps without APIs, Claude Desktop executes locally using scoped permissions and Background Spaces.
+  </p>
+
+  <h3>Architecture: 3-Tier Execution Routing Waterfall</h3>
+  <div class="figure-box" style="background:#0c0a24; padding:9px 12px; border-color:#4c1d95;">
+    <svg viewBox="0 0 700 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: Unified Entry -->
+      <rect x="8" y="18" width="166" height="148" rx="9" fill="#171340" stroke="#a78bfa" stroke-width="1.6"/>
+      <text x="91" y="37" text-anchor="middle" fill="#c4b5fd" font-size="7.8" font-weight="700">ONE CLAUDE ENTRY</text>
+      <text x="91" y="53" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Unified Recents</text>
+      <rect x="18" y="64" width="146" height="26" rx="5" fill="#221d66" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="91" y="80" text-anchor="middle" fill="#ede9fe" font-size="7.6" font-weight="600">Claude Desktop (macOS)</text>
+      <rect x="18" y="96" width="146" height="26" rx="5" fill="#221d66" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="91" y="112" text-anchor="middle" fill="#ede9fe" font-size="7.6" font-weight="600">claude.ai Web &amp; Projects</text>
+      <rect x="18" y="128" width="146" height="26" rx="5" fill="#221d66" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="91" y="144" text-anchor="middle" fill="#ede9fe" font-size="7.6" font-weight="600">iOS / Android Remote View</text>
+
+      <!-- Router Arrow -->
+      <path d="M174 92 L205 92" stroke="#a78bfa" stroke-width="2.2"/>
+      <polygon points="203,87 212,92 203,97" fill="#a78bfa"/>
+
+      <!-- Right: 3-Tier Cascade -->
+      <!-- Tier 1 -->
+      <rect x="214" y="10" width="478" height="48" rx="8" fill="#13103a" stroke="#34d399" stroke-width="1.7"/>
+      <circle cx="236" cy="34" r="11" fill="#059669"/>
+      <text x="236" y="38" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">1</text>
+      <text x="257" y="29" fill="#6ee7b7" font-size="8.2" font-weight="800">TIER 1 &bull; MCP CONNECTORS (FASTEST &amp; DETERMINISTIC)</text>
+      <text x="257" y="45" fill="#e2e8f0" font-size="7.7">Direct structured API calls to Slack, Gmail, Drive, M365, HubSpot, QuickBooks, Canva, Jira &amp; Notion.</text>
+
+      <!-- Down Arrow 1 -> 2 -->
+      <path d="M453 58 L453 68" stroke="#64748b" stroke-width="1.6"/>
+      <polygon points="449,66 457,66 453,73" fill="#94a3b8"/>
+
+      <!-- Tier 2 -->
+      <rect x="214" y="73" width="478" height="48" rx="8" fill="#13103a" stroke="#38bdf8" stroke-width="1.7"/>
+      <circle cx="236" cy="97" r="11" fill="#0284c7"/>
+      <text x="236" y="101" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">2</text>
+      <text x="257" y="92" fill="#7dd3fc" font-size="8.2" font-weight="800">TIER 2 &bull; BUILT-IN BROWSER / CLAUDE IN CHROME</text>
+      <text x="257" y="108" fill="#e2e8f0" font-size="7.7">Authenticated web portals, admin dashboards, forms &amp; SaaS pages lacking an API connector.</text>
+
+      <!-- Down Arrow 2 -> 3 -->
+      <path d="M453 121 L453 131" stroke="#64748b" stroke-width="1.6"/>
+      <polygon points="449,129 457,129 453,136" fill="#94a3b8"/>
+
+      <!-- Tier 3 -->
+      <rect x="214" y="136" width="478" height="44" rx="8" fill="#1a1238" stroke="#f59e0b" stroke-width="1.7"/>
+      <circle cx="236" cy="158" r="11" fill="#d97706"/>
+      <text x="236" y="162" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">3</text>
+      <text x="257" y="153" fill="#fcd34d" font-size="8.2" font-weight="800">TIER 3 &bull; BACKGROUND macOS COMPUTER USE (LAST RESORT)</text>
+      <text x="257" y="169" fill="#e2e8f0" font-size="7.7">Silent clicks, keystrokes &amp; app navigation inside a hidden macOS Space without stealing your cursor.</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:3px 0 0 0;">
+    <div class="callout-title">Why Routing Matters: Never Burn Screen Pixels When an API Exists</div>
+    An MCP call pulls 50 Slack messages or 200 HubSpot deals in 800 milliseconds with zero UI ambiguity. Claude reserves Computer Use exclusively for legacy desktop software, multi-app macOS workflows, and portals without connectors.
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: PLANS, PREREQUISITES & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Plans, macOS Setup &amp; Surface Selection</span>
+    <span>Prerequisites &amp; Ecosystem Matrix</span>
+  </div>
+
+  <h2 class="page-title">Plan Tiers, macOS Grants &amp; Ecosystem Decision Matrix</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Cowork and Computer Use span <strong>Pro</strong>, <strong>Max</strong>, <strong>Team</strong>, and <strong>Enterprise</strong> subscriptions, pairing cloud remote execution with explicit, revocable macOS permissions whenever local files or desktop windows are involved.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px; gap:11px;">
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #6d28d9;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Subscription Tiers &amp; Execution Modes</div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Pro &amp; Max Plans:</strong> Full Cowork access, cloud remote sessions, Chrome extension tasks, and macOS Computer Use (Max provides higher continuous task quotas).</li>
+        <li><strong>Team Plan:</strong> Shared workspace connectors, team-approved MCP catalogs, and <strong>zero model training</strong> on work inputs or outputs.</li>
+        <li><strong>Enterprise Plan:</strong> Org Owner/Primary Owner governs Computer Use, local folder mounts, and external MCP allowlists with SSO and audit logs.</li>
+        <li><strong>Cloud vs. Local Rule:</strong> Cloud sessions survive closed laptops and mobile handoffs; local mounts &amp; macOS UI automation require Desktop open and awake.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge amber">2</span> 60-Second macOS Permission Setup</div>
+      <ol style="font-size:7.95pt; margin:3px 0 0 0; padding-left:16px;">
+        <li>Install <strong>Claude Desktop for macOS</strong> and toggle on <strong>Cowork &amp; Computer Use</strong> inside <code>Settings &rarr; Capabilities</code>.</li>
+        <li>Open <code>System Settings &rarr; Privacy &amp; Security &rarr; Screen &amp; System Audio Recording</code> and enable <strong>Claude</strong> (lets Claude read background app state).</li>
+        <li>Open <code>Privacy &amp; Security &rarr; Accessibility</code> and enable <strong>Claude</strong> (grants isolated click and keystroke dispatch).</li>
+        <li>Grant per-task <strong>Local Folder Mounts</strong> only to dedicated working directories like <code>~/Documents/Invoices</code>&mdash;never root <code>~/</code>.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card-dark" style="padding:8px 12px; margin-bottom:8px;">
+    <div class="card-title" style="font-size:8.9pt; color:#c4b5fd; margin-bottom:3px;">One-Minute Check: Cloud Remote Session vs. Local Desktop Execution</div>
+    <div style="font-size:7.9pt; color:#cbd5e1; line-height:1.38;">
+      Ask yourself one question before hitting Run: <em>&ldquo;Does this task touch a folder on my hard drive or a native macOS app?&rdquo;</em>
+      If <strong>No</strong> (Gmail, Drive, Slack, HubSpot, web portals), Claude runs in a <strong>Cloud Remote Session</strong> you can monitor from your phone. If <strong>Yes</strong>, keep your Mac awake and mount only the exact folder needed.
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.4pt;">Ecosystem Decision Matrix: Picking the Right Anthropic Worker</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Anthropic Tool</th>
+        <th style="width:22%;">Sweet Spot &amp; Input Surface</th>
+        <th style="width:21%;">Speed &amp; Reliability</th>
+        <th style="width:20%;">Auth &amp; Device Scope</th>
+        <th style="width:18%;">Best Used For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Cowork</strong><br/><em>Orchestration Hub</em></td>
+        <td>Multi-step knowledge work across connectors, mounted files, and web/UI fallbacks.</td>
+        <td><strong>Adaptive:</strong> Picks fastest tier automatically per sub-step.</td>
+        <td>Cloud remote + local Mac folders; viewable on Mobile.</td>
+        <td>Expense triage, client onboarding, weekly ops briefings.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude in Chrome</strong><br/><em>Browser Extension</em></td>
+        <td>DOM-aware navigation inside your active Chrome profile with existing logins.</td>
+        <td><strong>High:</strong> Reads structured page elements instead of guessing pixels.</td>
+        <td>Runs locally inside your signed-in Chrome browser.</td>
+        <td>Web portal forms, CRM updates, recurring tab scraping.</td>
+      </tr>
+      <tr>
+        <td><strong>Computer Use</strong><br/><em>Background macOS UI</em></td>
+        <td>Desktop apps without APIs (Keynote, Preview, legacy ERP, Finder batches).</td>
+        <td><strong>Moderate:</strong> Visual inspection + background Space clicks.</td>
+        <td>Local macOS Desktop with Screen &amp; Accessibility grants.</td>
+        <td>Native app exports, GUI-only installers, cross-app drag/save.</td>
+      </tr>
+      <tr>
+        <td><strong>MCP Connectors</strong><br/><em>Direct Tool APIs</em></td>
+        <td>Slack, Gmail, Drive, M365, HubSpot, QuickBooks, Canva, Jira &amp; Notion.</td>
+        <td><strong>Instant &amp; Exact:</strong> Zero brittle selectors or screen lag.</td>
+        <td>OAuth / Org allowlisted in cloud or Desktop.</td>
+        <td>Searching emails, filing Jira issues, syncing QuickBooks rows.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Code</strong><br/><em>Terminal &amp; Git Agent</em></td>
+        <td>Software repositories, shell scripts, builds, git branches, and test suites.</td>
+        <td><strong>Blazing Fast:</strong> Native CLI, diff edits, and test verification.</td>
+        <td>Local terminal or cloud sandbox repositories.</td>
+        <td>Building features, refactoring codebases, CI debugging.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.25pt;">
+    <div class="callout-title">Rule of Thumb: Start in Cowork, Let Claude Choose the Tier</div>
+    You do not have to micromanage whether Claude opens an MCP tool or a browser tab. State your outcome, connect your approved MCP tools, mount a tight local folder if required, and let Cowork escalate down the 3-tier waterfall only when needed.
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED COWORK UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>One Claude Desktop &amp; Background Space Monitor</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Inside the Claude Cowork Workspace</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    One unified window connects your cross-device <strong>Recents</strong> feed, active connector badges, scoped local folder mounts, live Background macOS Space previews, and human-in-the-loop safety gates.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#f5f3ff;">Claude Desktop &bull; One Claude Cowork Session (Synced to Web &amp; iOS)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:7px; font-size:7pt;">
+        <span style="background:#2e1065; border:1px solid #a78bfa; color:#ddd6fe; padding:2px 7px; border-radius:5px; font-weight:700;">Folder: ~/Finance/Q3_Receipts <span class="callout-pin">3</span></span>
+        <span style="background:#064e3b; border:1px solid #34d399; color:#a7f3d0; padding:2px 7px; border-radius:5px; font-weight:700;">/schedule: Weekdays 8:00 AM <span class="callout-pin">6</span></span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 27% 43% 30%; min-height:256px;">
+      <!-- Left: Unified Recents Sidebar -->
+      <div style="border-right:1px solid #3b2d7a; padding:8px; background:#09071c; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size:6.8pt; color:#c4b5fd; font-weight:700; text-transform:uppercase; margin-bottom:5px;">Unified Recents <span class="callout-pin">1</span></div>
+          <div style="background:#1e1854; border:1px solid #8b5cf6; border-radius:6px; padding:5px 7px; margin-bottom:5px; font-size:6.9pt;">
+            <strong style="color:#ffffff;">Q3 Vendor Invoice Recon</strong><br/>
+            <span style="color:#6ee7b7;">Running &bull; Desktop + Background Space</span>
+          </div>
+          <div style="background:#13103a; border:1px solid #3b2d7a; border-radius:6px; padding:5px 7px; margin-bottom:5px; font-size:6.9pt; color:#cbd5e1;">
+            <strong>Morning Slack &amp; Jira Digest</strong><br/>
+            <span style="color:#7dd3fc;">Cloud Remote &bull; Started on iOS</span>
+          </div>
+          <div style="background:#13103a; border:1px solid #3b2d7a; border-radius:6px; padding:5px 7px; font-size:6.9pt; color:#cbd5e1;">
+            <strong>HubSpot Lead Enrichment</strong><br/>
+            <span style="color:#94a3b8;">Chrome Schedule &bull; Yesterday</span>
+          </div>
+        </div>
+
+        <div style="background:#171340; border:1px solid #4c1d95; border-radius:6px; padding:5px 7px; font-size:6.7pt;">
+          <div style="color:#c4b5fd; font-weight:700; margin-bottom:3px;">Active MCP Connectors <span class="callout-pin">2</span></div>
+          <div style="color:#e2e8f0;">&#10003; Gmail &bull; &#10003; QuickBooks &bull; &#10003; Drive</div>
+        </div>
+      </div>
+
+      <!-- Center: Execution Log + Confirmation Gate -->
+      <div style="border-right:1px solid #3b2d7a; padding:8px 9px; background:#0e0b2b; display:flex; flex-direction:column; justify-content:space-between; gap:6px;">
+        <div>
+          <div style="font-size:6.8pt; color:#a78bfa; font-weight:700; text-transform:uppercase; margin-bottom:4px;">3-Tier Execution Trace <span class="callout-pin">4</span></div>
+          <div style="background:#062922; border-left:2.5px solid #10b981; border-radius:4px; padding:4px 6px; margin-bottom:4px; font-size:6.85pt;">
+            <strong style="color:#6ee7b7;">[Tier 1 MCP]</strong> Pulled 14 vendor PDFs from Gmail &amp; matched 11 rows in QuickBooks.
+          </div>
+          <div style="background:#0c2238; border-left:2.5px solid #38bdf8; border-radius:4px; padding:4px 6px; margin-bottom:4px; font-size:6.85pt;">
+            <strong style="color:#7dd3fc;">[Tier 2 Browser]</strong> Downloaded 3 missing receipts from supplier portal into <code>Q3_Receipts</code>.
+          </div>
+          <div style="background:#261a0a; border-left:2.5px solid #f59e0b; border-radius:4px; padding:4px 6px; font-size:6.85pt;">
+            <strong style="color:#fcd34d;">[Tier 3 Space]</strong> Opened macOS Preview in hidden Space to batch-OCR scanned receipt #14.
+          </div>
+        </div>
+
+        <!-- Safety Approval Gate -->
+        <div style="background:#2b0d1b; border:1.5px solid #fb7185; border-radius:7px; padding:6px 7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#fda4af; font-size:7pt;">APPROVAL GATE: IRREVERSIBLE ACTION <span class="callout-pin">5</span></strong>
+            <span style="color:#fecdd3; font-size:6.5pt;">Paused</span>
+          </div>
+          <div style="font-size:6.8pt; color:#ffe4e6; margin-bottom:4px;">Ready to submit QuickBooks bill batch ($2,410.00) and email summary to CFO.</div>
+          <div style="display:flex; gap:5px;">
+            <span style="background:#059669; color:#ffffff; padding:2px 8px; border-radius:4px; font-weight:700; font-size:6.7pt;">Approve &amp; Continue</span>
+            <span style="background:#334155; color:#e2e8f0; padding:2px 8px; border-radius:4px; font-weight:700; font-size:6.7pt;">Inspect Draft First</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Background macOS Space Monitor -->
+      <div style="padding:8px; background:#09071c; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size:6.8pt; color:#fcd34d; font-weight:700; text-transform:uppercase; margin-bottom:4px;">Background Space <span class="callout-pin">7</span></div>
+          <div style="background:#171340; border:1px solid #6d28d9; border-radius:6px; padding:6px; margin-bottom:5px;">
+            <div style="font-size:6.7pt; color:#ddd6fe; font-weight:700; margin-bottom:4px;">Virtual Display #2 (Silent)</div>
+            <div style="background:#09081f; border:1px solid #4c1d95; border-radius:4px; padding:8px 6px; text-align:center;">
+              <div style="font-size:7pt; color:#a78bfa; font-weight:700;">Preview.app &bull; Receipt_14.pdf</div>
+              <div style="font-size:6.4pt; color:#94a3b8; margin-top:2px;">Your main mouse cursor remains 100% untouched</div>
+            </div>
+          </div>
+          <div style="font-size:6.65pt; color:#cbd5e1; line-height:1.35;">
+            Auto-pause guardrail: <strong>Armed</strong>. If you click into Virtual Display #2, Claude yields control instantly.
+          </div>
+        </div>
+        <div style="background:#13103a; border:1px solid #3b2d7a; border-radius:5px; padding:4px 6px; font-size:6.55pt; color:#a7f3d0;">
+          Status: Waiting on human gate &bull; 0 cursor conflicts
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Point Legend -->
+  <div class="grid-2" style="gap:6px 12px; font-size:7.95pt;">
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">1</span> <strong>Unified Recents Rail:</strong> Every Cowork task syncs across Desktop, <code>claude.ai</code>, and mobile apps in real time.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">2</span> <strong>Connector Pill Strip:</strong> Shows live OAuth-verified MCP tools (Gmail, Slack, QuickBooks, Drive) ready for Tier 1 calls.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">3</span> <strong>Scoped Folder Badge:</strong> Confirms the exact local directory mounted for read/write work&mdash;everything outside stays invisible.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">4</span> <strong>3-Tier Execution Trace:</strong> Transparently logs whether each step ran via MCP API, built-in browser, or desktop Space.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">5</span> <strong>Human-in-the-Loop Gate:</strong> Hard-pauses before irreversible actions (payments, outbound emails, deletions) for one-click approval.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">6</span> <strong><code>/schedule</code> Runner Badge:</strong> Converts any proven one-off Cowork workflow into an hourly, daily, weekday, or weekly automation.
+    </div>
+  </div>
+  <div class="card-violet" style="padding:6px 10px; margin-top:6px; font-size:7.95pt;">
+    <span class="callout-pin">7</span> <strong>Background macOS Space Preview:</strong> Shows a live thumbnail of Claude&rsquo;s isolated virtual workspace so you can inspect progress visually without giving up your keyboard or cursor.
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: THE 3-TIER TOOL HIERARCHY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Core Workflows: Execution Waterfall</span>
+    <span>MCP Connectors &rarr; Built-In Browser &rarr; Computer Use</span>
+  </div>
+
+  <h2 class="page-title">Mastering the 3-Tier Tool Hierarchy</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Great Cowork operators think in layers. Rather than asking Claude to click around your screen for data that already lives behind a clean API, you guide workflows through a cascading waterfall: structured MCP pipes first, browser lenses second, and desktop pixels third.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/tool_hierarchy_cascade.jpg" alt="Three Stepped Luminous Violet and Emerald Glass Prisms Cascading Downward Representing API Pipes, Web Browser Lenses, and Mechanical Cursor Gears" />
+    <div class="figure-caption">
+      <strong>Top-Down Precision Waterfall:</strong> Tier 1 MCP connectors deliver instant structured JSON; Tier 2 built-in browser handles authenticated portals; Tier 3 Computer Use steps in only when native desktop UI interaction is mandatory.
+    </div>
+  </div>
+
+  <div class="grid-3" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="border-top:3px solid #059669; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge emerald">1</span> Tier 1: MCP Connectors</div>
+      <p style="font-size:7.75pt; margin:0 0 4px 0;">
+        First stop for SaaS systems of record. Zero screen parsing, full pagination, and cloud remote compatibility.
+      </p>
+      <p style="font-size:7.45pt; color:#475569; margin:0;">
+        <strong>Native roster:</strong> Slack, Gmail, Google Drive, Microsoft 365, HubSpot, QuickBooks, Canva, Jira &amp; Notion.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #0284c7; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge sky">2</span> Tier 2: Built-In Browser</div>
+      <p style="font-size:7.75pt; margin:0 0 4px 0;">
+        Steps in when a vendor portal, HR dashboard, or supplier invoice site has no MCP API.
+      </p>
+      <p style="font-size:7.45pt; color:#475569; margin:0;">
+        <strong>Two flavors:</strong> Cowork&rsquo;s built-in sandbox browser, or <strong>Claude in Chrome</strong> reusing your live session cookies.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #d97706; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge amber">3</span> Tier 3: Computer Use</div>
+      <p style="font-size:7.75pt; margin:0 0 4px 0;">
+        The tactile fallback for local macOS apps, custom Finder moves, or legacy desktop software.
+      </p>
+      <p style="font-size:7.45pt; color:#475569; margin:0;">
+        <strong>Key strength:</strong> Operates inside a background macOS Space so you keep working uninterrupted.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.2pt;">
+    <div class="callout-title">Always State Connector Preference in Multi-App Tasks</div>
+    When a workflow touches both SaaS and desktop apps, explicitly name your Tier 1 connectors: <em>&ldquo;Read messages via Slack MCP and pull slides from Google Drive MCP; only open Chrome if a vendor link requires portal login.&rdquo;</em> That one sentence cuts task runtime by up to 80% and prevents unnecessary screen captures.
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: TASK ANATOMY & LOCAL FOLDER MOUNTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Core Workflows: Prompt &amp; Scope Design</span>
+    <span>5-Part Cowork Task Anatomy &amp; Folder Mount Patterns</span>
+  </div>
+
+  <h2 class="page-title">Prompt &amp; Task Anatomy + Scoped Folder Mounts</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Vague prompts like <em>&ldquo;clean up my invoices&rdquo;</em> invite guesswork. Combining five explicit building blocks&mdash;Goal, Scope, Connectors, Fallback, and Confirmation Gate&mdash;gives Claude crystal-clear guardrails on the very first run.
+  </p>
+
+  <h3 style="margin:2px 0 4px 0;">The 5-Part Cowork Task Anatomy</h3>
+  <div class="card" style="padding:9px 12px; margin-bottom:8px; background:#ffffff; border:1.5px solid #c4b5fd;">
+    <div style="font-size:8.45pt; line-height:1.85;">
+      <span class="p-tag p-goal">[1. Goal &amp; Deliverable]</span> Reconcile all March contractor invoices into a clean reconciliation CSV and draft summary email.
+      <span class="p-tag p-scope">[2. Scope / Folder Mount]</span> Read and write strictly inside the mounted <code>~/Finance/March_Recon</code> folder.
+      <span class="p-tag p-mcp">[3. Preferred Connectors]</span> Pull invoice attachments via Gmail MCP and match vendor IDs against QuickBooks MCP.
+      <span class="p-tag p-fall">[4. Browser / Desktop Fallback]</span> If a portal link lacks an attachment, download the PDF via Claude in Chrome; use macOS Preview only for scanned OCR.
+      <span class="p-tag p-gate">[5. Confirmation Gate]</span> Pause and show me a line-item summary before posting any QuickBooks bills or sending the CFO email.
+    </div>
+  </div>
+
+  <table class="clean-table" style="font-size:7.8pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Task Component</th>
+        <th style="width:38%;">What It Governs During Execution</th>
+        <th style="width:38%;">Risk When Left Unspecified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="p-tag p-goal">Goal &amp; Deliverable</span></td>
+        <td>Defines exact output artifact (CSV, Slack digest, Jira ticket batch, renamed files).</td>
+        <td>Claude stops mid-way or produces chat prose instead of saved files.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-scope">Scope / Folder Mount</span></td>
+        <td>Restricts local filesystem reach to one dedicated working directory.</td>
+        <td>Broad mounts risk scanning personal docs or writing to wrong folders.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-mcp">Preferred Connectors</span></td>
+        <td>Pins Tier 1 MCP APIs (Slack, Drive, M365, Notion, Jira) before touching browsers.</td>
+        <td>Slow pixel clicking inside a web app when an instant API exists.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-fall">Browser / Desktop Fallback</span></td>
+        <td>Names exact Tier 2 portal or Tier 3 macOS app permitted when APIs fall short.</td>
+        <td>Claude aborts at the first login wall or guesses the wrong local app.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-gate">Confirmation Gate</span></td>
+        <td>Forces a hard pause before payments, sends, deletes, or production writes.</td>
+        <td>Unreviewed batch actions dispatch before you verify edge cases.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0;">Three Proven Local Folder Mount Patterns</h3>
+  <div class="grid-3" style="gap:9px; margin-bottom:6px;">
+    <div class="card-violet" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.6pt; color:#5b21b6;"><span class="num-badge">A</span> The Quarantine Drop-Box</div>
+      <p style="font-size:7.7pt; margin:0;">
+        Mount only <code>~/Cowork_Inbox/</code>. Drag raw PDFs, screenshots, or exports in; let Claude rename, extract CSVs, and place finished results into <code>~/Cowork_Inbox/Done/</code>.
+      </p>
+    </div>
+    <div class="card-violet" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.6pt; color:#5b21b6;"><span class="num-badge indigo">B</span> Read-Only Reference + Output</div>
+      <p style="font-size:7.7pt; margin:0;">
+        Grant read access to <code>~/Client_Assets/</code> and write access only to <code>~/Client_Deliverables/</code> so original brand kits or contracts can never be overwritten.
+      </p>
+    </div>
+    <div class="card-violet" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.6pt; color:#5b21b6;"><span class="num-badge emerald">C</span> Zero-Local Cloud Mode</div>
+      <p style="font-size:7.7pt; margin:0;">
+        Skip mounting any local folder at all when working between Drive, Notion, Slack, and HubSpot&mdash;keeping the entire run inside a portable cloud remote session.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.15pt;">
+    <div class="callout-title">Never Mount <code>~/</code>, <code>~/Desktop</code>, or Password Managers</div>
+    Keep local folder mounts surgical. A dedicated per-workflow folder acts as a physical blast-radius boundary and prevents stray temporary files from cluttering your desktop.
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: BACKGROUND macOS COMPUTER USE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Core Workflows: Zero-Interference Desktop Control</span>
+    <span>Background macOS Spaces &amp; Input Yielding</span>
+  </div>
+
+  <h2 class="page-title">Background macOS Computer Use Without Hijacking Your Mouse</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Earlier desktop agents locked you out of your own Mac, yanking your mouse cursor across the screen every two seconds. Claude&rsquo;s <strong>Background macOS Computer Use</strong> runs clicks, scrolling, and keystrokes inside a hidden Space while your active cursor stays completely yours.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/background_macos_spaces.jpg" alt="Dual-Layer Holographic Workspace Panes Showing Calm Foreground Desktop Cursor and Autonomous Robotic Light Arm Arranging Cards Behind Frosted Violet Glass" />
+    <div class="figure-caption">
+      <strong>Isolated Dual-Layer Execution:</strong> Write emails or edit code on your primary display while Claude quietly drives desktop apps inside an off-screen macOS workspace behind frosted isolation.
+    </div>
+  </div>
+
+  <h3>How Background Spaces &amp; Auto-Pause Safety Work</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.85pt;"><span class="num-badge">1</span> Hidden macOS Space Isolation</div>
+      <p style="font-size:7.85pt; margin:0;">
+        When Tier 3 activates, Claude Desktop spins up target app windows inside a separate virtual Space. Screenshot inspection and synthetic pointer/keyboard events route directly to that Space&mdash;so your active window focus never flickers.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.85pt;"><span class="num-badge amber">2</span> Automatic Input-Interference Yielding</div>
+      <p style="font-size:7.85pt; margin:0;">
+        If you switch into Claude&rsquo;s working window, move the mouse over its active target, or type on the keyboard inside that Space, Claude detects user input immediately, <strong>auto-pauses</strong>, and hands control back to you cleanly.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.15pt;">
+    <div class="callout-title">Best Practices for Smooth Background Desktop Runs</div>
+    Keep target apps signed in before launching a batch, avoid locking your Mac screen (use a dim display sleep timer instead of lock-on-idle), and watch the live thumbnail in Claude&rsquo;s sidecar whenever you want to verify a multi-step native export without switching Spaces.
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: TWO RECURRING AUTOMATION ENGINES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Core Workflows: Recurring Automation</span>
+    <span>Cowork /schedule vs. Chrome Scheduled Tasks</span>
+  </div>
+
+  <h2 class="page-title">Two Recurring Engines: Cowork <code>/schedule</code> vs. Chrome Schedules</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Once a manual workflow works reliably, promote it to autopilot. Anthropic gives you two distinct scheduling engines&mdash;knowing which one runs with your laptop lid closed and which one relies on your live browser cookies prevents missed morning runs.
+  </p>
+
+  <div class="grid-2" style="gap:11px; margin-bottom:8px;">
+    <div class="card" style="padding:9px 11px; border-top:3px solid #6d28d9;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">A</span> Cowork Scheduled Tasks (<code>/schedule</code>)</div>
+      <ul style="font-size:7.95pt; margin:4px 0 0 0; padding-left:16px;">
+        <li><strong>Cadences:</strong> Run <strong>hourly</strong>, <strong>daily</strong>, <strong>weekdays</strong>, or <strong>weekly</strong> directly from any Cowork thread via <code>/schedule</code> or the Schedule button.</li>
+        <li><strong>Cloud Remote Tasks (Lid Closed OK!):</strong> Workflows using only Tier 1 MCP connectors (Slack, Gmail, Drive, Jira, Notion, HubSpot) execute in Anthropic&rsquo;s cloud even while your MacBook is asleep in a backpack.</li>
+        <li><strong>Local Folder &amp; macOS Tasks:</strong> Any schedule touching local mounted files or Tier 3 Computer Use queues until Claude Desktop is open and your Mac is awake.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:9px 11px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge sky">B</span> Chrome Scheduled Tasks</div>
+      <ul style="font-size:7.95pt; margin:4px 0 0 0; padding-left:16px;">
+        <li><strong>Purpose-Built for Web Portals:</strong> Runs recurring workflows through <strong>Claude in Chrome</strong> inside your authenticated browser profile.</li>
+        <li><strong>Zero Re-Authentication Friction:</strong> Ideal for SSO-protected vendor dashboards, bank/carrier portals, competitor pricing checks, and recurring web form submissions that lack MCP APIs.</li>
+        <li><strong>Device Requirement:</strong> Because it uses your live Chrome profile and session cookies, your computer and Chrome must be awake at the scheduled trigger window.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Side-by-Side Comparison: Choosing Your Automation Engine</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Dimension</th>
+        <th style="width:39%;">Cowork <code>/schedule</code> (Cloud &amp; Desktop)</th>
+        <th style="width:38%;">Chrome Scheduled Tasks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Runs With Laptop Lid Closed?</strong></td>
+        <td><strong>Yes</strong> for pure MCP/cloud jobs; <strong>No</strong> if local files or macOS UI are needed.</td>
+        <td><strong>No</strong> (requires local Mac awake with Chrome running).</td>
+      </tr>
+      <tr>
+        <td><strong>Primary Execution Tier</strong></td>
+        <td>Tier 1 MCP Connectors + local mounts / Tier 3 Spaces.</td>
+        <td>Tier 2 DOM-level browser navigation in signed-in tabs.</td>
+      </tr>
+      <tr>
+        <td><strong>Best Cadence Fit</strong></td>
+        <td>7:30 AM weekday executive briefings, hourly triage, weekly Notion rollups.</td>
+        <td>Daily portal CSV downloads, weekly SaaS billing PDF fetches, form fills.</td>
+      </tr>
+      <tr>
+        <td><strong>Mobile Review &amp; Alerts</strong></td>
+        <td>Results appear immediately in <strong>One Claude Recents</strong> on iOS/Android.</td>
+        <td>Synced to Recents once the local Chrome run completes.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block" style="margin:2px 0 6px 0;"><code>/schedule weekdays at 07:45 AM — Summarize unread urgent Gmail threads + #eng-incidents Slack messages from the last 24h, cross-check open P1 Jira blockers, and post a 5-bullet briefing card to my morning briefing thread. Cloud MCP only; no local folders.</code></pre>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.2pt;">
+    <div class="callout-title">Pro Pattern: Split Cloud Briefings From Local Desktop Runs</div>
+    Keep your 7:30 AM executive digest purely on MCP connectors so it finishes in the cloud before you even flip open your MacBook. Schedule heavy local PDF exports or Chrome portal scrapes for 9:15 AM when you are already at your desk.
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Run Workflow Library</span>
+    <span>5 Copy-Paste Cowork &amp; Computer Use Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Cowork Recipes</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Paste any recipe below directly into Claude Desktop or <code>claude.ai</code>. Each prompt names its exact connectors, folder bounds, fallback tier, and safety approval gate so you get repeatable results with zero surprises.
+  </p>
+
+  <table class="clean-table" style="font-size:7.75pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Recipe &amp; Use Case</th>
+        <th style="width:56%;">Copy-Paste Prompt (Tier-Aware &amp; Gated)</th>
+        <th style="width:24%;">Execution Path &amp; Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Month-End Receipt Reconciliation</strong><br/><em>Finance &amp; Ops</em></td>
+        <td><code>Search Gmail MCP for vendor receipts from the last 30 days, download PDFs into mounted ~/Finance/Receipts, match amounts against QuickBooks MCP open bills, and export discrepancies to recon.csv. Pause for my approval before creating or paying any QuickBooks bill.</code></td>
+        <td>Tier 1 MCP + local mount; outputs <code>recon.csv</code> and holds writes behind a safety gate.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Cloud Morning Executive Briefing</strong><br/><em>/schedule Weekdays</em></td>
+        <td><code>/schedule weekdays 7:30 AM: Read overnight Slack #leadership mentions, urgent Gmail threads from VIP clients, and Jira P0/P1 blockers via MCP. Draft concise 3-line replies for my top 4 emails in Gmail Drafts without sending, and save a 1-page briefing note in Notion.</code></td>
+        <td>100% Cloud Remote Session (runs with laptop closed); synced to iOS Recents.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Portal Invoice Fetcher</strong><br/><em>Chrome Schedule</em></td>
+        <td><code>Using Claude in Chrome on my signed-in carrier portal tab, navigate to Billing &rarr; Statements, download the latest PDF into ~/Downloads/Carrier_Bills, rename it YYYY-MM_Carrier.pdf, and log the total into our Drive MCP Expenses Sheet. Stop if MFA is prompted.</code></td>
+        <td>Tier 2 Chrome DOM + Tier 1 Drive MCP; pauses cleanly on unexpected MFA challenges.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Legacy Desktop Export Batch</strong><br/><em>Background Space</em></td>
+        <td><code>In Background macOS Computer Use, open each .key deck inside ~/Decks/Q2_Archive using Keynote, export to PDF at high quality into ~/Decks/PDF_Out, and close the window cleanly. Do not touch my foreground screen; pause if any font-missing dialog blocks export.</code></td>
+        <td>Tier 3 hidden macOS Space; batch-renders native Keynote files while you keep working.</td>
+      </tr>
+      <tr>
+        <td><strong>5. New Hire Onboarding Pack</strong><br/><em>HR &amp; Enablement</em></td>
+        <td><code>Read our Onboarding_Checklist in Notion MCP, create a personalized 30-60-90 Doc in Google Drive MCP for Maya Chen (Product Eng), pull her Canva welcome banner link via Canva MCP, and draft a Slack welcome post for review. Do not post to Slack until I click Approve.</code></td>
+        <td>Pure Tier 1 multi-MCP orchestration; prepares all assets with zero premature sends.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:10px; margin-top:2px;">
+    <div class="callout emerald" style="margin:0; padding:8px 11px; font-size:8.15pt;">
+      <div class="callout-title">Test Once Manually, Then Wrap With <code>/schedule</code></div>
+      Never schedule an untested prompt straight onto daily autopilot. Run the recipe interactively once, watch which tier each step picks in the trace, verify the output files, and then attach <code>/schedule</code>.
+    </div>
+    <div class="callout amber" style="margin:0; padding:8px 11px; font-size:8.15pt;">
+      <div class="callout-title">Draft Mode Is the Best Safety Multiplier</div>
+      Notice Recipes #2 and #5 ask Claude to create <em>Gmail Drafts</em> or stage posts rather than sending live. You get 95% of the labor saved while keeping 100% editorial sign-off.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: GOVERNANCE, PRIVACY & SAFETY GATES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Enterprise Governance &amp; Safety Architecture</span>
+    <span>Permission Hygiene, Approval Gates &amp; Prompt Injection Defense</span>
+  </div>
+
+  <h2 class="page-title">Governance, Privacy &amp; Human-in-the-Loop Safety Gates</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Giving an AI agent access to your email, files, and desktop buttons demands clear boundaries. Anthropic pairs <strong>least-privilege folder mounts</strong> and <strong>macOS privacy switches</strong> with mandatory confirmation gates before irreversible actions occur.
+  </p>
+
+  <div class="grid-2" style="gap:11px; margin-bottom:8px;">
+    <div class="card" style="padding:9px 11px; border-top:3px solid #6d28d9;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Irreversible-Action Confirmation Gates</div>
+      <ul style="font-size:7.95pt; margin:4px 0 0 0; padding-left:16px;">
+        <li><strong>Hard Pause Categories:</strong> Financial transfers, invoice payments, outbound customer emails, bulk file deletions, and permission changes trigger an explicit pause card.</li>
+        <li><strong>Preview Before Commit:</strong> Every gate displays the exact dollar amount, recipient list, or file path so you can approve, edit, or cancel in one click.</li>
+        <li><strong>Admin Policy Locks:</strong> Team and Enterprise admins can mandate approval gates on external MCP writes even if a prompt omits them.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:9px 11px; border-top:3px solid #e11d48;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge rose">2</span> Defending Against Indirect Prompt Injection</div>
+      <ul style="font-size:7.95pt; margin:4px 0 0 0; padding-left:16px;">
+        <li><strong>Untrusted Web Tabs &amp; PDFs:</strong> Random web pages, scraped forums, or external vendor emails can hide adversarial text trying to hijack browser actions.</li>
+        <li><strong>Session Isolation:</strong> Close sensitive banking, password manager, and admin tabs before letting Chrome tasks browse unfamiliar third-party sites.</li>
+        <li><strong>Least-Privilege Connectors:</strong> Connect only the specific MCP tools needed for a workflow; revoke unused OAuth tokens quarterly.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Security &amp; Permission Hygiene Across Surfaces</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Control Layer</th>
+        <th style="width:39%;">Recommended Safe Configuration</th>
+        <th style="width:38%;">Common Anti-Pattern to Avoid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Local Folder Mounts</strong></td>
+        <td>Dedicated per-task folder (e.g., <code>~/Work/Invoices</code>) mounted just for that job.</td>
+        <td>Mounting your entire home directory (<code>~/</code>), <code>Documents</code>, or <code>.ssh</code> keys.</td>
+      </tr>
+      <tr>
+        <td><strong>macOS OS Permissions</strong></td>
+        <td>Grant Screen Recording &amp; Accessibility only to verified Claude Desktop; audit monthly.</td>
+        <td>Leaving unattended unlocked Macs running open-ended third-party web scraping.</td>
+      </tr>
+      <tr>
+        <td><strong>Outbound Comms &amp; Spend</strong></td>
+        <td>Create drafts or stage carts first; require explicit click-to-send confirmation.</td>
+        <td>Instructing &ldquo;auto-reply and pay all invoices without asking.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>Enterprise Governance</strong></td>
+        <td>Org-approved MCP allowlist, Team/Enterprise zero-training guarantee, SSO &amp; audit logs.</td>
+        <td>Connecting unvetted community MCP binaries holding production credentials.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="padding:9px 12px; margin-bottom:6px;">
+    <div class="card-title" style="font-size:9pt; color:#fcd34d; margin-bottom:3px;">What to Do If a Scraped Page Looks Suspicious</div>
+    <p style="font-size:7.9pt; color:#e2e8f0; margin:0; line-height:1.4;">
+      If Claude pauses and warns about unexpected instructions inside an email, PDF, or webpage&mdash;or tries to navigate toward an unrelated domain&mdash;click <strong>Stop</strong> immediately. Close the untrusted tab, revoke any temporary folder mount if not needed, and inspect the execution trace before restarting from a clean prompt.
+    </p>
+  </div>
+
+  <div class="callout rose" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.15pt;">
+    <div class="callout-title">Never Store Secrets in Plain-Text Prompts</div>
+    Do not paste API keys, passwords, or credit card numbers directly into chat or scheduled prompts. Rely on official OAuth MCP connectors or sign in manually once inside Chrome before starting a browser task.
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Workspace Architecture</span>
+    <span>Chaining Cowork, MCP, Background Spaces &amp; Claude Sheets</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Automated Morning Briefing &amp; Ops Loop</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Cowork reaches its peak leverage when it acts as the conductor across Anthropic&rsquo;s entire studio&mdash;combining <strong>MCP Connectors</strong>, <strong>Background Computer Use</strong>, <strong>Claude Skills</strong>, and <strong>Claude Sheets / Data</strong> into one seamless daily loop.
+  </p>
+
+  <div class="figure-box" style="background:#0c0a24; padding:10px 12px; border-color:#4c1d95; margin-bottom:9px;">
+    <svg viewBox="0 0 700 202" width="100%" height="202" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Schedule Trigger -->
+      <rect x="8" y="24" width="144" height="154" rx="9" fill="#171340" stroke="#a78bfa" stroke-width="1.6"/>
+      <text x="80" y="42" text-anchor="middle" fill="#c4b5fd" font-size="7.5" font-weight="700">STAGE 1 &bull; TRIGGER</text>
+      <text x="80" y="57" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">/schedule 7:30 AM</text>
+      <rect x="17" y="68" width="126" height="44" rx="5" fill="#221d66" stroke="#8b5cf6" stroke-width="0.9"/>
+      <text x="80" y="83" text-anchor="middle" fill="#ede9fe" font-size="7.5" font-weight="700">Cloud Remote Wakeup</text>
+      <text x="80" y="95" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Runs overnight rollups</text>
+      <text x="80" y="105" text-anchor="middle" fill="#cbd5e1" font-size="6.9">even with lid closed</text>
+      <rect x="17" y="119" width="126" height="48" rx="5" fill="#221d66" stroke="#8b5cf6" stroke-width="0.9"/>
+      <text x="80" y="134" text-anchor="middle" fill="#ede9fe" font-size="7.5" font-weight="700">Claude Skill Loaded</text>
+      <text x="80" y="146" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Applies team tone &amp;</text>
+      <text x="80" y="156" text-anchor="middle" fill="#cbd5e1" font-size="6.9">KPI threshold rules</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M152 101 L176 101" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="174,96 182,101 174,106" fill="#a78bfa"/>
+
+      <!-- Stage 2: 3-Tier Data Gathering -->
+      <rect x="183" y="14" width="168" height="174" rx="10" fill="#13103a" stroke="#34d399" stroke-width="1.8"/>
+      <text x="267" y="32" text-anchor="middle" fill="#6ee7b7" font-size="7.6" font-weight="700">STAGE 2 &bull; GATHERING</text>
+      <text x="267" y="48" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">3-Tier Cowork Engine</text>
+      <rect x="194" y="58" width="146" height="35" rx="5" fill="#062922" stroke="#10b981" stroke-width="0.9"/>
+      <text x="267" y="72" text-anchor="middle" fill="#a7f3d0" font-size="7.4" font-weight="700">Tier 1: MCP Connectors</text>
+      <text x="267" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Slack, Gmail, HubSpot, QuickBooks</text>
+      <rect x="194" y="99" width="146" height="35" rx="5" fill="#0c2238" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="267" y="113" text-anchor="middle" fill="#bae6fd" font-size="7.4" font-weight="700">Tier 2: Chrome / Browser</text>
+      <text x="267" y="125" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Carrier &amp; vendor portal CSVs</text>
+      <rect x="194" y="140" width="146" height="36" rx="5" fill="#261a0a" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="267" y="154" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">Tier 3: Background Space</text>
+      <text x="267" y="166" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Legacy macOS app PDF batch</text>
+
+      <!-- Branch Arrows 2 -> 3 -->
+      <path d="M351 72 L382 60" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="379,56 388,58 382,65" fill="#38bdf8"/>
+      <path d="M351 130 L382 142" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="382,137 388,144 379,146" fill="#a78bfa"/>
+
+      <!-- Stage 3: Synthesis & Modeling -->
+      <rect x="389" y="18" width="148" height="80" rx="8" fill="#0c2238" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="463" y="35" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">STAGE 3A &bull; ANALYTICS</text>
+      <text x="463" y="50" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Claude Sheets &amp; Data</text>
+      <text x="463" y="65" text-anchor="middle" fill="#cbd5e1" font-size="7">Normalizes CSVs, computes</text>
+      <text x="463" y="77" text-anchor="middle" fill="#cbd5e1" font-size="7">cashflow deltas &amp; anomaly flags</text>
+      <text x="463" y="89" text-anchor="middle" fill="#bae6fd" font-size="6.8" font-weight="700">Live formulas updated daily</text>
+
+      <rect x="389" y="106" width="148" height="80" rx="8" fill="#1b1447" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="463" y="123" text-anchor="middle" fill="#c4b5fd" font-size="7.4" font-weight="700">STAGE 3B &bull; BRIEFING</text>
+      <text x="463" y="138" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Executive Briefing</text>
+      <text x="463" y="153" text-anchor="middle" fill="#cbd5e1" font-size="7">5-bullet priority digest +</text>
+      <text x="463" y="165" text-anchor="middle" fill="#cbd5e1" font-size="7">staged Gmail/Slack drafts</text>
+      <text x="463" y="177" text-anchor="middle" fill="#ddd6fe" font-size="6.8" font-weight="700">Synced to Notion &amp; Canva</text>
+
+      <!-- Arrows 3 -> 4 -->
+      <path d="M537 58 L560 58" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="558,53 566,58 558,63" fill="#38bdf8"/>
+      <path d="M537 146 L560 146" stroke="#fb7185" stroke-width="2"/>
+      <polygon points="558,141 566,146 558,151" fill="#fb7185"/>
+
+      <!-- Stage 4: Human Review & Mobile -->
+      <rect x="567" y="18" width="125" height="80" rx="8" fill="#13103a" stroke="#34d399" stroke-width="1.5"/>
+      <text x="629" y="35" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">STAGE 4A &bull; MOBILE</text>
+      <text x="629" y="50" text-anchor="middle" fill="#ffffff" font-size="9.1" font-weight="800">iOS / Web Recents</text>
+      <text x="629" y="65" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Read morning digest</text>
+      <text x="629" y="77" text-anchor="middle" fill="#cbd5e1" font-size="6.9">over coffee before</text>
+      <text x="629" y="89" text-anchor="middle" fill="#cbd5e1" font-size="6.9">opening your laptop</text>
+
+      <rect x="567" y="106" width="125" height="80" rx="8" fill="#2b0d1b" stroke="#fb7185" stroke-width="1.5"/>
+      <text x="629" y="123" text-anchor="middle" fill="#fda4af" font-size="7.3" font-weight="700">STAGE 4B &bull; SIGN-OFF</text>
+      <text x="629" y="138" text-anchor="middle" fill="#ffffff" font-size="9.1" font-weight="800">1-Click Approval</text>
+      <text x="629" y="153" text-anchor="middle" fill="#ffe4e6" font-size="6.9">Review staged emails,</text>
+      <text x="629" y="165" text-anchor="middle" fill="#ffe4e6" font-size="6.9">QuickBooks bills &amp;</text>
+      <text x="629" y="177" text-anchor="middle" fill="#ffe4e6" font-size="6.9">approve dispatch</text>
+    </svg>
+  </div>
+
+  <h3>How the 4 Stages Compound Every Morning</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Overnight Cloud Rollup Before You Wake</div>
+      <p style="font-size:7.85pt; margin:0;">
+        At 7:30 AM, <code>/schedule</code> triggers in the cloud, pulling Slack, Gmail, HubSpot, and QuickBooks metrics via MCP using your saved <strong>Claude Skill</strong> formatting rules.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge sky">2</span> Automatic Local Handoff at Your Desk</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Once you open Claude Desktop at 9:00 AM, any local steps&mdash;like Chrome vendor CSV downloads or Background Space PDF exports&mdash;run quietly without touching your active cursor.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge emerald">3</span> Instant Claude Sheets &amp; Data Modeling</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Raw CSVs flow straight into <strong>Claude Sheets</strong> where formulas flag invoice variances, budget burn, and overdue receivables automatically.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge amber">4</span> Commute Review + 1-Click Approval</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Skim the finished briefing inside <strong>One Claude Recents</strong> on iOS or Android, then tap <strong>Approve</strong> only on the drafted replies and payments you want shipped.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.15pt;">
+    <div class="callout-title">Pair Recurring Cowork Runs With Custom Claude Skills</div>
+    Save your team&rsquo;s naming conventions, spreadsheet column schemas, and tone-of-voice rules inside a reusable <strong>Claude Skill</strong> so every scheduled briefing arrives formatted identically every single morning.
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Top 7 Issues, 10-Second Fixes &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Use this diagnostic table whenever a macOS permission blocks a click, a scheduled task skips overnight, or Claude picks a slow UI route instead of an API&mdash;followed by our 6-point pre-flight checklist.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Issue</th>
+        <th style="width:27%;">Root Cause</th>
+        <th style="width:46%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Computer Use fails to click or read a desktop window</strong></td>
+        <td>macOS Screen Recording or Accessibility toggle missing/stale after an app update.</td>
+        <td>Open <code>System Settings &rarr; Privacy &amp; Security</code>, toggle <strong>Claude</strong> off and back on in both <code>Screen Recording</code> and <code>Accessibility</code>, then relaunch Desktop.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Background task keeps pausing mid-run</strong></td>
+        <td>You moved the mouse inside Claude&rsquo;s active Space or typed during execution.</td>
+        <td>That is the <strong>input-interference safety pause</strong> working as designed; leave the Space undisturbed and click <strong>Resume</strong> in the Cowork pane.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>/schedule</code> task did not run overnight</strong></td>
+        <td>Task depended on a local mounted folder, Chrome tab, or Tier 3 app while laptop slept.</td>
+        <td>Split pure MCP work into a cloud-only <code>/schedule</code> job, or schedule local/Chrome tasks during awake desk hours with Mac sleep disabled.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Claude clicks around Chrome instead of using Slack/Drive</strong></td>
+        <td>MCP connector was disconnected or prompt omitted preferred Tier 1 tools.</td>
+        <td>Re-authenticate the connector under <code>Settings &rarr; Connectors</code> and name it explicitly (e.g., <em>&ldquo;Use Gmail MCP and Drive MCP first&rdquo;</em>).</td>
+      </tr>
+      <tr>
+        <td><strong>5. Task stops with &ldquo;Folder Access Denied&rdquo;</strong></td>
+        <td>Output path sits outside the folder mounted for the current Cowork session.</td>
+        <td>Grant a scoped mount to the exact working directory (e.g., <code>~/Finance/March_Recon</code>) or direct outputs into the mounted folder.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Chrome task stalls at an SSO or MFA prompt</strong></td>
+        <td>Session cookie expired or portal requires hardware key / authenticator tap.</td>
+        <td>Sign into the portal manually in your Chrome tab first, complete MFA, then click <strong>Continue</strong> in Claude&rsquo;s task bar.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Cowork features missing on Team or Enterprise account</strong></td>
+        <td>Organization administrator has not enabled Desktop Computer Use or specific MCPs.</td>
+        <td>Ask an Org Owner/Primary Owner to review <code>Organization settings &rarr; Capabilities</code> and allowlist required connectors.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0;">6-Point Pre-Flight Checklist Before Delegating</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Verify Tier 1 MCPs First:</strong> Connect Slack, Gmail, Drive, Notion, Jira, or QuickBooks so Claude uses instant APIs before browsers or clicks.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. Check macOS Privacy Grants:</strong> Confirm <strong>Claude</strong> is enabled under both <code>Screen Recording</code> and <code>Accessibility</code> on macOS.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. Mount a Tight Sandbox Folder:</strong> Point local tasks at a dedicated subfolder like <code>~/Cowork_Inbox</code>&mdash;never root <code>~/</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Add an Explicit Approval Gate:</strong> Require a pause before payments, outbound sends, or deletes; prefer draft mode for comms.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. Match Engine to Sleep State:</strong> Keep <code>/schedule</code> overnight jobs pure-cloud MCP; run Chrome/local schedules while your Mac is awake.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. Test Once Before Scheduling:</strong> Run every new recipe manually once, inspect the 3-tier execution trace, then promote to <code>/schedule</code>.</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:7px 0 0 0; padding:7px 11px; font-size:8.15pt;">
+    <div class="callout-title">Final Takeaway: Delegate Execution, Keep Command</div>
+    One Claude unites cloud speed, browser reach, and quiet background macOS Spaces under one roof. Use APIs first, keep folder mounts narrow, guard irreversible steps with approval gates, and let your cursor stay yours.
+  </div>
+
+  <div class="page-footer"><span>Claude Cowork &amp; Computer Use &bull; Complete How-To Guide</span><span>Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

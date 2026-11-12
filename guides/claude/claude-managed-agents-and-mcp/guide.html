@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claude Managed Agents &amp; MCP Connectors: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">ANTHROPIC CLAUDE &amp; WORKSPACE STUDIOS &bull; FIELD GUIDE</div>
+    <h1>Claude <span>Managed Agents</span> &amp; MCP Connectors</h1>
+    <p class="cover-sub">
+      Architecting long-lived autonomous agents without DIY loop plumbing&mdash;decoupling the reasoning brain and PostgreSQL session store from disposable sandboxes, OAuth vaults, and remote HTTPS/SSE <code>/mcp</code> servers.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Brain / Hands Decoupling</span>
+      <span class="cover-badge">Self-Hosted <code>cma-server</code></span>
+      <span class="cover-badge">Remote HTTPS/SSE <code>/mcp</code></span>
+      <span class="cover-badge">OAuth 2.1 &amp; Secret Vaults</span>
+      <span class="cover-badge">Bedrock &bull; Vertex &bull; Foundry</span>
+      <span class="cover-badge">Zero-Secret Sandboxes</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Deep-Cyan Architectural Data Sanctuary With Luminous Neural Core, Armored Glass Sandbox Vaults, and Orbiting Remote Tool Nodes" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero DIY Harness Plumbing</div>
+      <div class="cover-stat-desc">Skip fragile custom retry loops&mdash;Managed Agents handle tool turns, streaming checkpoints, and durable state recovery out of the box.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Vault-Isolated Credentials</div>
+      <div class="cover-stat-desc">Store OAuth tokens and API keys inside server-side Vaults so sandboxed bash containers never touch raw secrets.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Cloud or VPC Sovereignty</div>
+      <div class="cover-stat-desc">Run on Anthropic&rsquo;s managed cloud or self-host <code>cma-server</code> with PostgreSQL and route inference to Bedrock, Vertex, or Foundry.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Decoupled Architecture</span>
+    <span>Claude Managed Agents &amp; MCP Connectors</span>
+  </div>
+
+  <h2 class="page-title">Decoupling the Agent Brain From the Hands</h2>
+  <p class="page-lead">
+    Traditional agent scripts tangle LLM reasoning, state persistence, untrusted shell commands, and raw API keys inside one brittle process. <strong>Claude Managed Agents</strong> separate the stateful reasoning loop (&ldquo;brain&rdquo;) from disposable execution containers and authenticated remote <code>/mcp</code> connectors (&ldquo;hands&rdquo;).
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Decoupled Brain, Store &amp; Sandbox Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Self-Hosting <code>cma-server</code> in Your VPC</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Prerequisites &amp; Deployment Topology Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Agent &amp; MCP Blueprints</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Control Plane &amp; Connector UI</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Blast-Radius Containment &amp; Schema Hygiene</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Why Managed Loops Beat DIY Harnesses</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Skills + <code>cma-server</code> + MCP Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Color-Coded Config &amp; Schema Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Remote HTTPS/SSE MCP &amp; OAuth Vaults</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Never Put Secrets in Sandboxes</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Core Mental Model: Four Independent Planes</h3>
+  <p style="font-size:8.65pt;">
+    An agent definition declares <em>instructions</em> and <em>tool URLs</em>&mdash;never credentials. When a session starts, the control plane (Anthropic Cloud or your self-hosted <code>cma-server</code>) persists every turn in PostgreSQL, routes model calls to your chosen inference provider, mounts a clean filesystem container for code execution, and brokers remote <code>/mcp</code> calls through a server-side OAuth Vault.
+  </p>
+
+  <h3>Architecture: End-to-End Request &amp; Isolation Flow</h3>
+  <div class="figure-box" style="background:#04111c; padding:9px 11px; border-color:#0284c7;">
+    <svg viewBox="0 0 700 192" width="100%" height="192" xmlns="http://www.w3.org/2000/svg">
+      <!-- Column 1: Client / API -->
+      <rect x="8" y="34" width="122" height="122" rx="8" fill="#092438" stroke="#38bdf8" stroke-width="1.6"/>
+      <rect x="18" y="44" width="102" height="16" rx="8" fill="#0284c7"/>
+      <text x="69" y="55" text-anchor="middle" fill="#ffffff" font-size="7.4" font-weight="800">1. CLIENT / API</text>
+      <text x="18" y="77" fill="#ffffff" font-size="9.4" font-weight="800">Session Trigger</text>
+      <text x="18" y="93" fill="#bae6fd" font-size="7.3">&bull; Web / Cowork App</text>
+      <text x="18" y="106" fill="#bae6fd" font-size="7.3">&bull; Messages / Agent SDK</text>
+      <text x="18" y="119" fill="#bae6fd" font-size="7.3">&bull; Passes Vault ID</text>
+      <text x="18" y="142" fill="#94a3b8" font-size="7">Zero raw secrets sent</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M130 95 L154 95" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="152,90 160,95 152,100" fill="#38bdf8"/>
+
+      <!-- Column 2: Control Plane + Postgres -->
+      <rect x="160" y="16" width="176" height="158" rx="9" fill="#0b2a42" stroke="#38bdf8" stroke-width="1.8"/>
+      <rect x="172" y="27" width="152" height="17" rx="8" fill="#38bdf8"/>
+      <text x="248" y="39" text-anchor="middle" fill="#04111c" font-size="7.5" font-weight="800">2. BRAIN CONTROL PLANE</text>
+      <text x="172" y="60" fill="#ffffff" font-size="9.8" font-weight="800">cma-server / Cloud Loop</text>
+      <rect x="172" y="68" width="152" height="42" rx="6" fill="#04111c" stroke="#0284c7" stroke-width="1"/>
+      <text x="180" y="82" fill="#7dd3fc" font-size="7.4" font-weight="700">Durable Agent Harness</text>
+      <text x="180" y="95" fill="#cbd5e1" font-size="7.1">Executes turn loop, retries,</text>
+      <text x="180" y="105" fill="#cbd5e1" font-size="7.1">compaction &amp; approval gates</text>
+      <rect x="172" y="117" width="152" height="44" rx="6" fill="#06201a" stroke="#10b981" stroke-width="1"/>
+      <text x="180" y="131" fill="#6ee7b7" font-size="7.4" font-weight="700">PostgreSQL 16+ Store</text>
+      <text x="180" y="144" fill="#cbd5e1" font-size="7.1">Agents, session events, tool</text>
+      <text x="180" y="154" fill="#cbd5e1" font-size="7.1">histories &amp; crash recovery</text>
+
+      <!-- Branching Arrows 2 -> 3 -->
+      <path d="M336 52 L364 38" stroke="#c084fc" stroke-width="1.8"/>
+      <polygon points="361,34 370,35 365,42" fill="#c084fc"/>
+      <path d="M336 95 L364 95" stroke="#34d399" stroke-width="1.8"/>
+      <polygon points="362,90 370,95 362,100" fill="#34d399"/>
+      <path d="M336 138 L364 152" stroke="#fbbf24" stroke-width="1.8"/>
+      <polygon points="365,148 370,155 361,156" fill="#fbbf24"/>
+
+      <!-- Column 3: 3 Decoupled Targets -->
+      <!-- Top: Model Provider Router -->
+      <rect x="370" y="12" width="166" height="48" rx="7" fill="#1b1433" stroke="#c084fc" stroke-width="1.5"/>
+      <text x="380" y="27" fill="#e9d5ff" font-size="7.4" font-weight="800">MODEL PROVIDER ROUTER</text>
+      <text x="380" y="40" fill="#ffffff" font-size="7.6" font-weight="700">Anthropic &bull; Bedrock &bull; Vertex</text>
+      <text x="380" y="52" fill="#cbd5e1" font-size="7">Microsoft Foundry / Custom GW</text>
+
+      <!-- Middle: Isolated Sandbox -->
+      <rect x="370" y="69" width="166" height="52" rx="7" fill="#0b2421" stroke="#34d399" stroke-width="1.5"/>
+      <text x="380" y="84" fill="#6ee7b7" font-size="7.4" font-weight="800">ISOLATED SANDBOX (HANDS)</text>
+      <text x="380" y="97" fill="#ffffff" font-size="7.6" font-weight="700">Disposable Container VM</text>
+      <text x="380" y="110" fill="#cbd5e1" font-size="7">bash, read/write, strict egress</text>
+
+      <!-- Bottom: OAuth Vault Proxy -->
+      <rect x="370" y="130" width="166" height="50" rx="7" fill="#26190a" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="380" y="145" fill="#fde68a" font-size="7.4" font-weight="800">OAUTH VAULT BROKER</text>
+      <text x="380" y="158" fill="#ffffff" font-size="7.6" font-weight="700">Server-Side Token Injection</text>
+      <text x="380" y="170" fill="#cbd5e1" font-size="7">Secrets never enter sandbox</text>
+
+      <!-- Arrow Vault -> Remote MCP -->
+      <path d="M536 155 L562 128" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="558,125 568,123 564,132" fill="#fbbf24"/>
+
+      <!-- Column 4: Remote /mcp -->
+      <rect x="564" y="34" width="128" height="124" rx="8" fill="#092438" stroke="#fbbf24" stroke-width="1.6"/>
+      <rect x="574" y="44" width="108" height="16" rx="8" fill="#d97706"/>
+      <text x="628" y="55" text-anchor="middle" fill="#ffffff" font-size="7.3" font-weight="800">4. REMOTE /mcp</text>
+      <text x="574" y="76" fill="#ffffff" font-size="9.1" font-weight="800">HTTPS/SSE Tools</text>
+      <text x="574" y="93" fill="#fde68a" font-size="7.3">&bull; GitHub / Linear</text>
+      <text x="574" y="106" fill="#fde68a" font-size="7.3">&bull; Postgres / BigQuery</text>
+      <text x="574" y="119" fill="#fde68a" font-size="7.3">&bull; Internal Enterprise API</text>
+      <text x="574" y="143" fill="#94a3b8" font-size="7">Scoped Bearer / OAuth 2.1</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Key Takeaway: Sandboxes Execute Code, Vaults Call Remote MCP</div>
+    Inside Claude Managed Agents, file and shell tools run inside your isolated container environment, while <strong>remote <code>/mcp</code> servers are called server-side</strong> through the Vault proxy. Even if untrusted code runs in bash, it cannot read your GitHub or Stripe OAuth tokens.
+  </div>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: PREREQUISITES & DEPLOYMENT TOPOLOGY MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Prerequisites &amp; Deployment Topology</span>
+    <span>Choosing Between Local, Remote, Cloud &amp; Self-Hosted</span>
+  </div>
+
+  <h2 class="page-title">Prerequisites &amp; Deployment Topology Matrix</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Not every workflow needs a self-hosted cluster, and not every connector belongs on a developer laptop. Use the topology matrix below to pick the exact runtime and MCP transport that matches your security, reachability, and residency requirements.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px; gap:10px;">
+    <div class="card" style="padding:8px 11px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Baseline Prerequisites</div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Remote Connectors:</strong> A TLS-terminated HTTPS endpoint exposing <code>/mcp</code> (Streamable HTTP or SSE) plus OAuth 2.1 metadata or static Bearer headers.</li>
+        <li><strong>Cloud Managed Agents:</strong> Anthropic Console API key, declared Environment ID, and Vault IDs for authenticated MCP calls.</li>
+        <li><strong>Self-Hosted <code>cma-server</code>:</strong> Container host (Kubernetes or Docker), <strong>PostgreSQL 16+</strong>, and an upstream model credential.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 11px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge amber">2</span> Supported Inference Providers</div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Anthropic API:</strong> Direct first-party access to the latest Claude Opus, Sonnet, and Haiku releases with native Vault integration.</li>
+        <li><strong>Amazon Bedrock:</strong> Route <code>cma-server</code> turns via AWS IAM roles to keep inference traffic inside your AWS account.</li>
+        <li><strong>Google Cloud Vertex AI &amp; Microsoft Foundry:</strong> Enterprise billing, VPC Service Controls, and Azure private-link routing without changing agent code.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 4px 0; font-size:10.3pt;">Deployment Topology Decision Matrix</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Topology</th>
+        <th style="width:19%;">Runtime &amp; State</th>
+        <th style="width:20%;">Network Reachability</th>
+        <th style="width:21%;">Secrets Isolation</th>
+        <th style="width:21%;">Best Fit &amp; Providers</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Local <code>stdio</code> MCP</strong><br/>Claude Desktop / Code</td>
+        <td>Local child process on user laptop; ephemeral session.</td>
+        <td>Localhost &amp; VPN; no public URL required.</td>
+        <td>Local env vars or OS keychain on developer machine.</td>
+        <td>Individual dev tools, local Git/SQLite; Anthropic API or Bedrock CLI auth.</td>
+      </tr>
+      <tr>
+        <td><strong>Remote HTTPS/SSE Custom Connector</strong><br/>Web, Mobile, Cowork</td>
+        <td>Cloud-connected; stateless or MCP server-managed.</td>
+        <td>Public HTTPS <code>/mcp</code> (or allowlisted Anthropic IPs).</td>
+        <td>OAuth 2.1 PKCE, DCR, or enterprise IdP token exchange.</td>
+        <td>Shared SaaS tools (Linear, Notion, internal APIs) across Web &amp; Mobile.</td>
+      </tr>
+      <tr>
+        <td><strong>Cloud Claude Managed Agents</strong><br/>Anthropic Control Plane</td>
+        <td>Fully managed loop + persistent session store + cloud VM.</td>
+        <td>Cloud-to-cloud HTTPS <code>/mcp</code>; sandbox egress rules.</td>
+        <td><strong>Vaults:</strong> tokens injected server-side; invisible to sandbox.</td>
+        <td>Turnkey async bots, triage agents, &amp; background research on Anthropic API.</td>
+      </tr>
+      <tr>
+        <td><strong>Self-Hosted <code>cma-server</code></strong><br/>Your VPC / On-Prem</td>
+        <td>Your container fleet + <strong>PostgreSQL 16+</strong> persistence.</td>
+        <td>Private VPC mesh; reaches internal <code>/mcp</code> without public exposure.</td>
+        <td>K8s/HashiCorp Vault + private gateway auth; zero external data store.</td>
+        <td>Regulated finance/health, private repos; <strong>Anthropic, Bedrock, Vertex, Foundry</strong>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.25pt;">
+    <div class="callout-title">Rule of Thumb: Move From Local to Managed When Sessions Outlive Your Laptop</div>
+    If an agent needs to survive browser disconnects, run unattended overnight, share across Web/Mobile teammates, or keep internal API keys out of untrusted code-execution containers, graduate from local <code>stdio</code> to <strong>Remote <code>/mcp</code> + Managed Agents</strong>.
+  </div>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED CONTROL PLANE & CONNECTOR UI ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Control Plane &amp; Connector Tour</span>
+    <span>Remote /mcp Registry, cma-server Health, OAuth Vault &amp; Scope Gates</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Connectors, Vaults &amp; Session Monitor</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Whether you register connectors in Claude Settings or orchestrate headless sessions via <code>cma-server</code>, four unified panels govern every run: the Remote <code>/mcp</code> registry, live session loop telemetry, the OAuth Vault broker, and per-tool read/write gates.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#e0f2fe;">Claude Control Plane &mdash; Remote Connectors, Vaults &amp; cma-server</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; font-size:7.2pt; color:#7dd3fc;">
+        <span>Postgres Store: <strong style="color:#34d399;">SYNCED</strong> <span class="callout-pin">2</span></span>
+        <span style="background:#0284c7; color:#fff; padding:2px 7px; border-radius:4px; font-weight:700;">+ Add Custom Connector <span class="callout-pin">1</span></span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1.08fr 1.32fr 1.05fr; border-bottom:1px solid #0e3754;">
+      <!-- Left Pane: Remote /mcp Registry -->
+      <div style="padding:8px 9px; border-right:1px solid #0e3754; background:#061826;">
+        <div style="font-size:7pt; font-weight:800; color:#7dd3fc; letter-spacing:0.05em; margin-bottom:5px;">REMOTE /mcp CONNECTORS</div>
+        <div style="background:#092438; border:1px solid #0284c7; border-radius:6px; padding:5px 7px; margin-bottom:5px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-weight:700; color:#ffffff; font-size:7.35pt;">
+            <span><code>github-prod</code> <span class="callout-pin">1</span></span>
+            <span style="color:#34d399; font-size:6.8pt;">HTTPS/SSE</span>
+          </div>
+          <div style="font-size:6.8pt; color:#cbd5e1; margin-top:2px;"><code>https://mcp.acme.dev/github/mcp</code></div>
+        </div>
+        <div style="background:#092438; border:1px solid #0e3754; border-radius:6px; padding:5px 7px; margin-bottom:5px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-weight:700; color:#ffffff; font-size:7.35pt;">
+            <span><code>warehouse-ro</code></span>
+            <span style="color:#34d399; font-size:6.8pt;">OAUTH 2.1</span>
+          </div>
+          <div style="font-size:6.8pt; color:#cbd5e1; margin-top:2px;"><code>https://mcp.acme.dev/sql/mcp</code></div>
+        </div>
+        <div style="background:#1c1709; border:1px solid #d97706; border-radius:6px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-weight:700; color:#fde68a; font-size:7.35pt;">
+            <span>OAuth Vault Broker <span class="callout-pin">3</span></span>
+            <span style="color:#fbbf24; font-size:6.8pt;">ISOLATED</span>
+          </div>
+          <div style="font-size:6.8pt; color:#e2e8f0; margin-top:2px;"><code>vault_01J9X...</code> &bull; PKCE + DCR</div>
+        </div>
+      </div>
+
+      <!-- Center Pane: cma-server Session Health Monitor -->
+      <div style="padding:8px 10px; border-right:1px solid #0e3754; background:#04111c;">
+        <div style="font-size:7pt; font-weight:800; color:#38bdf8; letter-spacing:0.05em; margin-bottom:5px;">cma-server SESSION HEALTH &bull; TRACE</div>
+        <div style="background:#092438; border-radius:6px; padding:5px 7px; margin-bottom:5px; font-size:7.1pt; color:#f8fafc;">
+          <strong>Session <code>sess_88a4</code>:</strong> Provider <code>Vertex AI (Claude Sonnet)</code> <span class="callout-pin">4</span> &bull; Turn 4/20 &bull; <span style="color:#34d399;">212ms DB</span>
+        </div>
+        <div style="background:#071c2c; border-left:3px solid #38bdf8; padding:4px 7px; margin-bottom:4px; font-size:7pt;">
+          <span class="callout-pin">5</span> <strong style="color:#7dd3fc;">Sandbox Container:</strong> <code>env_py312_locked</code> ran <code>pytest</code> &bull; Egress: <code>DENY_ALL</code>
+        </div>
+        <div style="background:#071c2c; border-left:3px solid #fbbf24; padding:4px 7px; margin-bottom:4px; font-size:7pt;">
+          <strong style="color:#fde68a;">Vault Proxy Call:</strong> <code>github-prod.get_pull_request</code> &rarr; <strong>200 OK</strong> (token injected)
+        </div>
+        <div style="background:#260c14; border-left:3px solid #e11d48; padding:4px 7px; font-size:7pt;">
+          <span class="callout-pin">6</span> <strong style="color:#fda4af;">Write Gate Pause:</strong> <code>github-prod.merge_pr</code> awaits human approval
+        </div>
+      </div>
+
+      <!-- Right Pane: Per-Tool Read/Write Policy -->
+      <div style="padding:8px 9px; background:#061826; font-size:7pt; line-height:1.45;">
+        <div style="font-size:7pt; font-weight:800; color:#6ee7b7; letter-spacing:0.05em; margin-bottom:5px;">TOOL SCOPE &amp; BUDGET <span class="callout-pin">7</span></div>
+        <div style="display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px solid #0e3754;">
+          <span><code>sql.query_readonly</code></span><span style="color:#34d399; font-weight:700;">ALLOW</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px solid #0e3754;">
+          <span><code>github.get_pr_diff</code></span><span style="color:#34d399; font-weight:700;">ALLOW</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px solid #0e3754;">
+          <span><code>github.create_comment</code></span><span style="color:#fbbf24; font-weight:700;">ASK</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px solid #0e3754;">
+          <span><code>github.merge_pr</code></span><span style="color:#fb7185; font-weight:700;">ASK</span>
+        </div>
+        <div style="margin-top:5px; color:#94a3b8; font-size:6.8pt;">
+          Active schemas: <strong>9 / 20</strong> max tools<br/>Schema tax: <strong>1,380 tokens</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 5px 0; font-size:10.2pt;">Control Plane &amp; Connector Callout Legend</h3>
+  <div class="grid-2" style="gap:7px 11px;">
+    <div class="card" style="padding:6px 10px; font-size:7.95pt;">
+      <strong><span class="callout-pin">1</span> Remote <code>/mcp</code> Registry:</strong> Registers HTTPS/SSE endpoints (<code>https://.../mcp</code>) across Web, Mobile, Cowork, and Managed Agents without local binary installs.
+    </div>
+    <div class="card" style="padding:6px 10px; font-size:7.95pt;">
+      <strong><span class="callout-pin">2</span> PostgreSQL Session Store:</strong> Persists <code>agents</code>, <code>sessions</code>, and event logs inside PostgreSQL 16+ so long-running jobs survive restarts and scale horizontally.
+    </div>
+    <div class="card" style="padding:6px 10px; font-size:7.95pt;">
+      <strong><span class="callout-pin">3</span> OAuth Vault Token Broker:</strong> Holds user OAuth refresh tokens and service keys outside the model context and injects headers server-side at egress.
+    </div>
+    <div class="card" style="padding:6px 10px; font-size:7.95pt;">
+      <strong><span class="callout-pin">4</span> Model Provider Router:</strong> Routes inference from <code>cma-server</code> to Anthropic API, Amazon Bedrock, Google Cloud Vertex, or Microsoft Foundry per policy.
+    </div>
+    <div class="card" style="padding:6px 10px; font-size:7.95pt;">
+      <strong><span class="callout-pin">5</span> Sandbox Egress Policy:</strong> Confines <code>bash</code> and file tools to disposable containers with explicit <code>allowed_hosts</code>&mdash;blocking arbitrary data exfiltration.
+    </div>
+    <div class="card" style="padding:6px 10px; font-size:7.95pt;">
+      <strong><span class="callout-pin">6</span> Per-Tool Read/Write Gates:</strong> Auto-runs safe read queries while pausing the session loop whenever an agent attempts a mutating write, merge, or spend action.
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:7px; padding:6px 10px; font-size:7.95pt; border-left:4px solid #059669; background:#ecfdf5;">
+    <strong><span class="callout-pin">7</span> Schema Budget &amp; Tool Curation Gauge:</strong> Tracks active MCP tool definitions loaded into the session context. Capping each agent to 8&ndash;15 focused tools prevents context bloat and sharpens tool selection accuracy.
+  </div>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: DECOUPLING THE BRAIN FROM THE HANDS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Core Workflow: Brain / Hands Decoupling</span>
+    <span>Long-Lived Loops Without DIY Agent Harnesses</span>
+  </div>
+
+  <h2 class="page-title">Decoupling the Brain From the Hands</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Building your own production agent loop looks simple on day one&mdash;until timeouts, partial tool errors, context compaction, and shell escapes break in production. Managed Agents separate the durable cognitive loop from isolated execution workspaces.
+  </p>
+
+  <div class="figure-box" style="margin:3px 0 8px 0;">
+    <img src="assets/brain_hands_decoupling.jpg" alt="Architectural Split Visualization Showing Luminous Cyan Cognitive Sphere Above Firewall Plane and Isolated Container Chambers Below" style="width:100%; height:235px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Architectural Separation:</strong> The cognitive loop reasons above a strict trust boundary, dispatching deterministic tool commands down to disposable sandbox containers while keeping secrets and session state safely isolated.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge">1</span> What the &ldquo;Brain&rdquo; Owns (Control Plane)</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Multi-Turn Loop Management:</strong> Streams model responses, parses tool calls, handles exponential backoff on transient 429/5xx errors, and enforces max-turn budgets.</li>
+        <li><strong>Session Checkpointing:</strong> Writes every message, tool request, and artifact pointer into durable storage so clients can disconnect and resume hours later.</li>
+        <li><strong>Context Compaction:</strong> Summarizes stale tool outputs automatically when long investigations approach context limits without losing active goals.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:8px 10px; border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge teal">2</span> What the &ldquo;Hands&rdquo; Own (Sandboxes)</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Disposable Workspaces:</strong> Each session boots inside an isolated container with scratch disk for cloning repos, running tests, and compiling reports.</li>
+        <li><strong>Blast-Radius Containment:</strong> A runaway <code>rm -rf</code> or malformed Python package affects only that ephemeral container&mdash;never the control plane or sibling tenants.</li>
+        <li><strong>Network Egress Rules:</strong> Lock outbound container traffic to explicit package registries or <code>DENY_ALL</code> so untrusted scripts cannot phone home.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.2pt;">
+    <div class="callout-title">Why You Should Stop Writing Custom <code>while True</code> Tool Loops</div>
+    A DIY harness must implement prompt caching, streaming SSE recovery, tool-timeout interrupts, human-in-the-loop pause/resume, and sandbox cleanup. Managed Agents bundle all five behind four clean primitives: <strong>Agents</strong>, <strong>Environments</strong>, <strong>Vaults</strong>, and <strong>Sessions</strong>.
+  </div>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: COLOR-CODED CONFIG & SCHEMA ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Configuration &amp; Schema Anatomy</span>
+    <span>Declarative Agents, Vault Bindings &amp; cma-server Routing</span>
+  </div>
+
+  <h2 class="page-title">Color-Coded Remote MCP &amp; <code>cma-server</code> Anatomy</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Managed Agents keep configuration cleanly partitioned: agent definitions declare endpoints and prompts, sessions bind runtime Vaults, and <code>cma-server</code> wires PostgreSQL persistence, model routing, and sandbox egress.
+  </p>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.2pt;">Color-Coded 5-Layer Managed Agent &amp; Server Stack</h3>
+  <div class="card" style="padding:8px 11px; margin-bottom:7px; background:#f8fafc; border-color:#bae6fd;">
+    <div style="margin-bottom:5px; font-size:7.8pt; display:flex; flex-wrap:wrap; gap:5px;">
+      <span class="p-tag p-endpoint">[Remote /mcp Endpoint]</span>
+      <span class="p-tag p-vault">[OAuth / Vault Broker]</span>
+      <span class="p-tag p-router">[Model Provider Router]</span>
+      <span class="p-tag p-store">[PostgreSQL Persistence]</span>
+      <span class="p-tag p-egress">[Sandbox Egress Policy]</span>
+    </div>
+    <div style="font-family:'SF Mono',Menlo,monospace; font-size:7.2pt; line-height:1.52; background:#ffffff; border:1px solid #cbd5e1; border-radius:7px; padding:7px 9px;">
+      <span class="p-tag p-endpoint"># 1. Agent Definition: declare url-type MCP servers cleanly with zero inline secrets</span><br/>
+      <span class="p-tag p-endpoint">mcp_servers: [{ type: "url", name: "linear-ops", url: "https://mcp.acme.internal/linear/mcp" }]</span><br/>
+      <span class="p-tag p-vault"># 2. Session Creation: attach user-scoped Vault ID at runtime for server-side token injection</span><br/>
+      <span class="p-tag p-vault">session.create(agent_id="agt_triage", environment_id="env_locked", vault_ids=["vault_usr_91f"])</span><br/>
+      <span class="p-tag p-router"># 3. Model Provider Router: direct inference to Anthropic, Bedrock, Vertex, or Foundry</span><br/>
+      <span class="p-tag p-router">CMA_PROVIDER__DEFAULT="vertex" | VERTEX_REGION="us-east5" | MODEL="claude-sonnet-4-5"</span><br/>
+      <span class="p-tag p-store"># 4. PostgreSQL Persistence: durable agents, session logs, and event listener</span><br/>
+      <span class="p-tag p-store">CMA_STORE__DATABASE_URL="postgres://cma:***@pg-primary.internal:5432/managed_agents"</span><br/>
+      <span class="p-tag p-egress"># 5. Sandbox Egress Policy: restrict container network to vetted registries only</span><br/>
+      <span class="p-tag p-egress">environment.networking: { type: "limited", allowed_hosts: ["pypi.org", "registry.npmjs.org"] }</span>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">1</span> Agent vs. Session Separation</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Versioned Blueprints:</strong> Commit Agent JSON/YAML definitions to Git. Because <code>mcp_servers</code> holds only <code>name</code>, <code>type</code>, and <code>url</code>, PR reviews stay 100% secret-free.</li>
+        <li><strong>Per-User Vault Binding:</strong> Ten engineers can share one <code>agt_triage</code> blueprint while each session injects that engineer&rsquo;s own OAuth identity via <code>vault_ids</code>.</li>
+        <li><strong>Tool Filtering:</strong> Allowlist only required MCP tool names on the agent so noisy unused endpoints never pollute the prompt.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge teal">2</span> Environment &amp; Networking Controls</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Pinned Toolchains:</strong> Pre-bake Python, Node.js, and internal CLI linters into an Environment image so sessions skip 40-second <code>pip install</code> cold starts.</li>
+        <li><strong>Strict Egress Allowlists:</strong> Set <code>allowed_hosts</code> to exact domains (or disable internet entirely) while letting server-side MCP calls still reach SaaS APIs.</li>
+        <li><strong>Resource Caps:</strong> Enforce memory, disk, and execution-time ceilings per sandbox container to stop infinite loops cleanly.</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:6px 9px; font-size:7.1pt; line-height:1.35; margin:2px 0 0 0;"><code># Declarative Agent + Environment payload pattern (JSON): zero credentials embedded
+{
+  "name": "incident-investigator",
+  "model": "claude-sonnet-4-5",
+  "mcp_servers": [{ "type": "url", "name": "datadog-ro", "url": "https://mcp.acme.dev/datadog/mcp" }],
+  "tools": [{ "type": "agent_toolset_20260401" }, { "type": "mcp_toolset", "mcp_server_name": "datadog-ro" }]
+}</code></pre>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: REMOTE HTTPS/SSE MCP & OAUTH VAULTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Remote MCP Connectors &amp; OAuth Vaults</span>
+    <span>Connecting https://.../mcp Safely Across Surfaces</span>
+  </div>
+
+  <h2 class="page-title">Remote HTTPS/SSE Connectors &amp; OAuth Vaults</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Remote MCP moves integrations off local laptops onto standard <code>https://.../mcp</code> endpoints. Combined with OAuth 2.1 and Vaults, one connector works seamlessly across Claude Web, Mobile, Cowork, and headless Managed Agents.
+  </p>
+
+  <div class="figure-box" style="margin:3px 0 8px 0;">
+    <img src="assets/remote_mcp_oauth_gateway.jpg" alt="Luminous Golden Keycard Prism Authenticating Inside Frosted-Cyan Gatehouse While Credential Crystals Stay Sealed in Vault" style="width:100%; height:235px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Zero-Trust Credential Brokering:</strong> The frosted cryptographic gatehouse exchanges scoped OAuth tokens for outbound <code>https://.../mcp</code> calls while long-lived secrets remain locked inside the Vault&mdash;never exposed to the sandbox.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge">1</span> Four Remote Auth Patterns</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>OAuth 2.1 + PKCE &amp; PRM:</strong> Server publishes Protected Resource Metadata (<code>.well-known/oauth-protected-resource</code>) so Claude discovers scopes automatically.</li>
+        <li><strong>Dynamic Client Registration (DCR):</strong> RFC 7591 lets Claude register as an OAuth client dynamically without manual admin client-ID copying.</li>
+        <li><strong>Enterprise IdP Token Exchange:</strong> Org admins federate Okta/Entra ID so employees inherit scoped access silently without 10 separate login popups.</li>
+        <li><strong>Static Bearer / Vault Headers:</strong> For machine-to-machine services, store the API key inside a Vault credential rather than pasting headers in plaintext.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:8px 10px; border-top:3px solid #d97706;">
+      <div class="card-title"><span class="num-badge amber">2</span> Transport &amp; Reachability Checklist</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Streamable HTTP First:</strong> Prefer MCP&rsquo;s modern Streamable HTTP (<code>POST /mcp</code> with optional SSE stream) over legacy dual-endpoint SSE for cleaner load balancing.</li>
+        <li><strong>Disable Proxy Buffering:</strong> On Nginx, Cloudflare, or ALB, disable response buffering on <code>/mcp</code> so streaming tool progress never stalls until timeout.</li>
+        <li><strong>Firewall &amp; Private Mesh:</strong> Cloud connectors require public HTTPS or Anthropic IP allowlisting; self-hosted <code>cma-server</code> reaches private VPC <code>/mcp</code> servers directly.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.2pt;">
+    <div class="callout-title">Cross-Surface Payoff: Connect Once, Use Everywhere</div>
+    Adding a custom connector under <code>Settings &rarr; Connectors &rarr; Add Custom Connector</code> makes that authenticated <code>https://.../mcp</code> server instantly usable from desktop, web browsers, and mobile Claude apps&mdash;no Node.js or Python setup on user devices.
+  </div>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: SELF-HOSTING CMA-SERVER IN YOUR VPC ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Enterprise VPC Deployment</span>
+    <span>Self-Hosting cma-server With PostgreSQL &amp; Multi-Cloud Inference</span>
+  </div>
+
+  <h2 class="page-title">Self-Hosting <code>cma-server</code> in Your VPC</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Regulated industries and teams with internal-only microservices can run the entire Managed Agents control plane inside their own Kubernetes cluster or VPC using <strong><code>cma-server</code></strong>&mdash;retaining 100% session sovereignty.
+  </p>
+
+  <div class="grid-2" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge">1</span> PostgreSQL 16+ Persistence</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Without a database, <code>cma-server</code> falls back to volatile memory and wipes sessions on restart. Production clusters wire <code>CMA_STORE__DATABASE_URL</code> to <strong>PostgreSQL 16+</strong> so agent specs, turn checkpoints, and audit trails persist durably across pod rollouts.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge purple">2</span> Control &amp; Listen Connections</div>
+      <p style="font-size:7.9pt; margin:0;">
+        High-throughput deployments configure dedicated <code>CMA_STORE__CONTROL_DATABASE_URL</code> (heartbeats and maintenance) and <code>CMA_STORE__LISTEN_DATABASE_URL</code> (PostgreSQL <code>LISTEN/NOTIFY</code> events). Avoid transaction-mode poolers like PgBouncer on the listener URL.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge amber">3</span> Inference Gateway Routing</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Route model calls out of <code>cma-server</code> directly to <strong>Anthropic API</strong>, <strong>Amazon Bedrock</strong>, <strong>Google Cloud Vertex AI</strong>, <strong>Microsoft Foundry</strong>, or an internal LiteLLM/Envoy proxy for unified spend caps, PII scrubbing, and regional failover.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge teal">4</span> Horizontal Scaling &amp; Failover</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Because session state lives in PostgreSQL rather than pod RAM, run 3+ stateless <code>cma-server</code> replicas behind an internal load balancer. If one node crashes mid-turn, another replica resumes the exact event stream seamlessly.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.2pt;">Production <code>cma-server</code> Environment &amp; Kubernetes Pattern</h3>
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.15pt; line-height:1.38; margin:2px 0 7px 0;"><code># Self-hosted cma-server core environment wiring (inject passwords via K8s Secrets / External Secrets)
+CMA_STORE__DATABASE_URL="postgres://cma_app:${DB_PASS}@pg-ha.internal:5432/cma?sslmode=require"
+CMA_STORE__CONTROL_DATABASE_URL="postgres://cma_app:${DB_PASS}@pg-ha.internal:5432/cma?sslmode=require"
+CMA_STORE__LISTEN_DATABASE_URL="postgres://cma_app:${DB_PASS}@pg-direct.internal:5432/cma?sslmode=require" # No PgBouncer txn pooling
+ANTHROPIC_BEDROCK_BASE_URL="https://bedrock-runtime.us-east-1.amazonaws.com"   # Or Vertex / Foundry / Anthropic API</code></pre>
+
+  <table class="clean-table" style="font-size:7.8pt; margin:2px 0 0 0;">
+    <thead>
+      <tr>
+        <th style="width:28%;">Sovereignty Requirement</th>
+        <th style="width:36%;">How Self-Hosted <code>cma-server</code> Solves It</th>
+        <th style="width:36%;">Operational Tip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Zero Public Exposure for Internal APIs</strong></td>
+        <td><code>cma-server</code> calls cluster-local <code>https://*.svc.cluster.local/mcp</code> services inside your VPC.</td>
+        <td>Enforce mTLS or network policies so only the <code>cma-server</code> namespace can reach internal MCP pods.</td>
+      </tr>
+      <tr>
+        <td><strong>Data Residency &amp; Audit Logs</strong></td>
+        <td>All conversation transcripts, tool outputs, and agent artifacts remain inside your PostgreSQL &amp; object store.</td>
+        <td>Schedule encrypted PostgreSQL backups and set retention TTLs on archived session rows.</td>
+      </tr>
+      <tr>
+        <td><strong>Multi-Region Model Failover</strong></td>
+        <td>Swap or failover between Bedrock, Vertex, and Foundry endpoints without touching client SDK code.</td>
+        <td>Pair with health checks on your inference gateway and configure per-agent token rate limits.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE BLUEPRINTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Agent Blueprints</span>
+    <span>5 Ready-to-Adapt Managed Agent &amp; Remote MCP Designs</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Managed Agent &amp; MCP Blueprints</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Use these five production blueprints as starting templates. Notice how every design isolates secrets in Vaults, trims exposed MCP tools to essentials, and pairs sandboxed execution with clear human approval boundaries.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Blueprint &amp; Hosting</th>
+        <th style="width:38%;">Remote <code>/mcp</code> Stack &amp; Auth</th>
+        <th style="width:40%;">Sandbox Work &amp; Approval Boundary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. On-Call Incident Investigator</strong><br/><code>cma-server</code> (VPC)<br/>Bedrock / Vertex</td>
+        <td><strong>MCP:</strong> <code>datadog-ro</code> + <code>github-ro</code> + <code>pagerduty</code> via internal VPC HTTPS.<br/><strong>Auth:</strong> Service Vault token (read-only).</td>
+        <td><strong>Sandbox:</strong> Checks out commit SHA, runs reproduction script inside <code>DENY_ALL</code> container.<br/><strong>Gate:</strong> Posts root-cause brief to Slack; requires human click before reverting PRs.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Autonomous PR Reviewer</strong><br/>Cloud Managed Agents<br/>Anthropic API</td>
+        <td><strong>MCP:</strong> <code>https://mcp.acme.dev/github/mcp</code> (filtered to 4 PR tools).<br/><strong>Auth:</strong> GitHub App OAuth inside Org Vault.</td>
+        <td><strong>Sandbox:</strong> Runs unit tests, linters, and migration checks cleanly.<br/><strong>Gate:</strong> Auto-posts line comments; <code>merge_pull_request</code> blocked behind maintainer approval.</td>
+      </tr>
+      <tr>
+        <td><strong>3. RevOps Weekly Cohort Analyst</strong><br/>Cloud Managed Agents<br/>Web + Scheduled API</td>
+        <td><strong>MCP:</strong> <code>snowflake-ro</code> + <code>hubspot-ro</code> + <code>slack-post</code>.<br/><strong>Auth:</strong> Per-analyst OAuth 2.1 PKCE Vault.</td>
+        <td><strong>Sandbox:</strong> Runs Python pandas cohort reconciliation and builds <code>.xlsx</code> + <code>.pptx</code> outputs.<br/><strong>Gate:</strong> Delivers draft deck to private channel before executive broadcast.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Support Escalation Triage</strong><br/><code>cma-server</code> + Cowork<br/>Microsoft Foundry</td>
+        <td><strong>MCP:</strong> <code>zendesk</code> + <code>linear</code> + internal <code>billing-ro</code>.<br/><strong>Auth:</strong> Entra ID IdP token exchange.</td>
+        <td><strong>Sandbox:</strong> Parses uploaded HAR logs and stack traces without risking host OS.<br/><strong>Gate:</strong> Creates Linear bug automatically; refunds/credits pause for support lead sign-off.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Overnight Security Patcher</strong><br/><code>cma-server</code> (K8s)<br/>PostgreSQL 16+</td>
+        <td><strong>MCP:</strong> <code>snyk-vulns</code> + <code>gitlab-internal</code>.<br/><strong>Auth:</strong> Short-lived Vault tokens scoped to <code>dev-patches/*</code> branches.</td>
+        <td><strong>Sandbox:</strong> Upgrades vulnerable lockfiles, runs full test suite, and verifies build.<br/><strong>Gate:</strong> Opens draft MR with diff proof; zero direct push permissions to <code>main</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.1pt;">Starter Session Launch Pattern (Agent + Environment + Vault Binding)</h3>
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.1pt; line-height:1.36; margin:2px 0 0 0;"><code># Bind a versioned, secret-free agent blueprint to an isolated sandbox environment and user Vault at session start
+session = client.beta.sessions.create(
+    agent=agent_id,                          # Declares instructions + https://.../mcp URLs only
+    environment_id="env_py312_restricted",   # Disposable container with allowed_hosts egress policy
+    vault_ids=[user_oauth_vault_id],         # Server-side token broker; sandbox never sees raw credentials
+    title="PR #482 Regression Triage"
+)</code></pre>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, BLAST-RADIUS & SCHEMA HYGIENE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security &amp; Context Efficiency</span>
+    <span>Blast-Radius Containment, Prompt Injection Defense &amp; Schema Hygiene</span>
+  </div>
+
+  <h2 class="page-title">Security, Blast-Radius Containment &amp; Schema Hygiene</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Connecting autonomous agents to live company systems introduces two distinct risks: oversized blast radii if a tool mutates data unchecked, and indirect prompt injection hidden inside external tickets, PR comments, or database rows.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:8px; gap:9px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:8.8pt;">Read vs. Write Gates</div>
+      <p style="font-size:7.75pt; margin:0;">
+        Separate read tools (<code>get_*</code>, <code>search_*</code>, <code>query_*</code>) from write tools (<code>delete_*</code>, <code>merge_*</code>, <code>send_*</code>). Auto-approve reads so agents move fast, and enforce human confirmation on every external state change.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #e11d48;">
+      <div class="card-title" style="font-size:8.8pt;">Anti-Tool-Poisoning</div>
+      <p style="font-size:7.75pt; margin:0;">
+        Treat every third-party MCP tool description and returned payload as <strong>untrusted data</strong>. Pin vetted server versions, strip hidden HTML/markdown instructions, and never mix untrusted web-scrape tools with privileged write keys in one session.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:8.8pt;">MCP Schema Hygiene</div>
+      <p style="font-size:7.75pt; margin:0;">
+        Every MCP tool injects its JSON schema into the system prompt (~150&ndash;300 tokens each). Loading 60 tools wastes 12,000+ tokens before Turn 1 and lowers accuracy. Filter each agent down to <strong>5&ndash;15 sharp tools</strong>.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.2pt;">Four-Layer Defense Matrix for Production MCP Deployments</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Threat Vector</th>
+        <th style="width:38%;">Failure Mode Without Controls</th>
+        <th style="width:38%;">Managed Agents + MCP Defense</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Secret Exfiltration via Bash</strong></td>
+        <td>Prompt-injected code inside sandbox prints <code>env</code> or <code>curl</code>s API tokens to an attacker host.</td>
+        <td>Store tokens in server-side <strong>Vaults</strong> (never container env vars) and lock sandbox networking to <code>allowed_hosts</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Indirect Prompt Injection</strong></td>
+        <td>Malicious text inside a Jira ticket tells the agent to export customer emails via Slack MCP.</td>
+        <td>Require confirmation gates on outbound/write tools and scope OAuth tokens strictly to least-privilege read scopes.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Tool Poisoning / Rug Pulls</strong></td>
+        <td>An external MCP server silently mutates its tool description after approval to hijack model behavior.</td>
+        <td>Audit remote servers before allowlisting, pin verified internal gateways, and alert on unexpected tool schema diffs.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Context Bloat &amp; Wrong Tool Pick</strong></td>
+        <td>Connecting 5 full SaaS servers dumps 80 overlapping tools, burning tokens and causing hallucinated parameters.</td>
+        <td>Split into specialized role agents (Triage vs. Finance) and allowlist only exact needed tool names per agent.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout rose" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.15pt;">
+    <div class="callout-title">Never Bridge Untrusted Public Inputs With Unattended Admin Write Scopes</div>
+    If an agent reads public GitHub issues, incoming support emails, or arbitrary web pages, assume adversarial text will arrive. Keep that session&rsquo;s Vault tokens read-only or gate every write action behind human approval.
+  </div>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Pipeline</span>
+    <span>Custom Claude Skills + cma-server Loop + Scoped Remote /mcp + Artifacts</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Skills + Managed Agents + MCP</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    <strong>Claude Skills</strong> teach your team&rsquo;s rules and formatting standards, <strong><code>cma-server</code></strong> orchestrates durable multi-turn loops, and <strong>Remote <code>/mcp</code> Connectors</strong> supply live authenticated data&mdash;producing verified Data and Code artifacts automatically.
+  </p>
+
+  <div class="figure-box" style="background:#04111c; padding:10px 12px; border-color:#0284c7; margin-bottom:8px;">
+    <svg viewBox="0 0 700 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Custom Claude Skill -->
+      <rect x="8" y="16" width="154" height="152" rx="9" fill="#0b2438" stroke="#fbbf24" stroke-width="1.6"/>
+      <text x="18" y="34" fill="#fde68a" font-size="7.7" font-weight="800">1. DOMAIN PLAYBOOK</text>
+      <text x="18" y="50" fill="#ffffff" font-size="9.6" font-weight="800">Custom Claude Skill</text>
+      <rect x="18" y="60" width="134" height="24" rx="5" fill="#04111c" stroke="#d97706" stroke-width="1"/>
+      <text x="25" y="75" fill="#fde68a" font-size="7.4">&bull; SKILL.md SOP rules</text>
+      <rect x="18" y="90" width="134" height="24" rx="5" fill="#04111c" stroke="#d97706" stroke-width="1"/>
+      <text x="25" y="105" fill="#fde68a" font-size="7.4">&bull; references/kpi.md</text>
+      <rect x="18" y="120" width="134" height="24" rx="5" fill="#04111c" stroke="#d97706" stroke-width="1"/>
+      <text x="25" y="135" fill="#fde68a" font-size="7.4">&bull; scripts/validate.py</text>
+      <text x="18" y="158" fill="#94a3b8" font-size="7">Loaded progressively</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M162 92 L182 92" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="180,87 188,92 180,97" fill="#fbbf24"/>
+
+      <!-- Stage 2: cma-server Agent Loop -->
+      <rect x="188" y="16" width="166" height="152" rx="9" fill="#092942" stroke="#38bdf8" stroke-width="1.8"/>
+      <text x="198" y="34" fill="#7dd3fc" font-size="7.7" font-weight="800">2. DURABLE CONTROL</text>
+      <text x="198" y="50" fill="#ffffff" font-size="9.6" font-weight="800">cma-server Loop</text>
+      <rect x="198" y="60" width="146" height="30" rx="5" fill="#04111c" stroke="#0284c7" stroke-width="1"/>
+      <text x="205" y="73" fill="#bae6fd" font-size="7.3" font-weight="700">PostgreSQL Session State</text>
+      <text x="205" y="84" fill="#cbd5e1" font-size="7">Checkpoints turns &amp; retries</text>
+      <rect x="198" y="96" width="146" height="30" rx="5" fill="#04111c" stroke="#c084fc" stroke-width="1"/>
+      <text x="205" y="109" fill="#e9d5ff" font-size="7.3" font-weight="700">Bedrock / Vertex / API</text>
+      <text x="205" y="120" fill="#cbd5e1" font-size="7">Routes reasoning &amp; compaction</text>
+      <text x="198" y="144" fill="#cbd5e1" font-size="7">Runs unattended multi-step</text>
+      <text x="198" y="156" fill="#cbd5e1" font-size="7">workflows with approval gates</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M354 92 L374 92" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="372,87 380,92 372,97" fill="#38bdf8"/>
+
+      <!-- Stage 3: Scoped Remote /mcp -->
+      <rect x="380" y="16" width="152" height="152" rx="9" fill="#0b2421" stroke="#34d399" stroke-width="1.6"/>
+      <text x="390" y="34" fill="#6ee7b7" font-size="7.7" font-weight="800">3. VAULT + REMOTE /mcp</text>
+      <text x="390" y="50" fill="#ffffff" font-size="9.6" font-weight="800">Scoped Connectors</text>
+      <rect x="390" y="60" width="132" height="34" rx="5" fill="#041412" stroke="#10b981" stroke-width="1"/>
+      <text x="397" y="74" fill="#a7f3d0" font-size="7.2" font-family="monospace">https://.../sql/mcp</text>
+      <text x="397" y="86" fill="#cbd5e1" font-size="7">Read-only Vault OAuth token</text>
+      <rect x="390" y="102" width="132" height="34" rx="5" fill="#041412" stroke="#10b981" stroke-width="1"/>
+      <text x="397" y="116" fill="#a7f3d0" font-size="7.2" font-family="monospace">https://.../git/mcp</text>
+      <text x="397" y="128" fill="#cbd5e1" font-size="7">Branch PRs &amp; diff queries</text>
+      <text x="390" y="156" fill="#94a3b8" font-size="7">Zero raw secrets in sandbox</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M532 92 L552 92" stroke="#34d399" stroke-width="2"/>
+      <polygon points="550,87 558,92 550,97" fill="#34d399"/>
+
+      <!-- Stage 4: Verified Artifacts -->
+      <rect x="558" y="16" width="134" height="152" rx="9" fill="#131936" stroke="#c084fc" stroke-width="1.6"/>
+      <text x="568" y="34" fill="#e9d5ff" font-size="7.7" font-weight="800">4. SHIPPED ARTIFACTS</text>
+      <text x="568" y="50" fill="#ffffff" font-size="9.4" font-weight="800">Data &amp; Code Output</text>
+      <rect x="568" y="60" width="114" height="24" rx="5" fill="#070d1f" stroke="#7c3aed" stroke-width="1"/>
+      <text x="575" y="75" fill="#fde68a" font-size="7.3">Validated Patch PR</text>
+      <rect x="568" y="90" width="114" height="24" rx="5" fill="#070d1f" stroke="#7c3aed" stroke-width="1"/>
+      <text x="575" y="105" fill="#6ee7b7" font-size="7.3">Audit_Report.xlsx</text>
+      <rect x="568" y="120" width="114" height="24" rx="5" fill="#070d1f" stroke="#7c3aed" stroke-width="1"/>
+      <text x="575" y="135" fill="#e9d5ff" font-size="7.3">Exec_Brief.pptx</text>
+      <text x="568" y="158" fill="#cbd5e1" font-size="7">Auditable in Postgres</text>
+    </svg>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.2pt;">End-to-End Walkthrough: Automated Weekly Engineering &amp; Revenue Audit</h3>
+  <div class="grid-2" style="gap:8px; margin-bottom:7px;">
+    <div class="card" style="padding:7px 10px; font-size:7.9pt;">
+      <strong>1. Load Skill Playbook:</strong> Your <code>revops-audit</code> Skill instructs Claude on exact ARR exclusion rules, chart styles, and validation scripts without cluttering idle prompts.
+    </div>
+    <div class="card" style="padding:7px 10px; font-size:7.9pt;">
+      <strong>2. Orchestrate via <code>cma-server</code>:</strong> A scheduled job opens a Managed Agent session backed by PostgreSQL and routes reasoning through Vertex AI or Bedrock.
+    </div>
+    <div class="card" style="padding:7px 10px; font-size:7.9pt;">
+      <strong>3. Query via Vault-Protected <code>/mcp</code>:</strong> The Vault injects scoped OAuth tokens to pull live warehouse metrics and GitHub release notes server-side.
+    </div>
+    <div class="card" style="padding:7px 10px; font-size:7.9pt;">
+      <strong>4. Verify in Sandbox &amp; Ship:</strong> Inside the isolated container, Claude runs <code>scripts/validate.py</code> and emits checked <code>.xlsx</code>, <code>.pptx</code>, or PR artifacts.
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.15pt;">
+    <div class="callout-title">Architecture Payoff: Clean Separation of Concerns</div>
+    Swap models without rewriting skills, rotate OAuth credentials in Vaults without redeploying agents, and upgrade <code>/mcp</code> tools without touching sandbox images.
+  </div>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Top 7 Issues, 10-Second Fixes &amp; 6-Point Pre-Flight</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Most Managed Agent and Remote MCP snags come from proxy buffering, OAuth redirect URIs, PgBouncer listener pooling, or bloated tool lists. Use this quick clinic to diagnose and resolve issues in seconds.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Remote <code>/mcp</code> hangs or times out</strong></td>
+        <td>Reverse proxy (Nginx/ALB/Cloudflare) buffers SSE chunks instead of streaming immediately.</td>
+        <td>Disable proxy buffering on <code>/mcp</code> (e.g., <code>proxy_buffering off;</code>) and set idle timeouts above 300s.</td>
+      </tr>
+      <tr>
+        <td><strong>2. OAuth handshake fails on connect</strong></td>
+        <td>Missing <code>.well-known</code> PRM metadata, strict redirect mismatch, or blocked DCR endpoint.</td>
+        <td>Verify RFC 9728 metadata, allowlist Claude&rsquo;s OAuth callback URL, or supply custom OAuth client credentials.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>cma-server</code> loses sessions on restart</strong></td>
+        <td><code>CMA_STORE__DATABASE_URL</code> unset, causing fallback to ephemeral in-memory store.</td>
+        <td>Point <code>CMA_STORE__DATABASE_URL</code> to PostgreSQL 16+ and confirm schema migrations succeed at boot.</td>
+      </tr>
+      <tr>
+        <td><strong>4. DB event listener disconnects randomly</strong></td>
+        <td><code>CMA_STORE__LISTEN_DATABASE_URL</code> routed through a transaction-mode PgBouncer pooler.</td>
+        <td>Connect <code>LISTEN_DATABASE_URL</code> directly to PostgreSQL (or session-mode pooler) so <code>LISTEN/NOTIFY</code> stays open.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Sandbox bash fails to hit internal API</strong></td>
+        <td>Sandbox egress policy blocks outbound calls, or developer tried calling Vault secrets inside bash.</td>
+        <td>Route private API access through server-side <code>/mcp</code> + Vault instead of container scripts; allowlist only package hosts.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Agent picks wrong MCP tool or stalls</strong></td>
+        <td>Too many overlapping tool schemas (50+) bloat prompt context and confuse parameter selection.</td>
+        <td>Trim <code>mcp_toolset</code> down to 5&ndash;15 sharp tools per agent and write crisp single-purpose parameter descriptions.</td>
+      </tr>
+      <tr>
+        <td><strong>7. 401/403 from Bedrock, Vertex, or Foundry</strong></td>
+        <td>Expired cloud IAM role, missing region quota, or mismatched model ID mapping in router.</td>
+        <td>Verify cloud IAM/OIDC permissions, confirm model availability in target region, and test gateway health endpoint.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="padding:9px 12px; margin-top:2px;">
+    <div class="card-title" style="color:#7dd3fc; font-size:9.4pt; margin-bottom:5px;">6-Point Pre-Flight Checklist Before Shipping Any Managed Agent</div>
+    <div class="grid-2" style="gap:5px 14px; font-size:7.8pt; color:#f1f5f9;">
+      <div><strong>&#9745; 1. Zero Secrets in Blueprints:</strong> Agent JSON/YAML lists only <code>https://.../mcp</code> URLs; all tokens live inside Vaults.</div>
+      <div><strong>&#9745; 2. PostgreSQL 16+ Wired:</strong> Self-hosted <code>cma-server</code> points to durable PostgreSQL with direct listener connectivity.</div>
+      <div><strong>&#9745; 3. Tight Sandbox Egress:</strong> Container environment locks outbound traffic to exact <code>allowed_hosts</code> or <code>DENY_ALL</code>.</div>
+      <div><strong>&#9745; 4. Read/Write Gates Active:</strong> Mutating, merging, billing, or external messaging MCP tools pause for human sign-off.</div>
+      <div><strong>&#9745; 5. Lean Tool Budget (&le;15):</strong> Redundant MCP tools are filtered out so schema overhead stays crisp and accurate.</div>
+      <div><strong>&#9745; 6. Streaming &amp; Auth Tested:</strong> Verified unbuffered <code>/mcp</code> SSE/HTTP responses, OAuth token refresh, and provider failover.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Managed Agents &amp; MCP Connectors &bull; Complete How-To Guide</span><span>Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

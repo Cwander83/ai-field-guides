@@ -5,8 +5,8 @@
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-27%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-324%20Pages-059669?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-31%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-372%20Pages-059669?style=for-the-badge)
 ![Ecosystems](https://img.shields.io/badge/Scope-4%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
@@ -117,7 +117,7 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
 </table>
 
 ### Anthropic Claude & Workspace Studios
-Publication-grade 12-page visual handbooks for Anthropic's agentic coding and collaborative workspace suite—covering Claude Code Mods, multiplayer Claude Whiteboards, Claude Dashboards & Data, and cross-surface Claude Skills.
+Publication-grade 12-page visual handbooks for Anthropic's agentic coding, autonomous digital coworker, and collaborative workspace suite—covering Claude Code Mods, Autonomous Loops & Code Artifacts, Claude Cowork & Computer Use, Whiteboards, Sheets, Dashboards & Data, Skills, and Managed Agents & MCP.
 
 <table>
   <tr>
@@ -154,6 +154,42 @@ Publication-grade 12-page visual handbooks for Anthropic's agentic coding and co
       <p>Packaging reusable domain expertise across Claude.ai, Claude Desktop, and Claude Code—mastering 3-tier progressive disclosure, SKILL.md anatomy, skill-creator, and executable scripts.</p>
       <p><code>SKILL.md</code> &middot; <code>Progressive Disclosure</code> &middot; <code>Skill Creator</code></p>
       <p><a href="guides/claude/claude-skills/Claude_Skills_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-skills">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-cowork-and-computer-use/Claude_Cowork_and_Computer_Use_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-cowork-and-computer-use/cover.png" alt="Claude Cowork &amp; Computer Use Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-cowork-and-computer-use/Claude_Cowork_and_Computer_Use_Complete_How_To_Guide.pdf">Claude Cowork &amp; Computer Use</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Automating multi-step knowledge work across Desktop, Web, and Mobile—mastering background macOS Computer Use, built-in browser tasks, recurring /schedule runs, and SaaS connectors.</p>
+      <p><code>Claude Cowork</code> &middot; <code>Computer Use</code> &middot; <code>Scheduled Agents</code></p>
+      <p><a href="guides/claude/claude-cowork-and-computer-use/Claude_Cowork_and_Computer_Use_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-cowork-and-computer-use">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-sheets-and-artifacts/Claude_Sheets_and_Artifacts_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-sheets-and-artifacts/cover.png" alt="Claude Sheets &amp; Interactive Artifacts Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-sheets-and-artifacts/Claude_Sheets_and_Artifacts_Complete_How_To_Guide.pdf">Claude Sheets &amp; Interactive Artifacts</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Building live multi-tab spreadsheets with cross-sheet formulas, dropdowns, charts, multiplayer edits, and .xlsx round-tripping alongside interactive MCP-connected Artifacts.</p>
+      <p><code>Claude Sheets</code> &middot; <code>Interactive Artifacts</code> &middot; <code>Live Formulas &amp; .xlsx</code></p>
+      <p><a href="guides/claude/claude-sheets-and-artifacts/Claude_Sheets_and_Artifacts_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-sheets-and-artifacts">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-code-autonomous-loops/Claude_Code_Autonomous_Loops_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-code-autonomous-loops/cover.png" alt="Claude Code Autonomous Loops &amp; Code Artifacts Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-code-autonomous-loops/Claude_Code_Autonomous_Loops_Complete_How_To_Guide.pdf">Claude Code Autonomous Loops &amp; Code Artifacts</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Running unattended multi-turn /goal completion contracts, supervising parallel sessions in claude agents, CLI-to-Desktop /resume, and publishing live PR walkthrough Artifacts.</p>
+      <p><code>/goal Loops</code> &middot; <code>claude agents</code> &middot; <code>Code Artifacts</code></p>
+      <p><a href="guides/claude/claude-code-autonomous-loops/Claude_Code_Autonomous_Loops_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-code-autonomous-loops">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-managed-agents-and-mcp/Claude_Managed_Agents_and_MCP_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-managed-agents-and-mcp/cover.png" alt="Claude Managed Agents &amp; MCP Connectors Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-managed-agents-and-mcp/Claude_Managed_Agents_and_MCP_Complete_How_To_Guide.pdf">Claude Managed Agents &amp; MCP Connectors</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Connecting Remote HTTPS/SSE and local stdio MCP servers across Claude surfaces and self-hosting cma-server agent sandboxes with scoped OAuth and Bedrock/Vertex routing.</p>
+      <p><code>Managed Agents</code> &middot; <code>Remote MCP</code> &middot; <code>cma-server</code></p>
+      <p><a href="guides/claude/claude-managed-agents-and-mcp/Claude_Managed_Agents_and_MCP_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-managed-agents-and-mcp">&#128736; Editable Source</a></p>
     </td>
   </tr>
 </table>
@@ -306,6 +342,10 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **Claude Whiteboards** — Turning messy voice and text brainstorms into real-time multiplayer visual canvases—mastering region-box prompting, retro clustering, Doc/Slide handoffs, and Miro/Lucid exports. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-whiteboards/Claude_Whiteboards_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-whiteboards) |
 | **Claude Dashboards & Data** — Connecting warehouses and CRMs to natural-language analytics—building auditable SQL charts, Certified Queries, Scrollytellers, Visual Shorts, and credential-safe live team shares. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-dashboards-and-data/Claude_Dashboards_and_Data_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-dashboards-and-data) |
 | **Claude Skills** — Packaging reusable domain expertise across Claude.ai, Claude Desktop, and Claude Code—mastering 3-tier progressive disclosure, SKILL.md anatomy, skill-creator, and executable scripts. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-skills/Claude_Skills_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-skills) |
+| **Claude Cowork & Computer Use** — Automating multi-step knowledge work across Desktop, Web, and Mobile—mastering background macOS Computer Use, built-in browser tasks, recurring /schedule runs, and SaaS connectors. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-cowork-and-computer-use/Claude_Cowork_and_Computer_Use_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-cowork-and-computer-use) |
+| **Claude Sheets & Interactive Artifacts** — Building live multi-tab spreadsheets with cross-sheet formulas, dropdowns, charts, multiplayer edits, and .xlsx round-tripping alongside interactive MCP-connected Artifacts. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-sheets-and-artifacts/Claude_Sheets_and_Artifacts_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-sheets-and-artifacts) |
+| **Claude Code Autonomous Loops & Code Artifacts** — Running unattended multi-turn /goal completion contracts, supervising parallel sessions in claude agents, CLI-to-Desktop /resume, and publishing live PR walkthrough Artifacts. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-code-autonomous-loops/Claude_Code_Autonomous_Loops_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-code-autonomous-loops) |
+| **Claude Managed Agents & MCP Connectors** — Connecting Remote HTTPS/SSE and local stdio MCP servers across Claude surfaces and self-hosting cma-server agent sandboxes with scoped OAuth and Bedrock/Vertex routing. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-managed-agents-and-mcp/Claude_Managed_Agents_and_MCP_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-managed-agents-and-mcp) |
 | **Spec-Driven Dev & Context Engineering** — Cross-vendor context architecture (AGENTS.md, CLAUDE.md, Cursor rules), progressive disclosure, and Spec-to-Plan-to-Tasks agent workflows. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/spec-driven-context-engineering/Spec_Driven_Dev_and_Context_Engineering_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/spec-driven-context-engineering) |
 | **Subagents & Agent Orchestration** — Designing specialist subagents, context forks, least-privilege tool scoping, lifecycle hooks, and multi-agent coordinator-worker swarms. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/subagents-and-orchestration/Subagents_and_Agent_Orchestration_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/subagents-and-orchestration) |
 | **Git Worktrees & Parallel Agent Safety** — Running parallel coding agents without file collisions—covering Git worktree fleets, isolated ports/databases, safety hooks, and teardown. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/git-worktrees-and-parallel-safety/Git_Worktrees_and_Parallel_Agent_Safety_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/git-worktrees-and-parallel-safety) |

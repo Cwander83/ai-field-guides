@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claude Sheets &amp; Interactive Artifacts: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">ANTHROPIC CLAUDE &amp; WORKSPACE STUDIOS &bull; FIELD GUIDE</div>
+    <h1>Claude <span>Sheets</span> &amp; Interactive Artifacts</h1>
+    <p class="cover-sub">
+      From multi-tab formula workbooks with live cell-outline audit trails and real-time multiplayer co-editing to durable MCP-connected interactive web apps persisted in your Artifacts library.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Multi-Tab Workbooks</span>
+      <span class="cover-badge">Dynamic Excel Formulas</span>
+      <span class="cover-badge">Live Cell-Outline Audit</span>
+      <span class="cover-badge">Real-Time Multiplayer</span>
+      <span class="cover-badge">MCP-Connected Artifacts</span>
+      <span class="cover-badge">.xlsx &amp; .csv Round-Trip</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Luminous emerald and brushed-brass isometric crystalline grid of floating translucent spreadsheet tablets connected by golden calculation threads to a faceted prism" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Live Formulas, Zero Guesswork</div>
+      <div class="cover-stat-desc">Build structured multi-tab spreadsheets powered by real <code>SUMIFS</code>, <code>XLOOKUP</code>, dropdowns, and conditional formatting&mdash;never static hardcoded totals.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Cell-by-Cell Transparency</div>
+      <div class="cover-stat-desc">Watch green live cell outlines trace every Claude edit as it lands while teammates co-edit simultaneously in shared spaces.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Sheets to Live Web Apps</div>
+      <div class="cover-stat-desc">Promote any model or workflow into an interactive web Artifact wired directly to live MCP connectors with viewer-scoped permissions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Architecture</span>
+    <span>Claude Sheets &amp; Interactive Artifacts</span>
+  </div>
+
+  <h2 class="page-title">The Artifacts Studio: Live Grids &amp; Connected Apps</h2>
+  <p class="page-lead">
+    Old AI chat workflows forced you to copy raw tables out of a message bubble or settle for frozen static previews. Inside Claude&rsquo;s <strong>Artifacts Studio</strong>&mdash;sitting alongside Claude Whiteboards and Claude Data&mdash;<strong>Claude Sheets</strong> gives you a live multiplayer workbook while <strong>Interactive Artifacts</strong> turn workflows into durable, MCP-connected web applications.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model &amp; Studio Architecture</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. MCP-Connected Interactive Web Artifacts</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Setup, Admin Toggles &amp; 4-Way Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Claude Sheets UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Governance, Export &amp; .xlsx Round-Trip</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Multi-Tab Modeling, Formulas &amp; Controls</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Spreadsheet &amp; Artifact Prompt Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Live Cell-Outline Audit &amp; Multiplayer</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Audit Formulas, Not Values</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Core Mental Model: Formula-Driven Grids + Rehydrating Web Apps</h3>
+  <p style="font-size:8.6pt;">
+    Think of the Artifacts tab as a persistent workspace library rather than a temporary chat sidebar. When you need structured calculations, scenario tabs, and Excel-compatible exports, launch <strong>Claude Sheets</strong> so every KPI computes through live cell formulas and visual edit outlines. When your team needs sliders, triage queues, or interactive calculators backed by live company tools, build a <strong>thick Interactive Artifact</strong> that rehydrates fresh state through MCP connectors every time someone opens it.
+  </p>
+
+  <h3>Architecture: Prompt &amp; Data &rarr; Formula Engine &rarr; Audit Trail &rarr; Deliverables</h3>
+  <div class="figure-box" style="background:#04160e; padding:10px 12px; border-color:#065f46;">
+    <svg viewBox="0 0 700 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1: Prompt + Data -->
+      <rect x="8" y="14" width="154" height="156" rx="9" fill="#092b1b" stroke="#34d399" stroke-width="1.6"/>
+      <text x="18" y="32" fill="#6ee7b7" font-size="7.7" font-weight="700">1. INPUTS &amp; CONTEXT</text>
+      <text x="18" y="48" fill="#ffffff" font-size="10" font-weight="800">Prompt + Data</text>
+      <rect x="18" y="58" width="134" height="46" rx="5" fill="#0d3b26" stroke="#10b981" stroke-width="1"/>
+      <text x="25" y="72" fill="#d1fae5" font-size="7.5" font-weight="700">Natural-Language Spec</text>
+      <text x="25" y="84" fill="#cbd5e1" font-size="7">Tabs, schema &amp; rules</text>
+      <text x="25" y="96" fill="#94a3b8" font-size="6.9">+ Uploaded CSV / XLSX</text>
+      <rect x="18" y="112" width="134" height="48" rx="5" fill="#0b2938" stroke="#38bdf8" stroke-width="1"/>
+      <text x="25" y="126" fill="#7dd3fc" font-size="7.5" font-weight="700">Live MCP Connectors</text>
+      <text x="25" y="138" fill="#cbd5e1" font-size="7">GitHub, Linear, Drive,</text>
+      <text x="25" y="150" fill="#6ee7b7" font-size="6.9">CRM or custom APIs</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M162 92 L184 92" stroke="#34d399" stroke-width="2"/>
+      <polygon points="182,87 190,92 182,97" fill="#34d399"/>
+
+      <!-- Box 2: Multi-Tab Formula Engine -->
+      <rect x="190" y="14" width="160" height="156" rx="9" fill="#062116" stroke="#10b981" stroke-width="1.8"/>
+      <text x="200" y="32" fill="#6ee7b7" font-size="7.7" font-weight="700">2. COMPUTE CORE</text>
+      <text x="200" y="48" fill="#ffffff" font-size="9.8" font-weight="800">Multi-Tab Engine</text>
+      <rect x="200" y="58" width="140" height="48" rx="5" fill="#0d3b26" stroke="#059669" stroke-width="1"/>
+      <text x="207" y="72" fill="#a7f3d0" font-size="7.5" font-weight="700">Cross-Sheet Formulas</text>
+      <text x="207" y="84" fill="#d1fae5" font-size="7">SUMIFS, XLOOKUP,</text>
+      <text x="207" y="96" fill="#d1fae5" font-size="7">INDEX/MATCH bindings</text>
+      <rect x="200" y="112" width="140" height="48" rx="5" fill="#1b2616" stroke="#f59e0b" stroke-width="1"/>
+      <text x="207" y="126" fill="#fde68a" font-size="7.5" font-weight="700">Grid Controls &amp; Charts</text>
+      <text x="207" y="138" fill="#e2e8f0" font-size="7">Dropdowns, checkboxes,</text>
+      <text x="207" y="150" fill="#e2e8f0" font-size="7">conditional heatmaps</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M350 92 L372 92" stroke="#34d399" stroke-width="2"/>
+      <polygon points="370,87 378,92 370,97" fill="#34d399"/>
+
+      <!-- Box 3: Live Cell Audit Trail -->
+      <rect x="378" y="14" width="148" height="156" rx="9" fill="#092b1b" stroke="#34d399" stroke-width="1.6"/>
+      <text x="388" y="32" fill="#6ee7b7" font-size="7.7" font-weight="700">3. VERIFICATION</text>
+      <text x="388" y="48" fill="#ffffff" font-size="9.8" font-weight="800">Live Audit Trail</text>
+      <rect x="388" y="58" width="128" height="48" rx="5" fill="#064e3b" stroke="#34d399" stroke-width="1.4"/>
+      <text x="395" y="72" fill="#ffffff" font-size="7.5" font-weight="700">Green Cell Outlines</text>
+      <text x="395" y="84" fill="#d1fae5" font-size="7">Visual highlight tracks</text>
+      <text x="395" y="96" fill="#d1fae5" font-size="7">every AI write as it lands</text>
+      <rect x="388" y="112" width="128" height="48" rx="5" fill="#0d3b26" stroke="#10b981" stroke-width="1"/>
+      <text x="395" y="126" fill="#a7f3d0" font-size="7.5" font-weight="700">Formula Inspection</text>
+      <text x="395" y="138" fill="#cbd5e1" font-size="7">Verify dynamic formula</text>
+      <text x="395" y="150" fill="#cbd5e1" font-size="7">diffs vs. pasted literals</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M526 92 L548 92" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="546,87 554,92 546,97" fill="#f59e0b"/>
+
+      <!-- Box 4: Multiplayer + Export / Artifact -->
+      <rect x="554" y="14" width="138" height="156" rx="9" fill="#092b1b" stroke="#f59e0b" stroke-width="1.6"/>
+      <text x="564" y="32" fill="#fcd34d" font-size="7.7" font-weight="700">4. SHARE &amp; RUN</text>
+      <text x="564" y="48" fill="#ffffff" font-size="9.6" font-weight="800">Ship &amp; Co-Edit</text>
+      <rect x="564" y="58" width="118" height="48" rx="5" fill="#0d3b26" stroke="#34d399" stroke-width="1"/>
+      <text x="571" y="72" fill="#ffffff" font-size="7.4" font-weight="700">Multiplayer + Export</text>
+      <text x="571" y="84" fill="#cbd5e1" font-size="6.9">Live team + Claude edits</text>
+      <text x="571" y="96" fill="#6ee7b7" font-size="6.9">&bull; Clean .xlsx / .csv</text>
+      <rect x="564" y="112" width="118" height="48" rx="5" fill="#0b2938" stroke="#38bdf8" stroke-width="1"/>
+      <text x="571" y="126" fill="#7dd3fc" font-size="7.4" font-weight="700">Interactive Artifact</text>
+      <text x="571" y="138" fill="#cbd5e1" font-size="6.9">Persisted web app with</text>
+      <text x="571" y="150" fill="#cbd5e1" font-size="6.9">viewer-scoped MCP auth</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Core Mental Model: Build Once in Conversation, Persist as Living Team Software</div>
+    Every Claude Sheet and Interactive Artifact lives in your workspace&rsquo;s <strong>Artifacts</strong> tab so you can close a chat, reopen the asset weeks later, co-edit cells with teammates, or trigger fresh MCP data pulls without rebuilding from scratch.
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, ADMIN CONTROLS & 4-WAY MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup, Plans &amp; Ecosystem</span>
+    <span>Workspace Access, Admin Controls &amp; 4-Way Decision Matrix</span>
+  </div>
+
+  <h2 class="page-title">Setup, Admin Controls &amp; 4-Way Ecosystem Matrix</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Claude Sheets and MCP-connected Interactive Artifacts ship across paid Claude plans. Turning on the right organization toggles upfront unlocks smooth saving, reopening, and team sharing.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px; gap:10px;">
+    <div class="card" style="padding:8px 11px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Workspace Access &amp; Artifacts Library</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Pro &amp; Max:</strong> Full individual access to Claude Sheets (beta), multi-tab formula authoring, <code>.xlsx</code>/<code>.csv</code> export, and personal MCP-connected Interactive Artifacts.</li>
+        <li><strong>Team &amp; Enterprise:</strong> Adds shared workspace spaces, simultaneous multiplayer co-editing alongside Claude, and viewer-scoped MCP credential brokering.</li>
+        <li><strong>Persistent Library:</strong> Every created sheet or app saves automatically in the left-rail <strong>Artifacts</strong> tab&mdash;pin key models, rename versions, and reopen anytime.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 11px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge sky">2</span> Admin Controls &amp; Security Toggles</div>
+      <ol style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Enable Artifacts:</strong> Workspace Owners open <code>Organization settings &rarr; Artifacts</code> and switch on Artifact creation, publishing, and shared templates.</li>
+        <li><strong>Allow Connectors &amp; Capabilities:</strong> Under <code>Organization settings &rarr; Capabilities</code> and <code>Connectors</code>, approve which MCP servers Interactive Artifacts may query.</li>
+        <li><strong>Enforce Org-Only Sharing:</strong> Artifacts wired to live MCP connectors automatically restrict external public links so sensitive company records stay inside your org.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.3pt;">4-Way Ecosystem Matrix: Choosing the Right Anthropic Data &amp; App Surface</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:3px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Workspace Surface</th>
+        <th style="width:25%;">Engine &amp; Persistence</th>
+        <th style="width:31%;">Best-Fit Workflows</th>
+        <th style="width:23%;">Export &amp; Auth Model</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Claude Sheets</strong><br/><em>(Artifacts Studio)</em></td>
+        <td>Native live multi-tab grid saved in Artifacts tab with cell outlines &amp; multiplayer.</td>
+        <td>Financial models, RFP scorecards, hiring plans, scenario tables, and interactive team trackers.</td>
+        <td>Exports clean <code>.xlsx</code> (with formulas) or <code>.csv</code>; shared workspace editing.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Claude Dashboards &amp; Data</strong></td>
+        <td>Governed SQL studio wired to warehouses (Snowflake, BigQuery) &amp; semantic layers.</td>
+        <td>Auditable company KPIs, Certified Queries, Scrollytellers, and narrated Visual Shorts.</td>
+        <td>Credential-safe Live Sharing (viewers see results without DB keys).</td>
+      </tr>
+      <tr>
+        <td><strong>3. Built-in <code>xlsx</code> Skill / Claude for Excel</strong></td>
+        <td>Code-sandboxed <code>openpyxl</code> generation or native Microsoft Excel add-in sidebar.</td>
+        <td>50,000+ row corporate workbooks, legacy VBA/macro files, or complex audit schedules inside Excel.</td>
+        <td>Direct local <code>.xlsx</code> file or in-place desktop Excel workbook edits.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Interactive React / HTML Artifacts</strong></td>
+        <td>Durable web app shell persisted in Artifacts tab; rehydrates via MCP tools.</td>
+        <td>Custom ROI calculators, sprint triage boards, release checklists, and live CRM/issue consoles.</td>
+        <td>Viewer-scoped MCP OAuth (each viewer runs calls under own rights).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8.1pt;">
+    <div class="callout-title">10-Second Rule of Thumb</div>
+    Need <strong>rows, columns, and live formulas</strong> teammates can edit and export to Excel? Choose <strong>Claude Sheets</strong>. Need <strong>warehouse SQL governance</strong>? Use <strong>Claude Data</strong>. Need <strong>buttons, sliders, and live API actions</strong>? Build an <strong>Interactive MCP Artifact</strong>.
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Inside the Claude Sheets Split-Screen Studio</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Claude Sheets Split-Screen Workspace</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Claude Sheets pairs your conversational prompt thread on the left with a responsive, multiplayer spreadsheet canvas on the right&mdash;highlighting every formula and cell edit in real time.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:7px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#d1fae5;">Artifacts &bull; Q1_SaaS_Scenario_Model (Claude Sheets)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:7px; font-size:7pt;">
+        <span style="background:#0d3b26; border:1px solid #34d399; padding:2px 7px; border-radius:4px; color:#a7f3d0;"><strong>Live:</strong> Maya + Claude editing <span class="callout-pin">5</span></span>
+        <span style="background:#064e3b; border:1px solid #10b981; padding:2px 7px; border-radius:4px; color:#ffffff; font-weight:700;">Export .xlsx / .csv <span class="callout-pin">7</span></span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 32% 68%; min-height:286px;">
+      <!-- Left Pane: Chat Thread -->
+      <div style="padding:8px 9px; border-right:1px solid #065f46; background:#04140d; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="background:#092b1b; border:1px solid #059669; border-radius:6px; padding:6px 7px; margin-bottom:7px; font-size:7pt; color:#e2e8f0;">
+            <div style="color:#6ee7b7; font-weight:700; margin-bottom:2px;">You asked:</div>
+            Build a 3-tab Q1 Revenue &amp; Hiring Model. Link <code>Revenue Model</code> to <code>Assumptions</code> using <code>SUMIFS</code> and <code>XLOOKUP</code>. Add Scenario dropdowns, launch checkboxes, and highlight negative cash months in amber.
+          </div>
+
+          <div style="background:#062116; border-left:3px solid #34d399; padding:6px 7px; border-radius:4px; font-size:6.95pt; color:#cbd5e1; margin-bottom:7px;">
+            <div style="color:#a7f3d0; font-weight:700; margin-bottom:2px;">Claude updated 14 cells (live):</div>
+            &bull; Wrote cross-tab <code>SUMIFS</code> in <code>D4:F7</code><br/>
+            &bull; Added <code>Base / Upside</code> validation<br/>
+            &bull; Applied conditional amber fill &lt; $0
+          </div>
+
+          <div style="background:#0b2938; border:1px solid #0284c7; border-radius:5px; padding:5px 7px; font-size:6.85pt; color:#bae6fd;">
+            <strong>MCP Sync Option:</strong> Turn summary into an Interactive Artifact connected to HubSpot + Linear.
+          </div>
+        </div>
+
+        <div style="background:#092b1b; border:1px solid #1e4631; border-radius:5px; padding:5px 7px; font-size:6.85pt; color:#94a3b8;">
+          Follow-up: &ldquo;Add a sensitivity chart on Executive Summary...&rdquo;
+        </div>
+      </div>
+
+      <!-- Right Pane: Live Sheet Canvas -->
+      <div style="padding:8px 10px; background:#020d08; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <!-- Formula Bar -->
+          <div style="display:flex; align-items:center; gap:6px; background:#092b1b; border:1px solid #065f46; border-radius:5px; padding:4px 7px; margin-bottom:7px; font-family:monospace; font-size:6.9pt;">
+            <span style="background:#064e3b; color:#6ee7b7; padding:1px 6px; border-radius:3px; font-weight:700;">D4</span>
+            <span style="color:#fcd34d; font-weight:700;">fx</span>
+            <span style="color:#e2e8f0; flex:1;">=SUMIFS(Assumptions!$D$4:$D$30, Assumptions!$B$4:$B$30, A4, Assumptions!$C$4:$C$30, C4)</span>
+            <span class="callout-pin">2</span>
+          </div>
+
+          <!-- Simulated Multi-Cell Grid -->
+          <table style="width:100%; border-collapse:collapse; font-size:6.9pt; margin-bottom:7px; background:#04160e; border:1px solid #065f46;">
+            <thead>
+              <tr style="background:#092b1b; color:#a7f3d0;">
+                <th style="padding:3.5px 5px; border:1px solid #065f46; text-align:left;">Segment (A)</th>
+                <th style="padding:3.5px 5px; border:1px solid #065f46; text-align:left;">Scenario (C) <span class="callout-pin">4</span></th>
+                <th style="padding:3.5px 5px; border:1px solid #065f46; text-align:right;">Q1 ARR (D) <span class="callout-pin">3</span></th>
+                <th style="padding:3.5px 5px; border:1px solid #065f46; text-align:right;">Margin (E)</th>
+                <th style="padding:3.5px 5px; border:1px solid #065f46; text-align:center;">Approved (F)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:3.5px 5px; border:1px solid #065f46; color:#f8fafc;">Enterprise</td>
+                <td style="padding:3.5px 5px; border:1px solid #065f46;"><span style="background:#064e3b; color:#a7f3d0; padding:1px 5px; border-radius:3px;">Upside &#9662;</span></td>
+                <td style="padding:3.5px 5px; border:2px solid #34d399; background:#063b28; color:#ffffff; text-align:right; font-weight:700;">$2,840,000</td>
+                <td style="padding:3.5px 5px; border:1px solid #065f46; color:#6ee7b7; text-align:right;">79.4%</td>
+                <td style="padding:3.5px 5px; border:1px solid #065f46; text-align:center; color:#34d399;">&#9745;</td>
+              </tr>
+              <tr>
+                <td style="padding:3.5px 5px; border:1px solid #065f46; color:#f8fafc;">Mid-Market</td>
+                <td style="padding:3.5px 5px; border:1px solid #065f46;"><span style="background:#064e3b; color:#a7f3d0; padding:1px 5px; border-radius:3px;">Base &#9662;</span></td>
+                <td style="padding:3.5px 5px; border:2px solid #34d399; background:#063b28; color:#ffffff; text-align:right; font-weight:700;">$1,420,000</td>
+                <td style="padding:3.5px 5px; border:1px solid #065f46; color:#6ee7b7; text-align:right;">74.1%</td>
+                <td style="padding:3.5px 5px; border:1px solid #065f46; text-align:center; color:#34d399;">&#9745;</td>
+              </tr>
+              <tr>
+                <td style="padding:3.5px 5px; border:1px solid #065f46; color:#f8fafc;">Self-Serve</td>
+                <td style="padding:3.5px 5px; border:1px solid #065f46;"><span style="background:#064e3b; color:#a7f3d0; padding:1px 5px; border-radius:3px;">Base &#9662;</span></td>
+                <td style="padding:3.5px 5px; border:1px solid #065f46; color:#e2e8f0; text-align:right;">$695,000</td>
+                <td style="padding:3.5px 5px; border:1px solid #f59e0b; background:#451a03; color:#fde68a; text-align:right;">-4.2%</td>
+                <td style="padding:3.5px 5px; border:1px solid #065f46; text-align:center; color:#94a3b8;">&#9744;</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Inline Chart Strip -->
+          <div style="background:#062116; border:1px solid #065f46; border-radius:5px; padding:5px 8px;">
+            <div style="display:flex; justify-content:space-between; font-size:6.8pt; color:#a7f3d0; margin-bottom:3px;">
+              <span><strong>Inline Chart:</strong> Quarterly ARR Ramp by Segment <span class="callout-pin">6</span></span>
+              <span style="color:#94a3b8;">Bound to D4:D6</span>
+            </div>
+            <svg viewBox="0 0 380 42" width="100%" height="42" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="18" width="60" height="18" rx="3" fill="#059669"/>
+              <rect x="95" y="12" width="60" height="24" rx="3" fill="#10b981"/>
+              <rect x="170" y="6" width="60" height="30" rx="3" fill="#34d399"/>
+              <rect x="245" y="3" width="60" height="33" rx="3" fill="#fbbf24"/>
+              <polyline points="50,18 125,12 200,6 275,3" fill="none" stroke="#ffffff" stroke-width="1.6"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Bottom Multi-Tab Strip -->
+        <div style="display:flex; align-items:center; gap:5px; border-top:1px solid #065f46; padding-top:6px; font-size:6.85pt;">
+          <span style="background:#059669; color:#ffffff; padding:2.5px 8px; border-radius:4px; font-weight:700;">Revenue Model</span>
+          <span style="background:#092b1b; color:#cbd5e1; border:1px solid #065f46; padding:2.5px 8px; border-radius:4px;">Assumptions</span>
+          <span style="background:#092b1b; color:#cbd5e1; border:1px solid #065f46; padding:2.5px 8px; border-radius:4px;">Hiring Plan</span>
+          <span style="background:#092b1b; color:#cbd5e1; border:1px solid #065f46; padding:2.5px 8px; border-radius:4px;">Executive Summary</span>
+          <span style="color:#6ee7b7; font-weight:700; margin-left:3px;">+</span>
+          <span class="callout-pin">1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.2pt;">Interface Controls Legend (Pins 1&ndash;7)</h3>
+  <div class="grid-2" style="gap:7px 12px; font-size:7.9pt;">
+    <div>
+      <p style="margin-bottom:4px;"><span class="callout-pin">1</span> <strong>Multi-Tab Workbook Strip:</strong> Switch between linked sheets (<code>Assumptions</code>, <code>Revenue Model</code>, <code>Summary</code>) or add new tabs referenced by cross-sheet formulas.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin">2</span> <strong>Cross-Sheet Formula Bar:</strong> Displays the active cell&rsquo;s real Excel-style syntax (<code>=SUMIFS(...)</code>, <code>=XLOOKUP(...)</code>) so you confirm live formulas rather than pasted text.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin">3</span> <strong>Live Green Cell-Edit Outlines:</strong> Every cell Claude writes or updates illuminates with a crisp emerald outline as edits land, giving you an instant visual diff.</p>
+      <p style="margin-bottom:0;"><span class="callout-pin">4</span> <strong>Data Validation &amp; Grid Controls:</strong> Native dropdown lists, clickable checkboxes, and conditional formatting highlight rules right inside the grid.</p>
+    </div>
+    <div>
+      <p style="margin-bottom:4px;"><span class="callout-pin">5</span> <strong>Multiplayer Co-Editing Presence:</strong> Shows active teammates and Claude editing inside the shared workbook at the same time without locking each other out.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin">6</span> <strong>Inline Charts Bound to Cells:</strong> Embedded bar, line, and stacked visualizations update automatically whenever upstream formula cells or dropdowns change.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin">7</span> <strong>Clean .xlsx &amp; .csv Export:</strong> Downloads a portable multi-tab <code>.xlsx</code> workbook preserving formulas, formatting, and validation rules, or a flat <code>.csv</code> snapshot.</p>
+      <div class="callout emerald" style="margin:4px 0 0 0; padding:5px 9px; font-size:7.75pt;">
+        <strong>Habit of Pros:</strong> Click Pin <strong>3</strong>&rsquo;s outlined total cells immediately after Claude finishes writing and glance at Pin <strong>2</strong> to confirm a <code>=</code> formula is driving the number.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: MULTI-TAB MODELING, FORMULAS & CONTROLS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Multi-Tab Modeling &amp; Controls</span>
+    <span>Cross-Tab Formulas, Validation Dropdowns &amp; Inline Charts</span>
+  </div>
+
+  <h2 class="page-title">Multi-Tab Modeling, Formulas &amp; Interactive Controls</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    A trustworthy workbook separates raw inputs from calculation logic and executive summaries. Claude Sheets natively writes cross-tab formulas, interactive cell controls, and live charts so changing one driver recalculates the entire model cleanly.
+  </p>
+
+  <div class="figure-box" style="margin:2px 0 8px 0;">
+    <img src="assets/multitab_formula_lattice.jpg" alt="Three stacked floating dark-emerald glass grid slabs linked vertically by glowing mint fiber-optic beams representing cross-tab formula references" style="width:100%; height:235px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Cross-Tab Formula Architecture:</strong> Keep <code>Inputs &amp; Assumptions</code> on a base sheet, wire <code>Calculations</code> via <code>SUMIFS</code> and <code>XLOOKUP</code>, and roll totals cleanly into an <code>Executive Summary</code> tab with inline charts.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Dynamic Cross-Tab Formula Toolkit</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong><code>SUMIFS</code> &amp; <code>COUNTIFS</code>:</strong> Aggregate multi-column raw tables across tabs by segment, region, and month without brittle manual cell offsets.</li>
+        <li><strong><code>XLOOKUP</code> &amp; <code>INDEX/MATCH</code>:</strong> Pull commission tiers, FX rates, or pricing SKUs dynamically from reference lookup tabs with built-in not-found fallbacks.</li>
+        <li><strong><code>IFERROR</code> &amp; <code>ROUND</code> Guards:</strong> Wrap division ratios (like gross margin or CAC payback) in <code>IFERROR(..., 0)</code> so empty launch months never throw <code>#DIV/0!</code>.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge amber">2</span> Controls, Formatting &amp; Inline Charts</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Data Validation Dropdowns:</strong> Constrain scenario pickers (<code>Conservative</code>, <code>Base</code>, <code>Upside</code>) and status columns so teammates cannot introduce typos that break <code>SUMIFS</code>.</li>
+        <li><strong>Checkboxes &amp; Conditional Formatting:</strong> Add interactive <code>TRUE/FALSE</code> launch checkboxes wired into formulas (<code>IF(F4, D4, 0)</code>) plus amber/red thresholds on margin dips.</li>
+        <li><strong>Inline Charts:</strong> Embed multi-series bar or trend charts directly beside summary tables so sensitivity tweaks update visuals instantaneously.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:7px 10px; font-size:8.1pt;">
+    <div class="callout-title">Golden Architecture Pattern: The 3-Layer Workbook Rule</div>
+    Always prompt Claude to separate tabs into <strong>(1) <code>Assumptions</code></strong> (blue-tinted editable inputs &amp; dropdowns), <strong>(2) <code>Model</code></strong> (formula-only monthly rows referencing Assumptions), and <strong>(3) <code>Summary</code></strong> (cross-tab KPIs &amp; charts). That structure prevents accidental formula overwrites during team reviews.
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: PROMPT ANATOMY & FORMULA HYGIENE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Prompt Anatomy &amp; Formula Hygiene</span>
+    <span>5-Tag Spreadsheet Blueprint &amp; Eliminating Hardcoded Totals</span>
+  </div>
+
+  <h2 class="page-title">Color-Coded Spreadsheet &amp; Artifact Prompt Anatomy</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Vague prompts like <em>&ldquo;make me a budget spreadsheet&rdquo;</em> tempt models to type static numbers into total rows. Specifying tabs, input validation, formula types, styling, and export rules upfront produces audit-ready workbooks on the first pass.
+  </p>
+
+  <h3 style="margin:2px 0 5px 0; font-size:10.3pt;">5-Tag Workbook &amp; Artifact Prompt Formula</h3>
+  <div class="card" style="background:#f8fafc; border:1px solid #a7f3d0; padding:9px 11px; margin-bottom:8px;">
+    <div style="margin-bottom:6px; font-size:7.95pt;">
+      <span class="p-tag p-style">[1. Workbook Structure &amp; Tabs]</span>
+      <span class="p-tag p-subj">[2. Input Schema &amp; Validation]</span>
+      <span class="p-tag p-act">[3. Cross-Tab Formulas]</span>
+      <span class="p-tag p-cam">[4. Conditional Formatting &amp; Charts]</span>
+      <span class="p-tag p-sfx">[5. Export &amp; Hand-Off Rules]</span>
+    </div>
+    <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:7px; padding:8px 10px; font-size:8.1pt; line-height:1.58;">
+      &ldquo;<span class="p-tag p-style">Create a 3-tab Claude Sheet named Q1_Hiring_and_Runway with tabs Executive_Summary, Headcount_Model, and Assumptions.</span>
+      <span class="p-tag p-subj">On Assumptions, add a Scenario dropdown (Base, Lean, Stretch) and an Include_Role checkbox column alongside department, base salary, and 22% benefits load.</span>
+      <span class="p-tag p-act">On Headcount_Model, calculate monthly fully loaded cost across Jan&ndash;Dec using SUMIFS, XLOOKUP against Assumptions, and IFERROR guards&mdash;never hardcode any subtotal or total cell.</span>
+      <span class="p-tag p-cam">Highlight any month where net burn exceeds $180k in amber, format currency as $#,##0, and embed a stacked column chart by department on Executive_Summary.</span>
+      <span class="p-tag p-sfx">Keep all functions Excel-standard so the workbook exports cleanly to .xlsx for our CFO review.</span>&rdquo;
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.3pt;">Fragile Prompt vs. Formula-First Claude Sheets Prompt</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Prompt Dimension</th>
+        <th style="width:37%;">Fragile Prompt (Causes Hardcoded Totals)</th>
+        <th style="width:42%;">Formula-First Prompt (Audit-Ready Output)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tab Separation</strong></td>
+        <td>&ldquo;Build a financial forecast for our startup.&rdquo;</td>
+        <td>Explicitly defines <code>Assumptions</code>, <code>Monthly_Model</code>, and <code>Executive_Summary</code> tabs.</td>
+      </tr>
+      <tr>
+        <td><strong>Formula Mandate</strong></td>
+        <td>Says nothing about formulas, letting static values sneak into summary rows.</td>
+        <td>Requires <code>SUMIFS</code>, <code>XLOOKUP</code>, and <code>SUM</code> with explicit rule: <em>zero hardcoded totals</em>.</td>
+      </tr>
+      <tr>
+        <td><strong>Input Controls</strong></td>
+        <td>Leaves scenario names as free text that teammates easily misspell.</td>
+        <td>Specifies data-validation dropdowns (<code>Base/Upside</code>) and <code>TRUE/FALSE</code> checkboxes.</td>
+      </tr>
+      <tr>
+        <td><strong>Visual &amp; Error Guard</strong></td>
+        <td>Ignores zero-division cells and inconsistent decimal formatting.</td>
+        <td>Enforces <code>IFERROR</code> wrappers, currency/percent formats, and amber risk thresholds.</td>
+      </tr>
+      <tr>
+        <td><strong>Export Readiness</strong></td>
+        <td>Uses obscure syntax that breaks when downloaded.</td>
+        <td>Requests standard Excel-compatible formulas verified for <code>.xlsx</code> round-tripping.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8.1pt;">
+    <div class="callout-title">Pro Habit: One-Line Anti-Hardcoding Instruction</div>
+    Add <code>&ldquo;Use live formulas for every derived cell; never write computed literals&rdquo;</code> to your Claude Project Instructions. Whenever you edit an assumption cell later, every summary table and chart updates automatically.
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: LIVE CELL-OUTLINE AUDIT & MULTIPLAYER ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Live Audit &amp; Multiplayer Co-Editing</span>
+    <span>Tracing Cell Outlines, Formula Diffs &amp; Simultaneous Team Edits</span>
+  </div>
+
+  <h2 class="page-title">Live Cell-Outline Audit &amp; Real-Time Multiplayer</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Traditional AI document tools overwrite an entire file behind a loading spinner, forcing you to hunt for what changed. Claude Sheets renders every edit live in front of you and supports simultaneous team co-editing.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:8px;">
+    <div class="card" style="padding:8px 10px; border-left:3px solid #059669;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Live Green Cell-Outline Tracking</div>
+      <p style="font-size:7.85pt; margin:0;">Whenever you ask Claude to adjust a tax rate, add a cohort column, or fix a lookup range, each modified cell is dynamically <strong>outlined as it lands</strong>. You see the exact blast radius of every prompt across tabs in real time.</p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-left:3px solid #0284c7;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge sky">2</span> Auditing Formula Diffs vs. Values</div>
+      <p style="font-size:7.85pt; margin:0;">A cell showing <code>$142,500</code> looks identical on screen whether typed manually or computed dynamically. Click any freshly outlined cell and inspect the formula bar to confirm it holds <code>=SUMIFS(...)</code> rather than a literal value.</p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-left:3px solid #d97706;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge amber">3</span> Simultaneous Team + Claude Co-Editing</div>
+      <p style="font-size:7.85pt; margin:0;">Inside shared workspace spaces, finance, ops, and product leads can toggle checkboxes, update assumption cells, and prompt Claude in the same live grid&mdash;with visual cell indicators distinguishing teammate cursors from AI edits.</p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-left:3px solid #7c3aed;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge purple">4</span> Version History &amp; Surgical Undo</div>
+      <p style="font-size:7.85pt; margin:0;">Before running a sweeping structural refactor (like splitting one tab into three), note your current Artifact snapshot. If a new formula range misses an edge case, roll back cleanly or ask Claude to patch only the flagged range.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.2pt;">The 30-Second Formula &amp; Co-Editing Audit Protocol</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Audit Check</th>
+        <th style="width:39%;">What to Inspect in the Live Grid</th>
+        <th style="width:37%;">Follow-Up Fix Prompt if Needed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Outlined Total Cells</strong></td>
+        <td>Click green-outlined subtotal and grand-total rows; confirm the formula bar begins with <code>=</code> and spans the full range.</td>
+        <td>&ldquo;Replace hardcoded values in <code>E12:G12</code> with dynamic <code>SUM</code> formulas referencing rows 4&ndash;11.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>2. Cross-Tab Range Locks</strong></td>
+        <td>Check <code>$</code> absolute row/column anchors in <code>XLOOKUP</code> and <code>SUMIFS</code> so dragging formulas down never shifts lookup tables.</td>
+        <td>&ldquo;Lock the lookup table range in <code>D4:D20</code> with <code>$</code> anchors and fill down cleanly.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>3. Assumption Stress Test</strong></td>
+        <td>Flip one dropdown from <code>Base</code> to <code>Upside</code> or toggle a checkbox; verify downstream charts and KPIs move immediately.</td>
+        <td>&ldquo;Link cell <code>C2</code> scenario picker into <code>Assumptions!B4:B12</code> so KPIs react live.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>4. Error &amp; Boundary Scan</strong></td>
+        <td>Scan for <code>#REF!</code>, <code>#VALUE!</code>, <code>#N/A</code>, or unformatted decimal overflows on edge rows.</td>
+        <td>&ldquo;Wrap lookup cells in <code>IFERROR(..., 0)</code> and apply uniform <code>$#,##0</code> formatting.&rdquo;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8.05pt;">
+    <div class="callout-title">Multiplayer Etiquette: Assign Ownership by Tab During Live Reviews</div>
+    When three teammates collaborate alongside Claude in a shared space, keep human manual tweaks on the <code>Assumptions</code> tab while letting Claude execute bulk formula edits on <code>Model</code> tabs so concurrent edits never collide on the same cell range.
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: INTERACTIVE MCP-CONNECTED WEB ARTIFACTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; MCP-Connected Web Artifacts</span>
+    <span>Durable Thick Artifacts, Live Connectors &amp; Viewer-Scoped Auth</span>
+  </div>
+
+  <h2 class="page-title">Interactive MCP-Connected Web Artifacts</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Sometimes a spreadsheet grid isn&rsquo;t enough&mdash;you want interactive sliders, custom buttons, or a live triage console. Modern Interactive Artifacts act as <strong>durable &ldquo;thick artifacts&rdquo;</strong> saved in your Artifacts library that rehydrate live state via MCP connectors.
+  </p>
+
+  <div class="figure-box" style="margin:2px 0 8px 0;">
+    <img src="assets/live_mcp_artifact_bridge.jpg" alt="Split holographic workbench bridging cloud database crystals on the left to a glowing emerald interactive web app prism on the right" style="width:100%; height:235px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>From Static Snapshots to Live Connected Apps:</strong> Interactive Artifacts render custom React/HTML interfaces on the right while pulling fresh issues, docs, or metrics from connected MCP servers on the left under each viewer&rsquo;s own permissions.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Turning Tables into Interactive Apps</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Live Rehydration:</strong> Instead of freezing yesterday&rsquo;s JSON inside React code, wire the Artifact to MCP tools (Linear, GitHub, Jira, Slack, Notion, Google Drive, or custom remote MCPs) so opening or clicking <em>Refresh</em> fetches current records.</li>
+        <li><strong>Two-Way Actions:</strong> Add UI controls that trigger approved MCP write actions&mdash;such as assigning a blocker ticket, posting a release summary, or updating a deal stage&mdash;after explicit user confirmation.</li>
+        <li><strong>Persistent Library Home:</strong> Pin your tool inside the <strong>Artifacts</strong> tab so teammates treat it as an internal micro-app without hunting through old chat threads.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge sky">2</span> Viewer-Scoped Authentication &amp; Safety</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Per-Viewer Credentials:</strong> When a colleague opens your shared MCP-connected Artifact, tool calls execute using <strong>the viewer&rsquo;s own OAuth account</strong> brokered through Claude&mdash;never leaking the creator&rsquo;s private access tokens.</li>
+        <li><strong>Clean Access Boundaries:</strong> Two teammates opening the same triage board automatically see only the repositories, projects, or folders their individual accounts are authorized to access.</li>
+        <li><strong>Org-Scoped Sharing:</strong> Connectors trigger strict internal sharing boundaries so live operational tools never leak outside your organization workspace.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8.05pt;">
+    <div class="callout-title">Prompt Pattern: Upgrading Any Sheet Logic into a Live MCP Artifact</div>
+    <em>&ldquo;Keep our scoring weights from this Claude Sheet, and build an interactive React Artifact wired to our connected Linear and GitHub MCP tools. On load, pull open P1 bugs for the current sprint, let leads filter by owner, and include a button to post a Slack digest.&rdquo;</em>
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Run Recipe Library</span>
+    <span>5 Copy-Paste Claude Sheets &amp; Interactive Artifact Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Sheets &amp; Artifact Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Swap the bracketed team names or connector targets and paste these blueprints straight into Claude. Each recipe enforces formula discipline, visual clarity, and clean downstream handoffs.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Recipe &amp; Persona</th>
+        <th style="width:16%;">Surface Used</th>
+        <th style="width:46%;">Copy-Paste Prompt Blueprint</th>
+        <th style="width:19%;">Key Controls &amp; Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. 3-Scenario SaaS Runway &amp; Hiring Plan</strong><br/><em>Founder / Finance</em></td>
+        <td>Claude Sheets<br/>(3 Tabs)</td>
+        <td>&ldquo;Build a 12-month SaaS model with tabs <code>Summary</code>, <code>Model</code>, and <code>Assumptions</code>. On <code>Assumptions</code>, add a Scenario dropdown (<code>Conservative</code>, <code>Base</code>, <code>Upside</code>) and role checkboxes. Drive monthly revenue, payroll, and cash balance on <code>Model</code> strictly via <code>XLOOKUP</code> and <code>SUMIFS</code>; highlight runway &lt; 9 months in amber.&rdquo;</td>
+        <td>Scenario dropdowns, checkboxes, runway chart + <code>.xlsx</code> export.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Weighted Vendor RFP Scorecard</strong><br/><em>IT / Procurement</em></td>
+        <td>Claude Sheets<br/>(2 Tabs)</td>
+        <td>&ldquo;Create tabs <code>Scorecard</code> and <code>Weights</code> to evaluate 5 vendors across Security, API Fit, Support, and TCO. Validate scores 1&ndash;5 via dropdowns, compute weighted totals using <code>SUMPRODUCT</code> referencing <code>Weights</code>, add a finalist checkbox, and highlight top-ranked vendor rows in emerald.&rdquo;</td>
+        <td><code>SUMPRODUCT</code> scoring, 1&ndash;5 validation, finalist filter.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Sales Quota &amp; Commission Tier Sheet</strong><br/><em>RevOps / Sales Lead</em></td>
+        <td>Claude Sheets<br/>(3 Tabs)</td>
+        <td>&ldquo;Build tabs <code>Rep_Payouts</code>, <code>Deals_Log</code>, and <code>Tier_Rates</code>. Aggregate closed-won bookings per rep from <code>Deals_Log</code> using <code>SUMIFS</code>, look up accelerator rates (10%, 12%, 15%) from <code>Tier_Rates</code> with <code>XLOOKUP</code>, wrap attainment in <code>IFERROR</code>, and flag attainment &ge; 100% in green.&rdquo;</td>
+        <td>Cross-tab attainment lookup + clean payroll <code>.xlsx</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Live Sprint Triage &amp; Release Console</strong><br/><em>Eng Manager / PM</em></td>
+        <td>Interactive Web Artifact + MCP</td>
+        <td>&ldquo;Build a persisted Interactive Artifact connected to our Linear and GitHub MCP tools. On load, fetch open sprint issues and unmerged PRs under the viewer&rsquo;s permissions, group by blocker severity, add owner/status filters, and include a one-click <em>Copy Release Notes</em> panel.&rdquo;</td>
+        <td>Live MCP rehydration, viewer-scoped auth, saved in Artifacts tab.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Customer Renewal Health Matrix</strong><br/><em>CS Ops / Account Lead</em></td>
+        <td>Claude Sheets + Artifact Pair</td>
+        <td>&ldquo;Create a multi-tab Renewal Tracker from this CSV with <code>Account_Health</code> and <code>Playbooks</code> tabs. Add Risk Tier dropdowns (<code>Green</code>, <code>Yellow</code>, <code>Red</code>) and EBR Complete checkboxes, summarize ARR at risk via <code>SUMIFS</code>, and export-check formulas for Google Sheets and Excel.&rdquo;</td>
+        <td>ARR-at-risk summary, EBR checkboxes, dual export check.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:5px;">
+    <div class="card-dark" style="padding:8px 11px;">
+      <div class="card-title" style="font-size:8.7pt; color:#6ee7b7;">Chaining Sheets into Interactive Apps</div>
+      <p style="font-size:7.75pt; margin:0; color:#cbd5e1;">
+        Start with Recipe 1 or 3 inside <strong>Claude Sheets</strong> to validate every formula and edge case with your team. Once the math is locked, say: <em>&ldquo;Turn this model&rsquo;s logic into an Interactive Artifact slider calculator for our sales reps.&rdquo;</em>
+      </p>
+    </div>
+    <div class="card" style="padding:8px 11px; border-left:3px solid #059669;">
+      <div class="card-title" style="font-size:8.7pt;">Reopening &amp; Iterating in Artifacts Tab</div>
+      <p style="font-size:7.75pt; margin:0;">
+        Keep quarterly trackers alive across months by reopening the saved sheet from the left-rail <strong>Artifacts</strong> tab, dropping in fresh monthly actuals, and watching green cell outlines update downstream totals cleanly.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:6px 10px; font-size:8pt;">
+    <div class="callout-title">Never Hardcode Summary Cells During Quick Edits</div>
+    If you ask Claude for a last-minute adjustment before a meeting, say <em>&ldquo;Adjust the formula in <code>D14</code>&rdquo;</em> rather than <em>&ldquo;Change <code>D14</code> to $420k&rdquo;</em>&mdash;so the workbook stays dynamically linked.
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: GOVERNANCE, EXPORT FIDELITY & ROUND-TRIPPING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Governance &amp; Export Fidelity</span>
+    <span>Admin Controls, .xlsx / .csv Round-Tripping &amp; Graduation Paths</span>
+  </div>
+
+  <h2 class="page-title">Enterprise Governance, Export Fidelity &amp; Round-Tripping</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Shipping spreadsheets and live web apps inside a company requires clear admin guardrails, predictable <code>.xlsx</code> and <code>.csv</code> export fidelity, and knowing when to graduate heavy workbooks to dedicated Excel tooling.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:8px;">
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Enterprise Admin Controls</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Master Artifacts Toggle:</strong> Admins govern availability under <code>Organization settings &rarr; Artifacts</code>, including approved corporate templates.</li>
+        <li><strong>Connector Allowlists:</strong> Control which MCP servers (GitHub, Linear, Slack, custom endpoints) are permitted inside <code>Organization settings &rarr; Connectors</code>.</li>
+        <li><strong>Scoped Sharing Guardrails:</strong> Interactive Artifacts backed by live MCP connectors enforce internal organization boundaries so private records cannot be exposed via open public URLs.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge amber">2</span> When to Promote Beyond Claude Sheets</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Built-in <code>xlsx</code> Skill:</strong> Promote here when generating massive automated multi-sheet reports (&gt;50k rows), custom Python <code>openpyxl</code> styling, or batch document pipelines.</li>
+        <li><strong>Claude for Excel:</strong> Graduate here when Finance must audit existing 20-tab corporate workbooks containing legacy VBA macros, PivotTables, or external Bloomberg/ERP links directly inside desktop Excel.</li>
+        <li><strong>Claude Data:</strong> Move recurring warehouse SQL metrics into Certified Queries when dashboards need automated database refreshes.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.2pt;">Export Fidelity &amp; Round-Tripping Matrix</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Export / Share Target</th>
+        <th style="width:41%;">What Preserves Cleanly</th>
+        <th style="width:37%;">What Changes or Requires Check</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>.xlsx</code> Download</strong><br/><em>(Excel / Google Sheets)</em></td>
+        <td>Multi-tab structure, standard formulas (<code>SUMIFS</code>, <code>XLOOKUP</code>, <code>IFERROR</code>), number formats, and cell colors.</td>
+        <td>Check newer dynamic array syntax in older desktop Excel versions; verify dropdown ranges after import.</td>
+      </tr>
+      <tr>
+        <td><strong><code>.csv</code> Download</strong><br/><em>(Data Pipelines)</em></td>
+        <td>Clean evaluated cell values for the active sheet, ready for Python, SQL imports, or BI uploads.</td>
+        <td>Strips multiple tabs, formulas, formatting, checkboxes, and inline charts by design (plain text values only).</td>
+      </tr>
+      <tr>
+        <td><strong>Shared Workspace Sheet</strong><br/><em>(Artifacts Library)</em></td>
+        <td>Full multiplayer co-editing, live green cell-edit outlines, inline charts, and prompt revision history.</td>
+        <td>Teammates must belong to the workspace/space to co-edit cells live alongside Claude.</td>
+      </tr>
+      <tr>
+        <td><strong>Interactive Artifact Link</strong><br/><em>(MCP Web App)</em></td>
+        <td>Custom React UI, interactive controls, and live MCP rehydration across sessions.</td>
+        <td>Each viewer authenticates MCP connectors under their own account; external public links blocked when live MCPs are attached.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8.05pt;">
+    <div class="callout-title">3-Point Post-Export Formula Verification Check</div>
+    Right after opening a downloaded <code>.xlsx</code> in Excel or Google Sheets: <strong>(1)</strong> press <code>Ctrl+~</code> (or View &rarr; Show Formulas) to confirm formula strings survived intact, <strong>(2)</strong> check for zero <code>#NAME?</code> or <code>#REF!</code> cells, and <strong>(3)</strong> toggle one dropdown cell to verify linked totals recalculate.
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Pipeline</span>
+    <span>External MCP Sources &rarr; Sheets &amp; Artifacts &rarr; Decks &amp; Workbooks</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy Pipeline Across Your Workspace</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Claude Sheets and Interactive Artifacts work best as the calculation and app layer between raw systems of record and final executive deliverables&mdash;connecting seamlessly with Claude Whiteboards, Claude Data, and Slide Decks.
+  </p>
+
+  <div class="figure-box" style="background:#04160e; padding:10px 12px; border-color:#065f46; margin-bottom:9px;">
+    <svg viewBox="0 0 700 202" width="100%" height="202" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: External Sources / MCP -->
+      <rect x="8" y="20" width="152" height="162" rx="9" fill="#092b1b" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="18" y="38" fill="#7dd3fc" font-size="7.6" font-weight="700">STAGE 1 &bull; LIVE SOURCES</text>
+      <text x="18" y="54" fill="#ffffff" font-size="9.6" font-weight="800">External &amp; MCP</text>
+      <rect x="18" y="64" width="132" height="48" rx="5" fill="#0b2938" stroke="#0284c7" stroke-width="1"/>
+      <text x="25" y="78" fill="#bae6fd" font-size="7.4" font-weight="700">Warehouses &amp; CRM</text>
+      <text x="25" y="90" fill="#cbd5e1" font-size="6.9">Claude Data exports,</text>
+      <text x="25" y="101" fill="#cbd5e1" font-size="6.9">Salesforce &amp; CSV pulls</text>
+      <rect x="18" y="120" width="132" height="50" rx="5" fill="#0d3b26" stroke="#10b981" stroke-width="1"/>
+      <text x="25" y="134" fill="#a7f3d0" font-size="7.4" font-weight="700">MCP Tool Connectors</text>
+      <text x="25" y="146" fill="#d1fae5" font-size="6.9">GitHub, Linear, Notion,</text>
+      <text x="25" y="157" fill="#6ee7b7" font-size="6.9">Slack &amp; Google Drive</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M160 101 L184 101" stroke="#34d399" stroke-width="2"/>
+      <polygon points="182,96 190,101 182,106" fill="#34d399"/>
+
+      <!-- Stage 2: Claude Sheets / Interactive Artifact -->
+      <rect x="190" y="20" width="214" height="162" rx="9" fill="#062116" stroke="#34d399" stroke-width="2"/>
+      <text x="202" y="38" fill="#6ee7b7" font-size="7.6" font-weight="700">STAGE 2 &bull; WORKSPACE STUDIO</text>
+      <text x="202" y="54" fill="#ffffff" font-size="9.8" font-weight="800">Sheets &amp; Live Artifacts</text>
+      <rect x="202" y="64" width="190" height="50" rx="5" fill="#0d3b26" stroke="#10b981" stroke-width="1.2"/>
+      <text x="210" y="78" fill="#ffffff" font-size="7.5" font-weight="700">Claude Sheets (Multiplayer Grid)</text>
+      <text x="210" y="90" fill="#d1fae5" font-size="6.9">Multi-tab SUMIFS/XLOOKUP models +</text>
+      <text x="210" y="101" fill="#6ee7b7" font-size="6.9">green cell-outline audit trail</text>
+      <rect x="202" y="122" width="190" height="48" rx="5" fill="#092b1b" stroke="#34d399" stroke-width="1"/>
+      <text x="210" y="136" fill="#a7f3d0" font-size="7.5" font-weight="700">Interactive MCP Web Artifact</text>
+      <text x="210" y="148" fill="#cbd5e1" font-size="6.9">Persisted React UI with sliders, triage</text>
+      <text x="210" y="159" fill="#cbd5e1" font-size="6.9">actions &amp; viewer-scoped OAuth</text>
+
+      <!-- Split Arrows 2 -> 3 -->
+      <path d="M404 72 L436 52" stroke="#34d399" stroke-width="1.8"/>
+      <polygon points="433,48 442,49 436,57" fill="#34d399"/>
+      <path d="M404 101 L436 101" stroke="#f59e0b" stroke-width="1.8"/>
+      <polygon points="434,96 442,101 434,106" fill="#f59e0b"/>
+      <path d="M404 132 L436 152" stroke="#38bdf8" stroke-width="1.8"/>
+      <polygon points="436,147 442,155 433,156" fill="#38bdf8"/>
+
+      <!-- Stage 3: Downstream Deliverables -->
+      <rect x="442" y="14" width="250" height="54" rx="7" fill="#092b1b" stroke="#10b981" stroke-width="1.4"/>
+      <text x="452" y="30" fill="#6ee7b7" font-size="7.3" font-weight="700">3A &bull; FINANCE SIGN-OFF</text>
+      <text x="452" y="44" fill="#ffffff" font-size="8.8" font-weight="800">.xlsx Audit &amp; Claude for Excel</text>
+      <text x="452" y="57" fill="#cbd5e1" font-size="6.9">Formula-intact export for CFO close &amp; ERP ties</text>
+
+      <rect x="442" y="75" width="250" height="54" rx="7" fill="#241b10" stroke="#f59e0b" stroke-width="1.4"/>
+      <text x="452" y="91" fill="#fcd34d" font-size="7.3" font-weight="700">3B &bull; STRATEGY ALIGNMENT</text>
+      <text x="452" y="105" fill="#ffffff" font-size="8.8" font-weight="800">Claude Whiteboards &amp; Brainstorming</text>
+      <text x="452" y="118" fill="#fde68a" font-size="6.9">Map headcount &amp; roadmap tradeoffs visually</text>
+
+      <rect x="442" y="136" width="250" height="54" rx="7" fill="#0b2938" stroke="#38bdf8" stroke-width="1.4"/>
+      <text x="452" y="152" fill="#7dd3fc" font-size="7.3" font-weight="700">3C &bull; LEADERSHIP COMMUNICATION</text>
+      <text x="452" y="166" fill="#ffffff" font-size="8.8" font-weight="800">Slide Decks &amp; Executive Memos</text>
+      <text x="452" y="179" fill="#cbd5e1" font-size="6.9">Turn verified tables &amp; charts into board slides</text>
+    </svg>
+  </div>
+
+  <h3 style="margin:2px 0 5px 0; font-size:10.2pt;">End-to-End Quarterly Planning Loop</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:6px;">
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge sky">1</span> Ground Actuals Upstream</div>
+      <p style="font-size:7.8pt; margin:0;">Pull certified revenue actuals from <strong>Claude Data</strong> or live sprint velocity via <strong>Linear / GitHub MCP</strong> so your starting assumptions match real operational truth.</p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge">2</span> Model Collaboratively in Sheets</div>
+      <p style="font-size:7.8pt; margin:0;">Build <code>Assumptions</code> and <code>Scenario</code> tabs in <strong>Claude Sheets</strong>; co-edit tradeoffs with team leads while watching green cell outlines validate formulas.</p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge amber">3</span> Package Interactive Tools &amp; Boards</div>
+      <p style="font-size:7.8pt; margin:0;">Expose day-to-day operational slices as an <strong>Interactive MCP Artifact</strong> for managers, and map hiring dependencies onto a <strong>Claude Whiteboard</strong>.</p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge emerald">4</span> Export .xlsx &amp; Present Slides</div>
+      <p style="font-size:7.8pt; margin:0;">Download a clean <code>.xlsx</code> for <strong>Claude for Excel</strong> financial close review and generate board-ready <strong>Slide Decks</strong> directly from the verified summary tab.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:6px 10px; font-size:8pt;">
+    <div class="callout-title">Why This Pipeline Eliminates Copy-Paste Errors</div>
+    Instead of re-typing metrics across five disconnected tools, every slide deck, whiteboard priority, and Excel audit traces cleanly back to one persisted Artifacts model.
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Operations &amp; Quality Assurance</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Most spreadsheet and interactive Artifact hiccups trace back to static literal pastes, missing Excel formula anchors, flat CSV exports, or viewer MCP authentication boundaries. Keep this clinic nearby before sharing.
+  </p>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.1pt;">Top 7 Issues &amp; 10-Second Fixes</h3>
+  <table class="clean-table" style="font-size:7.55pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Failure Mode</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Total cells don&rsquo;t update when inputs change</strong></td>
+        <td>Claude wrote hardcoded static numbers instead of formulas in summary rows.</td>
+        <td>Click the cell to check the formula bar; prompt: <em>&ldquo;Replace all literal totals with live <code>SUMIFS</code>/<code>SUM</code> formulas.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>2. <code>#REF!</code> or <code>#NAME?</code> in exported <code>.xlsx</code></strong></td>
+        <td>Relative cell anchor shifted during edits or used non-standard function syntax.</td>
+        <td>Prompt Claude to add <code>$</code> range locks and rewrite with standard Excel-compatible <code>XLOOKUP</code>/<code>INDEX-MATCH</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Downloaded file missing tabs &amp; formulas</strong></td>
+        <td>Exported as flat <code>.csv</code> instead of multi-tab <code>.xlsx</code>.</td>
+        <td>Re-export using <strong>Export .xlsx</strong> from the top-right toolbar so all sheets, formulas, and formats survive.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Teammate sees blank data in MCP Artifact</strong></td>
+        <td><strong>Expected viewer-scoped auth:</strong> colleague hasn&rsquo;t connected their own MCP OAuth account.</td>
+        <td>Have the viewer authorize the required MCP connector (Linear, GitHub, Drive) in their Claude settings and refresh.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Concurrent edits overwrite formula ranges</strong></td>
+        <td>Two people or Claude edited the exact same rows simultaneously without tab separation.</td>
+        <td>Restore the previous Artifact version, assign human inputs to <code>Assumptions</code>, and run Claude structural edits sequentially.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Dropdowns or highlights disappeared after edit</strong></td>
+        <td>Inserting new rows pushed data outside the original validation/conditional rule range.</td>
+        <td>Prompt: <em>&ldquo;Extend Scenario validation dropdowns and amber conditional formatting across <code>B4:F50</code>.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>7. Artifacts or MCP option missing in workspace</strong></td>
+        <td>Admin disabled Artifacts or hasn&rsquo;t allowlisted the connector yet.</td>
+        <td>Ask a Workspace Owner to enable <code>Organization settings &rarr; Artifacts</code> and approve the connector under <code>Connectors</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.1pt;">6-Point Pre-Flight Checklist Before Sharing with Stakeholders</h3>
+  <div class="grid-2" style="gap:7px; margin-bottom:6px;">
+    <div class="card" style="padding:6.5px 9px; border-left:3px solid #059669;">
+      <div class="card-title" style="font-size:8.4pt;">&#9745; 1. Zero Hardcoded Totals</div>
+      <p style="font-size:7.5pt; margin:0;">Clicked key KPI and subtotal cells to verify real <code>=</code> formulas in the formula bar&mdash;zero static pasted numbers.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9px; border-left:3px solid #059669;">
+      <div class="card-title" style="font-size:8.4pt;">&#9745; 2. Clean 3-Layer Tab Separation</div>
+      <p style="font-size:7.5pt; margin:0;"><code>Assumptions</code> inputs, dropdowns, and checkboxes sit cleanly apart from <code>Model</code> math and <code>Summary</code> charts.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9px; border-left:3px solid #0284c7;">
+      <div class="card-title" style="font-size:8.4pt;">&#9745; 3. Live Cell Outlines &amp; Edge Stress Test</div>
+      <p style="font-size:7.5pt; margin:0;">Toggled one scenario dropdown and confirmed green-outlined formulas recalculate cleanly with zero <code>#DIV/0!</code> errors.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9px; border-left:3px solid #0284c7;">
+      <div class="card-title" style="font-size:8.4pt;">&#9745; 4. .xlsx Round-Trip Verified</div>
+      <p style="font-size:7.5pt; margin:0;">Downloaded <code>.xlsx</code> and opened in Excel or Google Sheets to confirm tabs, currency formatting, and formulas work natively.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9px; border-left:3px solid #d97706;">
+      <div class="card-title" style="font-size:8.4pt;">&#9745; 5. Viewer-Scoped Auth &amp; Sharing Checked</div>
+      <p style="font-size:7.5pt; margin:0;">For MCP-connected Artifacts, verified org-only sharing scope and confirmed teammates hold access to underlying connectors.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9px; border-left:3px solid #d97706;">
+      <div class="card-title" style="font-size:8.4pt;">&#9745; 6. Named &amp; Pinned in Artifacts Library</div>
+      <p style="font-size:7.5pt; margin:0;">Gave the Sheet or Artifact a clear title in the Artifacts tab so anyone can reopen and co-edit weeks later.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:6px 10px; font-size:7.95pt;">
+    <div class="callout-title">Final Takeaway: Spreadsheet Rigor Meets Live Connected Software</div>
+    <strong>Claude Sheets</strong> brings dynamic multi-tab formulas, cell-outline audits, and multiplayer co-editing into one studio&mdash;while <strong>Interactive MCP Artifacts</strong> turn those workflows into durable, permission-safe team apps.
+  </div>
+
+  <div class="page-footer"><span>Claude Sheets &amp; Interactive Artifacts &bull; Complete How-To Guide</span><span>Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>
