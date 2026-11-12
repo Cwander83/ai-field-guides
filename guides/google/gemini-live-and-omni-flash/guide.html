@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio: Complete Field Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">GOOGLE AI &amp; CREATIVE STUDIOS &bull; FIELD GUIDE</div>
+    <h1>Gemini 3.8 Live &amp; <span>Omni 1.2 Flash Studio</span></h1>
+    <p class="cover-sub">
+      Your complete visual handbook to real-time voice, vision, and reasoning over WebSockets with Gemini 3.8 Live—paired with cinematic 4K video generation, surgical editing, and 30-second extensions via Gemini Omni 1.2 Flash.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">gemini-3.8-live &amp; Extended Thinking</span>
+      <span class="cover-badge">Hybrid VAD &amp; 70+ Language Translate</span>
+      <span class="cover-badge">gemini-omni-1.2-flash (360p&ndash;4K)</span>
+      <span class="cover-badge">Natural-Language Media Binding</span>
+      <span class="cover-badge">6 Image Refs &amp; 30s Extensions</span>
+      <span class="cover-badge">Ephemeral Tokens &amp; WebRTC Bridges</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Gemini 3.8 Live soundwaves and Omni 1.2 Flash cinema film frames converging in an obsidian crystal prism" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Lag Duplex Voice &amp; Vision</div>
+      <div class="cover-stat-desc">Stream 16kHz PCM audio and JPEG video frames bidirectionally while Extended Thinking speaks natural fillers during async tool calls.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Stateful 4K Cinema Studio</div>
+      <div class="cover-stat-desc">Generate 3s&ndash;15s clips, interpolate keyframes, strip and regenerate scores, or extend scenes to 30 seconds over the Interactions API.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Production-Hardened SDKs</div>
+      <div class="cover-stat-desc">Build securely on <code>google-genai &gt;= 2.30.1</code> and <code>@google/genai &gt;= 2.29.1</code> with resumption tokens and WebRTC partners.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Architecture &amp; Navigation</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">Two Engines, One Unified SDK Mental Model</h2>
+  <p class="page-lead">
+    Modern multimodal apps split cleanly into two complementary rhythms: an always-open <strong>WebSocket conduit</strong> for sub-second human conversation, and a <strong>stateful Interactions loop</strong> for asynchronous 4K video creation and multi-turn refinement.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Two-Engine Mental Model &amp; Map</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Omni 1.2 Flash: Refs, Edits &amp; 30s Extends</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. SDK Versions, Model Matrix &amp; Specs</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Live &amp; Omni Cockpit Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Session Hardening, Tokens &amp; Regions</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Live Duplex &amp; Extended Thinking</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Studio Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Transcribe, Translate &amp; Prompt Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Sheet</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Omni 1.2 Flash: Interactions &amp; Keyframes</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core SDK:</strong> <code>google-genai &gt;= 2.30.1</code></span><span class="toc-pg">Py / TS</span></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Real-Time Conduit (Live API)</div>
+      <p style="font-size: 8.6pt; margin-bottom: 4px;">
+        Think of <code>gemini-3.8-live</code> as a live phone call that never hangs up between sentences. You open a persistent WebSocket via <code>client.aio.live.connect</code>, stream raw 16kHz PCM audio and JPEG frames with <code>send_realtime_input</code>, and receive 24kHz PCM voice chunks back in milliseconds—ready for natural barge-in interruptions at any instant.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge magenta">B</span> Stateful Cinema Studio (Interactions API)</div>
+      <p style="font-size: 8.6pt; margin-bottom: 4px;">
+        Think of <code>gemini-omni-1.2-flash</code> as a non-linear film suite driven by <code>client.interactions.create</code>. Each request turns prompts, uploaded Files API assets, or a <code>previous_interaction_id</code> into crisp 360p&ndash;4K MP4 output—retaining server-side creative history automatically when <code>store=True</code>.
+      </p>
+    </div>
+  </div>
+
+  <h3>Dual-Engine Architecture Diagram</h3>
+  <div class="figure-box" style="background:#09071c; padding: 10px 12px;">
+    <svg viewBox="0 0 700 185" width="100%" height="185" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Unified SDK -->
+      <rect x="175" y="6" width="350" height="28" rx="14" fill="#15103a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="350" y="24" text-anchor="middle" fill="#f8fafc" font-size="9.8" font-weight="800" letter-spacing="0.4">UNIFIED GOOGLE GENAI SDK (PYTHON &gt;= 2.30.1 / TS &gt;= 2.29.1)</text>
+
+      <!-- Branch Lines -->
+      <path d="M265 34 L170 54 M435 34 L530 54" stroke="#7dd3fc" stroke-width="1.8" fill="none"/>
+
+      <!-- Left Engine: Live API -->
+      <rect x="12" y="54" width="322" height="122" rx="10" fill="#111827" stroke="#0284c7" stroke-width="1.6"/>
+      <text x="24" y="73" fill="#7dd3fc" font-size="8.6" font-weight="800">STREAMING ENGINE &bull; PERSISTENT WEBSOCKET</text>
+      <text x="24" y="90" fill="#ffffff" font-size="10.8" font-weight="700">Gemini 3.8 Live &amp; Extended Thinking</text>
+      <text x="24" y="108" fill="#cbd5e1" font-size="8.4">&bull; Input: 16kHz PCM audio, JPEG video, text (send_realtime_input)</text>
+      <text x="24" y="123" fill="#cbd5e1" font-size="8.4">&bull; Output: 24kHz PCM audio + transcripts + async tool calls</text>
+      <text x="24" y="138" fill="#cbd5e1" font-size="8.4">&bull; Specialists: 3.5 Transcribe Live &amp; 3.5 Live Translate (70+ langs)</text>
+      <text x="24" y="156" fill="#38bdf8" font-size="8.4" font-weight="700">&bull; Guardrails: interaction_status, GoAway, Ephemeral Tokens</text>
+
+      <!-- Right Engine: Interactions API -->
+      <rect x="366" y="54" width="322" height="122" rx="10" fill="#111827" stroke="#e879f9" stroke-width="1.6"/>
+      <text x="378" y="73" fill="#f0abfc" font-size="8.6" font-weight="800">CREATIVE ENGINE &bull; STATEFUL INTERACTIONS API</text>
+      <text x="378" y="90" fill="#ffffff" font-size="10.8" font-weight="700">Gemini Omni 1.2 Flash Studio</text>
+      <text x="378" y="108" fill="#cbd5e1" font-size="8.4">&bull; Files API: Poll media until ACTIVE, bind via natural language</text>
+      <text x="378" y="123" fill="#cbd5e1" font-size="8.4">&bull; Generate: 3s&ndash;15s (360p to 4K), keyframes (3s&ndash;10s), R2V</text>
+      <text x="378" y="138" fill="#cbd5e1" font-size="8.4">&bull; Refine: Surgical edits, --strip-audio, extend up to 30s total</text>
+      <text x="378" y="156" fill="#e879f9" font-size="8.4" font-weight="700">&bull; Memory: store=True (55d paid / 1d free) &amp; previous_interaction_id</text>
+    </svg>
+  </div>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 2 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 3: SDK SETUP, MODEL MATRIX & SPECS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; SDKs, Models &amp; Specs</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">SDK Installation, Model Matrix &amp; Media Specifications</h2>
+  <p class="page-lead">
+    Every workflow in this guide runs on the unified late-2026 Google GenAI SDKs. Install the current packages below so typed Interactions steps, <code>output_video</code> helpers, and 3.8 Live fields work out of the box.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card-dark">
+      <div class="card-title">Python 3.10+ Setup (<code>google-genai &gt;= 2.30.1</code>)</div>
+      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #1e293b;">pip install -U google-genai
+<span class="kw">from</span> google <span class="kw">import</span> genai
+client = genai.Client()  <span class="cm"># reads GEMINI_API_KEY</span></pre>
+    </div>
+    <div class="card-dark">
+      <div class="card-title">JS / TypeScript Setup (<code>@google/genai &gt;= 2.29.1</code>)</div>
+      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #1e293b;">npm install @google/genai
+<span class="kw">import</span> { GoogleGenAI } <span class="kw">from</span> <span class="str">'@google/genai'</span>;
+<span class="kw">const</span> ai = <span class="kw">new</span> GoogleGenAI({});</pre>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin: 5px 0 8px 0;">
+    <div class="callout-title">Strict SDK Lock: Never Install Legacy Packages</div>
+    The legacy <code>google-generativeai</code> (Python) and <code>@google/generative-ai</code> (JavaScript) packages are permanently retired. They lack the Gemini 3.8 Live protocol fields and the Interactions steps schema required by Gemini Omni 1.2 Flash.
+  </div>
+
+  <h3>Late-2026 Live &amp; Omni Model Matrix</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width: 28%;">Model ID</th>
+        <th style="width: 17%;">Transport</th>
+        <th style="width: 31%;">Primary Superpower</th>
+        <th style="width: 24%;">Key Protocol Rule</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>gemini-3.8-live</code></td>
+        <td>WebSocket</td>
+        <td>Default low-latency voice &amp; vision dialogue with interleaved reasoning.</td>
+        <td>Async tools default; omit <code>thinking_level</code>.</td>
+      </tr>
+      <tr>
+        <td><code>gemini-3.8-live-extended-thinking</code></td>
+        <td>WebSocket</td>
+        <td>Deep multi-step background reasoning with spoken conversational fillers.</td>
+        <td>Requires <code>NON_BLOCKING</code> tools &amp; <code>interaction_status</code>.</td>
+      </tr>
+      <tr>
+        <td><code>gemini-3.5-transcribe-live</code></td>
+        <td>WebSocket</td>
+        <td>Real-time streaming STT with interim hypotheses &amp; final transcripts.</td>
+        <td><code>smart</code> vs <code>verbatim</code> mode + Hybrid VAD.</td>
+      </tr>
+      <tr>
+        <td><code>gemini-3.5-live-translate-preview</code></td>
+        <td>WebSocket</td>
+        <td>Speech-to-speech live interpretation across 70+ spoken languages.</td>
+        <td>Use <code>TranslationConfig</code> + audio transcriptions.</td>
+      </tr>
+      <tr>
+        <td><code>gemini-omni-1.2-flash</code></td>
+        <td>Interactions API</td>
+        <td>3s&ndash;15s video creation, keyframe interpolation, edits &amp; 30s extensions.</td>
+        <td>Natural-language asset binding; <code>ffmpeg</code> prep.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Wire Formats &amp; Output Ceilings</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Live API Audio &amp; Frame Specs</div>
+      <ul style="font-size: 8.5pt; margin-bottom: 0;">
+        <li><strong>Audio Input:</strong> Raw little-endian 16-bit mono PCM at <code>16kHz</code> native (<code>audio/pcm;rate=16000</code>); other rates are resampled.</li>
+        <li><strong>Audio Output:</strong> Raw little-endian 16-bit mono PCM at <code>24kHz</code> sample rate.</li>
+        <li><strong>Video Input:</strong> JPEG frames (<code>image/jpeg</code>) streamed on demand via <code>video=</code> to save context tokens.</li>
+        <li><strong>Context Budget:</strong> 128k input tokens / 64k output tokens; audio consumes ~25 tokens per second.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge magenta">2</span> Omni 1.2 Flash Resolution &amp; Caps</div>
+      <ul style="font-size: 8.5pt; margin-bottom: 0;">
+        <li><strong>Aspect Ratios:</strong> Widescreen <code>16:9</code> (default) or vertical <code>9:16</code> across every quality tier.</li>
+        <li><strong>Resolutions:</strong> <code>360p</code> (640&times;360), <code>720p</code> default (1280&times;720), <code>1080p</code> (1920&times;1080), and <code>4k</code> (3840&times;2160).</li>
+        <li><strong>Duration Limits:</strong> <code>3s&ndash;15s</code> new/first-frame/R2V (10s default); <code>3s&ndash;10s</code> two-frame transitions &amp; per-turn extensions up to <code>30s</code> cumulative.</li>
+        <li><strong>Prerequisites:</strong> Python 3.10+, <code>ffmpeg</code>, and <code>ffprobe</code> on <code>PATH</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 3 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED COCKPIT TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">The Live &amp; Omni Studio Cockpit: 7 Key Controls</h2>
+  <p class="page-lead">
+    Whether you run a custom web workbench or terminal pipeline, every production deployment wires together these seven live-stream and asynchronous cinema controls.
+  </p>
+
+  <div class="ui-window" style="margin-bottom: 9px;">
+    <div class="ui-topbar">
+      <div class="ui-dots"><span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span><span style="margin-left:8px; color:#cbd5e1; font-weight:700;">Gemini 3.8 Live + Omni 1.2 Flash Studio Cockpit</span></div>
+      <div style="color:#7dd3fc; font-weight:600;">SDK v2.30.1 &bull; wss://live &amp; /interactions</div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.05fr 1fr; gap: 10px; padding: 10px;">
+      <!-- Left Pane: Live WebSocket Inspector -->
+      <div style="background:#111827; border:1px solid #1e293b; border-radius:8px; padding:9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; border-bottom:1px solid #1f2937; padding-bottom:5px;">
+          <strong style="color:#38bdf8; font-size:8.4pt;">LIVE WEBSOCKET INSPECTOR</strong>
+          <span style="background:rgba(16,185,129,0.18); color:#34d399; padding:2px 6px; border-radius:4px; font-weight:700;">CONNECTED &bull; 16kHz / 24kHz</span>
+        </div>
+
+        <div style="background:#0f172a; border:1px solid #334155; border-radius:6px; padding:6px 8px; margin-bottom:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#94a3b8; font-weight:700;">OUTBOUND STREAM</span>
+            <span class="callout-pin">1</span>
+          </div>
+          <div><code>send_realtime_input(audio=..., video=..., text=...)</code></div>
+          <div style="color:#7dd3fc; margin-top:2px;">Explicit keys only &bull; Hybrid VAD <code>audio_stream_end=True</code></div>
+        </div>
+
+        <div style="background:#0f172a; border:1px solid #334155; border-radius:6px; padding:6px 8px; margin-bottom:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#94a3b8; font-weight:700;">INBOUND MULTI-PART LOOP</span>
+            <span class="callout-pin">2</span>
+          </div>
+          <div><code>for part in server_content.model_turn.parts:</code></div>
+          <div style="color:#cbd5e1; margin-top:2px;">Reads ALL PCM chunks + <code>output_transcription</code></div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px;">
+          <div style="background:#1e1b4b; border:1px solid #4338ca; border-radius:6px; padding:5px 7px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:#fda4af; font-weight:700;">BARGE-IN</span>
+              <span class="callout-pin">3</span>
+            </div>
+            <div style="margin-top:2px;"><code>interrupted == True</code><br/><span style="color:#cbd5e1;">Flush speaker queue</span></div>
+          </div>
+          <div style="background:#1e1b4b; border:1px solid #7e22ce; border-radius:6px; padding:5px 7px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:#f0abfc; font-weight:700;">TURN STATE</span>
+              <span class="callout-pin">4</span>
+            </div>
+            <div style="margin-top:2px;"><code>interaction_status</code><br/><span style="color:#34d399;">IN_PROGRESS &rarr; IDLE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Pane: Omni Interactions Video Timeline -->
+      <div style="background:#111827; border:1px solid #1e293b; border-radius:8px; padding:9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; border-bottom:1px solid #1f2937; padding-bottom:5px;">
+          <strong style="color:#e879f9; font-size:8.4pt;">OMNI 1.2 FLASH VIDEO TIMELINE</strong>
+          <span style="background:rgba(232,121,249,0.18); color:#f0abfc; padding:2px 6px; border-radius:4px; font-weight:700;">4K &bull; 16:9 &bull; 30s MAX</span>
+        </div>
+
+        <div style="background:#0f172a; border:1px solid #334155; border-radius:6px; padding:6px 8px; margin-bottom:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#94a3b8; font-weight:700;">FILES API ASSET QUEUE</span>
+            <span class="callout-pin">5</span>
+          </div>
+          <div><code>hero.png (ACTIVE)</code> &bull; <code>scene_10s.mp4 (ACTIVE)</code></div>
+          <div style="color:#f0abfc; margin-top:2px;">Up to 6 <code>--image</code> refs &bull; Natural-language order</div>
+        </div>
+
+        <div style="background:#0f172a; border:1px solid #334155; border-radius:6px; padding:6px 8px; margin-bottom:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#94a3b8; font-weight:700;">STATEFUL TURN CHAIN</span>
+            <span class="callout-pin">6</span>
+          </div>
+          <div><code>previous_interaction_id="v1_9f8a..."</code></div>
+          <div style="color:#cbd5e1; margin-top:2px;">Turn 1 (10s) &rarr; Turn 2 Edit &rarr; Turn 3 Extend (+10s)</div>
+        </div>
+
+        <div style="background:#042f2e; border:1px solid #0d9488; border-radius:6px; padding:5px 8px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <strong style="color:#5eead4;">RENDER ARTIFACT</strong><br/>
+            <code>interaction.output_video.uri</code> &rarr; <code>files.download()</code>
+          </div>
+          <span class="callout-pin">7</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>7-Point Cockpit Reference Legend</h3>
+  <div class="grid-2" style="gap: 8px 14px;">
+    <div style="font-size: 8.4pt;">
+      <p><span class="callout-pin">1</span> <strong><code>send_realtime_input</code> Dispatcher:</strong> Streams live user audio (<code>audio=</code>), JPEG video frames (<code>video=</code>), and text (<code>text=</code>). Never pass a generic <code>media=</code> argument.</p>
+      <p><span class="callout-pin">2</span> <strong><code>server_content</code> Multi-Part Reader:</strong> Loops over every element inside <code>model_turn.parts</code> because audio bytes and metadata often arrive together.</p>
+      <p><span class="callout-pin">3</span> <strong><code>interrupted</code> Audio-Queue Flush:</strong> Fires the instant the user speaks over the assistant—immediately drop buffered 24kHz audio chunks on the client.</p>
+      <p><span class="callout-pin">4</span> <strong><code>interaction_status</code> Lifecycle Monitor:</strong> Tracks <code>IN_PROGRESS</code> versus <code>IDLE</code> so Extended Thinking clients wait through background tool calls.</p>
+    </div>
+    <div style="font-size: 8.4pt;">
+      <p><span class="callout-pin">5</span> <strong>Files API <code>ACTIVE</code> Upload Poller:</strong> Uploads local images or trimmed MP4s and polls until state reaches <code>ACTIVE</code> before calling <code>interactions.create</code>.</p>
+      <p><span class="callout-pin">6</span> <strong><code>previous_interaction_id</code> Turn Chain:</strong> Links iterative edits and 3s&ndash;10s scene extensions without re-uploading source video files (stored 55d paid / 1d free).</p>
+      <p><span class="callout-pin">7</span> <strong><code>output_video</code> Downloader:</strong> Reads <code>interaction.output_video.uri</code> and streams the finished MP4 to disk via <code>client.files.download(file=...)</code>.</p>
+      <div class="callout emerald" style="margin: 4px 0 0 0; padding: 7px 10px; font-size: 8.2pt;">
+        <strong>Pro Tip:</strong> Always wear headphones when testing bidirectional voice agents so speaker audio never triggers false self-interruptions.
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 4 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 5: GEMINI 3.8 LIVE & EXTENDED THINKING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Gemini 3.8 Live Duplex &amp; Thinking</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">Duplex Streaming &amp; Background Extended Thinking</h2>
+  <p class="page-lead">
+    Gemini 3.8 Live separates real-time conversational flow from deep problem-solving. While <code>gemini-3.8-live</code> replies instantaneously, <code>gemini-3.8-live-extended-thinking</code> reasons quietly in the background and speaks natural fillers while async tools execute.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/live_extended_thinking_duplex.jpg" alt="Bi-directional cerulean voice conduit above a translucent violet reasoning chamber with async tool filaments" style="width: 100%; height: 205px; object-fit: cover; object-position: center; display: block;" />
+    <div class="figure-caption">
+      <strong>Figure 1:</strong> Duplex 16kHz/24kHz audio flows smoothly across the top WebSocket channel while the Extended Thinking chamber runs multi-step reasoning and <code>NON_BLOCKING</code> tool filaments underneath without freezing speech.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 5px;">
+    <div class="card" style="padding: 7px 10px;">
+      <div class="card-title"><span class="num-badge">1</span> Explicit Stream Keys &amp; Context Injection</div>
+      <p style="font-size: 8.1pt; margin-bottom: 4px;">
+        Connect with <code>client.aio.live.connect</code> (Python) or <code>ai.live.connect</code> (JS). Always use explicit <code>audio=</code>, <code>video=</code> (<code>image/jpeg</code>), and <code>text=</code> parameters on <code>send_realtime_input</code>—never pass <code>media=</code>.
+      </p>
+      <p style="font-size: 8.1pt; margin-bottom: 0;">
+        Need to inject structured history mid-call? Call <code>send_client_content</code> with explicit <code>user</code> or <code>model</code> roles. Note that setting <code>turn_complete=True</code> unconditionally interrupts active speech.
+      </p>
+    </div>
+    <div class="card" style="padding: 7px 10px;">
+      <div class="card-title"><span class="num-badge magenta">2</span> Extended Thinking &amp; <code>interaction_status</code></div>
+      <p style="font-size: 8.1pt; margin-bottom: 4px;">
+        On <code>gemini-3.8-live-extended-thinking</code>, pass <code>ThinkingConfig(thinking_level="low")</code> (<code>"low"</code>, <code>"medium"</code>, or <code>"high"</code>; minimal is unsupported). Every function declaration <strong>must</strong> set <code>behavior="NON_BLOCKING"</code>—blocking tools raise an API error.
+      </p>
+      <p style="font-size: 8.1pt; margin-bottom: 0;">
+        Do not stop listening on <code>turn_complete</code> alone: monitor <code>interaction_status</code> (<code>"IN_PROGRESS"</code> vs <code>"IDLE"</code>) and read <strong>every</strong> part inside <code>server_content.model_turn.parts</code>.
+      </p>
+    </div>
+  </div>
+
+  <pre class="code-block" style="font-size: 7.1pt; line-height: 1.32; padding: 7px 10px; margin: 4px 0;"><span class="kw">from</span> google <span class="kw">import</span> genai
+<span class="kw">from</span> google.genai <span class="kw">import</span> types
+client = genai.Client()
+lookup_crm = types.FunctionDeclaration(
+    name=<span class="str">"lookup_crm"</span>, description=<span class="str">"Fetch customer ticket status"</span>, behavior=<span class="str">"NON_BLOCKING"</span>,
+    parameters={<span class="str">"type"</span>: <span class="str">"OBJECT"</span>, <span class="str">"properties"</span>: {<span class="str">"email"</span>: {<span class="str">"type"</span>: <span class="str">"STRING"</span>}}, <span class="str">"required"</span>: [<span class="str">"email"</span>]},
+)
+config = types.LiveConnectConfig(
+    response_modalities=[types.Modality.AUDIO],
+    thinking_config=types.ThinkingConfig(thinking_level=<span class="str">"low"</span>),
+    tools=[types.Tool(function_declarations=[lookup_crm])],
+)
+<span class="kw">async with</span> client.aio.live.connect(model=<span class="str">"gemini-3.8-live-extended-thinking"</span>, config=config) <span class="kw">as</span> session:
+    <span class="kw">await</span> session.send_realtime_input(audio=types.Blob(data=pcm_16k, mime_type=<span class="str">"audio/pcm;rate=16000"</span>))
+    <span class="kw">await</span> session.send_realtime_input(video=types.Blob(data=jpeg_bytes, mime_type=<span class="str">"image/jpeg"</span>))
+    <span class="kw">async for</span> msg <span class="kw">in</span> session.receive():
+        <span class="kw">if</span> msg.server_content <span class="kw">and</span> msg.server_content.model_turn:
+            <span class="kw">for</span> part <span class="kw">in</span> msg.server_content.model_turn.parts:  <span class="cm"># Always iterate ALL parts</span>
+                <span class="kw">if</span> part.inline_data: play_24k_pcm(part.inline_data.data)
+        <span class="kw">if</span> getattr(msg, <span class="str">"interaction_status"</span>, <span class="kw">None</span>) == <span class="str">"IDLE"</span>: <span class="kw">break</span></pre>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 5 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 6: TRANSCRIBE, TRANSLATE & ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Transcribe, Translate &amp; WebRTC</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">Live Transcribe, 70+ Language Translate &amp; Prompt Anatomy</h2>
+  <p class="page-lead">
+    Beyond open-ended assistants, the Live API includes dedicated low-latency models for streaming captions and simultaneous interpretation—plus turnkey WebRTC partners for browser and telephony apps.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> <code>gemini-3.5-transcribe-live</code></div>
+      <p style="font-size: 8.5pt;">
+        Streams live speech-to-text with interim hypotheses and finalized sentences using <code>response_modalities=["TEXT"]</code>. Choose <code>mode: "smart"</code> to clean filler words and format punctuation, or <code>"verbatim"</code> (default) for exact word-for-word logs.
+      </p>
+      <pre class="code-block" style="margin: 4px 0 0 0; font-size: 7.4pt;"><span class="cm">// Hybrid VAD: instant flush on local silence</span>
+session.sendRealtimeInput({ audioStreamEnd: <span class="kw">true</span> });
+<span class="cm"># Python: await session.send_realtime_input(audio_stream_end=True)</span></pre>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge magenta">2</span> <code>gemini-3.5-live-translate-preview</code></div>
+      <p style="font-size: 8.5pt;">
+        Translates speech directly into natural spoken audio across <strong>70+ languages</strong> while automatically detecting the speaker's source tongue. Configure <code>TranslationConfig</code> inside <code>LiveConnectConfig</code> and enable both input and output audio transcriptions for live dual captions.
+      </p>
+      <pre class="code-block" style="margin: 4px 0 0 0; font-size: 7.4pt;">translation_config=types.TranslationConfig(
+    target_language_code=<span class="str">"es"</span>,
+    echo_target_language=<span class="kw">True</span>,
+)</pre>
+    </div>
+  </div>
+
+  <h3>WebRTC &amp; Telephony Partner Bridge</h3>
+  <div class="callout" style="margin: 4px 0 9px 0;">
+    <div class="callout-title">Browser &amp; Phone Edge Delivery Without Managing Raw Audio Buffers</div>
+    While the core Live API speaks WebSockets from your backend, six official partner integrations bridge edge clients over <strong>WebRTC</strong> or SIP: <strong>LiveKit</strong> (Agents), <strong>Pipecat</strong> by Daily, <strong>Fishjam</strong> by Software Mansion, <strong>Vision Agents</strong> by Stream, <strong>Voximplant</strong> (inbound/outbound telephony), and the <strong>Firebase AI SDK</strong> for direct mobile and web apps.
+  </div>
+
+  <h3>Color-Coded Anatomy: Live Director &amp; Omni Prompt Blueprint</h3>
+  <div class="card" style="background: #ffffff; border: 1.5px solid #cbd5e1; padding: 10px 12px;">
+    <div style="font-size: 8.8pt; line-height: 1.75; margin-bottom: 8px;">
+      <span class="p-tag p-style">Live System Persona &amp; Modality</span> &rarr;
+      <span class="p-tag p-cons">Thinking &amp; Async Tool Policy</span> &rarr;
+      <span class="p-tag p-subj">Subject &amp; Reference Order</span> &rarr;
+      <span class="p-tag p-act">Timed Action Beats</span> &rarr;
+      <span class="p-tag p-cam">Camera &amp; Motion Style</span> &rarr;
+      <span class="p-tag p-light">Lighting &amp; Atmosphere</span> &rarr;
+      <span class="p-tag p-sfx">Sound Design &amp; Negatives</span>
+    </div>
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 7px; padding: 8px 10px; font-size: 8.6pt; line-height: 1.65;">
+      <strong>Combined Session Example:</strong><br/>
+      <span class="p-tag p-style">Audio-only director persona, concise warm coaching</span>
+      <span class="p-tag p-cons">thinking_level="low", NON_BLOCKING asset lookup</span> &bull;
+      <strong>Omni Prompt:</strong>
+      <span class="p-tag p-subj">The ceramicist from the first image shapes clay in the studio from the second image</span>
+      <span class="p-tag p-act">[0-5s] hands center the spinning stoneware; [5-10s] she lifts the rim cleanly</span>
+      <span class="p-tag p-cam">Continuous unbroken medium tracking shot, 35mm shallow depth of field</span>
+      <span class="p-tag p-light">Warm late-afternoon window rays illuminating floating clay dust</span>
+      <span class="p-tag p-sfx">Soft wheel hum and gentle ambient strings; no dialogue, no scene cuts.</span>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 6 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 7: OMNI 1.2 FLASH INTERACTIONS & KEYFRAMES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Omni 1.2 Flash: Interactions &amp; Keyframes</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">Gemini Omni 1.2 Flash: Interactions API &amp; Keyframes</h2>
+  <p class="page-lead">
+    Every <code>gemini-omni-1.2-flash</code> creation runs through <code>client.interactions.create</code>, pairing uploaded Files API assets with natural-language directions to render 3s&ndash;15s videos from scratch or between exact keyframes.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Files API &amp; Storage</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Upload images or MP4s via <code>upload_file.py</code> and poll until status is <code>ACTIVE</code>. Interactions default to <code>store=True</code> (retained <strong>55 days</strong> paid / <strong>1 day</strong> free) so later turns need only <code>previous_interaction_id</code>.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge magenta">2</span> Text &amp; First Frame (3s&ndash;15s)</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Generate <code>3s&ndash;15s</code> clips (<code>10s</code> default) from text alone or a single starting image (<code>--first-frame</code>). Choose <code>360p</code>, <code>720p</code>, <code>1080p</code>, or <code>4k</code>—pass <code>--timeout 900</code> for heavy 4K renders.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> Keyframe Transitions (3s&ndash;10s)</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Supply both <code>--first-frame</code> and <code>--last-frame</code> to interpolate smoothly between start and end art (capped at <code>10s</code>). Pass the <strong>same image twice</strong> to craft seamless looping videos.
+      </p>
+    </div>
+  </div>
+
+  <h3>Prep &amp; Inspect Source Video with <code>ffmpeg</code></h3>
+  <p style="font-size: 8.8pt;">
+    Large raw camera clips slow down uploads and hit duration limits. Always check metadata with <code>inspect_video.py</code> (powered by <code>ffprobe</code>) and normalize clips with <code>prep_video.py</code>—defaulting to a clean <code>10s</code> trim scaled to 720p/24fps without stretching, or passing <code>--duration 3</code> for motion-reference clips and <code>--duration 15</code> for full 15s source edits.
+  </p>
+
+  <pre class="code-block"><span class="cm"># 1. Inspect resolution, FPS, audio stream &amp; duration; normalize to 10s 720p</span>
+./scripts/video/inspect_video.py raw_footage.mp4 --json
+./scripts/video/prep_video.py raw_footage.mp4 --start 00:03 --duration 10 --output media/prepped_10s.mp4
+
+<span class="cm"># 2. Render 15s 4K clip with bracketed timecodes &amp; extended HTTP timeout</span>
+./scripts/video/generate_video.py \
+  <span class="str">"[0-5s] Runner stretches in morning mist [5-10s] Sprints along wet coastal road [10-15s] Wide aerial sunrise"</span> \
+  --duration 15 --resolution 4k --timeout 900 --output media/coastal_run_4k.mp4
+
+<span class="cm"># 3. Seamless 8s product loop (identical first and last frame)</span>
+./scripts/video/generate_video.py <span class="str">"Crystal prism spins smoothly in place"</span> \
+  --first-frame prism.png --last-frame prism.png --duration 8 --resolution 1080p --output media/loop.mp4</pre>
+
+  <div class="callout" style="margin: 4px 0 0 0;">
+    <div class="callout-title">Single-Shot Control &amp; Timecode Prompting</div>
+    By default, Omni 1.2 Flash edits multi-shot mini-stories. Add <em>"in a single continuous unbroken shot, no scene cuts"</em> to lock one camera take, or use <code>[0-5s]</code>, <code>[5-10s]</code>, <code>[10-15s]</code> beats to choreograph exact transitions and audio swells.
+  </div>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 7 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 8: REFERENCE ASSETS, EDITS & 30s EXTENSIONS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Reference Assets, Edits &amp; 30s Extensions</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">Reference Binding, Surgical Edits &amp; 30-Second Extensions</h2>
+  <p class="page-lead">
+    Omni 1.2 Flash abandons rigid XML markup in favor of natural-language asset binding—letting you guide characters with up to 6 reference images, refine existing clips, strip audio for new scores, and extend stories to 30 seconds.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/omni_keyframe_extension_timeline.jpg" alt="Glass keyframe monoliths flowing into an extended magenta and cyan light reel across temporal segments" style="width: 100%; height: 245px; object-fit: cover; object-position: center; display: block;" />
+    <div class="figure-caption">
+      <strong>Figure 2:</strong> Keyframe monoliths and uploaded clips feed forward in 3s&ndash;10s extension hops—blending the final frames and last 10s of context up to a 30-second cumulative master.
+    </div>
+  </div>
+
+  <table class="clean-table" style="margin-bottom: 6px;">
+    <thead>
+      <tr>
+        <th style="width: 24%;">Workflow Mode</th>
+        <th style="width: 25%;">Asset &amp; Length Caps</th>
+        <th style="width: 51%;">Critical Rule for Clean Results</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Natural-Language Binding</strong></td>
+        <td>Order in <code>input[]</code> array</td>
+        <td>Refer to <em>"the first image"</em>, <em>"the second image"</em>, or <em>"the reference video"</em> in prose. Never use legacy angle-bracket placeholder tags.</td>
+      </tr>
+      <tr>
+        <td><strong>Reference Images (<code>--image</code>)</strong></td>
+        <td>Up to <strong>6 images</strong> (even 15s)</td>
+        <td>Works across <strong>new generation</strong>, <strong>video editing</strong>, and <strong>prompt-based extension</strong>. Omit <code>--task</code> when extending with <code>--image</code>!</td>
+      </tr>
+      <tr>
+        <td><strong>Reference Videos (<code>-vr</code>)</strong></td>
+        <td>Max <strong>3</strong> (3&ndash;10s) / <strong>1</strong> (11&ndash;15s)</td>
+        <td>Strictly restricted to <strong>new video generation</strong> only (never editing or extension). Ideal reference clip length is ~<code>3s</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Surgical Video Editing</strong></td>
+        <td>Source video <strong>&le; 15s</strong></td>
+        <td>Keep prompts concise and end with <em>"Keep everything else the same."</em> Add <code>--strip-audio</code> to regenerate music and SFX from scratch.</td>
+      </tr>
+      <tr>
+        <td><strong>Video Extensions</strong></td>
+        <td><strong>3s&ndash;10s</strong>/turn, <strong>30s</strong> max</td>
+        <td>Uses up to the final 10s as lookback context. Timestamps in extension prompts start at <code>0s</code> for the newly added segment.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin: 4px 0 0 0; padding: 8px 11px;">
+    <div class="callout-title">Regional Restriction Guardrail (EEA, UK, Switzerland &amp; Select US States)</div>
+    Uploading source videos for video-to-video edits, extensions, or <code>--video-reference</code> is <strong>not available</strong> in the EEA, United Kingdom, Switzerland, and select US states. If a video-input job returns almost immediately with zero output tokens or no video URI, check your execution region first.
+  </div>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 8 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Cookbook</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Production Recipes</h2>
+  <p class="page-lead">
+    Drop these five proven patterns directly into your Python, TypeScript, or CLI pipelines—each tuned to late-2026 SDK signatures and safe parameter limits.
+  </p>
+
+  <table class="clean-table" style="font-size: 8pt;">
+    <thead>
+      <tr>
+        <th style="width: 22%;">Recipe &amp; Model</th>
+        <th style="width: 30%;">Goal &amp; Trigger</th>
+        <th style="width: 48%;">Copy-Paste Snippet / Command</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Extended Thinking Voice Support Agent</strong><br/><code>gemini-3.8-live-extended-thinking</code></td>
+        <td>Look up orders in CRM asynchronously while speaking warm conversational fillers, finishing only on <code>IDLE</code>.</td>
+        <td>
+          <code>tool = types.FunctionDeclaration(name="get_order", behavior="NON_BLOCKING", ...)</code><br/>
+          <code>cfg = types.LiveConnectConfig(response_modalities=["AUDIO"], thinking_config=types.ThinkingConfig(thinking_level="medium"), tools=[types.Tool(function_declarations=[tool])])</code><br/>
+          Send tool output via <code>session.send_tool_response(...)</code>; wait for <code>interaction_status == "IDLE"</code>.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>2. Hybrid VAD Bilingual Translator</strong><br/><code>gemini-3.5-live-translate-preview</code></td>
+        <td>Simultaneous speech-to-speech interpretation across 70+ languages with instant turn flush on mic pause.</td>
+        <td>
+          <code>cfg = types.LiveConnectConfig(response_modalities=["AUDIO"], translation_config=types.TranslationConfig(target_language_code="ja", echo_target_language=True), input_audio_transcription=types.AudioTranscriptionConfig(), output_audio_transcription=types.AudioTranscriptionConfig())</code><br/>
+          On client silence: <code>await session.send_realtime_input(audio_stream_end=True)</code>.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>3. Two-Frame Loop &rarr; 1080p Timeline</strong><br/><code>gemini-omni-1.2-flash</code></td>
+        <td>Create an 8s looping hero product clip, then extend it into a 1080p multi-scene showcase with new talent.</td>
+        <td>
+          <code>./scripts/video/generate_video.py "Smooth 360 orbit" --first-frame watch.png --last-frame watch.png --duration 8 --resolution 1080p --output media/watch_loop.mp4</code><br/>
+          <code>./scripts/video/generate_video.py "Extend this video: [0-5s] model from the reference image lifts the watch [5-10s] macro dial gleam" --extend media/watch_loop.mp4 --image model.png --duration 10 --resolution 1080p --output media/watch_story.mp4</code>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>4. Stateful Wardrobe Swap + Score Regen</strong><br/><code>gemini-omni-1.2-flash</code></td>
+        <td>Swap clothing via <code>previous_interaction_id</code>, then strip audio on a local clip to compose a brand-new soundtrack.</td>
+        <td>
+          <code>res2 = client.interactions.create(model="gemini-omni-1.2-flash", previous_interaction_id=res1.id, input=[{"type":"image","uri":coat_uri,"mime_type":"image/png"}, {"type":"text","text":"Replace the jacket with the crimson coat from the reference image. Keep everything else the same."}])</code><br/>
+          <code>./scripts/video/generate_video.py "Transform lighting to neon noir; upbeat synthwave score" --video media/scene.mp4 --strip-audio --output media/noir.mp4</code>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>5. Parallel Omni Batch + Files Uploader</strong><br/><code>gemini-omni-1.2-flash</code></td>
+        <td>Pre-upload assets to <code>ACTIVE</code> and execute mixed generation, interpolation, and editing jobs concurrently.</td>
+        <td>
+          <code>./scripts/upload_file.py hero.png</code> &rarr; wait for <code>ACTIVE</code> URI<br/>
+          <code>./scripts/video/generate_video.py --batch jobs.json --concurrency 3</code><br/>
+          Each entry in <code>jobs.json</code> declares <code>prompt</code>, <code>duration</code>, <code>resolution</code>, optional <code>first_frame</code>/<code>last_frame</code>/<code>image</code>/<code>video_reference</code>, and <code>output</code>.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout magenta" style="margin: 4px 0 0 0; padding: 8px 12px;">
+    <div class="callout-title">Why These 5 Recipes Never Fail in Production</div>
+    Notice how Recipe 1 pairs <code>behavior="NON_BLOCKING"</code> with <code>interaction_status</code>, Recipe 3 omits <code>--task</code> so <code>--image</code> works during extension, and Recipe 4 uses <code>--strip-audio</code> so Omni generates a fresh score instead of preserving the original track.
+  </div>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 9 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 10: PRODUCTION HARDENING & SECURITY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Hardening, Tokens &amp; Compliance</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">Production Session Hardening, Tokens &amp; Regional Guardrails</h2>
+  <p class="page-lead">
+    Demo scripts run for 30 seconds; production apps stay connected for hours from untrusted browsers. Use these four guardrails to eliminate dropped calls, context limits, and leaked API keys.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Single Modality &amp; Compression Caps</div>
+      <p style="font-size: 8.4pt;">
+        Each Live session allows <strong>only one</strong> response modality: <code>AUDIO</code> or <code>TEXT</code>, never both. Need text alongside native voice? Request <code>response_modalities=["AUDIO"]</code> and enable <code>output_audio_transcription</code>.
+      </p>
+      <p style="font-size: 8.4pt; margin-bottom: 0;">
+        Uncompressed sessions cap at <strong>15 minutes</strong> (audio-only) or <strong>2 minutes</strong> (audio + video). Enable <code>ContextWindowCompressionConfig(sliding_window=SlidingWindow())</code> to run indefinitely.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge magenta">2</span> 10m WebSockets, Resumption &amp; GoAway</div>
+      <p style="font-size: 8.4pt;">
+        Individual WebSocket connections reset roughly every <strong>10 minutes</strong>. Enable <code>SessionResumptionConfig</code> so the server streams <code>session_resumption_update</code> handles (valid for <strong>2 hours</strong>) to reconnect seamlessly without losing memory.
+      </p>
+      <p style="font-size: 8.4pt; margin-bottom: 0;">
+        Watch for <code>response.go_away</code> (inspecting <code>time_left</code>) so your client opens a fresh resumed socket before the old link closes.
+      </p>
+    </div>
+  </div>
+
+  <h3>Client-Side Security: Ephemeral Auth Tokens</h3>
+  <p style="font-size: 8.7pt;">
+    Never embed your master <code>GEMINI_API_KEY</code> in browser or mobile code. Mint short-lived ephemeral tokens on your backend (default <code>new_session_expire_time</code> 1 minute, <code>expire_time</code> 30 minutes) and lock model/config constraints server-side using <code>live_connect_constraints</code>.
+  </p>
+  <pre class="code-block"><span class="cm"># Backend (Python): mint locked single-use ephemeral token for v1beta Live WebSocket</span>
+token = client.auth_tokens.create(config={
+    <span class="str">"uses"</span>: 1,
+    <span class="str">"live_connect_constraints"</span>: {
+        <span class="str">"model"</span>: <span class="str">"gemini-3.8-live"</span>,
+        <span class="str">"config"</span>: {<span class="str">"response_modalities"</span>: [<span class="str">"AUDIO"</span>], <span class="str">"session_resumption"</span>: {}, <span class="str">"context_window_compression"</span>: {<span class="str">"sliding_window"</span>: {}}},
+    },
+})
+<span class="cm">// Frontend (JS): pass token.name as apiKey into @google/genai</span>
+<span class="kw">const</span> ai = <span class="kw">new</span> GoogleGenAI({ apiKey: token.name });</pre>
+
+  <div class="callout amber" style="margin: 4px 0 0 0;">
+    <div class="callout-title">Regional Video Upload Guardrail &amp; Stateless Storage Opt-Out</div>
+    <strong>EEA / UK / Switzerland / Select US States:</strong> Text-to-video and image-to-video work globally, but uploading videos for editing, extension, or <code>--video-reference</code> is blocked regionally—surface a clear UI fallback before users upload large clips. For zero-retention compliance on Omni, passing <code>store=False</code> disables server history (and turns off <code>previous_interaction_id</code> and <code>background=True</code>).
+  </div>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 10 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Studio Synergy</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Studio: Live Voice Director to 4K Omni Master</h2>
+  <p class="page-lead">
+    Combine Gemini's multimodal lineup into a single automated production house—from live spoken creative direction and bespoke Nano Banana 2.1 keyframes to 4K Omni cinema, expressive TTS voiceover, and WebRTC preview.
+  </p>
+
+  <div class="figure-box" style="background:#09071c; padding: 12px 14px; margin-bottom: 10px;">
+    <svg viewBox="0 0 700 225" width="100%" height="225" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="14" width="154" height="196" rx="10" fill="#111827" stroke="#38bdf8" stroke-width="1.6"/>
+      <rect x="18" y="24" width="134" height="20" rx="5" fill="#0369a1"/>
+      <text x="85" y="37" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 1 &bull; DIRECT</text>
+      <text x="20" y="64" fill="#7dd3fc" font-size="9.6" font-weight="700">Live Voice + Concept</text>
+      <text x="20" y="83" fill="#e2e8f0" font-size="8.2">&bull; gemini-3.8-live</text>
+      <text x="20" y="98" fill="#cbd5e1" font-size="8">&bull; Spoken creative brief</text>
+      <text x="20" y="113" fill="#cbd5e1" font-size="8">&bull; NON_BLOCKING trigger</text>
+      <line x1="20" y1="126" x2="150" y2="126" stroke="#334155" stroke-width="1"/>
+      <text x="20" y="143" fill="#f0abfc" font-size="8.5" font-weight="700">gemini-nano-banana-2.1</text>
+      <text x="20" y="158" fill="#cbd5e1" font-size="8">&bull; Generates start/end</text>
+      <text x="20" y="172" fill="#cbd5e1" font-size="8">  keyframes &amp; style refs</text>
+      <text x="20" y="192" fill="#38bdf8" font-size="8" font-weight="700">Output: Beat sheet + PNGs</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M164 112 L182 112" stroke="#7dd3fc" stroke-width="2" marker-end="none"/>
+      <polygon points="180,107 188,112 180,117" fill="#7dd3fc"/>
+
+      <!-- Stage 2 -->
+      <rect x="188" y="14" width="154" height="196" rx="10" fill="#111827" stroke="#a78bfa" stroke-width="1.6"/>
+      <rect x="198" y="24" width="134" height="20" rx="5" fill="#6d28d9"/>
+      <text x="265" y="37" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 2 &bull; PREP</text>
+      <text x="200" y="64" fill="#ddd6fe" font-size="9.6" font-weight="700">ffmpeg &amp; Files API</text>
+      <text x="200" y="83" fill="#e2e8f0" font-size="8.2">&bull; inspect_video.py</text>
+      <text x="200" y="98" fill="#cbd5e1" font-size="8">&bull; prep_video.py (10s/3s)</text>
+      <text x="200" y="113" fill="#cbd5e1" font-size="8">&bull; Optional --strip-audio</text>
+      <line x1="200" y1="126" x2="330" y2="126" stroke="#334155" stroke-width="1"/>
+      <text x="200" y="143" fill="#7dd3fc" font-size="8.5" font-weight="700">upload_file.py</text>
+      <text x="200" y="158" fill="#cbd5e1" font-size="8">&bull; Uploads assets &amp; polls</text>
+      <text x="200" y="172" fill="#cbd5e1" font-size="8">  until state == ACTIVE</text>
+      <text x="200" y="192" fill="#c4b5fd" font-size="8" font-weight="700">Output: Normalized URIs</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M344 112 L362 112" stroke="#e879f9" stroke-width="2"/>
+      <polygon points="360,107 368,112 360,117" fill="#e879f9"/>
+
+      <!-- Stage 3 -->
+      <rect x="368" y="14" width="154" height="196" rx="10" fill="#111827" stroke="#e879f9" stroke-width="1.6"/>
+      <rect x="378" y="24" width="134" height="20" rx="5" fill="#a21caf"/>
+      <text x="445" y="37" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 3 &bull; RENDER</text>
+      <text x="380" y="64" fill="#f5d0fe" font-size="9.6" font-weight="700">Omni 1.2 Flash 4K</text>
+      <text x="380" y="83" fill="#e2e8f0" font-size="8.2">&bull; gemini-omni-1.2-flash</text>
+      <text x="380" y="98" fill="#cbd5e1" font-size="8">&bull; Keyframes + up to 6 refs</text>
+      <text x="380" y="113" fill="#cbd5e1" font-size="8">&bull; Surgical edits (keep same)</text>
+      <line x1="380" y1="126" x2="510" y2="126" stroke="#334155" stroke-width="1"/>
+      <text x="380" y="143" fill="#f0abfc" font-size="8.5" font-weight="700">previous_interaction_id</text>
+      <text x="380" y="158" fill="#cbd5e1" font-size="8">&bull; Chain 3s&ndash;10s extensions</text>
+      <text x="380" y="172" fill="#cbd5e1" font-size="8">  up to 30s 4K (--timeout 900)</text>
+      <text x="380" y="192" fill="#e879f9" font-size="8" font-weight="700">Output: 30s 4K MP4 Master</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M524 112 L542 112" stroke="#34d399" stroke-width="2"/>
+      <polygon points="540,107 548,112 540,117" fill="#34d399"/>
+
+      <!-- Stage 4 -->
+      <rect x="548" y="14" width="144" height="196" rx="10" fill="#111827" stroke="#34d399" stroke-width="1.6"/>
+      <rect x="558" y="24" width="124" height="20" rx="5" fill="#047857"/>
+      <text x="620" y="37" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 4 &bull; DELIVER</text>
+      <text x="560" y="64" fill="#a7f3d0" font-size="9.6" font-weight="700">Voiceover &amp; Review</text>
+      <text x="560" y="83" fill="#e2e8f0" font-size="8.2">&bull; gemini-3.8-flash-tts</text>
+      <text x="560" y="98" fill="#cbd5e1" font-size="8">&bull; Multi-speaker narration</text>
+      <text x="560" y="113" fill="#cbd5e1" font-size="8">&bull; Voice Design personas</text>
+      <line x1="560" y1="126" x2="680" y2="126" stroke="#334155" stroke-width="1"/>
+      <text x="560" y="143" fill="#6ee7b7" font-size="8.5" font-weight="700">WebRTC &amp; Live Review</text>
+      <text x="560" y="158" fill="#cbd5e1" font-size="8">&bull; LiveKit / Pipecat / Firebase</text>
+      <text x="560" y="172" fill="#cbd5e1" font-size="8">&bull; Client screenshare QA</text>
+      <text x="560" y="192" fill="#34d399" font-size="8" font-weight="700">Output: Ready to Publish</text>
+    </svg>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Voice-Driven Storyboarding</div>
+      <p style="font-size: 8.3pt; margin-bottom: 0;">
+        Talk through scene ideas with <code>gemini-3.8-live</code>. When you approve a shot list, an async tool invokes <code>gemini-nano-banana-2.1</code> to render consistent character sheets and start/end keyframes.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge magenta">2</span> Automated Omni Assembly</div>
+      <p style="font-size: 8.3pt; margin-bottom: 0;">
+        Feed those Nano Banana 2.1 keyframes into <code>generate_video.py --batch jobs.json</code>, normalizing any live-action B-roll through <code>prep_video.py</code> before chaining 30-second 4K extensions.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> Expressive TTS &amp; Live Review</div>
+      <p style="font-size: 8.3pt; margin-bottom: 0;">
+        Layer studio narration from <code>gemini-3.8-flash-tts</code>, then stream the preview inside a LiveKit or Firebase WebRTC session so stakeholders critique frames by voice in real time.
+      </p>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 11 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Pre-Flight</span>
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Bookmark this final page. Almost every runtime error in Live streaming or Omni video creation traces back to one of these seven protocol mismatches.
+  </p>
+
+  <table class="clean-table" style="font-size: 8.1pt; margin-bottom: 9px;">
+    <thead>
+      <tr>
+        <th style="width: 28%;">Symptom / Error</th>
+        <th style="width: 28%;">Root Cause</th>
+        <th style="width: 44%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. <code>media=</code> Rejected in <code>send_realtime_input</code></strong></td>
+        <td>Legacy generic <code>media</code> key is unsupported on 3.8 Live.</td>
+        <td>Replace <code>media=</code> with explicit <code>audio=</code>, <code>video=</code> (<code>image/jpeg</code>), or <code>text=</code> parameters.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Hard Error on Tool Call in Extended Thinking</strong></td>
+        <td>Synchronous blocking functions fail on <code>gemini-3.8-live-extended-thinking</code>.</td>
+        <td>Set <code>behavior="NON_BLOCKING"</code> on every <code>FunctionDeclaration</code> and track <code>interaction_status</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Missing Audio Chunks or Silent Gaps</strong></td>
+        <td>Client reads only <code>parts[0]</code> of <code>server_content.model_turn</code>.</td>
+        <td>Iterate over <strong>all</strong> items in <code>model_turn.parts</code>—audio bytes and metadata arrive in multi-part events.</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>--last-frame</code> Fails or Rejects &gt;10s</strong></td>
+        <td>End frame passed without start frame, or duration set to 11s&ndash;15s.</td>
+        <td>Always pair <code>--last-frame</code> with <code>--first-frame</code> and keep keyframe transitions at <code>3s&ndash;10s</code> max.</td>
+      </tr>
+      <tr>
+        <td><strong>5. <code>--image</code> Blocked During Extension</strong></td>
+        <td>Explicitly passing <code>--task extend</code> forces a single-video gateway lock.</td>
+        <td>Omit <code>--task</code> and use natural-language extension (<em>"Extend this video..."</em>) so up to 6 <code>--image</code> refs work.</td>
+      </tr>
+      <tr>
+        <td><strong>6. <code>--video-reference</code> Rejected on Job</strong></td>
+        <td>Used on edit/extend, or &gt;1 ref video on an 11s&ndash;15s clip.</td>
+        <td>Use <code>--video-reference</code> only on <strong>new</strong> generation (max 3 for 3&ndash;10s, max 1 for 11&ndash;15s; ~3s ideal).</td>
+      </tr>
+      <tr>
+        <td><strong>7. Omni Video Edit Finishes Fast &amp; Empty</strong></td>
+        <td>Zero output tokens from EEA, UK, Switzerland, or restricted US state.</td>
+        <td>Video uploads for edits, extensions, and R2V are regionally blocked there; run from a supported region.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Production Pre-Flight Checklist</h3>
+  <div class="grid-2" style="gap: 8px 14px;">
+    <div class="card" style="padding: 9px 12px;">
+      <ul style="font-size: 8.4pt; margin: 0; padding-left: 16px;">
+        <li><strong>SDK &amp; Binary Lock:</strong> Confirm <code>google-genai &gt;= 2.30.1</code> or <code>@google/genai &gt;= 2.29.1</code>, Python 3.10+, and <code>ffmpeg</code> / <code>ffprobe</code> on <code>PATH</code>.</li>
+        <li><strong>Audio &amp; Barge-In Ready:</strong> Stream 16kHz mono PCM in, play 24kHz PCM out, flush queue on <code>interrupted=True</code>, and fire <code>audio_stream_end</code> on pause.</li>
+        <li><strong>Long-Session Resilience:</strong> Enable <code>context_window_compression</code>, persist <code>session_resumption</code> handles (2h TTL), and handle <code>GoAway</code> signals.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding: 9px 12px;">
+      <ul style="font-size: 8.4pt; margin: 0; padding-left: 16px;">
+        <li><strong>Browser Security:</strong> Mint server-side ephemeral tokens with <code>live_connect_constraints</code>; never ship <code>GEMINI_API_KEY</code> to client bundles.</li>
+        <li><strong>Omni Asset Hygiene:</strong> Trim source videos via <code>prep_video.py</code>, poll Files API to <code>ACTIVE</code>, bind assets by natural-language order, and set <code>--timeout 900</code> for 4K.</li>
+        <li><strong>Audio Choice on Edits:</strong> Leave original track intact by default, or pass <code>--strip-audio</code> to force full score and SFX regeneration from scratch.</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <span>Gemini 3.8 Live &amp; Omni 1.2 Flash Studio • Complete Field Guide</span>
+    <span>Page 12 of 12</span>
+  </footer>
+</section>
+
+</body>
+</html>

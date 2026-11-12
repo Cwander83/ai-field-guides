@@ -5,8 +5,8 @@
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-39%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-468%20Pages-059669?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-42%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-504%20Pages-059669?style=for-the-badge)
 ![Ecosystems](https://img.shields.io/badge/Scope-6%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
@@ -21,7 +21,7 @@ Click any cover card or **Read / Download PDF** link below to view the full hand
 **Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems)
 
 ### Google AI & Creative Studios
-Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, agentic coding IDEs, source-grounded research tools, and autonomous browser workflows.
+Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, Antigravity 2.0 customizations & swarms, Gemini 3.8 Live & Omni 1.2 Flash voice/video pipelines, agentic Firebase & Android CLI workflows, and autonomous browser agents.
 
 <table>
   <tr>
@@ -113,6 +113,35 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
       <p><code>Browser Agent</code> &middot; <code>Automation</code> &middot; <code>Computer Use</code></p>
       <p><a href="guides/google/google-project-mariner/Google_Project_Mariner_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/google/google-project-mariner">&#128736; Editable Source</a></p>
     </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/google/antigravity-2-customizations-and-swarms/Antigravity_2_Customizations_and_Swarms_Complete_How_To_Guide.pdf"><img src="guides/google/antigravity-2-customizations-and-swarms/cover.png" alt="Antigravity 2.0 Customizations, Skills &amp; Swarms Cover" width="100%" /></a>
+      <h3><a href="guides/google/antigravity-2-customizations-and-swarms/Antigravity_2_Customizations_and_Swarms_Complete_How_To_Guide.pdf">Antigravity 2.0 Customizations, Skills &amp; Swarms</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Tailor Google Antigravity 2.0, IDE, CLI (agy), and Python SDK with progressive SKILL.md modules, AGENTS.md rules, lifecycle hooks.json, namespaced plugins, and message-board agent swarms.</p>
+      <p><code>Antigravity 2.0</code> &middot; <code>Skills &amp; Hooks</code> &middot; <code>Agent Swarms</code></p>
+      <p><a href="guides/google/antigravity-2-customizations-and-swarms/Antigravity_2_Customizations_and_Swarms_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/google/antigravity-2-customizations-and-swarms">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/google/gemini-live-and-omni-flash/Gemini_Live_and_Omni_Flash_Complete_How_To_Guide.pdf"><img src="guides/google/gemini-live-and-omni-flash/cover.png" alt="Gemini 3.8 Live &amp; Omni 1.2 Flash Studio Cover" width="100%" /></a>
+      <h3><a href="guides/google/gemini-live-and-omni-flash/Gemini_Live_and_Omni_Flash_Complete_How_To_Guide.pdf">Gemini 3.8 Live &amp; Omni 1.2 Flash Studio</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Build low-latency bidirectional voice/vision agents with Gemini 3.8 Live (Extended Thinking, NON_BLOCKING tools, Live Translate) and multi-shot 4K generative video workflows with Gemini Omni 1.2 Flash.</p>
+      <p><code>Gemini 3.8 Live</code> &middot; <code>Omni 1.2 Flash</code> &middot; <code>Voice &amp; 4K Video</code></p>
+      <p><a href="guides/google/gemini-live-and-omni-flash/Gemini_Live_and_Omni_Flash_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/google/gemini-live-and-omni-flash">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/google/agentic-firebase-and-android-cli/Agentic_Firebase_and_Android_CLI_Complete_How_To_Guide.pdf"><img src="guides/google/agentic-firebase-and-android-cli/cover.png" alt="Agentic Firebase &amp; Android CLI Workflows Cover" width="100%" /></a>
+      <h3><a href="guides/google/agentic-firebase-and-android-cli/Agentic_Firebase_and_Android_CLI_Complete_How_To_Guide.pdf">Agentic Firebase &amp; Android CLI Workflows</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Ship full-stack mobile and web apps with firebase-tools MCP, Firebase AI Logic + App Check, Data Connect, Android CLI, live Device Hub mirroring, Compose Preview sidecars, and XML Journey tests.</p>
+      <p><code>Firebase MCP</code> &middot; <code>Android CLI</code> &middot; <code>Device Hub &amp; Journeys</code></p>
+      <p><a href="guides/google/agentic-firebase-and-android-cli/Agentic_Firebase_and_Android_CLI_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/google/agentic-firebase-and-android-cli">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%"></td>
   </tr>
 </table>
 
@@ -422,6 +451,9 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **Google NotebookLM** — Zero-hallucination research studio for 500+ sources, live interactive Join Audio Overviews, Video Overviews, and clickable Mind Maps. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-notebooklm/Google_NotebookLM_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-notebooklm) |
 | **Gemini Deep Research, Canvas & Gems** — Autonomous multi-hundred-site research dossiers, split-screen Canvas live apps with embedded AI, and custom Drive-synced Gems. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-gemini-deep-research-canvas-and-gems/Google_Gemini_Deep_Research_Canvas_and_Gems_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-gemini-deep-research-canvas-and-gems) |
 | **Google Project Mariner** — Autonomous browser-use agent & Gemini Agent Mode running up to 10 parallel cloud browsers, Teach & Repeat skills, and safety gates. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-project-mariner/Google_Project_Mariner_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-project-mariner) |
+| **Antigravity 2.0 Customizations, Skills & Swarms** — Tailor Google Antigravity 2.0, IDE, CLI (agy), and Python SDK with progressive SKILL.md modules, AGENTS.md rules, lifecycle hooks.json, namespaced plugins, and message-board agent swarms. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/antigravity-2-customizations-and-swarms/Antigravity_2_Customizations_and_Swarms_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/antigravity-2-customizations-and-swarms) |
+| **Gemini 3.8 Live & Omni 1.2 Flash Studio** — Build low-latency bidirectional voice/vision agents with Gemini 3.8 Live (Extended Thinking, NON_BLOCKING tools, Live Translate) and multi-shot 4K generative video workflows with Gemini Omni 1.2 Flash. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/gemini-live-and-omni-flash/Gemini_Live_and_Omni_Flash_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/gemini-live-and-omni-flash) |
+| **Agentic Firebase & Android CLI Workflows** — Ship full-stack mobile and web apps with firebase-tools MCP, Firebase AI Logic + App Check, Data Connect, Android CLI, live Device Hub mirroring, Compose Preview sidecars, and XML Journey tests. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/agentic-firebase-and-android-cli/Agentic_Firebase_and_Android_CLI_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/agentic-firebase-and-android-cli) |
 | **Claude Code Mods** — Customizing Claude Code from the inside with in-process TypeScript/JavaScript mods—building live terminal HUDs, prompt/tool interceptors, custom slash commands, and sec-default guardrails. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-code-mods/Claude_Code_Mods_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-code-mods) |
 | **Claude Whiteboards** — Turning messy voice and text brainstorms into real-time multiplayer visual canvases—mastering region-box prompting, retro clustering, Doc/Slide handoffs, and Miro/Lucid exports. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-whiteboards/Claude_Whiteboards_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-whiteboards) |
 | **Claude Dashboards & Data** — Connecting warehouses and CRMs to natural-language analytics—building auditable SQL charts, Certified Queries, Scrollytellers, Visual Shorts, and credential-safe live team shares. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-dashboards-and-data/Claude_Dashboards_and_Data_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-dashboards-and-data) |

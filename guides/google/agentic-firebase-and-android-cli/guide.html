@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agentic Firebase &amp; Android CLI Workflows: Complete Field Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">GOOGLE AI &amp; CREATIVE STUDIOS &bull; FIELD GUIDE</div>
+    <h1>Agentic <span>Firebase &amp; Android CLI</span> Workflows</h1>
+    <p class="cover-sub">
+      The complete 12-page visual handbook to full-stack AI mobile engineering—uniting scoped Firebase MCP backends, App Check-protected Gemini 3.8 Kotlin apps, headless Compose Preview rendering, and automated Android Device Hub journeys.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Firebase MCP &amp; Agent Skills</span>
+      <span class="cover-badge">Gemini 3.8 Flash &amp; Live</span>
+      <span class="cover-badge">Play Integrity App Check</span>
+      <span class="cover-badge">android CLI &amp; Delta Builds</span>
+      <span class="cover-badge">Compose Preview Sidecar</span>
+      <span class="cover-badge">Device Hub &amp; XML Journeys</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Agentic Firebase and Android CLI Full-Stack Architecture Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Cloud-to-Code Backend</div>
+      <div class="cover-stat-desc">Query Firestore, inspect Data Connect GraphQL, and diagnose App Hosting logs safely via scoped <code>firebase mcp</code>.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Protected Gemini 3.8 Apps</div>
+      <div class="cover-stat-desc">Ship Android Kotlin experiences on <code>gemini-3.8-flash</code> and <code>gemini-3.8-live</code> gated by Firebase App Check.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Closed-Loop Device QA</div>
+      <div class="cover-stat-desc">Audit Compose <code>bounds_url</code> trees, stream AVDs in Device Hub, and run strict sequential XML <code>&lt;journey&gt;</code> tests.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: NAVIGATION & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Architecture &amp; Navigation</span>
+    <span>Agentic Firebase &amp; Android CLI Workflows</span>
+  </div>
+
+  <h2 class="page-title">The Full-Stack Mental Model: Cloud Meets Pixels</h2>
+  <p class="page-lead">
+    Modern mobile agents no longer stop at writing Kotlin files in the dark. By pairing <strong>Firebase MCP</strong> on the cloud side with the <strong><code>android</code> CLI</strong> and its live UI sidecars on the device side, an agent can verify schemas, builds, Compose bounds, and tap-by-tap user journeys in one continuous loop.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Full-Stack Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. <code>android</code> CLI &amp; Compose Sidecar</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Install, Auth &amp; Tool Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Device Hub &amp; XML Journeys</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Cockpit UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Copy-Paste Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Firebase MCP &amp; Data Connect</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. App Check &amp; Multi-Device Ops</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. AI Logic Kotlin &amp; Config Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>Architecture: Two Bridges Closing the Mobile Loop</h3>
+  <div class="figure-box" style="background:#0f172a; padding:12px 14px;">
+    <svg viewBox="0 0 700 218" width="100%" height="218" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Agent Brain -->
+      <rect x="175" y="6" width="350" height="44" rx="8" fill="#2d1407" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="350" y="24" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="800">Coding Agent (IDE, CLI, or Autonomous Swarm)</text>
+      <text x="350" y="40" text-anchor="middle" fill="#fdba74" font-size="8.6">Guided by firebase/agent-skills + android-cli / compose-preview / device-hub skills</text>
+
+      <!-- Connecting Lines Down -->
+      <path d="M250 50 L155 76 M450 50 L545 76" stroke="#fb923c" stroke-width="2" fill="none"/>
+
+      <!-- Left Cloud Bridge -->
+      <rect x="12" y="76" width="295" height="84" rx="9" fill="#1c1008" stroke="#ea580c" stroke-width="1.4"/>
+      <text x="24" y="94" fill="#fb923c" font-size="8.4" font-weight="700">BACKEND BRIDGE &bull; FIREBASE MCP</text>
+      <text x="24" y="111" fill="#ffffff" font-size="11" font-weight="800">firebase-tools mcp (--dir --only)</text>
+      <text x="24" y="128" fill="#fed7aa" font-size="8.6">&bull; Firestore, RTDB &amp; Security Rules checks</text>
+      <text x="24" y="141" fill="#fed7aa" font-size="8.6">&bull; Data Connect GraphQL, Auth &amp; Crashlytics</text>
+      <text x="24" y="154" fill="#fed7aa" font-size="8.6">&bull; App Hosting &amp; Cloud Functions log triage</text>
+
+      <!-- Right Device Bridge -->
+      <rect x="393" y="76" width="295" height="84" rx="9" fill="#062c22" stroke="#10b981" stroke-width="1.4"/>
+      <text x="405" y="94" fill="#34d399" font-size="8.4" font-weight="700">DEVICE BRIDGE &bull; ANDROID CLI + SIDECARS</text>
+      <text x="405" y="111" fill="#ffffff" font-size="11" font-weight="800">android CLI, Compose &amp; Device Hub</text>
+      <text x="405" y="128" fill="#d1fae5" font-size="8.6">&bull; Fast delta builds (android run) &amp; Studio bridge</text>
+      <text x="405" y="141" fill="#d1fae5" font-size="8.6">&bull; Headless @Preview render + bounds_url trees</text>
+      <text x="405" y="154" fill="#d1fae5" font-size="8.6">&bull; AVD mirror, layout JSON &amp; XML &lt;journey&gt; QA</text>
+
+      <!-- Middle App Bar -->
+      <path d="M155 160 L155 174 M545 160 L545 174" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="3,3"/>
+      <rect x="12" y="174" width="676" height="38" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.4"/>
+      <text x="350" y="191" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Android Kotlin Client (firebase-bom:35.1.0 + firebase-ai + App Check)</text>
+      <text x="350" y="205" text-anchor="middle" fill="#fde68a" font-size="8.5">Calls gemini-3.8-flash &amp; gemini-3.8-live directly with automatic App Check attestation tokens</text>
+    </svg>
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">Why Pairing Skills With Tools Matters</div>
+    Raw MCP servers expose dozens of capabilities without telling an agent <em>when</em> to use each one. Pairing <code>npx skills add firebase/agent-skills</code> with <code>android init</code> and <code>android skills add</code> teaches your agent idiomatic Security Rules patterns, Play Integrity guards, and fast UI inspection rules before it writes a single line of code.
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 3: INSTALL, AUTH & MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Tool Selection</span>
+    <span>Installation, Authentication &amp; Decision Matrix</span>
+  </div>
+
+  <h2 class="page-title">Installation, Auth &amp; Backend-to-Device Matrix</h2>
+  <p class="page-lead">
+    Set up both toolchains in under three minutes. Keep Firebase MCP tightly scoped per project directory while initializing the <code>android</code> CLI globally for fast SDK, emulator, and Studio access.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge">1</span> Install &amp; Initialize <code>android</code> CLI</div>
+      <p style="font-size:8pt; margin-bottom:3px;">Install the native binary for your host OS, then run <code>android init</code> to configure directories and default skills:</p>
+      <div class="code-block" style="font-size:6.5pt; line-height:1.34; padding:5px 7px; margin:3px 0;"><span class="c-cm"># macOS Apple Silicon (darwin_arm64)</span>
+curl -fsSL https://dl.google.com/android/cli/latest/darwin_arm64/install.sh | bash
+<span class="c-cm"># Linux x86-64</span>
+curl -fsSL https://dl.google.com/android/cli/latest/linux_x86_64/install.sh | bash
+<span class="c-cm"># Windows Command Prompt</span>
+curl -fsSL https://dl.google.com/android/cli/latest/windows_x86_64/install.cmd -o "%TEMP%\i.cmd" &amp;&amp; "%TEMP%\i.cmd"
+android init &amp;&amp; android auth login</div>
+      <p style="font-size:7.7pt; color:#475569; margin:0;">Discover domain skills anytime via <code>android skills find compose</code> and install with <code>android skills add &lt;id&gt;</code>.</p>
+    </div>
+
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge amber">2</span> Authenticate &amp; Scope Firebase MCP</div>
+      <p style="font-size:8pt; margin-bottom:3px;">Firebase MCP runs as a built-in subcommand of <code>firebase-tools</code>. Refresh OAuth credentials, add agent skills, and pin MCP flags:</p>
+      <div class="code-block" style="font-size:6.5pt; line-height:1.34; padding:5px 7px; margin:3px 0;"><span class="c-cm"># 1. Re-authenticate &amp; install Firebase agent skills</span>
+npx -y firebase-tools@latest login --reauth
+npx skills add firebase/agent-skills
+<span class="c-cm"># 2. Register stdio MCP server (or claude mcp add)</span>
+claude mcp add firebase npx -- -y firebase-tools@latest mcp \
+  --dir /abs/path/to/project \
+  --only firestore,auth,dataconnect</div>
+      <p style="font-size:7.7pt; color:#475569; margin:0;">Pinning <code>--dir</code> and <code>--only</code> prevents accidental edits across unrelated Firebase projects.</p>
+    </div>
+  </div>
+
+  <h3>Android Tooling Decision Matrix: Pick the Fastest Layer</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Layer</th>
+        <th style="width:24%;">Primary Strength</th>
+        <th style="width:28%;">When to Use It</th>
+        <th style="width:28%;">What to Avoid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Raw <code>adb</code></strong></td>
+        <td>Low-level shell, input injection, logcat, port tunnels</td>
+        <td>Sending taps, swipes, <code>input text</code>, or checking <code>getprop sys.boot_completed</code></td>
+        <td>Slow full-APK installs or manual UI hierarchy XML parsing</td>
+      </tr>
+      <tr>
+        <td><strong><code>android</code> CLI</strong></td>
+        <td>Delta installs, JSON layout, screen resolve, SDK &amp; docs</td>
+        <td><code>android run --use-delta-install</code>, <code>layout</code>, <code>screen capture --annotate</code>, <code>docs search</code></td>
+        <td>Running <code>android preview render</code> directly outside the sidecar</td>
+      </tr>
+      <tr>
+        <td><strong>UI Sidecars</strong></td>
+        <td>Persistent HTTP servers + live IDE visual panes</td>
+        <td>Inspecting <code>bounds_url</code> Compose trees and mirroring live devices in Device Hub</td>
+        <td>Sending browser <code>Origin</code> headers or omitting <code>X-Sidecar-Conversation</code></td>
+      </tr>
+      <tr>
+        <td><strong>Android Studio Bridge</strong></td>
+        <td>Live PSI/AST symbol index &amp; inspection engine</td>
+        <td><code>android studio analyze-file</code>, <code>find-declaration</code>, <code>find-usages</code>, <code>version-lookup</code></td>
+        <td>Assuming Studio is open without checking <code>android studio check</code> first</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <div class="callout-title">JSON Snippet for Any Standard MCP Client</div>
+    In Antigravity or custom MCP configs, declare Firebase as: <code>"command": "npx"</code> with <code>"args": ["-y", "firebase-tools@latest", "mcp", "--dir", "/abs/path", "--only", "firestore,auth,dataconnect"]</code>.
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED COCKPIT UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Visual Cockpit Tour</span>
+    <span>Compose Preview + Device Hub + CLI Inspector</span>
+  </div>
+
+  <h2 class="page-title">Annotated Android Device Hub &amp; Compose Preview Cockpit</h2>
+  <p class="page-lead">
+    When both Android sidecar plugins run alongside your terminal, you get instant pixel feedback in the IDE while your agent inspects exact coordinates, composable bounds, and incremental layout diffs over loopback HTTP and CLI.
+  </p>
+
+  <!-- UI Mockup Window -->
+  <div class="ui-window" style="margin-bottom:10px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; color:#fdba74; font-weight:700;">Android Sidecar Cockpit &bull; 127.0.0.1:&lt;PORT&gt;</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px; color:#94a3b8; font-size:7.1pt;">
+        <span>~/.android/cli/sidecars/compose-preview.json</span>
+        <span class="callout-pin">1</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1.15fr 1.15fr 1.1fr; gap:1px; background:#1f2937;">
+      <!-- Pane 1: Compose Preview -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e293b; padding-bottom:4px;">
+          <strong style="color:#fb923c;">Compose Preview Pane</strong>
+          <span class="callout-pin">2</span>
+        </div>
+        <div style="background:#111827; border:1px solid #334155; border-radius:6px; padding:6px; font-size:7pt; color:#cbd5e1;">
+          Header: <code>X-Sidecar-Conversation: conv-828a</code><br/>
+          Session: <code>gradle://.?:app@debug</code> <span class="callout-pin">3</span>
+        </div>
+        <div style="background:#1e293b; border:1px dashed #fb923c; border-radius:7px; padding:7px; position:relative;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="color:#fde68a; font-weight:700;">LiveChatPreview_0.png</span>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="background:#0b0f19; border:1px solid #10b981; border-radius:5px; padding:6px; color:#a7f3d0; font-size:6.8pt;">
+            [Box bounds: 24,180,388,244]<br/>
+            <code>bounds_url</code> &rarr; <code>HomeScreen.kt:94</code><br/>
+            semantics: <code>text="Ask Gemini"</code>, <code>clickable</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pane 2: Device Hub Mirror -->
+      <div style="background:#0b0f19; padding:9px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e293b; padding-bottom:4px;">
+          <strong style="color:#34d399;">Device Hub &bull; Mirror</strong>
+          <span class="callout-pin">5</span>
+        </div>
+        <div style="background:#111827; border:1px solid #10b981; border-radius:8px; padding:7px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; color:#94a3b8; font-size:6.8pt;">
+            <span>emulator-5554 (API 36)</span>
+            <span style="color:#10b981; font-weight:700;">WS /mirror/ws</span>
+          </div>
+          <div style="border:1px solid #334155; border-radius:6px; padding:6px; margin:5px 0; background:#172033;">
+            <div style="background:#1e293b; padding:4px 6px; border-radius:4px; margin-bottom:4px; color:#f8fafc;">Voice Assistant Ready</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#2d1407; border:1.5px solid #fb923c; border-radius:4px; padding:4px 6px;">
+              <span style="color:#fed7aa;">Tap to Speak</span>
+              <span style="background:#ea580c; color:#fff; padding:1px 4px; border-radius:3px; font-weight:800;">#7</span>
+            </div>
+          </div>
+          <div style="color:#94a3b8; font-size:6.7pt;">Mouse, touch &amp; keyboard stream live to user</div>
+        </div>
+      </div>
+
+      <!-- Pane 3: CLI Inspector -->
+      <div style="background:#0f172a; padding:9px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e293b; padding-bottom:4px;">
+          <strong style="color:#fbbf24;">Agent CLI Inspector</strong>
+          <span class="callout-pin">6</span>
+        </div>
+        <div style="background:#090d16; border:1px solid #334155; border-radius:6px; padding:6px; font-family:monospace; font-size:6.7pt; color:#e2e8f0; line-height:1.42;">
+          $ android layout --pretty --diff<br/>
+          <span style="color:#6ee7b7;">{"text":"Tap to Speak","state":["focused"],"center":"[540,1820]"}</span><br/><br/>
+          $ android screen capture --annotate -o /tmp/s.png <span class="callout-pin">7</span><br/>
+          $ adb shell $(android screen resolve --screenshot /tmp/s.png --string "input tap #7")
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Seven-Point Cockpit Reference Legend</h3>
+  <div class="grid-2" style="gap:6px 14px; font-size:8.4pt;">
+    <div><span class="callout-pin">1</span> <strong>Sidecar Discovery File:</strong> Read <code>~/.android/cli/sidecars/compose-preview.json</code> to get the active dynamic loopback port, then verify with <code>GET /api/status</code>.</div>
+    <div><span class="callout-pin">2</span> <strong>Conversation Isolation Header:</strong> Always send <code>X-Sidecar-Conversation: &lt;id&gt;</code> on <code>POST /api/session</code>, <code>POST /api/render</code>, and <code>GET /api/state</code> so the pane renders your thread.</div>
+    <div><span class="callout-pin">3</span> <strong>Session Configuration:</strong> <code>POST /api/session</code> sets <code>project_dir</code>, Gradle/Bazel <code>reference</code>, <code>fqns</code>, and <code>"wait": true</code> to build and render cleanly.</div>
+    <div><span class="callout-pin">4</span> <strong>Component Tree (<code>bounds_url</code>):</strong> Inspect <code>sourceLocation</code>, <code>semantics</code>, and <code>modifiers</code> in JSON to audit padding and accessibility without guessing.</div>
+    <div><span class="callout-pin">5</span> <strong>User Mirror WebSocket (<code>/mirror/ws</code>):</strong> Streams live AVD or USB device video and input in the Device Hub UI; agents inspect and drive devices via CLI and <code>adb</code>.</div>
+    <div><span class="callout-pin">6</span> <strong>Layout JSON &amp; Diffs:</strong> Run <code>android layout --pretty --diff</code> first to capture exact element bounds, focus states, and changes in minimal tokens.</div>
+  </div>
+  <div style="margin-top:5px; font-size:8.4pt;">
+    <span class="callout-pin">7</span> <strong>Annotated Screen Resolve:</strong> When WebViews or custom canvases hide from the layout tree, run <code>android screen capture --annotate</code> and substitute box <code>#N</code> centers with <code>android screen resolve</code>.
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 5: FIREBASE MCP & DATA CONNECT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Backend Intelligence</span>
+    <span>Firebase MCP, Data Connect, App Hosting &amp; Security Rules</span>
+  </div>
+
+  <h2 class="page-title">Firebase MCP: Inspecting Live Cloud State &amp; Rules</h2>
+  <p class="page-lead">
+    Running <code>firebase-tools@latest mcp</code> gives your coding agent a live, least-privilege window into your Firebase backend—so database schemas, Security Rules, GraphQL operations, and deploy logs stay aligned with your Android client.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/firebase_mcp_backend_bridge.jpg" alt="Firebase MCP Backend Security and Database Pipeline Illustration" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Cloud-to-Client Verification Bridge:</strong> Scoped <code>firebase mcp</code> routes agent queries through directory-pinned permissions and Security Rules checks into Firestore, Data Connect GraphQL, and App Check gates.
+    </div>
+  </div>
+
+  <h3>Core Firebase MCP Capability Groups (<code>--only</code>)</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Capability Group</th>
+        <th style="width:38%;">What the Agent Can Inspect &amp; Validate</th>
+        <th style="width:38%;">Android Synergy Payoff</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Firestore &amp; RTDB + Rules</strong></td>
+        <td>Query documents, inspect collection indexes, and validate Security Rules logic before deploy</td>
+        <td>Matches Kotlin data classes and ensures queries will not fail with <code>PERMISSION_DENIED</code></td>
+      </tr>
+      <tr>
+        <td><strong>Data Connect (GraphQL)</strong></td>
+        <td>Author PostgreSQL-backed GraphQL schemas, mutations, and generated client connectors</td>
+        <td>Generates strongly typed Kotlin SDK calls ready for Compose UI state flows</td>
+      </tr>
+      <tr>
+        <td><strong>App Hosting &amp; Functions</strong></td>
+        <td>Tail build failures, Cloud Functions runtime logs, and rollout environment config</td>
+        <td>Diagnoses backend webhook or server-side token errors in seconds without browser tabs</td>
+      </tr>
+      <tr>
+        <td><strong>Auth, Crashlytics, FCM &amp; RC</strong></td>
+        <td>Look up Auth users, triage top Crashlytics stack traces, inspect Remote Config &amp; FCM</td>
+        <td>Pairs real crash frames with <code>android studio find-declaration</code> to patch root causes</td>
+      </tr>
+      <tr>
+        <td><strong>AI Logic Schema Consulting</strong></td>
+        <td>Verify Gemini Developer API / Vertex AI backend setup, App Check enforcement, and quotas</td>
+        <td>Prevents client SDK mismatches before testing <code>gemini-3.8-flash</code> or <code>gemini-3.8-live</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">Pair With <code>firebase/agent-skills</code> for Idiomatic Generation</div>
+    Install <code>npx skills add firebase/agent-skills</code> in your workspace so the agent loads battle-tested guidance on Firestore indexing, Data Connect query security, and App Check token flows automatically whenever Firebase files appear.
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 6: AI LOGIC KOTLIN & ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; On-Device AI &amp; Security</span>
+    <span>Firebase AI Logic + App Check Kotlin Anatomy</span>
+  </div>
+
+  <h2 class="page-title">Firebase AI Logic + App Check: Kotlin &amp; Prompt Anatomy</h2>
+  <p class="page-lead">
+    Firebase AI Logic lets your Android app invoke Gemini directly from Kotlin without standing up a custom proxy server—while <strong>Firebase App Check</strong> proves every request originates from your genuine app binary.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge">1</span> Gradle Dependencies (BoM <code>35.1.0</code>)</div>
+      <div class="code-block" style="font-size:6.5pt; line-height:1.34; padding:5px 7px; margin:3px 0;"><span class="c-cm">// app/build.gradle.kts</span>
+dependencies {
+  implementation(platform(<span class="c-str">"com.google.firebase:firebase-bom:35.1.0"</span>))
+  implementation(<span class="c-str">"com.google.firebase:firebase-ai"</span>)
+  <span class="c-cm">// Local debug vs Play Store attestation</span>
+  debugImplementation(<span class="c-str">"com.google.firebase:firebase-appcheck-debug"</span>)
+  releaseImplementation(<span class="c-str">"com.google.firebase:firebase-appcheck-playintegrity"</span>)
+}</div>
+    </div>
+
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge emerald">2</span> App Check Init + Console SHA-256</div>
+      <p style="font-size:7.9pt; margin-bottom:4px;">Register your app's <strong>SHA-256 fingerprint</strong> in Firebase Console under Play Integrity, and install the matching provider in <code>Application.onCreate()</code>:</p>
+      <div class="code-block" style="font-size:6.5pt; line-height:1.34; padding:5px 7px; margin:0;">Firebase.initialize(this)
+Firebase.appCheck.installAppCheckProviderFactory(
+  <span class="c-kw">if</span> (BuildConfig.DEBUG) DebugAppCheckProviderFactory.getInstance()
+  <span class="c-kw">else</span> PlayIntegrityAppCheckProviderFactory.getInstance()
+)</div>
+    </div>
+  </div>
+
+  <h3>3. Invoking Gemini 3.8 Flash &amp; Gemini 3.8 Live in Kotlin</h3>
+  <div class="code-block" style="font-size:7.3pt; line-height:1.4; padding:8px 11px;"><span class="c-cm">// Text &amp; multimodal generation (automatically attaches App Check tokens)</span>
+<span class="c-kw">val</span> flashModel = Firebase.ai.<span class="c-fn">generativeModel</span>(modelName = <span class="c-str">"gemini-3.8-flash"</span>)
+<span class="c-kw">val</span> reply = flashModel.<span class="c-fn">generateContent</span>(<span class="c-str">"Summarize today's field inspection checklist."</span>)
+
+<span class="c-cm">// Real-time bidirectional voice &amp; streaming session via Gemini 3.8 Live</span>
+<span class="c-kw">val</span> liveSession = Firebase.ai.<span class="c-fn">liveModel</span>(modelName = <span class="c-str">"gemini-3.8-live"</span>).<span class="c-fn">connect</span>()
+liveSession.<span class="c-fn">send</span>(<span class="c-str">"Start guided voice walkthrough for step one."</span>)</div>
+
+  <h3>Anatomy of a Complete Full-Stack Agent Prompt</h3>
+  <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:9px 11px;">
+    <div style="font-size:8.6pt; line-height:1.68; margin-bottom:6px;">
+      <span class="p-tag p-backend">Use Firebase MCP (--only firestore,dataconnect) to verify the InspectionLog schema and rules,</span>
+      <span class="p-tag p-sec">enable App Check with DebugAppCheckProviderFactory for debug and PlayIntegrity for release,</span>
+      <span class="p-tag p-model">wire a Kotlin ViewModel calling gemini-3.8-flash for summaries and gemini-3.8-live for voice mode,</span>
+      <span class="p-tag p-ui">render InspectionCardPreview via the Compose Preview sidecar to confirm clickable semantics in bounds_url,</span>
+      <span class="p-tag p-device">deploy with android run --use-delta-install onto emulator-5554,</span>
+      <span class="p-tag p-check">and verify the end-to-end XML &lt;journey&gt; using android layout --diff.</span>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:6px; font-size:7.4pt; border-top:1px solid #e2e8f0; padding-top:6px;">
+      <span><span class="p-tag p-backend">Backend MCP Scope</span></span>
+      <span><span class="p-tag p-sec">App Check Security</span></span>
+      <span><span class="p-tag p-model">Gemini 3.8 Models</span></span>
+      <span><span class="p-tag p-ui">Compose Bounds QA</span></span>
+      <span><span class="p-tag p-device">Delta Deploy</span></span>
+      <span><span class="p-tag p-check">Journey Assertion</span></span>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 7: ANDROID CLI & COMPOSE PREVIEW ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Rapid Build &amp; UI Loop</span>
+    <span>android CLI Mastery &amp; Compose Preview Sidecar</span>
+  </div>
+
+  <h2 class="page-title"><code>android</code> CLI Mastery &amp; Compose Preview Sidecar Loop</h2>
+  <p class="page-lead">
+    Replace slow trial-and-error Gradle cycles with fast delta deployments, live Android Knowledge Base queries, and headless Compose Preview rendering that exposes every composable's coordinates and accessibility semantics.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Project, SDK, Docs &amp; Fast Delta Run</div>
+      <ul style="font-size:8pt; margin:2px 0 0 0;">
+        <li><strong>SDK &amp; Scaffolding:</strong> Manage toolchains with <code>android sdk list --all</code> / <code>install</code>, scaffold templates via <code>android create</code>, and inspect build targets with <code>android describe</code>.</li>
+        <li><strong>Fast Delta Deploy:</strong> <code>android install</code> and <code>android run --use-delta-install</code> ship only changed dex and resource deltas.</li>
+        <li><strong>Wear &amp; Multi-Surface Types:</strong> Pass <code>--type</code> for <code>ACTIVITY</code>, <code>WATCH_FACE</code>, <code>TILE</code>, <code>COMPLICATION</code>, <code>DECLARATIVE_WATCH_FACE</code>, or <code>WEAR_WIDGET</code>.</li>
+        <li><strong>Authoritative Docs:</strong> Query current APIs via <code>android docs search "App Check"</code> and read full pages with <code>android docs fetch kb://...</code>.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Discovering Targets &amp; Flavor Variants</div>
+      <p style="font-size:8pt;">Discover every <code>@Preview</code> and MultiPreview function in JSON before rendering:</p>
+      <div class="code-block" style="font-size:6.8pt; padding:6px 8px; margin:3px 0;">android preview list \
+  --reference gradle://.?:app@debug \
+  --all --format=json</div>
+      <p style="font-size:7.9pt; color:#475569; margin:2px 0 0 0;">
+        <strong>Flavor Gotcha:</strong> Modules with product flavors have no bare <code>debug</code> variant. Always include flavors first, such as <code>gradle://.?:feature:home@demoDebug</code>.
+      </p>
+    </div>
+  </div>
+
+  <h3>3. Compose Preview Sidecar Loop (Save First, Then Render!)</h3>
+  <div class="code-block" style="font-size:7.1pt; line-height:1.42; padding:7px 10px;"><span class="c-cm"># 1. Read port from ~/.android/cli/sidecars/compose-preview.json &amp; configure session with conversation header</span>
+curl -s -X POST http://127.0.0.1:$PORT/api/session \
+  -H "X-Sidecar-Conversation: $CONVERSATION_ID" -H "Content-Type: application/json" \
+  -d '{"project_dir":"/abs/MyApp","reference":"gradle://.?:app@debug","fqns":["com.example.ui.HomeScreenKt.HomePreview"],"wait":true}'
+
+<span class="c-cm"># 2. Edit Kotlin UI files -&gt; wait until ALL saves finish -&gt; trigger re-render (never parallelize edit + render!)</span>
+curl -s -X POST http://127.0.0.1:$PORT/api/render \
+  -H "X-Sidecar-Conversation: $CONVERSATION_ID" -H "Content-Type: application/json" -d '{"wait":true}'</div>
+
+  <div class="callout emerald" style="margin-top:5px;">
+    <div class="callout-title">Accessibility &amp; Layout QA Without Guessing Pixels via <code>bounds_url</code></div>
+    When <code>--component-tree</code> is active (on by default), <code>GET /api/state</code> returns a <code>bounds_url</code> JSON tree for every rendered PNG. Read <code>sourceLocation</code> (<code>fileName</code>, <code>lineNumber</code>) to jump straight to the composable, check <code>modifiers</code> (<code>padding</code>, <code>clickable</code>, <code>size</code>), and verify <code>semantics</code> (<code>text</code>, <code>contentDescription</code>, <code>role</code>, <code>testTag</code>) to catch inaccessible icon buttons automatically.
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 8: DEVICE HUB & XML JOURNEYS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Live Device Verification</span>
+    <span>Device Hub Sidecar, Visual Targeting &amp; XML Journeys</span>
+  </div>
+
+  <h2 class="page-title">Device Hub Sidecar, Visual Targeting &amp; XML Journeys</h2>
+  <p class="page-lead">
+    Previews confirm static layout; real journeys prove behavior. Combine the Device Hub sidecar and <code>android emulator</code> CLI with JSON-first inspection, visual box resolution, and strict sequential XML journey scripts.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/device_hub_compose_loop.jpg" alt="Device Hub and Compose Closed Feedback Loop Illustration" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Closed UI Inspection Loop:</strong> Layered architectural Compose planes feed exact coordinates into the live glass device, pulsing touch targets back through <code>android layout</code> and <code>screen resolve</code>.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Boot Check &amp; JSON-First Inspection</div>
+      <ul style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li><strong>AVD Control:</strong> Use <code>android emulator list|start|stop|create|remove</code> or Device Hub <code>GET /api/devices</code> (never start duplicate jobs on one device).</li>
+        <li><strong>Wait for Full Boot:</strong> Online emulators may still be booting. Run:<br/><code>adb -s &lt;serial&gt; wait-for-device shell 'while [ -z "$(getprop sys.boot_completed)" ]; do sleep 1; done'</code></li>
+        <li><strong>JSON First, Pixels Second:</strong> Start with <code>android layout --device &lt;serial&gt; --pretty</code> (add <code>--diff</code> after actions). Switch to <code>android screen capture --annotate -o /tmp/screen.png</code> for WebViews or custom canvases, then inspect the PNG visually.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">2</span> Precision Input &amp; Strict XML <code>&lt;journey&gt;</code></div>
+      <ul style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li><strong>Tap Resolved Boxes:</strong><br/><code>adb -s &lt;serial&gt; shell $(android screen resolve --screenshot /tmp/screen.png --string "input tap #7")</code></li>
+        <li><strong>Safe Text &amp; Slow Scrolls:</strong> Confirm <code>"focused"</code> in element <code>state</code>, encode spaces as <code>%s</code> (<code>"Hello%sworld"</code>), and scroll slowly over 500ms (<code>adb shell input swipe 250 400 250 200 500</code>).</li>
+        <li><strong>Sequential XML Journeys:</strong> Execute each <code>&lt;action&gt;</code> strictly as written in order; stop immediately on failure or crash and emit a Markdown report marking steps <code>&#9989;</code> or <code>&#10060;</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Playbook</span>
+    <span>5 Real-World Copy-Paste Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead">
+    Drop these five battle-tested command and code recipes straight into your terminal, Gradle config, or agent prompt to eliminate repetitive boilerplate.
+  </p>
+
+  <table class="clean-table" style="font-size:7.6pt;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Recipe &amp; Goal</th>
+        <th style="width:54%;">Copy-Paste Snippet / Command</th>
+        <th style="width:24%;">Expected Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Scoped Firebase MCP + Skills Bootstrap</strong></td>
+        <td><code>npx -y firebase-tools@latest login --reauth &amp;&amp; npx skills add firebase/agent-skills &amp;&amp; claude mcp add firebase npx -- -y firebase-tools@latest mcp --dir /abs/app --only firestore,auth,dataconnect</code></td>
+        <td>Installs Firebase idioms and pins MCP strictly to your target directory and services.</td>
+      </tr>
+      <tr>
+        <td><strong>2. App Check Protected <code>gemini-3.8-live</code> Screen</strong></td>
+        <td><code>Firebase.initialize(this); Firebase.appCheck.installAppCheckProviderFactory(DebugAppCheckProviderFactory.getInstance()); val live = Firebase.ai.liveModel(modelName = "gemini-3.8-live").connect()</code></td>
+        <td>Establishes a real-time Live session with automatic App Check attestation headers.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Fast Delta Run + Studio Analysis Loop</strong></td>
+        <td><code>android studio check &amp;&amp; android studio analyze-file --file app/src/main/java/ChatVm.kt &amp;&amp; android run --device emulator-5554 --use-delta-install</code></td>
+        <td>Catches Kotlin lint/type issues via Studio PSI before shipping a delta APK to the AVD.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Headless Compose Accessibility Audit</strong></td>
+        <td><code>PORT=$(jq -r .port ~/.android/cli/sidecars/compose-preview.json) &amp;&amp; curl -s -X POST http://127.0.0.1:$PORT/api/session -H "X-Sidecar-Conversation: $CID" -H "Content-Type: application/json" -d '{"project_dir":"/abs/app","reference":"gradle://.?:app@debug","fqns":["com.app.HomeKt.HomePreview"],"wait":true}'</code></td>
+        <td>Renders the preview in your conversation pane and writes <code>bounds_url</code> semantics JSON.</td>
+      </tr>
+      <tr>
+        <td><strong>5. XML Journey Visual &amp; Diff Audit</strong></td>
+        <td><code>android screen capture --device emulator-5554 --annotate -o /tmp/s.png &amp;&amp; adb -s emulator-5554 shell $(android screen resolve --screenshot /tmp/s.png --string "input tap #7") &amp;&amp; android layout --device emulator-5554 --diff --pretty</code></td>
+        <td>Resolves visual box <code>#7</code> to screen coordinates, taps it, and returns only changed UI nodes.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin-top:6px;">
+    <div class="callout-title">Always Wait for Edits Before Calling <code>POST /api/render</code></div>
+    Never issue a file edit tool call and a <code>POST /api/render</code> request in the same parallel batch—Wait until all Kotlin file writes finish on disk so Gradle does not compile stale code.
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, STUDIO & MULTI-DEVICE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security &amp; Fleet Ops</span>
+    <span>App Check, Least-Privilege MCP &amp; Remote Devices</span>
+  </div>
+
+  <h2 class="page-title">App Check Enforcements, Least-Privilege MCP &amp; Fleet Ops</h2>
+  <p class="page-lead">
+    Production AI mobile apps require tight boundaries at every hop—limiting what your coding agent can mutate in Firebase, proving app identity at runtime, and testing safely across remote hardware.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Least-Privilege Firebase MCP Rules</div>
+      <ul style="font-size:8.1pt; margin:3px 0 0 0;">
+        <li><strong>Always Pin <code>--dir</code>:</strong> Pass an absolute project path so agents never read or write the wrong Firebase alias.</li>
+        <li><strong>Scope With <code>--only</code>:</strong> Enable only the tool groups needed for the sprint (for example <code>firestore,auth,dataconnect</code>) instead of exposing destructive project-wide surfaces.</li>
+        <li><strong>Review Rules Before Deploy:</strong> Ask the agent to validate Firestore and Storage Security Rules before updating client queries.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">2</span> Debug-to-Play Integrity Rollout</div>
+      <ul style="font-size:8.1pt; margin:3px 0 0 0;">
+        <li><strong>Local Debug Tokens:</strong> Register the Logcat token printed by <code>firebase-appcheck-debug</code> in Firebase Console for emulator tests.</li>
+        <li><strong>Release Attestation:</strong> Swap to <code>firebase-appcheck-playintegrity</code> and add your Play App Signing <strong>SHA-256</strong> fingerprint in Console.</li>
+        <li><strong>Enforce Last:</strong> Monitor App Check metrics for <code>gemini-3.8-flash</code> and <code>gemini-3.8-live</code> traffic before flipping enforcement on.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Android Studio Live Bridge</div>
+      <p style="font-size:8.1pt;">When Android Studio is open, let the agent tap directly into its live PSI index rather than grepping blindly:</p>
+      <ul style="font-size:8pt; margin:3px 0 0 0;">
+        <li><code>android studio check</code> &mdash; verify running IDE instances.</li>
+        <li><code>android studio find-declaration</code> &amp; <code>find-usages</code> &mdash; trace Compose callbacks and ViewModels accurately.</li>
+        <li><code>android studio version-lookup</code> &mdash; fetch latest Maven artifacts like <code>firebase-bom:35.1.0</code> and SDK tools.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge slate">4</span> Remote Devices &amp; Secure Capture Rules</div>
+      <p style="font-size:8.1pt;">Scale beyond local emulators when testing real sensors, Play Integrity, and WebViews:</p>
+      <ul style="font-size:8pt; margin:3px 0 0 0;">
+        <li><strong>Remote Physical Lab:</strong> Reserve and connect to cloud hardware via <code>android device remote</code>.</li>
+        <li><strong>Tunnel Latency:</strong> Screen captures over tunneled devices take longer; re-capture only after state-changing actions.</li>
+        <li><strong>DRM &amp; Banking Blackouts:</strong> <code>FLAG_SECURE</code> windows capture strictly black in both screenshots and Device Hub mirrors.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:8px;">
+    <div class="callout-title">One ADB Server Shared Across CLI and Sidecar</div>
+    Because Device Hub and the <code>android</code> CLI share the same local ADB server, remote devices attached via <code>adb connect 127.0.0.1:6555</code> appear automatically in <code>GET /api/devices</code> and can be mirrored live by the user while you inspect them.
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; End-to-End Orchestration</span>
+    <span>Cross-Tool Synergy Pipeline</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From Cloud Schema to Verified APK</h2>
+  <p class="page-lead">
+    Watch how all four toolchains interlock in a single sprint—passing validated schemas, protected Gemini 3.8 clients, accessibility-checked Compose trees, and sequential XML journey reports cleanly from stage to stage.
+  </p>
+
+  <div class="figure-box" style="background:#0f172a; padding:14px;">
+    <svg viewBox="0 0 700 226" width="100%" height="226" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="18" width="155" height="156" rx="10" fill="#2d1407" stroke="#fb923c" stroke-width="1.6"/>
+      <rect x="18" y="28" width="58" height="18" rx="4" fill="#ea580c"/>
+      <text x="47" y="40" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 1</text>
+      <text x="18" y="64" fill="#ffffff" font-size="11.2" font-weight="800">Firebase MCP</text>
+      <text x="18" y="79" fill="#fdba74" font-size="8.8" font-weight="700">Schema &amp; Rules</text>
+      <text x="18" y="99" fill="#fed7aa" font-size="8.2">&bull; --only firestore,</text>
+      <text x="25" y="111" fill="#fed7aa" font-size="8.2">auth,dataconnect</text>
+      <text x="18" y="127" fill="#fed7aa" font-size="8.2">&bull; Validate Rules &amp;</text>
+      <text x="25" y="139" fill="#fed7aa" font-size="8.2">GraphQL ops</text>
+      <text x="18" y="156" fill="#6ee7b7" font-size="8" font-weight="700">Out: Verified Contract</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M163 96 L181 96" stroke="#fb923c" stroke-width="2.2"/>
+      <polygon points="179,91 187,96 179,101" fill="#fb923c"/>
+
+      <!-- Stage 2 -->
+      <rect x="187" y="18" width="155" height="156" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="1.6"/>
+      <rect x="197" y="28" width="58" height="18" rx="4" fill="#d97706"/>
+      <text x="226" y="40" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 2</text>
+      <text x="197" y="64" fill="#ffffff" font-size="11.2" font-weight="800">Kotlin + AI Logic</text>
+      <text x="197" y="79" fill="#fde68a" font-size="8.8" font-weight="700">Gemini 3.8 + Shield</text>
+      <text x="197" y="99" fill="#e2e8f0" font-size="8.2">&bull; firebase-bom:35.1.0</text>
+      <text x="197" y="114" fill="#e2e8f0" font-size="8.2">&bull; gemini-3.8-flash</text>
+      <text x="197" y="129" fill="#e2e8f0" font-size="8.2">&bull; gemini-3.8-live</text>
+      <text x="197" y="144" fill="#e2e8f0" font-size="8.2">&bull; App Check provider</text>
+      <text x="197" y="159" fill="#6ee7b7" font-size="8" font-weight="700">Out: Compiled Feature</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M342 96 L360 96" stroke="#fbbf24" stroke-width="2.2"/>
+      <polygon points="358,91 366,96 358,101" fill="#fbbf24"/>
+
+      <!-- Stage 3 -->
+      <rect x="366" y="18" width="155" height="156" rx="10" fill="#172554" stroke="#60a5fa" stroke-width="1.6"/>
+      <rect x="376" y="28" width="58" height="18" rx="4" fill="#2563eb"/>
+      <text x="405" y="40" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 3</text>
+      <text x="376" y="64" fill="#ffffff" font-size="11.2" font-weight="800">Compose Sidecar</text>
+      <text x="376" y="79" fill="#93c5fd" font-size="8.8" font-weight="700">Bounds &amp; A11y QA</text>
+      <text x="376" y="99" fill="#dbeafe" font-size="8.2">&bull; POST /api/session</text>
+      <text x="376" y="114" fill="#dbeafe" font-size="8.2">&bull; X-Sidecar-Conv hdr</text>
+      <text x="376" y="129" fill="#dbeafe" font-size="8.2">&bull; Read bounds_url</text>
+      <text x="376" y="144" fill="#dbeafe" font-size="8.2">&bull; Check semantics</text>
+      <text x="376" y="159" fill="#6ee7b7" font-size="8" font-weight="700">Out: Verified Previews</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M521 96 L539 96" stroke="#10b981" stroke-width="2.2"/>
+      <polygon points="537,91 545,96 537,101" fill="#10b981"/>
+
+      <!-- Stage 4 -->
+      <rect x="545" y="18" width="147" height="156" rx="10" fill="#064e3b" stroke="#10b981" stroke-width="1.6"/>
+      <rect x="555" y="28" width="58" height="18" rx="4" fill="#059669"/>
+      <text x="584" y="40" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 4</text>
+      <text x="555" y="64" fill="#ffffff" font-size="11.2" font-weight="800">Device Hub QA</text>
+      <text x="555" y="79" fill="#6ee7b7" font-size="8.8" font-weight="700">XML Journey Audit</text>
+      <text x="555" y="99" fill="#d1fae5" font-size="8.2">&bull; run --use-delta</text>
+      <text x="555" y="114" fill="#d1fae5" font-size="8.2">&bull; layout --diff</text>
+      <text x="555" y="129" fill="#d1fae5" font-size="8.2">&bull; screen resolve #N</text>
+      <text x="555" y="144" fill="#d1fae5" font-size="8.2">&bull; Strict &lt;actions&gt;</text>
+      <text x="555" y="159" fill="#fde68a" font-size="8" font-weight="700">Out: Pass/Fail .md</text>
+
+      <!-- Feedback Arc Bottom -->
+      <path d="M618 174 L618 198 L85 198 L85 174" stroke="#fb923c" stroke-width="1.6" stroke-dasharray="4,3" fill="none"/>
+      <polygon points="80,178 85,170 90,178" fill="#fb923c"/>
+      <rect x="200" y="186" width="300" height="24" rx="12" fill="#1c1008" stroke="#fb923c" stroke-width="1.2"/>
+      <text x="350" y="202" text-anchor="middle" fill="#fdba74" font-size="8.6" font-weight="700">Crashlytics / App Hosting Logs Feed Back Into Stage 1</text>
+    </svg>
+  </div>
+
+  <h3>Stage Handoff Checklist for Teams &amp; Multi-Agent Swarms</h3>
+  <div class="grid-2" style="margin-top:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Backend-to-Client Handoff</div>
+      <p style="font-size:8.2pt;">Keep one agent or phase on Firebase MCP to finalize Firestore indexes, Data Connect mutations, and Security Rules before the UI agent generates Kotlin callers. This prevents broken field names and silent permission failures during device runs.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">B</span> Preview-to-Journey Handoff</div>
+      <p style="font-size:8.2pt;">Run Compose Preview bounds checks <em>before</em> booting an AVD for journey QA. Catching missing <code>contentDescription</code> labels or clipped padding in 10 seconds inside the sidecar saves minutes of emulator interaction.</p>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </footer>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Clinic &amp; Pre-Flight</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Hit a blank pane, dropped Live session, or misbehaving ADB command? Match your symptom below for a 10-second root-cause fix.
+  </p>
+
+  <table class="clean-table" style="font-size:7.9pt; margin-bottom:9px;">
+    <thead>
+      <tr>
+        <th style="width:36%;">Symptom / Failure</th>
+        <th style="width:64%;">10-Second Root-Cause Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Compose Preview pane stays blank after <code>POST /api/session</code></strong></td>
+        <td>You omitted the <code>X-Sidecar-Conversation: &lt;id&gt;</code> header (or used a query parameter). Re-send with the exact HTTP header.</td>
+      </tr>
+      <tr>
+        <td><strong>2. <code>android preview render</code> fails or renders stale UI edits</strong></td>
+        <td>Never invoke <code>android preview render</code> directly, and never call <code>POST /api/render</code> in parallel with file edits. Save all edits first, then call <code>POST /api/render</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Gradle preview lookup fails on <code>:feature@debug</code></strong></td>
+        <td>Modules with product flavors have no bare <code>debug</code> variant. Supply the flavor-first reference, e.g. <code>gradle://.?:feature:home@demoDebug</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>gemini-3.8-live</code> drops immediately on physical release builds</strong></td>
+        <td>App Check rejected an unverified token. Ensure <code>firebase-appcheck-playintegrity</code> is installed and your Play App Signing <strong>SHA-256</strong> is registered in Console.</td>
+      </tr>
+      <tr>
+        <td><strong>5. <code>adb shell input text</code> drops words after the first space</strong></td>
+        <td>Raw spaces truncate Android text injection, or the field lacks focus. Check <code>"focused"</code> in <code>android layout</code> state and replace spaces with <code>%s</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. <code>android layout</code> returns empty inside a login or WebView</strong></td>
+        <td>WebViews and custom canvases hide from accessibility trees. Run <code>android screen capture --annotate -o /tmp/s.png</code>, view it, and tap via <code>screen resolve</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Firebase MCP exposes unrelated projects or risky writes</strong></td>
+        <td>Pin the workspace with <code>--dir /abs/path</code> and restrict active tool families using <code>--only firestore,auth,dataconnect</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="padding:11px 14px;">
+    <div class="card-title" style="font-size:10pt; color:#fb923c; margin-bottom:7px;">
+      6-Point Pre-Flight Checklist Before Shipping
+    </div>
+    <div class="grid-2" style="gap:6px 16px; font-size:8.2pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Scoped MCP &amp; Skills:</strong> <code>firebase mcp --dir --only</code> paired with <code>firebase/agent-skills</code> and <code>android init</code>.</div>
+      <div>&#9744; <strong>4. Clean Compose Bounds:</strong> <code>bounds_url</code> verified for <code>clickable</code> semantics and <code>contentDescription</code>.</div>
+      <div>&#9744; <strong>2. Current Models Only:</strong> Kotlin calls target <code>gemini-3.8-flash</code> and <code>gemini-3.8-live</code> via BoM <code>35.1.0</code>.</div>
+      <div>&#9744; <strong>5. Delta Deploy Ready:</strong> <code>android run --use-delta-install</code> boots cleanly on AVD with <code>sys.boot_completed</code>.</div>
+      <div>&#9744; <strong>3. App Check Parity:</strong> Debug provider locally; Play Integrity + Console SHA-256 verified for release.</div>
+      <div>&#9744; <strong>6. Sequential Journey Pass:</strong> All XML <code>&lt;actions&gt;</code> pass in order with a signed-off <code>&#9989;</code> Markdown audit.</div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <span>Agentic Firebase &amp; Android CLI Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </footer>
+</section>
+
+</body>
+</html>
