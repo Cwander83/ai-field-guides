@@ -5,9 +5,9 @@
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-23%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-276%20Pages-059669?style=for-the-badge)
-![Ecosystems](https://img.shields.io/badge/Scope-3%20Ecosystems-7c3aed?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-27%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-324%20Pages-059669?style=for-the-badge)
+![Ecosystems](https://img.shields.io/badge/Scope-4%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
 
@@ -18,7 +18,7 @@ Every handbook in this repository is authored as a self-contained **12-page visu
 Click any cover card or **Read / Download PDF** link below to view the full handbook directly in GitHub or download a local copy.
 
 <!-- CATALOG:START -->
-**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems)
+**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems)
 
 ### Google AI & Creative Studios
 Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, agentic coding IDEs, source-grounded research tools, and autonomous browser workflows.
@@ -112,6 +112,48 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
       <p>Autonomous browser-use agent &amp; Gemini Agent Mode running up to 10 parallel cloud browsers, Teach &amp; Repeat skills, and safety gates.</p>
       <p><code>Browser Agent</code> &middot; <code>Automation</code> &middot; <code>Computer Use</code></p>
       <p><a href="guides/google/google-project-mariner/Google_Project_Mariner_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/google/google-project-mariner">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+</table>
+
+### Anthropic Claude & Workspace Studios
+Publication-grade 12-page visual handbooks for Anthropic's agentic coding and collaborative workspace suite—covering Claude Code Mods, multiplayer Claude Whiteboards, Claude Dashboards & Data, and cross-surface Claude Skills.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-code-mods/Claude_Code_Mods_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-code-mods/cover.png" alt="Claude Code Mods Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-code-mods/Claude_Code_Mods_Complete_How_To_Guide.pdf">Claude Code Mods</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Customizing Claude Code from the inside with in-process TypeScript/JavaScript mods—building live terminal HUDs, prompt/tool interceptors, custom slash commands, and sec-default guardrails.</p>
+      <p><code>Claude Code</code> &middot; <code>TypeScript Mods</code> &middot; <code>Agent Hooks &amp; UI</code></p>
+      <p><a href="guides/claude/claude-code-mods/Claude_Code_Mods_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-code-mods">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-whiteboards/Claude_Whiteboards_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-whiteboards/cover.png" alt="Claude Whiteboards Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-whiteboards/Claude_Whiteboards_Complete_How_To_Guide.pdf">Claude Whiteboards</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turning messy voice and text brainstorms into real-time multiplayer visual canvases—mastering region-box prompting, retro clustering, Doc/Slide handoffs, and Miro/Lucid exports.</p>
+      <p><code>Visual Canvas</code> &middot; <code>Multiplayer Ideation</code> &middot; <code>Miro &amp; Lucid</code></p>
+      <p><a href="guides/claude/claude-whiteboards/Claude_Whiteboards_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-whiteboards">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-dashboards-and-data/Claude_Dashboards_and_Data_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-dashboards-and-data/cover.png" alt="Claude Dashboards &amp; Data Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-dashboards-and-data/Claude_Dashboards_and_Data_Complete_How_To_Guide.pdf">Claude Dashboards &amp; Data</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Connecting warehouses and CRMs to natural-language analytics—building auditable SQL charts, Certified Queries, Scrollytellers, Visual Shorts, and credential-safe live team shares.</p>
+      <p><code>Claude Data</code> &middot; <code>Live SQL Dashboards</code> &middot; <code>Certified Queries</code></p>
+      <p><a href="guides/claude/claude-dashboards-and-data/Claude_Dashboards_and_Data_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-dashboards-and-data">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-skills/Claude_Skills_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-skills/cover.png" alt="Claude Skills Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-skills/Claude_Skills_Complete_How_To_Guide.pdf">Claude Skills</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Packaging reusable domain expertise across Claude.ai, Claude Desktop, and Claude Code—mastering 3-tier progressive disclosure, SKILL.md anatomy, skill-creator, and executable scripts.</p>
+      <p><code>SKILL.md</code> &middot; <code>Progressive Disclosure</code> &middot; <code>Skill Creator</code></p>
+      <p><a href="guides/claude/claude-skills/Claude_Skills_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-skills">&#128736; Editable Source</a></p>
     </td>
   </tr>
 </table>
@@ -260,6 +302,10 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **Google NotebookLM** — Zero-hallucination research studio for 500+ sources, live interactive Join Audio Overviews, Video Overviews, and clickable Mind Maps. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-notebooklm/Google_NotebookLM_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-notebooklm) |
 | **Gemini Deep Research, Canvas & Gems** — Autonomous multi-hundred-site research dossiers, split-screen Canvas live apps with embedded AI, and custom Drive-synced Gems. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-gemini-deep-research-canvas-and-gems/Google_Gemini_Deep_Research_Canvas_and_Gems_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-gemini-deep-research-canvas-and-gems) |
 | **Google Project Mariner** — Autonomous browser-use agent & Gemini Agent Mode running up to 10 parallel cloud browsers, Teach & Repeat skills, and safety gates. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-project-mariner/Google_Project_Mariner_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-project-mariner) |
+| **Claude Code Mods** — Customizing Claude Code from the inside with in-process TypeScript/JavaScript mods—building live terminal HUDs, prompt/tool interceptors, custom slash commands, and sec-default guardrails. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-code-mods/Claude_Code_Mods_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-code-mods) |
+| **Claude Whiteboards** — Turning messy voice and text brainstorms into real-time multiplayer visual canvases—mastering region-box prompting, retro clustering, Doc/Slide handoffs, and Miro/Lucid exports. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-whiteboards/Claude_Whiteboards_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-whiteboards) |
+| **Claude Dashboards & Data** — Connecting warehouses and CRMs to natural-language analytics—building auditable SQL charts, Certified Queries, Scrollytellers, Visual Shorts, and credential-safe live team shares. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-dashboards-and-data/Claude_Dashboards_and_Data_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-dashboards-and-data) |
+| **Claude Skills** — Packaging reusable domain expertise across Claude.ai, Claude Desktop, and Claude Code—mastering 3-tier progressive disclosure, SKILL.md anatomy, skill-creator, and executable scripts. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-skills/Claude_Skills_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-skills) |
 | **Spec-Driven Dev & Context Engineering** — Cross-vendor context architecture (AGENTS.md, CLAUDE.md, Cursor rules), progressive disclosure, and Spec-to-Plan-to-Tasks agent workflows. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/spec-driven-context-engineering/Spec_Driven_Dev_and_Context_Engineering_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/spec-driven-context-engineering) |
 | **Subagents & Agent Orchestration** — Designing specialist subagents, context forks, least-privilege tool scoping, lifecycle hooks, and multi-agent coordinator-worker swarms. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/subagents-and-orchestration/Subagents_and_Agent_Orchestration_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/subagents-and-orchestration) |
 | **Git Worktrees & Parallel Agent Safety** — Running parallel coding agents without file collisions—covering Git worktree fleets, isolated ports/databases, safety hooks, and teardown. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/git-worktrees-and-parallel-safety/Git_Worktrees_and_Parallel_Agent_Safety_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/git-worktrees-and-parallel-safety) |

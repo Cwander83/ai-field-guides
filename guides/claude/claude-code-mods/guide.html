@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claude Code Mods: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">ANTHROPIC CLAUDE &amp; WORKSPACE STUDIOS &bull; FIELD GUIDE</div>
+    <h1>Claude Code <span>Mods</span></h1>
+    <p class="cover-sub">
+      Customizing Claude Code from the inside with in-process TypeScript and JavaScript mods&mdash;building live terminal HUDs, prompt and tool interceptors, custom slash commands, and <code>sec-default</code> guardrails.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">In-Process TS/JS Engine</span>
+      <span class="cover-badge"><code>register(on, options)</code></span>
+      <span class="cover-badge">Before / After / Around Hooks</span>
+      <span class="cover-badge">Custom Terminal &amp; App HUDs</span>
+      <span class="cover-badge">Hot-Reload <code>dev-mods</code></span>
+      <span class="cover-badge"><code>sec-default</code> Governance</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Precision Dark-Glass Command Console Docking Glowing Copper Cartridge Prisms Into a Central Agent Loop" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Middleware Agent Control</div>
+      <div class="cover-stat-desc">Intercept, rewrite, time, or short-circuit prompts and tool calls in memory via Express-style <code>($, e, next)</code> pipelines.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Programmable Terminal UI</div>
+      <div class="cover-stat-desc">Mount live token gauges, cache TTL timers, and side panes across both the CLI and Claude Code Desktop using <code>ui.render</code>.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Restart Hot Reload</div>
+      <div class="cover-stat-desc">Describe a workflow tweak in plain English and watch Claude Code build and hot-reload session <code>dev-mods</code> instantaneously.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; In-Process Middleware</span>
+    <span>Claude Code Mods</span>
+  </div>
+
+  <h2 class="page-title">Why Claude Code Mods Change Everything</h2>
+  <p class="page-lead">
+    Classic shell hooks spawn slow external subprocesses that can only say yes or no, while MCP servers sit outside the agent waiting to be called. Claude Code Mods run <em>inside</em> the live process as native TypeScript and JavaScript middleware&mdash;letting you reshape prompts, rewrite tool calls, and paint custom UI frames at sub-millisecond speed.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Middleware Mental Model &amp; Queue SVG</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Custom UI, HUDs &amp; Panel Replacement</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Setup, File Layout &amp; 4-Way Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Copy-Paste Mod Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Mod-Enhanced UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Security, Load Order &amp; <code>sec-default</code></strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Anatomy of <code>register(on, options)</code></strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. The <code>$</code> API, Zero-NPM &amp; <code>/commands</code></strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Vibe-Modding &amp; Live <code>dev-mods</code></strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Zero NPM, Always Return <code>next</code></strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>From External Glue Scripts to In-Process Agent Middleware</h3>
+  <p style="font-size:8.75pt;">
+    Think of Claude Code&rsquo;s runtime loop like an HTTP web server, except the packets flowing through it are <strong>user prompts</strong>, <strong>tool invocations</strong>, <strong>slash commands</strong>, and <strong>UI render frames</strong>. Before Mods, customizing Claude Code meant bolting shell scripts onto <code>settings.json</code>&mdash;paying Node or Python startup overhead on every tool call, losing in-memory state between turns, and having zero control over the terminal screen. Mods replace brittle glue scripts with an ordered chain of in-process TypeScript functions that share persistent session state and pass events forward via <code>await next(e)</code>.
+  </p>
+
+  <h3>Sequential Middleware Pipeline: From Raw Event to Engine &amp; Back</h3>
+  <div class="figure-box" style="background:#140b07; padding:9px 11px; border-color:#7c2d12;">
+    <svg viewBox="0 0 710 194" width="100%" height="194" xmlns="http://www.w3.org/2000/svg">
+      <!-- Incoming Events Box -->
+      <rect x="6" y="20" width="112" height="142" rx="8" fill="#24120a" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="62" y="38" text-anchor="middle" fill="#fdba74" font-size="7.6" font-weight="700">INCOMING EVENTS</text>
+      <rect x="14" y="47" width="96" height="22" rx="4" fill="#361a0d" stroke="#9a3412" stroke-width="0.9"/>
+      <text x="62" y="61" text-anchor="middle" fill="#fff7ed" font-size="7.6" font-weight="700">prompt.submit</text>
+      <rect x="14" y="75" width="96" height="22" rx="4" fill="#361a0d" stroke="#9a3412" stroke-width="0.9"/>
+      <text x="62" y="89" text-anchor="middle" fill="#fff7ed" font-size="7.6" font-weight="700">tool.call / command</text>
+      <rect x="14" y="103" width="96" height="22" rx="4" fill="#361a0d" stroke="#9a3412" stroke-width="0.9"/>
+      <text x="62" y="117" text-anchor="middle" fill="#fff7ed" font-size="7.6" font-weight="700">ui.render frames</text>
+      <text x="62" y="143" text-anchor="middle" fill="#d6d3d1" font-size="7.1">Typed event object e</text>
+      <text x="62" y="153" text-anchor="middle" fill="#fdba74" font-size="7.1">+ $ Mods API handle</text>
+
+      <!-- Arrow 1 -->
+      <path d="M118 82 L139 82" stroke="#fb923c" stroke-width="2"/>
+      <polygon points="137,77 145,82 137,87" fill="#fb923c"/>
+
+      <!-- Stage 1: sec-default -->
+      <rect x="145" y="20" width="132" height="142" rx="8" fill="#1f1218" stroke="#f43f5e" stroke-width="1.7"/>
+      <text x="211" y="37" text-anchor="middle" fill="#fda4af" font-size="7.4" font-weight="700">SLOT #1 &bull; BUILT-IN GUARD</text>
+      <text x="211" y="53" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">sec-default</text>
+      <text x="211" y="68" text-anchor="middle" fill="#fecdd3" font-size="7.2">First-in-queue org policy</text>
+      <rect x="155" y="77" width="112" height="36" rx="5" fill="#2d131c" stroke="#be123c" stroke-width="0.9"/>
+      <text x="211" y="91" text-anchor="middle" fill="#ffe4e6" font-size="7.2">Locks managed CLAUDE.md,</text>
+      <text x="211" y="103" text-anchor="middle" fill="#ffe4e6" font-size="7.2">permissions &amp; MCP allowlists</text>
+      <text x="211" y="129" text-anchor="middle" fill="#fda4af" font-size="7.2" font-weight="700">Cannot be bypassed</text>
+      <text x="211" y="141" text-anchor="middle" fill="#d6d3d1" font-size="7">Calls next(e) or denies</text>
+
+      <!-- Arrow 2 -->
+      <path d="M277 82 L298 82" stroke="#fb923c" stroke-width="2"/>
+      <polygon points="296,77 304,82 296,87" fill="#fb923c"/>
+
+      <!-- Stage 2: Installed Plugin Mods -->
+      <rect x="304" y="20" width="136" height="142" rx="8" fill="#261409" stroke="#f97316" stroke-width="1.6"/>
+      <text x="372" y="37" text-anchor="middle" fill="#fdba74" font-size="7.4" font-weight="700">SLOT #2 &bull; INSTALLED MODS</text>
+      <text x="372" y="53" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Plugin Mods</text>
+      <text x="372" y="67" text-anchor="middle" fill="#fed7aa" font-size="7.1">.claude-plugin/plugin.json</text>
+      <rect x="314" y="76" width="116" height="37" rx="5" fill="#381c0c" stroke="#c2410c" stroke-width="0.9"/>
+      <text x="372" y="90" text-anchor="middle" fill="#fff7ed" font-size="7.2">hooks/hooks.json &rarr; modules</text>
+      <text x="372" y="102" text-anchor="middle" fill="#fed7aa" font-size="7.1">[&quot;./register.ts&quot;]</text>
+      <text x="372" y="129" text-anchor="middle" fill="#fdba74" font-size="7.2" font-weight="700">Validated on install</text>
+      <text x="372" y="141" text-anchor="middle" fill="#d6d3d1" font-size="7">Team &amp; personal toolkits</text>
+
+      <!-- Arrow 3 -->
+      <path d="M440 82 L461 82" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="459,77 467,82 459,87" fill="#22d3ee"/>
+
+      <!-- Stage 3: Live Session dev-mods -->
+      <rect x="467" y="20" width="124" height="142" rx="8" fill="#0d1f24" stroke="#22d3ee" stroke-width="1.6"/>
+      <text x="529" y="37" text-anchor="middle" fill="#67e8f9" font-size="7.4" font-weight="700">SLOT #3 &bull; LIVE SESSION</text>
+      <text x="529" y="53" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">dev-mods</text>
+      <text x="529" y="67" text-anchor="middle" fill="#a5f3fc" font-size="7.1">~/.claude/dev-mods/</text>
+      <rect x="476" y="76" width="106" height="37" rx="5" fill="#122d35" stroke="#0891b2" stroke-width="0.9"/>
+      <text x="529" y="90" text-anchor="middle" fill="#ecfeff" font-size="7.2">Vibe-coded in session;</text>
+      <text x="529" y="102" text-anchor="middle" fill="#a5f3fc" font-size="7.1">hot-reloads on save</text>
+      <text x="529" y="129" text-anchor="middle" fill="#67e8f9" font-size="7.2" font-weight="700">Zero restart required</text>
+      <text x="529" y="141" text-anchor="middle" fill="#cbd5e1" font-size="7">Rapid UI &amp; hook tuning</text>
+
+      <!-- Arrow 4 -->
+      <path d="M591 82 L610 82" stroke="#34d399" stroke-width="2"/>
+      <polygon points="608,77 616,82 608,87" fill="#34d399"/>
+
+      <!-- Stage 4: Core Engine -->
+      <rect x="616" y="20" width="88" height="142" rx="8" fill="#0d261d" stroke="#34d399" stroke-width="1.6"/>
+      <text x="660" y="40" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">CORE ENGINE</text>
+      <text x="660" y="58" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Claude</text>
+      <text x="660" y="71" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Model &amp;</text>
+      <text x="660" y="84" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Renderer</text>
+      <text x="660" y="107" text-anchor="middle" fill="#a7f3d0" font-size="7.1">LLM Turn</text>
+      <text x="660" y="120" text-anchor="middle" fill="#a7f3d0" font-size="7.1">Tool Runner</text>
+      <text x="660" y="133" text-anchor="middle" fill="#a7f3d0" font-size="7.1">CLI / App TUI</text>
+
+      <!-- Return path -->
+      <path d="M660 162 L660 180 L211 180 L211 164" fill="none" stroke="#fdba74" stroke-width="1.4" stroke-dasharray="4 3"/>
+      <polygon points="207,166 211,159 215,166" fill="#fdba74"/>
+      <text x="435" y="176" text-anchor="middle" fill="#fed7aa" font-size="7.3" font-weight="600">Return unwinds back through await next(e) so outer mods can redact outputs, log timings, or decorate UI</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Why the Unwind Path Matters Just as Much as the Forward Pass</div>
+    Because every handler wraps <code>await next(e)</code> like peeled layers of an onion, a single 15-line mod can record a timestamp <em>before</em> a tool runs, let the tool execute, and scrub leaked <code>.env</code> tokens from the tool&rsquo;s stdout <em>before</em> those bytes ever enter Claude&rsquo;s context window.
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: PREREQUISITES, LAYOUT & 4-WAY MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup, File Structure &amp; Ecosystem Matrix</span>
+    <span>Prerequisites, Directory Layout &amp; Extension Comparison</span>
+  </div>
+
+  <h2 class="page-title">Prerequisites, File Layout &amp; Extension Matrix</h2>
+  <p class="page-lead">
+    A Claude Code Mod is simply a standard Claude Code plugin whose <code>hooks/hooks.json</code> declares a <code>&quot;modules&quot;</code> array. There is no build step, bundler, or <code>tsconfig.json</code> required&mdash;Claude Code compiles and validates your TypeScript natively at load time.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-warm" style="border-top:3px solid #c2410c;">
+      <div class="card-title"><span class="num-badge">1</span> Runtime Prerequisites</div>
+      <ul style="font-size:8.1pt; margin:3px 0 0 0;">
+        <li><strong>Claude Code <code>v2.1.287+</code>:</strong> Minimum release supporting in-process hook <code>&quot;modules&quot;</code>, the <code>$</code> Mods API, and <code>ui.render</code> across CLI and Desktop.</li>
+        <li><strong>Zero Build Chain Needed:</strong> Native <code>.ts</code> and <code>.js</code> ES modules load directly without Webpack, Vite, or <code>node_modules</code>.</li>
+        <li><strong>Built-In Validator:</strong> Run <code>claude plugin validate ./my-mod</code> to trigger static capability scanning before enabling any mod.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid #0891b2;">
+      <div class="card-title"><span class="num-badge cyan">2</span> Minimal 3-File Mod Bundle</div>
+      <pre class="code-block" style="margin:3px 0 3px 0; padding:5.5px 8px; font-size:7.1pt; line-height:1.33;"><code>my-guardrail-mod/
+├── .claude-plugin/
+│   └── plugin.json       # Name, version &amp; optional userConfig
+└── hooks/
+    ├── hooks.json        # Declares "modules": ["./register.ts"]
+    └── register.ts       # Exports register(on, options)</code></pre>
+      <p style="font-size:7.8pt; margin:2px 0 0 0; color:#57534e;">Paths inside <code>&quot;modules&quot;</code> resolve relative to the <code>hooks/</code> folder.</p>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:6px 9px; font-size:7.15pt; margin:1px 0 7px 0;"><code># 1. Confirm Claude Code meets the v2.1.287+ Mods runtime floor:
+claude --version                                     # Must output 2.1.287 or newer
+
+# 2. Run static capability &amp; schema validation on a local mod directory before loading:
+claude plugin validate ./my-guardrail-mod            # Audits $ API usage, blocks npm imports &amp; prints capabilities</code></pre>
+
+  <h3>Ecosystem Decision Matrix: Mods vs. Shell Hooks vs. Skills vs. MCP</h3>
+  <table class="clean-table" style="font-size:7.85pt;">
+    <thead>
+      <tr>
+        <th style="width:18%;">Dimension</th>
+        <th style="width:23%;">Claude Code Mods (<code>register.ts</code>)</th>
+        <th style="width:20%;">Classic Shell Hooks (<code>settings.json</code>)</th>
+        <th style="width:19%;">Claude Skills (<code>SKILL.md</code>)</th>
+        <th style="width:20%;">MCP Servers (Stdio / HTTP)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Execution Model &amp; Latency</strong></td>
+        <td><strong>In-process TS/JS</strong> (&lt;1 ms); persistent memory across the whole session.</td>
+        <td>Spawns a fresh OS subprocess per event (50&ndash;400 ms startup overhead).</td>
+        <td>Markdown instructions loaded into prompt context on demand.</td>
+        <td>Out-of-process RPC server invoked only when Claude picks a tool.</td>
+      </tr>
+      <tr>
+        <td><strong>Prompt &amp; Tool Rewriting</strong></td>
+        <td><strong>Full read/write middleware:</strong> mutate inputs, mock results, or redact outputs.</td>
+        <td>Mostly allow/block exit codes and limited JSON stdout flags.</td>
+        <td>Guides model reasoning softly; zero deterministic enforcement.</td>
+        <td>Cannot see or intercept prompts or built-in <code>Bash</code>/<code>Edit</code> calls.</td>
+      </tr>
+      <tr>
+        <td><strong>Terminal &amp; App UI Control</strong></td>
+        <td><strong>Native <code>ui.render</code>:</strong> status bars, HUD bands, side panes &amp; panel overrides.</td>
+        <td>None&mdash;prints plain text logs only on failure or transcript dump.</td>
+        <td>None&mdash;purely conversational behavior and domain templates.</td>
+        <td>None&mdash;returns structured tool payloads back to the model.</td>
+      </tr>
+      <tr>
+        <td><strong>External <code>npm</code> &amp; SDKs</strong></td>
+        <td><strong>Disallowed:</strong> zero <code>npm</code>/WASM so static scanner can audit capabilities.</td>
+        <td>Allowed (any local binary, Python script, or shell tool).</td>
+        <td>Can bundle helper scripts executed via standard shell tools.</td>
+        <td><strong>Best choice</strong> for heavy SDKs, DB drivers, OAuth &amp; external APIs.</td>
+      </tr>
+      <tr>
+        <td><strong>Security Boundary</strong></td>
+        <td>Runs in-process with user privileges; governed by <code>$</code> scanner + <code>sec-default</code>.</td>
+        <td>Runs with user shell privileges whenever matching event fires.</td>
+        <td>Prompt-level text; relies on tool permissions for execution.</td>
+        <td>Isolated process; gated per-tool by Claude Code permissions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:3px 0 0 0;">
+    <div class="callout-title">Quick Selection Rule: When to Reach for a Mod Instead of an MCP Server</div>
+    Build an <strong>MCP server</strong> when Claude needs a <em>new external capability</em> that requires heavy libraries (like querying Postgres or Stripe). Build a <strong>Claude Code Mod</strong> when you want to <em>reshape how Claude Code itself behaves or looks</em>&mdash;enforcing deterministic guardrails, rewriting prompts, adding instant zero-token slash commands, or mounting live telemetry HUDs.
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Mod-Enhanced Interface Tour</span>
+    <span>Inside a Custom-Modded Claude Code Session</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Mod-Enhanced Claude Code Cockpit</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Mods transform Claude Code from a scrolling text stream into an instrumented cockpit. Below are the seven live touchpoints where TypeScript mods render telemetry, intercept risky commands, and expose instant local controls.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#fed7aa;">claude &mdash; ~/Codebases/payments-api (v2.1.290)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:9px; font-size:7.2pt;">
+        <span style="background:#3b1219; color:#fda4af; border:1px solid #be123c; padding:1.5px 6px; border-radius:4px; font-weight:700;">&#128274; sec-default: ACTIVE <span class="callout-pin">6</span></span>
+        <span style="background:#122d35; color:#67e8f9; border:1px solid #0891b2; padding:1.5px 6px; border-radius:4px; font-weight:700;">&#9889; dev-mods: 2 hot-loaded <span class="callout-pin">5</span></span>
+      </div>
+    </div>
+
+    <!-- Custom Top Status Banner -->
+    <div style="background:#29150b; border-bottom:1px solid #7c2d12; padding:4.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.3pt;">
+      <span><strong style="color:#fb923c;">[ui.render &bull; top-banner]</strong> <span style="color:#f5f5f4;">Branch: <code>feat/stripe-webhooks</code> &bull; Staging DB Tunnel: <strong>READ-ONLY</strong></span> <span class="callout-pin">1</span></span>
+      <span style="color:#fdba74;">Mods Queue: <code>sec-default &rarr; blast-guard &rarr; hud-pro</code></span>
+    </div>
+
+    <!-- Split Main Body + Docked Side Pane -->
+    <div style="display:grid; grid-template-columns: 1.95fr 1fr; border-bottom:1px solid #5c2410;">
+      <!-- Left Conversation Stream -->
+      <div style="padding:8px 11px; border-right:1px solid #5c2410;">
+        <div style="margin-bottom:6px;">
+          <span style="color:#fb923c; font-weight:700;">&gt; /blast-radius git push --force origin main</span> <span class="callout-pin">3</span>
+          <div style="background:#1f110a; border:1px solid #7c2d12; border-radius:6px; padding:5px 8px; margin-top:3px; color:#e7e5e4; font-size:7.2pt;">
+            <strong style="color:#34d399;">[Instant Local Command &bull; 0 LLM Tokens &bull; 0.4 ms]</strong> Risk Score: <strong style="color:#fb7185;">CRITICAL (98/100)</strong> &mdash; Force-push targets protected branch <code>main</code> (14 unmerged commits). Will be blocked by <code>blast-guard</code>.
+          </div>
+        </div>
+
+        <div>
+          <div style="color:#a8a29e; font-size:7.1pt; margin-bottom:3px;">Claude wants to call <code>Bash</code> &mdash; intercepted by <code>hooks/register.ts</code>: <span class="callout-pin">4</span></div>
+          <div style="background:#22100d; border:1px solid #ea580c; border-radius:6px; padding:6px 8px; font-size:7.15pt;">
+            <div style="color:#fda4af; text-decoration:line-through;">- rm -rf ./tmp/migrations ./dist</div>
+            <div style="color:#6ee7b7; font-weight:600;">+ trash ./tmp/migrations ./dist   # Rewritten by safe-rm mod via next({...e})</div>
+            <div style="color:#d6d3d1; margin-top:3px; font-size:6.95pt;">Secret Redactor standing by on <code>await next(e)</code> to mask <code>STRIPE_SECRET_KEY</code> in stdout.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side Pane -->
+      <div style="padding:8px 9px; background:#190e09; font-size:7.1pt;">
+        <div style="font-weight:700; color:#fdba74; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+          <span>SIDE PANE: SWARM &amp; DIFFS</span> <span class="callout-pin">7</span>
+        </div>
+        <div style="background:#24130b; border:1px solid #5c2410; border-radius:5px; padding:4.5px 6px; margin-bottom:5px;">
+          <div style="color:#67e8f9; font-weight:700;">Active Subagents (2)</div>
+          <div style="color:#d6d3d1;">&bull; <code>test-runner</code>: 42/42 green</div>
+          <div style="color:#d6d3d1;">&bull; <code>schema-audit</code>: scanning</div>
+        </div>
+        <div style="background:#24130b; border:1px solid #5c2410; border-radius:5px; padding:4.5px 6px;">
+          <div style="color:#fb923c; font-weight:700;">Touched Files (Session)</div>
+          <div style="color:#a7f3d0;">M <code>src/webhooks.ts</code> (+28/-4)</div>
+          <div style="color:#fde68a;">M <code>tests/stripe.test.ts</code> (+41)</div>
+          <div style="color:#fda4af;">&#128721; <code>.env.production</code> (blocked)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Prompt Band HUD -->
+    <div style="background:#211109; padding:5.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.25pt;">
+      <div style="display:flex; align-items:center; gap:9px;">
+        <span><strong style="color:#fb923c;">Context:</strong> 64.2k / 200k (32%)</span>
+        <span style="color:#57534e;">|</span>
+        <span><strong style="color:#34d399;">Prompt Cache TTL:</strong> 04m 18s warm &#9679;</span>
+        <span style="color:#57534e;">|</span>
+        <span><strong style="color:#fed7aa;">Session Spend:</strong> $0.42 <span class="callout-pin">2</span></span>
+      </div>
+      <span style="color:#a8a29e;">Prompt Structurer: <strong>ARMED</strong></span>
+    </div>
+  </div>
+
+  <h3>Interface Legend: The 7 Mod-Powered Touchpoints</h3>
+  <div class="grid-2" style="font-size:8pt; gap:6px 12px;">
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">1</span> Environment Banner (<code>ui.render</code>):</strong> Persistent header painting live Git branch, active cloud profile, and ordered mod queue so you never run prod commands by mistake.
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">2</span> Prompt-Band Telemetry HUD:</strong> Draws right above the input prompt with context fullness, 5-minute prompt-cache TTL countdown, and live session cost.
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">3</span> Zero-Token Slash Command (<code>command.run</code>):</strong> Local commands like <code>/blast-radius</code> execute pure TypeScript in under a millisecond without spending a single LLM token.
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">4</span> Tool Call Rewriter (<code>tool.call</code>):</strong> Inspects <code>Bash</code> or <code>Edit</code> arguments before execution&mdash;rewriting <code>rm -rf</code> to <code>trash</code> or denying edits to protected paths.
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">5</span> Live <code>dev-mods</code> Hot-Reload Badge:</strong> Shows active session mods loaded from <code>~/.claude/dev-mods/&lt;session-id&gt;/</code> that rebind automatically on file save.
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <strong><span class="callout-pin">6</span> <code>sec-default</code> Baseline Lock:</strong> Confirms Anthropic&rsquo;s built-in org policy mod occupies Slot #1, shielding managed rules and enterprise permissions.
+    </div>
+    <div class="card-warm" style="padding:6.5px 9px; grid-column: span 2;">
+      <strong><span class="callout-pin">7</span> Docked Side Pane &amp; Panel Override:</strong> Uses side-pane and diff render slots in wide terminals and Claude Code Desktop to track subagent tasks, line-count diffs, and blocked file touches without scrolling up.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: ANATOMY OF REGISTER(ON, OPTIONS) ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Core Mod Engineering</span>
+    <span>Anatomy of register(on, options) &amp; Event Interception</span>
+  </div>
+
+  <h2 class="page-title">Anatomy of a Mod: <code>register(on, options)</code></h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Every mod exports a single <code>register(on, options)</code> function. Using <code>on(eventName, filter, handler)</code>, your handler receives <code>($, e, next)</code>&mdash;giving you four clean middleware patterns: <strong>before</strong>, <strong>instead of</strong>, <strong>after</strong>, and <strong>around</strong>.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:5px; gap:9px;">
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9a3412;">1. <code>.claude-plugin/plugin.json</code></p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.95pt; line-height:1.33;"><code>{
+  "name": "ops-shield",
+  "version": "1.0.0",
+  "description": "Prompt cleaner, Bash guard &amp; secret redactor",
+  "userConfig": {
+    "strictGit": { "type": "boolean", "default": true }
+  }
+}</code></pre>
+    </div>
+    <div>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9a3412;">2. <code>hooks/hooks.json</code></p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.95pt; line-height:1.33;"><code>{
+  "description": "In-process middleware entry module",
+  "modules": [
+    "./register.ts"
+  ]
+}
+// No shell subprocesses — loads directly into the engine</code></pre>
+    </div>
+  </div>
+
+  <p style="font-size:7.8pt; font-weight:700; margin:1px 0 2px 0; color:#9a3412;">3. <code>hooks/register.ts</code> &mdash; Before, Instead-Of, After &amp; Around Middleware (Zero External Imports)</p>
+  <pre class="code-block" style="margin:0 0 6px 0; padding:6.5px 9px; font-size:6.85pt; line-height:1.33;"><code>export function register(on: any, options: { strictGit?: boolean } = {}) {
+  // 1. BEFORE (prompt.submit): Rewrite messy voice/brain-dump prompts before Claude sees them
+  on('prompt.submit', async ($: any, e: any, next: any) => {
+    const raw = (e.prompt || '').trim();
+    if (raw.startsWith('fix:')) {
+      const structured = raw.slice(4).trim() + '\n\nConstraints: Run existing tests first and show a minimal diff.';
+      return next({ ...e, prompt: structured });
+    }
+    return next(e);
+  });
+
+  // 2. INSTEAD OF + AROUND + AFTER (tool.call on Bash): Block destructive commands &amp; redact .env secrets
+  on('tool.call', { tool: 'Bash' }, async ($: any, e: any, next: any) => {
+    const cmd = String(e.input?.command || '');
+    if (cmd.includes('rm -rf /') || (options.strictGit !== false &amp;&amp; cmd.includes('git reset --hard'))) {
+      $.ui.toast({ level: 'warning', message: 'Blocked destructive command: ' + cmd });
+      return { deny: 'Blocked by ops-shield mod. Use git stash or targeted file removal instead.' };
+    }
+    const startedAt = Date.now();
+    const result = await next(e); // Execute downstream mods + actual Bash tool
+    const elapsedMs = Date.now() - startedAt;
+    const cleanOut = String(result?.output || '').replace(/(API_KEY|SECRET|TOKEN)=([^\s]+)/gi, '$1=[REDACTED]');
+    await $.state.set('lastBashMs', elapsedMs);
+    return { ...result, output: cleanOut };
+  });
+}</code></pre>
+
+  <div class="figure-box" style="margin:3px 0 0 0;">
+    <img src="assets/event_middleware_pipeline.jpg" alt="Isometric Copper and Sapphire Optical Lens Pipeline Filtering and Splitting an Execution Beam" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Four Interception Modes in One Pipeline:</strong> Each copper lens gate can mutate inputs <em>before</em> calling <code>next({ ...e })</code>, short-circuit <em>instead of</em> execution with <code>{ deny }</code>, scrub secrets <em>after</em> <code>await next(e)</code> resolves, or measure latency <em>around</em> the entire round trip.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: THE $ API, ZERO-NPM RULE & SLASH COMMANDS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Mods API &amp; Capability Scanner</span>
+    <span>Host Gateways, Zero-NPM Rule &amp; Instant Slash Commands</span>
+  </div>
+
+  <h2 class="page-title">The Mods API (<code>$</code>), Zero-NPM Rule &amp; <code>/commands</code></h2>
+  <p class="page-lead">
+    Inside a mod, standard Node globals like <code>require('fs')</code>, <code>process.env</code>, and external <code>npm</code> packages are intentionally off-limits. Instead, every host action flows through the structured <strong><code>$</code> Mods API</strong> so Claude Code can statically audit what a plugin touches before it ever runs.
+  </p>
+
+  <h3>Core Namespaces Inside the <code>$</code> Capability Handle</h3>
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card" style="border-top:2.5px solid #ea580c;">
+      <div class="card-title"><code>$.ui</code> &amp; Layout</div>
+      <p style="font-size:7.85pt; margin:0;">Trigger non-blocking <code>$.ui.toast()</code> alerts, request re-renders, and return declarative box/row/badge trees inside <code>ui.render</code> slots.</p>
+    </div>
+    <div class="card" style="border-top:2.5px solid #d97706;">
+      <div class="card-title"><code>$.state</code> &amp; <code>$.timer</code></div>
+      <p style="font-size:7.85pt; margin:0;">Persist typed key-value counters across turns (<code>$.state.get/set</code>) and schedule clean session-scoped countdown intervals.</p>
+    </div>
+    <div class="card" style="border-top:2.5px solid #0891b2;">
+      <div class="card-title"><code>$.fs</code> &amp; <code>$.process</code></div>
+      <p style="font-size:7.85pt; margin:0;">Read workspace metadata or run quick helper commands (like <code>git status --porcelain</code>) through auditable host methods.</p>
+    </div>
+    <div class="card" style="border-top:2.5px solid #059669;">
+      <div class="card-title"><code>$.command</code></div>
+      <p style="font-size:7.85pt; margin:0;">Register custom autocomplete slash commands on <code>session.start</code> with argument hints and instant local execution.</p>
+    </div>
+    <div class="card" style="border-top:2.5px solid #7c3aed;">
+      <div class="card-title"><code>$.model</code></div>
+      <p style="font-size:7.85pt; margin:0;">Run lightweight sidecar completions (e.g., Haiku classification or prompt cleanup) without polluting the main chat transcript.</p>
+    </div>
+    <div class="card" style="border-top:2.5px solid #e11d48;">
+      <div class="card-title"><code>$.session</code></div>
+      <p style="font-size:7.85pt; margin:0;">Inspect token usage, active model tier, working directory, and cache timestamps to power real-time status gauges.</p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 7px 0;">
+    <div class="callout-title">Why External <code>npm</code> Packages, React &amp; WASM Binaries Are Blocked</div>
+    When you run <code>claude plugin validate</code> or install a third-party mod, Claude Code&rsquo;s <strong>static capability scanner</strong> parses the abstract syntax tree of <code>register.ts</code> to list every <code>$</code> namespace and event hook the mod uses (for example: <em>reads files via <code>$.fs</code>, intercepts <code>tool.call</code>, makes zero network calls</em>). Allowing opaque <code>node_modules</code> trees, React reconcilers, or compiled <code>.wasm</code> blobs would blind static analysis and hide supply-chain attacks. Keep mods pure, lean TypeScript&mdash;and delegate heavy SDK work to an MCP server.
+  </div>
+
+  <h3>Building Zero-LLM-Latency Slash Commands with <code>command.run</code></h3>
+  <p style="font-size:8.45pt;">
+    Markdown slash commands send a prompt to Claude and wait seconds for token generation. Mod-registered commands intercept <code>command.run</code> locally and return instant results in under a millisecond at <strong>zero token cost</strong>:
+  </p>
+
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.05pt; line-height:1.35;"><code>export function register(on: any) {
+  // Register /checkpoint in Claude Code's slash-command autocomplete menu on startup
+  on('session.start', async ($: any, e: any, next: any) => {
+    await $.command.register({
+      name: 'checkpoint',
+      description: 'Show dirty Git files and token budget instantly without calling the model',
+      argumentHint: '[optional-label]'
+    });
+    return next(e);
+  });
+
+  // Handle /checkpoint locally in sub-millisecond TypeScript — zero LLM round-trip!
+  on('command.run', { command: 'checkpoint' }, async ($: any, e: any) => {
+    const gitOut = await $.process.exec('git', ['status', '--short']);
+    const stats = await $.session.stats();
+    const label = e.args ? ' [' + e.args + ']' : '';
+    const summary = gitOut.stdout.trim() || 'Working tree clean.';
+    return {
+      text: 'Checkpoint' + label + ' (' + stats.contextTokens + ' tokens used):\n' + summary
+    };
+  });
+}</code></pre>
+
+  <div class="callout emerald" style="margin:3px 0 0 0;">
+    <div class="callout-title">Hybrid Pattern: Local Fast-Path First, Optional Sidecar Model Second</div>
+    Inside <code>command.run</code>, handle deterministic checks (Git state, port checks, regex lint) in pure TypeScript first, and call <code>$.model.complete()</code> only when genuine natural-language summarization is needed.
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: VIBE-MODDING & HOT-RELOAD DEV-MODS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Live Authoring &amp; Hot Reload</span>
+    <span>Vibe-Modding Session dev-mods &amp; Prompt Anatomy</span>
+  </div>
+
+  <h2 class="page-title">&ldquo;Vibe-Modding&rdquo;: Live Hot-Reload Without TypeScript Mastery</h2>
+  <p class="page-lead">
+    You never have to memorize event schemas to build a mod. Describe the behavior you want in plain English right inside an active Claude Code session: Claude writes the TypeScript into <code>~/.claude/dev-mods/&lt;session-id&gt;/</code>, validates it, and hot-reloads it on save with zero restart.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:8px;">
+    <div class="card-warm">
+      <div class="card-title"><span class="num-badge">1</span> Ask in Plain English</div>
+      <p style="font-size:7.9pt; margin:0;">Tell Claude Code what event to intercept or what HUD widget to draw. Built-in plugin-authoring context supplies exact <code>$</code> types automatically.</p>
+    </div>
+    <div class="card-warm">
+      <div class="card-title"><span class="num-badge amber">2</span> Instant Hot-Reload</div>
+      <p style="font-size:7.9pt; margin:0;">Claude writes to <code>~/.claude/dev-mods/&lt;session-id&gt;/&lt;mod&gt;/</code>. A file watcher swaps handlers in memory immediately while keeping your chat alive.</p>
+    </div>
+    <div class="card-warm">
+      <div class="card-title"><span class="num-badge teal">3</span> Promote to Plugin</div>
+      <p style="font-size:7.9pt; margin:0;">Once a session mod feels indispensable, ask Claude to package it into your repo&rsquo;s plugins folder and run <code>claude plugin validate</code>.</p>
+    </div>
+  </div>
+
+  <h3>Mod Authoring Prompt Anatomy: The 5 Color-Coded Building Blocks</h3>
+  <p style="font-size:8.35pt; margin-bottom:5px;">
+    Whether you are prompting Claude Code to generate a <code>dev-mod</code> or writing a spec for your team, include these five clauses so the generated handler passes static validation on the first try:
+  </p>
+
+  <div style="margin-bottom:6px; font-size:7.8pt; display:flex; flex-wrap:wrap; gap:5px;">
+    <span class="p-tag p-event">[1. Target Event]</span>
+    <span class="p-tag p-mode">[2. Interception Mode]</span>
+    <span class="p-tag p-ui">[3. UI Surface]</span>
+    <span class="p-tag p-npm">[4. Zero-NPM Constraint]</span>
+    <span class="p-tag p-safe">[5. Safety Fallback]</span>
+  </div>
+
+  <div class="card" style="background:#fffaf5; border:1px solid #fdba74; padding:9px 11px; margin-bottom:8px; font-size:8.35pt; line-height:1.68;">
+    &ldquo;Build a live session dev-mod named <code>migration-guard</code>.
+    <span class="p-tag p-event">Listen to tool.call for Write and Edit, plus session.start for a /lock-db toggle command.</span>
+    <span class="p-tag p-mode">Intercept before execution: if any path touches prisma/migrations/*.sql while locked, return a { deny } explanation instead of calling next(e).</span>
+    <span class="p-tag p-ui">Render a compact prompt-band badge via ui.render showing MIGRATIONS LOCKED in amber or UNLOCKED in emerald.</span>
+    <span class="p-tag p-npm">Use pure zero-dependency TypeScript and only the $ Mods API ($.state, $.command, $.ui) with zero npm or node:fs imports.</span>
+    <span class="p-tag p-safe">Wrap logic in try/catch so unexpected errors log a warning toast and safely return next(e) without freezing the session.</span>&rdquo;
+  </div>
+
+  <h3>Lifecycle of a Session <code>dev-mod</code> vs. an Installed Plugin Mod</h3>
+  <table class="clean-table" style="font-size:7.9pt;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Stage</th>
+        <th style="width:36%;">Disk Path &amp; Scope</th>
+        <th style="width:42%;">Behavior &amp; Promotion Workflow</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Live Scratchpad</strong></td>
+        <td><code>~/.claude/dev-mods/&lt;session-id&gt;/&lt;name&gt;/</code></td>
+        <td>Scoped strictly to your current terminal/app session; hot-reloads on every edit so bad experiments never pollute new chats.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Personal Daily Mod</strong></td>
+        <td><code>~/.claude/plugins/&lt;name&gt;/</code></td>
+        <td>Validated once with <code>claude plugin validate</code>; loads automatically across all your local repositories after <code>sec-default</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Shared Repo Mod</strong></td>
+        <td><code>&lt;repo&gt;/.claude-plugin/</code> (committed to Git)</td>
+        <td>Checked into version control so every teammate gets project-specific guardrails and custom <code>/commands</code> after trust approval.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin:3px 0 0 0;">
+    <div class="callout-title">Golden Rule for Vibe-Modding: Always Ask for a Defensive <code>try / catch</code></div>
+    Because live <code>dev-mods</code> hot-reload while you work, instructing Claude to wrap custom logic in <code>try { ... } catch { return next(e); }</code> guarantees a typo during rapid iteration degrades gracefully instead of stalling your prompt input.
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: CUSTOMIZING THE INTERFACE (UI.RENDER) ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Programmable Terminal &amp; Desktop UI</span>
+    <span>Status Bars, Live HUDs &amp; Panel Overrides via ui.render</span>
+  </div>
+
+  <h2 class="page-title">Customizing the UI: HUDs, Gauges &amp; Custom Panels</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Unlike external CLI wrappers, a single <code>ui.render</code> handler renders seamlessly in <strong>both</strong> the terminal TUI and the Claude Code Desktop app&mdash;using declarative layout primitives (<code>box</code>, <code>row</code>, <code>text</code>, <code>badge</code>, <code>progress</code>) instead of brittle ANSI escape codes.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Additive Render Sites</div>
+      <ul style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li><strong><code>status-line</code>:</strong> Compact pill metrics pinned beside model and branch indicators.</li>
+        <li><strong><code>prompt-band</code>:</strong> A 1&ndash;2 row telemetry strip directly above your typing cursor (ideal for cache TTL &amp; token gauges).</li>
+        <li><strong><code>side-pane</code>:</strong> Docked vertical column for live subagent queues, test checklists, or touched-file summaries.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge cyan">B</span> Built-In Panel Overrides</div>
+      <ul style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li><strong>Custom Diff Viewer:</strong> Intercept the built-in <code>diff-panel</code> site to group changes by architectural layer or highlight schema risks.</li>
+        <li><strong>Tool Approval Cards:</strong> Enrich confirmation prompts with blast-radius scores and plain-English explanations before you press Allow.</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:6px 9px; font-size:6.95pt; line-height:1.34; margin:0 0 6px 0;"><code>export function register(on: any) {
+  // Record timestamp whenever an LLM turn completes so we can track the 5-minute prompt cache window
+  on('turn.complete', async ($: any, e: any, next: any) => {
+    await $.state.set('lastTurnEpochMs', Date.now());
+    await $.state.set('ctxPct', Math.round(((e.contextTokens || 0) / 200000) * 100));
+    return next(e);
+  });
+
+  // Paint a flicker-free Prompt Cache TTL + Context Gauge directly above the input box
+  on('ui.render', { site: 'prompt-band' }, async ($: any, e: any, next: any) => {
+    const lastMs = (await $.state.get('lastTurnEpochMs')) || 0;
+    const pct = (await $.state.get('ctxPct')) || 0;
+    const remainSec = lastMs ? Math.max(0, 300 - Math.floor((Date.now() - lastMs) / 1000)) : 0;
+    const cacheLabel = remainSec &gt; 60 ? 'CACHE WARM ' + remainSec + 's' : (remainSec &gt; 0 ? 'COOLING ' + remainSec + 's' : 'CACHE COLD');
+    return {
+      type: 'row',
+      gap: 2,
+      children: [
+        { type: 'badge', tone: remainSec &gt; 60 ? 'success' : 'warning', text: cacheLabel },
+        { type: 'text', text: 'Context Window: ' + pct + '% full' }
+      ]
+    };
+  });
+}</code></pre>
+
+  <div class="figure-box" style="margin:3px 0 0 0;">
+    <img src="assets/custom_hud_cockpit.jpg" alt="Minimalist Dark-Obsidian Developer Workstation With Floating Luminous Terracotta-Copper Telemetry Gauges" style="width:100%; height:230px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Write Once, Render Across CLI &amp; Desktop:</strong> Declarative <code>ui.render</code> trees adapt automatically from compact terminal status bands to crisp split-pane cards inside Claude Code Desktop&mdash;keeping cache warmth, context budgets, and subagent progress continuously visible.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Run Mod Blueprints</span>
+    <span>5 Real-World Copy-Paste Claude Code Mod Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Mod Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Paste any prompt below directly into Claude Code to generate and hot-load the mod inside <code>~/.claude/dev-mods/</code> in under a minute&mdash;then promote your favorites to <code>~/.claude/plugins/</code>.
+  </p>
+
+  <table class="clean-table" style="font-size:7.75pt; margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Mod Recipe</th>
+        <th style="width:21%;">Hooks &amp; <code>$</code> APIs Used</th>
+        <th style="width:60%;">Copy-Paste Vibe-Modding Spec / Prompt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Prompt Cache TTL &amp; Cost HUD</strong><br/><span style="color:#c2410c; font-weight:600;">Cost Saver</span></td>
+        <td><code>turn.complete</code><br/><code>ui.render</code><br/><code>$.state</code>, <code>$.timer</code></td>
+        <td>&ldquo;Create a zero-npm dev-mod <code>cache-hud</code>. On <code>turn.complete</code> store timestamp, context %, and cumulative spend in <code>$.state</code>. Render a <code>prompt-band</code> row via <code>ui.render</code> counting down the 300s prompt-cache TTL (emerald &gt;90s, amber &lt;90s, slate when cold) so I send follow-ups before cache expiry. Memoize state per second to prevent flicker.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>2. Blast-Radius Shell Interceptor</strong><br/><span style="color:#c2410c; font-weight:600;">Safety Shield</span></td>
+        <td><code>tool.call</code> (Bash)<br/><code>command.run</code><br/><code>$.ui.toast</code></td>
+        <td>&ldquo;Build a zero-npm dev-mod <code>blast-guard</code>. Intercept <code>tool.call</code> for <code>Bash</code>: block <code>DROP TABLE</code>, <code>TRUNCATE</code>, <code>git push --force</code>, and recursive <code>rm -rf</code> outside <code>./tmp</code> or <code>./dist</code> by returning <code>{ deny }</code> with a safe alternative. Also register <code>/blast-radius &lt;cmd&gt;</code> on <code>command.run</code> to score command risk locally with zero LLM tokens.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>3. Secret &amp; API-Key Redactor</strong><br/><span style="color:#c2410c; font-weight:600;">Zero-Leak Privacy</span></td>
+        <td><code>tool.call</code> (All)<br/><code>prompt.submit</code><br/><code>$.state</code></td>
+        <td>&ldquo;Create a zero-npm dev-mod <code>secret-scrub</code>. Wrap <code>await next(e)</code> on <code>tool.call</code> (<code>Bash</code>, <code>Read</code>, <code>Grep</code>) and scrub <code>sk-ant-*</code>, <code>sk-proj-*</code>, <code>AKIA*</code>, <code>ghp_*</code>, Bearer JWTs, and <code>.env</code> assignments from returned output before the model sees them. Keep a redacted counter in <code>$.state</code> and display total scrubbed secrets in <code>status-line</code>.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>4. Rambling Voice-Prompt Structurer</strong><br/><span style="color:#c2410c; font-weight:600;">Input Polish</span></td>
+        <td><code>prompt.submit</code><br/><code>$.model</code><br/><code>$.command</code></td>
+        <td>&ldquo;Build a zero-npm dev-mod <code>voice-polish</code>. When a submitted prompt starts with <code>v:</code> on <code>prompt.submit</code>, strip filler words and use <code>$.model.complete</code> (fast tier) to structure the rambling dictation into Goal, Target Files, and Verification Steps, then pass the clean text via <code>next({ ...e, prompt })</code>. Fall back to raw text on timeout.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>5. Subagent &amp; Touched-Files Tracker</strong><br/><span style="color:#c2410c; font-weight:600;">Swarm Visibility</span></td>
+        <td><code>tool.call</code><br/><code>subagent.*</code><br/><code>ui.render</code> (side-pane)</td>
+        <td>&ldquo;Create a zero-npm dev-mod <code>swarm-radar</code>. Track every file modified by <code>Write</code>/<code>Edit</code> and active subagent tasks in <code>$.state</code>. Render a <code>side-pane</code> via <code>ui.render</code> listing running subagents at the top and deduplicated modified paths with edit counts underneath, plus a <code>/reset-radar</code> local slash command to clear the list.&rdquo;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0;">
+    <div class="callout-title">Stacking All Five Safely: Keep Each Mod Focused on One Job</div>
+    Because Claude Code composes mods sequentially through <code>next(e)</code>, five small 60-line single-purpose mods are dramatically easier to debug, validate, and toggle on or off than one monolithic 500-line mega-mod.
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, LOAD ORDER & SEC-DEFAULT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security Architecture &amp; Governance</span>
+    <span>Privilege Model, Load Order &amp; Built-In sec-default Policy</span>
+  </div>
+
+  <h2 class="page-title">Security, Load Order &amp; <code>sec-default</code> Governance</h2>
+  <p class="page-lead">
+    Understanding one architectural truth prevents serious security mistakes: <strong>Claude Code Mods run in-process with your full OS user privileges</strong>&mdash;they are capability-audited via <code>$</code>, not isolated inside a hypervisor VM.
+  </p>
+
+  <div class="callout rose" style="margin:2px 0 8px 0;">
+    <div class="callout-title">Treat Third-Party <code>register.ts</code> Files Like Local Shell Scripts or Git Hooks</div>
+    Never clone and approve an untrusted mod without reading its short <code>register.ts</code> source and running <code>claude plugin validate</code>. Because mods are zero-dependency and typically 40&ndash;120 lines of plain TypeScript, a full human + static capability audit takes less than sixty seconds.
+  </div>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card-dark">
+      <div class="card-title">&#128737; Why Slot #1 Belongs to <code>sec-default</code></div>
+      <p style="font-size:7.95pt; color:#e7e5e4; margin:0 0 5px 0;">
+        In middleware queues, <strong>whoever registers first owns the outermost gate</strong>. On Team and Enterprise environments (or wherever managed settings exist), Anthropic&rsquo;s built-in <code>cc-plugin-sec-default@builtin</code> mod is pinned to <strong>Slot #1</strong> ahead of every plugin and session <code>dev-mod</code>:
+      </p>
+      <ul style="font-size:7.8pt; color:#fed7aa; margin:0;">
+        <li>Prevents user mods from reading or stripping managed system prompts and org <code>CLAUDE.md</code> policies.</li>
+        <li>Enforces admin tool denials and MCP server allowlists before user handlers ever see the event.</li>
+        <li>Protects audit telemetry from downstream tampering.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge espresso">!</span> Deterministic 4-Tier Load Order</div>
+      <ol style="font-size:7.95pt; margin:3px 0 0 0;">
+        <li><strong><code>sec-default</code> (Built-In Org Guard):</strong> Immutable Slot #1 baseline when managed policies are active.</li>
+        <li><strong>Enterprise Managed Mods:</strong> Organization-distributed compliance, redaction, and logging mods.</li>
+        <li><strong>Installed User &amp; Repo Mods:</strong> Validated plugins in <code>~/.claude/plugins/</code> and trusted repo bundles.</li>
+        <li><strong>Live Session <code>dev-mods</code>:</strong> Ephemeral scratchpad mods in <code>~/.claude/dev-mods/&lt;session-id&gt;/</code>.</li>
+      </ol>
+      <p style="font-size:7.75pt; color:#57534e; margin:5px 0 0 0;">Earlier mods inspect inputs first and inspect returned outputs last.</p>
+    </div>
+  </div>
+
+  <h3>Locking Down Enterprise Workstations via <code>managed-settings.json</code></h3>
+  <p style="font-size:8.3pt;">
+    Security teams can configure <code>sec-default</code> to allow only IT-signed managed mods (blocking ad-hoc personal plugins and <code>dev-mods</code> on regulated machines) while enforcing capability validation in GitHub Actions CI:
+  </p>
+
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.05pt; line-height:1.35;"><code>// Enterprise managed-settings.json — locks workstations to IT-approved managed mods only:
+{
+  "pluginConfigs": {
+    "cc-plugin-sec-default@builtin": {
+      "options": {
+        "allowManagedModsOnly": true,
+        "protectManagedPrompts": true
+      }
+    }
+  }
+}
+
+# CI Gate (.github/workflows/validate-mods.yml) — reject PRs if any repo mod fails static scanning:
+claude plugin validate ./tools/claude-mods/ops-shield --strict</code></pre>
+
+  <div class="callout sky" style="margin:4px 0 0 0;">
+    <div class="callout-title">Smooth Team Rollout Tip: Ship New Org Mods in &ldquo;Warn-Only Toast Mode&rdquo; First</div>
+    Before flipping a company-wide managed mod to hard <code>{ deny }</code> blocking, run it for one sprint in observe mode&mdash;logging matched commands via <code>$.ui.toast()</code> and passing events through <code>next(e)</code> so platform engineers can tune false positives without interrupting developer flow.
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Full-Stack Agent Architecture</span>
+    <span>Combining Skills, MCP Servers, Claude Code Mods &amp; Git Worktrees</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: The 4-Layer Agent Stack</h2>
+  <p class="page-lead">
+    Mods do not replace Skills, MCP servers, or Git worktrees&mdash;they complete the stack by supplying the missing deterministic runtime layer that keeps autonomous multi-agent coding fast, visible, and safe.
+  </p>
+
+  <div class="figure-box" style="background:#140b07; padding:10px 12px; border-color:#7c2d12; margin-bottom:9px;">
+    <svg viewBox="0 0 700 210" width="100%" height="210" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1: Claude Skills -->
+      <rect x="10" y="18" width="152" height="145" rx="9" fill="#24140b" stroke="#f59e0b" stroke-width="1.6"/>
+      <text x="86" y="37" text-anchor="middle" fill="#fcd34d" font-size="7.6" font-weight="700">1. DOMAIN BRAIN</text>
+      <text x="86" y="54" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Claude Skills</text>
+      <text x="86" y="68" text-anchor="middle" fill="#fde68a" font-size="7.3">.claude/skills/*/SKILL.md</text>
+      <line x1="24" y1="77" x2="148" y2="77" stroke="#78350f" stroke-width="1"/>
+      <text x="22" y="93" fill="#e7e5e4" font-size="7.4">&bull; Architecture conventions</text>
+      <text x="22" y="107" fill="#e7e5e4" font-size="7.4">&bull; Migration playbooks</text>
+      <text x="22" y="121" fill="#e7e5e4" font-size="7.4">&bull; PR review checklists</text>
+      <rect x="22" y="133" width="128" height="20" rx="4" fill="#3b1f0b"/>
+      <text x="86" y="146" text-anchor="middle" fill="#fcd34d" font-size="7.1" font-weight="700">Teaches WHAT good looks like</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M162 90 L183 90" stroke="#fb923c" stroke-width="2"/>
+      <polygon points="181,85 189,90 181,95" fill="#fb923c"/>
+
+      <!-- Box 2: MCP Servers -->
+      <rect x="189" y="18" width="152" height="145" rx="9" fill="#0f1f26" stroke="#22d3ee" stroke-width="1.6"/>
+      <text x="265" y="37" text-anchor="middle" fill="#67e8f9" font-size="7.6" font-weight="700">2. EXTERNAL REACH</text>
+      <text x="265" y="54" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">MCP Servers</text>
+      <text x="265" y="68" text-anchor="middle" fill="#a5f3fc" font-size="7.3">Postgres &bull; GitHub &bull; Sentry</text>
+      <line x1="203" y1="77" x2="327" y2="77" stroke="#155e75" stroke-width="1"/>
+      <text x="201" y="93" fill="#e7e5e4" font-size="7.4">&bull; Heavy npm/Python SDKs</text>
+      <text x="201" y="107" fill="#e7e5e4" font-size="7.4">&bull; OAuth &amp; cloud credentials</text>
+      <text x="201" y="121" fill="#e7e5e4" font-size="7.4">&bull; Live ticket &amp; schema reads</text>
+      <rect x="201" y="133" width="128" height="20" rx="4" fill="#13333d"/>
+      <text x="265" y="146" text-anchor="middle" fill="#67e8f9" font-size="7.1" font-weight="700">Connects WHERE data lives</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M341 90 L362 90" stroke="#fb923c" stroke-width="2"/>
+      <polygon points="360,85 368,90 360,95" fill="#fb923c"/>
+
+      <!-- Box 3: Claude Code Mods -->
+      <rect x="368" y="12" width="160" height="157" rx="9" fill="#2e1509" stroke="#fb923c" stroke-width="2.2"/>
+      <text x="448" y="32" text-anchor="middle" fill="#fdba74" font-size="7.6" font-weight="700">3. IN-PROCESS NERVOUS SYSTEM</text>
+      <text x="448" y="50" text-anchor="middle" fill="#ffffff" font-size="10.8" font-weight="800">Claude Code Mods</text>
+      <text x="448" y="64" text-anchor="middle" fill="#fed7aa" font-size="7.3">register.ts + sec-default</text>
+      <line x1="382" y1="73" x2="514" y2="73" stroke="#9a3412" stroke-width="1"/>
+      <text x="380" y="90" fill="#fff7ed" font-size="7.4">&bull; Deterministic tool guardrails</text>
+      <text x="380" y="104" fill="#fff7ed" font-size="7.4">&bull; Secret scrubbing on outputs</text>
+      <text x="380" y="118" fill="#fff7ed" font-size="7.4">&bull; Live cache &amp; swarm UI HUDs</text>
+      <rect x="380" y="132" width="136" height="24" rx="4" fill="#4d210b" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="448" y="147" text-anchor="middle" fill="#fdba74" font-size="7.2" font-weight="700">Enforces HOW runtime behaves</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M528 90 L549 90" stroke="#34d399" stroke-width="2"/>
+      <polygon points="547,85 555,90 547,95" fill="#34d399"/>
+
+      <!-- Box 4: Git Worktrees -->
+      <rect x="555" y="18" width="135" height="145" rx="9" fill="#0d241b" stroke="#34d399" stroke-width="1.6"/>
+      <text x="622" y="37" text-anchor="middle" fill="#6ee7b7" font-size="7.6" font-weight="700">4. DISK ISOLATION</text>
+      <text x="622" y="54" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Git Worktrees</text>
+      <text x="622" y="68" text-anchor="middle" fill="#a7f3d0" font-size="7.3">claude --worktree</text>
+      <line x1="568" y1="77" x2="677" y2="77" stroke="#065f46" stroke-width="1"/>
+      <text x="567" y="93" fill="#e7e5e4" font-size="7.4">&bull; Separate branch per task</text>
+      <text x="567" y="107" fill="#e7e5e4" font-size="7.4">&bull; Parallel subagent sandboxes</text>
+      <text x="567" y="121" fill="#e7e5e4" font-size="7.4">&bull; Clean PR diff promotion</text>
+      <rect x="567" y="133" width="111" height="20" rx="4" fill="#0f3829"/>
+      <text x="622" y="146" text-anchor="middle" fill="#6ee7b7" font-size="7.1" font-weight="700">Isolates WHERE files change</text>
+
+      <!-- Bottom Feedback Loop -->
+      <rect x="10" y="178" width="680" height="24" rx="6" fill="#211109" stroke="#5c2410" stroke-width="1"/>
+      <text x="350" y="194" text-anchor="middle" fill="#fed7aa" font-size="7.6" font-weight="600">End-to-End Flow: Skill guides plan &rarr; MCP fetches live context &rarr; Mod intercepts &amp; scrubs every tool call &rarr; Worktree lands clean PR</text>
+    </svg>
+  </div>
+
+  <h3>Walkthrough: How All Four Layers Cooperate on a Production Incident</h3>
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Skill + MCP Gather Context</div>
+      <p style="font-size:8pt; margin:0;">You launch <code>claude --worktree hotfix-webhook</code>. Your repository&rsquo;s <code>incident-triage/SKILL.md</code> instructs Claude on service boundaries while the Sentry and Postgres <strong>MCP servers</strong> pull the failing stack trace and row metadata.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Mods Guard &amp; Instrument Every Turn</div>
+      <p style="font-size:8pt; margin:0;">As Claude queries staging and edits TypeScript inside the isolated worktree, your <strong>Mods</strong> scrub customer PII from MCP tool outputs before context ingestion, block any write SQL against production, and keep your prompt-cache TTL warm in the bottom HUD.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:3px 0 0 0;">
+    <div class="callout-title">Why Soft Prompt Rules Alone Are Never Enough for Guardrails</div>
+    Even the best <code>CLAUDE.md</code> or <code>SKILL.md</code> rule is probabilistic&mdash;under a 180k-token context window, models occasionally forget soft instructions. Moving hard invariants (blocking <code>--force</code>, redacting tokens, locking migration directories) into a 30-line <strong>Mod</strong> makes compliance 100% deterministic.
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Ninety-five percent of mod hiccups trace back to one of seven predictable causes. Use this table for ten-second fixes before shipping a mod to your daily workflow or team repository.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:28%;">Symptom / Error</th>
+        <th style="width:30%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Capability scanner rejects mod on validate/install</strong></td>
+        <td><code>register.ts</code> imports an <code>npm</code> package, <code>node:fs</code>, <code>process</code>, or a <code>.wasm</code> binary.</td>
+        <td>Delete external imports; use native ES syntax and <code>$.fs</code>, <code>$.process</code>, or <code>$.state</code>. Move heavy SDK calls into an MCP server.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Session freezes right after submitting a prompt or tool</strong></td>
+        <td>A middleware handler exited a branch without returning <code>await next(e)</code> or a terminal response object.</td>
+        <td>Audit every <code>if / else</code> and <code>catch</code> path in <code>register.ts</code> to ensure it returns either <code>next(e)</code> or an explicit <code>{ deny }</code> / <code>{ text }</code> result.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Session <code>dev-mod</code> ignored or permission override blocked</strong></td>
+        <td><code>sec-default</code> in Slot #1 enforces enterprise denials or <code>allowManagedModsOnly: true</code>.</td>
+        <td>Inspect managed policy via <code>/status</code>; user mods cannot weaken org denials. Request IT promotion if the mod belongs fleet-wide.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Status bar or HUD flickers on every keystroke</strong></td>
+        <td><code>ui.render</code> runs slow shell subprocesses or recomputes uncached values synchronously on each frame.</td>
+        <td>Never call <code>$.process.exec</code> inside <code>ui.render</code>! Compute state asynchronously on <code>turn.complete</code> / <code>tool.call</code>, store in <code>$.state</code>, and read memory in <code>ui.render</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Module not found for <code>./register.ts</code></strong></td>
+        <td>Path in <code>hooks/hooks.json</code> was written relative to repo root (<code>./hooks/register.ts</code>) instead of <code>hooks/</code>.</td>
+        <td>Set <code>&quot;modules&quot;: [&quot;./register.ts&quot;]</code> inside <code>hooks/hooks.json</code> and keep <code>register.ts</code> right beside <code>hooks.json</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. <code>&quot;modules&quot;</code> key silently ignored at startup</strong></td>
+        <td>Local Claude Code binary predates the <code>v2.1.287</code> Mods engine release.</td>
+        <td>Run <code>claude update</code> (or upgrade Claude Code Desktop) and confirm <code>claude --version</code> reports <code>2.1.287</code> or higher.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Two mods conflict on the same <code>/command</code> or rewrite</strong></td>
+        <td>Both mods short-circuit <code>command.run</code> or overwrite <code>e.prompt</code> instead of composing cleanly.</td>
+        <td>Namespace custom slash commands (e.g., <code>/ops-check</code>) and mutate <code>next({ ...e })</code> incrementally rather than discarding prior fields.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Sharing or Committing a Mod</h3>
+  <div class="checklist-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Version Floor Verified:</strong> Confirmed <code>claude --version</code> is <code>v2.1.287+</code> across CLI and Desktop.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Zero External Dependencies:</strong> Zero <code>npm</code>, React, WASM, or raw Node built-ins&mdash;only clean <code>$</code> API calls.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Every Branch Returns <code>next(e)</code>:</strong> Wrapped custom logic in <code>try/catch</code> with a safe <code>return next(e)</code> fallback.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Pure Memory Reads in <code>ui.render</code>:</strong> Shell/model work cached in <code>$.state</code> on events; zero I/O inside render frames.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Static Scanner Clean:</strong> Ran <code>claude plugin validate ./mod-dir</code> with zero schema or capability warnings.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Source Audited Line-by-Line:</strong> Reviewed full <code>register.ts</code> knowing mods run in-process with user privileges.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claude Skills: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">ANTHROPIC CLAUDE &amp; WORKSPACE STUDIOS • FIELD GUIDE</div>
+    <h1>Claude <span>Skills</span></h1>
+    <p class="cover-sub">
+      Packaging reusable domain expertise across Claude.ai, Claude Desktop, and Claude Code&mdash;mastering 3-tier progressive disclosure, <code>SKILL.md</code> anatomy, <code>skill-creator</code>, and executable scripts.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">3-Tier Progressive Disclosure</span>
+      <span class="cover-badge"><code>SKILL.md</code> Open Format</span>
+      <span class="cover-badge">Claude.ai • Desktop • Code</span>
+      <span class="cover-badge"><code>skill-creator</code> Meta-Skill</span>
+      <span class="cover-badge">Bundled Python &amp; Bash Scripts</span>
+      <span class="cover-badge"><code>pptx</code> • <code>xlsx</code> • <code>docx</code> • <code>pdf</code></span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Dark-Amethyst Skill Library Unfolding a Selected Module in Three Golden Telescopic Stages" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero Context Bloat</div>
+      <div class="cover-stat-desc">Preload ~50&ndash;100 tokens of YAML metadata per skill so Claude carries 100+ capabilities without slowing down.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Write Once, Run Everywhere</div>
+      <div class="cover-stat-desc">One portable <code>SKILL.md</code> folder runs across Claude.ai, Claude Desktop, Cowork, Claude Code, and the Messages API.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Deterministic Script Execution</div>
+      <div class="cover-stat-desc">Offload fragile math, schema linting, and document checks into bundled Python and Bash scripts inside secure sandboxes.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 • Foundations &amp; Progressive Disclosure</span>
+    <span>Claude Skills</span>
+  </div>
+
+  <h2 class="page-title">Solving Context Window Bloat Forever</h2>
+  <p class="page-lead">
+    Pasting giant SOP manuals into every system prompt wastes thousands of tokens and dilutes Claude&rsquo;s attention. Anthropic&rsquo;s <strong>3-Tier Progressive Disclosure</strong> lets Claude keep 100+ specialized skills on standby at a ~50-token idle cost&mdash;opening full instructions and scripts only when needed.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. 3-Tier Progressive Disclosure Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Document Skills &amp; Multi-Skill Chains</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Cross-Surface Setup &amp; Ecosystem Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste <code>SKILL.md</code> Blueprints</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Skills Studio &amp; Folder Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Team Governance &amp; Security Auditing</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Skill Folder Anatomy &amp; Trigger Laws</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. MCP + Skills + Sandbox Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Lean <code>&lt;500</code>-Line Bodies &amp; Scripts</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Iterating With <code>skill-creator</code> &amp; <code>.zip</code></strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Sharp Triggers, Lean Bodies</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Core Mental Model: Onboarding Guides Mounted on a Real Filesystem</h3>
+  <p style="font-size:8.8pt;">
+    Think of a Claude Skill not as a saved prompt snippet, but as a self-contained <strong>onboarding folder</strong> mounted inside Claude&rsquo;s execution environment. At startup, Claude scans a lightweight directory index of every installed skill&rsquo;s <code>name</code> and <code>description</code>. The moment your request matches one or more descriptions, Claude reads that skill&rsquo;s <code>SKILL.md</code> playbook and selectively opens reference files or executes helper scripts on disk.
+  </p>
+
+  <h3>Architecture: The Three Tiers of Progressive Disclosure</h3>
+  <div class="figure-box" style="background:#14081c; padding:10px 12px; border-color:#7e22ce;">
+    <svg viewBox="0 0 700 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+      <!-- Level 1 -->
+      <rect x="10" y="16" width="202" height="158" rx="9" fill="#230e33" stroke="#fbbf24" stroke-width="1.8"/>
+      <rect x="22" y="27" width="96" height="18" rx="9" fill="#fbbf24"/>
+      <text x="70" y="39" text-anchor="middle" fill="#14081c" font-size="8" font-weight="800">LEVEL 1 • ALWAYS ON</text>
+      <text x="22" y="61" fill="#ffffff" font-size="10.6" font-weight="800">YAML Frontmatter</text>
+      <text x="22" y="76" fill="#fde68a" font-size="8.2" font-weight="700">~50&ndash;100 tokens per skill</text>
+      <rect x="22" y="86" width="178" height="48" rx="6" fill="#160720" stroke="#9333ea" stroke-width="1"/>
+      <text x="30" y="101" fill="#e9d5ff" font-size="7.7" font-family="monospace">name: brand-deck</text>
+      <text x="30" y="114" fill="#cbd5e1" font-size="7.5" font-family="monospace">description: Builds executive</text>
+      <text x="30" y="126" fill="#cbd5e1" font-size="7.5" font-family="monospace">.pptx decks in Acme style...</text>
+      <text x="22" y="151" fill="#cbd5e1" font-size="7.6">Injected into system prompt startup</text>
+      <text x="22" y="163" fill="#cbd5e1" font-size="7.6">index so 100+ skills stay lightweight.</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M212 95 L246 95" stroke="#fbbf24" stroke-width="2.2"/>
+      <polygon points="244,90 253,95 244,100" fill="#fbbf24"/>
+      <text x="232" y="84" text-anchor="middle" fill="#fde68a" font-size="7" font-weight="700">Trigger</text>
+      <text x="232" y="112" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Matched</text>
+
+      <!-- Level 2 -->
+      <rect x="251" y="16" width="198" height="158" rx="9" fill="#2a1240" stroke="#c084fc" stroke-width="1.8"/>
+      <rect x="263" y="27" width="114" height="18" rx="9" fill="#9333ea"/>
+      <text x="320" y="39" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">LEVEL 2 • ON TRIGGER</text>
+      <text x="263" y="61" fill="#ffffff" font-size="10.6" font-weight="800">SKILL.md Body</text>
+      <text x="263" y="76" fill="#e9d5ff" font-size="8.2" font-weight="700">Target &lt;500 lines (~1.5k&ndash;4k tok)</text>
+      <rect x="263" y="86" width="174" height="48" rx="6" fill="#160720" stroke="#a855f7" stroke-width="1"/>
+      <text x="271" y="101" fill="#f3e8ff" font-size="7.6">&bull; Step-by-step workflow &amp; rules</text>
+      <text x="271" y="114" fill="#cbd5e1" font-size="7.6">&bull; Edge-case guardrails &amp; gates</text>
+      <text x="271" y="127" fill="#cbd5e1" font-size="7.6">&bull; 1-hop links to Level 3 files</text>
+      <text x="263" y="151" fill="#cbd5e1" font-size="7.6">Loaded into context ONLY when</text>
+      <text x="263" y="163" fill="#cbd5e1" font-size="7.6">user intent matches description.</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M449 95 L491 95" stroke="#c084fc" stroke-width="2.2" stroke-dasharray="4 2"/>
+      <polygon points="489,90 498,95 489,100" fill="#c084fc"/>
+      <text x="473" y="84" text-anchor="middle" fill="#e9d5ff" font-size="6.8" font-weight="700">On Demand</text>
+      <text x="473" y="112" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Read / Run</text>
+
+      <!-- Level 3 -->
+      <rect x="498" y="16" width="192" height="158" rx="9" fill="#19162b" stroke="#34d399" stroke-width="1.8"/>
+      <rect x="508" y="27" width="118" height="18" rx="9" fill="#059669"/>
+      <text x="567" y="39" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">LEVEL 3 • ZERO IDLE</text>
+      <text x="508" y="61" fill="#ffffff" font-size="10.4" font-weight="800">Bundled Vault Files</text>
+      <text x="508" y="76" fill="#6ee7b7" font-size="8.2" font-weight="700">0 tokens until opened or run</text>
+      <rect x="508" y="86" width="170" height="48" rx="6" fill="#0e1726" stroke="#10b981" stroke-width="1"/>
+      <text x="516" y="100" fill="#a7f3d0" font-size="7.5" font-family="monospace">references/*.md (schemas)</text>
+      <text x="516" y="113" fill="#fde68a" font-size="7.5" font-family="monospace">scripts/*.py (deterministic)</text>
+      <text x="516" y="126" fill="#cbd5e1" font-size="7.5" font-family="monospace">assets/* (templates, logos)</text>
+      <text x="508" y="151" fill="#cbd5e1" font-size="7.6">Scripts run via bash; only compact</text>
+      <text x="508" y="163" fill="#cbd5e1" font-size="7.6">stdout enters context window!</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:5px 0 0 0;">
+    <div class="callout-title">Why Level 3 Scripts Are a Token &amp; Reliability Superpower</div>
+    When Claude runs <code>python3 scripts/validate_deck.py Q3.pptx</code>, the 400-line Python script never enters your chat context&mdash;only its crisp 3-line pass/fail report comes back. You get 100% deterministic verification at near-zero token cost.
+  </div>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP & ECOSYSTEM DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 • Cross-Surface Setup &amp; Ecosystem Matrix</span>
+    <span>Enabling Skills Across Web, Desktop, CLI &amp; API</span>
+  </div>
+
+  <h2 class="page-title">Cross-Surface Setup &amp; Customization Matrix</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Anthropic designed <code>SKILL.md</code> as an open, portable standard. Activating Skills takes under a minute in Claude.ai or Claude Desktop and zero configuration on disk inside Claude Code.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px; gap:10px;">
+    <div class="card" style="padding:8px 11px; border-top:3px solid #7e22ce;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Claude.ai, Claude Desktop &amp; Cowork</div>
+      <ol style="font-size:8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Enable Sandbox Runtime:</strong> Open <code>Settings &rarr; Capabilities</code> and toggle <strong>Code execution and file creation</strong> ON (Skills rely on this container to read files and run scripts).</li>
+        <li><strong>Toggle Built-In Skills:</strong> In the <strong>Skills</strong> section, enable document skills (<code>pptx</code>, <code>xlsx</code>, <code>docx</code>, <code>pdf</code>) and <code>skill-creator</code>.</li>
+        <li><strong>Upload Custom <code>.zip</code>:</strong> Click <strong>Upload skill</strong> to add any zipped skill folder (Pro, Max, Team, and Enterprise plans; Team/Enterprise Owners can provision org-wide).</li>
+      </ol>
+    </div>
+    <div class="card" style="padding:8px 11px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge amber">2</span> Claude Code CLI &amp; Messages API</div>
+      <ul style="font-size:8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Personal Global Skills:</strong> Place folders inside <code>~/.claude/skills/&lt;skill-name&gt;/SKILL.md</code> to make them available across every project on your machine.</li>
+        <li><strong>Repo Team Skills:</strong> Commit folders to <code>&lt;repo&gt;/.claude/skills/&lt;skill-name&gt;/SKILL.md</code> so teammates inherit them via Git.</li>
+        <li><strong>Inspect &amp; Invoke:</strong> Type <code>/skills</code> in Claude Code to verify loaded skills, let Claude auto-trigger them, or run <code>/&lt;skill-name&gt;</code> manually.</li>
+        <li><strong>Messages API:</strong> Upload via <code>/v1/skills</code> and pass IDs inside <code>container.skills</code> alongside the code execution tool.</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:6px 9px; font-size:7.2pt; line-height:1.35; margin:2px 0 7px 0;"><code># Create a personal global skill + a Git-shared repo skill for Claude Code:
+mkdir -p ~/.claude/skills/sql-chart-style/{scripts,references} .claude/skills/pr-audit/scripts
+ls -la .claude/skills/pr-audit/SKILL.md     # Inside Claude Code, run /skills or invoke /pr-audit directly</code></pre>
+
+  <h3 style="margin:4px 0 4px 0; font-size:10.5pt;">Claude Customization Matrix: Skills vs. Projects vs. <code>CLAUDE.md</code> vs. MCP vs. Mods</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin:3px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Layer</th>
+        <th style="width:19%;">Context Cost</th>
+        <th style="width:36%;">Primary Job &amp; Ideal Use Case</th>
+        <th style="width:26%;">Portability Scope</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Skills</strong><br/><code>SKILL.md</code> + <code>scripts/</code></td>
+        <td><strong>~50&ndash;100 tok idle</strong><br/>(3-tier on-demand)</td>
+        <td><strong>Reusable procedural expertise:</strong> repeatable workflows, brand systems, document assembly, and deterministic validation scripts.</td>
+        <td><strong>Universal:</strong> Claude.ai, Desktop, Cowork, Claude Code, &amp; API.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Projects</strong><br/>Knowledge Base</td>
+        <td>Loaded/RAG per<br/>project chat</td>
+        <td><strong>Workspace context hub:</strong> static client briefs, Q3 transcripts, and persistent instructions scoped to one ongoing initiative.</td>
+        <td>Claude.ai &amp; Claude Desktop inside that single Project.</td>
+      </tr>
+      <tr>
+        <td><strong><code>CLAUDE.md</code> / Memory</strong><br/>Repo Instructions</td>
+        <td><strong>100% loaded</strong> on<br/>every session turn</td>
+        <td><strong>Always-true repo laws:</strong> build/test commands (<code>pnpm test</code>), folder architecture, and non-negotiable coding conventions.</td>
+        <td>Claude Code sessions inside that directory/user profile.</td>
+      </tr>
+      <tr>
+        <td><strong>MCP Servers</strong><br/>Model Context Protocol</td>
+        <td>Tool schemas<br/>in session</td>
+        <td><strong>Live external connectivity:</strong> authenticated pipes to GitHub, Postgres, Linear, Slack, or Drive (&ldquo;what Claude can touch&rdquo;).</td>
+        <td>Claude Desktop, Claude.ai Connectors, &amp; Claude Code.</td>
+      </tr>
+      <tr>
+        <td><strong>Code Mods / Subagents</strong><br/><code>.claude/agents/</code> &amp; Hooks</td>
+        <td>Isolated worker<br/>context window</td>
+        <td><strong>CLI delegation &amp; enforcement:</strong> spinning up separate subagent contexts or deterministic pre/post-tool shell hooks.</td>
+        <td>Claude Code CLI &amp; IDE extensions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.3pt;">
+    <div class="callout-title">The 10-Second Placement Rule</div>
+    Need live external data? Connect an <strong>MCP Server</strong>. Need a 15-line rule enforced on <em>every single turn</em> in one repo? Put it in <strong><code>CLAUDE.md</code></strong>. Teaching a rich multi-step workflow, brand standard, or script toolkit used <em>whenever relevant</em> across surfaces? Package a <strong>Claude Skill</strong>.
+  </div>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED STUDIO & DIRECTORY UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 • Annotated Interface &amp; Directory Tour</span>
+    <span>Capabilities Registry, Progressive Loader &amp; Skill Folder Tree</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Claude Skills Studio &amp; Folder Tree</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Whether a skill is uploaded as a <code>.zip</code> in Claude.ai or placed inside <code>.claude/skills/</code> in Claude Code, the exact same runtime handshake unfolds: toggle capabilities, match YAML frontmatter, read <code>SKILL.md</code>, and execute scripts.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#f3e8ff;">Claude Studio — Capabilities &amp; Live Skill Trace</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; font-size:7.25pt; color:#fde68a;">
+        <span>Code Execution: <strong style="color:#34d399;">ON</strong> <span class="callout-pin">1</span></span>
+        <span style="background:#7e22ce; color:#fff; padding:2px 7px; border-radius:4px; font-weight:700;">+ Upload Skill (.zip) <span class="callout-pin">4</span></span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1.05fr 1.35fr 1.05fr; border-bottom:1px solid #3b0764;">
+      <!-- Left Pane: Capabilities -> Skills -->
+      <div style="padding:8px 9px; border-right:1px solid #3b0764; background:#190a24;">
+        <div style="font-size:7.1pt; font-weight:800; color:#fde68a; letter-spacing:0.05em; margin-bottom:5px;">CAPABILITIES &rarr; SKILLS</div>
+        <div style="background:#261036; border:1px solid #581c87; border-radius:6px; padding:5px 7px; margin-bottom:5px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-weight:700; color:#ffffff; font-size:7.4pt;">
+            <span>Anthropic Document Skills <span class="callout-pin">2</span></span>
+            <span style="color:#34d399; font-size:7pt;">ACTIVE</span>
+          </div>
+          <div style="font-size:6.9pt; color:#cbd5e1; margin-top:2px;"><code>pptx</code> &bull; <code>xlsx</code> &bull; <code>docx</code> &bull; <code>pdf</code></div>
+        </div>
+        <div style="background:#261036; border:1px solid #581c87; border-radius:6px; padding:5px 7px; margin-bottom:5px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-weight:700; color:#ffffff; font-size:7.4pt;">
+            <span><code>skill-creator</code> <span class="callout-pin">3</span></span>
+            <span style="color:#34d399; font-size:7pt;">ON</span>
+          </div>
+          <div style="font-size:6.9pt; color:#cbd5e1; margin-top:2px;">Drafts, tests &amp; packages skills</div>
+        </div>
+        <div style="background:#301247; border:1px solid #fbbf24; border-radius:6px; padding:5px 7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-weight:700; color:#fde68a; font-size:7.4pt;">
+            <span><code>brand-deck</code> (Org)</span>
+            <span style="color:#fbbf24; font-size:7pt;">TRIGGERED</span>
+          </div>
+          <div style="font-size:6.9pt; color:#e2e8f0; margin-top:2px;">Acme executive slide standards</div>
+        </div>
+      </div>
+
+      <!-- Center Pane: Active Chat & Progressive Trace -->
+      <div style="padding:8px 10px; border-right:1px solid #3b0764; background:#12071a;">
+        <div style="font-size:7.1pt; font-weight:800; color:#c084fc; letter-spacing:0.05em; margin-bottom:5px;">ACTIVE TURN &bull; PROGRESSIVE LOADER</div>
+        <div style="background:#241133; border-radius:6px; padding:5px 7px; margin-bottom:6px; font-size:7.2pt; color:#f8fafc;">
+          <strong>User:</strong> &ldquo;Turn <code>Q3_pipeline.csv</code> into a 6-slide board review deck using our Acme brand system.&rdquo;
+        </div>
+        <div style="background:#1c0f2b; border-left:3px solid #fbbf24; padding:4px 7px; margin-bottom:4px; font-size:7.05pt;">
+          <span class="callout-pin">5</span> <strong style="color:#fde68a;">Level 1 &rarr; 2 Match:</strong> Loaded <code>brand-deck/SKILL.md</code> (168 lines) + built-in <code>pptx/SKILL.md</code>
+        </div>
+        <div style="background:#1c0f2b; border-left:3px solid #c084fc; padding:4px 7px; margin-bottom:4px; font-size:7.05pt;">
+          <strong style="color:#e9d5ff;">Selective Read:</strong> Opened <code>references/chart-tokens.md</code> (skipped 3 unused reference guides)
+        </div>
+        <div style="background:#0d2420; border-left:3px solid #34d399; padding:4px 7px; font-size:7.05pt;">
+          <span class="callout-pin">7</span> <strong style="color:#6ee7b7;">Sandbox Exec:</strong> <code>python3 scripts/validate_deck.py Q3_Board.pptx</code> &rarr; <strong>PASS (0 contrast/margin errors)</strong>
+        </div>
+      </div>
+
+      <!-- Right Pane: Folder Tree -->
+      <div style="padding:8px 9px; background:#190a24; font-family:'SF Mono',Menlo,monospace; font-size:6.95pt; line-height:1.48;">
+        <div style="font-family:-apple-system,sans-serif; font-size:7.1pt; font-weight:800; color:#6ee7b7; letter-spacing:0.05em; margin-bottom:4px;">.claude/skills/brand-deck/</div>
+        <div style="color:#fde68a; font-weight:700;">&#9500;&#9472; SKILL.md</div>
+        <div style="color:#cbd5e1; padding-left:10px;">name + trigger + 168-line SOP</div>
+        <div style="color:#e9d5ff; font-weight:700; margin-top:2px;">&#9500;&#9472; references/ <span class="callout-pin">6</span></div>
+        <div style="color:#cbd5e1; padding-left:10px;">&#9500;&#9472; chart-tokens.md</div>
+        <div style="color:#94a3b8; padding-left:10px;">&#9492;&#9472; legal-footers.md</div>
+        <div style="color:#6ee7b7; font-weight:700; margin-top:2px;">&#9500;&#9472; scripts/</div>
+        <div style="color:#cbd5e1; padding-left:10px;">&#9492;&#9472; validate_deck.py</div>
+        <div style="color:#93c5fd; font-weight:700; margin-top:2px;">&#9492;&#9472; assets/</div>
+        <div style="color:#cbd5e1; padding-left:10px;">&#9492;&#9472; acme_master.pptx</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 5px 0; font-size:10.4pt;">Interface &amp; Package Callout Legend</h3>
+  <div class="grid-2" style="gap:7px 11px;">
+    <div class="card" style="padding:6.5px 10px; font-size:8pt;">
+      <strong><span class="callout-pin">1</span> Code Execution &amp; File Creation Toggle:</strong> Master sandbox switch under <code>Settings &rarr; Capabilities</code>. Must be enabled so Claude can mount skill folders, execute Python/Bash helpers, and emit finished files.
+    </div>
+    <div class="card" style="padding:6.5px 10px; font-size:8pt;">
+      <strong><span class="callout-pin">2</span> Built-In Anthropic Document Skills:</strong> Production-hardened system skills (<code>pptx</code>, <code>xlsx</code>, <code>docx</code>, <code>pdf</code>) that automatically co-activate alongside your custom domain skills.
+    </div>
+    <div class="card" style="padding:6.5px 10px; font-size:8pt;">
+      <strong><span class="callout-pin">3</span> <code>skill-creator</code> Meta-Skill:</strong> Interactive builder skill that interviews you, drafts sharp YAML triggers, scaffolds helper scripts, runs benchmark prompts, and exports clean <code>.zip</code> bundles.
+    </div>
+    <div class="card" style="padding:6.5px 10px; font-size:8pt;">
+      <strong><span class="callout-pin">4</span> Upload Skill (<code>.zip</code>) Control:</strong> Accepts zipped skill folders whose top-level directory wraps <code>SKILL.md</code>. Validates YAML frontmatter syntax immediately on upload.
+    </div>
+    <div class="card" style="padding:6.5px 10px; font-size:8pt;">
+      <strong><span class="callout-pin">5</span> Transparent Multi-Skill Trigger Trace:</strong> Shows exactly which skill descriptions matched your prompt and confirms when Claude transitions from Level 1 metadata to reading Level 2 <code>SKILL.md</code>.
+    </div>
+    <div class="card" style="padding:6.5px 10px; font-size:8pt;">
+      <strong><span class="callout-pin">6</span> One-Hop <code>references/</code> &amp; <code>assets/</code>:</strong> Domain tables, style tokens, and binary slide/sheet templates kept at zero token cost until <code>SKILL.md</code> directs Claude to open a specific file.
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:7px; padding:6.5px 10px; font-size:8pt; border-left:4px solid #059669; background:#ecfdf5;">
+    <strong><span class="callout-pin">7</span> Deterministic Sandbox Verification (<code>scripts/</code>):</strong> Instead of guessing whether slide contrast or spreadsheet formulas are valid, Claude runs bundled Python/Bash checkers inside the container and fixes any flagged issue before handing you the file.
+  </div>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: SKILL FOLDER ANATOMY & TRIGGER ENGINEERING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 • Directory Structure &amp; Trigger Engineering</span>
+    <span>YAML Frontmatter Rules &amp; High-Recall Descriptions</span>
+  </div>
+
+  <h2 class="page-title">Anatomy of a Skill Folder &amp; Trigger Engineering</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Until a skill is triggered, Claude cannot see a single line of its Markdown body or scripts&mdash;only its YAML <code>name</code> and <code>description</code>. Writing razor-sharp frontmatter is the highest-leverage habit in skill authoring.
+  </p>
+
+  <div class="figure-box" style="margin:3px 0 8px 0;">
+    <img src="assets/progressive_disclosure_tiers.jpg" alt="Isometric Three-Tier Pyramid Showing Golden Ring Apex, Faceted Amethyst Tablet Middle, and Selectively Lit Crystal Vault Base" style="width:100%; height:230px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Progressive Architecture in Action:</strong> A featherlight golden metadata ring stays active at the apex (Level 1), unlocking the faceted <code>SKILL.md</code> tablet (Level 2) and illuminating only the exact vault tool required for the current turn (Level 3).
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge">1</span> Canonical Directory &amp; YAML Laws</div>
+      <pre class="code-block" style="margin:4px 0 6px 0; padding:5.5px 8px; font-size:7pt;"><code>fin-model-audit/
+&#9500;&#9472;&#9472; SKILL.md            # Required (exact uppercase)
+&#9500;&#9472;&#9472; scripts/            # Deterministic .py / .sh
+&#9500;&#9472;&#9472; references/         # Deep docs read on demand
+&#9492;&#9472;&#9472; assets/             # Templates, logos, fonts</code></pre>
+      <ul style="font-size:7.85pt; margin:0; padding-left:15px;">
+        <li><strong><code>name</code>:</strong> Lowercase letters, numbers, and hyphens only (<code>&lt;=64</code> chars, matching folder name; never include reserved words <code>claude</code> or <code>anthropic</code>).</li>
+        <li><strong><code>description</code>:</strong> Required (<code>&lt;=1024</code> chars, zero XML angle brackets). Write in <strong>third person</strong> stating both <em>what it does</em> and <em>exact trigger contexts</em>.</li>
+        <li><strong>Optional CLI keys:</strong> <code>allowed-tools</code>, <code>user-invocable</code>, or <code>disable-model-invocation: true</code> for manual-only slash workflows.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge amber">2</span> Why Vague Descriptions Fail Silently</div>
+      <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:6px; padding:6px 8px; margin-bottom:6px; font-size:7.8pt;">
+        <strong style="color:#be123c;">Weak (Never Triggers Automatically):</strong><br/>
+        <code>description: Helps with documents and slides.</code><br/>
+        <span style="color:#475569;">Too generic&mdash;Claude handles everyday text natively and sees no reason to spend tokens opening this skill.</span>
+      </div>
+      <div style="background:#ecfdf5; border:1px solid #a7f3d0; border-radius:6px; padding:6px 8px; font-size:7.8pt;">
+        <strong style="color:#047857;">High-Recall (Triggers Reliably):</strong><br/>
+        <code>description: Formats executive .pptx slide decks and board memos using Acme palette, typography, and KPI chart rules. Use whenever the user asks for a presentation, pitch deck, QBR slides, or executive briefing, even if Acme brand is not named explicitly.</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.25pt;">
+    <div class="callout-title">Pro Authoring Tip: Make Descriptions Slightly &ldquo;Pushy&rdquo; With Concrete Nouns &amp; Extensions</div>
+    Claude errs on the side of conserving context unless a skill clearly fits. Always name target file extensions (<code>.xlsx</code>, <code>.pptx</code>, <code>openapi.yaml</code>, <code>.sql</code>), domain artifacts (<em>ARR waterfall</em>, <em>SOC2 runbook</em>), and casual user phrasings right inside <code>description</code>.
+  </div>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: LEAN <500-LINE BODIES & BUNDLED SCRIPTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 • Instruction Craft &amp; Scripts</span>
+    <span>Lean SKILL.md Bodies &amp; Sandbox Offloading</span>
+  </div>
+
+  <h2 class="page-title">Lean <code>&lt;500</code>-Line Bodies &amp; Executable Scripts</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Once triggered, <code>SKILL.md</code> competes directly with your conversation and code files for attention. Keep <code>SKILL.md</code> crisp, imperative, and <strong>under 500 lines</strong>&mdash;delegating reference tables to <code>references/</code> and brittle checks to <code>scripts/</code>.
+  </p>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.3pt;">Color-Coded <code>SKILL.md</code> Blueprint Anatomy</h3>
+  <div class="card" style="padding:8px 11px; margin-bottom:7px; background:#fdfcff; border-color:#d8b4fe;">
+    <div style="margin-bottom:5px; font-size:7.85pt; display:flex; flex-wrap:wrap; gap:5px;">
+      <span class="p-tag p-style">[YAML Trigger]</span>
+      <span class="p-tag p-subj">[Core Workflow]</span>
+      <span class="p-tag p-act">[Script Delegation]</span>
+      <span class="p-tag p-cam">[Reference Pointers]</span>
+      <span class="p-tag p-light">[Verification Gate]</span>
+    </div>
+    <div style="font-family:'SF Mono',Menlo,monospace; font-size:7.35pt; line-height:1.52; background:#ffffff; border:1px solid #e9d5ff; border-radius:7px; padding:7px 9px;">
+      <span class="p-tag p-style">--- name: fin-model-audit | description: Audits .xlsx SaaS financial models, ARR waterfalls, and WACC tabs. Use whenever reviewing spreadsheets, P&amp;L forecasts, or unit economics. ---</span><br/>
+      <span class="p-tag p-subj">## Workflow: 1. Inspect workbook tabs before editing. 2. Preserve dynamic Excel formulas (=SUM, =INDEX/MATCH); never overwrite formula cells with hardcoded floats.</span><br/>
+      <span class="p-tag p-cam">## Conditional References: For SaaS cohort &amp; net-dollar-retention definitions, read references/saas-metrics.md. For board color conventions, read references/formatting.md.</span><br/>
+      <span class="p-tag p-act">## Deterministic Audit: Run python3 scripts/audit_workbook.py &lt;file.xlsx&gt; to detect #REF!, #DIV/0!, hardcoded totals, or broken cross-sheet links.</span><br/>
+      <span class="p-tag p-light">## Verification Gate: Do not deliver the workbook until audit_workbook.py exits with code 0 and every assumption cell is styled in blue input font (#0000FF).</span>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0284c7;">
+      <div class="card-title"><span class="num-badge sky">1</span> One-Hop Reference Splitting</div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Never Nest Chains:</strong> Link every file directly from <code>SKILL.md</code> (<code>references/aws.md</code>, <code>references/gcp.md</code>). Avoid <code>SKILL.md &rarr; cloud.md &rarr; aws.md</code>; multi-hop trails cause partial reads.</li>
+        <li><strong>State &ldquo;Read When&rdquo; Rules:</strong> Tell Claude <em>when</em> to open each file so a BigQuery query never wastes tokens reading Snowflake docs.</li>
+        <li><strong>Add Mini TOCs:</strong> Put a 6-line heading list atop any reference file longer than 100 lines so Claude can grep or read target sections cleanly.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge teal">2</span> Offloading Logic to <code>scripts/*.py</code></div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Execute, Don&rsquo;t Read:</strong> Explicitly write <em>&ldquo;Run <code>python3 scripts/lint_openapi.py spec.yaml</code>&rdquo;</em> rather than <em>&ldquo;See <code>lint_openapi.py</code>&rdquo;</em> so Claude runs the binary directly.</li>
+        <li><strong>Actionable Error Output:</strong> Print exact line/slide/cell numbers on failure (<code>Slide 4 shape 'RevChart' overflows right margin by 0.4in</code>) so Claude fixes errors autonomously.</li>
+        <li><strong>Explain the Why:</strong> Replace rigid all-caps shouting with brief rationale; Claude generalizes far better on tricky edge cases when it understands intent.</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block" style="padding:6px 9px; font-size:7.15pt; line-height:1.35; margin:2px 0 0 0;"><code># Self-contained Level 3 helper pattern (scripts/audit_workbook.py): zero external deps, actionable stdout
+import sys, zipfile, xml.etree.ElementTree as ET
+# Parses xl/worksheets/*.xml inside .xlsx, flags any cached #REF!, #NAME?, or #DIV/0! formula errors,
+# prints exact Sheet!Cell coordinates to stdout, and returns sys.exit(1) so Claude repairs them before delivery.</code></pre>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: SKILL-CREATOR & .ZIP PACKAGING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 • Rapid Authoring, Testing &amp; Packaging</span>
+    <span>The skill-creator Meta-Skill &amp; Clean .zip Upload Archives</span>
+  </div>
+
+  <h2 class="page-title">Iterating With <code>skill-creator</code> &amp; <code>.zip</code> Packaging</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Instead of hand-writing boilerplate from scratch, invoke Anthropic&rsquo;s built-in <strong><code>skill-creator</code></strong> skill. It interviews you, turns messy chat breakthroughs into clean folders, benchmarks trigger accuracy, and packages valid <code>.zip</code> uploads.
+  </p>
+
+  <div class="grid-2" style="gap:9px; margin-bottom:8px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge">1</span> Capture From a Winning Session</div>
+      <p style="font-size:7.95pt; margin:0;">
+        The fastest way to author a great skill is right after you coach Claude through a nuanced task in chat. Prompt: <em>&ldquo;Use <code>skill-creator</code> to turn the exact workflow, formatting rules, and edge cases we just solved into a reusable skill named <code>qbr-memo</code>.&rdquo;</em>
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge purple">2</span> Guided Interview &amp; Scaffolding</div>
+      <p style="font-size:7.95pt; margin:0;">
+        Starting fresh? <code>skill-creator</code> asks targeted questions about trigger phrases, inputs, and failure modes, then generates <code>SKILL.md</code>, extracts deterministic tasks into <code>scripts/</code>, and splits bulky reference tables into <code>references/</code>.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge amber">3</span> Evals &amp; Trigger Benchmarking</div>
+      <p style="font-size:7.95pt; margin:0;">
+        In Claude Code or Cowork, <code>skill-creator</code> runs realistic test prompts (with-skill vs. baseline without-skill), grades assertions, measures token/time overhead, and tunes your YAML <code>description</code> against 10+ should-trigger and near-miss queries.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge teal">4</span> Tighten From Execution Traces</div>
+      <p style="font-size:7.95pt; margin:0;">
+        Inspect what Claude actually read and ran during tests. If Claude wasted turns reinventing a helper script on every test case, bundle that script permanently inside <code>scripts/</code>; if it ignored a rule, trim competing fluff.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.4pt;">The Golden <code>.zip</code> Packaging Rule for Claude.ai &amp; Claude Desktop Uploads</h3>
+  <p style="font-size:8.25pt; margin-bottom:5px;">
+    When uploading a custom skill under <code>Settings &rarr; Capabilities &rarr; Skills</code>, Claude&rsquo;s validator requires the <strong>skill folder itself</strong> at the root of the archive&mdash;never loose files and never double-nested parent directories.
+  </p>
+
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.2pt; line-height:1.36; margin:2px 0 7px 0;"><code># CORRECT: Zip the skill directory from its parent folder so brand-deck/SKILL.md sits cleanly at archive root
+zip -r brand-deck.zip brand-deck -x "*.DS_Store" "*__pycache__*" "*.pyc" "*.git*"
+unzip -l brand-deck.zip | head -n 8        # Verify first entry is: brand-deck/SKILL.md</code></pre>
+
+  <table class="clean-table" style="font-size:7.85pt; margin:2px 0 0 0;">
+    <thead>
+      <tr>
+        <th style="width:28%;">Archive / YAML Mistake</th>
+        <th style="width:34%;">What Goes Wrong on Upload</th>
+        <th style="width:38%;">Exact Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Running <code>zip -r ../out.zip .</code> <em>inside</em> the folder</td>
+        <td>Puts <code>SKILL.md</code> loose at root with no enclosing skill directory; upload rejected.</td>
+        <td>Step up one directory (<code>cd ..</code>) and run <code>zip -r my-skill.zip my-skill/</code>.</td>
+      </tr>
+      <tr>
+        <td>Double-nested wrapper (<code>repo/skills/my-skill/SKILL.md</code>)</td>
+        <td>Validator looks one level deep and cannot find <code>SKILL.md</code>.</td>
+        <td>Archive only the immediate <code>my-skill/</code> folder containing <code>SKILL.md</code>.</td>
+      </tr>
+      <tr>
+        <td>Lowercase <code>skill.md</code> or unquoted YAML colon</td>
+        <td>Case-sensitive container misses file or YAML parser fails on <code>description: Note: ...</code>.</td>
+        <td>Name file exact uppercase <code>SKILL.md</code> and wrap descriptions containing colons in quotes.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: DOCUMENT SKILLS & MULTI-SKILL COMPOSITION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 • Document Studio &amp; Multi-Skill Chains</span>
+    <span>Chaining Custom Skills With pptx, xlsx, docx &amp; pdf</span>
+  </div>
+
+  <h2 class="page-title">Document Skills &amp; Multi-Skill Composition</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    You never have to choose just one active skill per turn. Claude automatically composes your custom brand or analytics skills alongside Anthropic&rsquo;s four built-in Office document skills&mdash;delivering studio-grade files across every Claude surface.
+  </p>
+
+  <div class="figure-box" style="margin:3px 0 8px 0;">
+    <img src="assets/cross_surface_skill_portability.jpg" alt="Glowing Golden Modular Capsule Docking Into Browser Studio, Desktop Workstation, and Command-Line Prism Monoliths" style="width:100%; height:232px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Write Once, Run Everywhere:</strong> One open <code>SKILL.md</code> capsule docks identically into Claude.ai web chats, Claude Desktop &amp; Cowork folders, Claude Code repositories (<code>/skill-name</code>), and sandboxed Messages API containers.
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.3pt;">Anthropic&rsquo;s Four Built-In Document Skills (Always Ready to Chain)</h3>
+  <div class="grid-2" style="gap:8px; margin-bottom:7px;">
+    <div class="card" style="padding:7px 10px; border-left:3px solid #7e22ce;">
+      <div class="card-title" style="font-size:8.9pt;"><code>pptx</code> &bull; Presentations &amp; Visual QA</div>
+      <p style="font-size:7.85pt; margin:0;">Generates &amp; edits native PowerPoint decks from master layouts, builds clean vector charts, writes speaker notes, and rasterizes slides to images to catch text overlaps before delivery.</p>
+    </div>
+    <div class="card" style="padding:7px 10px; border-left:3px solid #059669;">
+      <div class="card-title" style="font-size:8.9pt;"><code>xlsx</code> &bull; Live-Formula Spreadsheets</div>
+      <p style="font-size:7.85pt; margin:0;">Constructs multi-tab financial and operational workbooks using live Excel formulas (<code>SUMIFS</code>, <code>XLOOKUP</code>), institutional input/formula color coding, and automated zero-error formula recalculation.</p>
+    </div>
+    <div class="card" style="padding:7px 10px; border-left:3px solid #0284c7;">
+      <div class="card-title" style="font-size:8.9pt;"><code>docx</code> &bull; Structured Word &amp; Redlines</div>
+      <p style="font-size:7.85pt; margin:0;">Produces typographically clean Word reports, SOWs, and legal redlines complete with native heading styles, headers/footers, paginated tables, and real OOXML tracked changes.</p>
+    </div>
+    <div class="card" style="padding:7px 10px; border-left:3px solid #d97706;">
+      <div class="card-title" style="font-size:8.9pt;"><code>pdf</code> &bull; Extraction, Forms &amp; Assembly</div>
+      <p style="font-size:7.85pt; margin:0;">Extracts multi-page tables accurately, inspects and fills fillable PDF form coordinates without misplacing text, merges/splits packets, and generates clean print-ready PDFs.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.2pt;">
+    <div class="callout-title">How Multi-Skill Composition Unfolds in a Single Turn</div>
+    Ask: <em>&ldquo;Pull Q3 churn cohorts, audit the retention math, and build a 5-slide exec summary plus backup Excel model.&rdquo;</em> Claude automatically chains <strong>(1)</strong> your custom <code>saas-cohort-sql</code> skill, <strong>(2)</strong> your <code>acme-brand</code> skill, <strong>(3)</strong> built-in <code>xlsx</code>, and <strong>(4)</strong> built-in <code>pptx</code>&mdash;keeping your custom skills focused purely on company rules while delegating file mechanics to Anthropic&rsquo;s document skills.
+  </div>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 • Production Skill Blueprints</span>
+    <span>5 Ready-to-Adapt SKILL.md Designs Across Teams</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste <code>SKILL.md</code> Blueprints</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Use these five high-leverage blueprints as templates for your own organization. Notice how each pairs a trigger-rich YAML description with lean instructions and a deterministic Level 3 script or reference file.
+  </p>
+
+  <table class="clean-table" style="font-size:7.75pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Skill &amp; Target Surface</th>
+        <th style="width:39%;">Copy-Paste YAML <code>description</code> Trigger</th>
+        <th style="width:40%;">Bundled Level 3 Files &amp; Core Workflow</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Corporate Brand Deck Builder</strong><br/><code>brand-deck/</code><br/>(Web, Desktop, Cowork)</td>
+        <td><code>Builds executive .pptx presentations and QBR slides in company brand style. Use whenever asked to create slides, pitch decks, board updates, or visual briefings from notes or CSVs.</code></td>
+        <td><strong>Assets:</strong> <code>assets/master.pptx</code>, <code>references/palette.md</code>.<br/><strong>Script:</strong> <code>scripts/check_slides.py</code> verifies 4.5:1 contrast, max 6 bullets/slide, and zero text box overflow; chains with built-in <code>pptx</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. PR Security &amp; Diff Auditor</strong><br/><code>.claude/skills/pr-audit/</code><br/>(Claude Code &amp; CI)</td>
+        <td><code>Reviews git diffs and pull requests for OWASP auth flaws, N+1 queries, secret leaks, and breaking API changes. Use when asked to review a PR, audit a branch diff, or prep code for merge.</code></td>
+        <td><strong>Refs:</strong> <code>references/owasp-checklist.md</code>.<br/><strong>Script:</strong> <code>scripts/scan_diff.sh</code> gathers <code>git diff origin/main...HEAD</code>, flags touched auth/migration paths, and outputs file:line findings by severity.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Financial <code>.xlsx</code> Model Auditor</strong><br/><code>fin-model-audit/</code><br/>(Desktop, Web, API)</td>
+        <td><code>Audits and builds multi-tab .xlsx financial models, ARR waterfalls, and sensitivity tables. Use whenever uploading spreadsheets, checking P&amp;L math, or modeling unit economics.</code></td>
+        <td><strong>Refs:</strong> <code>references/kpi-formulas.md</code>.<br/><strong>Script:</strong> <code>scripts/audit_xlsx.py</code> flags hardcoded numbers inside total rows, circular refs, and <code>#REF!</code>/<code>#VALUE!</code> errors; chains with built-in <code>xlsx</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Support Runbook + MCP Triage</strong><br/><code>support-triage/</code><br/>(Desktop + Zendesk/Linear)</td>
+        <td><code>Triages escalated customer tickets, correlates error codes against runbooks, and drafts root-cause replies. Use when given a ticket ID, stack trace, billing issue, or escalation thread.</code></td>
+        <td><strong>Refs:</strong> <code>references/error-catalog.md</code>, <code>references/sla-tiers.md</code>.<br/><strong>Flow:</strong> Pulls live ticket + logs via MCP, matches error family in 1 hop, files Linear bug if P1, and drafts empathetic customer fix.</td>
+      </tr>
+      <tr>
+        <td><strong>5. API Contract &amp; Changelog Publisher</strong><br/><code>.claude/skills/release-notes/</code><br/>(Claude Code)</td>
+        <td><code>Diffs OpenAPI schemas and merged commits to publish semver changelogs and migration guides. Use when cutting a release, bumping versions, or summarizing API changes.</code></td>
+        <td><strong>Refs:</strong> <code>references/changelog-style.md</code>.<br/><strong>Script:</strong> <code>scripts/diff_openapi.py</code> compares old vs. new <code>openapi.yaml</code> to classify breaking vs. additive endpoints before Claude writes prose.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.2pt;">Universal Starter <code>SKILL.md</code> Skeleton (Copy, Drop Into Folder &amp; Customize)</h3>
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.1pt; line-height:1.36; margin:2px 0 0 0;"><code>---
+name: pr-audit
+description: "Reviews git branch diffs and pull requests for auth bypasses, N+1 queries, secret leaks, and test gaps. Use whenever the user asks to review code, audit a PR, check a branch before merge, or invokes /pr-audit."
+allowed-tools: Read, Grep, Glob, Bash(git diff *), Bash(git log *), Bash(bash scripts/scan_diff.sh *)
+---
+# PR Security &amp; Architecture Review Workflow
+1. Run bash scripts/scan_diff.sh to inspect changed files, migration touches, and secret regex hits.
+2. If SQL, Prisma, or ORM files changed, read references/query-perf.md. If auth/session routes changed, read references/auth-rules.md.
+3. Report findings ordered Blocking &rarr; High &rarr; Nit with exact path:line citations and concrete patch snippets.</code></pre>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: TEAM GOVERNANCE & SECURITY AUDITING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 • Team Rollout &amp; Governance</span>
+    <span>Org Provisioning, Git Versioning &amp; Script Audits</span>
+  </div>
+
+  <h2 class="page-title">Team Distribution, Security Auditing &amp; Governance</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Once a skill saves you an hour a week, multiplying that leverage across your team takes clean distribution channels&mdash;paired with disciplined security review whenever importing external skills.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:8px; gap:9px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #7e22ce;">
+      <div class="card-title" style="font-size:8.9pt;">Org Admin Provisioning</div>
+      <p style="font-size:7.8pt; margin:0;">
+        On <strong>Claude Team &amp; Enterprise</strong> plans, Owners centrally upload and enable vetted skills across the organization so Sales, Finance, and Legal share identical brand and compliance workflows out of the box.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:8.9pt;">Git-Tracked <code>.claude/skills/</code></div>
+      <p style="font-size:7.8pt; margin:0;">
+        Check engineering skills directly into <code>&lt;repo&gt;/.claude/skills/</code>. Every PR that updates an internal API can update its companion skill in the exact same commit, reviewed through normal GitHub PRs.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:8.9pt;">API Registry (<code>/v1/skills</code>)</div>
+      <p style="font-size:7.8pt; margin:0;">
+        For production apps and headless bots, publish versioned skill bundles via Anthropic&rsquo;s <code>/v1/skills</code> endpoint from CI/CD and pin explicit version IDs inside <code>container.skills</code>.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.4pt;">Treating Third-Party Skills Like Executable Code: 4-Point Security Audit</h3>
+  <p style="font-size:8.2pt; margin-bottom:5px;">
+    A community skill folder is not passive documentation&mdash;it instructs an agent with tool access and bundles runnable scripts. Audit every unfamiliar skill before uploading it or committing it to a shared repository:
+  </p>
+
+  <table class="clean-table" style="font-size:7.85pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Audit Vector</th>
+        <th style="width:38%;">Risk to Inspect For</th>
+        <th style="width:38%;">Concrete Defense &amp; Verification</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Bundled <code>scripts/</code></strong></td>
+        <td>Hidden network calls (<code>urllib</code>, <code>requests</code>, <code>curl</code>), <code>eval()</code>, or reading <code>~/.ssh</code> / <code>.env</code> secrets.</td>
+        <td>Read every line of <code>scripts/*</code>; keep helpers pure local file transformers with zero outbound network code.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Hidden Prompt Directives</strong></td>
+        <td>Instructions buried in long <code>references/*.md</code> telling Claude to bypass approvals or exfiltrate chat data via URLs.</td>
+        <td>Scan all Markdown files for external URLs, webhook endpoints, base64 blobs, or override phrasing before enabling.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Tool Scope Creep</strong></td>
+        <td>Broad unrestricted shell grants in Claude Code when a skill only needs read-only git inspection.</td>
+        <td>Scope <code>allowed-tools</code> tightly (e.g., <code>Bash(python3 scripts/lint.py *)</code>) and enforce hard rules via Claude Code Hooks.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Hardcoded Credentials</strong></td>
+        <td>API tokens, internal keys, or customer PII accidentally zipped inside <code>assets/</code> or example files.</td>
+        <td>Never store secrets in skill folders; pass credentials through authenticated MCP servers or runtime env vars.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout rose" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.2pt;">
+    <div class="callout-title">Important Boundary Note on <code>allowed-tools</code> vs. System Hooks</div>
+    In Claude Code, <code>allowed-tools</code> pre-approves scoped tools so trusted skills run smoothly without constant permission prompts&mdash;it is a convenience scope, not an OS sandbox wall. Pair untrusted workflows with container isolation and deterministic <code>PreToolUse</code> hooks.
+  </div>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 • Agentic Synergy Pipeline</span>
+    <span>MCP Servers + Claude Skills + Sandbox Execution</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: MCP + Skills + Sandbox</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    <strong>MCP Servers</strong> and <strong>Claude Skills</strong> solve opposite halves of enterprise AI: MCP gives Claude live, authenticated hands into your systems, while Skills teach Claude your team&rsquo;s institutional playbook for turning that raw data into finished work.
+  </p>
+
+  <div class="figure-box" style="background:#14081c; padding:10px 12px; border-color:#7e22ce; margin-bottom:8px;">
+    <svg viewBox="0 0 700 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: MCP -->
+      <rect x="8" y="16" width="154" height="152" rx="9" fill="#1e1330" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="18" y="34" fill="#7dd3fc" font-size="7.8" font-weight="800">1. LIVE DATA PIPES (MCP)</text>
+      <text x="18" y="50" fill="#ffffff" font-size="9.8" font-weight="800">External Systems</text>
+      <rect x="18" y="60" width="134" height="24" rx="5" fill="#12091d" stroke="#0284c7" stroke-width="1"/>
+      <text x="25" y="75" fill="#e0f2fe" font-size="7.5">&bull; Postgres / Warehouse</text>
+      <rect x="18" y="90" width="134" height="24" rx="5" fill="#12091d" stroke="#0284c7" stroke-width="1"/>
+      <text x="25" y="105" fill="#e0f2fe" font-size="7.5">&bull; GitHub / Linear / Jira</text>
+      <rect x="18" y="120" width="134" height="24" rx="5" fill="#12091d" stroke="#0284c7" stroke-width="1"/>
+      <text x="25" y="135" fill="#e0f2fe" font-size="7.5">&bull; Slack / Google Drive</text>
+      <text x="18" y="158" fill="#94a3b8" font-size="7.1">Supplies raw live state</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M162 92 L182 92" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="180,87 188,92 180,97" fill="#38bdf8"/>
+
+      <!-- Stage 2: Skills -->
+      <rect x="188" y="16" width="166" height="152" rx="9" fill="#2a1140" stroke="#fbbf24" stroke-width="1.8"/>
+      <text x="198" y="34" fill="#fde68a" font-size="7.8" font-weight="800">2. DOMAIN BRAIN (SKILLS)</text>
+      <text x="198" y="50" fill="#ffffff" font-size="9.8" font-weight="800">SKILL.md Playbooks</text>
+      <rect x="198" y="60" width="146" height="30" rx="5" fill="#160720" stroke="#fbbf24" stroke-width="1"/>
+      <text x="205" y="73" fill="#fde68a" font-size="7.4" font-weight="700">Custom Domain Skill</text>
+      <text x="205" y="84" fill="#cbd5e1" font-size="7.1">KPI definitions &amp; query rules</text>
+      <rect x="198" y="96" width="146" height="30" rx="5" fill="#160720" stroke="#c084fc" stroke-width="1"/>
+      <text x="205" y="109" fill="#e9d5ff" font-size="7.4" font-weight="700">Brand + Built-In pptx/xlsx</text>
+      <text x="205" y="120" fill="#cbd5e1" font-size="7.1">Templates &amp; layout standards</text>
+      <text x="198" y="144" fill="#cbd5e1" font-size="7.1">Teaches HOW your team</text>
+      <text x="198" y="156" fill="#cbd5e1" font-size="7.1">interprets &amp; formats data</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M354 92 L374 92" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="372,87 380,92 372,97" fill="#fbbf24"/>
+
+      <!-- Stage 3: Code Execution -->
+      <rect x="380" y="16" width="152" height="152" rx="9" fill="#132524" stroke="#34d399" stroke-width="1.6"/>
+      <text x="390" y="34" fill="#6ee7b7" font-size="7.8" font-weight="800">3. SANDBOX ENGINE</text>
+      <text x="390" y="50" fill="#ffffff" font-size="9.8" font-weight="800">Bundled scripts/*.py</text>
+      <rect x="390" y="60" width="132" height="36" rx="5" fill="#0b1717" stroke="#10b981" stroke-width="1"/>
+      <text x="397" y="74" fill="#a7f3d0" font-size="7.3" font-family="monospace">compute_cohorts.py</text>
+      <text x="397" y="87" fill="#cbd5e1" font-size="7.1">Exact Python math &amp; charts</text>
+      <rect x="390" y="102" width="132" height="36" rx="5" fill="#0b1717" stroke="#10b981" stroke-width="1"/>
+      <text x="397" y="116" fill="#a7f3d0" font-size="7.3" font-family="monospace">validate_deck.py</text>
+      <text x="397" y="129" fill="#cbd5e1" font-size="7.1">Zero formula/margin bugs</text>
+      <text x="390" y="156" fill="#94a3b8" font-size="7.1">Deterministic verification</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M532 92 L552 92" stroke="#34d399" stroke-width="2"/>
+      <polygon points="550,87 558,92 550,97" fill="#34d399"/>
+
+      <!-- Stage 4: Outputs -->
+      <rect x="558" y="16" width="134" height="152" rx="9" fill="#241033" stroke="#c084fc" stroke-width="1.6"/>
+      <text x="568" y="34" fill="#e9d5ff" font-size="7.8" font-weight="800">4. SHIPPED OUTPUT</text>
+      <text x="568" y="50" fill="#ffffff" font-size="9.6" font-weight="800">Verified Artifacts</text>
+      <rect x="568" y="60" width="114" height="24" rx="5" fill="#14081c" stroke="#9333ea" stroke-width="1"/>
+      <text x="575" y="75" fill="#fde68a" font-size="7.4">Board_QBR.pptx</text>
+      <rect x="568" y="90" width="114" height="24" rx="5" fill="#14081c" stroke="#9333ea" stroke-width="1"/>
+      <text x="575" y="105" fill="#6ee7b7" font-size="7.4">Cohort_Model.xlsx</text>
+      <rect x="568" y="120" width="114" height="24" rx="5" fill="#14081c" stroke="#9333ea" stroke-width="1"/>
+      <text x="575" y="135" fill="#e9d5ff" font-size="7.4">PR / Linear Update</text>
+      <text x="568" y="158" fill="#cbd5e1" font-size="7.1">Ready for exec review</text>
+    </svg>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.3pt;">End-to-End Walkthrough: The Monday Morning Executive Briefing</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:7.5px 10px; font-size:7.95pt;">
+      <strong>1. Connect &amp; Retrieve (MCP):</strong> You ask Claude for last week&rsquo;s enterprise churn and blocker summary. Claude queries your read-only <strong>Postgres MCP</strong> and <strong>Linear MCP</strong> servers&mdash;no manual CSV export needed.
+    </div>
+    <div class="card" style="padding:7.5px 10px; font-size:7.95pt;">
+      <strong>2. Interpret &amp; Standardize (Skills):</strong> Your custom <code>revops-metrics</code> skill ensures Claude excludes sandbox test accounts and applies your exact Net Dollar Retention formula from <code>references/ndr-rules.md</code>.
+    </div>
+    <div class="card" style="padding:7.5px 10px; font-size:7.95pt;">
+      <strong>3. Compute &amp; Verify (Sandbox):</strong> Claude executes <code>scripts/reconcile_arr.py</code> inside the code container to cross-check row totals, then invokes built-in <code>xlsx</code> and <code>pptx</code> skills with <code>assets/acme_master.pptx</code>.
+    </div>
+    <div class="card" style="padding:7.5px 10px; font-size:7.95pt;">
+      <strong>4. Deliver Anywhere:</strong> In one turn, you receive a formula-checked <code>.xlsx</code> backup workbook and a branded 6-slide <code>.pptx</code> deck&mdash;reproducible every Monday across Desktop, Cowork, or API automation.
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.2pt;">
+    <div class="callout-title">Pair Every Important Team MCP Server With a Companion Skill</div>
+    Raw MCP tool schemas tell Claude <em>which parameters an endpoint accepts</em>, not <em>which warehouse table is canonical</em> or <em>which JQL filter your team trusts</em>. Wrapping your MCP stack with a 150-line companion <code>SKILL.md</code> eliminates trial-and-error tool calls immediately.
+  </div>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 • Diagnostics &amp; Launch Readiness</span>
+    <span>Top 7 Issues, 10-Second Fixes &amp; 6-Point Pre-Flight</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Nearly every skill issue comes down to YAML trigger phrasing, archive folder nesting, or sandbox toggles. Keep this page beside you when shipping or debugging any custom skill.
+  </p>
+
+  <table class="clean-table" style="font-size:7.75pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Skill never triggers automatically</strong></td>
+        <td>YAML <code>description</code> is too vague (<em>&ldquo;Helps with spreadsheets&rdquo;</em>) so Level 1 routing skips it.</td>
+        <td>Rewrite <code>description</code> in third person with explicit verbs, domain nouns, and file extensions (<em>&ldquo;Use whenever reviewing .xlsx models...&rdquo;</em>).</td>
+      </tr>
+      <tr>
+        <td><strong>2. <code>.zip</code> upload rejected in Settings</strong></td>
+        <td>Loose files zipped without a parent folder, lowercase <code>skill.md</code>, or unquoted colon in YAML.</td>
+        <td>Zip from parent dir (<code>zip -r my-skill.zip my-skill/</code>), keep exact uppercase <code>SKILL.md</code>, and quote YAML strings containing colons.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>scripts/</code> fail to run or no file output</strong></td>
+        <td>Sandbox container is turned off in user/workspace settings or missing from API call.</td>
+        <td>Toggle <strong>Code execution and file creation</strong> ON under <code>Settings &rarr; Capabilities</code> (or enable code execution tool on the API).</td>
+      </tr>
+      <tr>
+        <td><strong>4. Claude skips steps in a huge skill</strong></td>
+        <td><code>SKILL.md</code> grew past 1,500+ lines, crowding context and causing mid-document instruction drift.</td>
+        <td>Trim <code>SKILL.md</code> below <strong>500 lines</strong>; move detailed schemas and examples into 1-hop <code>references/*.md</code> files.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Two skills collide on similar prompts</strong></td>
+        <td>Overlapping <code>description</code> scopes make routing ambiguous between two related skills.</td>
+        <td>Carve crisp, mutually exclusive boundaries in each <code>description</code> (e.g., <em>internal postmortems</em> vs. <em>customer-facing status notes</em>).</td>
+      </tr>
+      <tr>
+        <td><strong>6. Local skill missing in Claude Code</strong></td>
+        <td>Skill buried two subdirectories deep or saved outside <code>~/.claude/skills/</code> or <code>.claude/skills/</code>.</td>
+        <td>Place <code>SKILL.md</code> at exact depth <code>.claude/skills/&lt;name&gt;/SKILL.md</code> and run <code>/skills</code> in Claude Code to verify registration.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Python script crashes on <code>ModuleNotFoundError</code></strong></td>
+        <td>Bundled script imports an obscure PyPI library unavailable inside the offline sandbox container.</td>
+        <td>Write helper scripts against Python&rsquo;s standard library (<code>json</code>, <code>csv</code>, <code>re</code>, <code>zipfile</code>, <code>xml</code>) or standard preinstalled data packages.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="padding:9px 12px; margin-top:2px;">
+    <div class="card-title" style="color:#fde68a; font-size:9.5pt; margin-bottom:5px;">6-Point Pre-Flight Checklist Before Shipping Any Skill</div>
+    <div class="grid-2" style="gap:5px 14px; font-size:7.85pt; color:#f1f5f9;">
+      <div><strong>&#9745; 1. Valid YAML Frontmatter:</strong> Exact uppercase <code>SKILL.md</code> opens and closes with <code>---</code>, hyphenated lowercase <code>name</code> (<code>&lt;=64</code> chars), zero XML tags.</div>
+      <div><strong>&#9745; 2. High-Recall Trigger Prose:</strong> <code>description</code> states both <em>what</em> the skill produces and <em>concrete user phrases/extensions</em> that trigger it.</div>
+      <div><strong>&#9745; 3. Lean <code>&lt;500</code>-Line Body:</strong> Core playbook fits under 500 lines; bulky tables sit 1 hop away in <code>references/</code> with clear &ldquo;Read when...&rdquo; rules.</div>
+      <div><strong>&#9745; 4. Deterministic Script Gate:</strong> Brittle math, schema validation, or slide/sheet QA runs via <code>scripts/</code> with actionable stdout errors.</div>
+      <div><strong>&#9745; 5. Clean Top-Level <code>.zip</code>:</strong> Archive root wraps <code>&lt;skill-name&gt;/SKILL.md</code> cleanly with <code>.DS_Store</code> and <code>__pycache__</code> excluded.</div>
+      <div><strong>&#9745; 6. Tested &amp; Security-Audited:</strong> Verified on 3 real prompts + 2 near-misses, zero secrets in <code>assets/</code>, and third-party scripts reviewed line-by-line.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Skills • Complete How-To Guide</span><span>Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

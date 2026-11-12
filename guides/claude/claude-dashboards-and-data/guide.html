@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claude Dashboards &amp; Claude Data: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">ANTHROPIC CLAUDE &amp; WORKSPACE STUDIOS &bull; FIELD GUIDE</div>
+    <h1>Claude Dashboards <span>&amp; Claude Data</span></h1>
+    <p class="cover-sub">
+      Connecting warehouses and CRMs to natural-language analytics&mdash;building auditable SQL charts, Certified Queries, Scrollytellers, Visual Shorts, and credential-safe live team shares.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Snowflake &bull; BigQuery &bull; Redshift</span>
+      <span class="cover-badge">ClickHouse &bull; Databricks &bull; CRM</span>
+      <span class="cover-badge">Auditable SQL &amp; Timestamps</span>
+      <span class="cover-badge">Certified Queries</span>
+      <span class="cover-badge">Scrollytellers &amp; Visual Shorts</span>
+      <span class="cover-badge">Credential-Safe Live Sharing</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Architectural Data Observatory Feeding Crystal Warehouse Streams into a Holographic Cobalt and Gold Dashboard Mosaic with an Emerald Verification Seal" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Plain English to Live SQL</div>
+      <div class="cover-stat-desc">Ask business questions in natural language while Claude inspects warehouse schemas, executes real SQL, and renders interactive charts.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">100% Auditable Metrics</div>
+      <div class="cover-stat-desc">Every tile exposes its exact SQL query, refresh timestamp, and Certified Query badge so numbers never drift across teams.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Dashboards to Data Stories</div>
+      <div class="cover-stat-desc">Turn any live board into a scrolling narrative Scrollyteller, a narrated Visual Short, or a governed BI workbook in one prompt.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Architecture</span>
+    <span>Claude Dashboards &amp; Data</span>
+  </div>
+
+  <h2 class="page-title">From Claude Dashboards to Claude Data</h2>
+  <p class="page-lead">
+    Traditional self-serve business intelligence either traps business teams in multi-week ticket queues or lets unvetted AI prompts invent conflicting SQL numbers. <strong>Claude Data</strong> (introduced in beta as <em>Claude Dashboards</em>) bridges that gap by pairing conversational warehouse exploration with auditable SQL, semantic governance, and narrative storytelling formats.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model &amp; Claude Data Architecture</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Scrollytellers, Visual Shorts &amp; BI Exports</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Plans, Connectors &amp; 4-Format Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Analytics &amp; Story Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Claude Data Studio UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Credential-Safe Live Sharing &amp; Governance</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Warehouses, Semantic MCP &amp; SQL Audit</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Analytics Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Iterative Building &amp; Prompt Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Certified Queries: Ending Metric Drift</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Never Ship Uninspected SQL</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Why Auditable SQL + Semantic Governance Beat Black-Box Charts</h3>
+  <p style="font-size:8.8pt;">
+    When you ask a generic chatbot to analyze a CSV paste, hallucinations hide inside static images and stale snapshots. Inside <strong>Claude Data</strong>, Claude never guesses arithmetic in token memory: it discovers your connected schema, checks your organization&rsquo;s <strong>Certified Queries</strong> and semantic MCP layer, runs deterministic SQL against your warehouse, stamps every visual with a refresh timestamp, and lets you pivot the exact same verified dataset into four distinct presentation formats.
+  </p>
+
+  <h3>Architecture: Warehouses &amp; Semantic Layers &rarr; Claude Data &rarr; 4 Native Formats</h3>
+  <div class="figure-box" style="background:#061026; padding:10px 12px; border-color:#1e3a8a;">
+    <svg viewBox="0 0 700 194" width="100%" height="194" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left Column: Connected Warehouses & Semantic MCP -->
+      <rect x="8" y="12" width="206" height="170" rx="9" fill="#0b1b3d" stroke="#3b82f6" stroke-width="1.6"/>
+      <text x="18" y="30" fill="#93c5fd" font-size="7.9" font-weight="700">1. CONNECTED SOURCES &amp; SEMANTIC MCP</text>
+      <text x="18" y="46" fill="#ffffff" font-size="10.2" font-weight="800">Warehouses, CRMs &amp; Models</text>
+      <rect x="18" y="55" width="186" height="54" rx="6" fill="#0f2552" stroke="#2563eb" stroke-width="1"/>
+      <text x="26" y="69" fill="#bfdbfe" font-size="7.9" font-weight="700">Cloud Data Warehouses (Read-Only)</text>
+      <text x="26" y="82" fill="#cbd5e1" font-size="7.4">&bull; Snowflake &bull; BigQuery &bull; Amazon Redshift</text>
+      <text x="26" y="94" fill="#cbd5e1" font-size="7.4">&bull; ClickHouse &bull; Databricks SQL</text>
+      <text x="26" y="104" fill="#94a3b8" font-size="7.1">Scoped OAuth / least-privilege analyst role</text>
+      <rect x="18" y="116" width="186" height="56" rx="6" fill="#0d293e" stroke="#0ea5e9" stroke-width="1"/>
+      <text x="26" y="130" fill="#7dd3fc" font-size="7.9" font-weight="700">CRMs &amp; Semantic MCP Servers</text>
+      <text x="26" y="143" fill="#cbd5e1" font-size="7.4">&bull; Salesforce Pipeline &amp; Account Objects</text>
+      <text x="26" y="155" fill="#cbd5e1" font-size="7.4">&bull; Lightdash MCP &amp; dbt Semantic Layer</text>
+      <text x="26" y="166" fill="#6ee7b7" font-size="7.1">Canonical joins, dimensions &amp; definitions</text>
+
+      <!-- Arrows Left to Center -->
+      <path d="M214 82 L246 82" stroke="#60a5fa" stroke-width="2"/>
+      <polygon points="244,77 252,82 244,87" fill="#60a5fa"/>
+      <path d="M214 144 L246 144" stroke="#34d399" stroke-width="2"/>
+      <polygon points="244,139 252,144 244,149" fill="#34d399"/>
+
+      <!-- Center Column: Claude Data Engine -->
+      <rect x="252" y="12" width="196" height="170" rx="10" fill="#091938" stroke="#60a5fa" stroke-width="2"/>
+      <text x="350" y="30" text-anchor="middle" fill="#93c5fd" font-size="7.9" font-weight="700">2. CLAUDE DATA ENGINE</text>
+      <text x="350" y="46" text-anchor="middle" fill="#ffffff" font-size="10.8" font-weight="800">Governed SQL Studio</text>
+      <rect x="264" y="55" width="172" height="32" rx="5" fill="#102a5c" stroke="#3b82f6" stroke-width="1"/>
+      <text x="350" y="69" text-anchor="middle" fill="#dbeafe" font-size="7.8" font-weight="700">Schema &amp; Lineage Discovery</text>
+      <text x="350" y="81" text-anchor="middle" fill="#94a3b8" font-size="7.1">Inspects tables, types &amp; partition keys</text>
+      <rect x="264" y="93" width="172" height="36" rx="5" fill="#064e3b" stroke="#10b981" stroke-width="1.2"/>
+      <text x="350" y="108" text-anchor="middle" fill="#a7f3d0" font-size="8" font-weight="700">Certified Queries Registry</text>
+      <text x="350" y="121" text-anchor="middle" fill="#d1fae5" font-size="7.1">Vetted ARR, NDR &amp; KPI SQL definitions</text>
+      <rect x="264" y="135" width="172" height="37" rx="5" fill="#172554" stroke="#60a5fa" stroke-width="1"/>
+      <text x="350" y="149" text-anchor="middle" fill="#bfdbfe" font-size="7.8" font-weight="700">SQL Execution + Audit Drawer</text>
+      <text x="350" y="162" text-anchor="middle" fill="#cbd5e1" font-size="7.1">Full query text + UTC refresh timestamp</text>
+
+      <!-- Arrows Center to Right -->
+      <path d="M448 72 L480 72" stroke="#60a5fa" stroke-width="2"/>
+      <polygon points="478,67 486,72 478,77" fill="#60a5fa"/>
+      <path d="M448 148 L480 148" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="478,143 486,148 478,153" fill="#f59e0b"/>
+
+      <!-- Right Column: 4 Native Formats + BI Handoffs -->
+      <rect x="486" y="12" width="206" height="170" rx="9" fill="#0b1b3d" stroke="#f59e0b" stroke-width="1.6"/>
+      <text x="496" y="30" fill="#fcd34d" font-size="7.9" font-weight="700">3. OUTPUTS &amp; ECOSYSTEM HANDOFF</text>
+      <text x="496" y="46" fill="#ffffff" font-size="10.2" font-weight="800">4 Formats + BI Push</text>
+      <rect x="496" y="55" width="186" height="74" rx="6" fill="#13264e" stroke="#3b82f6" stroke-width="1"/>
+      <text x="504" y="69" fill="#ffffff" font-size="7.7" font-weight="700">&bull; Interactive Dashboards (Filters/KPIs)</text>
+      <text x="504" y="83" fill="#fde68a" font-size="7.7" font-weight="700">&bull; Scrollytellers (Narrative Web Story)</text>
+      <text x="504" y="97" fill="#93c5fd" font-size="7.7" font-weight="700">&bull; Visual Shorts (Narrated Video Walk)</text>
+      <text x="504" y="111" fill="#cbd5e1" font-size="7.7" font-weight="700">&bull; Visual Analyses / Executive Letters</text>
+      <text x="504" y="123" fill="#6ee7b7" font-size="7.1">Shared via Credential-Safe Live Sharing</text>
+      <rect x="496" y="135" width="186" height="37" rx="6" fill="#241b15" stroke="#f59e0b" stroke-width="1"/>
+      <text x="504" y="149" fill="#fcd34d" font-size="7.7" font-weight="700">Enterprise BI &amp; Product Handoffs</text>
+      <text x="504" y="162" fill="#e2e8f0" font-size="7.1">Send to Sigma &bull; Hex &bull; Grafana &bull; Omni</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Core Mental Model: Prototype at Conversation Speed, Govern with Warehouse Discipline</div>
+    Treat Claude Data as your unified exploration and communication layer on top of existing warehouse truth. Start with natural language to slice cohorts in seconds, verify the generated SQL and green <strong>Certified</strong> badge, then share live or hand off to Sigma, Hex, or Grafana when permanent operational apps are needed.
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: PLANS, CONNECTORS & OUTPUT FORMAT MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Plans, Connectors &amp; Formats</span>
+    <span>Tiers, Warehouse Setup &amp; 4-Format Matrix</span>
+  </div>
+
+  <h2 class="page-title">Plans, Connectors &amp; Output Format Decision Matrix</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Claude Data runs across paid Claude tiers while scaling governance controls for multi-team organizations. Matching the right connection pattern and output format upfront saves hours of rework.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px; gap:10px;">
+    <div class="card" style="padding:8px 11px; border-top:3px solid #1d4ed8;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Availability by Claude Plan Tier</div>
+      <ul style="font-size:8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Pro &amp; Max:</strong> Full access to personal warehouse/MCP connectors, interactive dashboards, Scrollytellers, Visual Shorts, and Visual Analyses for individual analytical workflows.</li>
+        <li><strong>Team:</strong> Adds workspace-scoped Live Sharing so teammates view refreshed dashboards without sharing database passwords, plus shared project metric context.</li>
+        <li><strong>Enterprise:</strong> Unlocks organization-wide <strong>Certified Queries</strong> registries, Admin connector allowlists, SSO/OAuth enforcement, audit logs, and governed BI partner handoffs.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 11px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge emerald">2</span> Three Safe Ways to Connect Data</div>
+      <ol style="font-size:8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Native Warehouse Connectors:</strong> Authenticate Snowflake, BigQuery, Redshift, ClickHouse, or Databricks using OAuth or a dedicated <code>CLAUDE_READONLY</code> analytical role.</li>
+        <li><strong>Connected SaaS Apps:</strong> Link Salesforce via OAuth so Claude queries live Opportunity, Account, and Stage History objects respecting CRM permissions.</li>
+        <li><strong>Semantic MCP Servers:</strong> Attach Lightdash MCP, dbt Semantic Layer, or <code>mcp-grafana</code> so Claude inherits pre-modeled joins and KPI formulas automatically.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.5pt;">Claude Data 4-Format Decision Matrix: Choosing the Right Deliverable</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:3px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Native Output Format</th>
+        <th style="width:24%;">Primary Audience &amp; Cadence</th>
+        <th style="width:33%;">What Claude Builds Automatically</th>
+        <th style="width:23%;">Best Moment to Use It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Interactive Dashboard</strong></td>
+        <td>Operators, PMs, RevOps &amp; weekly KPI standups</td>
+        <td>Multi-tile KPI cards, time-series &amp; cohort charts, dropdown filters, refresh button, and expandable SQL drawer.</td>
+        <td>Ongoing self-serve monitoring where viewers slice regions, plans, or date windows.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Scrollyteller</strong><br/><em>(Narrative Web Story)</em></td>
+        <td>Board members, leadership &amp; cross-functional launches</td>
+        <td>A magazine-style scrolling story where chapters of crisp prose trigger coordinated chart transitions and callouts.</td>
+        <td>Monthly business reviews or postmortems where <em>why</em> a metric moved matters most.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Visual Short</strong><br/><em>(Narrated Video)</em></td>
+        <td>Slack channels, async global teams &amp; all-hands</td>
+        <td>A 60&ndash;90 second animated, voice-narrated walkthrough highlighting headline deltas, anomalies, and next actions.</td>
+        <td>Monday morning metric digests when busy stakeholders will not open a full BI tool.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Visual Analysis / Letter</strong></td>
+        <td>Founders, finance leads &amp; investment memos</td>
+        <td>An executive brief weaving concise analytical paragraphs with inline proof charts, variance tables, and SQL citations.</td>
+        <td>Decision memos (pricing changes, QBRs) requiring rigorous written argumentation.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.5pt;">When to Stay in Claude Data vs. Push Deeper into Specialized BI Tools</h3>
+  <div class="grid-3" style="gap:9px; margin-bottom:5px;">
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.6pt; color:#1d4ed8;">Sigma &amp; Omni</div>
+      <p style="font-size:7.75pt; margin:0;">Use <strong>Send to Sigma</strong> or export to <strong>Omni</strong> when a prototype needs spreadsheet-grid writeback, complex row-level multi-tenant embedding, or permanent governed workbooks.</p>
+    </div>
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.6pt; color:#059669;">Hex &amp; Databricks</div>
+      <p style="font-size:7.75pt; margin:0;">Push SQL into <strong>Hex</strong> when data scientists need Python cells, scikit-learn forecasting, Monte Carlo simulations, or multi-cell reactive notebooks alongside SQL.</p>
+    </div>
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.6pt; color:#d97706;">Grafana &bull; Amplitude &bull; Mixpanel &bull; PostHog</div>
+      <p style="font-size:7.75pt; margin:0;">Keep sub-minute infra alerting in <strong>Grafana</strong>, and deep session-replay or client SDK funnel experimentation in <strong>Amplitude, Mixpanel, or PostHog</strong>.</p>
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.3pt;">
+    <div class="callout-title">One Dataset, Instant Format Switching</div>
+    You never have to re-query your warehouse to change formats. Build and verify an <strong>Interactive Dashboard</strong> first, confirm the SQL and numbers are exact, then prompt: <em>&ldquo;Turn this verified dashboard into a 4-chapter Scrollyteller and a 75-second Visual Short for #exec-weekly.&rdquo;</em>
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Inside the Claude Data &amp; Dashboards Studio</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Claude Data &amp; Dashboard Studio</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Claude Data splits your workspace into a conversational analyst thread on the left and a live, auditable artifact canvas on the right&mdash;complete with interactive filters, Certified Query badges, SQL inspection, and credential-safe sharing.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#dbeafe;">Claude Data Studio &mdash; Q4 SaaS Net Retention &amp; Expansion Board</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:7px; font-size:7.2pt;">
+        <span style="background:#0f2552; border:1px solid #3b82f6; padding:2px 7px; border-radius:4px; color:#bfdbfe;"><strong>Format:</strong> Dashboard &bull; Scrollyteller &bull; Visual Short <span class="callout-pin">6</span></span>
+        <span style="background:#064e3b; border:1px solid #10b981; padding:2px 7px; border-radius:4px; color:#a7f3d0;">Live Share (View-Only Creds) <span class="callout-pin">7</span></span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 34% 66%; min-height:292px;">
+      <!-- Left Pane: Conversational Analytics Prompt & Connector Status -->
+      <div style="padding:9px 10px; border-right:1px solid #1e3a8a; background:#07132c; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size:7pt; color:#93c5fd; font-weight:700; text-transform:uppercase; margin-bottom:4px;">
+            Active Connectors <span class="callout-pin">1</span>
+          </div>
+          <div style="background:#0b1b3d; border:1px solid #1e3a8a; border-radius:6px; padding:5px 7px; margin-bottom:8px; font-size:7.1pt;">
+            <div style="color:#6ee7b7; font-weight:700;">&bull; Snowflake: PROD_ANALYTICS_RO</div>
+            <div style="color:#93c5fd;">&bull; Lightdash Semantic MCP (48 metrics)</div>
+            <div style="color:#cbd5e1;">&bull; Salesforce CRM (Read-Only OAuth)</div>
+          </div>
+
+          <div style="background:#10244d; border:1px solid #2563eb; border-radius:7px; padding:6px 8px; margin-bottom:7px; font-size:7.2pt; color:#e2e8f0;">
+            <div style="color:#93c5fd; font-weight:700; margin-bottom:2px;">You asked:</div>
+            Build our Q4 SaaS Executive Retention Board using Certified <code>net_dollar_retention</code> and <code>ending_arr</code> by segment and signup cohort. Add region &amp; plan filters and flag churn spikes.
+          </div>
+
+          <div style="background:#091938; border-left:3px solid #10b981; padding:6px 8px; border-radius:4px; font-size:7.1pt; color:#cbd5e1;">
+            <div style="color:#a7f3d0; font-weight:700; margin-bottom:2px;">Claude Data matched 2 Certified Queries:</div>
+            Executed <code>cert_saas_arr_monthly</code> (1.4s) &amp; <code>cert_cohort_ndr</code> (1.9s) in UTC. Excluded internal sandbox orgs automatically.
+          </div>
+        </div>
+
+        <div style="background:#0b1b3d; border:1px solid #334155; border-radius:6px; padding:5px 7px; font-size:7pt; color:#94a3b8;">
+          Follow-up: &ldquo;Break out EMEA Enterprise vs. Mid-Market or convert to Scrollyteller...&rdquo;
+        </div>
+      </div>
+
+      <!-- Right Pane: Live Dashboard Canvas -->
+      <div style="padding:9px 11px; background:#040b1a; display:flex; flex-direction:column; justify-content:space-between;">
+        <!-- Filter Bar + Certified Badge -->
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; gap:6px;">
+            <div style="display:flex; gap:5px; align-items:center; font-size:7pt;">
+              <span style="background:#0f2552; border:1px solid #2563eb; padding:2.5px 6px; border-radius:4px; color:#e2e8f0;">Region: <strong>All Regions &#9662;</strong></span>
+              <span style="background:#0f2552; border:1px solid #2563eb; padding:2.5px 6px; border-radius:4px; color:#e2e8f0;">Tier: <strong>Enterprise + Pro &#9662;</strong></span>
+              <span style="background:#0f2552; border:1px solid #2563eb; padding:2.5px 6px; border-radius:4px; color:#e2e8f0;">Window: <strong>Last 12M (UTC)</strong> <span class="callout-pin">2</span></span>
+            </div>
+            <div style="background:#064e3b; border:1px solid #10b981; color:#a7f3d0; padding:2.5px 7px; border-radius:999px; font-size:7pt; font-weight:700;">
+              &#10003; Certified Query <span class="callout-pin">4</span>
+            </div>
+          </div>
+
+          <!-- KPI Row -->
+          <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:7px; margin-bottom:8px;">
+            <div style="background:#0b1b3d; border:1px solid #1e3a8a; border-radius:6px; padding:6px 8px;">
+              <div style="font-size:6.8pt; color:#94a3b8;">ENDING ARR (CERTIFIED)</div>
+              <div style="font-size:12pt; font-weight:800; color:#ffffff;">$48.6M <span style="font-size:7.2pt; color:#34d399;">+18.4% YoY</span></div>
+            </div>
+            <div style="background:#0b1b3d; border:1px solid #1e3a8a; border-radius:6px; padding:6px 8px;">
+              <div style="font-size:6.8pt; color:#94a3b8;">NET DOLLAR RETENTION</div>
+              <div style="font-size:12pt; font-weight:800; color:#60a5fa;">116.2% <span style="font-size:7.2pt; color:#34d399;">+2.1 pts</span></div>
+            </div>
+            <div style="background:#0b1b3d; border:1px solid #1e3a8a; border-radius:6px; padding:6px 8px;">
+              <div style="font-size:6.8pt; color:#94a3b8;">LOGO CHURN ANOMALY</div>
+              <div style="font-size:11.5pt; font-weight:800; color:#fbbf24;">SMB Cohort M3 <span class="callout-pin">3</span></div>
+            </div>
+          </div>
+
+          <!-- Simulated Cohort Bar / Retention Chart -->
+          <div style="background:#081530; border:1px solid #1e3a8a; border-radius:6px; padding:7px 9px; margin-bottom:7px;">
+            <div style="display:flex; justify-content:space-between; gap:8px; font-size:7pt; color:#cbd5e1; margin-bottom:5px;">
+              <strong>Net Retention by Quarterly Cohort</strong>
+              <span style="color:#93c5fd;">Hover interactive tooltips &bull; Version v4</span>
+            </div>
+            <svg viewBox="0 0 400 72" width="100%" height="72" xmlns="http://www.w3.org/2000/svg">
+              <line x1="28" y1="12" x2="390" y2="12" stroke="#1e293b" stroke-width="1"/>
+              <line x1="28" y1="36" x2="390" y2="36" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 2"/>
+              <line x1="28" y1="60" x2="390" y2="60" stroke="#334155" stroke-width="1"/>
+              <text x="2" y="15" fill="#94a3b8" font-size="7">125%</text>
+              <text x="2" y="39" fill="#94a3b8" font-size="7">100%</text>
+              <text x="6" y="62" fill="#94a3b8" font-size="7">80%</text>
+              <!-- Bars -->
+              <rect x="48" y="20" width="36" height="40" rx="3" fill="#2563eb"/>
+              <rect x="108" y="16" width="36" height="44" rx="3" fill="#3b82f6"/>
+              <rect x="168" y="13" width="36" height="47" rx="3" fill="#60a5fa"/>
+              <rect x="228" y="24" width="36" height="36" rx="3" fill="#f59e0b"/>
+              <rect x="288" y="11" width="36" height="49" rx="3" fill="#10b981"/>
+              <rect x="342" y="9" width="36" height="51" rx="3" fill="#34d399"/>
+              <!-- Trend Polyline -->
+              <polyline points="66,22 126,18 186,15 246,26 306,13 360,10" fill="none" stroke="#fde68a" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Expandable SQL & Timestamp Audit Drawer -->
+        <div style="background:#030814; border:1px solid #2563eb; border-radius:6px; padding:5.5px 8px; font-family:monospace; font-size:6.85pt; color:#93c5fd;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <span><strong>&#9660; Inspect Executed SQL</strong> (<code>analytics.cert_cohort_ndr</code>) <span class="callout-pin">5</span></span>
+            <span style="color:#6ee7b7;">Refreshed: 2026-11-12 14:05 UTC &bull; &#8635; Refresh</span>
+          </div>
+          <div style="color:#cbd5e1;">SELECT cohort_qtr, SUM(ending_mrr)*12 AS ending_arr, ROUND(SUM(ending_mrr)/NULLIF(SUM(starting_mrr),0)*100,1) AS ndr_pct FROM analytics.cert_cohort_ndr WHERE is_sandbox = FALSE GROUP BY 1;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 5px 0; font-size:10.4pt;">Interface Controls Legend (Pins 1&ndash;7)</h3>
+  <div class="grid-2" style="gap:7px 12px; font-size:8.05pt;">
+    <div>
+      <p style="margin-bottom:4px;"><span class="callout-pin">1</span> <strong>Connected Sources &amp; Semantic MCP Panel:</strong> Shows active read-only warehouse roles (Snowflake, BigQuery, Redshift, ClickHouse, Databricks), CRM links, and semantic layers (Lightdash/dbt).</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin">2</span> <strong>Interactive Parameter &amp; Date Controls:</strong> Dropdown slicers for region, plan tier, and UTC time windows re-filter or re-query tiles without editing prompts.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin">3</span> <strong>KPI Cards &amp; Anomaly Callouts:</strong> Headline metrics paired with automated variance flags (such as Month-3 SMB churn spikes) and version-history rollback.</p>
+      <p style="margin-bottom:0;"><span class="callout-pin">4</span> <strong>Certified Query Verification Badge:</strong> Emerald seal confirming the chart runs an analytics-approved SQL metric definition rather than an ad-hoc table guess.</p>
+    </div>
+    <div>
+      <p style="margin-bottom:4px;"><span class="callout-pin">5</span> <strong>Inspect SQL &amp; UTC Refresh Drawer:</strong> Expandable audit bar on every tile displaying exact ANSI SQL, row counts, execution duration, and last refreshed timestamp.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin">6</span> <strong>Native 4-Format Switcher:</strong> Pivots the verified board into a narrative <em>Scrollyteller</em>, a narrated <em>Visual Short</em> video, or an executive <em>Visual Analysis</em>.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin">7</span> <strong>Credential-Safe Live Share Badge:</strong> Publishes a workspace link where teammates view fresh results without inheriting your warehouse role or raw SQL console access.</p>
+      <div class="callout emerald" style="margin:4px 0 0 0; padding:5.5px 9px; font-size:7.85pt;">
+        <strong>Habit of Pros:</strong> Always pop open Pin <strong>5</strong> before sharing a board with leadership to confirm <code>WHERE</code> filters and join keys match finance rules.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: WAREHOUSES, SEMANTIC LAYERS & AUDITABLE SQL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Connections &amp; Auditable SQL</span>
+    <span>Warehouses, Semantic MCP Layers &amp; Query Inspection</span>
+  </div>
+
+  <h2 class="page-title">Connecting Warehouses, Semantic Layers &amp; Auditable SQL</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Great natural-language analytics starts before the first prompt. Pointing Claude Data at clean analytical schemas and semantic MCP layers eliminates messy raw-table guesswork and sluggish full-table scans.
+  </p>
+
+  <div class="figure-box" style="margin:2px 0 8px 0;">
+    <img src="assets/certified_query_prism.jpg" alt="Isometric Sapphire and Emerald Verification Prism Transforming Raw Data Streams into Uniform Geometric Chart Tiles" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>From Raw Event Chaos to Governed Analytics:</strong> Routing warehouse tables through read-only curated marts, semantic MCP servers (Lightdash/dbt), and Certified Queries ensures every chart tile rests on deterministic SQL.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:6px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Least-Privilege Warehouse Setup</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Snowflake &amp; Databricks:</strong> Grant <code>USAGE</code> and <code>SELECT</code> only on curated <code>ANALYTICS.MARTS</code> schemas&mdash;never raw ingestion staging or PII vaults&mdash;and attach a 30-second query timeout warehouse.</li>
+        <li><strong>BigQuery &amp; ClickHouse:</strong> Enforce partition-filter requirements on large event tables (<code>require_partition_filter = true</code>) so exploratory prompts always bound <code>event_date</code>.</li>
+        <li><strong>Redshift &amp; Salesforce:</strong> Pair workload-managed read queues with scoped Salesforce OAuth profiles limited to standard pipeline fields.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge sky">2</span> Why Semantic MCP Layers Change Everything</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Zero Join Hallucinations:</strong> A <strong>Lightdash MCP</strong> or <strong>dbt Semantic Layer</strong> exposes pre-tested join paths, dimension hierarchies, and metric YAML directly to Claude.</li>
+        <li><strong>Business Vocabulary Alignment:</strong> When a PM asks for <em>&ldquo;Active Paid Teams,&rdquo;</em> Claude calls the semantic metric <code>active_paid_workspaces</code> instead of guessing which raw event table counts logins.</li>
+        <li><strong>Instant Telemetry Context:</strong> Pair warehouse KPIs with <code>mcp-grafana</code> to correlate revenue dips against API latency spikes.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 3px 0; font-size:10.2pt;">Provisioning a Safe Read-Only Warehouse Role (Snowflake ANSI SQL Example)</h3>
+  <pre class="code-block" style="margin:3px 0 6px 0; font-size:7.15pt;"><code>-- Create a dedicated read-only role bounded to curated marts and a small auto-suspend warehouse:
+CREATE ROLE IF NOT EXISTS CLAUDE_DATA_READONLY;
+GRANT USAGE ON WAREHOUSE ANALYTICS_XS_WH TO ROLE CLAUDE_DATA_READONLY;
+GRANT USAGE ON DATABASE PROD_ANALYTICS TO ROLE CLAUDE_DATA_READONLY;
+GRANT USAGE ON SCHEMA PROD_ANALYTICS.MARTS TO ROLE CLAUDE_DATA_READONLY;
+GRANT SELECT ON ALL TABLES IN SCHEMA PROD_ANALYTICS.MARTS TO ROLE CLAUDE_DATA_READONLY;
+GRANT SELECT ON ALL VIEWS IN SCHEMA PROD_ANALYTICS.CERTIFIED TO ROLE CLAUDE_DATA_READONLY;
+ALTER WAREHOUSE ANALYTICS_XS_WH SET STATEMENT_TIMEOUT_IN_SECONDS = 45 AUTO_SUSPEND = 60;</code></pre>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8.15pt;">
+    <div class="callout-title">3-Second SQL &amp; Timestamp Audit Habit</div>
+    On every generated chart, click <strong>Inspect SQL</strong> and verify three lines: (1) <strong>Timezone alignment</strong> (explicit <code>UTC</code> vs. local CRM dates), (2) <strong>Join cardinality</strong> (<code>COUNT(DISTINCT account_id)</code> when joining one-to-many invoice lines), and (3) the <strong>Last Refreshed timestamp</strong> so you never quote yesterday&rsquo;s cached snapshot during a live close.
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: ITERATIVE DASHBOARD BUILDING & PROMPT ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Authoring &amp; Prompt Anatomy</span>
+    <span>Iterative Workflows &amp; 5-Tag Formula</span>
+  </div>
+
+  <h2 class="page-title">Iterative Dashboard Building &amp; Analytics Prompt Anatomy</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    The fastest analysts never ask for a 12-chart mega-dashboard on Turn 1. They validate grain and totals first, assemble interactive tiles on Turn 2, and layer controls and anomaly annotations on Turn 3.
+  </p>
+
+  <h3 style="margin:2px 0 5px 0; font-size:10.4pt;">The 4-Turn Iterative Dashboard Loop</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:8px;">
+    <div class="card" style="padding:7.5px 10px; border-left:3px solid #1d4ed8;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> Turn 1: Recon &amp; Totals Reconciliation</div>
+      <p style="font-size:7.9pt; margin:0;">Ask Claude to list matching Certified Queries or semantic models first and return a compact summary table for last month. Reconcile the headline total against your finance close before drawing charts.</p>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-left:3px solid #2563eb;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge sky">2</span> Turn 2: Multi-Chart Layout Assembly</div>
+      <p style="font-size:7.9pt; margin:0;">Promote the verified query into a structured board: 3 top KPI scorecards, a primary trend or cohort retention chart, and a bottom segment breakdown table sorted by dollar impact.</p>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-left:3px solid #059669;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge emerald">3</span> Turn 3: Controls &amp; Anomaly Callouts</div>
+      <p style="font-size:7.9pt; margin:0;">Add interactive dropdowns (Region, Plan Tier, Date Range picker, Cohort Toggle) and ask Claude to flag any week or segment exceeding 2 standard deviations from its 8-week trailing mean.</p>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-left:3px solid #d97706;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge amber">4</span> Turn 4: Version History &amp; Rollback</div>
+      <p style="font-size:7.9pt; margin:0;">Every edit saves a numbered artifact snapshot. If an experimental secondary axis or filter makes the layout noisy, click the version selector to restore <code>v3</code> cleanly in one click.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 5px 0; font-size:10.4pt;">5-Tag Analytics Prompt Anatomy</h3>
+  <div class="card" style="background:#f8fafc; border:1px solid #bfdbfe; padding:9px 11px; margin-bottom:8px;">
+    <div style="margin-bottom:6px; font-size:8.05pt;">
+      <span class="p-tag p-style">[Data Source &amp; Certified Metric]</span>
+      <span class="p-tag p-subj">[Grain &amp; Time Window]</span>
+      <span class="p-tag p-act">[Segmentation / Filters]</span>
+      <span class="p-tag p-cam">[Chart Layout]</span>
+      <span class="p-tag p-sfx">[Audit Check]</span>
+    </div>
+    <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:7px; padding:8px 10px; font-size:8.25pt; line-height:1.58;">
+      &ldquo;<span class="p-tag p-style">Using Snowflake schema PROD_ANALYTICS.CERTIFIED and Certified metrics ending_arr and net_dollar_retention,</span>
+      <span class="p-tag p-subj">aggregate at monthly grain across the trailing 12 complete calendar months in UTC.</span>
+      <span class="p-tag p-act">Exclude sandbox and internal employee orgs; add interactive dropdown filters for sales_region (AMER, EMEA, APAC) and plan_tier (Pro, Team, Enterprise).</span>
+      <span class="p-tag p-cam">Build a 2-row executive dashboard: top row with 3 KPI cards (Ending ARR, NDR %, Expansion MRR), middle row with a stacked expansion-vs-contraction bar chart alongside a quarterly cohort retention heatmap.</span>
+      <span class="p-tag p-sfx">Display a reconciling SQL sanity table at the bottom verifying distinct workspace_id counts and zero duplicate subscription joins.</span>&rdquo;
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.4pt;">Weak Vague Prompt vs. Governed Claude Data Prompt</h3>
+  <table class="clean-table" style="font-size:7.9pt; margin:3px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Dimension</th>
+        <th style="width:36%;">Weak Prompt (Causes Metric Drift)</th>
+        <th style="width:42%;">Governed Claude Data Prompt (Production-Ready)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Metric Source</strong></td>
+        <td>&ldquo;Show me our monthly revenue growth.&rdquo;</td>
+        <td>Names <code>PROD_ANALYTICS.CERTIFIED.cert_monthly_arr</code> or Lightdash metric <code>ending_arr</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Time &amp; Cutoffs</strong></td>
+        <td>&ldquo;Over the past year&rdquo; (mixes partial current month &amp; local TZ).</td>
+        <td>&ldquo;Trailing 12 complete months in <code>UTC</code>, plus separate MTD pacing badge.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>Exclusions</strong></td>
+        <td>Includes test accounts, refunded invoices, and $0 trials.</td>
+        <td>Explicitly requires <code>is_test_account = FALSE AND invoice_status = 'paid'</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Auditability</strong></td>
+        <td>Accepts chart bars blindly at face value.</td>
+        <td>Requests distinct entity counts and SQL drawer verification before sharing.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8.2pt;">
+    <div class="callout-title">Pro Tip: Pin Warehouse Conventions in Claude Project Instructions</div>
+    Save your fiscal calendar start month (for example, <code>FY starts Feb 1</code>), standard exclusion predicates, and preferred color palette inside Project Instructions so every teammate&rsquo;s dashboard inherits them automatically.
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: CERTIFIED QUERIES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Metric Governance</span>
+    <span>Certified Queries &amp; Single Source of Truth</span>
+  </div>
+
+  <h2 class="page-title">Certified Queries: Ending &ldquo;Two Numbers for Revenue&rdquo;</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Every fast-growing company hits the same analytics failure mode: Marketing presents $51.2M ARR at 9:00 AM, Finance presents $48.6M ARR at 9:15 AM, and the meeting derails into debugging SQL filters. <strong>Certified Queries</strong> solve this permanently inside Claude Data.
+  </p>
+
+  <div class="grid-3" style="gap:8px; margin-bottom:6px;">
+    <div class="card" style="padding:7px 9px; border-top:3px solid #ef4444;">
+      <div class="card-title" style="font-size:8.6pt;">Why Unvetted Queries Drift</div>
+      <p style="font-size:7.65pt; margin:0;">Raw tables mix test workspaces, failed card retries, annual proration quirks, and PST-vs-UTC boundary mismatches that skew totals by 4&ndash;9%.</p>
+    </div>
+    <div class="card" style="padding:7px 9px; border-top:3px solid #1d4ed8;">
+      <div class="card-title" style="font-size:8.6pt;">How Certification Works</div>
+      <p style="font-size:7.65pt; margin:0;">Data engineering publishes canonical SQL definitions with approved slice parameters. Claude prioritizes Certified Queries whenever those KPIs are asked.</p>
+    </div>
+    <div class="card" style="padding:7px 9px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:8.6pt;">What Viewers See</div>
+      <p style="font-size:7.65pt; margin:0;">Charts backed by an unmodified Certified definition earn the green <strong>Certified Query</strong> badge; ad-hoc overrides drop to <em>Exploratory SQL</em> transparently.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 3px 0; font-size:10.1pt;">Canonical Certified Query Example (Clean ANSI SQL &mdash; Zero Drift)</h3>
+  <pre class="code-block" style="margin:2px 0 6px 0; padding:6px 9px; font-size:6.95pt; line-height:1.31;"><code>-- Certified Metric: enterprise_net_dollar_retention_monthly (Owner: Finance &amp; Data Eng • Reviewed Quarterly)
+WITH clean_mrr AS (
+  SELECT DATE_TRUNC('month', s.snapshot_date_utc) AS report_month, a.customer_id, a.sales_region, a.plan_tier,
+         SUM(s.normalized_mrr_usd) AS mrr_usd
+  FROM prod_analytics.marts.fct_subscription_daily s
+  INNER JOIN prod_analytics.marts.dim_accounts a ON s.account_id = a.account_id
+  WHERE a.is_internal_test = FALSE AND a.is_refunded_dispute = FALSE
+    AND s.billing_status IN ('active', 'past_due_grace') AND s.snapshot_date_utc = LAST_DAY(s.snapshot_date_utc)
+  GROUP BY 1, 2, 3, 4
+),
+cohort_pair AS (
+  SELECT curr.report_month, curr.sales_region, curr.plan_tier,
+         COUNT(DISTINCT prev.customer_id) AS retained_customers,
+         SUM(prev.mrr_usd) AS start_mrr_12m_ago, SUM(COALESCE(curr.mrr_usd, 0)) AS end_cohort_mrr
+  FROM clean_mrr prev
+  LEFT JOIN clean_mrr curr ON prev.customer_id = curr.customer_id AND curr.report_month = ADD_MONTHS(prev.report_month, 12)
+  GROUP BY 1, 2, 3
+)
+SELECT report_month, sales_region, plan_tier, retained_customers,
+       ROUND(end_cohort_mrr * 12, 0) AS certified_cohort_arr_usd,
+       ROUND((end_cohort_mrr / NULLIF(start_mrr_12m_ago, 0)) * 100.0, 2) AS certified_ndr_pct
+FROM cohort_pair WHERE start_mrr_12m_ago &gt; 0 ORDER BY report_month DESC, sales_region;</code></pre>
+
+  <h3 style="margin:2px 0 3px 0; font-size:10.1pt;">The 4 Foundational KPIs Every Analytics Team Should Certify First</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Foundational KPI</th>
+        <th style="width:41%;">Hidden Edge Cases Locked Down by Certification</th>
+        <th style="width:36%;">Approved Slice Dimensions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Ending ARR / MRR</strong></td>
+        <td>Multi-currency FX normalization to USD, annual contract proration, excluding sandbox/partner comps.</td>
+        <td><code>report_month</code>, <code>sales_region</code>, <code>plan_tier</code>, <code>channel</code></td>
+      </tr>
+      <tr>
+        <td><strong>2. Net Dollar Retention</strong></td>
+        <td>Parent-account hierarchy rollups (subsidiary upgrades), churn timing at contract end vs. cancellation click.</td>
+        <td><code>cohort_quarter</code>, <code>segment</code>, <code>industry_vertical</code></td>
+      </tr>
+      <tr>
+        <td><strong>3. Active Weekly Teams</strong></td>
+        <td>Excludes automated bot pings, synthetic health checks, and 1-seat QA workspaces; requires &ge;2 human actions.</td>
+        <td><code>week_utc</code>, <code>plan_tier</code>, <code>core_feature_module</code></td>
+      </tr>
+      <tr>
+        <td><strong>4. Cloud &amp; AI Gross Margin</strong></td>
+        <td>Maps Stripe net recognized revenue against AWS/GCP compute + LLM token inference spend per tenant ID.</td>
+        <td><code>report_month</code>, <code>plan_tier</code>, <code>model_family</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:6px 10px; font-size:8pt;">
+    <div class="callout-title">Governance Lifecycle: Promote Repeated Exploratory Queries Weekly</div>
+    Have your analytics engineering team review top-shared Exploratory dashboards every Friday. Any ad-hoc SQL opened by more than 10 teammates gets peer-reviewed, moved into dbt/Lightdash, and promoted into the <strong>Certified Queries</strong> registry.
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: SCROLLYTELLERS, VISUAL SHORTS & BI HANDOFFS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Narrative Formats &amp; BI Ecosystem</span>
+    <span>Scrollytellers, Visual Shorts &amp; BI Handoffs</span>
+  </div>
+
+  <h2 class="page-title">Beyond Charts: Scrollytellers, Visual Shorts &amp; BI Handoffs</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Dashboards answer <em>what</em> happened for people who already know where to look. Narrative formats&mdash;<strong>Scrollytellers</strong> and <strong>Visual Shorts</strong>&mdash;align busy executives in two minutes without sacrificing warehouse rigor.
+  </p>
+
+  <div class="figure-box" style="margin:1px 0 6px 0;">
+    <img src="assets/scrollyteller_data_story.jpg" alt="Cascading Vertical Glass Storyboard Unfurling Alongside a Golden Audio Waveform Ribbon and Miniature Translucent Cinema Frame" style="width:100%; height:186px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption" style="padding:4.5px 10px;">
+      <strong>From Raw Grid to Executive Alignment:</strong> Claude Data transforms verified SQL results into scrolling multi-chapter <em>Scrollytellers</em>, voice-narrated <em>Visual Shorts</em>, or direct exports into Sigma, Hex, and Grafana.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:9px; margin-bottom:5px;">
+    <div class="card" style="padding:7px 9.5px; border-top:3px solid #2563eb;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> Crafting High-Impact Scrollytellers</div>
+      <p style="font-size:7.7pt; margin-bottom:3px;">A <strong>Scrollyteller</strong> pairs sticky animated charts with chapter-by-chapter narrative prose that zooms into specific cohorts as the reader scrolls:</p>
+      <ul style="font-size:7.6pt; margin:0; padding-left:15px;">
+        <li><strong>Chapter 1 (Headline Hook):</strong> Company-wide ARR &amp; NDR vs. quarterly plan target.</li>
+        <li><strong>Chapter 2 (Driver Decomposition):</strong> Chart highlights EMEA Enterprise expansion (+31%) lifting overall retention.</li>
+        <li><strong>Chapter 3 (Risk Spotlight):</strong> Zooms into Month-3 SMB self-serve churn spike after onboarding flow v2.</li>
+        <li><strong>Chapter 4 (Decision Ask):</strong> Quantifies revenue upside of restoring guided onboarding for 5&ndash;20 seat teams.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:7px 9.5px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge amber">2</span> Generating 90-Second Visual Shorts</div>
+      <p style="font-size:7.7pt; margin-bottom:3px;"><strong>Visual Shorts</strong> turn live query results into crisp, narrated motion walkthroughs ready to drop into Slack or open an all-hands meeting:</p>
+      <ul style="font-size:7.6pt; margin:0; padding-left:15px;">
+        <li><strong>Scripted on Verified Numbers:</strong> Every spoken percentage is bound directly to the underlying SQL result set&mdash;zero ad-libbed rounding errors.</li>
+        <li><strong>Paced for Async Review:</strong> Aim for 60&ndash;90 seconds covering 3 scenes: <em>Scoreboard &rarr; Biggest Surprise &rarr; Recommended Action</em>.</li>
+        <li><strong>Pair with Live Link:</strong> Pin the Live Shared Dashboard link right beneath the video in Slack so curious leads drill in immediately.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 3px 0; font-size:10pt;">BI Ecosystem Handoff Playbook: Graduating Prototypes to Production Stacks</h3>
+  <table class="clean-table" style="font-size:7.6pt; margin:2px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Destination Platform</th>
+        <th style="width:38%;">How Handoff Works from Claude Data</th>
+        <th style="width:38%;">Ideal Downstream Workflow</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sigma</strong> (<em>Send to Sigma</em>)</td>
+        <td>One-click push exports your Claude Data prototype, SQL logic, and layout into a governed Sigma workbook.</td>
+        <td>Finance writeback tables, row-level customer portals, and 100k-row interactive spreadsheet pivots.</td>
+      </tr>
+      <tr>
+        <td><strong>Hex &amp; Omni</strong></td>
+        <td>Export clean CTE SQL blocks from the Audit Drawer directly into Hex SQL cells or Omni curated topic views.</td>
+        <td>Python statistical modeling, churn propensity scoring (Hex), or governed enterprise semantic dashboards (Omni).</td>
+      </tr>
+      <tr>
+        <td><strong>Grafana</strong></td>
+        <td>Pair SQL/PromQL queries via <code>mcp-grafana</code> to turn incident investigations into permanent Grafana panels.</td>
+        <td>24/7 PagerDuty threshold alerting, SLO burn-rate boards, and token latency telemetry.</td>
+      </tr>
+      <tr>
+        <td><strong>Amplitude &bull; Mixpanel &bull; PostHog</strong></td>
+        <td>Use Claude Data to join warehouse billing with product cohorts, then deep-link behavioral cohorts in product analytics.</td>
+        <td>Session replays, feature-flag A/B experiments, and multi-step UI clickstream conversion funnels.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:1px 0 0 0; padding:5.5px 10px; font-size:7.95pt;">
+    <div class="callout-title">Prompt Formula for Instant Format Transformation</div>
+    <em>&ldquo;Keep every Certified SQL figure unchanged. Convert this dashboard into a 4-chapter executive Scrollyteller titled &lsquo;Q4 Retention Drivers&rsquo;, then generate a 75-second Visual Short script and video focused on EMEA expansion vs. SMB Month-3 churn.&rdquo;</em>
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Run Prompt Library</span>
+    <span>5 Copy-Paste Claude Data &amp; Dashboard Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Claude Data &amp; Dashboard Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Adapt the schema or semantic metric names in brackets and paste these prompts straight into Claude Data. Every recipe enforces UTC boundaries, clean exclusions, and SQL auditability.
+  </p>
+
+  <table class="clean-table" style="font-size:7.75pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Recipe &amp; Persona</th>
+        <th style="width:17%;">Connectors Used</th>
+        <th style="width:45%;">Copy-Paste Prompt Blueprint</th>
+        <th style="width:19%;">Output &amp; Audit Gate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. SaaS Net Retention &amp; Churn Cohort Board</strong><br/><em>VP Finance / RevOps</em></td>
+        <td>Snowflake or BigQuery + Certified Queries</td>
+        <td>&ldquo;Using <code>cert_monthly_arr</code> and <code>cert_cohort_ndr</code> over trailing 12 complete UTC months, build an interactive Retention Board: 3 KPI cards (Ending ARR, NDR %, Gross Churn %), a stacked monthly MRR bridge (New, Expansion, Contraction, Churned), and a quarterly signup cohort heatmap. Add Region and Plan dropdowns; exclude <code>is_sandbox = TRUE</code>.&rdquo;</td>
+        <td>Interactive Dashboard + MRR bridge reconciliation check.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Salesforce Pipeline Velocity &amp; Win-Rate</strong><br/><em>CRO / Sales Ops</em></td>
+        <td>Salesforce OAuth + Warehouse Targets</td>
+        <td>&ldquo;Query live Salesforce <code>Opportunity</code> and <code>OpportunityFieldHistory</code> joined to Q4 quota targets. Calculate Pipeline Coverage ratio, Stage-to-Stage conversion %, median days in Stage 3+, and Rep Win-Rate for deals &gt;$25k. Highlight stalled deals untouched &gt;14 days and add Segment &amp; Territory filters.&rdquo;</td>
+        <td>Interactive Dashboard + downloadable stalled-deal action table.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Cloud &amp; AI Token Spend Anomaly Monitor</strong><br/><em>Platform Eng / FinOps</em></td>
+        <td>ClickHouse or Databricks + <code>mcp-grafana</code></td>
+        <td>&ldquo;Query daily cloud compute + LLM inference billing in <code>finops.fct_daily_usage</code> over the last 60 UTC days (partitioned on <code>usage_date</code>). Plot unit cost per 1,000 active requests by model family and customer tier, flag daily spikes &gt;2.5 SD above trailing 14-day mean, and cross-check latency via Grafana.&rdquo;</td>
+        <td>Dashboard + Send to Grafana / Sigma FinOps review.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Monthly Board Update Story + Video</strong><br/><em>CEO / Chief of Staff</em></td>
+        <td>Lightdash Semantic MCP + Certified SQL</td>
+        <td>&ldquo;Take our verified Monthly Executive KPI Dashboard and generate two narrative assets without altering any SQL query: (1) a 5-chapter <strong>Scrollyteller</strong> walking the Board from headline ARR beat to enterprise expansion and unit economics, and (2) an 80-second <strong>Visual Short</strong> summarizing our top 3 wins and 1 Q1 priority.&rdquo;</td>
+        <td>Scrollyteller web story + 80s narrated Visual Short.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Raw SQL Audit &amp; Certification Extractor</strong><br/><em>Analytics Engineer</em></td>
+        <td>Warehouse Metadata / Project SQL</td>
+        <td>&ldquo;Inspect the 6 exploratory SQL queries used across this project&rsquo;s dashboards. Audit each for fan-out joins, missing <code>UTC</code> date truncations, unpartitioned scans, or inconsistent test-account exclusions. Output a unified, clean ANSI SQL candidate view with <code>COUNT(DISTINCT ...)</code> guards ready for our Certified Queries registry.&rdquo;</td>
+        <td>Visual Analysis audit memo + production dbt/SQL view.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:4px;">
+    <div class="card-dark" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:8.8pt; color:#93c5fd;">Follow-Up Drilldown Chaining Pattern</div>
+      <p style="font-size:7.8pt; margin:0; color:#cbd5e1;">
+        Once Recipe 1 or 2 renders, drill in conversationally without rebuilding the board: <em>&ldquo;Keep the current layout pinned, add a drawer tab isolating the 15 largest contracted accounts in Q3, and join their Salesforce loss/downgrade reason codes.&rdquo;</em>
+      </p>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-left:3px solid #059669;">
+      <div class="card-title" style="font-size:8.8pt;">Zero-Backtick Portable ANSI SQL Rule</div>
+      <p style="font-size:7.8pt; margin:0;">
+        Ask Claude to write portable ANSI SQL using standard <code>schema.table</code> identifiers and explicit <code>CAST(... AS NUMERIC)</code> calls so Certified views migrate cleanly across Snowflake, Databricks, Postgres, and DuckDB tests.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:6px 10px; font-size:8.1pt;">
+    <div class="callout-title">Cost-Control Guardrail on Massive Event Tables</div>
+    When prompting against multi-billion-row ClickHouse or BigQuery telemetry tables (Recipe 3), always name the partition column explicitly (for example, <code>WHERE event_date &gt;= CURRENT_DATE - INTERVAL '60' DAY</code>) so your warehouse scans megabytes instead of terabytes.
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: CREDENTIAL-SAFE LIVE SHARING & GOVERNANCE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security &amp; Access Control</span>
+    <span>Live Sharing, Masking &amp; Enterprise Governance</span>
+  </div>
+
+  <h2 class="page-title">Credential-Safe Live Sharing &amp; Enterprise Governance</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Historically, sharing a live AI-generated chart meant either sending dead screenshots or dangerously handing out shared database service-account keys. Claude Data&rsquo;s <strong>Live Sharing</strong> architecture separates <em>viewing approved visuals</em> from <em>holding raw database credentials</em>.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:8px;">
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #1d4ed8;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> What Dashboard Creators Can Do</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li>Authenticate with their own authorized warehouse OAuth token or read-only analyst role.</li>
+        <li>Write exploratory prompts, inspect schema metadata, iterate on SQL joins, and publish approved tiles.</li>
+        <li>Choose workspace visibility (specific colleagues, Team project, or org-wide link) and revoke live shares at any moment.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge emerald">2</span> What Live-Shared Viewers Can (&amp; Cannot) Do</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>CAN:</strong> Open the shared dashboard, Scrollyteller, or Visual Short, see fresh approved chart data, toggle pre-built filter controls, and read the Certified badge + timestamp.</li>
+        <li><strong>CANNOT:</strong> Inherit the creator&rsquo;s database credentials, browse underlying warehouse tables, or run arbitrary ad-hoc follow-up SQL unless they authenticate their own warehouse role.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.3pt;">Defense-in-Depth Security Matrix Across Warehouse &amp; Claude Workspace</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Governance Layer</th>
+        <th style="width:39%;">How to Configure It Correctly</th>
+        <th style="width:38%;">Risk Eliminated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Read-Only Database Roles</strong></td>
+        <td>Bind connectors exclusively to <code>SELECT</code>-only roles with zero <code>INSERT</code>, <code>UPDATE</code>, <code>DROP</code>, or <code>COPY</code> privileges.</td>
+        <td>Guarantees no prompt can ever mutate, truncate, or alter production warehouse state.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Dynamic PII Masking</strong></td>
+        <td>Apply Snowflake Dynamic Data Masking or BigQuery Policy Tags on <code>email</code>, <code>ssn</code>, <code>phone</code>, and billing street addresses.</td>
+        <td>Prevents customer PII from entering chart tooltips, SQL results, or shared executive links.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Row-Level Security (RLS)</strong></td>
+        <td>Pass per-user OAuth identity to warehouse row-access policies (or graduate external embeds via <em>Send to Sigma</em>).</td>
+        <td>Ensures regional managers querying directly only scan rows belonging to their assigned territory.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Admin Connector Allowlists</strong></td>
+        <td>In Claude Enterprise Admin settings, restrict MCP servers and native connectors to vetted corporate endpoints and SSO groups.</td>
+        <td>Blocks shadow-IT connectors or unapproved third-party MCP servers from touching corporate data.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.2pt;">Warehouse PII Masking Policy Snippet (Snowflake Example)</h3>
+  <pre class="code-block" style="margin:3px 0 7px 0; font-size:7.1pt;"><code>-- Mask customer email addresses automatically whenever queried by analytical or AI dashboard roles:
+CREATE OR REPLACE MASKING POLICY analytics.mask_customer_email AS (val STRING) RETURNS STRING -&gt;
+  CASE
+    WHEN CURRENT_ROLE() IN ('COMPLIANCE_OFFICER_ROLE') THEN val
+    ELSE CONCAT('***@', SPLIT_PART(val, '@', 2))
+  END;
+
+ALTER TABLE prod_analytics.marts.dim_users
+  MODIFY COLUMN work_email SET MASKING POLICY analytics.mask_customer_email;</code></pre>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8.15pt;">
+    <div class="callout-title">Security Rule of Thumb Before Clicking &ldquo;Live Share&rdquo;</div>
+    Aggregate to cohort, segment, or account-tier grain whenever broadcasting a link to broad company channels. Reserve row-level customer tables for tightly scoped RevOps/Support groups whose members hold explicit CRM and warehouse authorization.
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Analytics Pipeline</span>
+    <span>Warehouse &rarr; Claude Data &rarr; Sheets, Whiteboards &amp; BI</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy Pipeline Across Your Stack</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Claude Data shines brightest as the connective hub of a quarterly planning loop&mdash;pulling governed warehouse truth upstream and feeding financial scenario models, strategy whiteboards, executive stories, and deep Python notebooks downstream.
+  </p>
+
+  <div class="figure-box" style="background:#061026; padding:10px 12px; border-color:#1e3a8a; margin-bottom:9px;">
+    <svg viewBox="0 0 700 206" width="100%" height="206" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Warehouse + Semantic Layer -->
+      <rect x="8" y="24" width="146" height="158" rx="9" fill="#0b1b3d" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="18" y="42" fill="#93c5fd" font-size="7.6" font-weight="700">STAGE 1 &bull; TRUTH LAYER</text>
+      <text x="18" y="58" fill="#ffffff" font-size="9.8" font-weight="800">Warehouse + dbt</text>
+      <rect x="18" y="68" width="126" height="46" rx="5" fill="#102a5c" stroke="#2563eb" stroke-width="1"/>
+      <text x="25" y="82" fill="#dbeafe" font-size="7.5" font-weight="700">Snowflake / BigQuery</text>
+      <text x="25" y="94" fill="#cbd5e1" font-size="7">+ Salesforce CRM sync</text>
+      <text x="25" y="105" fill="#94a3b8" font-size="6.9">Read-only mart views</text>
+      <rect x="18" y="122" width="126" height="48" rx="5" fill="#064e3b" stroke="#10b981" stroke-width="1"/>
+      <text x="25" y="136" fill="#a7f3d0" font-size="7.5" font-weight="700">Lightdash / dbt MCP</text>
+      <text x="25" y="148" fill="#d1fae5" font-size="7">+ Certified Queries SQL</text>
+      <text x="25" y="159" fill="#6ee7b7" font-size="6.9">Zero metric ambiguity</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M154 103 L178 103" stroke="#60a5fa" stroke-width="2"/>
+      <polygon points="176,98 184,103 176,108" fill="#60a5fa"/>
+
+      <!-- Stage 2: Claude Data Hub -->
+      <rect x="184" y="24" width="156" height="158" rx="9" fill="#091938" stroke="#60a5fa" stroke-width="2"/>
+      <text x="194" y="42" fill="#93c5fd" font-size="7.6" font-weight="700">STAGE 2 &bull; ANALYTICS HUB</text>
+      <text x="194" y="58" fill="#ffffff" font-size="10" font-weight="800">Claude Data Studio</text>
+      <rect x="194" y="68" width="136" height="48" rx="5" fill="#132a5c" stroke="#3b82f6" stroke-width="1"/>
+      <text x="202" y="82" fill="#ffffff" font-size="7.5" font-weight="700">Interactive KPI Board</text>
+      <text x="202" y="94" fill="#cbd5e1" font-size="7">Cohort &amp; region filters</text>
+      <text x="202" y="105" fill="#6ee7b7" font-size="6.9">&#10003; Certified + UTC stamp</text>
+      <rect x="194" y="124" width="136" height="46" rx="5" fill="#172554" stroke="#60a5fa" stroke-width="1"/>
+      <text x="202" y="138" fill="#bfdbfe" font-size="7.5" font-weight="700">Variance Decomposition</text>
+      <text x="202" y="150" fill="#cbd5e1" font-size="7">Isolates SMB M3 churn</text>
+      <text x="202" y="161" fill="#cbd5e1" font-size="7">&amp; EMEA expansion lift</text>
+
+      <!-- Split Arrows 2 -> 3 -->
+      <path d="M340 72 L370 58" stroke="#34d399" stroke-width="1.8"/>
+      <polygon points="367,54 376,55 370,63" fill="#34d399"/>
+      <path d="M340 134 L370 148" stroke="#f59e0b" stroke-width="1.8"/>
+      <polygon points="370,143 376,151 367,152" fill="#f59e0b"/>
+
+      <!-- Stage 3: Workspace Studios (Claude Sheets + Whiteboards) -->
+      <rect x="376" y="12" width="150" height="86" rx="8" fill="#0d2926" stroke="#10b981" stroke-width="1.5"/>
+      <text x="386" y="29" fill="#6ee7b7" font-size="7.4" font-weight="700">STAGE 3A &bull; MODELING</text>
+      <text x="386" y="44" fill="#ffffff" font-size="9.4" font-weight="800">Claude Sheets / Excel</text>
+      <text x="386" y="58" fill="#d1fae5" font-size="7.1">Feed verified ARR &amp; churn</text>
+      <text x="386" y="70" fill="#d1fae5" font-size="7.1">actuals into 3-case Q1</text>
+      <text x="386" y="82" fill="#a7f3d0" font-size="7.1">headcount &amp; cash scenarios</text>
+
+      <rect x="376" y="108" width="150" height="86" rx="8" fill="#241b15" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="386" y="125" fill="#fcd34d" font-size="7.4" font-weight="700">STAGE 3B &bull; STRATEGY</text>
+      <text x="386" y="140" fill="#ffffff" font-size="9.4" font-weight="800">Claude Whiteboards</text>
+      <text x="386" y="154" fill="#fde68a" font-size="7.1">Map QBR root-cause trees,</text>
+      <text x="386" y="166" fill="#fde68a" font-size="7.1">onboarding experiments &amp;</text>
+      <text x="386" y="178" fill="#cbd5e1" font-size="7.1">owner swimlanes visually</text>
+
+      <!-- Arrows 3 -> 4 -->
+      <path d="M526 55 L550 75" stroke="#60a5fa" stroke-width="1.8"/>
+      <polygon points="549,69 555,79 544,77" fill="#60a5fa"/>
+      <path d="M526 151 L550 131" stroke="#60a5fa" stroke-width="1.8"/>
+      <polygon points="544,129 555,127 549,137" fill="#60a5fa"/>
+
+      <!-- Stage 4: Executive Alignment & Deep BI -->
+      <rect x="555" y="24" width="137" height="158" rx="9" fill="#0b1b3d" stroke="#60a5fa" stroke-width="1.6"/>
+      <text x="565" y="42" fill="#93c5fd" font-size="7.4" font-weight="700">STAGE 4 &bull; ALIGN &amp; SCALE</text>
+      <text x="565" y="58" fill="#ffffff" font-size="9.5" font-weight="800">Story + Deep BI</text>
+      <rect x="565" y="68" width="117" height="50" rx="5" fill="#132a5c" stroke="#3b82f6" stroke-width="1"/>
+      <text x="572" y="82" fill="#fde68a" font-size="7.3" font-weight="700">Scrollyteller + Short</text>
+      <text x="572" y="94" fill="#cbd5e1" font-size="6.9">Live-shared to Board &amp;</text>
+      <text x="572" y="105" fill="#cbd5e1" font-size="6.9">#company-metrics Slack</text>
+      <rect x="565" y="124" width="117" height="48" rx="5" fill="#172554" stroke="#60a5fa" stroke-width="1"/>
+      <text x="572" y="138" fill="#93c5fd" font-size="7.3" font-weight="700">Hex &amp; Sigma Push</text>
+      <text x="572" y="150" fill="#cbd5e1" font-size="6.9">Python churn ML in Hex;</text>
+      <text x="572" y="161" fill="#cbd5e1" font-size="6.9">governed ops in Sigma</text>
+    </svg>
+  </div>
+
+  <h3 style="margin:2px 0 5px 0; font-size:10.3pt;">Step-by-Step Quarterly Business Review (QBR) Playbook</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:6px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> Stages 1&ndash;2: Ground Actuals in Certified SQL</div>
+      <p style="font-size:7.85pt; margin:0;">Connect Snowflake + Lightdash MCP inside Claude Data. Run your Certified Q4 ARR, NDR, and Salesforce pipeline queries first so Finance, Sales, and Product start from one identical, UTC-stamped dataset.</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge emerald">2</span> Stage 3A: Feed Actuals into Scenario Sheets</div>
+      <p style="font-size:7.85pt; margin:0;">Export the clean monthly summary table into <strong>Claude in Excel / Sheets</strong> to model Base, Upside, and Downside Q1 hiring and burn scenarios driven by live historical retention rates rather than static assumptions.</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge amber">3</span> Stage 3B: Map Action Plans on Whiteboards</div>
+      <p style="font-size:7.85pt; margin:0;">Bring the Month-3 SMB churn findings into a collaborative planning canvas or whiteboard session: map onboarding friction points, assign engineering owners, and attach target metric lift milestones.</p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge sky">4</span> Stage 4: Ship Story + Graduate Permanent Apps</div>
+      <p style="font-size:7.85pt; margin:0;">Publish a 5-chapter <strong>Scrollyteller</strong> + 90-second <strong>Visual Short</strong> via Live Sharing for company alignment, push the SQL to <strong>Hex</strong> for predictive churn scoring, and click <strong>Send to Sigma</strong> for ongoing RevOps tracking.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8.15pt;">
+    <div class="callout-title">Why This Pipeline Cuts QBR Prep from 5 Days to 45 Minutes</div>
+    Every downstream artifact&mdash;financial model, strategy diagram, board narrative, Slack video, and Sigma workbook&mdash;traces back to the exact same Certified SQL query executed in Stage 2, eliminating last-minute slide deck number-chasing.
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Operations &amp; Quality Assurance</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Almost every natural-language analytics hiccup comes down to timezone cutoffs, join cardinality, partition filters, or intentional credential boundaries. Keep this page handy before publishing any board.
+  </p>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.2pt;">Top 7 Issues &amp; 10-Second Fixes</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Failure Mode</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:42%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Two teammates get slightly different revenue totals</strong></td>
+        <td>One prompt queried raw invoices in local TZ; the other excluded test orgs in <code>UTC</code>.</td>
+        <td>Pin a <strong>Certified Query</strong> (green badge) and enforce explicit <code>DATE_TRUNC('month', ts_utc)</code> in Project Instructions.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Slow 45-second scan or warehouse timeout error</strong></td>
+        <td>Query scanned an unpartitioned multi-billion-row raw clickstream table.</td>
+        <td>Point Claude at pre-aggregated dbt marts or require an explicit partition filter (<code>WHERE event_date &gt;= ...</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>3. Viewer blocked from running follow-up SQL on a Live Share</strong></td>
+        <td><strong>Expected security boundary:</strong> Live Sharing never delegates creator DB credentials.</td>
+        <td>Add interactive filter dropdowns for common slices, or grant the colleague their own read-only warehouse OAuth role.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Global ARR inflated by ~8&ndash;15% across regions</strong></td>
+        <td>Multi-currency rows (<code>EUR</code>, <code>GBP</code>, <code>JPY</code>) summed directly without FX conversion.</td>
+        <td>Check <strong>Inspect SQL</strong>; join <code>dim_fx_rates</code> or query normalized <code>amount_usd</code> columns exclusively.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Customer or deal count looks 3&times; higher than CRM</strong></td>
+        <td>One-to-many fan-out join (for example, joining <code>accounts</code> to <code>invoice_line_items</code>).</td>
+        <td>Open the SQL drawer and replace <code>COUNT(*)</code> with <code>COUNT(DISTINCT a.account_id)</code> or pre-aggregate child CTEs.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Dashboard shows yesterday&rsquo;s pipeline numbers</strong></td>
+        <td>Viewing the last cached execution result from an earlier session.</td>
+        <td>Check the <strong>Last Refreshed UTC timestamp</strong> in the tile footer and click <strong>Refresh</strong> to re-execute live SQL.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Warehouse or Lightdash MCP missing in sidebar</strong></td>
+        <td>Connector not yet enabled on Enterprise Admin allowlist or OAuth token expired.</td>
+        <td>Have a Workspace Admin enable the connector under <code>Admin Settings &rarr; Connectors</code> and re-authorize OAuth.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:2px 0 5px 0; font-size:10.2pt;">6-Point Pre-Flight Checklist Before Sharing Any Executive Asset</h3>
+  <div class="grid-2" style="gap:8px; margin-bottom:6px;">
+    <div class="card" style="padding:7px 9.5px; border-left:3px solid #059669;">
+      <div class="card-title" style="font-size:8.5pt;">&#9745; 1. Green Certified Badge Confirmed</div>
+      <p style="font-size:7.65pt; margin:0;">Core company KPIs (ARR, NDR, WAU, Gross Margin) pull from Certified Queries or Lightdash/dbt semantic definitions rather than raw staging tables.</p>
+    </div>
+    <div class="card" style="padding:7px 9.5px; border-left:3px solid #059669;">
+      <div class="card-title" style="font-size:8.5pt;">&#9745; 2. SQL Drawer &amp; Distinct Counts Audited</div>
+      <p style="font-size:7.65pt; margin:0;">Opened <strong>Inspect SQL</strong> on every tile to verify <code>COUNT(DISTINCT ...)</code> guards, normalized USD currency columns, and sandbox exclusions.</p>
+    </div>
+    <div class="card" style="padding:7px 9.5px; border-left:3px solid #1d4ed8;">
+      <div class="card-title" style="font-size:8.5pt;">&#9745; 3. Complete Windows &amp; UTC Timestamp Checked</div>
+      <p style="font-size:7.65pt; margin:0;">Trend charts plot complete periods (excluding half-finished current weeks unless labeled MTD/WTD) and show a fresh UTC refresh timestamp.</p>
+    </div>
+    <div class="card" style="padding:7px 9.5px; border-left:3px solid #1d4ed8;">
+      <div class="card-title" style="font-size:8.5pt;">&#9745; 4. Least-Privilege &amp; PII Masking Active</div>
+      <p style="font-size:7.65pt; margin:0;">Connector uses a <code>SELECT</code>-only role with statement timeouts, partition filters, and zero unmasked customer emails or personal identifiers.</p>
+    </div>
+    <div class="card" style="padding:7px 9.5px; border-left:3px solid #d97706;">
+      <div class="card-title" style="font-size:8.5pt;">&#9745; 5. Right Format Matched to the Audience</div>
+      <p style="font-size:7.65pt; margin:0;">Operators get an interactive Dashboard; Board &amp; leadership get a chaptered Scrollyteller; Slack channels get a 60&ndash;90s Visual Short + live link.</p>
+    </div>
+    <div class="card" style="padding:7px 9.5px; border-left:3px solid #d97706;">
+      <div class="card-title" style="font-size:8.5pt;">&#9745; 6. Production Graduation Path Chosen</div>
+      <p style="font-size:7.65pt; margin:0;">High-traffic prototypes are promoted to Certified Queries or handed off via <em>Send to Sigma</em>, Hex, or Grafana when permanent apps are required.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:6px 10px; font-size:8.05pt;">
+    <div class="callout-title">Final Takeaway: Speed Without Surrendering Single-Source-of-Truth</div>
+    Natural language makes asking data questions effortless; <strong>Certified Queries, Semantic MCP, Auditable SQL, and Credential-Safe Live Sharing</strong> make the answers trustworthy enough to run your business on.
+  </div>
+
+  <div class="page-footer"><span>Claude Dashboards &amp; Data • Complete How-To Guide</span><span>Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>
