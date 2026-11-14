@@ -5,8 +5,8 @@
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-45%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-540%20Pages-059669?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-46%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-552%20Pages-059669?style=for-the-badge)
 ![Ecosystems](https://img.shields.io/badge/Scope-6%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
@@ -401,6 +401,17 @@ Practical 12-page visual handbooks for context engineering, multi-agent orchestr
       <p><a href="guides/agent-engineering/chrome-devtools-and-playwright-agents/Chrome_DevTools_and_Playwright_Agents_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/chrome-devtools-and-playwright-agents">&#128736; Editable Source</a></p>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/sandboxes-and-isolated-execution/Sandboxes_and_Isolated_Execution_for_AI_Agents_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/sandboxes-and-isolated-execution/cover.png" alt="Sandboxes &amp; Isolated Execution for AI Agents Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/sandboxes-and-isolated-execution/Sandboxes_and_Isolated_Execution_for_AI_Agents_Complete_How_To_Guide.pdf">Sandboxes &amp; Isolated Execution for AI Agents</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Architecting ephemeral microVMs, Firecracker, E2B, Docker, and gVisor environments for safe autonomous code execution, snapshotting, and network egress control.</p>
+      <p><code>Firecracker microVMs</code> &middot; <code>E2B Sandboxes</code> &middot; <code>Egress Security</code></p>
+      <p><a href="guides/agent-engineering/sandboxes-and-isolated-execution/Sandboxes_and_Isolated_Execution_for_AI_Agents_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/sandboxes-and-isolated-execution">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%"></td>
+  </tr>
 </table>
 
 ### Obsidian & AI Knowledge Systems
@@ -505,6 +516,7 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **Jev & System One Decisions** — Replacing fragile LLM JSON parsing with fast, calibrated System One decisions—mastering Choice, Score, and Noul primitives, parallel fan-out, and confidence-gated routing. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/jev-and-system-one-decisions/Jev_and_System_One_Decisions_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/jev-and-system-one-decisions) |
 | **Building Production MCP Servers** — Architect, test, and ship high-reliability Model Context Protocol servers in TypeScript (SDK v2) and Python (FastMCP)—mastering stateless Streamable HTTP factories, Zod v4 & outputSchema, OAuth 2.1, MCP Inspector, and 10-question evals. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/building-production-mcp-servers/Building_Production_MCP_Servers_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/building-production-mcp-servers) |
 | **Browser Agents with Chrome DevTools MCP & Playwright** — Pair live Chrome DevTools MCP diagnostics (accessibility uid snapshots, LCP subpart traces, HttpOnly cookie forensics, and heap leak diffs) with deterministic Playwright E2E regression gates. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/chrome-devtools-and-playwright-agents/Chrome_DevTools_and_Playwright_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/chrome-devtools-and-playwright-agents) |
+| **Sandboxes & Isolated Execution for AI Agents** — Architecting ephemeral microVMs, Firecracker, E2B, Docker, and gVisor environments for safe autonomous code execution, snapshotting, and network egress control. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/sandboxes-and-isolated-execution/Sandboxes_and_Isolated_Execution_for_AI_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/sandboxes-and-isolated-execution) |
 | **Obsidian + Desktop AI Agents** — Operating your Obsidian vault side-by-side with Claude Desktop and Google Antigravity Desktop—mastering Cowork folders, Local REST API MCP, the native Obsidian CLI, vault AGENTS.md rules, and scheduled briefings. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-desktop-ai-agents/Obsidian_and_Desktop_AI_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-desktop-ai-agents) |
 | **Obsidian Bases & JSON Canvas with AI** — Turning flat Markdown notes into live relational databases and spatial visual boards—having Claude Desktop and Antigravity generate native .base views, YAML schemas, and .canvas architecture maps. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-bases-and-json-canvas-agents/Obsidian_Bases_and_JSON_Canvas_with_AI_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-bases-and-json-canvas-agents) |
 | **Autonomous LLM Wiki & Research Vault** — Building a Karpathy-style self-maintaining knowledge base in Obsidian where Claude Desktop and Antigravity compile raw PDFs, transcripts, and web clips into interlinked evergreen concept notes. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/autonomous-llm-wiki-vault/Autonomous_LLM_Wiki_and_Research_Vault_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/autonomous-llm-wiki-vault) |
