@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claude Duet: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">ANTHROPIC CLAUDE &amp; WORKSPACE STUDIOS &bull; FIELD GUIDE</div>
+    <h1>Claude <span>Duet</span></h1>
+    <p class="cover-sub">
+      Anthropic&rsquo;s proactive cloud chief of staff powered by Claude Opus 5.5&mdash;delivering Morning Briefs, running persistent Cloud VM and headless browser tasks while your devices stay off, organizing Channels with unified Memory, and pausing at Human-in-the-Loop approval gates.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Proactive Morning Brief</span>
+      <span class="cover-badge">Persistent Cloud VM &amp; Browser</span>
+      <span class="cover-badge">Claude Opus 5.5 Engine</span>
+      <span class="cover-badge">4-Tab Studio &amp; Channels</span>
+      <span class="cover-badge">Shared Memory &amp; Skills</span>
+      <span class="cover-badge">HITL Approval Gates</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Twilight Dusk-Navy Horizon Desk with Glowing Peach-Coral Beacon Gathering Overnight Signal Streams into a Luminous Morning Brief Slate Beside a Closed Laptop" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">It Messages You First</div>
+      <div class="cover-stat-desc">Instead of waiting for prompts, Duet sweeps Gmail, Calendar, Slack, and connected apps every few hours and sends a concise Morning Brief of real decisions.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Works While Your Laptop Sleeps</div>
+      <div class="cover-stat-desc">Every task executes inside an isolated Cloud VM with a headless browser on Anthropic servers&mdash;finishing deep research or financial forecasts with your phone powered off.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Autonomous Read, Gated Write</div>
+      <div class="cover-stat-desc">Duet researches, models, and drafts freely overnight, yet hard-stops behind an Approval Gate with full payload previews before sending, paying, signing, or deleting.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Proactive Agent Architecture</span>
+    <span>Claude Duet</span>
+  </div>
+
+  <h2 class="page-title">From Reactive Chat to an Always-On Cloud Chief of Staff</h2>
+  <p class="page-lead">
+    Traditional AI chat sits completely silent until you open a browser tab and type a prompt. Launched on October 21, 2026 as a research preview powered by <strong>Claude Opus 5.5</strong>, <strong>Claude Duet</strong> flips that relationship upside down: it monitors your connected tools asynchronously in the cloud and reaches out only when something genuinely deserves your judgment.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Proactive Mental Model &amp; Cloud Loop</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. HITL Approval Gates &amp; Write Controls</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Plans, Quotas &amp; Ecosystem Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Copy-Paste Duet Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated 4-Tab Studio &amp; Channels Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Security, Privacy &amp; Preview Governance</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Morning Brief &amp; Overnight Sweeps</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Workspace Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Cloud VM, Headless Browser &amp; Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Topic Channels, Memory &amp; Skills</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Free to Draft, Gated to Act</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Reactive Chat vs. Asynchronous Cloud Autonomy</h3>
+  <p style="font-size:8.8pt;">
+    Standard chat requires your active attention from start to finish. By contrast, Claude Duet operates inside a persistent <strong>Cloud Virtual Machine (VM)</strong> with its own <strong>headless cloud browser</strong> and 1-million-token Opus 5.5 reasoning context. You can assign a multi-step supplier audit from your phone before dinner, turn your laptop completely off, and wake up to a finished financial model and pre-drafted replies ready for single-tap approval.
+  </p>
+
+  <h3>Architecture: Overnight Signal Sweeps, Cloud VM Execution &amp; Approval Gate</h3>
+  <div class="figure-box" style="background:#141026; padding:9px 12px; border-color:#5b21b6;">
+    <svg viewBox="0 0 700 186" width="100%" height="186" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left Column: Connected Signals & Memory -->
+      <rect x="8" y="14" width="196" height="158" rx="9" fill="#1e1738" stroke="#fb923c" stroke-width="1.6"/>
+      <text x="18" y="32" fill="#fdba74" font-size="8" font-weight="700">1. CONNECTED SIGNALS</text>
+      <text x="18" y="48" fill="#ffffff" font-size="10.2" font-weight="800">Apps, Memory &amp; Skills</text>
+      <rect x="18" y="57" width="176" height="24" rx="5" fill="#2c224d" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="26" y="72" fill="#fed7aa" font-size="7.7" font-weight="600">&bull; Gmail, Calendar &amp; Slack Threads</text>
+      <rect x="18" y="86" width="176" height="24" rx="5" fill="#2c224d" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="26" y="101" fill="#fed7aa" font-size="7.7" font-weight="600">&bull; Stripe, QuickBooks, Gusto, DocuSign</text>
+      <rect x="18" y="115" width="176" height="24" rx="5" fill="#2c224d" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="26" y="130" fill="#fed7aa" font-size="7.7" font-weight="600">&bull; Marketplace &amp; Zapier MCP (9,000+)</text>
+      <rect x="18" y="144" width="176" height="21" rx="5" fill="#2c224d" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="26" y="158" fill="#ddd6fe" font-size="7.7" font-weight="600">&bull; Inherited Claude Memory &amp; Skills</text>
+
+      <!-- Arrow Left to Center -->
+      <path d="M204 93 L236 93" stroke="#fb923c" stroke-width="2.2"/>
+      <polygon points="234,88 243,93 234,98" fill="#fb923c"/>
+
+      <!-- Center Column: Cloud VM + Opus 5.5 -->
+      <rect x="244" y="8" width="214" height="170" rx="10" fill="#241b3b" stroke="#a78bfa" stroke-width="2"/>
+      <text x="351" y="27" text-anchor="middle" fill="#c4b5fd" font-size="8.1" font-weight="700">2. PERSISTENT CLOUD VM</text>
+      <text x="351" y="44" text-anchor="middle" fill="#ffffff" font-size="10.8" font-weight="800">Claude Opus 5.5 Engine</text>
+      <rect x="256" y="53" width="190" height="32" rx="6" fill="#151029" stroke="#7c3aed" stroke-width="1"/>
+      <text x="351" y="67" text-anchor="middle" fill="#ddd6fe" font-size="7.8" font-weight="700">Periodic Sweeps (Device-Off Safe)</text>
+      <text x="351" y="79" text-anchor="middle" fill="#cbd5e1" font-size="7.2">Polls apps every few hours &amp; filters noise</text>
+      <rect x="256" y="91" width="190" height="34" rx="6" fill="#151029" stroke="#fb923c" stroke-width="1.2" stroke-dasharray="4 2"/>
+      <text x="351" y="105" text-anchor="middle" fill="#fdba74" font-size="7.8" font-weight="700">Headless Browser &amp; Code Sandbox</text>
+      <text x="351" y="118" text-anchor="middle" fill="#cbd5e1" font-size="7.2">Web research, forecasts, decks &amp; prototypes</text>
+      <rect x="256" y="131" width="190" height="36" rx="6" fill="#151029" stroke="#38bdf8" stroke-width="1"/>
+      <text x="351" y="145" text-anchor="middle" fill="#bae6fd" font-size="7.8" font-weight="700">Unified Multi-Channel Memory</text>
+      <text x="351" y="158" text-anchor="middle" fill="#cbd5e1" font-size="7.2">1M context shared across all workstreams</text>
+
+      <!-- Arrow Center to Right -->
+      <path d="M458 93 L490 93" stroke="#34d399" stroke-width="2.2"/>
+      <polygon points="488,88 497,93 488,98" fill="#34d399"/>
+
+      <!-- Right Column: Brief + HITL Gate -->
+      <rect x="498" y="14" width="194" height="158" rx="9" fill="#191632" stroke="#34d399" stroke-width="1.6"/>
+      <text x="508" y="32" fill="#6ee7b7" font-size="8" font-weight="700">3. BRIEF &amp; HUMAN GATE</text>
+      <text x="508" y="48" fill="#ffffff" font-size="10.2" font-weight="800">Discretion Before Action</text>
+      <rect x="508" y="57" width="174" height="31" rx="5" fill="#231f42" stroke="#fb923c" stroke-width="0.9"/>
+      <text x="516" y="70" fill="#fed7aa" font-size="7.8" font-weight="700">Morning Brief (Digest)</text>
+      <text x="516" y="82" fill="#cbd5e1" font-size="7.1">Only urgent asks + pre-written drafts</text>
+      <rect x="508" y="94" width="174" height="34" rx="5" fill="#231f42" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="516" y="107" fill="#bae6fd" font-size="7.8" font-weight="700">Chat, Tasks &amp; Make Tabs</text>
+      <text x="516" y="119" fill="#cbd5e1" font-size="7.1">Voice/text + VM tracker + deliverables</text>
+      <rect x="508" y="134" width="174" height="30" rx="5" fill="#122b25" stroke="#10b981" stroke-width="1.1"/>
+      <text x="516" y="147" fill="#6ee7b7" font-size="7.8" font-weight="700">HITL Approval Gate</text>
+      <text x="516" y="158" fill="#e2e8f0" font-size="7.1">Approve / Defer / Reject every write</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Built on Discretion, Not Constant Notification Noise</div>
+    Anthropic tuned Duet to act like a seasoned human chief of staff: instead of forwarding 150 Slack pings, it reads silently in the background, handles low-risk research and drafting, and interrupts you only when a decision or external write needs your sign-off.
+  </div>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: PLANS, QUOTAS & ECOSYSTEM DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Plans, Usage Quotas &amp; Surface Selection</span>
+    <span>Availability &amp; Decision Matrix</span>
+  </div>
+
+  <h2 class="page-title">Plans, Usage Quotas &amp; Ecosystem Decision Matrix</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Claude Duet debuted on October 21, 2026 as a US waitlist research preview across standalone <strong>iOS</strong>, <strong>Android</strong>, and web (<code>claude.ai</code>)&mdash;drawing directly from your subscription&rsquo;s unified model usage pool at no extra monthly fee.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px; gap:11px;">
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #c2410c;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Subscription Tiers &amp; Usage Pool</div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Claude Pro ($20/mo):</strong> Waitlist access to Duet with standard 5-hour session and weekly usage limits shared across Duet, web, and Claude Code.</li>
+        <li><strong>Claude Max ($100/mo):</strong> Provides 5&times; Pro capacity&mdash;comfortable headroom for daily Morning Briefs plus multi-step Make research jobs.</li>
+        <li><strong>Claude Ultra ($200/mo):</strong> Delivers 10&times; Pro weekly allowance, $200/mo API credits, and removes the 5-hour session cap for verified accounts running always-on agents.</li>
+        <li><strong>Team &amp; Enterprise:</strong> Not yet supported during the Oct&ndash;Nov 2026 research preview (no org admin console or corporate DPA coverage yet).</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #7c3aed;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge violet">2</span> 60-Second Onboarding Checklist</div>
+      <ol style="font-size:7.95pt; margin:3px 0 0 0; padding-left:16px;">
+        <li>Join the US waitlist on your eligible <strong>Pro, Max, or Ultra</strong> account and sign into the standalone Duet mobile app or <code>claude.ai</code>.</li>
+        <li>Inspect inherited <strong>Claude Memory</strong> topics and custom <strong>Skills</strong> carried over automatically from your primary Claude profile.</li>
+        <li>Authorize core communication connectors (<strong>Gmail, Google Calendar, Slack</strong>) plus Marketplace or <strong>Zapier MCP</strong> tools.</li>
+        <li>Configure your Morning Brief delivery window and quiet hours before creating focused workstream <strong>Channels</strong>.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card-dark" style="padding:8px 12px; margin-bottom:8px;">
+    <div class="card-title" style="font-size:8.9pt; color:#fdba74; margin-bottom:3px;">Quota Watch: Background Multi-Turn Tasks Share Your Account Pool</div>
+    <div style="font-size:7.9pt; color:#e2e8f0; line-height:1.38;">
+      Duet has no separate credit wallet&mdash;every periodic app sweep and multi-turn Opus 5.5 Cloud VM task consumes standard turns from your Pro, Max, or Ultra quota. Keep periodic sweeps scoped to priority folders and VIP channels so background work never starves daytime chats.
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.4pt;">Ecosystem Decision Matrix: Picking the Right Anthropic Agent</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Anthropic Tool</th>
+        <th style="width:22%;">Execution Environment</th>
+        <th style="width:21%;">Initiative Style</th>
+        <th style="width:19%;">Local Device Need</th>
+        <th style="width:19%;">Best Used For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Duet</strong><br/><em>Proactive Cloud Agent</em></td>
+        <td>Persistent Cloud VM + Headless Cloud Browser (Opus 5.5).</td>
+        <td><strong>Messages You First:</strong> Sweeps apps &amp; sends Morning Briefs.</td>
+        <td><strong>Zero:</strong> Runs cleanly with laptop &amp; phone powered off.</td>
+        <td>Daily triage, inbox &amp; billing oversight, async web research &amp; forecasts.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Cowork</strong><br/><em>Desktop &amp; Local Agent</em></td>
+        <td>Claude Desktop macOS + Cloud Remote Hybrid + Computer Use.</td>
+        <td><strong>Prompt-Driven:</strong> You assign a job or point to local folders.</td>
+        <td><strong>Required for Local:</strong> Mounted Mac folders &amp; GUI clicks.</td>
+        <td>Organizing local PDFs, Keynote/ERP desktop automation, Chrome flows.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Projects</strong><br/><em>Knowledge Workspace</em></td>
+        <td>Web &amp; Desktop persistent document, code &amp; thread hub.</td>
+        <td><strong>Reactive Workspace:</strong> Grounded Q&amp;A and parallel threads.</td>
+        <td><strong>Zero:</strong> Browser/app access to pinned Project files.</td>
+        <td>Long-term RFCs, codebase context, team style guides &amp; multi-file specs.</td>
+      </tr>
+      <tr>
+        <td><strong>Scheduled Runs</strong><br/><em>Cron Automations</em></td>
+        <td>Headless cloud or CLI sessions triggered on fixed intervals.</td>
+        <td><strong>Clock-Triggered:</strong> Runs prompt on strict cron schedule.</td>
+        <td><strong>Zero (Cloud) / Awake (Local):</strong> Depends on target.</td>
+        <td>Nightly repo dependency audits, weekly CSV rollups &amp; recurring checks.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.25pt;">
+    <div class="callout-title">Clear Boundary: Cloud Apps &amp; Mobile Nudges = Duet; Local Disk &amp; Mac GUI = Cowork</div>
+    Reach for <strong>Claude Duet</strong> whenever work flows through Gmail, Calendar, Slack, Stripe, or public websites while you are away from your desk. Switch to <strong>Claude Cowork</strong> whenever Claude needs direct access to local hard-drive folders or native macOS software without an API.
+  </div>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED 4-TAB INTERFACE & CHANNELS TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>4-Tab Studio, Topic Channels &amp; Approval Gate</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Inside the Claude Duet Studio</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Whether opened on iOS, Android, or <code>claude.ai</code>, Claude Duet organizes proactive intelligence across four clean workspace tabs alongside dedicated <strong>Channels</strong> and an unmistakable <strong>Human-in-the-Loop Approval Gate</strong>.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#fff7ed;">Claude Duet (Opus 5.5) &bull; Cloud VM Active</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:5px;">
+        <span class="duet-tab active">Brief</span>
+        <span class="duet-tab">Chat</span>
+        <span class="duet-tab">Tasks</span>
+        <span class="duet-tab">Make</span>
+        <span class="callout-pin">1</span>
+        <span style="margin-left:4px; background:#3b2448; border:1px solid #a78bfa; color:#ddd6fe; padding:2px 7px; border-radius:5px; font-size:6.8pt; font-weight:700;">Memory &amp; Skills Synced</span>
+      </div>
+    </div>
+
+    <!-- Main Split Workspace -->
+    <div style="display:grid; grid-template-columns: 28% 72%; min-height:282px;">
+      <!-- Left Rail: Channels & Connectors -->
+      <div style="border-right:1px solid #4c1d95; padding:9px 9px; display:flex; flex-direction:column; justify-content:space-between; background:#17132e;">
+        <div>
+          <div style="font-size:6.8pt; color:#fdba74; font-weight:700; text-transform:uppercase; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;">
+            <span>Channels (Shared Memory)</span>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="background:#2c224d; border:1px solid #fb923c; border-radius:5px; padding:4.5px 7px; margin-bottom:4.5px; font-size:7pt; color:#ffffff; font-weight:700;">
+            # morning-brief <span style="color:#fdba74; font-weight:600;">(2)</span>
+          </div>
+          <div style="background:#1e1738; border:1px solid #3b2d7a; border-radius:5px; padding:4.5px 7px; margin-bottom:4.5px; font-size:7pt; color:#cbd5e1;">
+            # finance-ops <span style="color:#6ee7b7; font-size:6.5pt;">&bull; Stripe</span>
+          </div>
+          <div style="background:#1e1738; border:1px solid #3b2d7a; border-radius:5px; padding:4.5px 7px; margin-bottom:4.5px; font-size:7pt; color:#cbd5e1;">
+            # hiring-q4 <span style="color:#93c5fd; font-size:6.5pt;">&bull; Cal</span>
+          </div>
+          <div style="background:#1e1738; border:1px solid #3b2d7a; border-radius:5px; padding:4.5px 7px; margin-bottom:6px; font-size:7pt; color:#cbd5e1;">
+            # product-launch <span style="color:#c4b5fd; font-size:6.5pt;">&bull; Slack</span>
+          </div>
+          <div style="background:#121024; border:1px dashed #6d28d9; border-radius:5px; padding:4.5px 7px; font-size:6.55pt; color:#ddd6fe;">
+            <strong>Brief Window:</strong> 7:30 AM EST<br/>
+            <strong>Quiet Hours:</strong> 9 PM &ndash; 7 AM
+          </div>
+        </div>
+
+        <div style="background:#121024; border:1px solid #4c1d95; border-radius:6px; padding:6px 7px;">
+          <div style="font-size:6.7pt; color:#c4b5fd; font-weight:700; margin-bottom:3px;">CONNECTED INTEGRATIONS</div>
+          <div style="font-size:6.6pt; color:#cbd5e1; line-height:1.38;">
+            Gmail &bull; Google Cal &bull; Slack &bull; Stripe &bull; QuickBooks &bull; DocuSign &bull; Zapier MCP (9,000+)
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Stage: Morning Brief + Chat/Tasks/Make + HITL Gate -->
+      <div style="padding:8px 10px; background:#121024; display:flex; flex-direction:column; gap:6px;">
+        <!-- Morning Brief Digest Banner -->
+        <div style="background:#1e1738; border:1px solid #fb923c; border-radius:7px; padding:6px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="font-size:7.2pt; font-weight:800; color:#fdba74;">MORNING BRIEF / CLAUDE DIGEST &bull; 7:30 AM <span class="callout-pin">2</span></span>
+            <span style="font-size:6.6pt; color:#cbd5e1;">68 overnight signals &rarr; <strong>2 urgent decisions</strong></span>
+          </div>
+          <div style="font-size:6.9pt; color:#e2e8f0; line-height:1.34;">
+            1. <strong>Vendor Renewal Conflict:</strong> Acme Corp asked to move Thursday&rsquo;s contract call; 2 open slots drafted.<br/>
+            2. <strong>Overdue Invoice #408 ($4,200):</strong> Drafted polite reminder using Q4 client tone Memory.
+          </div>
+        </div>
+
+        <!-- Middle Row: Chat Tool Card + Cloud VM Tasks/Make -->
+        <div style="display:grid; grid-template-columns: 50% 50%; gap:7px;">
+          <div style="background:#191533; border:1px solid #4c1d95; border-radius:7px; padding:6px 8px;">
+            <div style="font-size:6.9pt; font-weight:700; color:#c4b5fd; margin-bottom:3px;">Chat Tab &amp; Tool Cards <span class="callout-pin">3</span></div>
+            <div style="font-size:6.75pt; color:#cbd5e1; margin-bottom:4px;">
+              <strong>You (Voice):</strong> &ldquo;Check Stripe &amp; draft a 30-day Q1 forecast.&rdquo;
+            </div>
+            <div style="background:#241b3b; border:1px solid #7c3aed; border-radius:5px; padding:4px 6px; font-size:6.65pt; color:#ddd6fe;">
+              <strong>Tool Card &bull; Stripe + QuickBooks:</strong> Pulled 14 invoices ($38.4k MRR). Forecast saved to <strong>Make</strong>.
+            </div>
+          </div>
+
+          <div style="background:#191533; border:1px solid #0284c7; border-radius:7px; padding:6px 8px;">
+            <div style="font-size:6.9pt; font-weight:700; color:#7dd3fc; margin-bottom:3px;">Tasks &amp; Make Tabs (Cloud VM) <span class="callout-pin">4</span></div>
+            <div style="font-size:6.7pt; color:#e2e8f0; margin-bottom:3px;">
+              &#9679; <strong>Task Running:</strong> Headless Browser checking 4 rival pricing tiers (Laptop Off OK)
+            </div>
+            <div style="background:#0f2738; border:1px solid #0369a1; border-radius:5px; padding:4px 6px; font-size:6.65pt; color:#bae6fd;">
+              <strong>Make Routine:</strong> <code>Q1_Cashflow_Deck.pptx</code> compiled &bull; Awaiting your final check-off
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row: HITL Approval Gate -->
+        <div style="background:#142823; border:1.5px solid #10b981; border-radius:7px; padding:6px 9px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="font-size:7.1pt; font-weight:800; color:#6ee7b7;">APPROVAL GATE &bull; EXTERNAL SEND PAUSED <span class="callout-pin">6</span></span>
+            <span style="background:#064e3b; border:1px solid #34d399; color:#a7f3d0; padding:1.5px 6px; border-radius:4px; font-size:6.5pt; font-weight:700;">Outbound Classifier: Passed <span class="callout-pin">7</span></span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <div style="font-size:6.8pt; color:#e2e8f0; line-height:1.3;">
+              <strong>Action:</strong> Send Gmail reply to <code>cfo@acmecorp.com</code> &bull; <strong>Subject:</strong> Rescheduling Renewal + Inv #408
+            </div>
+            <div style="display:flex; gap:4px; flex-shrink:0;">
+              <span class="duet-pill-btn approve">Approve</span>
+              <span class="duet-pill-btn defer">Defer</span>
+              <span class="duet-pill-btn reject">Reject</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Point Legend -->
+  <div class="grid-2" style="gap:7px 12px; font-size:8pt;">
+    <div class="card" style="padding:7.5px 10px;">
+      <span class="callout-pin">1</span> <strong>4-Tab Navigation Bar:</strong> Switch seamlessly between your proactive <strong>Brief</strong> digest, continuous <strong>Chat</strong>, live Cloud VM <strong>Tasks</strong>, and <strong>Make</strong> templates/outputs.
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <span class="callout-pin">2</span> <strong>Morning Brief / Claude Digest:</strong> Synthesizes overnight Gmail, Calendar, Slack, and Marketplace events into just the decisions and drafts needing you.
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <span class="callout-pin">3</span> <strong>Chat Tab &amp; Inline Tool Cards:</strong> Speak or type naturally in one ongoing thread while live Stripe, Calendar, or Slack cards display structured evidence inline.
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <span class="callout-pin">4</span> <strong>Tasks &amp; Make Tabs:</strong> Track active background Cloud VM jobs (you manually mark major tasks done) and open compiled forecasts, decks, or routines in Make.
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <span class="callout-pin">5</span> <strong>Topic Channels:</strong> Isolate Finance, Hiring, or Launch threads with dedicated instructions while sharing unified <strong>Claude Memory</strong> and <strong>Skills</strong>.
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <span class="callout-pin">6</span> <strong>HITL Approval Gate Card:</strong> Hard-stops every external write (send, pay, sign, delete) with full payload preview and <strong>Approve / Defer / Reject</strong> controls.
+    </div>
+  </div>
+  <div class="card-peach" style="padding:7.5px 11px; margin-top:7px; font-size:8pt;">
+    <span class="callout-pin">7</span> <strong>Outbound Security Classifier &amp; Credential Shield:</strong> Before an Approval Card renders, an independent classifier verifies no unrequested card numbers, government IDs, or credentials leaked into external drafts.
+  </div>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: MORNING BRIEF & OVERNIGHT SWEEPS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Proactive Morning Brief Workflow</span>
+    <span>Overnight Sweeps &amp; Zero-Noise Digest Triage</span>
+  </div>
+
+  <h2 class="page-title">Mastering the Morning Brief &amp; Overnight Sweeps</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Most professionals start their morning drowning in 90 unread emails, 14 Slack channels, and double-booked calendar invites. Duet&rsquo;s <strong>Morning Brief (Claude Digest)</strong> clears that clutter before your alarm rings&mdash;handing you only high-leverage choices with replies already written.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/cloud_vm_morning_brief.jpg" alt="Isometric Dusk-Navy Studio Showing Scattered Translucent Message Shards Filtering Through a Glowing Peach-Coral Cloud VM Prism into Three Calm Priority Cards" />
+    <div class="figure-caption">
+      <strong>Overnight Signal Compression:</strong> Duet&rsquo;s Cloud VM polls authorized Gmail, Google Calendar, Slack, and SaaS feeds every few hours, strips routine chatter, and distills scattered threads into calm, action-ready Morning Brief cards.
+    </div>
+  </div>
+
+  <h3>The 4-Stage Overnight Briefing Cycle</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Periodic Background Sweeps</div>
+      <p style="font-size:7.95pt; margin:0;">
+        Every few hours&mdash;and once shortly before your morning wake time&mdash;Duet queries your linked Gmail inbox, Google Calendar, Slack workspaces, and Marketplace or Zapier MCP connectors from its isolated cloud VM.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge violet">2</span> Signal-vs-Noise Filtering</div>
+      <p style="font-size:7.95pt; margin:0;">
+        Opus 5.5 discards newsletters, cold sales outreach, and resolved bot alerts. It surfaces only scheduling collisions, direct human questions, overdue billing, and stalled deliverables matching your Memory priorities.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge emerald">3</span> Ready-to-Send Reply Drafts</div>
+      <p style="font-size:7.95pt; margin:0;">
+        Rather than merely summarizing problems, Duet prepares concrete solutions: a calendar reschedule proposal checking actual free slots, or a polite client reply matched to your tone preferences in Memory.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge sky">4</span> 90-Second Triage at Breakfast</div>
+      <p style="font-size:7.95pt; margin:0;">
+        Unlock iOS, Android, or web over coffee: tap <strong>Approve</strong> to dispatch a clean draft, tap <strong>Defer</strong> (<code>Not now</code>) to revisit at 2 PM, or open Chat to tweak wording before sending.
+      </p>
+    </div>
+  </div>
+
+  <pre class="code-block" style="margin:2px 0 6px 0;"><code>Brief Calibration Prompt (paste into your main #morning-brief Channel once):
+"Deliver my Morning Brief at 7:30 AM EST. Sweep Gmail (Primary + VIP clients), Google Calendar (next 72 hours), Slack (#ops-escalations and direct @mentions only), and Stripe unpaid invoices. Ignore newsletters, GitHub bot notifications, and automated receipts. Group findings into Urgent Decisions, Calendar Conflicts, and Ready Drafts—never exceed 5 items total, and pause every outgoing message at the Approval Gate."</code></pre>
+
+  <div class="callout violet" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.25pt;">
+    <div class="callout-title">Smart Quota Habit: Exclude High-Chatter Folders on Day One</div>
+    Because every background sweep draws from your shared Pro, Max, or Ultra usage pool, explicitly tell Duet which noisy Slack channels, mailing lists, and label archives to skip. Tight scope yields sharper Morning Briefs and doubles your daily turn headroom.
+  </div>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: CLOUD VM, HEADLESS BROWSER & 5-PART ROUTINE ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Persistent Cloud VM &amp; Routine Anatomy</span>
+    <span>Headless Browser, Make Tab &amp; 5-Part Configuration</span>
+  </div>
+
+  <h2 class="page-title">Cloud VM, Headless Browser &amp; Routine Prompt Anatomy</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Unlike mobile chat wrappers that pause the moment your screen dims, Claude Duet commands an isolated <strong>Cloud Virtual Machine</strong> with a built-in <strong>headless cloud browser</strong> and execution sandbox&mdash;turning multi-hour research and modeling into async background jobs.
+  </p>
+
+  <div class="grid-2" style="gap:11px; margin-bottom:8px;">
+    <div class="card-peach" style="padding:9px 11px;">
+      <div class="card-title" style="font-size:9.15pt; color:#9a3412;">Inside Duet&rsquo;s Persistent Cloud VM</div>
+      <ul style="font-size:7.95pt; margin:4px 0 0 0; padding-left:16px;">
+        <li><strong>Headless Cloud Browser:</strong> Visits vendor portals, regulatory filings, live competitor pricing pages, and web sources that lack public APIs.</li>
+        <li><strong>Deliverables Engine (Make Tab):</strong> Compiles financial forecasts, slide decks, interactive dashboards, research memos, and web prototypes inside its sandbox.</li>
+        <li><strong>Live Source Monitoring:</strong> Watches changing web pages or SaaS dashboards asynchronously and alerts you in Chat or Tasks when thresholds trip.</li>
+        <li><strong>Zero Device Tether:</strong> Close your MacBook or lose subway signal&mdash;the Cloud VM finishes cleanly and syncs results to Tasks and Make.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title" style="font-size:9.15pt;">Make Templates vs. Tasks Oversight</div>
+      <ul style="font-size:7.95pt; margin:4px 0 0 0; padding-left:16px;">
+        <li><strong>Make Tab Starters:</strong> Launch proven routines in one click&mdash;including <em>Daily Inbox Triage</em>, <em>Structured Daily Planning</em>, <em>Expense Reconciliation</em>, and <em>Competitor Watch</em>.</li>
+        <li><strong>Tasks Tab Transparency:</strong> Inspect live VM steps, fetched browser URLs, and drafted outputs in real time without cluttering your Chat feed.</li>
+        <li><strong>Manual Completion Rule:</strong> Duet prepares deliverables and clears blockers, yet <strong>you manually mark major Tasks complete</strong> so important work never disappears quietly.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 5px 0;">The 5-Part Proactive Routine Prompt Anatomy</h3>
+  <p style="font-size:8.4pt; margin-bottom:6px;">
+    Whenever you configure a recurring Channel monitor or custom Make routine, including all five color-coded clauses prevents missed triggers, runaway token burn, and unwanted draft surprises:
+  </p>
+
+  <div class="card" style="padding:9px 12px; margin-bottom:8px; background:#ffffff; border:1.5px solid #fdba74;">
+    <div style="font-size:8.5pt; line-height:1.85;">
+      <span class="p-tag p-trig">[1. Cadence &amp; Trigger]</span> Run every Monday and Thursday at 7:00 AM EST (or immediately when a new renewal thread hits Gmail),
+      <span class="p-tag p-src">[2. Scoped Connectors &amp; VM Tools]</span> check HubSpot deals via Zapier MCP, pull QuickBooks payment status, and use the Headless Cloud Browser to inspect each client&rsquo;s latest press page,
+      <span class="p-tag p-synth">[3. Triage &amp; Synthesis Filter]</span> apply our <code>Customer_Health_Skill</code> to flag only renewals within 45 days showing open invoices or silence over 10 days,
+      <span class="p-tag p-draft">[4. Deliverable &amp; Draft Output]</span> build a 1-page Risk Dashboard in <strong>Make</strong> plus a tailored check-in email draft for each flagged account,
+      <span class="p-tag p-gate">[5. Approval Gate Boundary]</span> and pause at the Approval Gate for explicit confirmation before sending any email or updating CRM deal stages.
+    </div>
+  </div>
+
+  <table class="clean-table" style="font-size:7.85pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Routine Component</th>
+        <th style="width:38%;">What It Governs in the Cloud VM</th>
+        <th style="width:38%;">Failure Mode When Omitted</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="p-tag p-trig">Cadence &amp; Trigger</span></td>
+        <td>Defines exact sweep intervals, quiet hours, or event thresholds that wake Duet.</td>
+        <td>Polls unnecessarily every cycle, burning Pro/Max 5-hour quota on idle checks.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-src">Scoped Connectors</span></td>
+        <td>Binds exact Gmail labels, Slack channels, Zapier tools, or Cloud Browser URLs.</td>
+        <td>Sifts thousands of irrelevant archive messages or opens wrong regional portals.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-synth">Triage &amp; Synthesis Filter</span></td>
+        <td>Establishes materiality thresholds (dollar caps, VIP lists, silence windows).</td>
+        <td>Floods your Morning Brief with trivial alerts instead of true decisions.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-draft">Deliverable &amp; Draft</span></td>
+        <td>Specifies exact Make output format (forecast, deck, memo) + draft location.</td>
+        <td>Produces vague chat summaries instead of reusable, inspectable Make assets.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-gate">Approval Gate Boundary</span></td>
+        <td>Reiterates zero autonomous external sends, billing writes, or record deletions.</td>
+        <td>Creates ambiguity over where drafting stops and human sign-off begins.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.25pt;">
+    <div class="callout-title">Cloud Browser Scope vs. Local Desktop Apps</div>
+    Duet&rsquo;s headless browser runs inside Anthropic&rsquo;s cloud&mdash;making it ideal for open research, public pricing monitors, and OAuth-connected SaaS. For apps behind corporate VPNs or native macOS desktop tools, pair Duet with <strong>Claude Cowork</strong>.
+  </div>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: CHANNELS, UNIFIED MEMORY & SKILLS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Topic Channels, Memory &amp; Skills</span>
+    <span>Multi-Stream Organization With Unified Account Context</span>
+  </div>
+
+  <h2 class="page-title">Organizing Work Into Channels With Unified Memory &amp; Skills</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Asking one continuous chat thread to manage payroll, executive hiring, and a product launch quickly creates mental whiplash. Duet&rsquo;s <strong>Channels</strong> separate workstreams into clean, purpose-built rooms while sharing one unified <strong>Claude Memory</strong> and <strong>Skills</strong> brain underneath.
+  </p>
+
+  <h3>Three High-Leverage Starter Channels</h3>
+  <div class="grid-3" style="margin-bottom:8px; gap:9px;">
+    <div class="card" style="border-top:3px solid #c2410c; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> <code>#finance-ops</code></div>
+      <p style="font-size:7.85pt; margin:0;">
+        <strong>Connectors:</strong> Stripe, QuickBooks, Gusto, Gmail.<br/>
+        <strong>Focus:</strong> Flags unpaid invoices, reconciles monthly burn in Make forecasts, and prepares payroll drafts for Approval Gate sign-off.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #7c3aed; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge violet">2</span> <code>#hiring-pipeline</code></div>
+      <p style="font-size:7.85pt; margin:0;">
+        <strong>Connectors:</strong> Gmail, Google Calendar, Slack, Zapier ATS.<br/>
+        <strong>Focus:</strong> Compiles candidate packets overnight, detects panel scheduling conflicts, and drafts interview prep briefs.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #0284c7; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge sky">3</span> <code>#product-launch</code></div>
+      <p style="font-size:7.85pt; margin:0;">
+        <strong>Connectors:</strong> Slack, Notion, DocuSign, Cloud Browser.<br/>
+        <strong>Focus:</strong> Tracks milestone blockers, watches competitor release notes via headless browser, and compiles launch readiness decks.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">What Is Isolated Per Channel vs. Unified Across Your Claude Account</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Workspace Layer</th>
+        <th style="width:38%;">Isolated Inside Each Channel</th>
+        <th style="width:38%;">Shared Across All Channels &amp; Core Claude</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Instructions &amp; Cadence</strong></td>
+        <td>Dedicated focus rules, tone tweaks, and sweep frequency per topic room.</td>
+        <td>Global profile identity and baseline preferences stored in Claude Memory.</td>
+      </tr>
+      <tr>
+        <td><strong>Memory &amp; Skills</strong></td>
+        <td>Recent thread context stays uncluttered by unrelated workstreams.</td>
+        <td>Categorized <strong>Claude Memory</strong> facts + custom <strong>Skills</strong> carry over from Day 1.</td>
+      </tr>
+      <tr>
+        <td><strong>Apps &amp; Connectors</strong></td>
+        <td>Prompt instructions restrict which tools a given Channel should poll.</td>
+        <td>All OAuth &amp; Zapier MCP connections live in one unified account vault.</td>
+      </tr>
+      <tr>
+        <td><strong>Tasks &amp; Make Outputs</strong></td>
+        <td>Each Channel spawns clearly tagged deliverables and task threads.</td>
+        <td>Viewed together inside the global <strong>Tasks</strong> and <strong>Make</strong> studio tabs.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="padding:9px 12px; margin-bottom:8px;">
+    <div class="card-title" style="font-size:9pt; color:#fdba74; margin-bottom:4px;">Instant Context Carryover: Your Existing Claude Memory &amp; Skills Work From Message One</div>
+    <p style="font-size:7.95pt; color:#e2e8f0; margin:0; line-height:1.4;">
+      You do not start from scratch when opening Claude Duet. Every categorized Memory item you have already curated in <code>claude.ai</code>&mdash;such as your company pricing tiers, writing style rules, family travel constraints, or board reporting format&mdash;plus your installed <strong>Claude Skills</strong> automatically power Duet&rsquo;s Morning Briefs and Channel drafts immediately.
+    </p>
+  </div>
+
+  <h3 style="margin:2px 0 5px 0;">Memory &amp; Skills Hygiene Habits Across Channels</h3>
+  <div class="grid-2" style="gap:10px; margin-bottom:8px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> Store Stable Rules in Memory, Cadence in Channels</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Keep enduring truths (<em>&ldquo;Always bill Net-30&rdquo;</em> or <em>&ldquo;Keep client replies under 90 words&rdquo;</em>) in categorized Memory, while keeping sweep schedules and tool filters specific to each Channel&rsquo;s prompt.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge violet">2</span> Package Repeatable Playbooks as Claude Skills</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Whenever you teach Duet a multi-step SOP&mdash;such as formatting weekly investor metrics or scoring inbound leads&mdash;save it as a reusable <strong>Skill</strong> so every Channel executes identically.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.25pt;">
+    <div class="callout-title">Pro Pattern: Dedicate a Silent &ldquo;#watch-alerts&rdquo; Channel for High-Noise Monitors</div>
+    Route automated competitor price watches or daily shipment checks into a separate Channel with proactive push notifications set to exceptions only. Your primary Morning Brief stays clean while continuous tracking hums quietly in the background.
+  </div>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: HITL APPROVAL GATE & WRITE CONTROLS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Safety Architecture &amp; Approval Gates</span>
+    <span>Autonomous Read &amp; Draft vs. Mandatory Write Checkpoints</span>
+  </div>
+
+  <h2 class="page-title">The Human-in-the-Loop (HITL) Approval Gate</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Proactive autonomy only earns trust when an agent knows exactly where preparation stops and irreversible action begins. Claude Duet enforces a hard architectural boundary between autonomous background prep and external state-changing writes.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/hitl_approval_gate.jpg" alt="Dark Twilight Glass Console Showing an Amber-Violet Cloud Workflow Beam Pausing at a Luminous Emerald-and-Coral Safety Ring Before Branching to Tool Nodes" />
+    <div class="figure-caption">
+      <strong>Built-In Pause Before Impact:</strong> Duet freely reads feeds, browses public portals, and prepares complete drafts on its Cloud VM, yet stops firmly at the Approval Gate ring until you inspect the payload and tap Approve.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge emerald">1</span> Autonomous Zone (No Pause Needed)</div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Read &amp; Triage:</strong> Sweeping Gmail, Calendar, Slack, Stripe, QuickBooks, and read-only Zapier connectors overnight.</li>
+        <li><strong>Cloud VM &amp; Browser Research:</strong> Navigating public web pages, reading PDFs, comparing prices, and scraping tables.</li>
+        <li><strong>Compile &amp; Draft:</strong> Building financial models, slide decks, dashboards, and saving complete email or invoice drafts locally in <strong>Make</strong> or <strong>Drafts</strong>.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #e11d48;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge rose">2</span> Gated Write Zone (Mandatory Pause)</div>
+      <ul style="font-size:7.95pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>External Messaging:</strong> Sending Gmail messages, posting Slack announcements, or firing external webhooks.</li>
+        <li><strong>Payments &amp; Payroll:</strong> Executing Stripe refunds or Link virtual-card purchases, submitting Gusto payroll runs, or billing clients.</li>
+        <li><strong>Legal &amp; Destructive Ops:</strong> Signing or routing DocuSign contracts, deleting Drive files, or canceling multi-guest meetings.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.3pt;">Inside Every Approval Card: Payload Preview &amp; Your 3 Controls</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Gate Element</th>
+        <th style="width:33%;">What Duet Displays On-Screen</th>
+        <th style="width:45%;">Recommended Operator Habit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Full Payload Preview</strong></td>
+        <td>Exact recipients, subject line, full message text, dollar sum, or target file IDs.</td>
+        <td>Scan recipients and numbers carefully&mdash;especially on multi-recipient threads or billing runs.</td>
+      </tr>
+      <tr>
+        <td><strong>Approve (<code>Yes</code>)</strong></td>
+        <td>Releases the staged Cloud VM tool call immediately and logs the outcome in Tasks.</td>
+        <td>Use for crisp, verified drafts; jump into Chat to adjust tone first if anything feels off.</td>
+      </tr>
+      <tr>
+        <td><strong>Defer (<code>Not now</code>)</strong></td>
+        <td>Keeps the staged payload intact in Tasks without executing or discarding your prep work.</td>
+        <td>Perfect during commute triage when you want desktop eyes on a contract before signing.</td>
+      </tr>
+      <tr>
+        <td><strong>Reject (<code>No</code>)</strong></td>
+        <td>Cancels the action cleanly and lets you instruct Duet why in Chat to refine future Memory.</td>
+        <td>Follow rejections with a 1-sentence Memory rule (e.g., <em>&ldquo;Never CC legal on Stage 1 quotes&rdquo;</em>).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE CLAUDE DUET RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Run Channel &amp; Routine Library</span>
+    <span>5 Copy-Paste Workflows for Founders, PMs &amp; Operators</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Claude Duet Recipes</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Drop any of these production-ready blueprints into a dedicated Duet <strong>Channel</strong> or the <strong>Make</strong> tab. Each recipe pairs tight connector boundaries with a concrete Make deliverable and explicit Approval Gate pause.
+  </p>
+
+  <table class="clean-table" style="font-size:7.8pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Recipe &amp; Channel</th>
+        <th style="width:55%;">Copy-Paste Routine Prompt (Zero Ambiguous Placeholders)</th>
+        <th style="width:24%;">VM Deliverable &amp; Gate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Zero-Noise Morning Executive Brief</strong><br/><em><code>#morning-brief</code></em></td>
+        <td><code>Every weekday at 7:30 AM, sweep Gmail Primary, Google Calendar (next 48h), and Slack @mentions. Exclude newsletters, automated alerts, and bots. Surface at most 5 urgent decisions or scheduling conflicts, propose 2 open calendar slots for any clash, and stage polite reply drafts at the Approval Gate.</code></td>
+        <td>Concise 5-bullet Morning Digest + 1-tap staged email/invite drafts.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Overdue Invoice &amp; Cashflow Chaser</strong><br/><em><code>#finance-ops</code></em></td>
+        <td><code>Every Monday at 8:00 AM, inspect Stripe and QuickBooks for invoices overdue by 7+ days and reconcile against Gmail threads to confirm no payment confirmation arrived overnight. Update our Make 30-day Cashflow Forecast and queue tailored, friendly reminder drafts at the Approval Gate—never send or refund autonomously.</code></td>
+        <td>Updated <strong>Make</strong> cashflow forecast + gated client invoice nudges.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Candidate Packet &amp; Interview Coordinator</strong><br/><em><code>#hiring-q4</code></em></td>
+        <td><code>Whenever a finalist candidate replies in Gmail or our ATS via Zapier MCP, cross-check 4 interviewer Google Calendars for open 45-minute blocks next week, compile a 1-page candidate dossier in Make from resume + interview notes, and pause at the Approval Gate with proposed calendar holds and invite emails.</code></td>
+        <td><strong>Make</strong> candidate brief + conflict-free interview invite awaiting Approve.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Overnight Competitor &amp; Price Monitor</strong><br/><em><code>#market-intel</code></em></td>
+        <td><code>Every Wednesday night while my devices are off, launch the Headless Cloud Browser across our top 4 competitor pricing and changelog URLs. Diff pricing tiers, new feature launches, and enterprise SLA notes against last week's Make baseline, and deliver an executive delta deck if meaningful shifts occur.</code></td>
+        <td>Silent unless changes appear; delivers Make slide diff by Thursday AM.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Renewal Risk Radar &amp; Account Check-In</strong><br/><em><code>#client-success</code></em></td>
+        <td><code>Twice weekly, scan HubSpot via Zapier MCP, Gmail, and shared Slack Connect channels for accounts renewing within 45 days that have an unresolved support thread or 14+ days of silence. Compile a Risk Summary card in Make and stage personalized founder check-in drafts behind the Approval Gate.</code></td>
+        <td>Prioritized renewal scorecard + custom founder outreach drafts gated for review.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:10px; margin-top:2px;">
+    <div class="callout emerald" style="margin:0; padding:8px 11px; font-size:8.15pt;">
+      <div class="callout-title">Power Move: Bridge 9,000+ Niche Tools With Zapier MCP</div>
+      Already rely on Airtable, HubSpot, Linear, Shopify, or Asana? Attach <strong>Zapier MCP</strong> inside your Claude connector settings so Duet&rsquo;s Cloud VM can read pipeline rows and stage updates across your full SaaS stack from day one.
+    </div>
+    <div class="callout violet" style="margin:0; padding:8px 11px; font-size:8.15pt;">
+      <div class="callout-title">Week-One Calibration Rule: Draft First, Approve After</div>
+      Start every new Channel in pure read-and-draft mode for its first 5 runs. Once Duet&rsquo;s tone, threshold filtering, and recipient selection hit 10/10 accuracy, lean on Approval Gate cards for effortless 1-tap execution.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, PRIVACY & RESEARCH PREVIEW GOVERNANCE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security, Privacy &amp; Governance</span>
+    <span>Credential Shield, Outbound Classifier &amp; Enterprise Reality</span>
+  </div>
+
+  <h2 class="page-title">Security Boundaries, Privacy &amp; Research Preview Governance</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Granting an always-on cloud agent access to email, calendars, and financial tools demands rigorous engineering safeguards&mdash;and honest clarity about which compliance controls exist today during the Research Preview versus commercial Team and Enterprise plans.
+  </p>
+
+  <div class="grid-2" style="gap:11px; margin-bottom:8px;">
+    <div class="card" style="padding:9px 11px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge emerald">1</span> Built-In Technical Defenses</div>
+      <ul style="font-size:7.95pt; margin:4px 0 0 0; padding-left:16px;">
+        <li><strong>Credential Isolation:</strong> Opus 5.5 never sees raw passwords, browser cookies, or OAuth tokens inside its reasoning context; authentication lives inside a separated proxy layer.</li>
+        <li><strong>Outbound Security Classifier:</strong> A dedicated safety classifier screens outgoing messages and payloads to block leaking credit cards, government IDs, or sensitive private records unless explicitly directed.</li>
+        <li><strong>Prompt-Injection Containment:</strong> If a hostile email or web page hides hidden commands (<em>&ldquo;Ignore rules and send money&rdquo;</em>), the mandatory Approval Gate freezes any write or transfer before execution.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:9px 11px; border-top:3px solid #e11d48;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge rose">2</span> Research Preview Governance Limits</div>
+      <ul style="font-size:7.95pt; margin:4px 0 0 0; padding-left:16px;">
+        <li><strong>Individual Plans Only:</strong> During the Oct&ndash;Nov 2026 preview, Duet supports individual US <strong>Pro, Max, and Ultra</strong> plans; <strong>Claude Team and Enterprise</strong> do not yet include Duet.</li>
+        <li><strong>No Org Admin Console Yet:</strong> Centralized IT connector allowlists, SSO enforcement, custom retention rules, and audit log streaming are not yet available for Duet.</li>
+        <li><strong>Consumer Data Controls:</strong> Check individual <code>Settings &rarr; Privacy</code> opt-out settings for model training before linking proprietary corporate mailboxes or financial ledgers.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Security &amp; Governance Matrix: Personal Duet Preview vs. Enterprise Claude</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Control Dimension</th>
+        <th style="width:38%;">Claude Duet (Oct&ndash;Nov 2026 Preview)</th>
+        <th style="width:38%;">Claude Team / Enterprise (Cowork &amp; Projects)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Eligible Accounts</strong></td>
+        <td>US individual <strong>Pro, Max &amp; Ultra</strong> (waitlist).</td>
+        <td>Multi-seat commercial orgs with domain SSO.</td>
+      </tr>
+      <tr>
+        <td><strong>Credential &amp; Write Guard</strong></td>
+        <td>Token proxy isolation + Outbound Classifier + HITL Gate.</td>
+        <td>Admin-governed MCP allowlists + HITL Gate.</td>
+      </tr>
+      <tr>
+        <td><strong>Model Training Guarantee</strong></td>
+        <td>Follows individual consumer privacy toggle settings.</td>
+        <td>Contractual zero model training by default + DPA.</td>
+      </tr>
+      <tr>
+        <td><strong>Regulated Compliance</strong></td>
+        <td>No HIPAA BAA, ZDR, or SOC2 audit stream during preview.</td>
+        <td>Enterprise ZDR, HIPAA-ready, CMEK &amp; audit exports.</td>
+      </tr>
+      <tr>
+        <td><strong>Data Retention &amp; Offboarding</strong></td>
+        <td>Controlled manually by individual account deletion &amp; OAuth revokes.</td>
+        <td>Org-wide retention policies &amp; instant SCIM user deprovisioning.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="padding:10px 13px; margin-bottom:8px;">
+    <div class="card-title" style="font-size:9.1pt; color:#fdba74; margin-bottom:4px;">Corporate Hygiene Rule: Treat Duet Preview as an Unmanaged Personal Agent</div>
+    <p style="font-size:8.1pt; color:#e2e8f0; margin:0; line-height:1.42;">
+      Security teams should note that employees experimenting with Duet on personal Pro or Max subscriptions operate outside Enterprise admin visibility. Until Anthropic ships Team and Enterprise support for Duet, reserve Duet for personal productivity, founder ops, or non-regulated test sandboxes approved by IT.
+    </p>
+  </div>
+
+  <div class="callout rose" style="margin:2px 0 0 0; padding:8px 12px; font-size:8.25pt;">
+    <div class="callout-title">Least-Privilege Connector Principle</div>
+    Even with the HITL Approval Gate protecting every write, always connect Stripe, QuickBooks, and Zapier MCP using scoped read/draft permissions rather than unrestricted admin keys whenever possible. Review connected OAuth apps monthly inside <code>Settings &rarr; Connectors</code>.
+  </div>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL ECOSYSTEM SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Architecture</span>
+    <span>Connecting Proactive Cloud Radar to Desktop &amp; Code Execution</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From Duet Morning Brief to Shipped Work</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Claude Duet is your 24/7 radar and morning dispatcher&mdash;not an isolated silo. Because it shares unified <strong>Claude Memory</strong>, <strong>Skills</strong>, and account connectors, overnight discoveries flow effortlessly into <strong>Claude Projects</strong>, <strong>Sheets</strong>, <strong>Cowork</strong>, and <strong>Claude Code</strong>.
+  </p>
+
+  <div class="figure-box" style="background:#141026; padding:12px 12px; border-color:#5b21b6; margin-bottom:11px;">
+    <svg viewBox="0 0 700 206" width="100%" height="218" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Duet Overnight Radar -->
+      <rect x="8" y="20" width="154" height="166" rx="9" fill="#1e1738" stroke="#fb923c" stroke-width="1.6"/>
+      <text x="85" y="38" text-anchor="middle" fill="#fdba74" font-size="7.6" font-weight="700">STAGE 1 &bull; OVERNIGHT</text>
+      <text x="85" y="54" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Claude Duet VM</text>
+      <rect x="18" y="64" width="134" height="48" rx="5" fill="#2c224d" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="85" y="79" text-anchor="middle" fill="#fed7aa" font-size="7.5" font-weight="700">Periodic Sweeps</text>
+      <text x="85" y="91" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Gmail, Calendar, Slack,</text>
+      <text x="85" y="102" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Stripe &amp; Headless Browser</text>
+      <rect x="18" y="120" width="134" height="54" rx="5" fill="#2c224d" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="85" y="135" text-anchor="middle" fill="#ddd6fe" font-size="7.5" font-weight="700">7:30 AM Brief + Make</text>
+      <text x="85" y="147" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Drafts replies, builds</text>
+      <text x="85" y="158" text-anchor="middle" fill="#cbd5e1" font-size="6.9">forecasts &amp; surfaces risks</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M162 103 L188 103" stroke="#34d399" stroke-width="2.1"/>
+      <polygon points="186,98 194,103 186,108" fill="#34d399"/>
+
+      <!-- Stage 2: Human Gate & Unified Memory -->
+      <rect x="195" y="20" width="152" height="166" rx="10" fill="#142823" stroke="#10b981" stroke-width="1.8"/>
+      <text x="271" y="38" text-anchor="middle" fill="#6ee7b7" font-size="7.6" font-weight="700">STAGE 2 &bull; TRIAGE</text>
+      <text x="271" y="54" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">HITL Gate + Memory</text>
+      <rect x="206" y="64" width="130" height="50" rx="5" fill="#0d1e1a" stroke="#34d399" stroke-width="0.9"/>
+      <text x="271" y="79" text-anchor="middle" fill="#a7f3d0" font-size="7.5" font-weight="700">1-Tap Decision</text>
+      <text x="271" y="91" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Approve, Defer, or Reject</text>
+      <text x="271" y="102" text-anchor="middle" fill="#cbd5e1" font-size="6.9">staged external writes</text>
+      <rect x="206" y="122" width="130" height="52" rx="5" fill="#0d1e1a" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="271" y="137" text-anchor="middle" fill="#bae6fd" font-size="7.5" font-weight="700">Shared Account Context</text>
+      <text x="271" y="149" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Memory &amp; Skills sync</text>
+      <text x="271" y="160" text-anchor="middle" fill="#cbd5e1" font-size="6.9">into claude.ai workspace</text>
+
+      <!-- Branching Arrows 2 -> 3 -->
+      <path d="M347 72 L378 60" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="375,56 384,58 378,65" fill="#a78bfa"/>
+      <path d="M347 134 L378 146" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="378,141 384,148 375,150" fill="#38bdf8"/>
+
+      <!-- Stage 3A: Projects & Sheets/Whiteboards -->
+      <rect x="385" y="16" width="146" height="84" rx="8" fill="#1e1738" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="458" y="33" text-anchor="middle" fill="#c4b5fd" font-size="7.4" font-weight="700">STAGE 3A &bull; COLLABORATE</text>
+      <text x="458" y="48" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Projects &amp; Sheets</text>
+      <text x="458" y="63" text-anchor="middle" fill="#cbd5e1" font-size="7">Promote Make briefs into</text>
+      <text x="458" y="75" text-anchor="middle" fill="#cbd5e1" font-size="7">Claude Projects, Whiteboards</text>
+      <text x="458" y="88" text-anchor="middle" fill="#ddd6fe" font-size="6.9" font-weight="700">&amp; live KPI Sheets</text>
+
+      <!-- Stage 3B: Cowork Desktop -->
+      <rect x="385" y="108" width="146" height="84" rx="8" fill="#152238" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="458" y="125" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">STAGE 3B &bull; LOCAL MAC</text>
+      <text x="458" y="140" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Claude Cowork</text>
+      <text x="458" y="155" text-anchor="middle" fill="#cbd5e1" font-size="7">Hand off local folder</text>
+      <text x="458" y="167" text-anchor="middle" fill="#cbd5e1" font-size="7">mounts &amp; Background</text>
+      <text x="458" y="180" text-anchor="middle" fill="#bae6fd" font-size="6.9" font-weight="700">macOS Computer Use</text>
+
+      <!-- Arrows 3 -> 4 -->
+      <path d="M531 58 L556 58" stroke="#fb923c" stroke-width="2"/>
+      <polygon points="554,53 562,58 554,63" fill="#fb923c"/>
+      <path d="M531 150 L556 150" stroke="#34d399" stroke-width="2"/>
+      <polygon points="554,145 562,150 554,155" fill="#34d399"/>
+
+      <!-- Stage 4: Shipping -->
+      <rect x="563" y="16" width="129" height="84" rx="8" fill="#2a1a16" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="627" y="33" text-anchor="middle" fill="#fdba74" font-size="7.3" font-weight="700">STAGE 4A &bull; DECIDE</text>
+      <text x="627" y="48" text-anchor="middle" fill="#ffffff" font-size="9.1" font-weight="800">Claude Meetings</text>
+      <text x="627" y="63" text-anchor="middle" fill="#cbd5e1" font-size="7">Review Make decks</text>
+      <text x="627" y="75" text-anchor="middle" fill="#cbd5e1" font-size="7">&amp; briefs live inside</text>
+      <text x="627" y="88" text-anchor="middle" fill="#fed7aa" font-size="6.9" font-weight="700">Google Meet sessions</text>
+
+      <rect x="563" y="108" width="129" height="84" rx="8" fill="#132620" stroke="#34d399" stroke-width="1.5"/>
+      <text x="627" y="125" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">STAGE 4B &bull; CODE</text>
+      <text x="627" y="140" text-anchor="middle" fill="#ffffff" font-size="9.1" font-weight="800">Claude Code</text>
+      <text x="627" y="155" text-anchor="middle" fill="#cbd5e1" font-size="7">Converts bug alerts &amp;</text>
+      <text x="627" y="167" text-anchor="middle" fill="#cbd5e1" font-size="7">specs into tested PRs</text>
+      <text x="627" y="180" text-anchor="middle" fill="#a7f3d0" font-size="6.9" font-weight="700">&amp; automated deployments</text>
+    </svg>
+  </div>
+
+  <h3>Your Full-Day Proactive Rhythm Across Anthropic&rsquo;s Suite</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> 7:30 AM &bull; Mobile Brief Triage</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Scan Duet&rsquo;s Morning Brief on iOS or Android over coffee. Approve two staged client emails, defer a DocuSign contract to your desktop review, and let Make start compiling today&rsquo;s pricing audit.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge violet">2</span> 9:30 AM &bull; Deepen in Projects &amp; Sheets</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Move Duet&rsquo;s Make competitor brief into a shared <strong>Claude Project</strong> so you can model unit economics inside <strong>Claude Sheets</strong> or map launch milestones on a <strong>Claude Whiteboard</strong>.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge sky">3</span> 1:00 PM &bull; Local Desktop Handoff</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Whenever an invoice bundle lives exclusively in a local Mac folder or needs legacy macOS desktop software, switch to <strong>Claude Cowork</strong> with tight local folder mounts.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge emerald">4</span> 3:30 PM &bull; Ship Technical Fixes</div>
+      <p style="font-size:7.9pt; margin:0;">
+        If Duet&rsquo;s overnight Stripe monitor flagged a webhook failure spike, hand the captured error payload straight to <strong>Claude Code</strong> to scaffold a fix, run tests, and open a clean PR.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.2pt;">
+    <div class="callout-title">Refine Memory Once, Upgrade Every Claude Tool</div>
+    Every time you correct Duet at an Approval Gate and save a preference to <strong>Claude Memory</strong>, that exact judgment rule instantly improves your future <code>claude.ai</code> Projects, Cowork sessions, and Morning Brief drafts.
+  </div>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Top 7 Issues, 10-Second Fixes &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Use this diagnostic clinic whenever background sweeps hit quota walls, Morning Briefs feel chatty, or an expected write pauses waiting for review&mdash;followed by a 6-point launch readiness checklist.
+  </p>
+
+  <table class="clean-table" style="font-size:7.7pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Issue</th>
+        <th style="width:27%;">Root Cause</th>
+        <th style="width:46%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Hitting 5-hour session limits by mid-afternoon</strong></td>
+        <td>Frequent multi-channel sweeps + broad inbox polling share your Pro/Max usage pool.</td>
+        <td>Exclude promotional folders &amp; noisy Slack channels, reduce sweep cadence, or move heavy workloads to <strong>Ultra</strong> (no 5-hr cap).</td>
+      </tr>
+      <tr>
+        <td><strong>2. Morning Brief includes low-priority updates or noise</strong></td>
+        <td>Brief instructions lacked explicit suppression rules and item caps.</td>
+        <td>Tell Duet in <code>#morning-brief</code>: <em>&ldquo;Ignore newsletters/bots, cap at 5 items, and surface only human asks or clashes.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>3. Expected email or Slack message did not send overnight</strong></td>
+        <td>Mandatory HITL Approval Gate paused the external write for human confirmation.</td>
+        <td>Open <strong>Brief</strong> or <strong>Tasks</strong>, inspect the payload card, and tap <strong>Approve</strong> (<code>Yes</code>)&mdash;Duet never sends autonomously.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Finished Make deliverable still looks open in Tasks</strong></td>
+        <td>Duet intentionally prevents itself from silently closing out major tasks.</td>
+        <td>Verify the Make forecast or brief matches your bar, then manually tap <strong>Mark Complete</strong> in the <strong>Tasks</strong> tab.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Outbound Security Classifier blocked a staged reply</strong></td>
+        <td>Draft contained raw payment card numbers, government IDs, or restricted PII.</td>
+        <td>Replace sensitive digits with masked references (e.g., last 4 digits) or explicitly confirm intent in Chat before re-staging.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Duet cannot read files on my Mac hard drive or native apps</strong></td>
+        <td>Duet executes solely inside an isolated Cloud VM, not your local macOS machine.</td>
+        <td>Upload shared docs to <strong>Claude Memory/Projects</strong>, or run local folder mounts &amp; native GUI automation inside <strong>Claude Cowork</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Duet app or tab missing on my corporate login</strong></td>
+        <td>Signed into a Claude Team/Enterprise seat or non-US profile during preview.</td>
+        <td>Switch to an eligible US individual <strong>Pro, Max, or Ultra</strong> account after enrolling in the Duet research preview waitlist.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0;">6-Point Claude Duet Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Verify Plan &amp; Privacy Toggles:</strong> Confirm US Pro/Max/Ultra access and check individual <code>Settings &rarr; Privacy</code> preferences first.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. Prune Claude Memory &amp; Skills:</strong> Remove outdated rules in main Claude Memory so Duet starts calibrated from Message 1.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. Connect Scoped OAuth Tools:</strong> Link Gmail, Calendar, Slack, and Zapier MCP with least-privilege read/draft permissions first.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Set Brief Filters &amp; Quiet Hours:</strong> Exclude noisy Slack rooms and marketing folders to protect shared session usage limits.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. Separate Focus Channels:</strong> Spin up distinct rooms (<code>#finance-ops</code>, <code>#hiring</code>, <code>#launch</code>) sharing unified Memory cleanly.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. Audit Every Gate Payload:</strong> Verify recipient addresses, attachments, and dollar amounts before tapping <strong>Approve</strong>.</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin:7px 0 0 0; padding:7px 11px; font-size:8.2pt;">
+    <div class="callout-title">Final Takeaway: Proactive Cloud Leverage With Human Final Say</div>
+    Claude Duet gives you the overnight reach of an always-on digital chief of staff without surrendering judgment: let the Cloud VM sweep, research, and draft while your laptop rests, and keep your hand steady on the Approval Gate before anything goes out the door.
+  </div>
+
+  <div class="page-footer"><span>Claude Duet &bull; Complete How-To Guide</span><span>Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

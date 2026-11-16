@@ -4,9 +4,11 @@
 
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
+> **Read Online at [https://ai-field-guides.vercel.app](https://ai-field-guides.vercel.app)** — Browse all 50 guides in a clean, mobile-friendly web reader or download any 12-page PDF in one click.
+
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-45%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-540%20Pages-059669?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-50%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-600%20Pages-059669?style=for-the-badge)
 ![Ecosystems](https://img.shields.io/badge/Scope-6%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
@@ -146,7 +148,7 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
 </table>
 
 ### Anthropic Claude & Workspace Studios
-Publication-grade 12-page visual handbooks for Anthropic's agentic coding, autonomous digital coworker, and collaborative workspace suite—covering Claude Code Mods, Autonomous Loops & Code Artifacts, Claude Cowork & Computer Use, Whiteboards, Sheets, Dashboards & Data, Skills, and Managed Agents & MCP.
+Publication-grade 12-page visual handbooks for Anthropic's agentic coding, autonomous digital coworker, security, and collaborative workspace suite—covering Claude Meetings, Duet, Design, Whiteboards, Sheets, Dashboards & Data, Cowork & Computer Use, Skills, Claude Code Mods, Autonomous Loops, Code Projects & Coordinator, Security & Mythos 5.2, and Managed Agents & MCP.
 
 <table>
   <tr>
@@ -220,6 +222,53 @@ Publication-grade 12-page visual handbooks for Anthropic's agentic coding, auton
       <p><code>Managed Agents</code> &middot; <code>Remote MCP</code> &middot; <code>cma-server</code></p>
       <p><a href="guides/claude/claude-managed-agents-and-mcp/Claude_Managed_Agents_and_MCP_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-managed-agents-and-mcp">&#128736; Editable Source</a></p>
     </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-meetings/Claude_Meetings_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-meetings/cover.png" alt="Claude Meetings Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-meetings/Claude_Meetings_Complete_How_To_Guide.pdf">Claude Meetings</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turning live Google Meet calls into visible co-creation sessions—mastering calendar auto-join, external-guest guardrails, live Whiteboards, Docs &amp; Sheets, Interactive Connectors, and the post-meeting claude.ai hub.</p>
+      <p><code>Claude Meetings</code> &middot; <code>Google Meet</code> &middot; <code>Live Artifacts</code></p>
+      <p><a href="guides/claude/claude-meetings/Claude_Meetings_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-meetings">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-duet/Claude_Duet_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-duet/cover.png" alt="Claude Duet Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-duet/Claude_Duet_Complete_How_To_Guide.pdf">Claude Duet</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Operating Anthropic&#x27;s proactive Opus 5.5 cloud chief of staff—delivering Morning Briefs, persistent Cloud VM and headless browser sweeps, topic Channels, and Human-in-the-Loop approval gates.</p>
+      <p><code>Claude Duet</code> &middot; <code>Proactive Cloud VM</code> &middot; <code>Morning Briefs</code></p>
+      <p><a href="guides/claude/claude-duet/Claude_Duet_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-duet">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-design/Claude_Design_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-design/cover.png" alt="Claude Design Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-design/Claude_Design_Complete_How_To_Guide.pdf">Claude Design</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turning real codebases and brand guidelines into on-brand interactive prototypes, wireframes, decks, and product one-pagers—with live Control Knobs, inline comments, and Figma MCP or Claude Code handoffs.</p>
+      <p><code>Claude Design</code> &middot; <code>Design Systems</code> &middot; <code>Figma &amp; Prototypes</code></p>
+      <p><a href="guides/claude/claude-design/Claude_Design_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-design">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-code-projects-and-coordinator/Claude_Code_Projects_and_Coordinator_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-code-projects-and-coordinator/cover.png" alt="Claude Code Projects &amp; Proactive Coordinator Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-code-projects-and-coordinator/Claude_Code_Projects_and_Coordinator_Complete_How_To_Guide.pdf">Claude Code Projects &amp; Proactive Coordinator</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Orchestrating parallel cloud worker branches with Claude Fable 5.2, Opus 5.5, and Haiku 5.5 alongside the Session Rail HUD, /btw and /fork context hygiene, Background MCP tasks, and identity safeguards.</p>
+      <p><code>Claude Code Projects</code> &middot; <code>Proactive Coordinator</code> &middot; <code>/btw &amp; /fork</code></p>
+      <p><a href="guides/claude/claude-code-projects-and-coordinator/Claude_Code_Projects_and_Coordinator_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-code-projects-and-coordinator">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-security-and-mythos/Claude_Security_and_Mythos_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-security-and-mythos/cover.png" alt="Claude Security &amp; Mythos 5.2 Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-security-and-mythos/Claude_Security_and_Mythos_Complete_How_To_Guide.pdf">Claude Security &amp; Mythos 5.2</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Deploying continuous, reasoning-driven application security with Claude Mythos 5.2—mastering Deep Baseline Scans, living Threat Models, automated fix verification, and Claude Code MCP remediation.</p>
+      <p><code>Claude Security</code> &middot; <code>Mythos 5.2</code> &middot; <code>Continuous AppSec</code></p>
+      <p><a href="guides/claude/claude-security-and-mythos/Claude_Security_and_Mythos_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-security-and-mythos">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%"></td>
   </tr>
 </table>
 
@@ -487,6 +536,11 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **Claude Sheets & Interactive Artifacts** — Building live multi-tab spreadsheets with cross-sheet formulas, dropdowns, charts, multiplayer edits, and .xlsx round-tripping alongside interactive MCP-connected Artifacts. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-sheets-and-artifacts/Claude_Sheets_and_Artifacts_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-sheets-and-artifacts) |
 | **Claude Code Autonomous Loops & Code Artifacts** — Running unattended multi-turn /goal completion contracts, supervising parallel sessions in claude agents, CLI-to-Desktop /resume, and publishing live PR walkthrough Artifacts. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-code-autonomous-loops/Claude_Code_Autonomous_Loops_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-code-autonomous-loops) |
 | **Claude Managed Agents & MCP Connectors** — Connecting Remote HTTPS/SSE and local stdio MCP servers across Claude surfaces and self-hosting cma-server agent sandboxes with scoped OAuth and Bedrock/Vertex routing. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-managed-agents-and-mcp/Claude_Managed_Agents_and_MCP_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-managed-agents-and-mcp) |
+| **Claude Meetings** — Turning live Google Meet calls into visible co-creation sessions—mastering calendar auto-join, external-guest guardrails, live Whiteboards, Docs & Sheets, Interactive Connectors, and the post-meeting claude.ai hub. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-meetings/Claude_Meetings_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-meetings) |
+| **Claude Duet** — Operating Anthropic's proactive Opus 5.5 cloud chief of staff—delivering Morning Briefs, persistent Cloud VM and headless browser sweeps, topic Channels, and Human-in-the-Loop approval gates. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-duet/Claude_Duet_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-duet) |
+| **Claude Design** — Turning real codebases and brand guidelines into on-brand interactive prototypes, wireframes, decks, and product one-pagers—with live Control Knobs, inline comments, and Figma MCP or Claude Code handoffs. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-design/Claude_Design_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-design) |
+| **Claude Code Projects & Proactive Coordinator** — Orchestrating parallel cloud worker branches with Claude Fable 5.2, Opus 5.5, and Haiku 5.5 alongside the Session Rail HUD, /btw and /fork context hygiene, Background MCP tasks, and identity safeguards. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-code-projects-and-coordinator/Claude_Code_Projects_and_Coordinator_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-code-projects-and-coordinator) |
+| **Claude Security & Mythos 5.2** — Deploying continuous, reasoning-driven application security with Claude Mythos 5.2—mastering Deep Baseline Scans, living Threat Models, automated fix verification, and Claude Code MCP remediation. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-security-and-mythos/Claude_Security_and_Mythos_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-security-and-mythos) |
 | **OpenAI Codex CLI & Codex Cloud** — Configure TOML sandboxes, AGENTS.md constitutions, on-demand SKILL.md modules, GPT-6.1 Sol tiers, and parallel Codex Cloud PR containers. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/codex-cli-and-cloud/OpenAI_Codex_CLI_and_Cloud_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/codex-cli-and-cloud) |
 | **OpenAI Agents API & SDK** — Architect production multi-agent systems with handoffs, Agents-as-Tools, parallel input/output guardrails, built-in tracing, and stateful MCP sessions. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/agents-api-and-sdk/OpenAI_Agents_API_and_SDK_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/agents-api-and-sdk) |
 | **ChatGPT Canvas, Spaces & Computer Use** — Master surgical split-pane Canvas diffs, multiplayer Spaces and Pages, and gated Agent Mode browser and desktop workflows. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/chatgpt-canvas-and-spaces/ChatGPT_Canvas_Spaces_and_Computer_Use_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/chatgpt-canvas-and-spaces) |

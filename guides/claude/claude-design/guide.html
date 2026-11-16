@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claude Design: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">ANTHROPIC CLAUDE &amp; WORKSPACE STUDIOS &bull; FIELD GUIDE</div>
+    <h1>Claude <span>Design</span></h1>
+    <p class="cover-sub">
+      Turning real codebases, brand guidelines, and natural conversations into on-brand interactive prototypes, UX wireframes, executive slide decks, and product one-pagers&mdash;with live Control Knobs and Figma or Claude Code handoffs.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Codebase &amp; Brand Onboarding</span>
+      <span class="cover-badge">4 Visual Deliverable Modes</span>
+      <span class="cover-badge">Live Studio Control Knobs</span>
+      <span class="cover-badge">Inline Comments &amp; Direct Tweaks</span>
+      <span class="cover-badge">Figma MCP &amp; Code Connect</span>
+      <span class="cover-badge">Claude Code &amp; Gamma Export</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Editorial Magenta-Berry Glass Studio Transforming Luminous Design Token Prisms into Modular Interactive Prototypes" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Never Start Off-Brand</div>
+      <div class="cover-stat-desc">Ingest React, Tailwind, shadcn/ui, tokens.json, and brand PDFs during onboarding so every frame uses your real system tokens.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Dial, Comment, Tweak Live</div>
+      <div class="cover-stat-desc">Adjust layout density, dark mode, type scale, radii, and variants through live Control Knobs and inline pins without hand-editing code.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Round-Trip Everywhere</div>
+      <div class="cover-stat-desc">Sync editable auto-layout layers via Figma MCP &amp; Code Connect, hand components to Claude Code, or export to Gamma and headless stacks.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Design System Architecture</span>
+    <span>Claude Design</span>
+  </div>
+
+  <h2 class="page-title">Bridging Conversation, Brand Systems, and Real Code</h2>
+  <p class="page-lead">
+    Generic AI UI generators invent throwaway buttons and mismatched fonts on every prompt. Anthropic Labs built <strong>Claude Design</strong> as an interactive visual prototyping studio grounded in your team&rsquo;s living Design System&mdash;so conversational ideas look and behave like your actual product from Draft 1.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model: Token-Grounded Studio</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Bidirectional Figma &amp; Code Handoffs</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Plans, Surface Access &amp; Tool Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Design Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Studio &amp; Control Knobs Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Team Sharing &amp; Org Governance</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Codebase &amp; Brand Onboarding</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Ecosystem Synergy</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. 4 Deliverable Modes &amp; Prompt Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Control Knobs, Comments &amp; Variants</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Bind Tokens Before Pixel Tweaks</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Why Token-First Visual Generation Changes Everything</h3>
+  <p style="font-size:8.75pt;">
+    Instead of treating every layout like a disconnected drawing, Claude Design separates visual authoring into two coordinated layers: a persistent <strong>Design System Registry</strong> (ingesting your color tokens, typography scale, spacing rhythm, and mapped React or Figma primitives) and a <strong>Live Generative Canvas</strong> powered by vision-capable Claude Opus models. Product managers, founders, designers, and engineers can co-create clickable prototypes, multi-screen wireframes, executive slide decks, and product one-pagers that remain strictly faithful to brand rules.
+  </p>
+
+  <h3>Architecture: From Brand &amp; Repo Onboarding to Bidirectional Handoffs</h3>
+  <div class="figure-box" style="background:#160613; padding:9px 12px; border-color:#831843;">
+    <svg viewBox="0 0 700 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left Column: Onboarding Inputs -->
+      <rect x="8" y="12" width="198" height="160" rx="9" fill="#270a21" stroke="#fb923c" stroke-width="1.6"/>
+      <text x="18" y="30" fill="#fdba74" font-size="8" font-weight="700">1. CODEBASE &amp; BRAND INPUTS</text>
+      <text x="18" y="46" fill="#ffffff" font-size="10.1" font-weight="800">Source of Visual Truth</text>
+      <rect x="18" y="55" width="178" height="25" rx="5" fill="#3b1133" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="26" y="70" fill="#fef3c7" font-size="7.7" font-weight="600">&bull; React, Tailwind &amp; shadcn/ui Repo</text>
+      <rect x="18" y="85" width="178" height="25" rx="5" fill="#3b1133" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="26" y="100" fill="#fef3c7" font-size="7.7" font-weight="600">&bull; tokens.json &amp; CSS Variables</text>
+      <rect x="18" y="115" width="178" height="25" rx="5" fill="#3b1133" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="26" y="130" fill="#fef3c7" font-size="7.7" font-weight="600">&bull; Brand PDFs, Briefs &amp; Logos</text>
+      <rect x="18" y="145" width="178" height="20" rx="5" fill="#3b1133" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="26" y="158" fill="#fef3c7" font-size="7.7" font-weight="600">&bull; Figma MCP &amp; Code Connect</text>
+
+      <!-- Arrow Left to Center -->
+      <path d="M206 92 L238 92" stroke="#f472b6" stroke-width="2.2"/>
+      <polygon points="236,87 245,92 236,97" fill="#f472b6"/>
+
+      <!-- Center Column: Claude Design Studio -->
+      <rect x="246" y="8" width="212" height="168" rx="10" fill="#310d2a" stroke="#f472b6" stroke-width="2"/>
+      <text x="352" y="26" text-anchor="middle" fill="#f9a8d4" font-size="8" font-weight="700">2. CLAUDE DESIGN STUDIO</text>
+      <text x="352" y="43" text-anchor="middle" fill="#ffffff" font-size="10.8" font-weight="800">Reusable Design System</text>
+      <rect x="258" y="52" width="188" height="32" rx="6" fill="#1b0716" stroke="#db2777" stroke-width="1"/>
+      <text x="352" y="66" text-anchor="middle" fill="#fbcfe8" font-size="7.8" font-weight="700">4 Native Deliverable Modes</text>
+      <text x="352" y="78" text-anchor="middle" fill="#e2e8f0" font-size="7.1">Prototypes, Wireframes, Decks, One-Pagers</text>
+      <rect x="258" y="90" width="188" height="34" rx="6" fill="#1b0716" stroke="#f472b6" stroke-width="1.2" stroke-dasharray="4 2"/>
+      <text x="352" y="104" text-anchor="middle" fill="#f9a8d4" font-size="7.8" font-weight="700">Live Studio Control Knobs</text>
+      <text x="352" y="116" text-anchor="middle" fill="#e2e8f0" font-size="7.1">Density, Light/Dark, Scale, Radius, Variants</text>
+      <rect x="258" y="130" width="188" height="36" rx="6" fill="#1b0716" stroke="#a78bfa" stroke-width="1"/>
+      <text x="352" y="144" text-anchor="middle" fill="#ddd6fe" font-size="7.8" font-weight="700">Chat, Inline Pins &amp; Direct Edits</text>
+      <text x="352" y="157" text-anchor="middle" fill="#e2e8f0" font-size="7.1">Scoped revisions + v1..vN snapshot history</text>
+
+      <!-- Arrow Center to Right -->
+      <path d="M458 92 L490 92" stroke="#38bdf8" stroke-width="2.2"/>
+      <polygon points="488,87 497,92 488,97" fill="#38bdf8"/>
+
+      <!-- Right Column: Bidirectional Handoffs -->
+      <rect x="498" y="12" width="194" height="160" rx="9" fill="#19102c" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="508" y="30" fill="#7dd3fc" font-size="8" font-weight="700">3. ECOSYSTEM HANDOFFS</text>
+      <text x="508" y="46" fill="#ffffff" font-size="10.1" font-weight="800">Production Parity</text>
+      <rect x="508" y="55" width="174" height="33" rx="5" fill="#23163d" stroke="#8b5cf6" stroke-width="0.9"/>
+      <text x="516" y="69" fill="#ede9fe" font-size="7.7" font-weight="700">Figma MCP &amp; Code Connect</text>
+      <text x="516" y="81" fill="#cbd5e1" font-size="7.1">Editable auto-layout &amp; component map</text>
+      <rect x="508" y="94" width="174" height="33" rx="5" fill="#15243b" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="516" y="108" fill="#e0f2fe" font-size="7.7" font-weight="700">Claude Code Direct Handoff</text>
+      <text x="516" y="120" fill="#cbd5e1" font-size="7.1">Ship JSX, Tailwind &amp; shadcn primitives</text>
+      <rect x="508" y="133" width="174" height="32" rx="5" fill="#2a142d" stroke="#f472b6" stroke-width="0.9"/>
+      <text x="516" y="147" fill="#fce7f3" font-size="7.7" font-weight="700">Gamma, PPTX &amp; Headless Web</text>
+      <text x="516" y="159" fill="#cbd5e1" font-size="7.1">Narrative decks, PDFs &amp; CMS blocks</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Not a Replacement for Figma or Engineering&mdash;The High-Speed Bridge Between Them</div>
+    Claude Design eliminates blank-canvas bottlenecks and off-brand mockups: non-designers draft credible interactive concepts using approved company tokens, while designers and developers round-trip clean layers into Figma and production repositories.
+  </div>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: PLANS, ACTIVATION & VISUAL TOOL MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Plans, Setup &amp; Tool Selection</span>
+    <span>Availability &amp; Decision Matrix</span>
+  </div>
+
+  <h2 class="page-title">Plans, Activation &amp; Design Surface Decision Matrix</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Born in Anthropic Labs, Claude Design operates across web (<code>claude.ai</code> and <code>claude.ai/design</code>), Claude Desktop (macOS and Windows), mobile review apps, and <strong>Claude Code</strong> workflows&mdash;powered by Anthropic&rsquo;s vision-capable Claude Opus models.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px; gap:10px;">
+    <div class="card" style="padding:8px 10.5px; border-top:3px solid #be185d;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Availability Across Plans &amp; Surfaces</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Pro &amp; Max Plans:</strong> Available directly in your workspace and Artifacts studio; draws from your subscription&rsquo;s shared Claude Opus usage pool.</li>
+        <li><strong>Team Plan:</strong> Supports shared Design Systems, workspace-wide interactive review links, and inline commenting across colleagues.</li>
+        <li><strong>Enterprise Plan:</strong> Governed under <code>Organization settings &rarr; Artifacts</code> with org-locked brand kits, SSO-scoped previews, and MCP allowlists.</li>
+        <li><strong>Web, Desktop &amp; Mobile:</strong> Build and dial Control Knobs on web or Desktop; tap through prototypes and post inline feedback from iOS/Android.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10.5px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge amber">2</span> Three Ways to Launch Claude Design</div>
+      <ol style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Studio Onboarding (<code>claude.ai/design</code>):</strong> Pick your role, upload brand guidelines or a Figma link, and build a reusable Design System before Screen 1.</li>
+        <li><strong>Codebase-First via Claude Code:</strong> Run <code>/design-sync</code> in your frontend repo so Claude imports <code>tokens.json</code>, Tailwind config, and <code>shadcn/ui</code> primitives.</li>
+        <li><strong>In-Chat &amp; Artifacts Picker:</strong> Choose <strong>Design</strong> from the Artifacts studio or prompt inside a Claude Project already holding your product specs.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card-dark" style="padding:7.5px 12px; margin-bottom:7px;">
+    <div class="card-title" style="font-size:8.8pt; color:#f9a8d4; margin-bottom:2.5px;">60-Second Team Design System Setup</div>
+    <div style="font-size:7.85pt; color:#f5d0fe; line-height:1.36;">
+      1. Connect GitHub frontend repo (or upload <code>tokens.json</code> + brand PDF). &nbsp;
+      2. Inspect extracted color palette, typography ramp, spacing scale, and component primitives. &nbsp;
+      3. Click <strong>Publish to Team Workspace</strong> so every teammate&rsquo;s prompts inherit approved brand styling automatically.
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.3pt;">Visual Workspace Decision Matrix: Choosing the Right Surface</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Tool / Surface</th>
+        <th style="width:20%;">Best-Fit Output</th>
+        <th style="width:21%;">Brand &amp; Token Fidelity</th>
+        <th style="width:19%;">Live Editing Controls</th>
+        <th style="width:20%;">Handoff &amp; Code Parity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Design</strong><br/><em>Visual Prototyping Studio</em></td>
+        <td>Clickable prototypes, multi-screen wireframes, exec decks &amp; one-pagers.</td>
+        <td><strong>Highest AI Fidelity:</strong> Locked to ingested repo, <code>tokens.json</code> &amp; brand PDFs.</td>
+        <td><strong>Live Control Knobs:</strong> Density, theme, type scale, radii, variants + inline pins.</td>
+        <td><strong>Bidirectional:</strong> Figma MCP / Code Connect, Claude Code, Gamma &amp; web.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Whiteboards</strong><br/><em>Spatial Thinking Canvas</em></td>
+        <td>Voice-to-board brainstorms, sticky clusters, swimlanes &amp; retros.</td>
+        <td><strong>Semantic Stickies:</strong> Color-coded by risk, owner &amp; team rather than brand UI.</td>
+        <td><strong>Region-Box AI:</strong> Lasso corner clusters and co-edit stickies with live cursors.</td>
+        <td><strong>Planning Export:</strong> Converts to Claude Docs, Slides, Lucid, Miro &amp; Vani.</td>
+      </tr>
+      <tr>
+        <td><strong>Figma</strong><br/><em>Canonical Design Suite</em></td>
+        <td>Pixel-precision vector libraries, master design systems &amp; multi-team critiques.</td>
+        <td><strong>Source of Truth:</strong> Authoritative variables, branching &amp; component specs.</td>
+        <td><strong>Manual Vector &amp; Auto-Layout:</strong> Full frame-by-frame designer control.</td>
+        <td><strong>MCP + Code Connect:</strong> Feeds real components directly to Claude Design &amp; Code.</td>
+      </tr>
+      <tr>
+        <td><strong>Standard React Artifacts</strong><br/><em>Single-File Code Previews</em></td>
+        <td>Quick calculators, data charts &amp; single-turn functional utilities.</td>
+        <td><strong>Ad-Hoc Styling:</strong> Uses default Tailwind classes unless manually pasted per chat.</td>
+        <td><strong>Re-Prompt Only:</strong> No live Control Knobs panel or canvas element pinning.</td>
+        <td><strong>Copy-Paste JSX:</strong> Single component snippet; no Figma or Gamma pipeline.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout teal" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.2pt;">
+    <div class="callout-title">Winning Sequence: Ideate in Whiteboards &rarr; Prototype in Design &rarr; Govern in Figma &amp; Claude Code</div>
+    Map messy product architecture in <strong>Claude Whiteboards</strong>, drop that flow into <strong>Claude Design</strong> to build a clickable prototype matched to your real <code>shadcn/ui</code> library, then export to <strong>Figma</strong> for polish or straight into <strong>Claude Code</strong> for production wiring.
+  </div>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED CANVAS & CONTROL KNOBS UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Split Studio: Brand Chat, Interactive Canvas &amp; Control Knobs</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Inside the Claude Design Studio</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Every Claude Design session unites three live panels: a brand-aware prompt and comment stream on the left, an interactive clickable preview canvas in the center, and real-time <strong>Control Knobs</strong> on the right.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:7px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar" style="padding:5.5px 9px;">
+      <div class="ui-dots" style="gap:4px;">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:5px; font-weight:700; color:#fdf2f8; white-space:nowrap;">Acme &bull; Billing_Flow</span>
+        <span class="ds-pill" style="margin-left:4px; white-space:nowrap;">Acme UI + tokens.json <span class="callout-pin">1</span></span>
+      </div>
+      <div style="display:flex; align-items:center; gap:5px; font-size:6.8pt; white-space:nowrap;">
+        <span style="background:#3b1133; border:1px solid #831843; padding:2px 6px; border-radius:4px; color:#fbcfe8;">Desktop / Mobile</span>
+        <span style="background:#3b1133; border:1px solid #a855f7; padding:2px 6px; border-radius:4px; color:#e9d5ff;">v3 <span class="callout-pin">6</span></span>
+        <span style="background:#831843; border:1px solid #f472b6; color:#ffffff; padding:2px 6px; border-radius:5px; font-weight:700;">Export: Figma / Code / Gamma <span class="callout-pin">7</span></span>
+      </div>
+    </div>
+
+    <!-- 3-Column Studio Body -->
+    <div style="display:grid; grid-template-columns: 27% 46% 27%; min-height:260px;">
+      <!-- Left: Chat + Inline Comments -->
+      <div style="border-right:1px solid #501542; padding:7.5px 8.5px; display:flex; flex-direction:column; justify-content:space-between; background:#140511;">
+        <div>
+          <div style="font-size:6.6pt; color:#f9a8d4; font-weight:700; text-transform:uppercase; margin-bottom:4px;">Chat &amp; Inline Comment Thread <span class="callout-pin">2</span></div>
+          <div style="background:#260a21; border:1px solid #6b1d5a; border-radius:6px; padding:5px 6.5px; margin-bottom:5px; font-size:6.8pt; color:#fce7f3;">
+            <strong style="color:#ffffff;">You:</strong> &ldquo;Build a 2-step workspace upgrade modal using our Acme <code>Card</code> and <code>Badge</code> tokens.&rdquo;
+          </div>
+          <div style="background:#2f0d28; border-left:2.5px solid #f472b6; border-radius:5px; padding:5px 6.5px; margin-bottom:5px; font-size:6.8pt; color:#f5d0fe;">
+            <strong style="color:#f9a8d4;">Pin #1 (Maya):</strong> &ldquo;Shorten Pro CTA copy and highlight annual savings pill.&rdquo;
+          </div>
+          <div style="background:#1e112f; border-left:2.5px solid #a78bfa; border-radius:5px; padding:4.5px 6.5px; font-size:6.7pt; color:#e2e8f0;">
+            <strong style="color:#c4b5fd;">Claude:</strong> Updated Pro card CTA and bound badge to <code>--accent-orchid</code>.
+          </div>
+        </div>
+        <div style="background:#270b22; border:1px solid #db2777; border-radius:6px; padding:5px 6.5px; margin-top:5px;">
+          <div style="font-size:6.6pt; color:#f9a8d4; font-weight:700;">Prompt Studio Canvas...</div>
+          <div style="font-size:6.6pt; color:#cbd5e1;">&ldquo;Add SSO seat counter step after plan click&rdquo;</div>
+        </div>
+      </div>
+
+      <!-- Center: Interactive Clickable Prototype Canvas -->
+      <div style="padding:8px 9px; background:radial-gradient(#4a153f 1px, #190716 1px); background-size:13px 13px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:6.6pt; color:#fbcfe8; white-space:nowrap;">
+          <span>Interactive Preview <span class="callout-pin">3</span></span>
+          <span>Mode: <strong>Prototype</strong> &bull; Step 1/2</span>
+        </div>
+
+        <!-- Simulated On-Canvas App Window -->
+        <div style="background:#1f0a1b; border:1px solid #831843; border-radius:8px; padding:8px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-size:8.4pt; font-weight:800; color:#ffffff;">Choose Your Team Tier</div>
+              <div style="font-size:6.6pt; color:#e9d5ff;">Billed annually &bull; Instant seat provisioning</div>
+            </div>
+            <span style="background:#db2777; color:#ffffff; padding:2px 7px; border-radius:999px; font-size:6.5pt; font-weight:700;">Save 20%</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:7px; margin:6px 0;">
+            <div style="background:#2d0e28; border:1px solid #6b1d5a; border-radius:7px; padding:6px;">
+              <div style="font-size:7.3pt; font-weight:700; color:#f5d0fe;">Starter Team</div>
+              <div style="font-size:9.5pt; font-weight:800; color:#ffffff; margin:2px 0;">$25 / seat</div>
+              <div style="font-size:6.3pt; color:#cbd5e1; margin-bottom:5px;">Shared Design Systems &amp; view links</div>
+              <div style="background:#3f1336; text-align:center; padding:3px; border-radius:5px; font-size:6.5pt; color:#fce7f3; font-weight:700;">Select Starter</div>
+            </div>
+            <div style="background:#391032; border:1.8px solid #f472b6; border-radius:7px; padding:6px; position:relative;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:7.3pt; font-weight:800; color:#f9a8d4;">Scale Pro</span>
+                <span class="callout-pin">4</span>
+              </div>
+              <div style="font-size:9.5pt; font-weight:800; color:#ffffff; margin:2px 0;">$48 / seat</div>
+              <div style="font-size:6.3pt; color:#fce7f3; margin-bottom:5px;">Figma Code Connect + SSO locks</div>
+              <div style="background:#db2777; text-align:center; padding:3px; border-radius:5px; font-size:6.5pt; color:#ffffff; font-weight:800;">Upgrade Now &rarr;</div>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:6.4pt; color:#f9a8d4; border-top:1px solid #4a153f; padding-top:4px; white-space:nowrap;">
+            <span>Click any element to edit or drop a pin</span>
+            <span>WCAG AA: Pass</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live Control Knobs Panel -->
+      <div style="border-left:1px solid #501542; padding:7.5px 8.5px; background:#140511; display:flex; flex-direction:column; gap:5.5px;">
+        <div style="font-size:6.8pt; color:#f9a8d4; font-weight:800; text-transform:uppercase;">Control Knobs <span class="callout-pin">5</span></div>
+        <div style="background:#260a21; border:1px solid #501542; border-radius:6px; padding:5px 6px;">
+          <div style="display:flex; justify-content:space-between; font-size:6.6pt;"><span>Layout Density</span><strong style="color:#f9a8d4;">Balanced</strong></div>
+          <div class="knob-track"><div class="knob-fill" style="width:55%;"></div></div>
+        </div>
+        <div style="background:#260a21; border:1px solid #501542; border-radius:6px; padding:5px 6px;">
+          <div style="display:flex; justify-content:space-between; font-size:6.6pt; margin-bottom:3px;"><span>Surface Polarity</span><strong style="color:#f9a8d4;">Dark</strong></div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; font-size:6.3pt; text-align:center;">
+            <span style="background:#3b1133; padding:2px; border-radius:4px; color:#cbd5e1;">Light</span>
+            <span style="background:#db2777; padding:2px; border-radius:4px; color:#ffffff; font-weight:700;">Dark</span>
+          </div>
+        </div>
+        <div style="background:#260a21; border:1px solid #501542; border-radius:6px; padding:5px 6px;">
+          <div style="display:flex; justify-content:space-between; font-size:6.6pt;"><span>Typography Scale</span><strong style="color:#f9a8d4;">1.12x</strong></div>
+          <div class="knob-track"><div class="knob-fill" style="width:68%;"></div></div>
+        </div>
+        <div style="background:#260a21; border:1px solid #501542; border-radius:6px; padding:5px 6px;">
+          <div style="display:flex; justify-content:space-between; font-size:6.6pt;"><span>Radius &amp; Spacing</span><strong style="color:#f9a8d4;">10px</strong></div>
+          <div class="knob-track"><div class="knob-fill" style="width:60%;"></div></div>
+        </div>
+        <div style="background:#260a21; border:1px solid #501542; border-radius:6px; padding:5px 6px;">
+          <div style="display:flex; justify-content:space-between; font-size:6.6pt;"><span>Component Variant</span><strong style="color:#f9a8d4;">Elevated</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Point Legend -->
+  <div class="grid-2" style="gap:5.5px 11px; font-size:7.9pt;">
+    <div class="card" style="padding:5.5px 8.5px;">
+      <span class="callout-pin">1</span> <strong>Active Design System Pill:</strong> Confirms which ingested codebase, <code>tokens.json</code>, or brand PDF governs every token and primitive on screen.
+    </div>
+    <div class="card" style="padding:5.5px 8.5px;">
+      <span class="callout-pin">2</span> <strong>Brand-Aware Chat &amp; Comments:</strong> Issue global instructions in plain English or resolve teammate feedback pins bound to exact components.
+    </div>
+    <div class="card" style="padding:5.5px 8.5px;">
+      <span class="callout-pin">3</span> <strong>Interactive Prototype Canvas:</strong> Click buttons, switch tabs, and verify responsive desktop/mobile flows live&mdash;not static placeholder images.
+    </div>
+    <div class="card" style="padding:5.5px 8.5px;">
+      <span class="callout-pin">4</span> <strong>Inline Pins &amp; Direct Canvas Tweaks:</strong> Click any card or heading directly on canvas to edit microcopy inline or request a targeted component tweak.
+    </div>
+    <div class="card" style="padding:5.5px 8.5px;">
+      <span class="callout-pin">5</span> <strong>Dynamic Control Knobs Panel:</strong> Slide layout density, toggle light/dark mode, scale typography, adjust corner radius, or swap variants without coding.
+    </div>
+    <div class="card" style="padding:5.5px 8.5px;">
+      <span class="callout-pin">6</span> <strong>Artifact Version Snapshots (<code>v1..vN</code>):</strong> Every major iteration saves a non-destructive checkpoint so you can compare directions cleanly.
+    </div>
+  </div>
+  <div class="card-rose" style="padding:5.5px 10px; margin-top:5.5px; font-size:7.9pt;">
+    <span class="callout-pin">7</span> <strong>Bidirectional Export &amp; Handoff Menu:</strong> Round-trip editable layers to <strong>Figma</strong> (via Figma MCP &amp; Code Connect), hand JSX components into <strong>Claude Code</strong>, or export slide decks and pages to <strong>Gamma</strong>, <code>.pptx</code>, PDF, and headless web bundles.
+  </div>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: CODEBASE & BRAND ONBOARDING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Codebase &amp; Brand Onboarding</span>
+    <span>Ingesting Frontend Repos, Tokens &amp; Guidelines</span>
+  </div>
+
+  <h2 class="page-title">Codebase &amp; Brand Onboarding: Your Living Design System</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    The secret to shipping production-grade visuals in Claude Design happens in the first two minutes. During onboarding, Claude ingests your actual frontend codebase and brand assets to construct a reusable <strong>Design System</strong> that governs every prototype, deck, and one-pager.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/design_system_onboarding.jpg" alt="Isometric Plum-Obsidian Studio Showing Translucent Color Swatches and Grid Tiles Passing Through an Alignment Frame into Unified Component Cards" />
+    <div class="figure-caption">
+      <strong>From Raw Code &amp; Brand PDFs to Unified Primitives:</strong> Claude Design extracts semantic color variables, typography scales, spacing rhythm, and React/<code>shadcn/ui</code> component signatures into one persistent workspace Design System.
+    </div>
+  </div>
+
+  <h3>The 4 Onboarding Sources That Eliminate Off-Brand Output</h3>
+  <div class="grid-2" style="gap:8px; margin-bottom:6px;">
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> Frontend Repo &amp; <code>shadcn/ui</code> Primitives</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Point onboarding at your React and Tailwind repository (or run <code>/design-sync</code> from Claude Code). Claude indexes your real <code>Button</code>, <code>Card</code>, <code>Input</code>, and <code>Dialog</code> props so prototypes mirror production components instead of inventing generic HTML tags.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge orchid">2</span> Token Files (<code>tokens.json</code> &amp; CSS Vars)</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Import W3C <code>tokens.json</code> or <code>globals.css</code> files. Claude locks semantic surfaces (<code>--bg-card</code>, <code>--accent-primary</code>), type ramps, 4px/8px spacing multiples, and border radii into the Design System registry.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge amber">3</span> Brand Guidelines, Briefs &amp; Decks</div>
+      <p style="font-size:7.85pt; margin:0;">
+        No code repo yet? Upload a brand guideline PDF, SVG logo marks, marketing brief, or two screenshots of your live app. Claude infers color roles, visual tone, and editorial hierarchy into a shareable starter kit.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge indigo">4</span> Explicit <code>DESIGN.md</code> Rule Layer</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Attach crisp plain-English guardrails alongside tokens&mdash;for example, <em>&ldquo;reserve berry-pink exclusively for primary CTAs, keep data tables borderless, and never use gradients behind body copy.&rdquo;</em>
+      </p>
+    </div>
+  </div>
+
+  <pre class="code-block" style="margin:2px 0 5px 0;"><code># Recommended Onboarding Sequence (Codebase + Brand Brief):
+1. Open Claude Code in your web repo and run: /design-sync (indexes tailwind.config, tokens.json, components/ui/*)
+2. Upload Brand_Guidelines_2026.pdf + Product_Voice_Brief.md inside claude.ai/design onboarding
+3. Inspect the generated Design System preview (Colors, Type Scale, Spacing, Primitives) &rarr; Click "Lock &amp; Publish"</code></pre>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:6.5px 11px; font-size:8.1pt;">
+    <div class="callout-title">Pro Tip: Organize Tokens by Semantic Intent, Not Literal Color Names</div>
+    Map variables by role (<code>surface-subtle</code>, <code>border-focus</code>, <code>text-secondary</code>) rather than <code>pink-500</code> or <code>gray-100</code>. Semantic naming guarantees that toggling Light and Dark Control Knobs preserves accessible contrast automatically.
+  </div>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: 4 DELIVERABLE MODES & PROMPT ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Deliverable Modes &amp; Prompt Engineering</span>
+    <span>4 Formats &amp; 5-Part Design Prompt Anatomy</span>
+  </div>
+
+  <h2 class="page-title">The 4 Deliverable Modes &amp; 5-Part Prompt Anatomy</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Once your Design System is locked in, a single workspace switches smoothly across four core output formats&mdash;serving product, design, engineering, and marketing workflows without shifting tools.
+  </p>
+
+  <div class="grid-2" style="gap:8px; margin-bottom:8px;">
+    <div class="card-rose" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Interactive Clickable Prototypes</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Working multi-step web and app prototypes with real hover states, clickable tabs, conditional modals, and responsive mobile views&mdash;ideal for stakeholder demos, user testing, and direct <strong>Claude Code</strong> handoffs.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-top:2.5px solid #4f46e5;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge indigo">2</span> Multi-Screen UX Wireframes</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Rapid 4-to-12-screen architectural flows (such as Onboarding, Empty States, Error Recovery, and Checkout) focused on information hierarchy and navigation logic before investing in high-fidelity graphics.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-top:2.5px solid #d97706;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge amber">3</span> Executive Slide Decks</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Board readouts, GTM launches, and customer pitch decks laid out with crisp KPI grids, visual comparison cards, and consistent brand headers&mdash;exportable directly to <code>.pptx</code>, PDF, or <strong>Gamma</strong>.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-top:2.5px solid #0d9488;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge teal">4</span> Marketing &amp; Product One-Pagers</div>
+      <p style="font-size:7.85pt; margin:0;">
+        High-polish launch briefs, pricing comparison pages, and solution summaries adhering strictly to brand typography and voice&mdash;exportable as print PDFs or clean headless web blocks.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">The 5-Part Claude Design Prompt Anatomy</h3>
+  <p style="font-size:8.3pt; margin-bottom:5px;">
+    Combining these five color-coded prompt blocks generates on-brand, interactive layouts with ready-to-use Control Knobs on the very first pass:
+  </p>
+
+  <div class="card" style="padding:8.5px 11px; margin-bottom:7px; background:#ffffff; border:1.5px solid #f9a8d4;">
+    <div style="font-size:8.35pt; line-height:1.82;">
+      <span class="p-tag p-mode">[1. Deliverable Mode &amp; Viewport]</span> Create a 4-screen interactive desktop + mobile UI prototype
+      <span class="p-tag p-sys">[2. Bound Design System]</span> bound strictly to our Acme UI Design System (<code>shadcn/ui</code> Tabs, Card, Badge + <code>tokens.json</code>)
+      <span class="p-tag p-flow">[3. Screen Flow &amp; Content]</span> guiding a new workspace admin through Team Name &rarr; Repo Sync &rarr; Role Permissions &rarr; Ready Confirmation with real Back/Continue navigation and realistic sample data.
+      <span class="p-tag p-knob">[4. Control Knob Defaults]</span> Expose live Control Knobs for Layout Density (start Balanced), Light/Dark Mode, Typography Scale, Border Radius, and Card Variant.
+      <span class="p-tag p-guard">[5. Parity &amp; Handoff Guardrail]</span> Use zero custom hex overrides so every screen passes WCAG AA contrast and exports cleanly to Figma Code Connect and Claude Code.
+    </div>
+  </div>
+
+  <table class="clean-table" style="font-size:7.8pt; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Prompt Component</th>
+        <th style="width:38%;">What It Controls in the Studio</th>
+        <th style="width:38%;">Failure Mode When Omitted</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="p-tag p-mode">Deliverable Mode &amp; Viewport</span></td>
+        <td>Selects Prototype, Wireframe, Slide Deck, or One-Pager + target screen sizes.</td>
+        <td>Claude guesses a static marketing sheet when you wanted clickable app screens.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-sys">Bound Design System</span></td>
+        <td>Locks active palette, typography scale, and exact <code>shadcn/ui</code> or Figma primitives.</td>
+        <td>Generic blue buttons and unmapped CSS appear, breaking Code Connect parity.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-flow">Screen Flow &amp; Content</span></td>
+        <td>Defines exact screen sequence, interactive states, and domain-specific sample data.</td>
+        <td>Outputs 1 disconnected screen filled with shallow placeholder copy.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-knob">Control Knob Defaults</span></td>
+        <td>Generates tailored live sliders and toggles in the right-hand inspector.</td>
+        <td>Requires manual chat prompts every time you want tighter padding or dark mode.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-guard">Parity &amp; Handoff Guardrail</span></td>
+        <td>Enforces semantic tokens, accessibility contrast, and clean export structure.</td>
+        <td>Hard-coded colors break Dark Mode toggles and force manual rewrite in Claude Code.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: CONTROL KNOBS, INLINE COMMENTS & VARIANTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Rapid Visual Refinement</span>
+    <span>Control Knobs, Inline Comments &amp; Direct Canvas Tweaks</span>
+  </div>
+
+  <h2 class="page-title">Refining Live: Control Knobs, Comments &amp; Variants</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Traditional AI chat tools punish small visual tweaks: asking to <em>&ldquo;make cards slightly tighter and softer&rdquo;</em> often triggers a slow full-screen rewrite that scrambles copy you already approved. Claude Design gives you three fast, surgical refinement levers.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:8px; gap:9px;">
+    <div class="card" style="border-top:3px solid #db2777; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.75pt;"><span class="num-badge orchid">1</span> Live Control Knobs</div>
+      <p style="font-size:7.8pt; margin:0;">
+        Drag dynamic sliders generated directly alongside your preview to adjust layout density, light/dark polarity, type scale, corner radius, spacing rhythm, and component variants instantaneously&mdash;zero code edits needed.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #4f46e5; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.75pt;"><span class="num-badge indigo">2</span> Inline Element Pins</div>
+      <p style="font-size:7.8pt; margin:0;">
+        Click any individual badge, navbar, or pricing card on canvas to attach a targeted comment pin. Claude modifies only that anchored element subtree while keeping surrounding screens untouched.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #d97706; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.75pt;"><span class="num-badge amber">3</span> Direct Canvas Tweaks</div>
+      <p style="font-size:7.8pt; margin:0;">
+        Click straight into headlines, button labels, or table columns to edit wording manually or reorder cards in place without spending another prompt turn.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Mastering the 5 Core Studio Control Knobs</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Control Knob</th>
+        <th style="width:24%;">Live Range / Options</th>
+        <th style="width:53%;">When &amp; Why to Dial It During Review</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Layout Density</strong></td>
+        <td><code>Compact &harr; Balanced &harr; Airy</code></td>
+        <td>Slide toward <strong>Compact</strong> for dense B2B dashboards and data tables; slide to <strong>Airy</strong> for executive one-pagers and marketing heroes.</td>
+      </tr>
+      <tr>
+        <td><strong>Light / Dark Mode</strong></td>
+        <td><code>Light</code> &bull; <code>Dark</code> &bull; <code>High-Contrast</code></td>
+        <td>Test semantic <code>tokens.json</code> surface swaps live in front of stakeholders to catch unreadable borders or muted badge contrast early.</td>
+      </tr>
+      <tr>
+        <td><strong>Typography Scale</strong></td>
+        <td><code>0.90x &ndash; 1.30x</code> ratio slider</td>
+        <td>Scale headline drama upward for slide decks and landing pages, or tighten heading ratios so multi-pane app screens fit without vertical scrolling.</td>
+      </tr>
+      <tr>
+        <td><strong>Radius &amp; Spacing</strong></td>
+        <td><code>2px Sharp &ndash; 16px Pill</code></td>
+        <td>Tune corner softness and card-to-card gutter rhythm uniformly across every button, modal, and input box in a single drag.</td>
+      </tr>
+      <tr>
+        <td><strong>Component Variant</strong></td>
+        <td><code>Minimal | Elevated | Outlined</code></td>
+        <td>Cycle through mapped <code>shadcn/ui</code> or Figma Code Connect styles without rewriting component props or losing interactive states.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="padding:8.5px 12px; margin-bottom:6px;">
+    <div class="card-title" style="font-size:8.9pt; color:#f9a8d4; margin-bottom:3px;">Pro Habit: Explore 3 Structural Variants First, Then Fine-Tune With Knobs</div>
+    <p style="font-size:7.85pt; color:#fce7f3; margin:0; line-height:1.38;">
+      Before dialing details, prompt: <em>&ldquo;Generate 3 structural variants of this dashboard side by side: (A) left sidebar rail, (B) top tabbed bar, and (C) split master-detail drawer.&rdquo;</em> Pick the strongest layout skeleton, lock a <code>vN</code> snapshot, and only then refine proportions with Control Knobs and inline comment pins.
+    </p>
+  </div>
+
+  <div class="callout indigo" style="margin:2px 0 0 0; padding:6.5px 11px; font-size:8.1pt;">
+    <div class="callout-title">Keep Knobs Live by Avoiding Hard-Coded Hex Overrides in Chat</div>
+    If you ask in chat to force an arbitrary hex like <code>#ff0099</code> on one card, that element stops responding smoothly to Light/Dark Mode knobs. Always request semantic overrides such as <em>&ldquo;swap Card 2 border to <code>--border-accent-strong</code>.&rdquo;</em>
+  </div>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: BIDIRECTIONAL ECOSYSTEM HANDOFFS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Bidirectional Ecosystem Handoffs</span>
+    <span>Figma MCP, Code Connect, Claude Code, Gamma &amp; Headless Web</span>
+  </div>
+
+  <h2 class="page-title">Bidirectional Handoffs: Figma, Claude Code &amp; Web Stacks</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Design momentum collapses when prototypes stay trapped as throwaway mockups. Claude Design provides clean round-trip bridges into <strong>Figma</strong>, <strong>Claude Code</strong>, <strong>Gamma</strong>, and modern headless web architectures.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/bidirectional_figma_code_handoff.jpg" alt="Central Luminous Orchid-Pink Prototype Slate Radiating Optical Bridges to Layered Auto-Layout Canvas Frames, Code Monoliths, Slide Stacks, and Responsive Web Grids" />
+    <div class="figure-caption">
+      <strong>One Token-Accurate Prototype, Four Downstream Pipelines:</strong> Round-trip editable auto-layout layers via Figma MCP &amp; Code Connect, hand JSX directly into Claude Code, export narrative decks to Gamma, or publish headless web blocks.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:9px; margin-bottom:6px;">
+    <div class="card" style="padding:7.5px 10px; border-top:3px solid #be185d;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Figma Round-Tripping (MCP + Code Connect)</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Pull via Figma MCP Server:</strong> Paste a Figma frame URL so Claude reads exact auto-layout constraints, variable collections, and component props before prototyping.</li>
+        <li><strong>Code Connect Mapping:</strong> Map Figma components directly to repo primitives (<code>&lt;Button /&gt;</code>, <code>&lt;DataTable /&gt;</code>) so generated prototypes use real production imports.</li>
+        <li><strong>Push Editable Layers Back:</strong> Export settled screens into Figma as structured, editable auto-layout frames via Figma MCP or HTML-to-Figma conversion layers&mdash;never flat bitmaps.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-top:3px solid #4f46e5;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge indigo">2</span> Claude Code, Gamma &amp; Headless Stacks</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Direct to Claude Code:</strong> Hand off finalized React, Tailwind, and <code>shadcn/ui</code> component bundles straight into a Claude Code session (or via <code>/implement-design</code>) to wire live APIs and tests.</li>
+        <li><strong>Gamma &amp; Slide Exports:</strong> Push structured executive decks directly to <strong>Gamma</strong> (or download crisp <code>.pptx</code>, PDF, and Canva-ready assets) with slide hierarchy intact.</li>
+        <li><strong>Headless Web Stacks:</strong> Export clean HTML/CSS/JSX modules or structured JSON block payloads for Next.js, Astro, and headless CMS platforms (including Wix Headless).</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 3px 0; font-size:10.1pt;">Ecosystem Export &amp; Round-Trip Reference</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin:2px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Target Platform</th>
+        <th style="width:28%;">Recommended Handoff Trigger</th>
+        <th style="width:48%;">What Carries Over &amp; Ideal Next Step</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Figma (Bidirectional)</strong></td>
+        <td><code>Export &rarr; Send to Figma</code> (MCP / Auto-Layout)</td>
+        <td>Editable auto-layout frames, token variables, and Code Connect component links for design-system polish.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Code</strong></td>
+        <td><code>Hand off to Claude Code</code> / <code>.zip</code> JSX bundle</td>
+        <td>Repo-matched React + Tailwind + <code>shadcn/ui</code> components ready for API wiring, state hooks, and PR review.</td>
+      </tr>
+      <tr>
+        <td><strong>Gamma / PPTX / PDF</strong></td>
+        <td><code>Export &rarr; Gamma</code> or <code>.pptx</code> / Print PDF</td>
+        <td>Structured slide acts, narrative callouts, and brand-locked headers for leadership pitches and board meetings.</td>
+      </tr>
+      <tr>
+        <td><strong>Headless Web Stack</strong></td>
+        <td><code>Export &rarr; HTML/JSON Bundle</code></td>
+        <td>Clean semantic sections, responsive grid tokens, and reusable marketing blocks for Next.js or headless CMS stacks.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Ready-to-Run Prompt Library</span>
+    <span>5 Copy-Paste Recipes for Product, Design, Engineering &amp; Marketing</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Claude Design Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Paste any recipe below into Claude Design with your published Design System active to produce high-precision prototypes, UX wireframes, slide decks, product one-pagers, or Figma-to-Code round-trips immediately.
+  </p>
+
+  <table class="clean-table" style="font-size:7.75pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Recipe &amp; Use Case</th>
+        <th style="width:56%;">Copy-Paste Prompt (Zero Ambiguous Placeholders)</th>
+        <th style="width:24%;">Output &amp; Next Move</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Repo-Synced Interactive Prototype</strong><br/><em>Product &amp; Eng</em></td>
+        <td><code>Build a 3-screen interactive Seat Billing &amp; SSO Settings prototype bound to our Acme UI Design System (shadcn/ui Tabs, Table, Dialog + tokens.json). Include realistic member rows, an active seat-limit warning modal, and working Light/Dark, Density, and Radius Control Knobs. Keep all imports repo-valid for Claude Code handoff.</code></td>
+        <td>Clickable React/<code>shadcn/ui</code> prototype; dial knobs live, then hand straight to Claude Code.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Multi-Screen UX Wireframe Flow</strong><br/><em>UX Architecture</em></td>
+        <td><code>Switch to Multi-Screen Wireframe mode and map a 6-screen responsive onboarding journey (Welcome &rarr; Connect GitHub &rarr; Pick Tokens &rarr; Preview Theme &rarr; Invite Team &rarr; Empty Dashboard). Include mobile breakpoints, loading skeletons, and explicit error-recovery states, with a Layout Density Control Knob.</code></td>
+        <td>6-screen desktop/mobile blueprint ready for inline pin critique before visual polish.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Executive Launch Slide Deck</strong><br/><em>Leadership &amp; PM</em></td>
+        <td><code>Convert our Q3 Launch PRD attached in this Project into an 8-slide Executive Deck using our Brand Design System. Structure slides as: Title Hero, Customer Pain, Product Demo Flow, Adoption Metrics, Competitive Grid, Architecture Summary, GTM Timeline, and Budget Ask. Expose Type Scale and Density Control Knobs.</code></td>
+        <td>Brand-locked 8-slide deck; export directly to <strong>Gamma</strong> or <code>.pptx</code> for VP readout.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Product One-Pager &amp; Pricing Sheet</strong><br/><em>Product Marketing</em></td>
+        <td><code>Design a crisp 1-page Enterprise Security Datasheet and 3-tier Pricing Comparison bound to our official Brand PDF and tokens.json. Include a top value summary, 3 proof pillars, a clean feature comparison grid, and an executive CTA footer. Expose Compact/Airy Density and Card Variant Control Knobs.</code></td>
+        <td>Sales-ready PDF one-pager + clean headless HTML/JSON section blocks for web launch.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Figma Code Connect Round-Trip</strong><br/><em>Design Systems</em></td>
+        <td><code>Read our linked Checkout Card frame via the Figma MCP server and match every button, badge, and input to our repo's Code Connect mappings. Generate 2 responsive interactive promo-code state variants using tokens.json only, then prepare an editable auto-layout export for Figma plus JSX diff for Claude Code.</code></td>
+        <td>Bidirectional sync keeping Figma layers and production React primitives 100% aligned.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:10px; margin-top:2px;">
+    <div class="callout teal" style="margin:0; padding:8px 11px; font-size:8.15pt;">
+      <div class="callout-title">Power Combo: Feed Whiteboards &amp; PRDs Straight Into Recipe #1 or #2</div>
+      Already mapped a user journey in <strong>Claude Whiteboards</strong> or drafted a spec in a <strong>Claude Project</strong>? Reference it directly in your prompt so every button label, edge case, and error message on screen matches real product requirements.
+    </div>
+    <div class="callout amber" style="margin:0; padding:8px 11px; font-size:8.15pt;">
+      <div class="callout-title">Snapshot Separate Desktop &amp; Mobile Knob States</div>
+      Before exporting a bundle to engineering, dial your Control Knobs for desktop spaciousness (save <code>v4</code>), then toggle mobile preview with tighter density (save <code>v5</code>) so developers inspect both responsive snapshots.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: COLLABORATION, ORG GOVERNANCE & PERMISSIONS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Collaboration &amp; Governance</span>
+    <span>Org Sharing, Brand Locks &amp; Security</span>
+  </div>
+
+  <h2 class="page-title">Collaboration, Org Governance &amp; Sharing Permissions</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Interactive prototypes often reveal unannounced features, pricing models, and proprietary design tokens. Claude Design enforces org-scoped sharing boundaries, role-based review controls, and Design System governance across every tier.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10.5px; border-top:3px solid #be185d;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Org-Scoped Sharing &amp; Granular Roles</div>
+      <ul style="font-size:7.9pt; margin:3.5px 0 0 0; padding-left:15px;">
+        <li><strong>View, Comment &amp; Edit Tiers:</strong> Share prototypes as read-only <strong>Viewers</strong> for leadership demos, <strong>Commenters</strong> for inline element feedback pins, or <strong>Editors</strong> for live co-prompting and Control Knob adjustments.</li>
+        <li><strong>SSO-Bounded Team &amp; Enterprise Links:</strong> Shared design URLs require authenticated workspace SSO login by default&mdash;preventing accidental public internet leaks of unreleased roadmaps.</li>
+        <li><strong>Published Brand Locks:</strong> Design leads lock foundational colors, logos, and typography rules inside shared Design Systems so teammates explore freely without drifting off-brand.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10.5px; border-top:3px solid #4f46e5;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge indigo">2</span> Admin Policy &amp; Connector Governance</div>
+      <ul style="font-size:7.9pt; margin:3.5px 0 0 0; padding-left:15px;">
+        <li><strong>Central Feature Controls:</strong> Primary Owners manage studio access under <code>Organization settings &rarr; Artifacts</code>, custom RBAC roles, and shared Design System publishing permissions.</li>
+        <li><strong>Zero Model Training Guarantee:</strong> On Claude Team and Enterprise plans, ingested code repositories, <code>tokens.json</code> schemas, brand PDFs, and generated designs are <strong>never</strong> used to train Anthropic models.</li>
+        <li><strong>Approved MCP Export Targets:</strong> Security admins independently allowlist <strong>Figma MCP</strong>, Canva, Gamma, and headless CMS connectors to enforce strict data-egress boundaries.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0;">Permission &amp; Governance Matrix Across Tiers</h3>
+  <table class="clean-table" style="font-size:7.8pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Capability / Guardrail</th>
+        <th style="width:24%;">Pro &amp; Max</th>
+        <th style="width:26%;">Team Plan</th>
+        <th style="width:28%;">Enterprise Plan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Studio Access &amp; Roles</strong></td>
+        <td>Personal studio access</td>
+        <td>Org-wide toggle &amp; shared Projects</td>
+        <td>RBAC role-scoped under <code>Org settings</code></td>
+      </tr>
+      <tr>
+        <td><strong>Design System Governance</strong></td>
+        <td>Private reusable kits</td>
+        <td>Shared team brand &amp; token libraries</td>
+        <td>Locked canonical systems + owner approval</td>
+      </tr>
+      <tr>
+        <td><strong>Prototype Link Scope</strong></td>
+        <td>Private or shareable preview link</td>
+        <td>Workspace-authenticated View/Comment/Edit</td>
+        <td>Strict SSO-only org scoping + audit logs</td>
+      </tr>
+      <tr>
+        <td><strong>Figma, Gamma &amp; Code Sync</strong></td>
+        <td>User OAuth / local repo sync</td>
+        <td>Team connector policy</td>
+        <td>Admin MCP allowlist + DLP/egress controls</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="padding:8px 12px; margin-bottom:6px;">
+    <div class="card-title" style="font-size:8.9pt; color:#f9a8d4; margin-bottom:2.5px;">Security Hygiene: Scope Codebase Onboarding Strictly to UI Directories</div>
+    <p style="font-size:7.85pt; color:#fce7f3; margin:0; line-height:1.38;">
+      When syncing a repository via <code>/design-sync</code> or GitHub onboarding, include only frontend styling and primitive directories (<code>tokens.json</code>, <code>tailwind.config.*</code>, <code>src/components/ui/</code>). Never attach <code>.env</code> secrets, private backend credentials, or real customer database exports into a visual Design System context.
+    </p>
+  </div>
+
+  <div class="callout plum" style="margin:2px 0 0 0; padding:6.5px 11px; font-size:8.1pt;">
+    <div class="callout-title">Sanitize Sample Data Before External Usability Testing</div>
+    Before exporting standalone HTML or <code>.zip</code> bundles for external user research, instruct Claude Design: <em>&ldquo;Replace all sample account names, revenue figures, and email strings with realistic synthetic fixtures.&rdquo;</em>
+  </div>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Workspace Architecture</span>
+    <span>Cross-Tool Synergy Across the Anthropic Ecosystem</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From Discovery to Shipped Code</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Claude Design acts as the visual synthesis hub in Anthropic&rsquo;s wider ecosystem&mdash;converting early strategy from <strong>Claude Meetings</strong>, <strong>Projects</strong>, and <strong>Whiteboards</strong> into living prototypes that flow smoothly into <strong>Figma</strong>, <strong>Gamma</strong>, <strong>Claude Code</strong>, and <strong>Claude Security</strong>.
+  </p>
+
+  <div class="figure-box" style="background:#160613; padding:10px 12px; border-color:#831843; margin-bottom:8px;">
+    <svg viewBox="0 0 700 206" width="100%" height="206" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Strategy & Context -->
+      <rect x="8" y="22" width="146" height="162" rx="9" fill="#270a21" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="81" y="40" text-anchor="middle" fill="#fdba74" font-size="7.5" font-weight="700">STAGE 1 &bull; STRATEGY</text>
+      <text x="81" y="55" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Meetings &amp; Whiteboards</text>
+      <rect x="17" y="65" width="128" height="47" rx="5" fill="#3b1133" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="81" y="80" text-anchor="middle" fill="#fef3c7" font-size="7.5" font-weight="700">Claude Meetings &amp; Projects</text>
+      <text x="81" y="92" text-anchor="middle" fill="#e2e8f0" font-size="6.9">Customer quotes, PRDs</text>
+      <text x="81" y="103" text-anchor="middle" fill="#e2e8f0" font-size="6.9">&amp; DESIGN.md rules</text>
+      <rect x="17" y="120" width="128" height="52" rx="5" fill="#3b1133" stroke="#fb923c" stroke-width="0.9"/>
+      <text x="81" y="135" text-anchor="middle" fill="#fed7aa" font-size="7.5" font-weight="700">Claude Whiteboards</text>
+      <text x="81" y="147" text-anchor="middle" fill="#e2e8f0" font-size="6.9">Settled user flows,</text>
+      <text x="81" y="158" text-anchor="middle" fill="#e2e8f0" font-size="6.9">swimlanes &amp; IA maps</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M154 103 L178 103" stroke="#f472b6" stroke-width="2"/>
+      <polygon points="176,98 184,103 176,108" fill="#f472b6"/>
+
+      <!-- Stage 2: Claude Design Hub -->
+      <rect x="185" y="12" width="166" height="182" rx="10" fill="#310d2a" stroke="#f472b6" stroke-width="2"/>
+      <text x="268" y="30" text-anchor="middle" fill="#f9a8d4" font-size="7.6" font-weight="700">STAGE 2 &bull; VISUAL HUB</text>
+      <text x="268" y="46" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Claude Design</text>
+      <rect x="196" y="56" width="144" height="37" rx="5" fill="#1b0716" stroke="#db2777" stroke-width="0.9"/>
+      <text x="268" y="70" text-anchor="middle" fill="#fbcfe8" font-size="7.4" font-weight="700">Synced Design System</text>
+      <text x="268" y="82" text-anchor="middle" fill="#e2e8f0" font-size="6.8">tokens.json + shadcn/ui library</text>
+      <rect x="196" y="99" width="144" height="39" rx="5" fill="#1b0716" stroke="#f472b6" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="268" y="113" text-anchor="middle" fill="#f9a8d4" font-size="7.4" font-weight="700">Prototypes, Wireframes, Decks</text>
+      <text x="268" y="125" text-anchor="middle" fill="#e2e8f0" font-size="6.8">Dialed live via Control Knobs</text>
+      <rect x="196" y="144" width="144" height="38" rx="5" fill="#1b0716" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="268" y="158" text-anchor="middle" fill="#ddd6fe" font-size="7.4" font-weight="700">Inline Pins &amp; Approved vN</text>
+      <text x="268" y="170" text-anchor="middle" fill="#e2e8f0" font-size="6.8">SSO-scoped stakeholder sign-off</text>
+
+      <!-- Branching Arrows 2 -> 3 -->
+      <path d="M351 74 L382 62" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="379,58 388,60 382,67" fill="#a78bfa"/>
+      <path d="M351 134 L382 146" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="382,141 388,148 379,150" fill="#38bdf8"/>
+
+      <!-- Stage 3A & 3B -->
+      <rect x="389" y="16" width="146" height="84" rx="8" fill="#1e1133" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="462" y="33" text-anchor="middle" fill="#ddd6fe" font-size="7.4" font-weight="700">STAGE 3A &bull; DESIGN SYNC</text>
+      <text x="462" y="48" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Figma MCP &amp; Code Connect</text>
+      <text x="462" y="63" text-anchor="middle" fill="#e2e8f0" font-size="7">Editable auto-layout layers</text>
+      <text x="462" y="75" text-anchor="middle" fill="#e2e8f0" font-size="7">&amp; mapped repo components</text>
+      <text x="462" y="88" text-anchor="middle" fill="#c4b5fd" font-size="6.9" font-weight="700">Zero manual redlining</text>
+
+      <rect x="389" y="108" width="146" height="84" rx="8" fill="#132238" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="462" y="125" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">STAGE 3B &bull; STORY &amp; WEB</text>
+      <text x="462" y="140" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Gamma &amp; Headless Web</text>
+      <text x="462" y="155" text-anchor="middle" fill="#e2e8f0" font-size="7">Executive decks (.pptx / Gamma)</text>
+      <text x="462" y="167" text-anchor="middle" fill="#e2e8f0" font-size="7">+ marketing one-pagers &amp; CMS</text>
+      <text x="462" y="180" text-anchor="middle" fill="#bae6fd" font-size="6.9" font-weight="700">Consistent brand voice</text>
+
+      <!-- Arrows 3 -> 4 -->
+      <path d="M535 58 L558 58" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="556,53 564,58 556,63" fill="#a78bfa"/>
+      <path d="M535 150 L558 150" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="556,145 564,150 556,155" fill="#2dd4bf"/>
+
+      <!-- Stage 4A & 4B -->
+      <rect x="565" y="16" width="127" height="84" rx="8" fill="#192338" stroke="#60a5fa" stroke-width="1.5"/>
+      <text x="628" y="33" text-anchor="middle" fill="#93c5fd" font-size="7.3" font-weight="700">STAGE 4A &bull; SHIPPING</text>
+      <text x="628" y="48" text-anchor="middle" fill="#ffffff" font-size="9.1" font-weight="800">Claude Code</text>
+      <text x="628" y="63" text-anchor="middle" fill="#e2e8f0" font-size="6.9">Scaffold PRs from</text>
+      <text x="628" y="75" text-anchor="middle" fill="#e2e8f0" font-size="6.9">exported JSX, bind APIs</text>
+      <text x="628" y="87" text-anchor="middle" fill="#e2e8f0" font-size="6.9">&amp; Playwright checks</text>
+
+      <rect x="565" y="108" width="127" height="84" rx="8" fill="#0d2624" stroke="#2dd4bf" stroke-width="1.5"/>
+      <text x="628" y="125" text-anchor="middle" fill="#5eead4" font-size="7.3" font-weight="700">STAGE 4B &bull; VERIFY</text>
+      <text x="628" y="140" text-anchor="middle" fill="#ffffff" font-size="9.1" font-weight="800">Claude Security</text>
+      <text x="628" y="155" text-anchor="middle" fill="#e2e8f0" font-size="6.9">Audit auth flows,</text>
+      <text x="628" y="167" text-anchor="middle" fill="#e2e8f0" font-size="6.9">XSS guards &amp; state</text>
+      <text x="628" y="179" text-anchor="middle" fill="#e2e8f0" font-size="6.9">boundaries pre-merge</text>
+    </svg>
+  </div>
+
+  <h3>Walking the 4-Stage Pipeline in One Afternoon</h3>
+  <div class="grid-2" style="gap:8px; margin-bottom:6px;">
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> Meetings + Whiteboards &rarr; Design Prompt</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Take an approved user journey from <strong>Claude Whiteboards</strong> and customer insights from your <strong>Claude Project</strong>, then prompt Claude Design to render an interactive multi-screen flow locked to your active Design System.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge orchid">2</span> Control Knobs + Figma Code Connect</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Tune layout density and dark mode live with stakeholders, drop inline pins on copy edge cases, and push editable auto-layout layers to <strong>Figma</strong> with real Code Connect mappings intact.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge amber">3</span> Simultaneous Gamma Deck &amp; One-Pager</div>
+      <p style="font-size:7.85pt; margin:0;">
+        In the same project thread, ask Claude Design to package the finalized product concept into an executive slide deck (exported to <strong>Gamma</strong> or <code>.pptx</code>) plus a headless web launch one-pager.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge indigo">4</span> Hand Off to Claude Code &amp; Security</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Send exported React + Tailwind + <code>shadcn/ui</code> components directly to <strong>Claude Code</strong> to wire live endpoints, then verify auth and XSS safety through <strong>Claude Security</strong> before merging.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:6.5px 11px; font-size:8.1pt;">
+    <div class="callout-title">Keep One Canonical Token File as Your Shared North Star</div>
+    Whenever engineering updates spacing, fonts, or semantic colors in <code>tokens.json</code>, run <code>/design-sync</code> again so Claude Design, Figma Code Connect, and Claude Code never drift out of sync.
+  </div>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Launch Readiness</span>
+    <span>Top 7 Fixes &amp; 6-Point Pre-Flight</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Use this diagnostic reference whenever generated screens drift off-brand, Control Knobs behave unexpectedly, or a Figma/Code handoff needs repair&mdash;followed by our 6-point launch checklist.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Issue</th>
+        <th style="width:27%;">Root Cause</th>
+        <th style="width:46%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Generated UI looks generic and ignores brand fonts/colors</strong></td>
+        <td>Prompted inside an isolated chat with no active Design System bound.</td>
+        <td>Complete codebase/brand onboarding (attach <code>tokens.json</code>, Tailwind config &amp; brand PDF), select your published Design System pill, and regenerate.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Dark Mode Control Knob leaves bright white blocks or unreadable text</strong></td>
+        <td>Hard-coded hex values (like <code>#ffffff</code>) injected during a manual chat tweak.</td>
+        <td>Prompt: <em>&ldquo;Audit all components and replace hard-coded hex colors with semantic surface, border, and foreground variables from tokens.json.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>3. Figma export lands as flat images instead of editable layers</strong></td>
+        <td>Downloaded static PNG/PDF snapshot or skipped Figma MCP / conversion bridge.</td>
+        <td>Connect the official <strong>Figma MCP server</strong>, enable <strong>Code Connect</strong> mappings, or export via the HTML-to-Figma auto-layout layer pipeline.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Small copy or card tweak accidentally rewrote surrounding screens</strong></td>
+        <td>Issued a broad conversational prompt instead of targeting one element.</td>
+        <td>Step back one version via the <code>v1..vN</code> selector, click directly on the target component to drop an <strong>Inline Comment Pin</strong>, and re-apply locally.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Expected Control Knobs sliders are missing from the right panel</strong></td>
+        <td>Initial prompt omitted adjustable design parameters.</td>
+        <td>Ask in chat: <em>&ldquo;Expose live Control Knobs for layout density, light/dark mode, typography scale, border radius, and card variant.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>6. Claude Code rewrites exported JSX instead of reusing repo components</strong></td>
+        <td>Design System lacked exact component paths or Code Connect signatures.</td>
+        <td>Run <code>/design-sync</code> inside your frontend repo to index <code>shadcn/ui</code> and local component props, then re-export the React bundle.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Reviewer hits &ldquo;Access Denied&rdquo; on a shared prototype link</strong></td>
+        <td>Org-scoped SSO protection blocked a personal account or external email.</td>
+        <td>Ask the reviewer to sign in with corporate SSO, or request an Enterprise admin to approve external View/Comment link sharing if policy allows.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:2px 0 4px 0;">6-Point Claude Design Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Bind Design System First:</strong> Verify <code>tokens.json</code>, Tailwind config, and brand PDFs are active before generating Screen 1.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. Name Deliverable Mode Clearly:</strong> Specify Prototype, Wireframe, Slide Deck, or One-Pager up front.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. Enforce Semantic Token Roles:</strong> Avoid hard-coded hex values so Light/Dark Control Knobs stay WCAG AA compliant.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Use Inline Pins for Local Tweaks:</strong> Anchor comments to specific elements instead of triggering full-flow rewrites.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. Checkpoint Before Bold Variants:</strong> Lock a <code>vN</code> snapshot prior to testing extreme knob settings or new layouts.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. Validate Handoff Parity:</strong> Check Figma Code Connect component names, Gamma slide breaks, or Claude Code imports pre-export.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:6px 0 0 0; padding:6.5px 11px; font-size:8.1pt;">
+    <div class="callout-title">Final Takeaway: Speak Product Intent, Let Your Design System Govern the Pixels</div>
+    When your codebase tokens, brand guidelines, and Figma Code Connect sit underneath Claude Design, every creative conversation produces cohesive, interactive, ship-ready artifacts&mdash;compressing the trip from early sketch to production code into a single afternoon.
+  </div>
+
+  <div class="page-footer"><span>Claude Design &bull; Complete How-To Guide</span><span>Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>
