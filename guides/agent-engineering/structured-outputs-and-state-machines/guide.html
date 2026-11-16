@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Structured Outputs &amp; State Machines: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Agent Engineering &amp; Architecture &bull; Field Guide</div>
+    <h1>Structured Outputs &amp; <span>State Machines</span></h1>
+    <p class="cover-sub">
+      The complete 12-page visual handbook to constrained token decoding, Pydantic v2 and Zod v4 contracts, streaming partial JSON, deterministic transition tables, and production approval gates.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">CFG &amp; FSM Logit Masking</span>
+      <span class="cover-badge">OpenAI, Claude &amp; Gemini Schemas</span>
+      <span class="cover-badge">Pydantic v2 &amp; Zod v4</span>
+      <span class="cover-badge">Streaming Partial Objects</span>
+      <span class="cover-badge">Explicit Transition Tables</span>
+      <span class="cover-badge">Idempotency &amp; HITL Gates</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Architectural blueprint chamber where glowing cyan crystalline geometry locks onto precision state-machine rails and prism nodes" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Syntax-Error Decoding</div>
+      <div class="cover-stat-desc">Compile JSON Schemas into token grammars that mask illegal characters to negative infinity before sampling.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Cognition vs. Control</div>
+      <div class="cover-stat-desc">Confine probabilistic model reasoning inside typed step outputs while deterministic tables govern every transition.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Durable Production Loops</div>
+      <div class="cover-stat-desc">Pair bounded semantic repair retries with idempotency ledgers, checkpoints, and human-approval gates.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS, TOC & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">The Core Mental Model: Separating Cognition from Control</h2>
+  <p class="page-lead">
+    Early agent prototypes let language models steer execution through free-form chat loops and brittle regex parsing. Production systems flip that design: the model acts as a typed cognitive oracle, while a deterministic state machine owns every transition.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Core Mental Model: Cognition vs. Control</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Streaming Partial JSON &amp; Repair Loops</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Provider Schema &amp; Engine Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Deterministic Agent State Machines</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Schema &amp; FSM Inspector Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Five Copy-Paste Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Constrained Decoding: CFG &amp; FSM Masking</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Idempotency, Checkpoints &amp; Rollouts</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Pydantic v2, Zod v4 &amp; Union Contracts</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. End-to-End Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight Checklist</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <div class="grid-3" style="margin: 2px 0 8px 0;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">C</span> Probabilistic Cognition</div>
+      <p style="font-size:8pt; margin:0;">Inside a bounded step, the LLM interprets messy inputs and proposes a typed decision. Constrained decoding guarantees 100% valid syntax.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">V</span> Semantic Contract Check</div>
+      <p style="font-size:8pt; margin:0;">Application validators such as Pydantic v2 or Zod v4 check domain invariants, math consistency, and reference integrity before accepting output.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">D</span> Deterministic Control</div>
+      <p style="font-size:8pt; margin:0;">An explicit transition table verifies guards, decrements step budgets, saves durable checkpoints, and runs idempotent side effects.</p>
+    </div>
+  </div>
+
+  <h3>Architecture: Event &rarr; Constrained Oracle &rarr; Contract Gate &rarr; State Transition</h3>
+  <div class="figure-box" style="background:#071320; padding:10px 12px;">
+    <svg viewBox="0 0 700 155" width="100%" height="155" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Input & Budget -->
+      <rect x="8" y="16" width="136" height="122" rx="8" fill="#0d2137" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="76" y="36" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">1. State Context</text>
+      <text x="76" y="50" text-anchor="middle" fill="#7dd3fc" font-size="7.3">Immutable Snapshot</text>
+      <rect x="18" y="62" width="116" height="28" rx="5" fill="#071320" stroke="#0369a1"/>
+      <text x="76" y="79" text-anchor="middle" fill="#e0f2fe" font-size="7.8" font-weight="700">Current State + Event</text>
+      <rect x="18" y="96" width="116" height="32" rx="5" fill="#071320" stroke="#0369a1"/>
+      <text x="76" y="110" text-anchor="middle" fill="#38bdf8" font-size="7.6" font-weight="700">Step Budget Guard</text>
+      <text x="76" y="121" text-anchor="middle" fill="#94a3b8" font-size="6.8">steps &lt; max_steps</text>
+
+      <!-- Arrow 1 -->
+      <path d="M144 77 L172 77" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="172,72 180,77 172,82" fill="#38bdf8"/>
+
+      <!-- Stage 2: Constrained LLM -->
+      <rect x="180" y="16" width="154" height="122" rx="8" fill="#0b2438" stroke="#0ea5e9" stroke-width="1.5"/>
+      <text x="257" y="36" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">2. Constrained Oracle</text>
+      <text x="257" y="50" text-anchor="middle" fill="#7dd3fc" font-size="7.3">CFG / FSM Logit Mask</text>
+      <rect x="190" y="62" width="134" height="32" rx="5" fill="#071320" stroke="#0284c7"/>
+      <text x="257" y="76" text-anchor="middle" fill="#bae6fd" font-size="7.8" font-weight="700">Compiled JSON Schema</text>
+      <text x="257" y="88" text-anchor="middle" fill="#94a3b8" font-size="6.8">Illegal tokens masked to -inf</text>
+      <rect x="190" y="100" width="134" height="28" rx="5" fill="#071320" stroke="#0284c7"/>
+      <text x="257" y="117" text-anchor="middle" fill="#38bdf8" font-size="7.6" font-weight="700">Typed Union Proposal</text>
+
+      <!-- Arrow 2 -->
+      <path d="M334 77 L362 77" stroke="#10b981" stroke-width="2"/>
+      <polygon points="362,72 370,77 362,82" fill="#10b981"/>
+
+      <!-- Stage 3: Semantic Validator -->
+      <rect x="370" y="16" width="144" height="122" rx="8" fill="#072226" stroke="#10b981" stroke-width="1.5"/>
+      <text x="442" y="36" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">3. Contract Validator</text>
+      <text x="442" y="50" text-anchor="middle" fill="#6ee7b7" font-size="7.3">Pydantic v2 / Zod v4</text>
+      <rect x="380" y="62" width="124" height="32" rx="5" fill="#041517" stroke="#059669"/>
+      <text x="442" y="76" text-anchor="middle" fill="#a7f3d0" font-size="7.8" font-weight="700">Domain Invariants</text>
+      <text x="442" y="88" text-anchor="middle" fill="#94a3b8" font-size="6.8">Math, dates, IDs &amp; policy</text>
+      <rect x="380" y="100" width="124" height="28" rx="5" fill="#041517" stroke="#f59e0b"/>
+      <text x="442" y="117" text-anchor="middle" fill="#fde68a" font-size="7.5" font-weight="700">Fail &rarr; ModelRetry (&le;2)</text>
+
+      <!-- Arrow 3 -->
+      <path d="M514 77 L542 77" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="542,72 550,77 542,82" fill="#a78bfa"/>
+
+      <!-- Stage 4: Transition Table -->
+      <rect x="550" y="16" width="142" height="122" rx="8" fill="#181736" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="621" y="36" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">4. Transition Engine</text>
+      <text x="621" y="50" text-anchor="middle" fill="#c4b5fd" font-size="7.3">Deterministic Table</text>
+      <rect x="560" y="62" width="122" height="22" rx="4" fill="#0d0c21" stroke="#6d28d9"/>
+      <text x="621" y="76" text-anchor="middle" fill="#ddd6fe" font-size="7.4" font-weight="700">Guard Check &amp; Commit</text>
+      <rect x="560" y="88" width="122" height="22" rx="4" fill="#241509" stroke="#d97706"/>
+      <text x="621" y="102" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">High Risk &rarr; HITL Gate</text>
+      <rect x="560" y="114" width="122" height="18" rx="4" fill="#071320" stroke="#38bdf8"/>
+      <text x="621" y="126" text-anchor="middle" fill="#7dd3fc" font-size="7.0" font-weight="700">Idempotency + Checkpoint</text>
+    </svg>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Why This Two-Layer Split Matters</div>
+    Constrained decoding guarantees that your application receives syntactically valid JSON matching every type and field name. Your deterministic state machine then guarantees that only legal state transitions and authorized tool calls ever touch real customer data.
+  </div>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: PROVIDER SCHEMA & STATE ENGINE MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Provider &amp; Engine Matrix</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">Provider Schema Support &amp; State Engine Decision Matrix</h2>
+  <p class="page-lead">
+    Every major model API and serving engine supports constrained decoding in 2026, yet each enforces distinct schema rules. Pick the right schema surface and orchestration layer before writing code.
+  </p>
+
+  <table class="clean-table" style="font-size: 7.9pt; margin: 3px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width: 19%;">Provider / Engine</th>
+        <th style="width: 22%;">API Parameter</th>
+        <th style="width: 17%;">Compiler Engine</th>
+        <th style="width: 24%;">Strict Rules &amp; Quirks</th>
+        <th style="width: 18%;">Best Fit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>OpenAI API</strong><br/><span style="font-size:7.1pt; color:#64748b;">Responses &amp; Chat</span></td>
+        <td><code>text.format</code> or <code>response_format</code> (<code>strict: true</code>)</td>
+        <td>Cached CFG token mask</td>
+        <td>Needs <code>additionalProperties: false</code> and every field in <code>required</code> (use <code>| null</code>).</td>
+        <td>Strict extraction, typed routing &amp; tool calls.</td>
+      </tr>
+      <tr>
+        <td><strong>Anthropic Claude</strong><br/><span style="font-size:7.1pt; color:#64748b;">Messages API (GA)</span></td>
+        <td><code>output_config.format</code> &amp; <code>tools[].strict: true</code></td>
+        <td>Compiled grammar (24h cache)</td>
+        <td>Replaces legacy <code>structured-outputs-2025-11-13</code> beta; strict object &amp; tool schemas.</td>
+        <td>Strict tools plus typed final JSON turn.</td>
+      </tr>
+      <tr>
+        <td><strong>Google Gemini</strong><br/><span style="font-size:7.1pt; color:#64748b;">google-genai SDK</span></td>
+        <td><code>responseSchema</code> or <code>responseJsonSchema</code></td>
+        <td>Finite-state schema graph</td>
+        <td>Requires <code>response_mime_type: "application/json"</code>; JSON Schema adds <code>anyOf</code> &amp; <code>$ref</code>.</td>
+        <td>Key-ordered Pydantic bindings &amp; multimodal JSON.</td>
+      </tr>
+      <tr>
+        <td><strong>vLLM &amp; SGLang</strong><br/><span style="font-size:7.1pt; color:#64748b;">Self-Hosted Serving</span></td>
+        <td><code>guided_json</code> / <code>response_format</code></td>
+        <td><code>XGrammar 2</code> or <code>llguidance</code></td>
+        <td>Sub-40&micro;s bitmasks (<code>XGrammar 2</code>) or Rust lazy lexers (<code>llguidance</code>) at high batch scale.</td>
+        <td>Private clusters &amp; custom CFG grammars.</td>
+      </tr>
+      <tr>
+        <td><strong>Outlines</strong><br/><span style="font-size:7.1pt; color:#64748b;">Open-Source Lib</span></td>
+        <td><code>outlines.generate.json</code> / regex</td>
+        <td>FSM / Regex Automaton</td>
+        <td>Pioneering FSM compiler; heavier upfront mask build on giant vocabularies.</td>
+        <td>Local models &amp; strict regex strings.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin: 6px 0 3px 0;">Deterministic State Machine &amp; Contract Layer Comparison</h3>
+  <table class="clean-table" style="font-size: 7.9pt; margin: 3px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width: 22%;">Tool / Runtime</th>
+        <th style="width: 17%;">Language</th>
+        <th style="width: 31%;">Core Superpower</th>
+        <th style="width: 30%;">When to Choose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Pydantic v2 + PydanticAI</strong></td>
+        <td>Python 3.10+</td>
+        <td>Rust-fast <code>model_json_schema()</code> and automatic <code>ModelRetry</code> error feedback loops.</td>
+        <td>Python services, ETL pipelines &amp; validation-heavy agents.</td>
+      </tr>
+      <tr>
+        <td><strong>Zod v4 + Vercel AI SDK</strong></td>
+        <td>TypeScript / JS</td>
+        <td>Built-in <code>z.toJSONSchema()</code> (replaces old plugin) plus streaming <code>DeepPartial</code> objects.</td>
+        <td>Full-stack TypeScript, React streaming UIs &amp; edge APIs.</td>
+      </tr>
+      <tr>
+        <td><strong>LangGraph</strong></td>
+        <td>Python / TS</td>
+        <td>Cyclical agent graphs, Postgres checkpoints &amp; native <code>interrupt()</code> pauses.</td>
+        <td>Multi-step reasoning loops needing pause and resume.</td>
+      </tr>
+      <tr>
+        <td><strong>Temporal + XState</strong></td>
+        <td>Polyglot / TS</td>
+        <td>Append-only durable replay across crashes paired with formal statechart guards.</td>
+        <td>Multi-day human approvals &amp; mission-critical writes.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin-top: 3px; padding: 8px 11px;">
+    <div class="callout-title">Syntax Is Not Semantics: The Most Common Beginner Trap</div>
+    Token logit masking guarantees balanced braces and valid types, yet cannot verify whether a refund exceeds an invoice balance or whether extracted dates are valid. Always pair grammar constraints with application-level semantic validators.
+  </div>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Workspace Tour</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">Annotated Inspector: Schema &amp; State-Transition HUD</h2>
+  <p class="page-lead">
+    Debuggable agent platforms combine a live grammar bitmask trace with an explicit finite-state inspector so engineers can see why a token passed, why a semantic repair ran, and which guard halted execution.
+  </p>
+
+  <div class="ui-window" style="margin-bottom: 8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#bae6fd; font-size:7.3pt;">FSM &amp; Schema Inspector &bull; run_4092 [PAUSED: AWAITING_APPROVAL]</span>
+      </div>
+      <div style="color:#38bdf8; font-weight:700; font-size:7.3pt;">Grammar Cache: HIT (0.4ms) &bull; Schema v2.4</div>
+    </div>
+    <div style="padding: 9px 13px; background:#071320;">
+      <!-- Row 1: State Header -->
+      <div style="display:flex; justify-content:space-between; margin-bottom:7px; padding-bottom:6px; border-bottom:1px solid #1e3a5f;">
+        <div>
+          <span class="callout-pin">1</span> <strong>State:</strong> <span style="color:#fbbf24; font-weight:700;">AWAITING_APPROVAL</span> &bull; Step 4/12 &bull; <code>idem_4092_04</code>
+        </div>
+        <div>
+          <span class="callout-pin">2</span> <strong>Decoder:</strong> <span style="color:#34d399;">CFG Strict</span> &bull; Masked: 99.4% (-inf)
+        </div>
+      </div>
+
+      <!-- Row 2: Two Columns -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <!-- Left: Union Payload + Repair Log -->
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <div style="background:#040c16; border:1px solid #1e3a5f; border-radius:6px; padding:7px; font-family:'SF Mono',Menlo,monospace; font-size:7.0pt;">
+            <div style="color:#38bdf8; font-weight:700; margin-bottom:3px;">
+              <span class="callout-pin">4</span> Discriminated-Union Step Output
+            </div>
+            <div style="color:#e2e8f0;">{</div>
+            <div style="color:#7dd3fc;">&nbsp;&nbsp;"kind": "refund_proposal",</div>
+            <div style="color:#a7f3d0;">&nbsp;&nbsp;"order_id": "ORD-8821",</div>
+            <div style="color:#fde68a;">&nbsp;&nbsp;"amount_cents": 4200,</div>
+            <div style="color:#cbd5e1;">&nbsp;&nbsp;"reason": "Damaged shipment verified"</div>
+            <div style="color:#e2e8f0;">}</div>
+          </div>
+
+          <div style="background:#040c16; border:1px solid #1e3a5f; border-radius:6px; padding:7px; font-family:'SF Mono',Menlo,monospace; font-size:6.9pt;">
+            <div style="color:#34d399; font-weight:700; margin-bottom:3px;">
+              <span class="callout-pin">3</span> Validation &amp; Bounded Repair Log (1/2)
+            </div>
+            <div style="color:#fb7185;">[TRY 1 FAIL] amount_cents (6500) &gt; invoice_max (4200)</div>
+            <div style="color:#94a3b8;">&rarr; ModelRetry injected at JSON pointer /amount_cents</div>
+            <div style="color:#34d399;">[TRY 2 PASS] Pydantic RefundProposal validated cleanly</div>
+          </div>
+        </div>
+
+        <!-- Right: Transition Table + HITL Gate -->
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <div style="background:#040c16; border:1px solid #1e3a5f; border-radius:6px; padding:7px; font-family:'SF Mono',Menlo,monospace; font-size:6.9pt;">
+            <div style="color:#c4b5fd; font-weight:700; margin-bottom:3px;">
+              <span class="callout-pin">5</span> Deterministic Transition Evaluation
+            </div>
+            <div style="color:#94a3b8;">From: <code>TOOL_PROPOSED</code> + <code>EV_REFUND_REQ</code></div>
+            <div style="color:#fbbf24;">Guard: <code>amount_cents &gt; 2500</code> &rarr; TRUE (Policy Hit)</div>
+            <div style="color:#38bdf8;">Next: <code>AWAITING_APPROVAL</code> (Write Scopes Locked)</div>
+            <div style="color:#64748b;">Allowed Next: <code>EV_APPROVE</code> | <code>EV_REJECT</code></div>
+          </div>
+
+          <div style="background:#040c16; border:1px solid #1e3a5f; border-radius:6px; padding:7px; font-family:'SF Mono',Menlo,monospace; font-size:6.9pt;">
+            <div style="color:#fb923c; font-weight:700; margin-bottom:3px;">
+              <span class="callout-pin">7</span> Human-in-the-Loop Approval Gate
+            </div>
+            <div style="color:#e2e8f0;">Proposal Hash: <code>sha256:7c9e...b12a</code></div>
+            <div style="color:#34d399;">Status: Waiting for signed operator token</div>
+            <div style="color:#94a3b8;">Action: <span style="color:#38bdf8;">[Sign &amp; Resume]</span> &nbsp; <span style="color:#fb7185;">[Reject to Re-Plan]</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Checkpoint Footer -->
+      <div style="display:flex; justify-content:space-between; margin-top:7px; padding-top:6px; border-top:1px solid #1e3a5f; font-size:7.1pt;">
+        <div>
+          <span class="callout-pin">6</span> <strong>Durable Checkpoint:</strong> <code>pg://checkpoints/run_4092/step_04</code> (Persisted 12ms ago) &bull; <span style="color:#38bdf8;">[Replay From Step 3]</span>
+        </div>
+        <div style="color:#94a3b8;">
+          DLQ Threshold: 3 failures
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control Legend &amp; Inspection Points</h3>
+  <div class="grid-2">
+    <div>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">1</span> Active State, Step Budget &amp; Key:</strong> Tracks the exact enum state, hard step ceiling preventing infinite loops, and deterministic idempotency key.</p>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">2</span> Grammar Cache &amp; Bitmask Meter:</strong> Confirms the compiled CFG or FSM is cached in memory and shows illegal token suppression at each step.</p>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">3</span> Semantic Repair Trace:</strong> Logs domain validation failures caught by Pydantic or Zod and the targeted field hint fed into bounded retries.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong><span class="callout-pin">4</span> Discriminated-Union Output:</strong> Displays the strictly typed payload whose literal <code>kind</code> tag routes the state machine deterministically.</p>
+    </div>
+    <div>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">5</span> Transition Guard Evaluator:</strong> Shows the exact lookup-table rule and boolean guard condition evaluated by host code, never by prompt text.</p>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">6</span> Durable Checkpoint Store:</strong> Records the serialized machine state after every transition so crashed workers replay or fork cleanly.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong><span class="callout-pin">7</span> Cryptographic Approval Gate:</strong> Suspends execution before irreversible mutations until a human signs the exact proposal hash.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: CONSTRAINED DECODING (CFG / FSM LOGIT MASKING) ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Constrained Decoding</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">How CFG &amp; FSM Logit Masking Guarantee Zero Syntax Errors</h2>
+  <p class="page-lead">
+    Prompts cannot enforce formal syntax reliably across thousands of runs. Constrained decoding solves formatting at the token-sampling layer by masking illegal vocabulary choices before a token is ever picked.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/showcase_1.jpg" alt="Optical crystalline filter ring deflecting invalid token shards while aligning valid cyan polyhedral tokens onto parallel tracks" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 5.1 &bull; Token-Level Grammar Filtering:</strong> Candidate vocabulary tokens pass through the active grammar state; invalid characters and keys are deflected to zero probability while schema-compliant tokens lock cleanly onto the output track.
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> Schema-to-Grammar Compile</div>
+      <p style="font-size:7.9pt; margin:0;">Your JSON Schema compiles into a Finite State Machine (regular patterns) or Context-Free Grammar (recursive objects) and caches by schema hash.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge teal">2</span> Microsecond Bitmasks</div>
+      <p style="font-size:7.9pt; margin:0;">Engines such as <code>XGrammar 2</code> and <code>llguidance</code> pre-classify context-independent tokens so per-step bitmasks compute in under 40 microseconds.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge purple">3</span> Logit -Infinity Masking</div>
+      <p style="font-size:7.9pt; margin:0;">Disallowed tokens receive a <code>-inf</code> logit bias prior to softmax. Even with creative temperatures, malformed JSON becomes mathematically impossible.</p>
+    </div>
+  </div>
+
+  <h3>API Anatomy: OpenAI <code>text.format</code> &amp; Anthropic <code>output_config</code></h3>
+  <div class="card-dark" style="font-family:'SF Mono',Menlo,monospace; font-size:7.1pt; line-height:1.45; padding:7px 10px; margin-bottom:5px;">
+    <span class="p-tag p-style">Schema Wrapper</span> (<code>response_format</code> / <code>output_config.format</code>) +
+    <span class="p-tag p-subj">Reasoning First</span> (<code>reasoning_summary</code> key) +
+    <span class="p-tag p-act">Strict Guard</span> (<code>additionalProperties: false</code>) +
+    <span class="p-tag p-cam">Typed Decision</span> (<code>enum</code> / union)
+  </div>
+
+  <pre><code>// OpenAI Responses API (text.format) &amp; Anthropic Messages API (output_config.format)
+{
+  "text": { "format": { "type": "json_schema", "name": "triage_step", "strict": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "reasoning_summary": { "type": "string" }, // Keep reasoning before decision enum!
+        "route": { "type": "string", "enum": ["search_kb", "issue_refund", "escalate_human"] },
+        "ticket_tag": { "type": ["string", "null"] }
+      },
+      "required": ["reasoning_summary", "route", "ticket_tag"],
+      "additionalProperties": false
+    }
+  }}
+}</code></pre>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: PYDANTIC V2, ZOD V4 & DISCRIMINATED UNIONS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Typed Contracts</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">Pydantic v2, Zod v4 &amp; Discriminated-Union Contracts</h2>
+  <p class="page-lead">
+    Maintain a single source of truth for schemas, runtime checks, and compiler types. Modern Zod v4 and Pydantic v2 export strict JSON Schemas natively while validating domain math and discriminated-union tags.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">TS</span> Zod v4 Native <code>z.toJSONSchema()</code></div>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;">
+        Zod v4 replaces the deprecated <code>zod-to-json-schema</code> package with built-in <code>z.toJSONSchema(schema)</code>, targeting <code>draft-2020-12</code> or <code>draft-07</code> cleanly.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Use <code>z.strictObject()</code> and <code>z.discriminatedUnion("kind", [...])</code> so every variant automatically emits closed objects.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">PY</span> Pydantic v2 <code>model_json_schema()</code></div>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;">
+        Powered by a Rust core, Pydantic v2 compiles complex union models via <code>Model.model_json_schema()</code> and powers <code>google-genai</code> and OpenAI SDKs directly.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Combine <code>ConfigDict(extra="forbid")</code> with <code>@model_validator</code> to enforce cross-field business rules after decoding.
+      </p>
+    </div>
+  </div>
+
+  <div class="card-dark" style="font-family:'SF Mono',Menlo,monospace; font-size:7.1pt; line-height:1.45; padding:7px 10px; margin-bottom:6px;">
+    <span style="color:#7dd3fc; font-weight:700;">Union Formula:</span>
+    <span class="p-tag p-style">Discriminator Literal</span> (<code>kind</code>) +
+    <span class="p-tag p-subj">Variant Fields</span> (<code>tool_name</code>, <code>args</code>) +
+    <span class="p-tag p-light">Nullable Optional</span> (<code>.nullable()</code>) +
+    <span class="p-tag p-cons">Closed Object</span> (<code>extra="forbid"</code>)
+  </div>
+
+  <pre><code>// TypeScript (Zod v4): Single source of truth for LLM Schema + Switch Exhaustiveness
+import * as z from "zod";
+
+const StepDecision = z.discriminatedUnion("kind", [
+  z.strictObject({ kind: z.literal("call_tool"), tool: z.enum(["lookup_order", "refund"]), orderId: z.string() }),
+  z.strictObject({ kind: z.literal("ask_user"), question: z.string(), missingField: z.string().nullable() }),
+  z.strictObject({ kind: z.literal("complete"), summary: z.string() }),
+]);
+
+export const providerSchema = z.toJSONSchema(StepDecision, { target: "draft-2020-12" });</code></pre>
+
+  <pre><code># Python (Pydantic v2 + google-genai): Structural schema + semantic cross-field invariant
+from typing import Literal
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+
+class RefundProposal(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    kind: Literal["refund_proposal"]
+    invoice_cents: int = Field(gt=0)
+    refund_cents: int = Field(gt=0)
+
+    @model_validator(mode="after")
+    def verify_cap(self) -&gt; "RefundProposal":
+        if self.refund_cents &gt; self.invoice_cents:
+            raise ValueError(f"refund_cents ({self.refund_cents}) exceeds invoice_cents ({self.invoice_cents})")
+        return self</code></pre>
+
+  <div class="callout emerald" style="margin-top: 2px;">
+    <div class="callout-title">Cross-Provider Strict Schema Portability Checklist</div>
+    To make one schema work smoothly across OpenAI, Anthropic, and Gemini: avoid optional properties (use <code>.nullable()</code> instead of <code>.optional()</code>), set <code>additionalProperties: false</code> on every nested object, and keep complex regex lookarounds in your Pydantic or Zod post-validator rather than in the token grammar.
+  </div>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: STREAMING PARTIAL JSON & BOUNDED REPAIR LOOPS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Streaming &amp; Self-Healing</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">Streaming Partial JSON &amp; Bounded Validation-Repair Loops</h2>
+  <p class="page-lead">
+    Waiting for a complete JSON payload makes interactive apps feel frozen. Incremental parsers render partial objects live as tokens arrive, while capped validation-feedback loops self-heal semantic mistakes cleanly.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Progressive Partial JSON Streaming</div>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;">
+        OpenAI streams raw structured tokens, while Anthropic emits <code>input_json_delta</code> events carrying <code>partial_json</code> slices. Libraries such as Vercel AI SDK <code>Output.object</code> and Python <code>jiter</code> auto-close unfinished brackets mid-stream.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Key rule: Expose streamed chunks as <code>DeepPartial&lt;T&gt;</code> for UI rendering only; run strict validation and trigger state transitions only after the final token arrives.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Bounded Semantic Repair Loops</div>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;">
+        When PydanticAI raises <code>ModelRetry</code> or a Zod validator rejects a value, inject the exact field path and violation message back into the conversation for a targeted correction turn.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Keep error payloads surgical: cite only the failing JSON pointer (for example <code>/refund_cents</code>) and the invariant rule, not an entire raw stack trace.
+      </p>
+    </div>
+  </div>
+
+  <pre><code>// TypeScript (Vercel AI SDK): Stream typed DeepPartial objects safely before final commit
+import { streamText, Output } from "ai";
+import * as z from "zod";
+
+const PlanSchema = z.strictObject({
+  headline: z.string(),
+  steps: z.array(z.strictObject({ title: z.string(), risk: z.enum(["low", "high"]) })),
+});
+
+const result = streamText({
+  model: providerModel,
+  output: Output.object({ schema: PlanSchema }),
+  prompt: "Draft a database index migration plan.",
+});
+
+for await (const partial of result.partialOutputStream) {
+  renderLiveDraftCard(partial); // Safe DeepPartial: fields populate progressively as tokens arrive
+}
+const finalVerifiedPlan = await result.output; // Fully validated against PlanSchema on stream end</code></pre>
+
+  <h3>The 4-Stage Bounded Repair Protocol</h3>
+  <table class="clean-table" style="margin-bottom: 6px;">
+    <thead>
+      <tr>
+        <th style="width: 18%;">Attempt Stage</th>
+        <th style="width: 30%;">Trigger Condition</th>
+        <th style="width: 32%;">Runtime Action</th>
+        <th style="width: 20%;">Next State</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Initial Call (0)</strong></td>
+        <td>Constrained decoding enabled</td>
+        <td>Stream tokens; verify schema + semantic rules on EOF.</td>
+        <td><code>TRANSITION_OK</code> or Retry 1</td>
+      </tr>
+      <tr>
+        <td><strong>Repair Try 1</strong></td>
+        <td>Semantic check fails (e.g., bad ID)</td>
+        <td>Append concise JSON-pointer error via <code>ModelRetry</code>.</td>
+        <td><code>TRANSITION_OK</code> or Retry 2</td>
+      </tr>
+      <tr>
+        <td><strong>Repair Try 2</strong></td>
+        <td>Second invariant mismatch</td>
+        <td>Lower temperature to <code>0.0</code>; include allowed enum/ID hints.</td>
+        <td><code>TRANSITION_OK</code> or Escalate</td>
+      </tr>
+      <tr>
+        <td><strong>Circuit Open (3)</strong></td>
+        <td><code>retry_count &gt;= max_retries</code></td>
+        <td>Halt generation immediately; preserve failed trace in DLQ.</td>
+        <td><code>DEAD_LETTER</code> / Human</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin-top: 2px;">
+    <div class="callout-title">Why You Must Cap Repair Loops at 2 or 3 Attempts</div>
+    Unbounded self-healing loops burn tokens rapidly when a model lacks a required fact in context and keeps guessing invalid IDs. Treating repair exhaustion as a deterministic transition to <code>DEAD_LETTER</code> turns silent hangs into observable alerts.
+  </div>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: DETERMINISTIC AGENT STATE MACHINES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; State Machine Control</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">Explicit Transition Tables, Loop Breakers &amp; Approval Gates</h2>
+  <p class="page-lead">
+    An agent loop is safest when every state, allowed event, guard condition, and exit ceiling lives in an explicit transition table. The language model proposes events; deterministic code decides whether they execute.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/showcase_2.jpg" alt="Illuminated deterministic state-machine circuit board with five octagonal glass chambers linked by cyan bridges and an amber approval gate pedestal" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 8.1 &bull; Explicit Statechart Topology:</strong> Execution flows strictly through locked chambers along verified fiber bridges, routing high-consequence mutations up through the amber human-approval pedestal before final commit.
+    </div>
+  </div>
+
+  <h3>Production Agent Transition Table</h3>
+  <table class="clean-table" style="margin-bottom: 6px;">
+    <thead>
+      <tr>
+        <th style="width: 21%;">Current State</th>
+        <th style="width: 22%;">Typed Event Trigger</th>
+        <th style="width: 34%;">Deterministic Programmatic Guard</th>
+        <th style="width: 23%;">Target State</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>IDLE</code></td>
+        <td><code>EV_TASK_SUBMITTED</code></td>
+        <td>Input sanitized &amp; <code>step_budget &gt; 0</code></td>
+        <td><code>PLANNING</code></td>
+      </tr>
+      <tr>
+        <td><code>PLANNING</code></td>
+        <td><code>EV_PROPOSE_READ</code></td>
+        <td>Read-only tool allowlisted &amp; args valid</td>
+        <td><code>EXECUTING_READ</code></td>
+      </tr>
+      <tr>
+        <td><code>PLANNING</code></td>
+        <td><code>EV_PROPOSE_WRITE</code></td>
+        <td>Mutation flag true or <code>amount &gt; threshold</code></td>
+        <td><code>AWAITING_APPROVAL</code></td>
+      </tr>
+      <tr>
+        <td><code>AWAITING_APPROVAL</code></td>
+        <td><code>EV_APPROVE</code></td>
+        <td>Signed <code>approval_token</code> matches diff hash</td>
+        <td><code>EXECUTING_WRITE</code></td>
+      </tr>
+      <tr>
+        <td><code>AWAITING_APPROVAL</code></td>
+        <td><code>EV_REJECT</code></td>
+        <td>Reviewer feedback attached &amp; <code>steps &lt; max</code></td>
+        <td><code>PLANNING</code></td>
+      </tr>
+      <tr>
+        <td><code>ANY_ACTIVE</code></td>
+        <td><code>EV_BUDGET_EXHAUSTED</code></td>
+        <td><code>steps &gt;= max_steps</code> or wall timeout hit</td>
+        <td><code>DEAD_LETTER</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">B</span> Max-Step Loop Breakers</div>
+      <p style="font-size:7.9pt; margin:0;">Enforce a hard global <code>max_steps</code> counter plus per-tool repeat limits so an agent cannot call the same failing search tool endlessly.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge amber">G</span> Cryptographic HITL Gates</div>
+      <p style="font-size:7.9pt; margin:0;">Keep write credentials out of LLM reach. Freeze a serialized diff, pause via <code>interrupt()</code>, and require a version-locked signature to resume.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge teal">T</span> Illegal Pair Rejection</div>
+      <p style="font-size:7.9pt; margin:0;">Any <code>(state, event)</code> missing from <code>TRANSITION_TABLE</code> throws immediately before tool dispatch, proving safety even under adversarial inputs.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: FIVE COPY-PASTE PRODUCTION RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Recipes</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">Five Copy-Paste Production Recipes</h2>
+  <p class="page-lead">
+    Proven implementation blueprints covering strict extraction, discriminated-union routing, streaming partial interfaces, self-healing validators, and durable human-approved tool execution.
+  </p>
+
+  <table class="clean-table" style="margin-bottom: 7px;">
+    <thead>
+      <tr>
+        <th style="width: 23%;">Recipe &amp; Goal</th>
+        <th style="width: 21%;">Stack</th>
+        <th style="width: 34%;">Core Pattern</th>
+        <th style="width: 22%;">Deterministic Guard</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Strict Extraction Oracle</strong><br/><span style="font-size:7.4pt; color:#64748b;">Parse invoices or tickets cleanly</span></td>
+        <td>OpenAI <code>text.format</code> or Gemini <code>responseJsonSchema</code></td>
+        <td>Compile Pydantic/Zod contract with <code>strict: true</code> and nullable optional keys.</td>
+        <td><code>additionalProperties: false</code> plus post-parse math check.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Typed Intent Router</strong><br/><span style="font-size:7.4pt; color:#64748b;">Eliminate fragile if/else parsing</span></td>
+        <td>Claude <code>output_config</code> + TypeScript switch</td>
+        <td>Use <code>z.discriminatedUnion("kind", [...])</code> for mutually exclusive branches.</td>
+        <td>Compiler exhaustiveness check (<code>assertNever</code>) on <code>kind</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Live Streaming Form</strong><br/><span style="font-size:7.4pt; color:#64748b;">Populate UI cards token by token</span></td>
+        <td>Vercel AI SDK <code>streamText</code> + <code>Output.object</code></td>
+        <td>Iterate <code>partialOutputStream</code> into UI state; await final <code>output</code>.</td>
+        <td>Disable submit buttons until final strict validation resolves.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Self-Healing SQL / API</strong><br/><span style="font-size:7.4pt; color:#64748b;">Fix bad IDs or constraints</span></td>
+        <td>PydanticAI <code>ModelRetry</code> / Instructor</td>
+        <td>Validate foreign keys inside <code>@model_validator</code>; return concise pointer hint.</td>
+        <td>Hard cap <code>retries=2</code> before routing to <code>DEAD_LETTER</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Gated Mutation Agent</strong><br/><span style="font-size:7.4pt; color:#64748b;">Approve refunds, deploys, emails</span></td>
+        <td>LangGraph <code>interrupt()</code> + Postgres</td>
+        <td>Halt inside policy node, write checkpoint, await signed UI resume webhook.</td>
+        <td>Bind <code>approval_token</code> to SHA-256 hash of tool payload.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Copy-Paste Python Deterministic Transition Runner with Loop Breaker</h3>
+  <pre><code>from dataclasses import dataclass
+
+TRANSITIONS = {
+    ("IDLE", "EV_START"): "PLANNING",
+    ("PLANNING", "EV_CALL_READ"): "EXECUTING_READ",
+    ("EXECUTING_READ", "EV_OBS_READY"): "PLANNING",
+    ("PLANNING", "EV_PROPOSE_WRITE"): "AWAITING_APPROVAL",
+    ("AWAITING_APPROVAL", "EV_APPROVE"): "EXECUTING_WRITE",
+    ("AWAITING_APPROVAL", "EV_REJECT"): "PLANNING",
+    ("EXECUTING_WRITE", "EV_COMMITTED"): "COMPLETED",
+}
+
+@dataclass
+class MachineContext:
+    state: str = "IDLE"
+    steps: int = 0
+    max_steps: int = 12
+
+def step_machine(ctx: MachineContext, event: str, guard_ok: bool = True) -&gt; str:
+    if ctx.steps &gt;= ctx.max_steps:
+        ctx.state = "DEAD_LETTER"
+        return ctx.state
+    nxt = TRANSITIONS.get((ctx.state, event))
+    if nxt is None or not guard_ok:
+        raise ValueError(f"Blocked transition from {ctx.state} on {event}")
+    ctx.steps += 1
+    ctx.state = nxt
+    save_checkpoint(ctx)  # Persist every step to Postgres or Temporal
+    return ctx.state</code></pre>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: IDEMPOTENCY, CHECKPOINTING & PRODUCTION ROLLOUT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Production Durability</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">Idempotency, Checkpointing &amp; Dead-Letter Transitions</h2>
+  <p class="page-lead">
+    Structured outputs protect what enters your state machine; idempotency keys, durable checkpoints, and dead-letter queues protect what happens when workers crash mid-flight or upstream APIs time out.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Deterministic Idempotency Keys</div>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;">
+        If an agent sends a payment or creates a ticket and the HTTP response drops, a naive retry executes the side effect twice. Derive an <code>idempotency_key</code> from <code>sha256(run_id + step_index + action + payload_hash)</code>.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Check a durable execution ledger before firing external APIs; if that key already recorded <code>SUCCEEDED</code>, return the cached receipt immediately.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Durable Checkpoints &amp; Replay</div>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;">
+        Commit state snapshots (enum state, message cursor, remaining <code>max_steps</code>, and pending tool intent) to Postgres or Temporal event histories after every transition.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Long-lived human approvals can sleep for hours or days at zero compute cost until an external webhook signals resumption.
+      </p>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge amber">D</span> Dead-Letter Transitions</div>
+      <p style="font-size:7.9pt; margin:0;">Route exhausted repairs or step-budget overruns into <code>DEAD_LETTER</code> with full inputs, schema version, and validator diagnostics for human triage.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge purple">V</span> Schema Versioning</div>
+      <p style="font-size:7.9pt; margin:0;">Stamp every checkpoint with <code>schema_version</code>. When deploying breaking union changes, run pure upcasters before replaying paused runs.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge emerald">R</span> Shadow Canary Rollouts</div>
+      <p style="font-size:7.9pt; margin:0;">Run new schema versions in shadow audit mode first to measure repair rates, grammar compile latency, and enum drift before gating traffic.</p>
+    </div>
+  </div>
+
+  <h3>Idempotent Side-Effect Ledger Guard (TypeScript)</h3>
+  <pre><code>export async function executeIdempotentTool(runId: string, step: number, proposal: ToolCall) {
+  const key = sha256(runId + ":" + step + ":" + proposal.name + ":" + canonicalJson(proposal.args));
+  const existing = await ledgerRepo.findByKey(key);
+  if (existing?.status === "SUCCEEDED") {
+    return existing.cachedReceipt; // Short-circuit duplicate side effect safely
+  }
+  await ledgerRepo.markInFlight(key, proposal);
+  const receipt = await dispatchExternalTool(proposal, { idempotencyKey: key });
+  await ledgerRepo.markSucceeded(key, receipt);
+  return receipt;
+}</code></pre>
+
+  <div class="callout" style="margin-top: 2px;">
+    <div class="callout-title">Separate Speculative Reads from Commit Writes</div>
+    Let agents run read-only queries freely inside <code>PLANNING</code> with fast retries, yet funnel every state-mutating tool through an idempotent <code>EXECUTING_WRITE</code> state backed by a ledger and an optional human gate.
+  </div>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Synergy Pipeline</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Synergy: Typed Ingress to Durable Execution</h2>
+  <p class="page-lead">
+    When Zod v4 or Pydantic v2 contracts drive both provider token masking and your statechart transitions, every layer reinforces the next—turning stochastic text generation into verifiable software engineering.
+  </p>
+
+  <div class="figure-box" style="background:#071320; padding:10px 12px; margin-bottom: 10px;">
+    <svg viewBox="0 0 700 165" width="100%" height="165" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1: Schema Contract -->
+      <rect x="8" y="18" width="118" height="128" rx="8" fill="#0d2137" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="67" y="38" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">1. Contract</text>
+      <text x="67" y="52" text-anchor="middle" fill="#7dd3fc" font-size="7.2">Zod v4 / Pydantic v2</text>
+      <rect x="16" y="64" width="102" height="70" rx="5" fill="#071320" stroke="#0369a1"/>
+      <text x="67" y="82" text-anchor="middle" fill="#e0f2fe" font-size="7.5" font-weight="700">Single Source</text>
+      <text x="67" y="96" text-anchor="middle" fill="#94a3b8" font-size="6.9">z.toJSONSchema()</text>
+      <text x="67" y="110" text-anchor="middle" fill="#94a3b8" font-size="6.9">Discriminated Union</text>
+      <text x="67" y="124" text-anchor="middle" fill="#38bdf8" font-size="6.9">Static Type Check</text>
+
+      <!-- Arrow 1 -->
+      <path d="M126 82 L148 82" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="148,77 156,82 148,87" fill="#38bdf8"/>
+
+      <!-- Box 2: Provider Grammar -->
+      <rect x="156" y="18" width="118" height="128" rx="8" fill="#0b2438" stroke="#0ea5e9" stroke-width="1.5"/>
+      <text x="215" y="38" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">2. Constrained</text>
+      <text x="215" y="52" text-anchor="middle" fill="#7dd3fc" font-size="7.2">CFG / FSM Bitmask</text>
+      <rect x="164" y="64" width="102" height="70" rx="5" fill="#071320" stroke="#0284c7"/>
+      <text x="215" y="82" text-anchor="middle" fill="#bae6fd" font-size="7.5" font-weight="700">0% Syntax Errors</text>
+      <text x="215" y="96" text-anchor="middle" fill="#94a3b8" font-size="6.9">OpenAI / Claude</text>
+      <text x="215" y="110" text-anchor="middle" fill="#94a3b8" font-size="6.9">Gemini / XGrammar</text>
+      <text x="215" y="124" text-anchor="middle" fill="#38bdf8" font-size="6.9">Cached Grammar</text>
+
+      <!-- Arrow 2 -->
+      <path d="M274 82 L296 82" stroke="#10b981" stroke-width="2"/>
+      <polygon points="296,77 304,82 296,87" fill="#10b981"/>
+
+      <!-- Box 3: Stream & Repair -->
+      <rect x="304" y="18" width="122" height="128" rx="8" fill="#072226" stroke="#10b981" stroke-width="1.5"/>
+      <text x="365" y="38" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">3. Stream &amp; Heal</text>
+      <text x="365" y="52" text-anchor="middle" fill="#6ee7b7" font-size="7.2">Partial + Semantic</text>
+      <rect x="312" y="64" width="106" height="70" rx="5" fill="#041517" stroke="#059669"/>
+      <text x="365" y="82" text-anchor="middle" fill="#a7f3d0" font-size="7.5" font-weight="700">Live DeepPartial</text>
+      <text x="365" y="96" text-anchor="middle" fill="#94a3b8" font-size="6.9">Model Validators</text>
+      <text x="365" y="110" text-anchor="middle" fill="#94a3b8" font-size="6.9">ModelRetry &le; 2</text>
+      <text x="365" y="124" text-anchor="middle" fill="#34d399" font-size="6.9">Clean JSON Event</text>
+
+      <!-- Arrow 3 -->
+      <path d="M426 82 L448 82" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="448,77 456,82 448,87" fill="#a78bfa"/>
+
+      <!-- Box 4: FSM Policy Gate -->
+      <rect x="456" y="18" width="116" height="128" rx="8" fill="#181736" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="514" y="38" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">4. FSM Gate</text>
+      <text x="514" y="52" text-anchor="middle" fill="#c4b5fd" font-size="7.2">Explicit Table</text>
+      <rect x="464" y="64" width="100" height="70" rx="5" fill="#0d0c21" stroke="#6d28d9"/>
+      <text x="514" y="82" text-anchor="middle" fill="#ddd6fe" font-size="7.5" font-weight="700">Guard &amp; Budget</text>
+      <text x="514" y="96" text-anchor="middle" fill="#94a3b8" font-size="6.9">max_steps Cap</text>
+      <text x="514" y="110" text-anchor="middle" fill="#94a3b8" font-size="6.9">HITL interrupt()</text>
+      <text x="514" y="124" text-anchor="middle" fill="#a78bfa" font-size="6.9">Signed Token</text>
+
+      <!-- Arrow 4 -->
+      <path d="M572 82 L592 82" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="592,77 600,82 592,87" fill="#f59e0b"/>
+
+      <!-- Box 5: Durable Commit -->
+      <rect x="600" y="18" width="92" height="128" rx="8" fill="#241509" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="646" y="38" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">5. Commit</text>
+      <text x="646" y="52" text-anchor="middle" fill="#fde68a" font-size="7.2">Durable &amp; Safe</text>
+      <rect x="607" y="64" width="78" height="70" rx="5" fill="#140c04" stroke="#d97706"/>
+      <text x="646" y="82" text-anchor="middle" fill="#fef3c7" font-size="7.4" font-weight="700">Idempotency</text>
+      <text x="646" y="96" text-anchor="middle" fill="#94a3b8" font-size="6.8">PG Checkpoint</text>
+      <text x="646" y="110" text-anchor="middle" fill="#94a3b8" font-size="6.8">OTel Spans</text>
+      <text x="646" y="124" text-anchor="middle" fill="#fbbf24" font-size="6.8">DLQ Fallback</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Streaming UI Sync: Vercel AI SDK + XState</div>
+      <p style="font-size:8.2pt; margin:0;">
+        Pair Vercel AI SDK <code>Output.object</code> streams with client-side XState statecharts so UI panels transition smoothly from <code>streaming_draft</code> to <code>awaiting_confirmation</code> without race conditions, duplicate button clicks, or half-parsed JSON glitches.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Durable Backend: LangGraph + Temporal + OTel</div>
+      <p style="font-size:8.2pt; margin:0;">
+        Use LangGraph to manage cyclical reasoning nodes while Temporal persists durable activity replays across server restarts. Emit OpenTelemetry spans for <code>schema.compile</code>, <code>repair.retry</code>, <code>fsm.transition</code>, and <code>gate.approve</code>.
+      </p>
+    </div>
+  </div>
+
+  <h3>Observability &amp; Governance Signals Across the Pipeline</h3>
+  <div class="grid-3" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">C</span> Grammar Cache Hit Rate</div>
+      <p style="font-size:7.9pt; margin:0;">Track first-request compile latency versus cached CFG hits to catch accidental dynamic schema generation per turn.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge amber">R</span> Repair Loop Frequency</div>
+      <p style="font-size:7.9pt; margin:0;">Alert when <code>ModelRetry</code> spikes above 5% on a route—an immediate signal that field descriptions or prompts need clarity.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge purple">A</span> Transition Audit Trail</div>
+      <p style="font-size:7.9pt; margin:0;">Record immutable <code>(state, event, guard_result, actor)</code> tuples for compliance reviews and deterministic post-incident replay.</p>
+    </div>
+  </div>
+
+  <div class="callout purple">
+    <div class="callout-title">Single Source of Truth Design Principle</div>
+    Never hand-maintain separate JSON Schema files, TypeScript or Python dataclasses, and prompt descriptions. Author one canonical Zod v4 or Pydantic v2 module with descriptive field metadata so every boundary stays strictly synchronized across deploys.
+  </div>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Reference &amp; QA</span>
+    <span>Structured Outputs &amp; State Machines</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Production Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Use this field clinic to diagnose the seven most frequent structured-output and state-machine failures in seconds, followed by six readiness gates every agent must clear before production traffic.
+  </p>
+
+  <table class="clean-table" style="margin-bottom: 7px;">
+    <thead>
+      <tr>
+        <th style="width: 28%;">Symptom &amp; Error</th>
+        <th style="width: 29%;">Root Cause</th>
+        <th style="width: 43%;">10-Second Production Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>400: Invalid strict schema</code></strong></td>
+        <td>Object missing <code>additionalProperties: false</code> or optional key omitted from <code>required</code>.</td>
+        <td>Use <code>z.strictObject()</code> or <code>extra="forbid"</code>; declare optional fields as <code>["string", "null"]</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>First-call latency spike</strong></td>
+        <td>Cold CFG/FSM compilation for large or deeply nested schemas.</td>
+        <td>Warm common schemas on server boot and reuse identical schema strings to hit provider caches.</td>
+      </tr>
+      <tr>
+        <td><strong>Accuracy drops in strict mode</strong></td>
+        <td>Schema forces final enum classification before any reasoning tokens.</td>
+        <td>Add a <code>reasoning_summary</code> field ahead of the <code>decision</code> field in property declaration order.</td>
+      </tr>
+      <tr>
+        <td><strong>Infinite tool or repair loops</strong></td>
+        <td>Missing global <code>max_steps</code> cap or ambiguous repair error prompts.</td>
+        <td>Enforce hard step ceilings, cap <code>ModelRetry</code> at 2, and inject exact JSON-pointer paths.</td>
+      </tr>
+      <tr>
+        <td><strong>Duplicate writes or charges</strong></td>
+        <td>Worker retried timed-out tool execution without ledger lookup.</td>
+        <td>Compute deterministic <code>idempotency_key</code> from <code>run_id + step</code> and check ledger before calling APIs.</td>
+      </tr>
+      <tr>
+        <td><strong>Stale HITL approval resume</strong></td>
+        <td>Proposal changed after human inspection or old resume event replayed.</td>
+        <td>Bind cryptographic <code>approval_token</code> to SHA-256 of proposal diff and checkpoint version.</td>
+      </tr>
+      <tr>
+        <td><strong>Streaming UI throws JSON error</strong></td>
+        <td>Calling strict <code>.parse()</code> on incomplete partial JSON chunks.</td>
+        <td>Bind UI directly to <code>DeepPartial&lt;T&gt;</code>; run full schema validator only after final stream completion.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Production Readiness Checklist</h3>
+  <div class="grid-2">
+    <div class="card">
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 1. Strict Mode Verified:</strong> Confirm every provider schema sets <code>additionalProperties: false</code>, places all fields in <code>required</code>, and passes provider dry-run validation.</p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 2. Reasoning Order Tested:</strong> Verify complex routing schemas place scratchpad reasoning keys ahead of strict classification enums so quality stays high.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong>&square; 3. Bounded Loops Active:</strong> Test that hitting <code>max_steps</code> or exhausting 2 semantic retries transitions cleanly into <code>DEAD_LETTER</code> rather than hanging.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 4. Idempotency Ledger Proven:</strong> Simulate a network timeout during <code>EXECUTING_WRITE</code> and verify the replay returns the cached receipt with zero duplicate writes.</p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 5. HITL Token Bound to Hash:</strong> Verify modifying any parameter of a paused proposal invalidates prior approval signatures and forces fresh review.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong>&square; 6. Checkpoint Migration Safe:</strong> Confirm persisted checkpoints carry <code>schema_version</code> tags and replay smoothly across rolling deploys.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Structured Outputs &amp; State Machines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

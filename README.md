@@ -4,11 +4,11 @@
 
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
-> **Read Online at [https://ai-field-guides.vercel.app](https://ai-field-guides.vercel.app)** — Browse all 51 guides in a clean, mobile-friendly web reader or download any 12-page PDF in one click.
+> **Read Online at [https://ai-field-guides.vercel.app](https://ai-field-guides.vercel.app)** — Browse all 58 guides in a clean, mobile-friendly web reader or download any 12-page PDF in one click.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-51%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-612%20Pages-059669?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-58%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-696%20Pages-059669?style=for-the-badge)
 ![Ecosystems](https://img.shields.io/badge/Scope-6%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
@@ -148,7 +148,7 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
 </table>
 
 ### Anthropic Claude & Workspace Studios
-Publication-grade 12-page visual handbooks for Anthropic's agentic coding, autonomous digital coworker, security, and collaborative workspace suite—covering Claude Meetings, Duet, Design, Whiteboards, Sheets, Dashboards & Data, Cowork & Computer Use, Skills, Claude Code Mods, Autonomous Loops, Code Projects & Coordinator, Security & Mythos 5.2, and Managed Agents & MCP.
+Publication-grade 12-page visual handbooks for Anthropic's agentic coding, autonomous digital coworker, security, and collaborative workspace suite—covering Claude Meetings, Duet, Design, Whiteboards, Sheets, Dashboards & Data, Cowork & Computer Use, Skills, Claude Code Mods, Autonomous Loops, Code Projects & Coordinator, Channels & Remote Control, Claude in Chrome & Persistent Memory, Security & Mythos 5.2, and Managed Agents & MCP.
 
 <table>
   <tr>
@@ -268,12 +268,30 @@ Publication-grade 12-page visual handbooks for Anthropic's agentic coding, auton
       <p><code>Claude Security</code> &middot; <code>Mythos 5.2</code> &middot; <code>Continuous AppSec</code></p>
       <p><a href="guides/claude/claude-security-and-mythos/Claude_Security_and_Mythos_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-security-and-mythos">&#128736; Editable Source</a></p>
     </td>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-code-channels-and-remote-control/Claude_Code_Channels_and_Remote_Control_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-code-channels-and-remote-control/cover.png" alt="Claude Code Channels, Remote Control &amp; Dispatch Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-code-channels-and-remote-control/Claude_Code_Channels_and_Remote_Control_Complete_How_To_Guide.pdf">Claude Code Channels, Remote Control &amp; Dispatch</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Connect live local terminal sessions to webhooks, CI/CD, Sentry, and chat bridges with Channels, steer active repos from mobile via Remote Control, and isolate cross-device Dispatch runs.</p>
+      <p><code>Code Channels</code> &middot; <code>Remote Control</code> &middot; <code>Dispatch &amp; MCP</code></p>
+      <p><a href="guides/claude/claude-code-channels-and-remote-control/Claude_Code_Channels_and_Remote_Control_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-code-channels-and-remote-control">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/claude/claude-in-chrome-and-persistent-memory/Claude_in_Chrome_and_Persistent_Memory_Complete_How_To_Guide.pdf"><img src="guides/claude/claude-in-chrome-and-persistent-memory/cover.png" alt="Claude in Chrome &amp; Persistent Memory Cover" width="100%" /></a>
+      <h3><a href="guides/claude/claude-in-chrome-and-persistent-memory/Claude_in_Chrome_and_Persistent_Memory_Complete_How_To_Guide.pdf">Claude in Chrome &amp; Persistent Memory</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Bridge authenticated Chrome tabs to Claude Code and Claude Desktop for live console and DOM forensics while compounding knowledge via /memories CRUD, CLAUDE.md, and Auto-Dream consolidation.</p>
+      <p><code>Claude in Chrome</code> &middot; <code>Persistent Memory</code> &middot; <code>Auto-Dream</code></p>
+      <p><a href="guides/claude/claude-in-chrome-and-persistent-memory/Claude_in_Chrome_and_Persistent_Memory_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/claude/claude-in-chrome-and-persistent-memory">&#128736; Editable Source</a></p>
+    </td>
     <td width="50%"></td>
   </tr>
 </table>
 
 ### OpenAI Codex, Agents & Realtime Studios
-Publication-grade 12-page visual handbooks for OpenAI's agentic developer and workspace platform—covering Codex CLI & Codex Cloud, the OpenAI Agents API & SDK, ChatGPT Canvas, Spaces & Computer Use, and low-latency Realtime Voice & Vision agents.
+Publication-grade 12-page visual handbooks for OpenAI's agentic developer and workspace platform—covering Codex CLI & Codex Cloud, the OpenAI Agents API & SDK, ChatGPT Projects, Memory & Deep Research, ChatGPT Canvas, Spaces & Computer Use, and low-latency Realtime Voice & Vision agents.
 
 <table>
   <tr>
@@ -311,6 +329,17 @@ Publication-grade 12-page visual handbooks for OpenAI's agentic developer and wo
       <p><code>Realtime API</code> &middot; <code>WebRTC &amp; SIP</code> &middot; <code>Voice &amp; Vision</code></p>
       <p><a href="guides/openai/realtime-voice-and-vision/OpenAI_Realtime_Voice_and_Vision_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/openai/realtime-voice-and-vision">&#128736; Editable Source</a></p>
     </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/openai/chatgpt-projects-memory-and-deep-research/ChatGPT_Projects_Memory_and_Deep_Research_Complete_How_To_Guide.pdf"><img src="guides/openai/chatgpt-projects-memory-and-deep-research/cover.png" alt="ChatGPT Projects, Memory &amp; Deep Research Cover" width="100%" /></a>
+      <h3><a href="guides/openai/chatgpt-projects-memory-and-deep-research/ChatGPT_Projects_Memory_and_Deep_Research_Complete_How_To_Guide.pdf">ChatGPT Projects, Memory &amp; Deep Research</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Organize durable workspaces inside ChatGPT Projects, seal confidential work behind Project-Only Memory walls, steer autonomous Deep Research plans, and schedule proactive Tasks &amp; Dots briefings.</p>
+      <p><code>ChatGPT Projects</code> &middot; <code>Project Memory</code> &middot; <code>Deep Research</code></p>
+      <p><a href="guides/openai/chatgpt-projects-memory-and-deep-research/ChatGPT_Projects_Memory_and_Deep_Research_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/openai/chatgpt-projects-memory-and-deep-research">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%"></td>
   </tr>
 </table>
 
@@ -357,7 +386,7 @@ Publication-grade 12-page visual handbooks for building production full-stack AI
 </table>
 
 ### AI Agent Engineering & Architecture
-Practical 12-page visual handbooks for context engineering, multi-agent orchestration, parallel Git worktrees, production MCP servers, Chrome DevTools & Playwright browser agents, vector RAG, security, evals, System One decisions, and local on-device AI.
+Practical 12-page visual handbooks for context engineering, multi-agent orchestration, Orca workspaces & parallel Git worktrees, production MCP servers, Chrome DevTools & Playwright browser agents, OpenTelemetry & prompt caching, structured outputs & state machines, voice-first coding, vector RAG, security, evals, System One decisions, and local on-device AI.
 
 <table>
   <tr>
@@ -459,6 +488,42 @@ Practical 12-page visual handbooks for context engineering, multi-agent orchestr
       <p><code>Firecracker microVMs</code> &middot; <code>E2B Sandboxes</code> &middot; <code>Egress Security</code></p>
       <p><a href="guides/agent-engineering/sandboxes-and-isolated-execution/Sandboxes_and_Isolated_Execution_for_AI_Agents_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/sandboxes-and-isolated-execution">&#128736; Editable Source</a></p>
     </td>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/orca-multi-agent-workspace-and-cli/Orca_Multi_Agent_Workspace_and_CLI_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/orca-multi-agent-workspace-and-cli/cover.png" alt="Orca Multi-Agent Workspace &amp; CLI Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/orca-multi-agent-workspace-and-cli/Orca_Multi_Agent_Workspace_and_CLI_Complete_How_To_Guide.pdf">Orca Multi-Agent Workspace &amp; CLI</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Orchestrate parallel AI coding agents across isolated Git worktrees, coordinator-worker task DAGs, inline diff annotations, embedded browser captures, and remote SSH or mobile runtimes.</p>
+      <p><code>Orca ADE</code> &middot; <code>Git Worktrees</code> &middot; <code>Task DAGs</code></p>
+      <p><a href="guides/agent-engineering/orca-multi-agent-workspace-and-cli/Orca_Multi_Agent_Workspace_and_CLI_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/orca-multi-agent-workspace-and-cli">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/agentic-observability-and-prompt-caching/Agentic_Observability_and_Prompt_Caching_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/agentic-observability-and-prompt-caching/cover.png" alt="Agentic Observability &amp; Prompt Caching Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/agentic-observability-and-prompt-caching/Agentic_Observability_and_Prompt_Caching_Complete_How_To_Guide.pdf">Agentic Observability &amp; Prompt Caching</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Instrument multi-agent workflows with OpenTelemetry GenAI trace trees, maximize static-first KV cache hit rates, compact historical tool outputs, and route models for predictable token FinOps.</p>
+      <p><code>OpenTelemetry</code> &middot; <code>Prompt Caching</code> &middot; <code>Token FinOps</code></p>
+      <p><a href="guides/agent-engineering/agentic-observability-and-prompt-caching/Agentic_Observability_and_Prompt_Caching_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/agentic-observability-and-prompt-caching">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/structured-outputs-and-state-machines/Structured_Outputs_and_State_Machines_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/structured-outputs-and-state-machines/cover.png" alt="Structured Outputs &amp; State Machines Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/structured-outputs-and-state-machines/Structured_Outputs_and_State_Machines_Complete_How_To_Guide.pdf">Structured Outputs &amp; State Machines</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Eliminate fragile regex loops with CFG/FSM constrained decoding, Pydantic v2 and Zod v4 contracts, streaming partial objects, explicit transition tables, idempotency, and HITL approval gates.</p>
+      <p><code>Constrained Decoding</code> &middot; <code>State Machines</code> &middot; <code>Pydantic &amp; Zod</code></p>
+      <p><a href="guides/agent-engineering/structured-outputs-and-state-machines/Structured_Outputs_and_State_Machines_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/structured-outputs-and-state-machines">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/voice-first-coding-and-capture-workflows/Voice_First_Coding_and_Capture_Workflows_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/voice-first-coding-and-capture-workflows/cover.png" alt="Voice-First Coding &amp; Capture Workflows Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/voice-first-coding-and-capture-workflows/Voice_First_Coding_and_Capture_Workflows_Complete_How_To_Guide.pdf">Voice-First Coding &amp; Capture Workflows</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turn spoken architectural intent into code and notes with mlx-whisper and Superwhisper, codebase symbol glossaries, voice PR diff triage, and automated Obsidian _inbox/ capture pipelines.</p>
+      <p><code>Voice Coding</code> &middot; <code>Whisper &amp; VAD</code> &middot; <code>Capture Pipelines</code></p>
+      <p><a href="guides/agent-engineering/voice-first-coding-and-capture-workflows/Voice_First_Coding_and_Capture_Workflows_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/voice-first-coding-and-capture-workflows">&#128736; Editable Source</a></p>
+    </td>
     <td width="50%"></td>
   </tr>
 </table>
@@ -552,10 +617,13 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **Claude Design** — Turning real codebases and brand guidelines into on-brand interactive prototypes, wireframes, decks, and product one-pagers—with live Control Knobs, inline comments, and Figma MCP or Claude Code handoffs. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-design/Claude_Design_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-design) |
 | **Claude Code Projects & Proactive Coordinator** — Orchestrating parallel cloud worker branches with Claude Fable 5.2, Opus 5.5, and Haiku 5.5 alongside the Session Rail HUD, /btw and /fork context hygiene, Background MCP tasks, and identity safeguards. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-code-projects-and-coordinator/Claude_Code_Projects_and_Coordinator_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-code-projects-and-coordinator) |
 | **Claude Security & Mythos 5.2** — Deploying continuous, reasoning-driven application security with Claude Mythos 5.2—mastering Deep Baseline Scans, living Threat Models, automated fix verification, and Claude Code MCP remediation. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-security-and-mythos/Claude_Security_and_Mythos_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-security-and-mythos) |
+| **Claude Code Channels, Remote Control & Dispatch** — Connect live local terminal sessions to webhooks, CI/CD, Sentry, and chat bridges with Channels, steer active repos from mobile via Remote Control, and isolate cross-device Dispatch runs. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-code-channels-and-remote-control/Claude_Code_Channels_and_Remote_Control_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-code-channels-and-remote-control) |
+| **Claude in Chrome & Persistent Memory** — Bridge authenticated Chrome tabs to Claude Code and Claude Desktop for live console and DOM forensics while compounding knowledge via /memories CRUD, CLAUDE.md, and Auto-Dream consolidation. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-in-chrome-and-persistent-memory/Claude_in_Chrome_and_Persistent_Memory_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-in-chrome-and-persistent-memory) |
 | **OpenAI Codex CLI & Codex Cloud** — Configure TOML sandboxes, AGENTS.md constitutions, on-demand SKILL.md modules, GPT-6.1 Sol tiers, and parallel Codex Cloud PR containers. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/codex-cli-and-cloud/OpenAI_Codex_CLI_and_Cloud_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/codex-cli-and-cloud) |
 | **OpenAI Agents API & SDK** — Architect production multi-agent systems with handoffs, Agents-as-Tools, parallel input/output guardrails, built-in tracing, and stateful MCP sessions. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/agents-api-and-sdk/OpenAI_Agents_API_and_SDK_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/agents-api-and-sdk) |
 | **ChatGPT Canvas, Spaces & Computer Use** — Master surgical split-pane Canvas diffs, multiplayer Spaces and Pages, and gated Agent Mode browser and desktop workflows. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/chatgpt-canvas-and-spaces/ChatGPT_Canvas_Spaces_and_Computer_Use_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/chatgpt-canvas-and-spaces) |
 | **OpenAI Realtime Voice & Vision** — Build sub-second speech-to-speech and live vision agents across WebRTC, WebSockets, and SIP telephony with native VAD barge-in and async MCP. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/realtime-voice-and-vision/OpenAI_Realtime_Voice_and_Vision_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/realtime-voice-and-vision) |
+| **ChatGPT Projects, Memory & Deep Research** — Organize durable workspaces inside ChatGPT Projects, seal confidential work behind Project-Only Memory walls, steer autonomous Deep Research plans, and schedule proactive Tasks & Dots briefings. | OpenAI Codex, Agents & Realtime Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/openai/chatgpt-projects-memory-and-deep-research/ChatGPT_Projects_Memory_and_Deep_Research_Complete_How_To_Guide.pdf) &middot; [Source](guides/openai/chatgpt-projects-memory-and-deep-research) |
 | **Vercel AI SDK 7 & AI Gateway** — Stream typed UI messages, ToolLoopAgent runs, and structured Output.object() calls through Vercel AI Gateway with OIDC auth, virtual models, budgets, and automatic provider failover. | Vercel & Full-Stack AI Applications | `v1.0` | `2026-11` | 12 | [PDF](guides/vercel/ai-sdk-and-gateway/Vercel_AI_SDK_and_Gateway_Complete_How_To_Guide.pdf) &middot; [Source](guides/vercel/ai-sdk-and-gateway) |
 | **Vercel Durable Agents, Workflows & Queues** — Build crash-safe agents and long-running pipelines using eve, Workflow 5 (WorkflowAgent, use workflow & use step), Vercel Queues, and Vercel Schedules. | Vercel & Full-Stack AI Applications | `v1.0` | `2026-11` | 12 | [PDF](guides/vercel/durable-agents-and-workflows/Vercel_Durable_Agents_and_Workflows_Complete_How_To_Guide.pdf) &middot; [Source](guides/vercel/durable-agents-and-workflows) |
 | **Next.js Cache Components & Partial Prefetching** — Adopt cacheComponents and partialPrefetching in Next.js 16.3+, grow instant static App Shells with use cache and Suspense, and lock regressions with @next/playwright instant(). | Vercel & Full-Stack AI Applications | `v1.0` | `2026-11` | 12 | [PDF](guides/vercel/nextjs-cache-components/Nextjs_Cache_Components_and_Prefetching_Complete_How_To_Guide.pdf) &middot; [Source](guides/vercel/nextjs-cache-components) |
@@ -571,6 +639,10 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **Building Production MCP Servers** — Architect, test, and ship high-reliability Model Context Protocol servers in TypeScript (SDK v2) and Python (FastMCP)—mastering stateless Streamable HTTP factories, Zod v4 & outputSchema, OAuth 2.1, MCP Inspector, and 10-question evals. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/building-production-mcp-servers/Building_Production_MCP_Servers_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/building-production-mcp-servers) |
 | **Browser Agents with Chrome DevTools MCP & Playwright** — Pair live Chrome DevTools MCP diagnostics (accessibility uid snapshots, LCP subpart traces, HttpOnly cookie forensics, and heap leak diffs) with deterministic Playwright E2E regression gates. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/chrome-devtools-and-playwright-agents/Chrome_DevTools_and_Playwright_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/chrome-devtools-and-playwright-agents) |
 | **Sandboxes & Isolated Execution for AI Agents** — Architecting ephemeral microVMs, Firecracker, E2B, Docker, and gVisor environments for safe autonomous code execution, snapshotting, and network egress control. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/sandboxes-and-isolated-execution/Sandboxes_and_Isolated_Execution_for_AI_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/sandboxes-and-isolated-execution) |
+| **Orca Multi-Agent Workspace & CLI** — Orchestrate parallel AI coding agents across isolated Git worktrees, coordinator-worker task DAGs, inline diff annotations, embedded browser captures, and remote SSH or mobile runtimes. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/orca-multi-agent-workspace-and-cli/Orca_Multi_Agent_Workspace_and_CLI_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/orca-multi-agent-workspace-and-cli) |
+| **Agentic Observability & Prompt Caching** — Instrument multi-agent workflows with OpenTelemetry GenAI trace trees, maximize static-first KV cache hit rates, compact historical tool outputs, and route models for predictable token FinOps. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/agentic-observability-and-prompt-caching/Agentic_Observability_and_Prompt_Caching_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/agentic-observability-and-prompt-caching) |
+| **Structured Outputs & State Machines** — Eliminate fragile regex loops with CFG/FSM constrained decoding, Pydantic v2 and Zod v4 contracts, streaming partial objects, explicit transition tables, idempotency, and HITL approval gates. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/structured-outputs-and-state-machines/Structured_Outputs_and_State_Machines_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/structured-outputs-and-state-machines) |
+| **Voice-First Coding & Capture Workflows** — Turn spoken architectural intent into code and notes with mlx-whisper and Superwhisper, codebase symbol glossaries, voice PR diff triage, and automated Obsidian _inbox/ capture pipelines. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/voice-first-coding-and-capture-workflows/Voice_First_Coding_and_Capture_Workflows_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/voice-first-coding-and-capture-workflows) |
 | **Obsidian + Desktop AI Agents** — Operating your Obsidian vault side-by-side with Claude Desktop and Google Antigravity Desktop—mastering Cowork folders, Local REST API MCP, the native Obsidian CLI, vault AGENTS.md rules, and scheduled briefings. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-desktop-ai-agents/Obsidian_and_Desktop_AI_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-desktop-ai-agents) |
 | **Obsidian Bases & JSON Canvas with AI** — Turning flat Markdown notes into live relational databases and spatial visual boards—having Claude Desktop and Antigravity generate native .base views, YAML schemas, and .canvas architecture maps. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-bases-and-json-canvas-agents/Obsidian_Bases_and_JSON_Canvas_with_AI_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-bases-and-json-canvas-agents) |
 | **Autonomous LLM Wiki & Research Vault** — Building a Karpathy-style self-maintaining knowledge base in Obsidian where Claude Desktop and Antigravity compile raw PDFs, transcripts, and web clips into interlinked evergreen concept notes. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/autonomous-llm-wiki-vault/Autonomous_LLM_Wiki_and_Research_Vault_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/autonomous-llm-wiki-vault) |

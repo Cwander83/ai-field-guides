@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Orca Multi-Agent Workspace &amp; CLI: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Agent Engineering &bull; Field Guide</div>
+    <h1>Orca Multi-Agent <span>Workspace &amp; CLI</span></h1>
+    <p class="cover-sub">
+      The complete 12-page visual handbook to orchestrating parallel AI coding agents across isolated Git worktrees, task DAGs, annotated diff reviews, embedded browser captures, and remote SSH runtimes.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Isolated Git Worktrees</span>
+      <span class="cover-badge">Parallel CLI Fleet</span>
+      <span class="cover-badge">Task DAG Orchestration</span>
+      <span class="cover-badge">Inline Diff Annotations</span>
+      <span class="cover-badge">Browser &amp; Computer Use</span>
+      <span class="cover-badge">SSH &amp; Mobile Pairing</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Orca oceanic multi-agent command bridge with luminous cyan worktree branches and synchronized workspace pods" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Collision Worktrees</div>
+      <div class="cover-stat-desc">Every agent gets its own real Git worktree and branch, letting Claude Code, Codex, OpenCode, and Gemini CLI edit concurrently without conflicts.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Supervised DAGs &amp; Handoffs</div>
+      <div class="cover-stat-desc">Transfer standalone tasks in a single command or run coordinator-worker dependency graphs with durable mailboxes and explicit decision gates.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Unified Review &amp; Remote Ops</div>
+      <div class="cover-stat-desc">Annotate agent diffs line by line, pipe Design Mode DOM captures into prompts, drive background desktop apps, and steer builds from mobile.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: QUICK NAVIGATION & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">The Orca Mental Model: Worktrees, Fleet &amp; Runtime</h2>
+  <p class="page-lead">
+    Traditional editors assume one human typing in one branch at a time. Orca is an open-source Agent Development Environment (ADE) designed as a mission control room for parallel coding agents you already own.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. The Orca Mental Model &amp; Architecture</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Diff Annotations, Browser &amp; Computer Use</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. CLI Resolution &amp; Mode Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Terminals, Search &amp; Automations</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Workspace UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Five Copy-Paste Multi-Agent Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Parallel Git Worktrees &amp; Full Handoffs</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Remote SSH Hosts, Mobile &amp; Safety</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Coordinator Task DAGs &amp; Decision Gates</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. End-to-End Issue-to-PR Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting Clinic &amp; Pre-Flight List</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <div class="grid-3" style="margin: 2px 0 6px 0;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">W</span> Isolated Worktree Unit</div>
+      <p style="font-size:7.9pt; margin:0;">Orca binds each task to a dedicated Git checkout (<code>repoId::path</code>) or native folder context, storing lineage, linked issues, terminals, and browser tabs together.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">A</span> Bring-Your-Own Agent</div>
+      <p style="font-size:7.9pt; margin:0;">Orca bundles zero proprietary models. It wraps your local Claude Code, Codex, OpenCode, Gemini CLI, Cursor, OMP, or Pi binaries using your own subscriptions.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">R</span> Durable Host Runtime</div>
+      <p style="font-size:7.9pt; margin:0;">A background runtime (desktop app or headless <code>orcad</code> server) keeps PTY sessions, task mailboxes, and browser pages alive across restarts and SSH links.</p>
+    </div>
+  </div>
+
+  <h3>System Architecture: Caller &rarr; Orca Runtime &rarr; Parallel Worktrees &amp; Surfaces</h3>
+  <div class="figure-box" style="background:#04111d; padding:10px 12px;">
+    <svg viewBox="0 0 700 160" width="100%" height="160" xmlns="http://www.w3.org/2000/svg">
+      <!-- Caller / CLI -->
+      <rect x="10" y="18" width="150" height="124" rx="8" fill="#08243a" stroke="#22d3ee" stroke-width="1.6"/>
+      <text x="85" y="38" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Human / Lead Agent</text>
+      <text x="85" y="52" text-anchor="middle" fill="#7dd3fc" font-size="7.4">Orca Desktop or CLI</text>
+      <rect x="20" y="62" width="130" height="32" rx="5" fill="#04111d" stroke="#0284c7"/>
+      <text x="85" y="76" text-anchor="middle" fill="#e0f2fe" font-size="8.0" font-weight="700">orca worktree / agent</text>
+      <text x="85" y="88" text-anchor="middle" fill="#94a3b8" font-size="6.9">One-off handoffs &amp; tabs</text>
+      <rect x="20" y="100" width="130" height="32" rx="5" fill="#04111d" stroke="#0284c7"/>
+      <text x="85" y="114" text-anchor="middle" fill="#38bdf8" font-size="8.0" font-weight="700">orca orchestration</text>
+      <text x="85" y="126" text-anchor="middle" fill="#94a3b8" font-size="6.9">Runs, DAGs &amp; Dispatches</text>
+
+      <!-- Arrow 1 -->
+      <path d="M160 80 L204 80" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="204,75 212,80 204,85" fill="#22d3ee"/>
+      <text x="186" y="71" text-anchor="middle" fill="#67e8f9" font-size="7.2" font-weight="700">--json</text>
+
+      <!-- Runtime -->
+      <rect x="212" y="18" width="144" height="124" rx="8" fill="#091f33" stroke="#0284c7" stroke-width="1.6"/>
+      <text x="284" y="38" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Orca Runtime Core</text>
+      <rect x="224" y="49" width="120" height="25" rx="5" fill="#04111d" stroke="#0891b2"/>
+      <text x="284" y="65" text-anchor="middle" fill="#7dd3fc" font-size="7.6" font-weight="700">Worktree Graph &amp; Refs</text>
+      <rect x="224" y="79" width="120" height="25" rx="5" fill="#04111d" stroke="#0891b2"/>
+      <text x="284" y="95" text-anchor="middle" fill="#7dd3fc" font-size="7.6" font-weight="700">Durable Mailbox &amp; PTYs</text>
+      <rect x="224" y="109" width="120" height="25" rx="5" fill="#04111d" stroke="#0891b2"/>
+      <text x="284" y="125" text-anchor="middle" fill="#7dd3fc" font-size="7.6" font-weight="700">SSH / Tailscale Pairing</text>
+
+      <!-- Arrow 2 -->
+      <path d="M356 80 L398 80" stroke="#34d399" stroke-width="2"/>
+      <polygon points="398,75 406,80 398,85" fill="#34d399"/>
+      <text x="381" y="71" text-anchor="middle" fill="#6ee7b7" font-size="7.0" font-weight="700">spawn</text>
+
+      <!-- Parallel Worktrees -->
+      <rect x="406" y="18" width="150" height="124" rx="8" fill="#062121" stroke="#10b981" stroke-width="1.6"/>
+      <text x="481" y="38" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Parallel Agent Bays</text>
+      <rect x="416" y="49" width="130" height="25" rx="5" fill="#021414" stroke="#059669"/>
+      <text x="481" y="65" text-anchor="middle" fill="#a7f3d0" font-size="7.6" font-weight="700">WT-1: Claude Code</text>
+      <rect x="416" y="79" width="130" height="25" rx="5" fill="#021414" stroke="#059669"/>
+      <text x="481" y="95" text-anchor="middle" fill="#a7f3d0" font-size="7.6" font-weight="700">WT-2: OpenAI Codex</text>
+      <rect x="416" y="109" width="130" height="25" rx="5" fill="#021414" stroke="#059669"/>
+      <text x="481" y="125" text-anchor="middle" fill="#a7f3d0" font-size="7.6" font-weight="700">WT-3: Gemini / OpenCode</text>
+
+      <!-- Arrow 3 -->
+      <path d="M556 80 L592 80" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="592,75 600,80 592,85" fill="#a78bfa"/>
+      <text x="578" y="71" text-anchor="middle" fill="#c4b5fd" font-size="7.0" font-weight="700">pipe</text>
+
+      <!-- Surfaces -->
+      <rect x="600" y="18" width="90" height="124" rx="8" fill="#171230" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="645" y="38" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">Surfaces</text>
+      <rect x="608" y="49" width="74" height="25" rx="4" fill="#0d091f" stroke="#6d28d9"/>
+      <text x="645" y="65" text-anchor="middle" fill="#ddd6fe" font-size="7.1" font-weight="700">Diff Annotate</text>
+      <rect x="608" y="79" width="74" height="25" rx="4" fill="#0d091f" stroke="#6d28d9"/>
+      <text x="645" y="95" text-anchor="middle" fill="#ddd6fe" font-size="7.1" font-weight="700">Design Browser</text>
+      <rect x="608" y="109" width="74" height="25" rx="4" fill="#0d091f" stroke="#6d28d9"/>
+      <text x="645" y="125" text-anchor="middle" fill="#ddd6fe" font-size="7.1" font-weight="700">Mobile / App</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin-top: 6px;">
+    <div class="callout-title">Why Worktree Isolation Beats Shared Directories</div>
+    Running two coding agents inside the same directory quickly corrupts build caches, staging areas, and test state. Because Orca provisions a dedicated Git worktree and branch per task, each agent compiles, runs unit tests, and hosts its own preview server without blocking or overwriting peer sessions.
+  </div>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, CLI RESOLUTION & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Modes</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">Executable Resolution &amp; Orchestration Mode Matrix</h2>
+  <p class="page-lead">
+    Because Orca runs across macOS, Linux, WSL, and source dev checkouts, choosing the right CLI executable once at session start prevents hitting the wrong runtime or triggering OS screen readers.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Four-Step CLI Resolution Order</div>
+      <ol style="font-size:8.0pt; margin:0; padding-left:16px;">
+        <li><strong>WSL Sessions:</strong> If <code>ORCA_CLI_COMMAND</code> is set, use its exact value (Orca injects this automatically).</li>
+        <li><strong>Dev Checkouts:</strong> When <code>ORCA_DEV_REPO_ROOT</code> is exposed, use <code>orca-dev</code> instead of production binaries.</li>
+        <li><strong>Linux Outside Orca:</strong> Always run <code>orca-ide</code>. Bare <code>orca</code> resolves to the GNOME screen reader (<code>/usr/bin/orca</code>).</li>
+        <li><strong>Standard Terminals &amp; macOS:</strong> Use <code>orca</code> (typically <code>/usr/local/bin/orca</code>).</li>
+      </ol>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Safe Discovery &amp; Strict Target Rules</div>
+      <p style="font-size:8.0pt; margin:0 0 4px 0;">
+        Always pass <code>--json</code> for agent automation and load the version-matched skill guide before issuing mutations. If your selected executable fails, stop and report the exact error rather than falling back to another build.
+      </p>
+      <p style="font-size:7.9pt; color:#475569; margin:0;">
+        Keep <code>ORCA_PAIRING_CODE</code> or <code>--environment</code> explicit when targeting remote runtimes.
+      </p>
+    </div>
+  </div>
+
+  <pre><code># 1. Load version-matched instructions and inspect live runtime readiness (read-only)
+orca skills get orca-cli
+orca status --json
+orca repo list --json
+orca worktree ps --limit 20 --json</code></pre>
+
+  <h3>Choosing the Right Coordination Pattern</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width: 22%;">Workflow Pattern</th>
+        <th style="width: 24%;">Primary Command</th>
+        <th style="width: 28%;">Ownership &amp; Lifecycle</th>
+        <th style="width: 26%;">Best Used When</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Full Handoff</strong></td>
+        <td><code>worktree create --no-parent --agent</code></td>
+        <td>Transfers task to a new agent and stops; returns worktree ID &amp; launch handle.</td>
+        <td>Delegating standalone tasks where you do not expect a report back.</td>
+      </tr>
+      <tr>
+        <td><strong>Existing-Checkout Launch</strong></td>
+        <td><code>agent launch --worktree &lt;sel&gt;</code></td>
+        <td>Opens chat or terminal per user Chat | CLI setting in an existing branch.</td>
+        <td>Adding a second opinion or fresh session inside an active branch.</td>
+      </tr>
+      <tr>
+        <td><strong>Supervised Worker</strong></td>
+        <td><code>orchestration worker-start --spec</code></td>
+        <td>Binds a Task and Dispatch ID; wakes coordinator with <code>worker_done</code> mail.</td>
+        <td>Reviewers, builders, or parallel slices whose results must return to you.</td>
+      </tr>
+      <tr>
+        <td><strong>Task DAG &amp; Gates</strong></td>
+        <td><code>run-create</code> + <code>task-create --deps</code></td>
+        <td>Orders dependent tasks and blocks steps behind human or coordinator gates.</td>
+        <td>Multi-stage pipelines (build &rarr; test &rarr; security review &rarr; merge).</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Native Teams</strong></td>
+        <td><code>orca claude-teams</code></td>
+        <td>Spawns Claude Code Agent Teams teammates as native Orca split panes.</td>
+        <td>Interactive Claude Code team sessions sharing one terminal tab group.</td>
+      </tr>
+      <tr>
+        <td><strong>Scheduled Automation</strong></td>
+        <td><code>automations create --precheck</code></td>
+        <td>Runs prompts on cron/RRULE schedules after a shell precheck passes.</td>
+        <td>Morning PR triage, nightly CI audits, or recurring inbox digests.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin: 2px 0;">
+    <div class="callout-title">Bring Your Own CLI &amp; Subscription Transparency</div>
+    Orca never proxies API traffic or charges token markups. Whether you launch <code>claude</code>, <code>codex</code>, <code>opencode</code>, <code>gemini</code>, <code>cursor</code>, <code>omp</code>, or <code>pi</code>, each agent authenticates directly with your local credentials or managed Orca account profile.
+  </div>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Workspace Tour</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">Annotated Workspace: The Orca Command Center</h2>
+  <p class="page-lead">
+    Orca unifies worktree lineage, WebGL terminal panes, task mailboxes, line-level diff annotations, and an embedded Chromium preview inside one keyboard-driven desktop window.
+  </p>
+
+  <div class="ui-window" style="margin-bottom: 8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#bae6fd; font-size:7.3pt;">Orca ADE &bull; acme/checkout-api &bull; Runtime: Local + SSH (gpu-runner)</span>
+      </div>
+      <div style="color:#22d3ee; font-weight:700; font-size:7.2pt;"><span class="callout-pin">7</span> Account: Work-Claude &bull; Mobile Paired</div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 185px 1fr; background:#04111d;">
+      <!-- Sidebar -->
+      <div style="border-right:1px solid #16324f; padding:8px; background:#061829;">
+        <div style="color:#7dd3fc; font-weight:800; font-size:7.2pt; margin-bottom:5px;">
+          <span class="callout-pin">1</span> WORKTREES &amp; LINEAGE
+        </div>
+        <div style="background:#0b2942; border:1px solid #0284c7; border-radius:5px; padding:5px 6px; margin-bottom:5px;">
+          <div style="font-weight:700; color:#ffffff; font-size:7.1pt;">&bull; main-coord <span style="color:#34d399;">[active]</span></div>
+          <div style="color:#94a3b8; font-size:6.5pt;">PR #512 &bull; STA-335 &bull; Run #r9</div>
+        </div>
+        <div style="background:#04111d; border:1px solid #16324f; border-radius:5px; padding:5px 6px; margin-bottom:5px; margin-left:8px;">
+          <div style="font-weight:700; color:#e2e8f0; font-size:7.0pt;">&boxur; feat/stripe-v4 <span style="color:#fbbf24;">&bull;</span></div>
+          <div style="color:#7dd3fc; font-size:6.4pt;">claude &bull; in-review &bull; +142/-18</div>
+          <div style="color:#64748b; font-size:6.2pt;">"tests green; awaiting diff review"</div>
+        </div>
+        <div style="background:#04111d; border:1px solid #16324f; border-radius:5px; padding:5px 6px; margin-bottom:5px; margin-left:8px;">
+          <div style="font-weight:700; color:#e2e8f0; font-size:7.0pt;">&boxur; fix/webhook-sig</div>
+          <div style="color:#34d399; font-size:6.4pt;">codex &bull; running &bull; SSH</div>
+        </div>
+        <div style="background:#04111d; border:1px solid #16324f; border-radius:5px; padding:5px 6px; margin-left:8px;">
+          <div style="font-weight:700; color:#e2e8f0; font-size:7.0pt;">&boxur; ui/checkout-btn</div>
+          <div style="color:#c4b5fd; font-size:6.4pt;">gemini &bull; browser attached</div>
+        </div>
+
+        <div style="margin-top:8px; padding-top:6px; border-top:1px solid #16324f; font-size:6.6pt; color:#cbd5e1;">
+          <div style="color:#38bdf8; font-weight:700; margin-bottom:3px;"><span class="callout-pin">6</span> SOURCE &amp; PORTS</div>
+          <div>3 files changed &bull; Draft PR ready</div>
+          <div>Ports: <code>:3000</code> (next), <code>:8787</code> (api)</div>
+        </div>
+      </div>
+
+      <!-- Main Panes -->
+      <div style="padding:8px 10px; display:flex; flex-direction:column; gap:7px;">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+          <!-- Terminal Split -->
+          <div style="background:#020a13; border:1px solid #16324f; border-radius:6px; padding:7px; font-family:'SF Mono',Menlo,monospace; font-size:6.8pt;">
+            <div style="color:#22d3ee; font-weight:700; margin-bottom:3px;">
+              <span class="callout-pin">2</span> TERMINAL SPLIT (claude &bull; gpt-codex)
+            </div>
+            <div style="color:#34d399;">~/orca/checkout-api/feat-stripe-v4 $</div>
+            <div style="color:#cbd5e1;">&gt; Implemented idempotent Stripe v4 hook</div>
+            <div style="color:#94a3b8;">&radic; pnpm test tests/webhook.spec.ts (24/24)</div>
+            <div style="color:#fbbf24; margin-top:3px;">[agent hook] Waiting for diff review</div>
+          </div>
+
+          <!-- Task DAG Mailbox -->
+          <div style="background:#020a13; border:1px solid #16324f; border-radius:6px; padding:7px; font-size:6.8pt;">
+            <div style="color:#a78bfa; font-weight:700; margin-bottom:3px;">
+              <span class="callout-pin">3</span> TASK DAG &amp; MAILBOX (Run #r9)
+            </div>
+            <div style="color:#34d399;">[DONE] t1: Build webhook verifier (claude)</div>
+            <div style="color:#fbbf24;">[GATE] t2: Confirm key rotation policy?</div>
+            <div style="color:#94a3b8;">[WAIT] t3: Run staging E2E (deps: t1, t2)</div>
+            <div style="color:#7dd3fc; margin-top:2px;">Ask #m4 from dispatch:d_82 &rarr; Reply ready</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+          <!-- Diff Review & Annotate -->
+          <div style="background:#020a13; border:1px solid #16324f; border-radius:6px; padding:7px; font-family:'SF Mono',Menlo,monospace; font-size:6.7pt;">
+            <div style="color:#34d399; font-weight:700; margin-bottom:3px; font-family:sans-serif;">
+              <span class="callout-pin">4</span> ANNOTATED DIFF REVIEW (src/stripe.ts)
+            </div>
+            <div style="color:#fb7185;">- const sig = req.headers['stripe-sig'];</div>
+            <div style="color:#34d399;">+ const sig = verifyHmac(rawBody, secret);</div>
+            <div style="background:#0c2d48; border-left:2px solid #22d3ee; padding:3px 5px; margin-top:3px; font-family:sans-serif; color:#e0f2fe;">
+              <strong>Note L42:</strong> Reject timestamps older than 300s &rarr; <em>[Send to Agent]</em>
+            </div>
+          </div>
+
+          <!-- Design Mode Browser -->
+          <div style="background:#020a13; border:1px solid #16324f; border-radius:6px; padding:7px; font-size:6.7pt;">
+            <div style="color:#f472b6; font-weight:700; margin-bottom:3px;">
+              <span class="callout-pin">5</span> EMBEDDED BROWSER &amp; DESIGN MODE
+            </div>
+            <div style="color:#cbd5e1;">http://localhost:3000/checkout &bull; ref <code>@e14</code></div>
+            <div style="color:#94a3b8; margin-top:2px;">Selected: <code>button.pay-cta</code> (padding: 8px 14px)</div>
+            <div style="color:#7dd3fc; margin-top:2px;">Captured DOM + Computed CSS + Cropped PNG &rarr; Prompt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Workspace Control Legend</h3>
+  <div class="grid-2">
+    <div>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;"><strong><span class="callout-pin">1</span> Worktree &amp; Lineage Tree:</strong> Shows parent/child worktrees, agent status dots, unread attention indicators, linked PR/Linear chips, and checkpoint comments.</p>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;"><strong><span class="callout-pin">2</span> WebGL Terminal Splits:</strong> High-speed split terminals per worktree with live agent lifecycle hooks and persistent scrollback across restarts.</p>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;"><strong><span class="callout-pin">3</span> Task DAG &amp; Mailbox:</strong> Displays dependency-ordered tasks, active worker questions, and blocking human/coordinator decision gates.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong><span class="callout-pin">4</span> Inline Diff Annotations:</strong> Lets you comment on exact changed lines and batch-deliver targeted revision notes straight back to the owning agent.</p>
+    </div>
+    <div>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;"><strong><span class="callout-pin">5</span> Embedded Browser &amp; Design Mode:</strong> Worktree-scoped Chromium tab with <code>@eN</code> accessibility refs and one-click HTML/CSS + screenshot prompt injection.</p>
+      <p style="font-size:8.1pt; margin:0 0 3px 0;"><strong><span class="callout-pin">6</span> Source Control &amp; Ports:</strong> Tracks changed files, drafts PRs, and lists dev server ports bound to that workspace via <code>orca ports</code>.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong><span class="callout-pin">7</span> Account &amp; Mobile Bridge:</strong> Switches isolated agent account profiles (<code>orca account select</code>) and exposes remote/mobile pairing telemetry.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 6px;">
+    <div class="callout-title">Keyboard-First Fleet Navigation &amp; Unread Signals</div>
+    Each sidebar card displays a live status badge (<code>todo</code>, <code>in-progress</code>, <code>in-review</code>, <code>completed</code>), an unread attention dot when an agent finishes or hits a gate, and a one-line comment written via <code>orca worktree set --comment</code>. You can jump between parallel worktrees, split terminals, or diff tabs without lifting your hands off the keyboard.
+  </div>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: PARALLEL GIT WORKTREES & FULL HANDOFFS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Git Worktrees</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">Parallel Git Worktrees, Lineage &amp; Full Handoffs</h2>
+  <p class="page-lead">
+    Every Orca worktree pairs a real Git checkout on disk with tracked runtime metadata, ensuring parallel agents never trample each other&apos;s branches, caches, or dev servers.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/showcase_1.jpg" alt="Luminous cyan Git worktree branches dividing symmetrically into four isolated agent workspace bays" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 5.1 &bull; Isolated Worktree Topology:</strong> A single repository root branches cleanly into independent Git worktrees, keeping file edits, terminals, and browser sessions quarantined per agent.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 5px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Two-Part Worktree IDs &amp; Lineage</div>
+      <p style="font-size:8.0pt; margin:0 0 4px 0;">
+        Every Git worktree has a unique address formatted as <code>&lt;repoId&gt;::&lt;worktreePath&gt;</code>, alongside human selectors like <code>active</code>, <code>name:api</code>, <code>branch:feat/auth</code>, or <code>folder:&lt;id&gt;</code> for multi-repo folder workspaces.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Keep lineage and Git base distinct: <code>--no-parent</code> keeps an unrelated handoff independent, while omitting <code>--base-branch</code> starts cleanly from the repo default base.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Full Handoffs &amp; Idempotent Retries</div>
+      <p style="font-size:8.0pt; margin:0 0 4px 0;">
+        A full handoff spins up an agent in a new worktree (or targets an existing one with <code>agent launch</code>) and stops once <code>prompt.outcome</code> reads <code>journaled</code> or <code>handed-to-terminal</code>.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        If a launch reply drops mid-flight, re-run the exact command with <code>--retry-launch &lt;operationId&gt;</code> so Orca replays the accepted request instead of spawning a duplicate agent.
+      </p>
+    </div>
+  </div>
+
+  <pre><code># Independent top-level handoff to Codex with linked issue and status comment
+orca worktree create --name auth-audit --no-parent --agent codex --model gpt-6-astra --effort high \
+  --reference https://linear.app/acme/issue/ENG-412 --prompt "Audit JWT rotation and write tests." --json
+
+# Child worktree inheriting parent lineage + setting card status &amp; unread badge for human review
+orca worktree create --name stripe-fix --parent-worktree active --agent claude --setup run --json
+orca worktree set --worktree active --comment "repro confirmed; patch ready" --workspace-status in-review --unread --json</code></pre>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: COORDINATOR TASK DAGS & DECISION GATES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Orchestration</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">Coordinator Loops, Task DAGs &amp; Decision Gates</h2>
+  <p class="page-lead">
+    When an agent must delegate work to specialized peers and collect verified deliverables back, Orca Orchestration replaces brittle terminal scraping with structured Runs, dependency tasks, and durable mailboxes.
+  </p>
+
+  <h3>Prompt &amp; Config Anatomy: Supervised Task &amp; Worker Dispatch</h3>
+  <div class="card-dark" style="font-family:'SF Mono',Menlo,monospace; font-size:7.2pt; line-height:1.45; padding:8px 11px; margin-bottom:6px;">
+    <div>orca orchestration <span class="p-tag p-style">run-create --objective "Migrate payment gateway to v4"</span></div>
+    <div>orca orchestration task-create <span class="p-tag p-cam">--spec-file ./specs/verify-pr.md</span> <span class="p-tag p-style">--deps '["task_build_1"]'</span></div>
+    <div>orca orchestration worker-start <span class="p-tag p-subj">--worktree new-child</span> <span class="p-tag p-act">--agent codex --model gpt-6-astra --effort high</span> \</div>
+    <div>&nbsp;&nbsp;<span class="p-tag p-cam">--task task_verify_2</span> <span class="p-tag p-light">--keep-open</span> <span class="p-tag p-cons">--setup run --json</span></div>
+  </div>
+
+  <pre><code># Coordinator loop: start ready work, add a blocking decision gate, and steer live workers
+orca orchestration task-list --ready --brief --json
+orca orchestration gate-create --task task_deploy_3 --question "Ship migration to staging?" --options '["Approve","Hold"]' --json
+orca orchestration send --to dispatch:disp_881 --subject "Edge case" --body "Also verify expired webhook signatures." --json
+# Dispatched worker asks coordinator a question, then ends its turn to wake on reply:
+orca orchestration ask --question "Use strict 300s replay window or 600s?" --options "300s,600s" --json</code></pre>
+
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge">1</span> Event-Driven Wakeups</div>
+      <p style="font-size:7.8pt; margin:0;">Start every independent worker, then end your turn. Orca wakes the coordinator automatically when a worker emits <code>ask</code>, <code>escalation</code>, or <code>worker_done</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge purple">2</span> Gates &amp; Steering Mail</div>
+      <p style="font-size:7.8pt; margin:0;">Answer worker questions with <code>orchestration reply --id &lt;msg&gt;</code>, unblock gates via <code>gate-resolve</code>, or redirect a finished worker via <code>send --to dispatch:&lt;id&gt;</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge amber">3</span> Circuit Breaker &amp; Fencing</div>
+      <p style="font-size:7.8pt; margin:0;">Retry failed starts with <code>--retry-of</code> (capped at 3 attempts before circuit-breaking). Use <code>worker-stop</code> for verified cancellation or <code>worker-abandon</code> to fence cleanly.</p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin: 2px 0 6px 0;">
+    <div class="callout-title">Critical Rule: Never Poll the Orchestration Mailbox</div>
+    Running <code>orca orchestration check</code> inside a polling script or loop consumes unread messages immediately, hiding them from Orca&apos;s wakeup dispatcher so your coordinator never wakes. Let Orca deliver mail automatically, and pass <code>--spec-file</code> whenever specs contain quotes or special syntax.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">W</span> Dispatched Worker Contract</div>
+      <p style="font-size:7.9pt; margin:0;">Workers launched via <code>worker-start</code> receive a Task ID and Dispatch ID preamble. To ask for clarification, run <code>orca orchestration ask</code> and end your turn. When finished, report evidence via <code>orca orchestration send --type worker_done --outcome succeeded</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">C</span> Coordinator Cleanup &amp; Continuity</div>
+      <p style="font-size:7.9pt; margin:0;">Inspect settled outputs using <code>worker-read --source auto</code>, preserve interactive chats with <code>worker-keep-open</code>, or archive and release temporary terminals cleanly using <code>worker-release --dispatch &lt;id&gt;</code> once the Task settles.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: DIFF ANNOTATIONS, BROWSER & COMPUTER USE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Review &amp; Surfaces</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">Diff Annotations, Embedded Browser &amp; Computer Use</h2>
+  <p class="page-lead">
+    Reviewing AI code should feel faster than writing it by hand. Orca connects line-by-line code annotations, worktree-scoped browser automation, and background desktop GUI control directly back to your agents.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/showcase_2.jpg" alt="Translucent layered code diff glass panels channeling emerald and cyan highlight beams into an orchestration prism and mobile slate" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 7.1 &bull; Closed-Loop Review &amp; Visual Context:</strong> Inline diff notes and Design Mode DOM/screenshot captures flow cleanly back into active agent sessions across desktop and mobile.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 5px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Inline Diff Review &amp; File Tabs</div>
+      <p style="font-size:8.0pt; margin:0 0 3px 0;">
+        Open changed files cleanly without stealing user focus via <code>orca file open-changed --mode diff</code>. Highlight exact diff hunks to attach Markdown review annotations, then send all bundled feedback straight back to that worktree&apos;s agent.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Read unsent browser feedback notes at any time with <code>orca tab annotations --json</code>.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Embedded Browser vs. Computer Use</div>
+      <p style="font-size:8.0pt; margin:0 0 3px 0;">
+        Use <strong>Built-In Browser</strong> commands (<code>snapshot --interactive</code>, <code>click --element @e3</code>, <code>--page &lt;id&gt;</code>, Design Mode) for web apps inside Orca. Reserve <code>orca computer</code> strictly for external native apps or Chrome/Safari windows when no CLI/API exists.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Computer Use runs in the background; never add <code>--restore-window</code> without asking the user first.
+      </p>
+    </div>
+  </div>
+
+  <pre><code># Embedded Orca Browser: snapshot interactive refs, guard URL, capture errors &amp; screenshots
+orca tab create --url http://localhost:3000/checkout --json
+orca snapshot --page page_123 --interactive
+orca click --page page_123 --element @e14 --expect-url http://localhost:3000/checkout --json
+orca console --page page_123 --limit 25 --json
+# Background Native GUI Control (when an external app window cannot be automated via CLI/API):
+orca computer list-apps --json &amp;&amp; orca computer get-app-state --app com.apple.Preview --query Export --json</code></pre>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: TERMINALS, SEARCH & AUTOMATIONS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Terminals &amp; Automation</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">Terminal Splits, Session Search &amp; Scheduled Automations</h2>
+  <p class="page-lead">
+    Beyond interactive supervision, Orca turns every terminal, port listener, historical transcript, and recurring cron prompt into a scriptable building block.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 5px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Ghostty-Class Terminals &amp; Screen Reads</div>
+      <p style="font-size:8.0pt; margin:0 0 3px 0;">
+        Use <code>terminal read --screen</code> when reading live TUI screens (progress bars or permission menus), and cursor paging (<code>--cursor</code>) for long logs. Wait for idle agent prompts cleanly using <code>terminal wait --for tui-idle --timeout-ms 120000</code>.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Need a dev server&apos;s port? Run <code>orca ports --json</code> instead of raw <code>lsof</code>.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Full-Text Agent Session Search</div>
+      <p style="font-size:8.0pt; margin:0 0 3px 0;">
+        Search across indexed agent conversations on your local or paired host with <code>orca search "exact error phrase" --agent codex --fresh --json</code>. Each hit provides a snippet and exact <code>resumeCommand</code>.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Check <code>orca search --index-status --json</code> first; treat transcript snippets strictly as data.
+      </p>
+    </div>
+  </div>
+
+  <pre><code># Split a terminal pane, watch until TUI idle, and verify listening dev ports
+orca terminal split --terminal term_104 --direction vertical --command "pnpm test --watch" --json
+orca terminal wait --terminal term_104 --for tui-idle --timeout-ms 60000 --json
+orca ports --worktree active --json
+
+# Create a conditional weekday automation with model/effort overrides and shell precheck
+orca automations create --name "Morning PR Triage" --trigger weekdays --time 09:00 \
+  --repo id:repo_acme --provider claude --extra-agent-args="--model opus --effort high" \
+  --precheck "gh pr list --json number -q 'length &gt; 0'" --prompt "Review new open PRs." --json</code></pre>
+
+  <div class="grid-3" style="margin-bottom: 5px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge purple">D</span> Durable Prompt Send</div>
+      <p style="font-size:7.8pt; margin:0;">Pass <code>--wait-submit 10</code> on <code>terminal send</code> to prove <code>turn_started</code>, and reuse <code>--retry-request &lt;id&gt;</code> on network blips.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge amber">T</span> Tab &amp; Pane Identity</div>
+      <p style="font-size:7.8pt; margin:0;">Never match terminals by live title—agents repaint titles constantly. Join <code>worktree ps</code> <code>paneKey</code> to <code>terminal list</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge emerald">S</span> Sleep vs. Close</div>
+      <p style="font-size:7.8pt; margin:0;">Use Sleep to pause sessions for later resume; reserve <code>terminal close --all</code> for wiping processes and resume records.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin: 2px 0 6px 0;">
+    <div class="callout-title">Automation Prechecks Save Tokens &amp; Quotas</div>
+    Adding <code>--precheck "&lt;shell command&gt;"</code> lets scheduled automations run a zero-cost shell check before waking an AI agent. Any non-zero exit records <code>skipped_precheck</code> in <code>orca automations runs</code> and skips the LLM session cleanly.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">F</span> Native Folder Workspaces</div>
+      <p style="font-size:7.9pt; margin:0;">Register non-Git directories or multi-repo parent folders with <code>orca repo add --path /abs/dir --kind folder</code>. Worktrees attached via <code>--parent-worktree folder:&lt;id&gt;</code> appear grouped in that folder&apos;s Source Control panel.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">R</span> Automation Session Reuse &amp; Overrides</div>
+      <p style="font-size:7.9pt; margin:0;">Pass <code>--reuse-session</code> for continuous inbox digests in existing worktrees, or <code>--setup run|skip</code> on <code>new-per-run</code> automations to override default repository setup hooks cleanly.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: FIVE COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Recipes</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">Five Copy-Paste Recipes for Multi-Agent Workflows</h2>
+  <p class="page-lead">
+    Ready-to-run patterns combining parallel worktrees, cross-model comparisons, UI feedback capture, remote SSH builds, and scheduled automation guards.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width: 23%;">Recipe &amp; Goal</th>
+        <th style="width: 20%;">Agents &amp; Surface</th>
+        <th style="width: 34%;">Core Implementation Pattern</th>
+        <th style="width: 23%;">Verification Gate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Cross-Model Spec Race</strong><br/><span style="font-size:7.4pt; color:#64748b;">Compare 3 agents on one hard fix</span></td>
+        <td>Claude Code + Codex + Gemini CLI</td>
+        <td><code>worktree create --no-parent</code> x3 on same base branch; compare side-by-side diffs.</td>
+        <td>Run test suite in each worktree; merge best clean diff and archive runners-up.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Coordinator-Verifier DAG</strong><br/><span style="font-size:7.4pt; color:#64748b;">Author &amp; independent reviewer</span></td>
+        <td>Coordinator + <code>worker-start</code></td>
+        <td><code>run-create</code> &rarr; builder <code>new-child</code> &rarr; <code>task-create --deps</code> verifier &rarr; <code>gate-create</code>.</td>
+        <td>Block merge until verifier emits <code>worker_done --outcome succeeded</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Design Mode UI Repair</strong><br/><span style="font-size:7.4pt; color:#64748b;">Fix broken CSS &amp; console errors</span></td>
+        <td>Embedded Browser + Active Chat</td>
+        <td>Discover port via <code>orca ports</code>, inspect with <code>snapshot</code>, click in Design Mode to inject CSS.</td>
+        <td>Re-run <code>console --limit 20</code> and capture verification <code>screenshot</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Overnight SSH Offload</strong><br/><span style="font-size:7.4pt; color:#64748b;">Keep builds alive while offline</span></td>
+        <td>Paired SSH Host + Mobile App</td>
+        <td><code>worker-start --on gpu-box --worktree new-top-level --repo id:app</code></td>
+        <td>Approve any <code>ask</code> prompt from Orca Mobile; inspect diff back at desk.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Precheck CI Sweeper</strong><br/><span style="font-size:7.4pt; color:#64748b;">Auto-triage failing workflows</span></td>
+        <td><code>automations create</code> + CLI</td>
+        <td>Hourly schedule gated by <code>--precheck "gh run list --status failure -L 1"</code>.</td>
+        <td>Verify <code>skipped_precheck</code> when green; review created PR draft on failure.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Copy-Paste Script: Launch a 3-Way Model Race on One Issue</h3>
+  <pre><code># Spawn three isolated, non-parented worktrees from the same repo default branch
+for pair in "race-claude:claude" "race-codex:codex" "race-gemini:gemini"; do
+  name="${pair%%:*}"; agent="${pair##*:}"
+  orca worktree create --name "$name" --no-parent --agent "$agent" --setup run \
+    --reference https://github.com/acme/api/issues/273 \
+    --prompt "Fix race condition in session cache. Prove with unit tests." --json
+done
+# Monitor fleet progress across all worktrees without interrupting active tabs
+orca worktree ps --limit 10 --json</code></pre>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: REMOTE SSH HOSTS, MOBILE & SAFETY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Remote &amp; Security</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">Remote SSH Hosts, Mobile Supervision &amp; Safety</h2>
+  <p class="page-lead">
+    Offload heavy agent fleets onto dedicated Linux workstations or cloud VMs with <code>orca serve</code>, monitor progress from iOS or Android, and isolate credentials across accounts.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Headless Servers &amp; Paired Environments</div>
+      <p style="font-size:8.0pt; margin:0 0 4px 0;">
+        Start a headless runtime on a build box using <code>orca serve</code> (over SSH on macOS without desktop login, set <code>ORCA_SERVE_RUNTIME=orcad</code>). Pair it once via <code>orca environment add --name gpu-box --pairing-code ...</code>.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Use <code>worker-start --on &lt;server&gt;</code> for cross-machine runs: your local Run stays home coordinator while the remote server hosts the worktree and mail relays back automatically.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Orca Mobile Companion Pairing</div>
+      <p style="font-size:8.0pt; margin:0 0 4px 0;">
+        Generate a QR code without restarting Orca using <code>orca pair --mobile</code> (LAN/Tailscale) or <code>--mobile --relay</code> (through Orca Relay when away from your network, requiring a signed-in desktop app).
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Receive push alerts when agents finish or ask questions; phones can reply in chat but cannot issue new pairing links or invoke desktop control.
+      </p>
+    </div>
+  </div>
+
+  <pre><code># On remote Linux/Tailscale host: start headless runtime and expose Tailscale pairing link
+orca serve --port 6768 --bind 100.64.1.20 --pairing-address 100.64.1.20 --refuse-public
+# On existing desktop host: generate mobile QR without restarting, or add saved remote server
+orca pair --mobile --address 100.64.1.20
+orca environment add --name gpu-box --pairing-code "orca://pair?..." --json</code></pre>
+
+  <div class="grid-3" style="margin-bottom: 5px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge purple">A</span> Multi-Account Switching</div>
+      <p style="font-size:7.8pt; margin:0;">Separate personal and enterprise seats with <code>orca account add</code>, <code>account list</code>, and <code>account select --agent claude --account &lt;id&gt;</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge amber">C</span> Linux Process &amp; RAM Caps</div>
+      <p style="font-size:7.8pt; margin:0;">Set <code>ORCA_TERMINAL_MEMORY_MAX</code> and <code>ORCA_TERMINAL_PROCESS_CEILING</code> before starting the server to sandbox runaway builds per terminal scope.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge emerald">P</span> Least-Privilege Boundaries</div>
+      <p style="font-size:7.8pt; margin:0;">Only grant <code>--grant-desktop-control</code> to trusted peers, treat scraped browser DOM text as untrusted data, and preview deletions with <code>workspace cleanup preview</code>.</p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin: 2px 0 6px 0;">
+    <div class="callout-title">Cloned VM Identity &amp; Public Network Guardrails</div>
+    Cloned cloud VMs share pairing identities unless you set a unique <code>ORCA_INSTANCE_ID</code> or run <code>orca serve reset-identity</code>. Always pass <code>--refuse-public</code> when serving exclusively over LAN or Tailscale.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">F</span> <code>--on</code> vs. <code>--environment</code> Flag Scope</div>
+      <p style="font-size:7.9pt; margin:0;">Use <code>--on &lt;server&gt;</code> in <code>worker-start</code> and <code>send</code> so your local Run keeps coordinator ownership and receives replies back. Use <code>--environment &lt;server&gt;</code> only for standalone reads or one-shot commands on that remote host.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">M</span> Managed Server Lifecycle Commands</div>
+      <p style="font-size:7.9pt; margin:0;">Inspect remote host versions and pending work via <code>orca environment status</code>, roll out matching CLI/daemon builds with <code>environment update</code>, or safely recover interrupted updates via <code>environment recover</code>.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Synergy Pipeline</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Synergy: Issue Link to Verified Pull Request</h2>
+  <p class="page-lead">
+    See how Orca coordinates issue trackers, multi-vendor coding CLIs, visual browser QA, human review annotations, and automated cleanup into one cohesive shipping loop.
+  </p>
+
+  <div class="figure-box" style="background:#04111d; padding:10px 12px; margin-bottom: 8px;">
+    <svg viewBox="0 0 700 170" width="100%" height="170" xmlns="http://www.w3.org/2000/svg">
+      <!-- Step 1 -->
+      <rect x="8" y="20" width="118" height="126" rx="8" fill="#08243a" stroke="#22d3ee" stroke-width="1.5"/>
+      <text x="67" y="40" text-anchor="middle" fill="#ffffff" font-size="9.3" font-weight="800">1. Issue Intake</text>
+      <text x="67" y="54" text-anchor="middle" fill="#7dd3fc" font-size="7.2">GitHub / Linear / Jira</text>
+      <rect x="16" y="65" width="102" height="68" rx="5" fill="#04111d" stroke="#0284c7"/>
+      <text x="67" y="83" text-anchor="middle" fill="#e0f2fe" font-size="7.6" font-weight="700">--reference URL</text>
+      <text x="67" y="98" text-anchor="middle" fill="#94a3b8" font-size="6.9">Creates Worktree</text>
+      <text x="67" y="112" text-anchor="middle" fill="#94a3b8" font-size="6.9">Runs Setup Recipe</text>
+      <text x="67" y="125" text-anchor="middle" fill="#22d3ee" font-size="6.9">Binds Run Graph</text>
+
+      <path d="M126 83 L152 83" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="152,78 160,83 152,88" fill="#22d3ee"/>
+
+      <!-- Step 2 -->
+      <rect x="160" y="20" width="122" height="126" rx="8" fill="#091f33" stroke="#0284c7" stroke-width="1.5"/>
+      <text x="221" y="40" text-anchor="middle" fill="#ffffff" font-size="9.3" font-weight="800">2. Fleet Build</text>
+      <text x="221" y="54" text-anchor="middle" fill="#67e8f9" font-size="7.2">Parallel Agents</text>
+      <rect x="168" y="65" width="106" height="68" rx="5" fill="#04111d" stroke="#0891b2"/>
+      <text x="221" y="83" text-anchor="middle" fill="#a5f3fc" font-size="7.6" font-weight="700">Claude + Codex</text>
+      <text x="221" y="98" text-anchor="middle" fill="#94a3b8" font-size="6.9">Gemini / OpenCode</text>
+      <text x="221" y="112" text-anchor="middle" fill="#94a3b8" font-size="6.9">Durable Mailboxes</text>
+      <text x="221" y="125" text-anchor="middle" fill="#67e8f9" font-size="6.9">Local or SSH Host</text>
+
+      <path d="M282 83 L308 83" stroke="#34d399" stroke-width="2"/>
+      <polygon points="308,78 316,83 308,88" fill="#34d399"/>
+
+      <!-- Step 3 -->
+      <rect x="316" y="20" width="122" height="126" rx="8" fill="#062121" stroke="#10b981" stroke-width="1.5"/>
+      <text x="377" y="40" text-anchor="middle" fill="#ffffff" font-size="9.3" font-weight="800">3. Visual &amp; UI QA</text>
+      <text x="377" y="54" text-anchor="middle" fill="#a7f3d0" font-size="7.2">Browser &amp; Desktop</text>
+      <rect x="324" y="65" width="106" height="68" rx="5" fill="#021414" stroke="#059669"/>
+      <text x="377" y="83" text-anchor="middle" fill="#6ee7b7" font-size="7.6" font-weight="700">orca ports / tab</text>
+      <text x="377" y="98" text-anchor="middle" fill="#94a3b8" font-size="6.9">DOM @eN Snapshot</text>
+      <text x="377" y="112" text-anchor="middle" fill="#94a3b8" font-size="6.9">Design Mode CSS</text>
+      <text x="377" y="125" text-anchor="middle" fill="#34d399" font-size="6.9">Console &amp; Net Logs</text>
+
+      <path d="M438 83 L464 83" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="464,78 472,83 464,88" fill="#a78bfa"/>
+
+      <!-- Step 4 -->
+      <rect x="472" y="20" width="116" height="126" rx="8" fill="#171230" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="530" y="40" text-anchor="middle" fill="#ffffff" font-size="9.3" font-weight="800">4. Human Review</text>
+      <text x="530" y="54" text-anchor="middle" fill="#c4b5fd" font-size="7.2">Diffs &amp; Mobile</text>
+      <rect x="480" y="65" width="100" height="68" rx="5" fill="#0d091f" stroke="#6d28d9"/>
+      <text x="530" y="83" text-anchor="middle" fill="#ddd6fe" font-size="7.6" font-weight="700">Inline Notes</text>
+      <text x="530" y="98" text-anchor="middle" fill="#94a3b8" font-size="6.9">Batch to Agent</text>
+      <text x="530" y="112" text-anchor="middle" fill="#94a3b8" font-size="6.9">Gate Approval</text>
+      <text x="530" y="125" text-anchor="middle" fill="#a78bfa" font-size="6.9">Mobile Reply</text>
+
+      <path d="M588 83 L612 83" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="612,78 620,83 612,88" fill="#f59e0b"/>
+
+      <!-- Step 5 -->
+      <rect x="620" y="20" width="72" height="126" rx="8" fill="#261607" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="656" y="42" text-anchor="middle" fill="#ffffff" font-size="9.0" font-weight="800">5. Merge</text>
+      <text x="656" y="55" text-anchor="middle" fill="#fcd34d" font-size="7.0">&amp; Cleanup</text>
+      <rect x="626" y="65" width="60" height="68" rx="5" fill="#140b03" stroke="#d97706"/>
+      <text x="656" y="84" text-anchor="middle" fill="#fde68a" font-size="7.2" font-weight="700">Draft PR</text>
+      <text x="656" y="99" text-anchor="middle" fill="#fde68a" font-size="7.2" font-weight="700">Release</text>
+      <text x="656" y="116" text-anchor="middle" fill="#fbbf24" font-size="6.6">worktree rm</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Multi-Vendor Agent Collaboration</div>
+      <p style="font-size:8.1pt; margin:0;">
+        Pair agents by strength inside one DAG: have <strong>Claude Code</strong> draft architecture and refactor modules, dispatch <strong>Codex</strong> in a child worktree for high-speed test verification, and run <strong>Gemini CLI</strong> or <strong>OpenCode</strong> for adversarial diff reviews—all tracked under one <code>run_id</code>.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Extensible Plugins, Recipes &amp; Emulators</div>
+      <p style="font-size:8.1pt; margin:0;">
+        Extend Orca with custom themes or declarative TSX side panels (<code>orca plugin create</code>), validate cloud VM setups via <code>orca vm recipe doctor</code>, or inspect iOS Simulator and Android views directly inside worktrees with <code>orca emulator tap</code>.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin: 2px 0 6px 0;">
+    <div class="callout-title">Link Discovery Across Repositories</div>
+    Run <code>orca reference find STA-1234 --json</code> to locate every workspace and active agent mailbox tied to a ticket across your host—giving you exact <code>dispatch:&lt;id&gt;</code> or <code>terminal</code> targets without hunting through sidebar tabs.
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">T</span> Ticket-Seeded Creation</div>
+      <p style="font-size:7.8pt; margin:0;">Pass repeatable <code>--reference</code> URLs or Jira keys on <code>worktree create</code> so setup scripts and agents start with full issue context.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge purple">A</span> Shared Artifacts &amp; Skills</div>
+      <p style="font-size:7.8pt; margin:0;">Publish build artifacts via <code>orca artifacts</code> and share team workflows cleanly with <code>orca skills share</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge amber">D</span> Memory &amp; Health Checks</div>
+      <p style="font-size:7.8pt; margin:0;">Capture fleet memory footprints using <code>orca diagnostics memory --json</code> before scaling parallel worktree counts.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Reference &amp; QA</span>
+    <span>Orca Multi-Agent Workspace &amp; CLI</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Fast, verified remedies for the seven most common Orca CLI and multi-agent pitfalls, followed by a six-point readiness checklist before launching parallel fleets.
+  </p>
+
+  <table class="clean-table" style="margin-bottom: 6px;">
+    <thead>
+      <tr>
+        <th style="width: 28%;">Symptom &amp; Error</th>
+        <th style="width: 29%;">Root Cause</th>
+        <th style="width: 43%;">10-Second Production Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bare <code>orca</code> starts speech on Linux</strong></td>
+        <td>Outside an Orca terminal, <code>/usr/bin/orca</code> is GNOME screen reader.</td>
+        <td>Run <code>orca-ide</code> on Linux hosts (or <code>orca-dev</code> inside dev checkouts; check <code>ORCA_CLI_COMMAND</code>).</td>
+      </tr>
+      <tr>
+        <td><strong><code>runtime_unavailable</code> or <code>runtime_access_denied</code></strong></td>
+        <td>App restarting briefly, or agent sandbox blocking socket access.</td>
+        <td>Wait a few seconds and retry on transient unavailability; escalate sandbox permissions. Never call <code>orca open</code> to retry.</td>
+      </tr>
+      <tr>
+        <td><strong><code>agent_prompt_blocked</code> on <code>terminal send</code></strong></td>
+        <td>Target agent CLI is waiting at a trust or permission prompt menu.</td>
+        <td>Inspect with <code>terminal read --screen</code>, then send <code>--text</code> and <code>--enter</code> as two separate commands.</td>
+      </tr>
+      <tr>
+        <td><strong><code>terminal_handle_stale</code> after restart</strong></td>
+        <td>Runtime-issued handle expired across an Orca app or daemon restart.</td>
+        <td>Re-run <code>orca terminal list --json</code> and continue solely on the new replacement handle; never dual-send.</td>
+      </tr>
+      <tr>
+        <td><strong><code>browser_stale_ref</code> or <code>browser_dialog_open</code></strong></td>
+        <td>DOM re-rendered after navigation or an open JS alert blocks input.</td>
+        <td>Clear dialogs with <code>orca dialog accept/dismiss</code>, re-run <code>snapshot --page &lt;id&gt;</code>, and act on fresh <code>@eN</code> refs.</td>
+      </tr>
+      <tr>
+        <td><strong>Worker silent or <code>escalation</code> stop</strong></td>
+        <td>Agent exited early without calling <code>worker_done</code>, or circuit broke at 3 retries.</td>
+        <td>Inspect <code>worker-show</code> and <code>worker-read --source auto</code>; steer with <code>send</code> or reopen task explicitly.</td>
+      </tr>
+      <tr>
+        <td><strong>Setup hook or dev port mismatch</strong></td>
+        <td>Repo recipe misconfigured or dev server picked a fallback port.</td>
+        <td>Run <code>orca vm recipe doctor</code> to validate recipes and query <code>orca ports --json</code> instead of guessing ports.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Orca Multi-Agent Pre-Flight Checklist</h3>
+  <div class="grid-2">
+    <div class="card">
+      <p style="font-size:8.0pt; margin:0 0 4px 0;"><strong>&square; 1. CLI Executable Verified:</strong> Confirm your session resolved <code>ORCA_CLI_COMMAND</code>, <code>orca-dev</code>, <code>orca-ide</code>, or <code>orca</code> and passes <code>status --json</code>.</p>
+      <p style="font-size:8.0pt; margin:0 0 4px 0;"><strong>&square; 2. Accounts &amp; CLIs Ready:</strong> Run <code>orca account list</code> and <code>orca vm env doctor</code> so every worker CLI has valid credentials.</p>
+      <p style="font-size:8.0pt; margin:0;"><strong>&square; 3. Handoff vs. Orchestration Chosen:</strong> Use <code>worktree create --no-parent</code> for fire-and-forget handoffs; use <code>worker-start</code> when results must return.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:8.0pt; margin:0 0 4px 0;"><strong>&square; 4. Event-Driven Discipline:</strong> Never poll <code>orchestration check</code> in scripts; start parallel workers and end your turn to wake on mail.</p>
+      <p style="font-size:8.0pt; margin:0 0 4px 0;"><strong>&square; 5. Browser vs. Desktop Split:</strong> Scope web QA to Orca&apos;s embedded browser (<code>--page</code>) and keep <code>orca computer</code> strictly background unless approved.</p>
+      <p style="font-size:8.0pt; margin:0;"><strong>&square; 6. Clean Teardown Planned:</strong> Release finished workers with <code>worker-release</code>, preview rules via <code>workspace cleanup preview</code>, and prune merged worktrees.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Orca Multi-Agent Workspace &amp; CLI &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

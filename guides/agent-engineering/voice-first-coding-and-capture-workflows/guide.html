@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Voice-First Coding &amp; Capture Workflows: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Agent Engineering &amp; Capture &bull; Field Guide</div>
+    <h1>Voice-First Coding &amp; <span>Capture Workflows</span></h1>
+    <p class="cover-sub">
+      The complete 12-page visual handbook to low-latency dictation, codebase-aware custom vocabularies, spoken spec-to-plan prompting, PR diff triage, and automated voice-to-vault pipelines.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">mlx-whisper &amp; Handy</span>
+      <span class="cover-badge">Superwhisper &amp; Wispr Flow</span>
+      <span class="cover-badge">Custom Code Dictionaries</span>
+      <span class="cover-badge">Spoken Spec-to-Plan</span>
+      <span class="cover-badge">Voice PR &amp; Terminal Triage</span>
+      <span class="cover-badge">Obsidian &amp; GitHub Pipelines</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Studio microphone radiating glowing rose-pink waveforms that crystallize into floating terminal panels and architectural code prisms" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">3x Faster Intent Bandwidth</div>
+      <div class="cover-stat-desc">Speak nuanced architecture, edge cases, and acceptance criteria at 160+ words per minute while coding agents handle exact syntax.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Garble Code Vocab</div>
+      <div class="cover-stat-desc">Prime Whisper <code>initial_prompt</code> glossaries, active IDE context, and Superwhisper MCP sync to nail every symbol and CLI flag.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Local-First Privacy &amp; Capture</div>
+      <div class="cover-stat-desc">Run offline Apple Silicon models with Silero VAD gating, automatic secret scrubbing, and seamless voice-memo-to-Obsidian triage.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: QUICK NAVIGATION & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">The Complementarity Rule: Speech for Intent, Agents for Syntax</h2>
+  <p class="page-lead">
+    Effective voice coding does not mean reading curly braces and semicolons aloud. Instead, voice acts as a high-bandwidth channel for architectural intent while coding agents translate that intent into clean, type-checked diffs.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. The Complementarity Rule &amp; Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Voice-Driven PR Diff &amp; Terminal Triage</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Audio Hardware, VAD &amp; Engine Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Voice-Memo-to-Obsidian &amp; GitHub Pipelines</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Voice-to-Agent HUD &amp; Vocabulary Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Five Copy-Paste Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Spoken Spec-to-Plan Prompting</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Offline Privacy, Scrubbing &amp; Team Etiquette</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Custom Code Vocabularies &amp; Priming</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. End-to-End Capture Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting Clinic &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <div class="grid-3" style="margin: 2px 0 6px 0;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Acoustic Gate</div>
+      <p style="font-size:7.9pt; margin:0;">Push-to-Talk or Silero VAD slices 16kHz PCM audio cleanly, rejecting cooling fans and mechanical keyboard clicks before inference runs.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Context Normalization</div>
+      <p style="font-size:7.9pt; margin:0;">Dictionary glossaries, active editor buffers, and lightweight LLMs strip filler words and restore exact repo identifiers and camelCase symbols.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Structured Dispatch</div>
+      <p style="font-size:7.9pt; margin:0;">Clean transcripts enter Claude Code, Antigravity, Codex, or an Obsidian <code>+Inbox/</code> watcher to produce plans, code diffs, or tickets.</p>
+    </div>
+  </div>
+
+  <h3>Architecture: Microphone &rarr; VAD Gate &rarr; ASR + Glossary &rarr; Cleanup LLM &rarr; Agent / Vault</h3>
+  <div class="figure-box" style="background:#130b1c; padding:10px 12px;">
+    <svg viewBox="0 0 700 158" width="100%" height="158" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Acoustic Capture -->
+      <rect x="8" y="16" width="136" height="126" rx="8" fill="#221030" stroke="#f472b6" stroke-width="1.6"/>
+      <text x="76" y="36" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">1. Acoustic Capture</text>
+      <text x="76" y="49" text-anchor="middle" fill="#f9a8d4" font-size="7.4">16kHz Mono PCM</text>
+      <rect x="18" y="59" width="116" height="32" rx="5" fill="#13081c" stroke="#db2777"/>
+      <text x="76" y="73" text-anchor="middle" fill="#fce7f3" font-size="7.8" font-weight="700">PTT Hotkey / Boom Mic</text>
+      <text x="76" y="85" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Hardware Mute Toggle</text>
+      <rect x="18" y="98" width="116" height="34" rx="5" fill="#13081c" stroke="#db2777"/>
+      <text x="76" y="113" text-anchor="middle" fill="#f472b6" font-size="7.8" font-weight="700">Silero VAD Gate</text>
+      <text x="76" y="125" text-anchor="middle" fill="#cbd5e1" font-size="6.9">32ms Chunks + Hysteresis</text>
+
+      <path d="M144 79 L174 79" stroke="#f472b6" stroke-width="2"/>
+      <polygon points="174,74 182,79 174,84" fill="#f472b6"/>
+
+      <!-- Stage 2: ASR Engine -->
+      <rect x="182" y="16" width="160" height="126" rx="8" fill="#131c36" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="262" y="36" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">2. Speech-to-Text Core</text>
+      <text x="262" y="49" text-anchor="middle" fill="#7dd3fc" font-size="7.4">Local MLX or Cloud Stream</text>
+      <rect x="192" y="59" width="140" height="32" rx="5" fill="#091124" stroke="#0284c7"/>
+      <text x="262" y="73" text-anchor="middle" fill="#e0f2fe" font-size="7.8" font-weight="700">mlx-whisper / Parakeet</text>
+      <text x="262" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.9">Handy / Superwhisper / Flow</text>
+      <rect x="192" y="98" width="140" height="34" rx="5" fill="#091124" stroke="#0284c7"/>
+      <text x="262" y="113" text-anchor="middle" fill="#38bdf8" font-size="7.8" font-weight="700">224-Token Glossary</text>
+      <text x="262" y="125" text-anchor="middle" fill="#94a3b8" font-size="6.9">initial_prompt + IDE Context</text>
+
+      <path d="M342 79 L372 79" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="372,74 380,79 372,84" fill="#38bdf8"/>
+
+      <!-- Stage 3: Normalization & Scrub -->
+      <rect x="380" y="16" width="146" height="126" rx="8" fill="#09211d" stroke="#10b981" stroke-width="1.6"/>
+      <text x="453" y="36" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">3. Cleanup &amp; Safety</text>
+      <text x="453" y="49" text-anchor="middle" fill="#6ee7b7" font-size="7.4">Deterministic + Local LLM</text>
+      <rect x="390" y="59" width="126" height="32" rx="5" fill="#041512" stroke="#059669"/>
+      <text x="453" y="73" text-anchor="middle" fill="#a7f3d0" font-size="7.8" font-weight="700">Symbol &amp; Filler Pass</text>
+      <text x="453" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.9">camelCase &amp; Backtrack Edit</text>
+      <rect x="390" y="98" width="126" height="34" rx="5" fill="#041512" stroke="#059669"/>
+      <text x="453" y="113" text-anchor="middle" fill="#34d399" font-size="7.8" font-weight="700">Secret Redaction Gate</text>
+      <text x="453" y="125" text-anchor="middle" fill="#94a3b8" font-size="6.9">Blocks Keys &amp; .env Leaks</text>
+
+      <path d="M526 79 L556 79" stroke="#10b981" stroke-width="2"/>
+      <polygon points="556,74 564,79 556,84" fill="#10b981"/>
+
+      <!-- Stage 4: Destination Routing -->
+      <rect x="564" y="16" width="128" height="126" rx="8" fill="#241321" stroke="#fb923c" stroke-width="1.6"/>
+      <text x="628" y="36" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">4. Action Surface</text>
+      <text x="628" y="49" text-anchor="middle" fill="#fdba74" font-size="7.4">Code or Knowledge Target</text>
+      <rect x="574" y="59" width="108" height="32" rx="5" fill="#160a14" stroke="#ea580c"/>
+      <text x="628" y="73" text-anchor="middle" fill="#ffedd5" font-size="7.8" font-weight="700">Coding Agent CLI</text>
+      <text x="628" y="85" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Claude / Antigravity / Codex</text>
+      <rect x="574" y="98" width="108" height="34" rx="5" fill="#160a14" stroke="#ea580c"/>
+      <text x="628" y="113" text-anchor="middle" fill="#fb923c" font-size="7.8" font-weight="700">Vault &amp; Issue Queue</text>
+      <text x="628" y="125" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Obsidian +Inbox &amp; gh CLI</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin-top: 4px;">
+    <div class="callout-title">Two Eras of Voice Coding: AST Syntax vs. Agentic Prompting</div>
+    Pure syntax-level tools such as <strong>Talon Voice</strong> paired with <strong>Cursorless</strong> remain unmatched when you need hands-free cursor jumps and character-accurate editing for Repetitive Strain Injury (RSI) accessibility. For everyday feature delivery, however, pairing natural-language prompt dictation with coding agents delivers 80% of the speed gain in under ten minutes of setup.
+  </div>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: HARDWARE, VAD & ENGINE MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Stack &amp; Acoustics</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">Acoustic Setup, VAD Gating &amp; Dictation Engine Matrix</h2>
+  <p class="page-lead">
+    Transcription accuracy depends just as much on microphone proximity and silence detection as on model size. Choose an engine tier that matches your latency target, privacy boundary, and operating system.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width: 21%;">Engine / Tool</th>
+        <th style="width: 15%;">Execution Mode</th>
+        <th style="width: 17%;">Latency &amp; Cost</th>
+        <th style="width: 23%;">Developer Vocabulary Support</th>
+        <th style="width: 24%;">Best Engineering Fit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>mlx-whisper</code> / <code>parakeet-mlx</code></strong></td>
+        <td>100% Local Apple Silicon MLX</td>
+        <td><code>180ms &ndash; 450ms</code><br/>Free / OSS</td>
+        <td>224-token <code>initial_prompt</code> + custom <code>mlx-lm</code> cleanup pass</td>
+        <td>Air-gapped proprietary repos, custom Python hotkeys, privacy-critical Macs.</td>
+      </tr>
+      <tr>
+        <td><strong>Handy (<code>cjpais/Handy</code>)</strong></td>
+        <td>100% Local Tauri v2 + Rust</td>
+        <td><code>200ms &ndash; 500ms</code><br/>Free / MIT OSS</td>
+        <td>GGUF Whisper &amp; Parakeet V3 + optional Ollama post-processing</td>
+        <td>Cross-platform (macOS, Windows, Linux) offline push-to-talk with Silero VAD.</td>
+      </tr>
+      <tr>
+        <td><strong>Superwhisper</strong></td>
+        <td>Local-First + Optional Cloud</td>
+        <td><code>200ms &ndash; 600ms</code><br/>Free / Pro Paid</td>
+        <td>Custom Modes, SQLite history, and CLI/MCP <code>vocab</code> self-sync</td>
+        <td>Agents auditing past dictations to auto-patch misheard repo terms.</td>
+      </tr>
+      <tr>
+        <td><strong>Wispr Flow</strong></td>
+        <td>Cloud TLS 1.2+ Stream</td>
+        <td><code>150ms &ndash; 350ms</code><br/>Basic / Pro $12&ndash;15</td>
+        <td>Active IDE buffer context + voice file tagging + snippet triggers</td>
+        <td>Multi-device speed, Cursor/VS Code symbol awareness, zero local GPU setup.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Code <code>/voice</code> &amp; Codex <code>F8</code></strong></td>
+        <td>Native Agent CLI Built-In</td>
+        <td><code>250ms &ndash; 500ms</code><br/>Included in Plan</td>
+        <td>Claude primes on repo + Git branch; Codex uses F8 two-way voice</td>
+        <td>Zero-install terminal sessions (requires local mic; not plain remote SSH).</td>
+      </tr>
+      <tr>
+        <td><strong>Talon + Cursorless</strong></td>
+        <td>Local Grammar + AST Engine</td>
+        <td><code>&lt; 80ms</code><br/>Free / Beta</td>
+        <td>Full spoken phonetic alphabet, symbol grammars, AST node targeting</td>
+        <td>Hands-free RSI recovery and surgical edits without touching a keyboard.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Microphone Physics, Silero VAD &amp; Barge-In Mechanics</h3>
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Close-Mic Signal Ratio</div>
+      <p style="font-size:8.0pt; margin:0;">Keep a dynamic cardioid mic or headset boom 5&ndash;10cm off-axis from your mouth. Distant laptop array mics pick up fan roar and tactile switch clicks that corrupt word boundaries.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Silero VAD vs. WebRTC</div>
+      <p style="font-size:8.0pt; margin:0;">Legacy WebRTC VAD checks raw energy and misfires on mechanical keys. Compact neural <strong>Silero VAD</strong> (~2MB ONNX) scores 32ms chunks in 1ms with robust noise rejection.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Trailing Pause &amp; Barge-In</div>
+      <p style="font-size:8.0pt; margin:0;">Require 350&ndash;500ms of continuous silence before closing an utterance so thinking pauses survive. Full-duplex agents increment an epoch ID on barge-in to cancel stale outputs.</p>
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin: 2px 0;">
+    <div class="callout-title">Choosing Between Push-to-Talk (PTT) and Continuous VAD</div>
+    For coding prompts, <strong>Push-to-Talk</strong> (hold <code>Fn</code>, Left Option, or Spacebar in <code>/voice</code>) wins on predictability: you never leak off-hand remarks or coughs into an active agent terminal. Reserve continuous <strong>Silero VAD</strong> for full-duplex conversational modes, walking capture memos, or hands-free RSI setups paired with a hardware mute switch.
+  </div>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Workspace Tour</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">Annotated Workspace: Voice-to-Agent HUD &amp; Vocabulary Panel</h2>
+  <p class="page-lead">
+    Modern voice coding pairs a lightweight acoustic capture HUD with live IDE context awareness and custom replacement dictionaries so spoken prompts land cleanly in your agent terminal.
+  </p>
+
+  <div class="ui-window" style="margin-bottom: 8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f9a8d4; font-size:7.3pt;">VoiceBridge HUD &bull; Mode: Coding Spec [Local MLX &bull; Air-Gapped]</span>
+      </div>
+      <div style="color:#34d399; font-weight:700; font-size:7.3pt;">Mic: Shure MV7 (16kHz PCM) &bull; Scrub: ON</div>
+    </div>
+    <div style="padding: 9px 13px; background:#110818;">
+      <!-- Row 1: Acoustic & VAD Bar -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid #3b1d4a;">
+        <div>
+          <span class="callout-pin">1</span> <strong>Trigger:</strong> <span style="color:#f472b6;">PTT Active [Hold Fn]</span> &bull; <strong>Silero:</strong> <span style="color:#34d399;">0.93</span> &bull; <strong>Pause:</strong> 420ms
+        </div>
+        <div>
+          <span class="callout-pin">2</span> <strong>Context:</strong> <code>verifyJwt.ts</code> (<code>feat/oidc-pkce</code>)
+        </div>
+      </div>
+
+      <!-- Row 2: Split panes -->
+      <div style="display:grid; grid-template-columns: 1.15fr 0.85fr; gap:11px;">
+        <!-- Left: Raw vs Normalized Preview -->
+        <div style="background:#09040e; border:1px solid #3b1d4a; border-radius:6px; padding:8px; font-family:'SF Mono',Menlo,monospace; font-size:7.1pt; color:#e2e8f0;">
+          <div style="color:#f472b6; font-weight:700; margin-bottom:4px; display:flex; justify-content:space-between;">
+            <span><span class="callout-pin">3</span> Live Stream &rarr; Normalized Prompt</span>
+            <span style="color:#94a3b8;">240ms total</span>
+          </div>
+          <div style="color:#94a3b8; margin-bottom:4px;">RAW: "um check verify jay double u tee in auth folder no wait check pkce flow and make sure redis key ttl stays sixty seconds"</div>
+          <div style="border-top:1px dashed #3b1d4a; padding-top:4px; color:#a7f3d0;">
+            <div><span class="callout-pin">4</span> CLEAN PROMPT:</div>
+            <div style="color:#f8fafc; margin-top:2px;">Audit the PKCE flow in <code>src/auth/verifyJwt.ts</code> and verify that the <code>redisKeyTtl</code> stays fixed at <code>60s</code>.</div>
+          </div>
+          <div style="margin-top:5px; padding-top:4px; border-top:1px solid #2b1438; display:flex; justify-content:space-between; color:#7dd3fc;">
+            <span><span class="callout-pin">5</span> Target: <strong>Claude Code CLI</strong> (Plan Mode)</span>
+            <span style="color:#34d399;">[Inject Ready]</span>
+          </div>
+        </div>
+
+        <!-- Right: Custom Vocabulary & Secret Scrubbing -->
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <div style="background:#09040e; border:1px solid #3b1d4a; border-radius:6px; padding:8px;">
+            <div style="color:#f9a8d4; font-weight:700; font-size:7.1pt; margin-bottom:4px;">
+              <span class="callout-pin">6</span> Active Dictionary &amp; Replacement Rules (148/224 tok)
+            </div>
+            <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.9pt; color:#cbd5e1;">
+              <div><code>"jay double u tee"</code> &rarr; <code>JWT</code></div>
+              <div><code>"cube control"</code> &rarr; <code>kubectl</code></div>
+              <div><code>"pkce"</code> &rarr; <code>PKCE</code> &bull; <code>"verifyJwt.ts"</code></div>
+              <div><code>"redis key ttl"</code> &rarr; <code>redisKeyTtl</code></div>
+            </div>
+          </div>
+          <div style="background:#09040e; border:1px solid #3b1d4a; border-radius:6px; padding:8px;">
+            <div style="color:#fbbf24; font-weight:700; font-size:7.1pt; margin-bottom:4px;">
+              <span class="callout-pin">7</span> Privacy Fence &amp; Secret Scrubber
+            </div>
+            <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.9pt;">
+              <div style="color:#34d399;">CLOUD UPLOAD: BLOCKED (Local-Only Repo Zone)</div>
+              <div style="color:#fb923c;">SCRUBBED: <code>sk_live_...</code> &rarr; <code>[REDACTED_TOKEN]</code></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Bottom status strip -->
+      <div style="display:flex; justify-content:space-between; margin-top:7px; padding-top:5px; border-top:1px solid #3b1d4a; font-size:7.0pt; color:#cbd5e1;">
+        <span><strong>Model:</strong> <code>mlx-community/distil-whisper-large-v3</code></span>
+        <span><strong>Log:</strong> <code>~/.voicebridge/logs.sqlite</code> (24h purge)</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control Legend &amp; Inspection Points</h3>
+  <div class="grid-2">
+    <div>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">1</span> Trigger &amp; Silero VAD Telemetry:</strong> Confirms whether Push-to-Talk or automatic VAD is active, showing live speech probability and trailing pause tolerance.</p>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">2</span> Active IDE Context Lock:</strong> Reads open file paths, visible symbols, and Git branch names to bias transcription toward exact project terminology.</p>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">3</span> Live Stream Latency Budget:</strong> Tracks end-to-end audio capture, inference, and formatting latency; keep under 500ms so voice feels instantaneous.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong><span class="callout-pin">4</span> Backtrack &amp; Filler Normalization:</strong> Strips verbal hesitation and honors self-corrections such as "no wait" or "scratch that" before pasting.</p>
+    </div>
+    <div>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">5</span> Target Agent Harness Router:</strong> Injects the finalized prompt directly into Claude Code, Antigravity, Codex CLI, or your Obsidian inbox buffer.</p>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">6</span> 224-Token Glossary &amp; Alias Table:</strong> Displays active Whisper <code>initial_prompt</code> budget usage alongside deterministic regex symbol replacements.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong><span class="callout-pin">7</span> Privacy Fence &amp; Secret Scrubber:</strong> Automatically disables cloud context scraping inside <code>.env</code> buffers or sensitive repos and masks spoken secrets before logging.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: SPOKEN SPEC-TO-PLAN PROMPTING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Spoken Specs</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">Spoken Spec-to-Plan Prompting for Coding Agents</h2>
+  <p class="page-lead">
+    Rambling voice prompts force coding agents to guess file boundaries and invariants. Structuring a 30-second spoken recording into five crisp slots turns conversational speech into an unambiguous engineering specification.
+  </p>
+
+  <h3>Color-Coded Formula: The 5-Slot Spoken Engineering Spec</h3>
+  <div class="card" style="margin-bottom: 7px;">
+    <p style="font-size:8.7pt; line-height:1.7; margin:0;">
+      <span class="p-tag p-style">[1. Context &amp; Mode]</span>
+      <span class="p-tag p-subj">[2. Goal &amp; Behavior]</span>
+      <span class="p-tag p-act">[3. Target Files &amp; Symbols]</span>
+      <span class="p-tag p-cam">[4. Invariants &amp; Non-Goals]</span>
+      <span class="p-tag p-sfx">[5. Verification Gate]</span>
+    </p>
+    <p style="font-size:8.1pt; color:#475569; margin:4px 0 0 0;">
+      Example spoken aloud into <code>claude</code> (Plan Mode), Antigravity, or Codex: <br/>
+      <span class="p-tag p-style">"Enter Plan Mode first, do not edit yet."</span>
+      <span class="p-tag p-subj">"Add idempotency key deduplication to webhook ingestion so duplicate Stripe retries return 200 without double-charging."</span>
+      <span class="p-tag p-act">"Start in src/webhooks/stripeHandler.ts and reuse our existing Redis cache helper."</span>
+      <span class="p-tag p-cam">"Keep the existing signature middleware untouched and expire keys after 24 hours."</span>
+      <span class="p-tag p-sfx">"Finish by running the webhook Vitest suite and showing the exact diff plan."</span>
+    </p>
+  </div>
+
+  <h3>Raw Voice Dump vs. Normalized Spec Block</h3>
+  <pre><code># Spoken transcript (22 seconds at 175 WPM) -&gt; cleaned automatically by local Qwen / Superwhisper Mode:
+"Plan first before editing. Add idempotency-key deduplication to the Stripe webhook handler in
+src/webhooks/stripeHandler.ts using our existing Redis helper. Preserve current HMAC signature
+verification unchanged, set a 24-hour TTL on processed event IDs, and verify with Vitest."</code></pre>
+
+  <div class="grid-2" style="margin-top: 4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Claude Code <code>/voice</code> + Plan Mode</div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        Toggle <code>/voice</code> in Claude Code (Claude.ai Pro, Max, Team, or Enterprise) and hold Spacebar while speaking. Claude automatically passes your repository and active Git branch names as speech recognition hints.
+      </p>
+      <p style="font-size:7.9pt; color:#475569; margin:0;">
+        Pro pattern: Press <code>Shift+Tab</code> into Plan Mode before speaking so long multi-file specs are reviewed as a blueprint before a single file changes.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Antigravity &amp; Codex CLI Dispatch</div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        In <strong>Google Antigravity</strong>, dictate architectural specs directly into the planner or spawn parallel investigator subagents to check impacted modules while you keep speaking follow-up constraints.
+      </p>
+      <p style="font-size:7.9pt; color:#475569; margin:0;">
+        In <strong>OpenAI Codex CLI</strong>, pair external dictation (Wispr Flow, Superwhisper, or Handy) for exact CLI flags and <code>~/.codex/config.toml</code> paths, or toggle <code>F8</code> for conversational voice steering.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top: 6px;">
+    <div class="callout-title">Use Verbal Anchor Phrases for Self-Correction</div>
+    Never stop recording and delete a whole paragraph because you misspoke one variable name. Train your cleanup prompt to interpret explicit backtrack phrases such as <strong>"scratch that"</strong>, <strong>"actually make that"</strong>, or <strong>"correction:"</strong> so the post-processor discards the prior clause cleanly before injecting text.
+  </div>
+
+  <h3>Spoken Routing Cues Across Agent Harnesses</h3>
+  <table class="clean-table" style="margin-top: 4px;">
+    <thead>
+      <tr>
+        <th style="width: 24%;">Spoken Opening Cue</th>
+        <th style="width: 26%;">Target Mode</th>
+        <th style="width: 50%;">Why This Phrase Prevents Wasted Edits</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>"Plan first, do not edit"</strong></td>
+        <td>Claude Code Plan Mode</td>
+        <td>Locks write tools until you inspect proposed files, types, and migration boundaries.</td>
+      </tr>
+      <tr>
+        <td><strong>"Fan out across modules"</strong></td>
+        <td>Antigravity Subagents</td>
+        <td>Triggers parallel read-only investigators to map call sites before touching code.</td>
+      </tr>
+      <tr>
+        <td><strong>"Read-only audit only"</strong></td>
+        <td>Codex CLI Sandbox</td>
+        <td>Confines execution to dry-run checks and diff inspection before applying patches.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: CUSTOM CODE VOCABULARIES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Custom Vocabularies</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">Custom Code Vocabularies &amp; Whisper Prompt Priming</h2>
+  <p class="page-lead">
+    Out-of-the-box speech models trained on podcasts routinely mangle programming jargon. Priming the decoder glossary, wiring replacement rules, and letting agents audit mis-transcriptions eliminates manual typo fixes.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/showcase_1.jpg" alt="Soundwaves passing through a glowing magenta crystal prism dictionary filter into aligned syntax cubes" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 6.1 &bull; Semantic Dictionary Filtering:</strong> Raw acoustic waveforms enter the custom vocabulary lens and exit normalized into exact project identifiers, CLI verbs, and code symbols.
+    </div>
+  </div>
+
+  <pre><code># Priming mlx-whisper with a strict &lt;= 224-token codebase glossary + syntax formatting cues
+import mlx_whisper
+
+GLOSSARY = (
+    "Stack glossary: kubectl, PostgreSQL, FastAPI, TypeScript, Zod, Pydantic, Supabase, "
+    "useEffect, verifyJwt, redisKeyTtl. Syntax cues: camelCase, snake_case, =&gt;, !=, ||."
+)
+result = mlx_whisper.transcribe(
+    "prompt_clip.wav",
+    path_or_hf_repo="mlx-community/distil-whisper-large-v3",
+    initial_prompt=GLOSSARY,
+)</code></pre>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> The 224-Token &amp; 30-Second Limits</div>
+      <p style="font-size:8.0pt; margin:0 0 3px 0;">
+        Whisper caps <code>initial_prompt</code> at <strong>224 tokens</strong>; longer lists are silently truncated from the front. Audio longer than 30 seconds also loses initial priming unless you re-inject prompts per chunk (e.g., <code>carry_initial_prompt=True</code> in <code>faster-whisper</code>).
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Keep only the top 30&ndash;40 repo-specific acronyms, database tables, and package names inside your active prompt budget.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Agentic Self-Healing with Superwhisper MCP</div>
+      <p style="font-size:8.0pt; margin:0 0 3px 0;">
+        Superwhisper exposes a local CLI and MCP server (<code>superwhisper vocab</code>, <code>history</code>, <code>mcp</code>). Connect it to Claude Code or Antigravity so your agent scans recent transcripts against repo symbols and writes missing replacement rules automatically.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        On Wispr Flow, enable IDE context awareness so visible file tabs automatically bias variable spelling in Cursor and VS Code.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: PR DIFF WALKTHROUGHS & TERMINAL TRIAGE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Code Review &amp; Triage</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">Voice-Driven PR Diff Walkthroughs &amp; Terminal Triage</h2>
+  <p class="page-lead">
+    Code review is predominantly a reading and reasoning task. Speaking aloud as you scan a pull request lets you direct agent pre-reviews, classify noisy bot comments, and draft crisp technical replies in seconds.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> Guided Pre-Review</div>
+      <p style="font-size:7.9pt; margin:0;">Tell the agent exactly what to ignore (lockfiles, formatting) and where risk lives ("audit null safety in <code>session.ts</code> and race conditions in checkout").</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge teal">2</span> Thread Clustering</div>
+      <p style="font-size:7.9pt; margin:0;">Pull unresolved comments via <code>gh pr view</code> and speak a triage instruction to group critiques by root cause as Valid, Out-of-Scope, or Invalid.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge amber">3</span> Evidence Pushback</div>
+      <p style="font-size:7.9pt; margin:0;">Dictate your blunt architectural rationale aloud and let the agent translate it into a polite, file-and-line-cited GitHub PR response.</p>
+    </div>
+  </div>
+
+  <h3>Terminal Triage Pipeline: Spoken Focus Prompt + GitHub CLI</h3>
+  <pre><code># 1. Fetch clean diff and open comments, then dictate focus areas via /voice or Whisper HUD
+gh pr diff 418 --patch &gt; /tmp/pr_418.diff
+gh api repos/{owner}/{repo}/pulls/418/comments --jq '.[] | {path, line, body}' &gt; /tmp/pr_418_comments.json
+
+# 2. Spoken instruction pasted into Claude Code (/code-review) or Antigravity:
+# "Walk through pr_418.diff ignoring generated snapshot updates. Validate every comment in
+# pr_418_comments.json against the real files, rank findings by severity, and draft a concise
+# technical reply explaining why the partition key already prevents duplicate reads."</code></pre>
+
+  <div class="grid-2" style="margin-top: 4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">4</span> Spoken Terminal Failure Triage</div>
+      <p style="font-size:8.0pt; margin:0 0 3px 0;">
+        When a 400-line test log fails, resist typing manual <code>grep</code> commands. Speak the symptom directly: <span class="p-tag p-dial">"Ignore the lint warnings, inspect why test_auth_refresh timed out on CI, and tell me if the mock clock drifted."</span>
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        For terminal apps over SSH where native <code>/voice</code> lacks mic access, use local system dictation (Handy, Superwhisper, or Wispr Flow) to paste cleanly into your tmux pane.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">5</span> Conversational Barge-In Discipline</div>
+      <p style="font-size:8.0pt; margin:0 0 3px 0;">
+        When using spoken output modes (such as Codex <code>F8</code> voice conversation), configure client-side Silero VAD barge-in so interrupting a verbose explanation immediately halts audio playback and cancels pending tool calls via epoch IDs.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Always confirm destructive shell commands (<code>git reset</code>, <code>rm</code>, DB migrations) visually before pressing Enter.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top: 6px;">
+    <div class="callout-title">Never Dictate Raw Enter / Auto-Submit on Shell Terminals</div>
+    Configure your dictation tool to insert text without firing a trailing newline inside live bash or zsh sessions. Reviewing the pasted prompt for half a second catches misheard flags like <code>--force</code> or destructive glob wildcards before execution.
+  </div>
+
+  <h3>Spoken Review Triage Taxonomy</h3>
+  <div class="grid-3" style="margin-top: 4px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">V</span> Valid &amp; Fix Now</div>
+      <p style="font-size:7.8pt; margin:0;">Verified bug or missing guard confirmed directly in source lines; dispatch patch immediately.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge amber">O</span> Out of Scope</div>
+      <p style="font-size:7.8pt; margin:0;">Legitimate refactor unrelated to PR goal; convert by voice into a follow-up GitHub issue.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge teal">I</span> Invalid / Decline</div>
+      <p style="font-size:7.8pt; margin:0;">False-positive linter or bot note; dictate a brief explanation citing existing invariants.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: OBSIDIAN & GITHUB CAPTURE PIPELINES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Async Capture</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">Voice-Memo-to-Obsidian <code>+Inbox/</code> &amp; GitHub Pipelines</h2>
+  <p class="page-lead">
+    Your sharpest architectural ideas rarely happen at your desk. An automated capture pipeline turns off-screen voice memos into linked Obsidian vault notes and actionable GitHub issues before you sit back down.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/showcase_2.jpg" alt="Glowing handheld audio capsule flowing through a dark-glass sorting conduit into structured knowledge plates and task prisms" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 8.1 &bull; Multimodal Capture Funnel:</strong> Mobile or wearable voice memos drop into a watched folder, get transcribed locally, and fan out into structured Obsidian notes and GitHub backlog tasks.
+    </div>
+  </div>
+
+  <pre><code># macOS folder watcher (fswatch) -&gt; mlx-whisper -&gt; Obsidian +Inbox/ &amp; Claude Code vault organizer
+fswatch -0 ~/Sync/VoiceMemos | while IFS= read -r -d "" audio; do
+  base=$(basename "$audio" .m4a)
+  mlx_whisper "$audio" --model mlx-community/whisper-large-v3-mlx \
+    --output-format txt --output-dir ~/Vault/+Inbox/
+  claude -p "Read ~/Vault/+Inbox/${base}.txt using CLAUDE.md rules: clean fillers, add YAML \
+    frontmatter, inject [[wiki-links]], file into 01_Projects or 03_Resources, and create any \
+    requested GitHub issues with gh issue create --label voice-capture."
+done</code></pre>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Vault Contract via Root <code>CLAUDE.md</code></div>
+      <p style="font-size:8.0pt; margin:0 0 3px 0;">
+        Place a <code>CLAUDE.md</code> file at the root of your Obsidian vault specifying your folder taxonomy (<code>+Inbox/</code>, <code>01_Projects/</code>, <code>03_Resources/</code>), mandatory YAML frontmatter keys (<code>date</code>, <code>type</code>, <code>tags</code>, <code>status</code>), and bidirectional <code>[[wiki-link]]</code> lookup rules.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Alternatively, native Obsidian plugins such as <strong>Whisper</strong> or <strong>ReWrite</strong> let you record and post-process directly inside the editor.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Dual-Output Issue &amp; Spec Splitting</div>
+      <p style="font-size:8.0pt; margin:0 0 3px 0;">
+        Include a spoken routing cue at the start of walking memos—such as <span class="p-tag p-act">"Note plus GitHub task"</span>—so the classifier saves rich research prose into Obsidian while filing concise, label-tagged acceptance criteria via <code>gh issue create</code>.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Keep processed raw audio archived outside Git repositories so binary <code>.m4a</code> clips never bloat source history.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: FIVE COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Recipes</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">Five Copy-Paste Recipes for Voice Coding &amp; Capture</h2>
+  <p class="page-lead">
+    Practical blueprints you can deploy today—spanning zero-cloud Apple Silicon push-to-talk, agent-driven dictionary syncing, Obsidian inbox sorting, and multi-channel PR triage.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width: 22%;">Recipe &amp; Goal</th>
+        <th style="width: 20%;">Recommended Stack</th>
+        <th style="width: 34%;">Core Command / Pattern</th>
+        <th style="width: 24%;">Guardrail &amp; Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Air-Gapped Local Mac PTT</strong><br/><span style="font-size:7.4pt; color:#64748b;">Zero-cloud dictation in IDE</span></td>
+        <td><code>mlx-whisper</code> + <code>mlx-lm</code> + <code>sounddevice</code></td>
+        <td><code>mlx_whisper.transcribe(buf,</code><br/><code>  path_or_hf_repo="mlx-community/</code><br/><code>  distil-whisper-large-v3")</code></td>
+        <td>100% offline GPU memory; never leaves Mac; scrubs secrets pre-paste.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Cross-OS Offline Dictation</strong><br/><span style="font-size:7.4pt; color:#64748b;">Linux / Windows / Mac desktop</span></td>
+        <td>Handy (<code>cjpais/Handy</code>) + Parakeet V3</td>
+        <td>Enable <code>Silero VAD</code> + bind global PTT hotkey + optional local Ollama formatter</td>
+        <td>Zero subscription fee; Metal/Vulkan accelerated; clean clipboard insert.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Self-Healing Code Dictionary</strong><br/><span style="font-size:7.4pt; color:#64748b;">Auto-fix misheard symbols</span></td>
+        <td>Superwhisper CLI/MCP + Claude Code</td>
+        <td><code>superwhisper history --limit 30</code><br/>Agent compares logs to repo symbols &amp; updates <code>superwhisper vocab</code></td>
+        <td>Eliminates recurring typos across team-specific packages &amp; acronyms.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Spoken Spec-to-Plan Sprint</strong><br/><span style="font-size:7.4pt; color:#64748b;">Fast multi-file architecture</span></td>
+        <td>Claude Code <code>/voice</code> or Wispr Flow + Plan Mode</td>
+        <td>Hold Spacebar in Plan Mode; speak 5-slot spec; review diff plan before edits</td>
+        <td>No unreviewed file writes; 3x faster architectural context transfer.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Walking Memo-to-Backlog</strong><br/><span style="font-size:7.4pt; color:#64748b;">Phone memo to Obsidian &amp; GitHub</span></td>
+        <td>Voice Memos + iCloud + <code>fswatch</code> + <code>gh</code> CLI</td>
+        <td>Sync <code>.m4a</code> &rarr; local Whisper &rarr; <code>claude -p</code> sorts <code>+Inbox/</code> &amp; files <code>gh issue</code></td>
+        <td>Idempotent archive move prevents duplicate GitHub tickets on rerun.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Copy-Paste Snippet: Local Push-to-Talk Pipeline with Silero VAD &amp; Secret Redaction</h3>
+  <pre><code>import re, mlx_whisper, pyperclip
+# Assumes 16kHz float32 audio clip captured via sounddevice and gated by Silero VAD (&gt;= 0.5 prob)
+SECRET_PATTERNS = re.compile(r"(sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16})")
+GLOSSARY = "Kubernetes, kubectl, PostgreSQL, FastAPI, Pydantic, Antigravity, camelCase, snake_case"
+
+def dictate_to_clipboard(wav_path: str) -&gt; str:
+    res = mlx_whisper.transcribe(
+        wav_path,
+        path_or_hf_repo="mlx-community/distil-whisper-large-v3",
+        initial_prompt=GLOSSARY,
+    )
+    cleaned = SECRET_PATTERNS.sub("[REDACTED_SECRET]", res["text"].strip())
+    pyperclip.copy(cleaned)  # Paste manually without firing auto-Enter in terminals
+    return cleaned</code></pre>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: PRIVACY, TEAM ETIQUETTE & ACCESSIBILITY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Privacy &amp; Ergonomics</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">Offline Privacy Zones, Secret Scrubbing &amp; Team Etiquette</h2>
+  <p class="page-lead">
+    Bringing a live microphone into software engineering introduces real privacy, credential-hygiene, and workspace-etiquette stakes. Build hard local boundaries before dictating around proprietary repositories.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Air-Gapped Local Privacy Zones</div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        Cloud dictation tools (such as Wispr Flow over TLS 1.2+ or native IDE voice endpoints) offer rapid cross-device sync and optional 24-hour or zero audio retention. However, regulated healthcare, fintech, or pre-announcement codebases often prohibit external audio or screen-context uploads altogether.
+      </p>
+      <p style="font-size:7.9pt; color:#475569; margin:0;">
+        Rule: Route sensitive projects exclusively through offline engines (<code>mlx-whisper</code>, <code>Handy</code>, or Superwhisper Local Mode) with cloud context reading disabled.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Window Context &amp; Credential Hygiene</div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        Accessibility-powered context awareness inspects active window buffers to spell variable names accurately. Always exclude password managers, <code>.env</code> buffers, browser admin consoles, and private terminal key dumps from window scraping.
+      </p>
+      <p style="font-size:7.9pt; color:#475569; margin:0;">
+        Never speak API keys, passwords, or customer PII aloud while dictation history logging is enabled; apply automated regex redaction before saving transcripts to SQLite or Obsidian.
+      </p>
+    </div>
+  </div>
+
+  <h3>Security Rule: Local Redaction &amp; Retention Policy</h3>
+  <pre><code># Recommended ~/.voicebridge/privacy.yaml policy for engineering laptops
+default_mode: local_mlx                # Never route audio offsite by default
+excluded_apps: ["1Password", "Bitwarden", "Keychain Access"]
+excluded_file_globs: ["**/.env*", "**/*secret*", "**/*.pem", "**/credentials.json"]
+history_retention_hours: 24            # Auto-purge local SQLite dictation logs daily
+scrub_before_persist: true             # Mask API tokens before Obsidian or log write</code></pre>
+
+  <div class="grid-2" style="margin-top: 4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Open-Office &amp; Pairing Etiquette</div>
+      <ul style="font-size:8.0pt; margin:0;">
+        <li><strong>Prefer Short Bursts:</strong> Speak focused 10&ndash;20 second specs via Push-to-Talk in shared rooms rather than continuous monologue.</li>
+        <li><strong>Visual Mute Tally:</strong> Use a hardware mic mute button with an LED indicator before joining standups or pairing calls so voice triggers never hijack team meetings.</li>
+        <li><strong>Acoustic Isolation:</strong> Use quiet linear switches or headset noise-gating so typing corrections never leak into open-mic VAD streams.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">4</span> RSI Accessibility &amp; Hybrid Control</div>
+      <ul style="font-size:8.0pt; margin:0;">
+        <li><strong>Combine Paradigms:</strong> Pair <strong>Talon Voice + Cursorless</strong> for hands-free window switching and AST token jumps with AI prompt dictation for multi-file feature authoring.</li>
+        <li><strong>Foot-Pedal PTT:</strong> Map a USB foot switch to your dictation hotkey so hands and wrists rest neutrally while dictating long specs or PR reviews.</li>
+        <li><strong>Reduced Keystroke Load:</strong> Speaking 150+ WPM intent slashes repetitive typing strain by over 70% on documentation and test scaffolding.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout sky" style="margin-top: 6px;">
+    <div class="callout-title">Enterprise Data Governance &amp; Zero-Retention Modes</div>
+    When teams adopt cloud dictation such as Wispr Flow Business or Enterprise, enforce zero-audio-retention policies, SSO login, and workspace allowlists that confine active-window reading strictly to approved IDE processes rather than system-wide screen buffers.
+  </div>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; End-to-End Synergy</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Voice Synergy: From Walking Thought to Merged PR</h2>
+  <p class="page-lead">
+    Voice workflows shine brightest when capture, transcription, vocabulary normalization, agent planning, and knowledge archiving link into one continuous pipeline across mobile and desktop tools.
+  </p>
+
+  <div class="figure-box" style="background:#130b1c; padding:10px 12px; margin-bottom: 8px;">
+    <svg viewBox="0 0 700 172" width="100%" height="172" xmlns="http://www.w3.org/2000/svg">
+      <!-- Step 1: Voice Capture -->
+      <rect x="8" y="20" width="116" height="128" rx="8" fill="#221030" stroke="#f472b6" stroke-width="1.5"/>
+      <text x="66" y="40" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">1. Capture</text>
+      <text x="66" y="54" text-anchor="middle" fill="#f9a8d4" font-size="7.2">Desk or Mobile</text>
+      <rect x="16" y="65" width="100" height="72" rx="5" fill="#13081c" stroke="#db2777"/>
+      <text x="66" y="83" text-anchor="middle" fill="#fce7f3" font-size="7.6" font-weight="700">PTT / Voice Memo</text>
+      <text x="66" y="97" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Foot Pedal / Watch</text>
+      <text x="66" y="111" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Silero VAD Gate</text>
+      <text x="66" y="126" text-anchor="middle" fill="#f472b6" font-size="6.9">16kHz PCM / m4a</text>
+
+      <path d="M124 84 L152 84" stroke="#f472b6" stroke-width="2"/>
+      <polygon points="152,79 160,84 152,89" fill="#f472b6"/>
+
+      <!-- Step 2: Transcription + Vocab -->
+      <rect x="160" y="20" width="122" height="128" rx="8" fill="#131c36" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="221" y="40" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">2. Transcribe</text>
+      <text x="221" y="54" text-anchor="middle" fill="#7dd3fc" font-size="7.2">Glossary &amp; Scrub</text>
+      <rect x="168" y="65" width="106" height="72" rx="5" fill="#091124" stroke="#0284c7"/>
+      <text x="221" y="83" text-anchor="middle" fill="#e0f2fe" font-size="7.6" font-weight="700">MLX / Handy / Flow</text>
+      <text x="221" y="97" text-anchor="middle" fill="#94a3b8" font-size="6.9">224-Token Prompt</text>
+      <text x="221" y="111" text-anchor="middle" fill="#94a3b8" font-size="6.9">Superwhisper MCP</text>
+      <text x="221" y="126" text-anchor="middle" fill="#38bdf8" font-size="6.9">Secret Redaction</text>
+
+      <path d="M282 84 L310 84" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="310,79 318,84 310,89" fill="#38bdf8"/>
+
+      <!-- Step 3: Obsidian +Inbox & Specs -->
+      <rect x="318" y="20" width="118" height="128" rx="8" fill="#09211d" stroke="#10b981" stroke-width="1.5"/>
+      <text x="377" y="40" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">3. Triage &amp; Link</text>
+      <text x="377" y="54" text-anchor="middle" fill="#6ee7b7" font-size="7.2">Obsidian +Inbox/</text>
+      <rect x="326" y="65" width="102" height="72" rx="5" fill="#041512" stroke="#059669"/>
+      <text x="377" y="83" text-anchor="middle" fill="#a7f3d0" font-size="7.6" font-weight="700">CLAUDE.md Rules</text>
+      <text x="377" y="97" text-anchor="middle" fill="#94a3b8" font-size="6.9">YAML Frontmatter</text>
+      <text x="377" y="111" text-anchor="middle" fill="#94a3b8" font-size="6.9">[[Wiki-Links]]</text>
+      <text x="377" y="126" text-anchor="middle" fill="#34d399" font-size="6.9">gh issue create</text>
+
+      <path d="M436 84 L464 84" stroke="#10b981" stroke-width="2"/>
+      <polygon points="464,79 472,84 464,89" fill="#10b981"/>
+
+      <!-- Step 4: Agent Spec-to-Plan -->
+      <rect x="472" y="20" width="116" height="128" rx="8" fill="#1d1233" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="530" y="40" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">4. Plan &amp; Build</text>
+      <text x="530" y="54" text-anchor="middle" fill="#c4b5fd" font-size="7.2">Coding Agent</text>
+      <rect x="480" y="65" width="100" height="72" rx="5" fill="#100921" stroke="#7c3aed"/>
+      <text x="530" y="83" text-anchor="middle" fill="#ddd6fe" font-size="7.6" font-weight="700">Claude / Antigravity</text>
+      <text x="530" y="97" text-anchor="middle" fill="#94a3b8" font-size="6.9">5-Slot Spoken Spec</text>
+      <text x="530" y="111" text-anchor="middle" fill="#94a3b8" font-size="6.9">Sandbox Test Run</text>
+      <text x="530" y="126" text-anchor="middle" fill="#a78bfa" font-size="6.9">Codex Verification</text>
+
+      <path d="M588 84 L614 84" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="614,79 622,84 614,89" fill="#a78bfa"/>
+
+      <!-- Step 5: PR Triage & Merge -->
+      <rect x="622" y="20" width="70" height="128" rx="8" fill="#241321" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="657" y="42" text-anchor="middle" fill="#ffffff" font-size="9.0" font-weight="800">5. PR</text>
+      <text x="657" y="55" text-anchor="middle" fill="#fdba74" font-size="7.2">Voice Review</text>
+      <rect x="628" y="65" width="58" height="72" rx="5" fill="#160a14" stroke="#ea580c"/>
+      <text x="657" y="85" text-anchor="middle" fill="#ffedd5" font-size="7.3" font-weight="700">Diff</text>
+      <text x="657" y="99" text-anchor="middle" fill="#ffedd5" font-size="7.3" font-weight="700">Triage</text>
+      <text x="657" y="118" text-anchor="middle" fill="#fb923c" font-size="6.7">Clean Merge</text>
+    </svg>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Feedback Loop Back to Vocabulary</div>
+      <p style="font-size:8.1pt; margin:0;">
+        At the end of every sprint, run an agent pass over your recent transcripts (via Superwhisper MCP or local logs) comparing corrected commit symbols against raw speech text. Newly coined service names and flags flow automatically back into Step 2 so accuracy compounds every week.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Connecting Voice to Sandboxed Execution</div>
+      <p style="font-size:8.1pt; margin:0;">
+        Because spoken specs launch faster than typed prompts, pair voice-first agent loops with isolated sandboxes or Git worktrees. When you dictate two competing approaches, agents can prototype and benchmark both safely in parallel while you review the winners aloud.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 6px;">
+    <div class="callout-title">Keep One Source of Truth Across Capture &amp; Code</div>
+    Link Obsidian architecture notes directly to the resulting GitHub Issue and PR numbers in YAML frontmatter. When you revisit a module six months later, you can query why a constraint existed directly from your captured voice rationale.
+  </div>
+
+  <h3>Weekly Cross-Tool Cadence</h3>
+  <table class="clean-table" style="margin-top: 4px;">
+    <thead>
+      <tr>
+        <th style="width: 20%;">Cadence</th>
+        <th style="width: 28%;">Pipeline Trigger</th>
+        <th style="width: 52%;">Automated Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Real-Time (Desk)</strong></td>
+        <td>Hold <code>Fn</code> / Spacebar <code>/voice</code></td>
+        <td>5-slot spoken specs enter Plan Mode; agents execute tests in isolated sandboxes.</td>
+      </tr>
+      <tr>
+        <td><strong>On-the-Move</strong></td>
+        <td>Watch / Phone Voice Memo</td>
+        <td>iCloud + <code>fswatch</code> transcribes locally, links Obsidian notes, and opens draft issues.</td>
+      </tr>
+      <tr>
+        <td><strong>Friday Review</strong></td>
+        <td><code>superwhisper vocab</code> + MCP</td>
+        <td>Agent diffs recent commits against voice logs and updates custom code dictionaries.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Reference &amp; QA</span>
+    <span>Voice-First Coding &amp; Capture Workflows</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Fast, reliable fixes for the seven most common voice-coding bottlenecks, followed by a six-point readiness check before shipping sensitive work by voice.
+  </p>
+
+  <table class="clean-table" style="margin-bottom: 6px;">
+    <thead>
+      <tr>
+        <th style="width: 28%;">Symptom &amp; Failure Mode</th>
+        <th style="width: 28%;">Root Cause</th>
+        <th style="width: 44%;">10-Second Production Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>End of glossary ignored</strong></td>
+        <td>Whisper <code>initial_prompt</code> exceeded the 224-token ceiling and truncated silently.</td>
+        <td>Trim list to your top 30&ndash;40 active repo identifiers; verify token count before injecting.</td>
+      </tr>
+      <tr>
+        <td><strong>Jargon breaks after 30s</strong></td>
+        <td>Whisper 30-second window boundary dropped your initial glossary priming.</td>
+        <td>Enable <code>carry_initial_prompt=True</code> in <code>faster-whisper</code> or re-seed every 25s chunk.</td>
+      </tr>
+      <tr>
+        <td><strong>Prompt cuts off mid-thought</strong></td>
+        <td>VAD silence timeout is too short for natural architectural pauses.</td>
+        <td>Increase Silero VAD trailing hysteresis window to 400&ndash;500ms or switch to Push-to-Talk.</td>
+      </tr>
+      <tr>
+        <td><strong>Keyboard clicks trigger mic</strong></td>
+        <td>Legacy energy-based WebRTC VAD treats mechanical switch clacks as speech.</td>
+        <td>Swap to ONNX <strong>Silero VAD</strong> (threshold <code>0.55</code>) and use close-mic cardioid pickup.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude <code>/voice</code> unavailable</strong></td>
+        <td>Running inside remote SSH or routed via raw API / Bedrock / Vertex keys.</td>
+        <td>Authenticate with Claude.ai plan locally, or use local Handy / Superwhisper / Wispr Flow.</td>
+      </tr>
+      <tr>
+        <td><strong>Garbled symbol or CLI flag</strong></td>
+        <td>Raw ASR transcribed spoken punctuation or package acronyms phonetically.</td>
+        <td>Add explicit syntax cues to glossary and map rules (e.g., <code>"cube control"</code> &rarr; <code>kubectl</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Clipboard overwrites old paste</strong></td>
+        <td>Fast consecutive dictations raced clipboard injection before IDE read it.</td>
+        <td>Disable auto-Enter in terminals; serialize paste calls with a 150ms clipboard lock delay.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Voice Workflow Readiness Checklist</h3>
+  <div class="grid-2">
+    <div class="card">
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 1. Acoustic Gain &amp; Mute Tested:</strong> Close-mic level peaks cleanly between -12dB and -6dB, and your hardware mute toggle displays clear LED state.</p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 2. 224-Token Stack Glossary Seeded:</strong> Top repo directories, database models, CLI verbs, and casing conventions sit inside your active prompt budget.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong>&square; 3. Privacy Fence &amp; Scrubbing Verified:</strong> Regulated repos default to offline <code>mlx-whisper</code> or Handy, and <code>.env</code> / password apps are excluded.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 4. No Auto-Enter in Live Shells:</strong> Dictation pastes text cleanly into terminal panes without submitting unreviewed destructive commands.</p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 5. Plan Mode Guard Active:</strong> Long spoken multi-file prompts land in Plan Mode or isolated Git worktrees for structural review before applying edits.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong>&square; 6. Capture Deduplication Verified:</strong> Voice-memo-to-Obsidian <code>+Inbox/</code> watchers archive processed audio so reruns never open duplicate GitHub issues.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Voice-First Coding &amp; Capture Workflows &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

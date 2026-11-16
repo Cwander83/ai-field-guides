@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agentic Observability &amp; Prompt Caching: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Agent Engineering &amp; FinOps &bull; Field Guide</div>
+    <h1>Agentic Observability &amp; <span>Prompt Caching</span></h1>
+    <p class="cover-sub">
+      The complete 12-page visual handbook to OpenTelemetry GenAI trace trees, static-first prefix caching, historical tool compaction, dynamic model routing, and production token economics.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">OTel gen_ai.* Spans</span>
+      <span class="cover-badge">Cache Breakpoints &amp; TTLs</span>
+      <span class="cover-badge">Tool-Output Compaction</span>
+      <span class="cover-badge">Subagent Trace Trees</span>
+      <span class="cover-badge">Cheap-to-Frontier Routing</span>
+      <span class="cover-badge">Eval-Linked FinOps</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Crystalline telemetry prism channeling amber cached prefix beams and indigo trace filaments into nested glass agent nodes" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Up to 90% Cache Savings</div>
+      <div class="cover-stat-desc">Reuse stable system instructions, tool schemas, and frozen turns at 0.1x read pricing instead of paying full input rates every step.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Unified Multi-Agent Traces</div>
+      <div class="cover-stat-desc">Carry W3C traceparent context across subagent handoffs and MCP servers so nested calls appear in one clean waterfall.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Eval-Linked Cost Control</div>
+      <div class="cover-stat-desc">Track time to first token, reasoning tokens, and cost per task side by side with Langfuse or Arize AX evaluation scores.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: QUICK NAVIGATION & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">The Telemetry &amp; Caching Mental Model: Trace First, Cache the Prefix</h2>
+  <p class="page-lead">
+    Because multi-turn agents resend their full conversation history on every step, uncached agent loops create quadratic token bills. Combining OpenTelemetry GenAI spans with prefix caching keeps unit economics predictable and failures transparent.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. The Telemetry &amp; Caching Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Breakpoints, Compaction &amp; Ledger Code</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Provider Cache &amp; OTel Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Five Copy-Paste Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Trace Waterfall &amp; Cache HUD</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. PII Redaction, Alerts &amp; FinOps Rollout</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. OTel GenAI Spans &amp; Subagent Propagation</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. End-to-End Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Static-First Prefix &amp; Cache Breakpoints</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight QA</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Compaction &amp; Dynamic Model Routing</strong></span><span class="toc-pg">p. 7</span></div>
+  </div>
+
+  <div class="grid-3" style="margin: 2px 0 7px 0;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">T</span> OTel Trace Hierarchy</div>
+      <p style="font-size:7.9pt; margin:0;">Structure each workflow as a parent <code>invoke_agent</code> span wrapping child <code>chat</code> model calls, <code>execute_tool</code> spans, and linked subagent trees.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">C</span> Append-Only Prefix Stack</div>
+      <p style="font-size:7.9pt; margin:0;">Lock unchanging tool schemas and system instructions at the very top of every request so provider KV caches stay warm across turns.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">R</span> Compaction &amp; Routing</div>
+      <p style="font-size:7.9pt; margin:0;">Trim bulky historical tool payloads in scheduled batches and route simple classification steps to fast, inexpensive model tiers.</p>
+    </div>
+  </div>
+
+  <h3>Architecture: Request Stack &rarr; Provider KV Cache &rarr; OTel Exporter &rarr; Eval Ledger</h3>
+  <div class="figure-box" style="background:#090d24; padding:10px 12px;">
+    <svg viewBox="0 0 700 154" width="100%" height="154" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="14" width="152" height="126" rx="8" fill="#131b42" stroke="#818cf8" stroke-width="1.6"/>
+      <text x="84" y="34" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">1. Static-First Stack</text>
+      <rect x="18" y="44" width="132" height="25" rx="4" fill="#090d24" stroke="#4f46e5"/>
+      <text x="84" y="60" text-anchor="middle" fill="#c7d2fe" font-size="7.6" font-weight="700">Frozen Tools + System</text>
+      <rect x="18" y="75" width="132" height="25" rx="4" fill="#090d24" stroke="#4f46e5"/>
+      <text x="84" y="91" text-anchor="middle" fill="#fbbf24" font-size="7.6" font-weight="700">Append-Only History</text>
+      <rect x="18" y="106" width="132" height="24" rx="4" fill="#090d24" stroke="#38bdf8"/>
+      <text x="84" y="121" text-anchor="middle" fill="#bae6fd" font-size="7.4">Dynamic Latest Turn</text>
+
+      <path d="M160 77 L192 77" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="192,72 200,77 192,82" fill="#fbbf24"/>
+
+      <rect x="200" y="14" width="150" height="126" rx="8" fill="#1b1530" stroke="#fbbf24" stroke-width="1.6"/>
+      <text x="275" y="34" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">2. KV Cache Engine</text>
+      <rect x="210" y="44" width="130" height="36" rx="4" fill="#090d24" stroke="#10b981"/>
+      <text x="275" y="60" text-anchor="middle" fill="#6ee7b7" font-size="7.8" font-weight="700">Prefix Hit: 0.1x Read</text>
+      <text x="275" y="72" text-anchor="middle" fill="#94a3b8" font-size="6.9">Refreshes 5m / 1h TTL</text>
+      <rect x="210" y="88" width="130" height="40" rx="4" fill="#090d24" stroke="#f59e0b"/>
+      <text x="275" y="104" text-anchor="middle" fill="#fde68a" font-size="7.6" font-weight="700">Miss / Write: 1.25x-2x</text>
+      <text x="275" y="117" text-anchor="middle" fill="#94a3b8" font-size="6.9">Cold Start or Broken Hash</text>
+
+      <path d="M350 77 L382 77" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="382,72 390,77 382,82" fill="#38bdf8"/>
+
+      <rect x="390" y="14" width="146" height="126" rx="8" fill="#0c1c38" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="463" y="34" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">3. OTel GenAI Spans</text>
+      <rect x="400" y="45" width="126" height="26" rx="4" fill="#090d24" stroke="#0284c7"/>
+      <text x="463" y="61" text-anchor="middle" fill="#e0f2fe" font-size="7.5" font-weight="700">gen_ai.usage.* Tokens</text>
+      <rect x="400" y="76" width="126" height="26" rx="4" fill="#090d24" stroke="#0284c7"/>
+      <text x="463" y="92" text-anchor="middle" fill="#7dd3fc" font-size="7.5" font-weight="700">TTFT &amp; Finish Reasons</text>
+      <rect x="400" y="107" width="126" height="24" rx="4" fill="#090d24" stroke="#0284c7"/>
+      <text x="463" y="122" text-anchor="middle" fill="#a5b4fc" font-size="7.3">W3C traceparent Link</text>
+
+      <path d="M536 77 L568 77" stroke="#34d399" stroke-width="2"/>
+      <polygon points="568,72 576,77 568,82" fill="#34d399"/>
+
+      <rect x="576" y="14" width="116" height="126" rx="8" fill="#08241d" stroke="#34d399" stroke-width="1.6"/>
+      <text x="634" y="34" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">4. Evals &amp; FinOps</text>
+      <rect x="584" y="45" width="100" height="38" rx="4" fill="#090d24" stroke="#059669"/>
+      <text x="634" y="61" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">Langfuse / Arize</text>
+      <text x="634" y="74" text-anchor="middle" fill="#94a3b8" font-size="6.8">Trace-Linked Scores</text>
+      <rect x="584" y="90" width="100" height="40" rx="4" fill="#090d24" stroke="#059669"/>
+      <text x="634" y="106" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">Budget Breakers</text>
+      <text x="634" y="119" text-anchor="middle" fill="#94a3b8" font-size="6.8">Cost-per-Task SLA</text>
+    </svg>
+  </div>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: PROVIDER MATRIX & OTEL CONVENTIONS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Provider Mechanics</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">Provider Prompt Caching &amp; OTel Telemetry Matrix</h2>
+  <p class="page-lead">
+    Every major model provider handles prefix reuse differently. Knowing minimum token floors, write multipliers, and TTL timers lets you avoid silent cache misses and map exact usage fields into OpenTelemetry.
+  </p>
+
+  <table class="clean-table" style="font-size:8.2pt;">
+    <thead>
+      <tr>
+        <th style="width: 18%;">Provider Mode</th>
+        <th style="width: 24%;">Activation &amp; Threshold</th>
+        <th style="width: 21%;">Write &amp; Read Pricing</th>
+        <th style="width: 16%;">Default &amp; Max TTL</th>
+        <th style="width: 21%;">Usage Telemetry Field</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Anthropic Cache</strong><br/><span style="font-size:7.4pt; color:#64748b;">Explicit &amp; Auto</span></td>
+        <td>Up to 4 <code>cache_control</code> breakpoints (<code>ephemeral</code>) or top-level auto flag (&ge;1,024&ndash;2,048 tok)</td>
+        <td>5m write: <code>1.25x</code><br/>1h write: <code>2.0x</code><br/>Read: <code>0.1x</code> (90% off)</td>
+        <td>5 min default or <code>ttl: "1h"</code>; resets on every hit</td>
+        <td><code>cache_creation_input_tokens</code><br/><code>cache_read_input_tokens</code></td>
+      </tr>
+      <tr>
+        <td><strong>OpenAI Prefix</strong><br/><span style="font-size:7.4pt; color:#64748b;">Auto + Options</span></td>
+        <td>Automatic &ge; 1,024 tokens; newer models support <code>prompt_cache_options</code></td>
+        <td>Zero auto write fee; 90%&ndash;95% read cut; 12h tier write fee</td>
+        <td>30 min default; up to 12h extended retention</td>
+        <td><code>prompt_tokens_details.cached_tokens</code></td>
+      </tr>
+      <tr>
+        <td><strong>Gemini Implicit</strong><br/><span style="font-size:7.4pt; color:#64748b;">Gemini 2.5 / 3 / 4</span></td>
+        <td>Always on by default (min 2,048 tok on 2.5; 4,096 tok on 3.x / 4.x)</td>
+        <td>Zero storage fee; ~90% hit discount (best-effort)</td>
+        <td>Auto-managed (up to ~24h Cloud window)</td>
+        <td><code>usage_metadata.cached_content_token_count</code></td>
+      </tr>
+      <tr>
+        <td><strong>Gemini Explicit</strong><br/><span style="font-size:7.4pt; color:#64748b;">CachedContent API</span></td>
+        <td>Manual <code>CachedContent</code> resource created ahead of agent sessions</td>
+        <td>Standard write + hourly rent (~$1/1M tok/hr) + ~90% cut</td>
+        <td>Developer-set TTL (guaranteed hold)</td>
+        <td><code>cached_content_token_count</code> + cache ID</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>OpenTelemetry Normalization &amp; The Break-Even Rule</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Migrating Legacy <code>gen_ai.system</code></div>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;">
+        OpenTelemetry GenAI conventions carry Development status and replace <code>gen_ai.system</code> with <code>gen_ai.provider.name</code> (<code>anthropic</code>, <code>openai</code>, <code>gcp.vertex_ai</code>).
+      </p>
+      <p style="font-size:7.9pt; color:#475569; margin:0;">
+        Set <code>OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental</code> and normalize attributes inside your Collector.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Cache Write Break-Even Math</div>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;">
+        A 5-minute write (<code>1.25x</code>) breaks even on <strong>1 hit</strong> (<code>1.35x</code> vs <code>2.0x</code> raw). Never write a cache read zero times (+25% waste).
+      </p>
+      <p style="font-size:7.9pt; color:#475569; margin:0;">
+        A 1-hour write (<code>2.0x</code>) breaks even on <strong>2 hits</strong> (<code>2.2x</code> vs <code>3.0x</code>)&mdash;ideal whenever pauses exceed 5 minutes.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 8px;">
+    <div class="callout-title">Always Track Total Input vs. Cache Read Separately</div>
+    In OTel GenAI spans, <code>gen_ai.usage.input_tokens</code> includes cached tokens, while <code>gen_ai.usage.cache_read.input_tokens</code> and <code>gen_ai.usage.cache_creation.input_tokens</code> break out discounted and write-premium counts for true FinOps billing.
+  </div>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Workspace Tour</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">Annotated Workspace: Trace Waterfall &amp; Cache-Hit HUD</h2>
+  <p class="page-lead">
+    Modern tracing dashboards such as Langfuse and Arize AX combine distributed OpenTelemetry timelines with token ledgers and online eval scores so you can diagnose slow turns or cache misses in seconds.
+  </p>
+
+  <div class="ui-window" style="margin-bottom: 8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#c7d2fe; font-size:7.4pt;">OTel Trace Inspector &bull; trace_id: 9f42c8a104e2 &bull; env: prod-agents</span>
+      </div>
+      <div style="color:#fbbf24; font-weight:700; font-size:7.4pt;">Cache Hit Rate: 91.4% &bull; Total Cost: $0.019</div>
+    </div>
+    <div style="padding: 9px 13px; background:#090d24;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:7px; padding-bottom:5px; border-bottom:1px solid #1e293b;">
+        <div>
+          <span class="callout-pin">1</span> <strong>Root Span:</strong> <code>invoke_agent repo-fixer</code> &bull; <strong>Conv:</strong> <code>conv_8841</code>
+        </div>
+        <div>
+          <span class="callout-pin">2</span> <strong>TTFT p50:</strong> <span style="color:#34d399;">0.38s</span> &bull; <strong>TPOT:</strong> 14ms &bull; <strong>Duration:</strong> 4.82s
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1.25fr 1fr; gap:10px;">
+        <div style="background:#050816; border:1px solid #1e293b; border-radius:6px; padding:8px; font-family:'SF Mono',Menlo,monospace; font-size:7.0pt;">
+          <div style="color:#a5b4fc; font-weight:700; margin-bottom:5px; display:flex; justify-content:space-between;">
+            <span><span class="callout-pin">3</span> Span Waterfall Timeline</span>
+            <span style="color:#64748b;">W3C traceparent</span>
+          </div>
+          <div style="margin-bottom:4px;">
+            <span style="color:#e2e8f0;">&#9500;&#9472; chat claude-sonnet (Turn 1)</span>
+            <span style="float:right; color:#f59e0b;">WRITE 1.25x &bull; 1.12s</span>
+            <div style="height:5px; background:#1e293b; border-radius:3px; margin-top:2px;"><div style="width:28%; height:5px; background:#f59e0b; border-radius:3px;"></div></div>
+          </div>
+          <div style="margin-bottom:4px;">
+            <span style="color:#cbd5e1;">&#9500;&#9472; execute_tool search_repo</span>
+            <span style="float:right; color:#38bdf8;">OK &bull; 0.19s</span>
+            <div style="height:5px; background:#1e293b; border-radius:3px; margin-top:2px;"><div style="margin-left:28%; width:7%; height:5px; background:#38bdf8; border-radius:3px;"></div></div>
+          </div>
+          <div style="margin-bottom:4px;">
+            <span style="color:#e2e8f0;">&#9500;&#9472; chat claude-sonnet (Turn 2)</span>
+            <span style="float:right; color:#34d399;">HIT 92% (0.1x) &bull; 0.86s</span>
+            <div style="height:5px; background:#1e293b; border-radius:3px; margin-top:2px;"><div style="margin-left:35%; width:20%; height:5px; background:#34d399; border-radius:3px;"></div></div>
+          </div>
+          <div style="margin-bottom:4px;">
+            <span style="color:#c4b5fd;">&#9500;&#9472; <span class="callout-pin">4</span> invoke_agent test-runner (MCP)</span>
+            <span style="float:right; color:#c4b5fd;">LINKED &bull; 1.94s</span>
+            <div style="height:5px; background:#1e293b; border-radius:3px; margin-top:2px;"><div style="margin-left:55%; width:32%; height:5px; background:#818cf8; border-radius:3px;"></div></div>
+          </div>
+          <div>
+            <span style="color:#e2e8f0;">&#9492;&#9472; chat gpt-4o-mini (Summary)</span>
+            <span style="float:right; color:#34d399;">ROUTED &bull; 0.71s</span>
+            <div style="height:5px; background:#1e293b; border-radius:3px; margin-top:2px;"><div style="margin-left:87%; width:13%; height:5px; background:#34d399; border-radius:3px;"></div></div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <div style="background:#050816; border:1px solid #1e293b; border-radius:6px; padding:7px;">
+            <div style="color:#fbbf24; font-weight:700; font-size:7.1pt; margin-bottom:3px;">
+              <span class="callout-pin">5</span> Token Ledger &amp; Cache Accounting
+            </div>
+            <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.9pt; color:#cbd5e1;">
+              <div><code>cache_creation</code>: 12,400 tok ($0.046/1M eq)</div>
+              <div><code>cache_read</code>: <span style="color:#34d399;">48,200 tok (90% off!)</span></div>
+              <div><code>reasoning_out</code>: <span style="color:#c4b5fd;">1,180 tok</span> &bull; <code>output</code>: 640 tok</div>
+              <div><code>effective_input_rate</code>: <span style="color:#34d399;">$0.48 / 1M tok</span></div>
+            </div>
+          </div>
+          <div style="background:#050816; border:1px solid #1e293b; border-radius:6px; padding:7px;">
+            <div style="color:#34d399; font-weight:700; font-size:7.1pt; margin-bottom:3px;">
+              <span class="callout-pin">6</span> Finish Reasons &amp; Online Eval Scores
+            </div>
+            <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.9pt; color:#cbd5e1;">
+              <div><code>finish_reasons</code>: ["tool_calls"] &rarr; ["stop"]</div>
+              <div><code>eval.correctness</code>: <span style="color:#34d399;">0.96 PASS</span></div>
+              <div><code>eval.cache_efficiency</code>: <span style="color:#fbbf24;">0.91 OPTIMAL</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; margin-top:7px; padding-top:5px; border-top:1px solid #1e293b; font-size:7.1pt;">
+        <div>
+          <span class="callout-pin">7</span> <strong>Privacy Guard:</strong> <code>gen_ai.input.messages</code>: <span style="color:#34d399;">OFF (Redacted)</span> &bull; <code>anthropic</code>
+        </div>
+        <div style="color:#94a3b8;">
+          Savings vs Uncached: <span style="color:#34d399; font-weight:700;">-$0.142 (-88.2%)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control Legend &amp; Inspection Points</h3>
+  <div class="grid-2">
+    <div>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">1</span> Root Agent Span:</strong> Identifies the top-level workflow via <code>invoke_agent</code> and ties multi-turn episodes together with <code>gen_ai.conversation.id</code>.</p>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">2</span> Streaming Latency Gauges:</strong> Tracks <code>gen_ai.server.time_to_first_token</code> (TTFT) and time per output token (TPOT) to separate cold prefill delays from generation speed.</p>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">3</span> Span Waterfall Timeline:</strong> Visualizes Turn 1 cache creation (amber), tool gaps, Turn 2 cache hits (green), and dynamically routed summary calls.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong><span class="callout-pin">4</span> Subagent Handoff Link:</strong> Connects child <code>invoke_agent</code> trees triggered over async queues or MCP servers via propagated W3C <code>traceparent</code> headers.</p>
+    </div>
+    <div>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">5</span> Granular Token Ledger:</strong> Separates cache writes, cache reads, reasoning tokens, and final output tokens to compute true effective input pricing.</p>
+      <p style="font-size:8.2pt; margin:0 0 3px 0;"><strong><span class="callout-pin">6</span> Finish Reasons &amp; Evals:</strong> Verifies clean <code>tool_calls</code> to <code>stop</code> progression (flagging <code>length</code> cutoffs) alongside trace-linked Langfuse or Arize AX eval scores.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong><span class="callout-pin">7</span> Content &amp; PII Guard:</strong> Confirms prompt bodies stay disabled or scrubbed by an OTel Collector redaction processor before leaving your secure VPC.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: OTEL GENAI SPANS & SUBAGENT PROPAGATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; OTel Tracing</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">OpenTelemetry GenAI Spans, Metrics &amp; Subagent Propagation</h2>
+  <p class="page-lead">
+    Vendor-neutral <code>gen_ai.*</code> spans let your agents switch between Anthropic, OpenAI, and Gemini without rewriting telemetry pipelines, while W3C trace propagation keeps distributed subagent trees intact.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> <code>invoke_agent</code></div>
+      <p style="font-size:7.9pt; margin:0;">Marks agent or subagent boundaries with <code>gen_ai.agent.name</code>, <code>gen_ai.agent.id</code>, and <code>gen_ai.conversation.id</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge amber">2</span> <code>chat</code> Model Spans</div>
+      <p style="font-size:7.9pt; margin:0;">Records <code>gen_ai.usage.*</code> token attributes, <code>gen_ai.response.finish_reasons</code> (<code>stop</code>, <code>tool_calls</code>, <code>length</code>), and TTFT histograms.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge teal">3</span> <code>execute_tool</code></div>
+      <p style="font-size:7.9pt; margin:0;">Wraps tool calls and MCP requests with <code>gen_ai.tool.name</code> and <code>gen_ai.tool.call.id</code> to isolate external latency.</p>
+    </div>
+  </div>
+
+  <h3>Propagating Context Across Subagent &amp; MCP Boundaries</h3>
+  <p style="font-size:8.4pt; margin:0 0 4px 0;">
+    When an orchestrator delegates work over an HTTP webhook, task queue, or Model Context Protocol (MCP) tool call, automatic thread-local context is lost. Always inject the active W3C <code>traceparent</code> into payload metadata (such as MCP <code>_meta</code>) and extract it before creating child spans, or derive deterministic trace IDs from a shared correlation key.
+  </p>
+
+  <pre><code>// TypeScript: Register Vercel AI SDK Telemetry + Subagent MCP Trace Propagation
+import { registerTelemetry } from "ai";
+import { context, propagation } from "@opentelemetry/api";
+import { LangfuseSpanProcessor } from "@langfuse/otel";
+import { LangfuseVercelAiSdkIntegration } from "@langfuse/vercel-ai-sdk";
+
+// 1. Export standardized gen_ai.* spans to Langfuse or any OTLP backend
+export function register() {
+  registerTelemetry({ integrations: [new LangfuseVercelAiSdkIntegration()] });
+}
+
+// 2. Inject W3C traceparent into MCP _meta before handing off to a subagent
+export function buildMcpHandoffParams(toolArgs: Record&lt;string, unknown&gt;) {
+  const carrier: Record&lt;string, string&gt; = {};
+  propagation.inject(context.active(), carrier);
+  return { ...toolArgs, _meta: { traceparent: carrier.traceparent, tracestate: carrier.tracestate } };
+}</code></pre>
+
+  <h3>Attaching Trace-Linked Evaluation Scores (Langfuse &amp; Arize AX)</h3>
+  <p style="font-size:8.4pt; margin:0 0 4px 0;">
+    Tracing only tells you what happened; evaluation scores tell you whether it worked. Both Langfuse and Arize AX ingest <code>gen_ai.*</code> or OpenInference spans and let online evaluators write correctness, groundedness, and cache-efficiency scores directly back onto each <code>trace_id</code>.
+  </p>
+
+  <pre><code># Python: Record Trace-Linked Online Eval Scores Back to Trace ID
+eval_payload = {
+    "trace_id": span_context.trace_id_hex,
+    "scores": [
+        {"name": "task_correctness", "value": 0.96, "comment": "All unit tests passed after patch"},
+        {"name": "cache_hit_ratio", "value": cache_read_tokens / max(total_input_tokens, 1)},
+        {"name": "doom_loop_detected", "value": 0, "data_type": "BOOLEAN"}
+    ]
+}
+observability_client.score_trace(**eval_payload)</code></pre>
+
+  <div class="callout emerald" style="margin-top: 4px;">
+    <div class="callout-title">Key Metric Instruments to Dashboard First</div>
+    Pair span attributes with OpenTelemetry metric histograms: <code>gen_ai.server.time_to_first_token</code> (p95 cold prefill vs warm cache), <code>gen_ai.server.time_per_output_token</code> (streaming throughput), and <code>gen_ai.client.token.usage</code> broken down by token type (<code>input</code>, <code>output</code>, <code>cache_read</code>, <code>reasoning</code>).
+  </div>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: PREFIX ORDERING & CACHE BREAKPOINTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Cache Mechanics</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">Static-First Prefix Ordering &amp; Cache Breakpoint Architecture</h2>
+  <p class="page-lead">
+    Provider KV caches match prompts strictly from byte zero forward. One dynamic timestamp or reordered tool schema near the top of your payload invalidates every downstream token on every turn.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/showcase_1.jpg" alt="Stacked indigo and amber memory layers locked beneath a crystalline cache frame with cyan beams feeding the newest tier" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 6.1 &bull; Immutable Prefix Stack:</strong> Foundational tools, system rules, and frozen history stay locked inside the golden KV cache base, while only new delta tokens pay full compute on each turn.
+    </div>
+  </div>
+
+  <h3>Anatomy of a Cache-Friendly Prompt Stack (Tools &rarr; System &rarr; History &rarr; Turn)</h3>
+  <div class="card-dark" style="font-size:8.1pt; line-height:1.55; padding:8px 12px; margin-bottom:7px;">
+    <span class="p-tag p-style">[1. Tools Array (Frozen)]</span> All JSON schemas sorted deterministically; never add or remove tools mid-run.<br/>
+    <span class="p-tag p-subj">[2. System Prompt + Breakpoint #1]</span> Static persona, policies, repo conventions &rarr; <code>cache_control: ephemeral</code>.<br/>
+    <span class="p-tag p-act">[3. Append-Only History + Breakpoint #2]</span> Immutable user/assistant/tool turns frozen up to the prior step.<br/>
+    <span class="p-tag p-cam">[4. Volatile Latest Turn (Uncached)]</span> Current time, live git status, active file diff, and user prompt go strictly last.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Three Silent Cache Killers</div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        <strong>Top-of-Prompt Timestamps:</strong> Putting <code>Current time: 14:32:07</code> inside the system prompt forces a 0% cache hit rate. Push timestamps into the newest user message or expose a <code>get_time</code> tool.
+      </p>
+      <p style="font-size:8.1pt; margin:0;">
+        <strong>Dynamic Tool Swapping:</strong> Dropping unavailable tools invalidates the Tools tier and everything below it. Keep the tool array static and restrict calls via <code>tool_choice</code> or policy validation.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Choosing 5-Minute vs. 1-Hour TTL</div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        <strong>Default 5-Minute TTL (<code>1.25x</code> write):</strong> Optimal for tight autonomous loops where tool executions finish in seconds and turns fire continuously.
+      </p>
+      <p style="font-size:8.1pt; margin:0;">
+        <strong>Extended 1-Hour TTL (<code>2.0x</code> write):</strong> Essential for human-in-the-loop coding assistants, code review approvals, or slow CI waits that often pause for 6 to 45 minutes between turns.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: COMPACTION & DYNAMIC ROUTING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Context &amp; Routing</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">Tool-Output Compaction &amp; Dynamic Cheap-to-Frontier Routing</h2>
+  <p class="page-lead">
+    Long-horizon agents quickly accumulate tens of thousands of stale search logs and file dumps. Compaction keeps working memory crisp, while dynamic routing protects margins from verbose reasoning output costs.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/showcase_2.jpg" alt="Raw data shards flowing through a geometric compactor prism into compact packets routed across specialized compute tracks" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 7.1 &bull; Compaction Funnel &amp; Model Cascade:</strong> Verbose historical tool outputs pass through a pruning gate into condensed summaries, then route across fast small models and frontier reasoning tiers.
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Historical Tool-Output Compaction</div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        <strong>Observation Truncation:</strong> Cap raw bash, log, or DOM tool responses immediately (keeping head/tail slices or structured JSON fields) before appending to history.
+      </p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        <strong>Server-Side Compaction:</strong> Use Anthropic context editing (<code>clear_tool_uses</code> / <code>compact-2026-01-12</code>) or OpenAI Responses API <code>compact_threshold</code> (which returns encrypted compaction items).
+      </p>
+      <p style="font-size:7.9pt; color:#475569; margin:0;">
+        <strong>Batch Rule:</strong> Never compact on every turn&mdash;rewriting history resets the KV cache prefix. Compact in milestone batches (for example, once history passes 60K tokens).
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Cheap-to-Frontier Model Routing</div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        <strong>Output Cost Asymmetry:</strong> Generated output and reasoning tokens cost 3x to 8x more than standard input tokens&mdash;and up to 50x more than cached reads.
+      </p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        <strong>Tiered Cascade:</strong> Route intent routing, JSON formatting, log summarization, and guardrail evals to fast small models (such as Haiku, Flash, or mini tiers); escalate architecture and tricky bug fixes to frontier reasoning models.
+      </p>
+      <p style="font-size:7.9pt; color:#475569; margin:0;">
+        <strong>Subagent Isolation:</strong> Offload noisy exploration to cheaper worker subagents that return a crisp 1,500-token synthesis to the main cached orchestrator.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top: 8px;">
+    <div class="callout-title">Routing + Caching Synergy: Isolate Each Model Tier's Prefix</div>
+    Prompt caches are keyed per model ID, so never flip the same growing conversation array back and forth between a small model and a frontier model. Instead, route side-tasks (classification, formatting, compaction summaries) into isolated single-turn calls or dedicated small-model subagents while keeping the main reasoning prefix locked on one primary model.
+  </div>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: CODE CONTRACTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Implementation</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">Implementing Cache Breakpoints, Compaction &amp; Cost Ledgers</h2>
+  <p class="page-lead">
+    Translate prefix rules into explicit provider payloads and build a ledger-accurate cost calculator that weights cache writes, 0.1x cache reads, reasoning tokens, and loop circuit breakers.
+  </p>
+
+  <h3>1. Anthropic Breakpoints (<code>1h</code> TTL) &amp; Server-Side Context Editing</h3>
+  <pre><code>{
+  "model": "claude-sonnet-4-6",
+  "tools": [ /* Frozen sorted schemas; breakpoint placed on final tool */ ],
+  "system": [{
+    "type": "text",
+    "text": "You are a senior reliability engineer...",
+    "cache_control": { "type": "ephemeral", "ttl": "1h" }
+  }],
+  "context_management": {
+    "edits": [{ "type": "clear_tool_uses_20250919", "trigger": { "type": "input_tokens", "value": 50000 }, "keep": { "type": "tool_uses", "value": 4 } }]
+  },
+  "messages": [ /* Append-only turns; mark penultimate turn with cache_control */ ]
+}</code></pre>
+
+  <h3>2. OpenAI Responses Compaction &amp; Gemini Explicit CachedContent</h3>
+  <pre><code>// OpenAI Responses API: Automatic server-side compaction at 64k tokens
+const response = await openai.responses.create({
+  model: "gpt-5",
+  input: conversationItems,
+  context_management: [{ type: "compaction", compact_threshold: 64000 }]
+});
+
+// Gemini Explicit Caching: Guarantee 90% discount on large static repository bundles
+const cache = await ai.caches.create({
+  model: "gemini-2.5-pro",
+  config: { contents: [repoBundlePart], ttl: "3600s", systemInstruction: staticRules }
+});</code></pre>
+
+  <h3>3. Ledger-Accurate Effective Input Price &amp; Doom-Loop Guard</h3>
+  <pre><code>def compute_turn_cost_and_guard(usage, base_in_per_m, base_out_per_m, ttl="5m"):
+    write_mult = 2.0 if ttl == "1h" else 1.25
+    uncached = max(usage.input_tokens - usage.cache_read - usage.cache_creation, 0)
+    in_cost = (uncached + write_mult * usage.cache_creation + 0.10 * usage.cache_read) * (base_in_per_m / 1e6)
+    out_cost = (usage.output_tokens + usage.reasoning_tokens) * (base_out_per_m / 1e6)
+    effective_in_rate = (in_cost / max(usage.input_tokens, 1)) * 1e6
+    return {"total_usd": round(in_cost + out_cost, 6), "effective_in_per_m": round(effective_in_rate, 3)}</code></pre>
+
+  <div class="callout emerald" style="margin-top: 3px;">
+    <div class="callout-title">Measuring True Cache Health with Effective Input Rate</div>
+    Comparing <code>effective_in_per_m</code> against your model's base input rate exposes cache regressions immediately: a healthy multi-turn agent loop drops effective input cost by 75% to 88% below list price even after accounting for initial <code>1.25x</code> writes.
+  </div>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: FIVE COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Recipes</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">Five Copy-Paste Recipes for Observable, Cached Agents</h2>
+  <p class="page-lead">
+    Ready-to-deploy patterns covering framework telemetry hooks, multi-provider cache breakpoints, explicit context bundles, subagent span stitching, and OpenTelemetry Collector normalization.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width: 22%;">Recipe &amp; Goal</th>
+        <th style="width: 20%;">Stack &amp; SDK</th>
+        <th style="width: 34%;">Core Configuration Pattern</th>
+        <th style="width: 24%;">Observability / FinOps Win</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Next.js AI SDK Tracing</strong><br/><span style="font-size:7.5pt; color:#64748b;">Stream spans + evals</span></td>
+        <td>Vercel AI SDK + Langfuse OTel</td>
+        <td><code>registerTelemetry({ integrations: [new LangfuseVercelAiSdkIntegration()] })</code></td>
+        <td>Captures TTFT, finish reasons, and nested tool spans out of the box.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Coding Assistant Cache</strong><br/><span style="font-size:7.5pt; color:#64748b;">Survive human pauses</span></td>
+        <td>Anthropic Messages API</td>
+        <td><code>cache_control: {"type": "ephemeral", "ttl": "1h"}</code> on tools &amp; system</td>
+        <td>Eliminates 5m TTL expirations during manual diffs; cuts read cost 90%.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Repo-Scale Gemini Cache</strong><br/><span style="font-size:7.5pt; color:#64748b;">Lock 100K+ context</span></td>
+        <td>Google GenAI SDK</td>
+        <td><code>ai.caches.create({ contents, ttl: "3600s" })</code> (above 4,096 token floor)</td>
+        <td>Guarantees persistence &amp; tracks hits via <code>cachedContentTokenCount</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Subagent MCP Stitching</strong><br/><span style="font-size:7.5pt; color:#64748b;">No orphaned traces</span></td>
+        <td>OTel API + MCP Transport</td>
+        <td><code>propagation.inject(ctx, _meta)</code> &amp; <code>propagation.extract(ctx, _meta)</code></td>
+        <td>Keeps parent orchestrator and worker subagents in one unified tree.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Streaming OpenAI Usage</strong><br/><span style="font-size:7.5pt; color:#64748b;">Audit cached tokens</span></td>
+        <td>OpenAI SDK / Responses</td>
+        <td><code>stream_options: { include_usage: true }</code> + read <code>cached_tokens</code></td>
+        <td>Populates accurate cache-hit ledger rows even on SSE streams.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>OpenTelemetry Collector Pipeline: Normalize &amp; Route GenAI Telemetry</h3>
+  <pre><code>receivers:
+  otlp: { protocols: { grpc: { endpoint: "0.0.0.0:4317" }, http: { endpoint: "0.0.0.0:4318" } } }
+processors:
+  transform/genai_semconv:
+    trace_statements:
+      - context: span
+        statements:
+          - set(attributes["gen_ai.provider.name"], attributes["gen_ai.system"]) where attributes["gen_ai.provider.name"] == nil
+  batch: { timeout: 2s, send_batch_size: 512 }
+exporters:
+  otlphttp/langfuse: { endpoint: "https://cloud.langfuse.com/api/public/otel" }
+  otlp/arize_ax: { endpoint: "otlp.arize.com:443" }</code></pre>
+
+  <div class="callout" style="margin-top: 4px;">
+    <div class="callout-title">Why Normalize Inside the OTel Collector?</div>
+    Different agent frameworks emit slightly different <code>gen_ai.*</code> schema revisions. A five-line Collector <code>transform</code> processor lets you upgrade individual microservices independently while keeping Langfuse, Arize AX, and FinOps dashboards unified.
+  </div>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: PII REDACTION, BUDGET ALERTS & FINOPS ROLLOUT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security &amp; FinOps</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">PII Redaction in Traces, Budget Alerts &amp; FinOps Rollout</h2>
+  <p class="page-lead">
+    Production observability must protect customer secrets and stop runaway agent loops before they generate surprise invoices. Enforce privacy defaults at the Collector edge and roll out optimizations in measured stages.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Privacy-First Content Capture &amp; Redaction</div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        By OpenTelemetry default, message payloads (<code>gen_ai.input.messages</code> and <code>gen_ai.output.messages</code>) remain <strong>off</strong> so spans record only safe operational metadata: latency, model, finish reasons, and token counts.
+      </p>
+      <p style="font-size:8.1pt; margin:0;">
+        When debugging requires prompt text in staging or sampled production runs, insert an OTel Collector <code>redaction</code> or <code>transform</code> regex filter to scrub API keys, bearer tokens, emails, and SSNs before OTLP export.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Automated Budget Alerts &amp; Loop Breakers</div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        <strong>Hard Runaway Caps:</strong> Enforce per-session ceilings on turn count (e.g., <code>max_turns = 20</code>), cumulative reasoning tokens, and USD spend directly inside the agent harness.
+      </p>
+      <p style="font-size:8.1pt; margin:0;">
+        <strong>Anomaly Alerts:</strong> Trigger PagerDuty or Slack warnings whenever rolling 15-minute <code>cache_hit_ratio</code> drops below 70%, <code>finish_reasons</code> reports repeated <code>length</code> truncations, or cost per completed task spikes 2x above baseline.
+      </p>
+    </div>
+  </div>
+
+  <h3>Three-Phase Production FinOps Rollout Playbook</h3>
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge">P1</span> Shadow Baseline</div>
+      <p style="font-size:7.9pt; margin:0;">Enable <code>gen_ai.*</code> structural spans with content capture off. Measure baseline cost per task, p95 TTFT, and current accidental cache hit rate for 48 hours.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge amber">P2</span> Prefix Lock &amp; Compact</div>
+      <p style="font-size:7.9pt; margin:0;">Move timestamps and dynamic diffs out of system prompts, freeze tool arrays, add <code>cache_control</code> breakpoints, and enable batched tool compaction.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge emerald">P3</span> Route &amp; Eval Gate</div>
+      <p style="font-size:7.9pt; margin:0;">Route classification and summarization steps to fast small models while validating online Langfuse or Arize AX correctness scores stay within 1% of baseline.</p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin: 4px 0 8px 0;">
+    <div class="callout-title">Compliance Warning: Never Bypass Sampling &amp; Scrubbing in Regulated Workloads</div>
+    Enabling full prompt body capture in production without Collector-side PII redaction can replicate proprietary source code, credentials, and user data into external observability storage. Separate structural FinOps metrics (always 100% sampled) from redacted debug trace payloads (1% to 5% sampled or gated by error status).
+  </div>
+
+  <h3>Key FinOps Alert Thresholds &amp; Automated Actions</h3>
+  <table class="clean-table" style="font-size:8.1pt;">
+    <thead>
+      <tr>
+        <th style="width: 26%;">Telemetry Signal</th>
+        <th style="width: 24%;">Alert Threshold</th>
+        <th style="width: 50%;">Automated Guardrail or Remediation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Rolling Cache Hit Ratio</strong></td>
+        <td><code>&lt; 70%</code> over 15 min</td>
+        <td>Alert on prefix drift; diff recent system prompt or tool-schema commits.</td>
+      </tr>
+      <tr>
+        <td><strong>Reasoning / Output Surge</strong></td>
+        <td><code>&gt; 3x</code> task p95</td>
+        <td>Cap reasoning budget or escalate sub-task out of repetitive tool loop.</td>
+      </tr>
+      <tr>
+        <td><strong>Length Truncation Rate</strong></td>
+        <td><code>finish_reasons: length</code> &gt; 5%</td>
+        <td>Trigger server-side tool compaction earlier before context saturates.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Workflows &amp; Synergy</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Synergy: Tracing, Caching, Routing &amp; Evals in Harmony</h2>
+  <p class="page-lead">
+    How deterministic prompt builders, dynamic model routers, provider KV caches, OTel Collectors, and trace-linked evaluation platforms connect into one continuous cost-and-quality flywheel.
+  </p>
+
+  <div class="figure-box" style="background:#090d24; padding:10px 12px; margin-bottom: 8px;">
+    <svg viewBox="0 0 700 170" width="100%" height="170" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="18" width="118" height="132" rx="8" fill="#131b42" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="67" y="38" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">1. Prefix Builder</text>
+      <text x="67" y="52" text-anchor="middle" fill="#c7d2fe" font-size="7.3">Deterministic Order</text>
+      <rect x="16" y="62" width="102" height="76" rx="5" fill="#090d24" stroke="#4f46e5"/>
+      <text x="67" y="80" text-anchor="middle" fill="#e0e7ff" font-size="7.6" font-weight="700">Frozen Tools</text>
+      <text x="67" y="95" text-anchor="middle" fill="#fbbf24" font-size="7.1">Breakpoints (5m/1h)</text>
+      <text x="67" y="110" text-anchor="middle" fill="#94a3b8" font-size="7.0">Batched Compactor</text>
+      <text x="67" y="125" text-anchor="middle" fill="#38bdf8" font-size="7.0">W3C traceparent</text>
+
+      <path d="M126 84 L152 84" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="152,79 160,84 152,89" fill="#818cf8"/>
+
+      <rect x="160" y="18" width="118" height="132" rx="8" fill="#0c1c38" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="219" y="38" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">2. Smart Router</text>
+      <text x="219" y="52" text-anchor="middle" fill="#7dd3fc" font-size="7.3">Cheap-to-Frontier</text>
+      <rect x="168" y="62" width="102" height="76" rx="5" fill="#090d24" stroke="#0284c7"/>
+      <text x="219" y="80" text-anchor="middle" fill="#e0f2fe" font-size="7.6" font-weight="700">Tier Classifier</text>
+      <text x="219" y="95" text-anchor="middle" fill="#34d399" font-size="7.1">Fast Tier: Triage</text>
+      <text x="219" y="110" text-anchor="middle" fill="#fbbf24" font-size="7.0">Frontier: Synthesis</text>
+      <text x="219" y="125" text-anchor="middle" fill="#f87171" font-size="7.0">Doom-Loop Cap</text>
+
+      <path d="M278 84 L304 84" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="304,79 312,84 304,89" fill="#fbbf24"/>
+
+      <rect x="312" y="18" width="122" height="132" rx="8" fill="#1b1530" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="373" y="38" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">3. Provider Cache</text>
+      <text x="373" y="52" text-anchor="middle" fill="#fde68a" font-size="7.3">Anthropic / OAI / Gem</text>
+      <rect x="320" y="62" width="106" height="76" rx="5" fill="#090d24" stroke="#d97706"/>
+      <text x="373" y="80" text-anchor="middle" fill="#fde68a" font-size="7.6" font-weight="700">KV Tensor Match</text>
+      <text x="373" y="95" text-anchor="middle" fill="#34d399" font-size="7.1">0.1x Read Discount</text>
+      <text x="373" y="110" text-anchor="middle" fill="#94a3b8" font-size="7.0">TTFT Drop 50%-80%</text>
+      <text x="373" y="125" text-anchor="middle" fill="#c4b5fd" font-size="7.0">Usage Metadata</text>
+
+      <path d="M434 84 L460 84" stroke="#34d399" stroke-width="2"/>
+      <polygon points="460,79 468,84 460,89" fill="#34d399"/>
+
+      <rect x="468" y="18" width="112" height="132" rx="8" fill="#08241d" stroke="#34d399" stroke-width="1.5"/>
+      <text x="524" y="38" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">4. OTel Collector</text>
+      <text x="524" y="52" text-anchor="middle" fill="#6ee7b7" font-size="7.3">Normalize &amp; Scrub</text>
+      <rect x="476" y="62" width="96" height="76" rx="5" fill="#090d24" stroke="#059669"/>
+      <text x="524" y="80" text-anchor="middle" fill="#a7f3d0" font-size="7.6" font-weight="700">gen_ai.* Map</text>
+      <text x="524" y="95" text-anchor="middle" fill="#94a3b8" font-size="7.0">PII Redaction</text>
+      <text x="524" y="110" text-anchor="middle" fill="#94a3b8" font-size="7.0">Histogram Agg</text>
+      <text x="524" y="125" text-anchor="middle" fill="#34d399" font-size="7.0">OTLP Batch Out</text>
+
+      <path d="M580 84 L604 84" stroke="#c084fc" stroke-width="2"/>
+      <polygon points="604,79 612,84 604,89" fill="#c084fc"/>
+
+      <rect x="612" y="18" width="80" height="132" rx="8" fill="#1e1035" stroke="#c084fc" stroke-width="1.5"/>
+      <text x="652" y="38" text-anchor="middle" fill="#ffffff" font-size="9.0" font-weight="800">5. Evals</text>
+      <text x="652" y="52" text-anchor="middle" fill="#e9d5ff" font-size="7.1">&amp; FinOps</text>
+      <rect x="618" y="62" width="68" height="76" rx="5" fill="#090d24" stroke="#7c3aed"/>
+      <text x="652" y="80" text-anchor="middle" fill="#e9d5ff" font-size="7.3" font-weight="700">Langfuse</text>
+      <text x="652" y="95" text-anchor="middle" fill="#e9d5ff" font-size="7.3" font-weight="700">Arize AX</text>
+      <text x="652" y="112" text-anchor="middle" fill="#fbbf24" font-size="6.9">Cost Alerts</text>
+      <text x="652" y="126" text-anchor="middle" fill="#34d399" font-size="6.9">Tune Policy</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Closing the Eval-to-Routing Feedback Loop</div>
+      <p style="font-size:8.2pt; margin:0;">
+        Whenever an online LLM-as-a-Judge evaluator scores a dynamically routed fast-model turn below your quality threshold, your dashboard highlights the exact <code>trace_id</code> and <code>gen_ai.response.model</code>. Engineers can promote that specific task slice back to a frontier model or tune the compaction threshold with empirical evidence rather than guesswork.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Synergy Across Sandboxes, MCP &amp; Coding Agents</div>
+      <p style="font-size:8.2pt; margin:0;">
+        Pairing isolated sandbox execution with OpenTelemetry tracing turns every bash run, test failure, and cache hit into one searchable timeline. When coding agents invoke tools over MCP or delegate to parallel subagents, <code>_meta.traceparent</code> links every sandbox span back to the user's original prompt and exact dollar cost.
+      </p>
+    </div>
+  </div>
+
+  <h3>Interoperability Standards Connecting the Stack</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge">W</span> W3C Trace Context</div>
+      <p style="font-size:7.9pt; margin:0;">Standard <code>traceparent</code> and <code>tracestate</code> headers bind HTTP gateways, queues, and MCP calls into a single distributed trace.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge amber">O</span> OpenTelemetry &amp; OpenInference</div>
+      <p style="font-size:7.9pt; margin:0;">Vendor-neutral <code>gen_ai.*</code> spans map cleanly into Langfuse, Arize AX, Datadog, and Prometheus backends without code rewrites.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge emerald">L</span> Deterministic Trace IDs</div>
+      <p style="font-size:7.9pt; margin:0;">When async webhooks cannot forward OTel headers directly, seed matching trace IDs from a shared correlation token.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 8px;">
+    <div class="callout-title">Unified Engineering Loop: Measure Before You Optimize</div>
+    Teams that wire OTel GenAI tracing before tuning prompts save 2x to 4x faster: traces immediately pinpoint whether token spikes come from cache invalidation, unpruned tool output, or reasoning loops&mdash;replacing intuition with measurable cost-per-task engineering.
+  </div>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Reference &amp; QA</span>
+    <span>Agentic Observability &amp; Prompt Caching</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Readiness Checklist</h2>
+  <p class="page-lead">
+    Rapid ten-second fixes for the seven most frequent caching and telemetry issues, followed by a six-point readiness gate before shipping autonomous agents to production.
+  </p>
+
+  <table class="clean-table" style="margin-bottom: 6px;">
+    <thead>
+      <tr>
+        <th style="width: 28%;">Symptom &amp; Telemetry Signal</th>
+        <th style="width: 30%;">Root Cause</th>
+        <th style="width: 42%;">10-Second Production Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>cache_read == 0</code> every turn</strong></td>
+        <td>Dynamic timestamp, UUID, or reordered tool schema near top of prompt.</td>
+        <td>Move dynamic fields into the latest user turn; sort tool schemas deterministically.</td>
+      </tr>
+      <tr>
+        <td><strong><code>cache_creation</code> spikes every 6m</strong></td>
+        <td>5-minute ephemeral TTL expires during human review or slow CI waits.</td>
+        <td>Add <code>"ttl": "1h"</code> on stable breakpoints (or OpenAI extended retention).</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini <code>400 Invalid Argument</code></strong></td>
+        <td>Explicit <code>CachedContent</code> payload below 2,048 / 4,096 minimum tokens.</td>
+        <td>Pad bundle past the model floor with shared repo docs or rely on implicit caching.</td>
+      </tr>
+      <tr>
+        <td><strong>Orphaned subagent traces</strong></td>
+        <td>Async worker queue or MCP call dropped W3C trace context headers.</td>
+        <td>Inject <code>traceparent</code> into MCP <code>_meta</code> and extract before child spans start.</td>
+      </tr>
+      <tr>
+        <td><strong>Compaction triggers cost jump</strong></td>
+        <td>Summarizing history on every turn busts the upstream KV cache prefix.</td>
+        <td>Run compaction only at high-water thresholds (e.g., 50K&ndash;64K tokens) in batches.</td>
+      </tr>
+      <tr>
+        <td><strong>Missing TTFT or token split</strong></td>
+        <td>Streaming omits final usage chunk or SDK emits legacy <code>gen_ai.system</code>.</td>
+        <td>Set <code>stream_options: { include_usage: true }</code> and map attributes in OTel Collector.</td>
+      </tr>
+      <tr>
+        <td><strong>Secrets visible in trace logs</strong></td>
+        <td>Opt-in message capture enabled without Collector scrubbing rules.</td>
+        <td>Disable <code>gen_ai.input.messages</code> in prod or enforce OTel <code>redaction</code> regex masks.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Observability &amp; Caching Checklist</h3>
+  <div class="grid-2">
+    <div class="card">
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 1. Zero Volatile Prefix Data:</strong> Confirm static tools, system instructions, and frozen history stay byte-identical across turns.</p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 2. Cache Hit Ratio &ge; 75%:</strong> Verify <code>gen_ai.usage.cache_read.input_tokens</code> dominates multi-turn input totals in staging.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong>&square; 3. Unified Subagent Trace Tree:</strong> Confirm parent, tool, and MCP subagent spans share one <code>trace_id</code> with zero orphan roots.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 4. PII Redaction Verified:</strong> Confirm prompt message capture is off by default or scrubbed cleanly by the OTel Collector edge.</p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 5. Compaction Threshold Tuned:</strong> Ensure stale tool outputs are pruned in batches rather than busting cache every turn.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong>&square; 6. FinOps Caps &amp; Evals Armed:</strong> Enable turn/spend circuit breakers and trace-linked Langfuse or Arize AX regression alerts.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Agentic Observability &amp; Prompt Caching &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>
