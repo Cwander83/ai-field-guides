@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Voices, Multilingual Dubbing &amp; Avatars: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Field Guides Series &bull; Creative Media Edition</div>
+    <h1>AI Voices, <span>Dubbing &amp; Avatars</span></h1>
+    <p class="cover-sub">
+      The complete 12-page visual handbook to studio-grade voice cloning, W3C phoneme lexicons, multi-speaker narration, 175-language lip-sync dubbing, and real-time interactive avatars with ElevenLabs, HeyGen, and Gemini TTS.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">ElevenLabs PVC &amp; Voice Design v3</span>
+      <span class="cover-badge">IPA / PLS Pronunciation Lexicons</span>
+      <span class="cover-badge">HeyGen Avatar IV &amp; Digital Twin</span>
+      <span class="cover-badge">175+ Lang Lip-Sync Dubbing</span>
+      <span class="cover-badge">LiveAvatar WebRTC Streaming</span>
+      <span class="cover-badge">C2PA Watermarks &amp; Consent</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Studio microphone, acoustic waveform prism, and luminous holographic avatar production studio" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Studio Voice Synthesis</div>
+      <div class="cover-stat-desc">Train hyper-realistic Professional Voice Clones, direct emotion with Eleven v3 Audio Tags, and lock brand terms via PLS phoneme rules.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">175+ Language Video Dubbing</div>
+      <div class="cover-stat-desc">Translate talking-head footage with HeyGen Video Translate while preserving vocal identity and re-animating natural lip motion.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Real-Time Interactive Twins</div>
+      <div class="cover-stat-desc">Stream sub-second LiveAvatar WebRTC presenters and multi-speaker <code>gemini-3.8-flash-tts</code> dialogues backed by C2PA guardrails.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Architecture</span>
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars</span>
+  </div>
+
+  <h2 class="page-title">The 3-Layer AI Voice, Dubbing &amp; Avatar Stack</h2>
+  <p class="page-lead">
+    Early text-to-speech tools forced teams to choose between robotic voices and stiff talking heads. Modern production workflows unify three distinct layers: <strong>Voice &amp; Lexicon Control</strong> (ElevenLabs and Gemini TTS), <strong>Visual Lip-Sync &amp; Digital Twins</strong> (HeyGen), and <strong>Consent &amp; Provenance</strong>.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Core Voice &amp; Avatar Architecture</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Interactive LiveAvatar WebRTC</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Capture Specs &amp; Platform Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Studio &amp; Dubbing Deck UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Consent, C2PA &amp; Safety Guardrails</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. PVC, Voice Design v3 &amp; PLS Rules</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Localization Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Multi-Speaker Studio &amp; Gemini TTS</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Sheet</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Digital Twins, Avatar IV &amp; Dubbing</strong></span><span class="toc-pg">p. 7</span></div>
+  </div>
+
+  <h3>Why Audio-First Thinking Makes Every Avatar Look Twice as Human</h3>
+  <p style="font-size:8.7pt;">
+    Both pre-rendered avatars and live WebRTC presenters derive their micro-expressions, blinks, head nods, and mouth shapes directly from your vocal track. When you nail clean studio pacing, natural breathing room, and accurate phoneme pronunciation first, the visual avatar effortlessly mirrors real human cadence instead of fighting unnatural syllabic timing.
+  </p>
+
+  <h3>Architecture: From Studio Capture to Verified Multilingual Delivery</h3>
+  <div class="figure-box" style="background:#081026; padding:10px 13px; border-color:#1e3a8a;">
+    <svg viewBox="0 0 700 176" width="100%" height="176" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="6" y="10" width="154" height="156" rx="9" fill="#0f1d3d" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="16" y="29" fill="#7dd3fc" font-size="8" font-weight="800">1. CAPTURE &amp; CONSENT</text>
+      <text x="16" y="45" fill="#ffffff" font-size="10.2" font-weight="800">Clean Raw Masters</text>
+      <rect x="16" y="56" width="134" height="30" rx="5" fill="#172a57" stroke="#2563eb"/>
+      <text x="24" y="70" fill="#e0f2fe" font-size="7.6" font-weight="700">24-bit / 48 kHz WAV</text>
+      <text x="24" y="81" fill="#bae6fd" font-size="7">-23 to -18 dB RMS, zero reverb</text>
+      <rect x="16" y="92" width="134" height="30" rx="5" fill="#172a57" stroke="#2563eb"/>
+      <text x="24" y="106" fill="#e0f2fe" font-size="7.6" font-weight="700">4K / 1080p 30fps Take</text>
+      <text x="24" y="117" fill="#bae6fd" font-size="7">Locked tripod, even softbox</text>
+      <rect x="16" y="128" width="134" height="28" rx="5" fill="#1e1b4b" stroke="#818cf8"/>
+      <text x="24" y="142" fill="#e0e7ff" font-size="7.6" font-weight="700">Live Voice &amp; Video ID</text>
+      <text x="24" y="152" fill="#c7d2fe" font-size="6.9">Captcha + &lt;30s statement</text>
+
+      <path d="M162 88 L184 88" stroke="#38bdf8" stroke-width="2.2"/><polygon points="182,83 190,88 182,93" fill="#38bdf8"/>
+
+      <!-- Stage 2 -->
+      <rect x="192" y="10" width="166" height="156" rx="9" fill="#11214a" stroke="#60a5fa" stroke-width="1.6"/>
+      <text x="202" y="29" fill="#93c5fd" font-size="8" font-weight="800">2. VOICE &amp; LEXICON</text>
+      <text x="202" y="45" fill="#ffffff" font-size="10.2" font-weight="800">ElevenLabs &amp; Gemini</text>
+      <rect x="202" y="56" width="146" height="31" rx="5" fill="#1e3a8a" stroke="#38bdf8"/>
+      <text x="210" y="70" fill="#ffffff" font-size="7.6" font-weight="700">PVC &amp; Voice Design v3</text>
+      <text x="210" y="81" fill="#dbeafe" font-size="7">Inline [tags] &amp; Studio chapters</text>
+      <rect x="202" y="93" width="146" height="31" rx="5" fill="#1e3a8a" stroke="#38bdf8"/>
+      <text x="210" y="107" fill="#ffffff" font-size="7.6" font-weight="700">W3C .pls IPA Lexicon</text>
+      <text x="210" y="118" fill="#dbeafe" font-size="7">Brand, medical &amp; acronym locks</text>
+      <rect x="202" y="130" width="146" height="27" rx="5" fill="#0f172a" stroke="#34d399"/>
+      <text x="210" y="143" fill="#a7f3d0" font-size="7.5" font-weight="700">gemini-3.8-flash-tts</text>
+      <text x="210" y="153" fill="#d1fae5" font-size="6.9">Multi-speaker 24 kHz WAV CLI</text>
+
+      <path d="M360 88 L382 88" stroke="#a78bfa" stroke-width="2.2"/><polygon points="380,83 388,88 380,93" fill="#a78bfa"/>
+
+      <!-- Stage 3 -->
+      <rect x="390" y="10" width="166" height="156" rx="9" fill="#1b1440" stroke="#a78bfa" stroke-width="1.6"/>
+      <text x="400" y="29" fill="#c4b5fd" font-size="8" font-weight="800">3. AVATAR &amp; LIP-SYNC</text>
+      <text x="400" y="45" fill="#ffffff" font-size="10.2" font-weight="800">HeyGen Visual Suite</text>
+      <rect x="400" y="56" width="146" height="31" rx="5" fill="#2e1b66" stroke="#c084fc"/>
+      <text x="408" y="70" fill="#ffffff" font-size="7.6" font-weight="700">Digital Twin &amp; Avatar IV</text>
+      <text x="408" y="81" fill="#ede9fe" font-size="7">Micro-expressions + photo looks</text>
+      <rect x="400" y="93" width="146" height="31" rx="5" fill="#2e1b66" stroke="#c084fc"/>
+      <text x="408" y="107" fill="#ffffff" font-size="7.6" font-weight="700">Video Translate (175+)</text>
+      <text x="408" y="118" fill="#ede9fe" font-size="7">Precision lip-sync &amp; Speed Sync</text>
+      <rect x="400" y="130" width="146" height="27" rx="5" fill="#0f172a" stroke="#fbbf24"/>
+      <text x="408" y="143" fill="#fde68a" font-size="7.5" font-weight="700">LiveAvatar WebRTC SDK</text>
+      <text x="408" y="153" fill="#fef3c7" font-size="6.9">FULL or LITE sub-sec streaming</text>
+
+      <path d="M558 88 L578 88" stroke="#34d399" stroke-width="2.2"/><polygon points="576,83 584,88 576,93" fill="#34d399"/>
+
+      <!-- Stage 4 -->
+      <rect x="586" y="10" width="108" height="156" rx="9" fill="#062c22" stroke="#34d399" stroke-width="1.5"/>
+      <text x="595" y="29" fill="#6ee7b7" font-size="8" font-weight="800">4. SHIP SAFELY</text>
+      <text x="595" y="45" fill="#ffffff" font-size="10" font-weight="800">Trust &amp; Scale</text>
+      <rect x="594" y="56" width="92" height="32" rx="5" fill="#064e3b" stroke="#34d399"/>
+      <text x="601" y="70" fill="#ffffff" font-size="7.4" font-weight="700">C2PA + SynthID</text>
+      <text x="601" y="81" fill="#d1fae5" font-size="6.8">Signed origin proof</text>
+      <rect x="594" y="94" width="92" height="32" rx="5" fill="#064e3b" stroke="#34d399"/>
+      <text x="601" y="108" fill="#ffffff" font-size="7.4" font-weight="700">44.1k PCM / 4K</text>
+      <text x="601" y="119" fill="#d1fae5" font-size="6.8">Clean master exports</text>
+      <rect x="594" y="132" width="92" height="25" rx="5" fill="#0f172a" stroke="#38bdf8"/>
+      <text x="601" y="148" fill="#bae6fd" font-size="7.2" font-weight="700">EU Art. 50 Ready</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:6px 0 0 0;">
+    <div class="callout-title">Golden Principle: Clone Once Cleanly, Reuse Everywhere</div>
+    One afternoon spent recording an unclipped, zero-reverb voice stem and one properly lit 2-minute tripod video unlocks years of localized product launches, interactive docs, and zero-reshoot quarterly updates.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, CAPTURE SPECS & MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup, Capture Specs &amp; Matrix</span>
+    <span>Hardware Standards, Pricing Tiers &amp; Platform Choice</span>
+  </div>
+
+  <h2 class="page-title">Studio Capture Standards, Tiers &amp; Platform Matrix</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    AI voice and avatar models replicate every acoustic and lighting flaw in your source files. Follow these exact engineering baselines before uploading a single training minute, then match your project to the right tier.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:10px;">
+    <div class="card" style="border-top:3px solid #2563eb; padding:7.5px 10px;">
+      <div class="card-title" style="font-size:9pt; margin-bottom:2px;"><span class="num-badge">1</span> Acoustic &amp; Mic Standards (ElevenLabs PVC)</div>
+      <ul style="font-size:7.55pt; line-height:1.36; margin:2px 0 0 0;">
+        <li><strong>Master Format:</strong> Uncompressed <code>24-bit</code> WAV at <code>44.1 kHz</code> or <code>48 kHz</code> (skip MP3 uploads).</li>
+        <li><strong>Gain &amp; Headroom:</strong> Target <code>-23 dB</code> to <code>-18 dB</code> RMS loudness; keep peaks at <code>-6 dB</code> to <code>-3 dB</code>.</li>
+        <li><strong>Zero Heavy Processing:</strong> Avoid noise gates and limiters so natural breath dynamics survive intact.</li>
+        <li><strong>Mic &amp; Dataset:</strong> XLR mic <code>6–12 in</code> at <code>15-deg</code> off-axis with pop filter; <code>1–3 hrs</code> (min <code>30m</code>) solo <code>10–30m</code> WAVs.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid #7c3aed; padding:7.5px 10px;">
+      <div class="card-title" style="font-size:9pt; margin-bottom:2px;"><span class="num-badge purple">2</span> Camera &amp; Lighting Standards (HeyGen Twin)</div>
+      <ul style="font-size:7.55pt; line-height:1.36; margin:2px 0 0 0;">
+        <li><strong>Video Specs:</strong> <code>1080p</code> baseline or crisp <code>4K</code> at <code>30 fps</code> in <code>16:9</code> landscape on a locked tripod.</li>
+        <li><strong>Continuous Take:</strong> Capture one uninterrupted clip (<code>15s</code> instant or <code>2 min</code> Digital Twin) with zero cuts.</li>
+        <li><strong>Controlled Lighting:</strong> Use constant indoor softbox lights; avoid windows where cloud shifts change color.</li>
+        <li><strong>Clean Mic Track:</strong> Record with an external lavalier or XLR desk mic so facial expression maps cleanly.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:4px 0 3px 0; font-size:10.4pt;">Voice, Dubbing &amp; Avatar Platform Decision Matrix</h3>
+  <table class="clean-table" style="font-size:7.45pt; line-height:1.34; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Platform / Model</th>
+        <th style="width:27%;">Tiers &amp; Credit Economics</th>
+        <th style="width:28%;">Core Technical Capabilities</th>
+        <th style="width:26%;">Best Production Fit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>ElevenLabs</strong><br/><code>eleven_v3</code> / <code>v4</code> / Flash</td>
+        <td>Free ($0) &bull; Starter ($6, IVC + Dub Studio) &bull; Creator ($22, PVC) &bull; Pro ($99, <code>44.1kHz</code> PCM) &bull; Scale ($299) &bull; Biz ($990). API: ~$0.08/1K (v3/v4), ~$0.04/1K (Flash).</td>
+        <td>Professional Voice Cloning, Voice Design v3, Audio Tags (<code>[laughs]</code>), W3C <code>.pls</code> IPA lexicons, Multi-Cast Studio, ~75ms Flash latency.</td>
+        <td>Studio audiobooks, podcast synthesis, brand-locked voiceovers, and real-time voice agent pipelines.</td>
+      </tr>
+      <tr>
+        <td><strong>HeyGen Studio</strong><br/>Digital Twin &amp; Avatar IV</td>
+        <td>Free ($0) &bull; Creator ($29, 600 cr, 1080p) &bull; Pro ($49+, 4K) &bull; Biz ($149+, 5 twins, SCORM). Avatar IV: ~16 cr/m (Photo) or ~31 cr/m (Video).</td>
+        <td>Digital Twin likenesses, Avatar IV photo-to-video emotion &amp; gestures, multi-scene slide studio, and LMS/SCORM export.</td>
+        <td>Founder updates, sales outreach, course lessons, and talking-head explainers from script or WAV.</td>
+      </tr>
+      <tr>
+        <td><strong>HeyGen Video Translate</strong><br/>175+ Languages</td>
+        <td>Included in paid plans; API PAYG ~$0.0333/s (Speed Mode) or ~$0.0667/s (Precision Mode).</td>
+        <td>Multi-speaker separation, speaker voice cloning, pixel-level mouth lip-sync re-animation, Speed Sync, and Brand Glossary.</td>
+        <td>Localizing product demos, webinars, and executive town halls globally without reshooting video.</td>
+      </tr>
+      <tr>
+        <td><strong>HeyGen LiveAvatar</strong><br/>WebRTC SDK</td>
+        <td>Streaming credits: <code>LITE</code> ~1 cr/min (video only); <code>FULL</code> ~2 cr/min; free dev testing via <code>is_sandbox: true</code>.</td>
+        <td>Sub-second WebRTC streaming via <code>@heygen/liveavatar-web-sdk</code>, ephemeral token auth, <code>FULL</code> managed or <code>LITE</code> BYO-agent mode.</td>
+        <td>Interactive website concierges, live product guides, virtual tutors, and real-time support desks.</td>
+      </tr>
+      <tr>
+        <td><strong>Google Gemini TTS</strong><br/><code>gemini-3.8-flash-tts</code></td>
+        <td>Pay-per-use Gemini API &amp; CLI (<code>gemini-api tts</code>); zero clone training overhead.</td>
+        <td>Native multi-speaker synthesis (<code>Kore</code>, <code>Puck</code>, <code>Charon</code>, <code>Fenrir</code>, <code>Aoede</code>), natural style prompts, <code>24 kHz</code> WAV output.</td>
+        <td>Rapid multi-host dialogue prototyping, scripted developer pipelines, and zero-setup audio output.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.2pt;">
+    <div class="callout-title" style="font-size:8.6pt;">Credit-Saving Rule of Thumb: Prototype in Text &amp; Flash Audio Before Rendering 4K Video</div>
+    Never burn high-tier Precision lip-sync or Avatar IV video credits testing script pacing. Audition scripts first using <code>gemini-3.8-flash-tts</code> or ElevenLabs Flash, lock your glossary and pauses, and render visual avatars only once your audio master is final.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Interface Map</span>
+    <span>Studio Timeline &amp; Lip-Sync Dubbing Deck</span>
+  </div>
+
+  <h2 class="page-title">Studio Timeline &amp; Lip-Sync Dubbing Deck: UI Tour</h2>
+  <p class="page-lead">
+    Whether you are polishing a multi-chapter ElevenLabs Studio project or proofing a 175-language HeyGen Video Translate cut, every high-output session revolves around these 7 numbered controls.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:9px;">
+    <div class="ui-topbar">
+      <div class="ui-dots" style="white-space:nowrap;">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:6px; font-weight:700; color:#f8fafc;">Studio Dubbing Deck &bull; Launch_Keynote_v4</span>
+        <span style="background:#2563eb; color:#ffffff; padding:1px 6px; border-radius:4px; font-weight:800; font-size:6.5pt;">ES / JA / DE</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center; white-space:nowrap; font-size:7pt;">
+        <span style="background:#1e3a8a; border:1px solid #38bdf8; padding:2px 7px; border-radius:5px; color:#e0f2fe;">Voice / Twin: Founder PVC + Avatar IV <span class="callout-pin" style="width:15px;height:15px;font-size:6.8pt;">1</span></span>
+        <span style="background:#059669; color:#ffffff; font-weight:700; padding:2px 7px; border-radius:5px;">C2PA + Export 4K / WAV <span class="callout-pin" style="width:15px;height:15px;font-size:6.8pt;">7</span></span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:158px 1fr 188px; gap:1px; background:#1e3a8a;">
+      <!-- Left Rail: Speakers -->
+      <div style="background:#0b132b; padding:8px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-weight:800; color:#7dd3fc; font-size:7.1pt;">SPEAKER CAST</span>
+          <span class="callout-pin">2</span>
+        </div>
+        <div style="background:#172554; border:1px solid #3b82f6; border-radius:6px; padding:5px 6px; font-size:6.7pt;">
+          <div style="font-weight:700; color:#ffffff;">Speaker 1 &bull; Maya (Host)</div>
+          <div style="color:#93c5fd;">PVC Verified &bull; Track A</div>
+        </div>
+        <div style="background:#1e1b4b; border:1px solid #8b5cf6; border-radius:6px; padding:5px 6px; font-size:6.7pt;">
+          <div style="font-weight:700; color:#ffffff;">Speaker 2 &bull; Leo (CTO)</div>
+          <div style="color:#c4b5fd;">Voice Design v3 &bull; Track B</div>
+        </div>
+        <div style="background:#0f172a; border:1px solid #334155; border-radius:6px; padding:5px 6px; font-size:6.5pt; color:#cbd5e1;">
+          <strong>Auto-Diarization:</strong> 2 distinct voices isolated cleanly; background music stem preserved.
+        </div>
+      </div>
+
+      <!-- Center: Avatar Lip-Sync Canvas -->
+      <div style="background:#060c1f; padding:8px; display:flex; flex-direction:column; justify-content:space-between;">
+        <div style="width:100%; height:136px; border-radius:8px; background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 52%,#312e81 100%); border:1.5px solid #38bdf8; padding:8px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="background:rgba(8,16,38,0.85); padding:2px 7px; border-radius:4px; font-size:6.7pt; color:#7dd3fc; font-weight:700;">16:9 LIP-SYNC MONITOR &bull; PRECISION MODE</span>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <div style="background:rgba(8,16,38,0.84); border-left:3px solid #38bdf8; padding:5px 8px; border-radius:4px; flex:1;">
+              <div style="font-weight:800; color:#ffffff; font-size:8pt;">Phoneme Lip Alignment: 99.2%</div>
+              <div style="font-size:6.6pt; color:#cbd5e1;">ES Subtitle Preview: &ldquo;Bienvenidos al lanzamiento global...&rdquo;</div>
+            </div>
+            <div style="width:52px; height:52px; border-radius:50%; border:2px solid #38bdf8; background:linear-gradient(135deg,#1d4ed8,#0ea5e9); display:flex; align-items:center; justify-content:center; font-size:6.3pt; font-weight:800; color:#fff; text-align:center;">Digital<br/>Twin</div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:6.5pt; color:#93c5fd;">
+            <span>Micro-Expressions: Active</span>
+            <span>Consent ID: VERIFIED-2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Rail: Tags & PLS -->
+      <div style="background:#0b132b; padding:8px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-weight:800; color:#c4b5fd; font-size:7.1pt;">TAGS &amp; PLS LEXICON</span>
+          <span class="callout-pin">3</span>
+        </div>
+        <div style="background:#172554; border:1px solid #3b82f6; border-radius:6px; padding:5px 6px; font-size:6.5pt; line-height:1.35;">
+          <span style="background:#4f46e5; color:#fff; padding:0 4px; border-radius:3px; font-weight:700;">[warmly]</span> Welcome to <strong>KestrelAI</strong>!
+          <div style="color:#a7f3d0; margin-top:2px; white-space:nowrap;"><code>KestrelAI</code> &rarr; <code>/ˈkɛstrəl/</code></div>
+        </div>
+        <div style="background:#0f172a; border:1px solid #334155; border-radius:6px; padding:5px 6px; font-size:6.5pt; color:#cbd5e1;">
+          <div><strong>Stability:</strong> 42% (Expressive)</div>
+          <div><strong>Similarity:</strong> 82% &bull; <strong>Style:</strong> 15%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Multi-Track Timeline -->
+    <div style="background:#0f172a; border-top:1px solid #1e3a8a; padding:7px 10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:6.8pt; font-weight:800; color:#93c5fd;">TIMING, SPEED SYNC &amp; PROOFREAD TRACKS &bull; 00:14 / 01:30</span>
+        <span style="font-size:6.7pt; color:#fde68a;">Glossary Lock: 12 Terms Active <span class="callout-pin" style="width:15px;height:15px;font-size:6.8pt;">6</span></span>
+      </div>
+      <div style="display:grid; grid-template-columns:86px 1fr; gap:4px; font-size:6.4pt; align-items:center;">
+        <span style="color:#7dd3fc; font-weight:700;">Source Audio <span class="callout-pin" style="width:14px;height:14px;font-size:6.5pt;">5</span></span>
+        <div style="background:#172554; height:12px; border-radius:3px; display:flex; align-items:center; padding:0 6px; color:#e0f2fe;">00:00 &mdash; Original EN Vocal Stem (Locked Paragraph #1–#3) &mdash; 1.0x Pace</div>
+        <span style="color:#c4b5fd; font-weight:700;">Dub + Lip-Sync</span>
+        <div style="display:grid; grid-template-columns:1.1fr 1.2fr 1fr; gap:3px;">
+          <div style="background:#4c1d95; padding:1px 5px; border-radius:3px; color:#fff;">ES Proofread (+12% Speed Sync)</div>
+          <div style="background:#6d28d9; border:1px solid #e9d5ff; padding:1px 5px; border-radius:3px; color:#fff; font-weight:700;">JA Precision Mouth Sync</div>
+          <div style="background:#4c1d95; padding:1px 5px; border-radius:3px; color:#fff;">DE Brand Glossary Verified</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>7-Point Studio Control Reference</h3>
+  <div class="grid-2" style="gap:5px 14px; font-size:8.45pt;">
+    <div><span class="callout-pin">1</span> <strong>Voice &amp; Twin Picker:</strong> Switch between cloned PVC models, Voice Design v3 personas, Digital Twins, or Avatar IV portraits per project.</div>
+    <div><span class="callout-pin">2</span> <strong>Speaker Cast &amp; Isolation Rail:</strong> Separate multi-speaker tracks cleanly so hosts, guests, and background music never bleed together.</div>
+    <div><span class="callout-pin">3</span> <strong>Tags, Sliders &amp; PLS Lexicon:</strong> Insert Eleven v3 cues (<code>[warmly]</code>), calibrate Stability/Similarity, and attach IPA pronunciation rules.</div>
+    <div><span class="callout-pin">4</span> <strong>Lip-Sync Monitor &amp; Mode Toggle:</strong> Preview Precision pixel mouth re-animation and subtle Avatar IV head/brow movement before rendering.</div>
+    <div><span class="callout-pin">5</span> <strong>Timing &amp; Speed Sync Track:</strong> Lock approved paragraphs against re-renders and match translated audio lengths to visual breath pauses.</div>
+    <div><span class="callout-pin">6</span> <strong>Proofread &amp; Glossary Lock:</strong> Review segment-by-segment translations and freeze company names, URLs, and acronyms before final render.</div>
+  </div>
+  <div style="margin-top:4px; margin-bottom:6px; font-size:8.45pt;">
+    <span class="callout-pin">7</span> <strong>Provenance &amp; Master Export:</strong> Export <code>44.1 kHz</code> PCM WAV audio, <code>1080p/4K</code> MP4 video, or SRT subtitles with embedded C2PA and SynthID signatures.
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7.5px 11px;">
+    <div class="callout-title">Workflow Habit: Lock Approved Audio Blocks Immediately</div>
+    Whenever a single paragraph or translated phrase lands with flawless cadence, click the lock icon on that segment before tweaking adjacent lines—preventing accidental credit spend or tonal drift during revisions.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: ELEVENLABS PVC, VOICE DESIGN V3 & PLS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Voice Craft &amp; Lexicons</span>
+    <span>Professional Voice Cloning, Voice Design v3 &amp; PLS Dictionaries</span>
+  </div>
+
+  <h2 class="page-title">Voice Cloning, Voice Design v3 &amp; W3C <code>.pls</code> Lexicons</h2>
+  <p class="page-lead">
+    Use <strong>Voice Design v3</strong> to invent original brand voices from a text prompt, train a dedicated <strong>Professional Voice Clone (PVC)</strong> from studio recordings, and enforce bulletproof pronunciation with W3C <code>.pls</code> XML dictionaries.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_1.jpg" alt="Warm acoustic soundwave ribbons flowing through a crystal prism into structured luminous voice synthesis tracks" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Acoustic Modeling + Phonetic Discipline:</strong> Clean single-speaker studio audio captures vocal warmth and breath cadence, while W3C <code>.pls</code> phoneme lexicons lock exact syllable stress for every brand term and technical acronym.
+    </div>
+  </div>
+
+  <h3>Voice Design v3 Prompt Formula (Generates 3 Distinct Candidates)</h3>
+  <div class="card" style="padding:8px 11px; margin-bottom:7px;">
+    <div style="font-size:8.3pt; line-height:1.68;">
+      <span class="p-tag p-subj">Mid-30s warm alto narrator</span>
+      <span class="p-tag p-style">with a crisp neutral Pacific Northwest accent,</span>
+      <span class="p-tag p-act">measured 140-WPM conversational pacing,</span>
+      <span class="p-tag p-dial">reassuring documentary authority and subtle smile,</span>
+      <span class="p-tag p-cons">recorded close-mic in a treated studio with zero room reverb.</span>
+    </div>
+    <div style="margin-top:3px; font-size:7.5pt; color:#475569;">
+      <strong>Formula:</strong> <span class="p-tag p-subj">Age &amp; Timbre</span> + <span class="p-tag p-style">Accent</span> + <span class="p-tag p-act">Pacing</span> + <span class="p-tag p-dial">Emotion</span> + <span class="p-tag p-cons">Recording Quality</span>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px;">
+    <div>
+      <h3 style="margin:2px 0 4px 0; font-size:9.6pt;">1. Case-Sensitive W3C <code>.pls</code> Dictionary</h3>
+      <pre class="code-block" style="margin:0;"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;lexicon version="1.0" alphabet="ipa" xml:lang="en-US"
+  xmlns="http://www.w3.org/2005/01/pronunciation-lexicon"&gt;
+  &lt;lexeme&gt;
+    &lt;grapheme&gt;KestrelAI&lt;/grapheme&gt;
+    &lt;phoneme&gt;/ˈkɛstrəl eɪ.aɪ/&lt;/phoneme&gt;
+  &lt;/lexeme&gt;
+  &lt;lexeme&gt;
+    &lt;grapheme&gt;kubectl&lt;/grapheme&gt;
+    &lt;alias&gt;kube control&lt;/alias&gt;
+  &lt;/lexeme&gt;
+&lt;/lexicon&gt;</code></pre>
+    </div>
+    <div>
+      <h3 style="margin:2px 0 4px 0; font-size:9.6pt;">2. Upload &amp; Attach via ElevenLabs API</h3>
+      <pre class="code-block" style="margin:0;"><code># Upload PLS file (returns id + version_id)
+curl -X POST "https://api.elevenlabs.io/v1/pronunciation-dictionaries/add-from-file" \
+  -H "xi-api-key: $ELEVENLABS_API_KEY" \
+  -F "file=@brand_lexicon.pls;type=text/xml" \
+  -F "name=Brand Lexicon v1"
+
+# Reference dictionary locator inside eleven_v4 / v3 TTS
+curl -X POST "https://api.elevenlabs.io/v1/text-to-speech/$VOICE_ID" \
+  -H "xi-api-key: $ELEVENLABS_API_KEY" -H "Content-Type: application/json" \
+  -d '{"text":"Deploy KestrelAI with kubectl.","model_id":"eleven_v4",
+       "pronunciation_dictionary_locators":[{"pronunciation_dictionary_id":"DICT_ID","version_id":"VER_ID"}]}'</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: MULTI-SPEAKER STUDIOS & GEMINI TTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Multi-Speaker Audio</span>
+    <span>ElevenLabs Studio, Audio Tags &amp; Gemini 3.8 Flash TTS</span>
+  </div>
+
+  <h2 class="page-title">Multi-Speaker Studios, Audio Tags &amp; <code>gemini-3.8-flash-tts</code></h2>
+  <p class="page-lead">
+    Move from isolated single-sentence clips to cohesive multi-chapter audiobooks, two-host podcasts, and automated developer dialogues—balancing expressive Eleven v3 direction with fast Gemini CLI scripting.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:8px;">
+    <div class="card" style="padding:9px 11px; border-top:3px solid #2563eb;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> ElevenLabs Studio Chapters</div>
+      <p style="font-size:7.85pt; margin:0;">Import EPUB/PDF manuscripts to auto-detect characters for <strong>Multi Cast</strong> narration. Swapping one character&rsquo;s voice updates all chapters globally, while paragraph locks protect approved takes.</p>
+    </div>
+    <div class="card" style="padding:9px 11px; border-top:3px solid #7c3aed;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge purple">2</span> Eleven v3 Inline Audio Tags</div>
+      <p style="font-size:7.85pt; margin:0;">Steer delivery inside brackets—<code>[curious]</code>, <code>[sighs]</code>, <code>[whispers]</code>, <code>[rushed]</code>—replacing brittle legacy SSML. Stick to 1–2 cues per block and use ellipses for natural pauses.</p>
+    </div>
+    <div class="card" style="padding:9px 11px; border-top:3px solid #0d9488;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge teal">3</span> Stability &amp; Style Calibration</div>
+      <p style="font-size:7.85pt; margin:0;">Lower <strong>Stability</strong> (35–50%) lets Audio Tags shine expressively; higher Stability (70%+) keeps IVR instructions uniform. Keep <strong>Style Exaggeration</strong> near 0–15% to avoid latency spikes.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div>
+      <h3 style="margin:2px 0 4px 0; font-size:9.5pt;">3. Eleven v3 Script With Audio Tags</h3>
+      <pre class="code-block" style="margin:0;"><code># Directing a two-host product reveal (eleven_v3)
+[curious] Wait, did the Spanish dub really
+preserve Maya's exact laugh?
+
+[warmly] Every syllable... [sighs] and we did not
+need a single studio reshoot. [excited] Listen
+to the Japanese cut next!</code></pre>
+    </div>
+    <div>
+      <h3 style="margin:2px 0 4px 0; font-size:9.5pt;">4. Gemini CLI Multi-Speaker Synthesis</h3>
+      <pre class="code-block" style="margin:0;"><code># Outputs 24 kHz WAV via gemini-3.8-flash-tts
+gemini-api tts "Maya: Our global onboarding cut \
+went live in twelve languages today. \
+Leo: Zero reshoots and crisp lip sync?" \
+  -m gemini-3.8-flash-tts \
+  --multi-speaker "Maya=Kore,Leo=Puck" \
+  --out ./onboarding_dialogue.wav</code></pre>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0;">Built-In <code>gemini-3.8-flash-tts</code> Voice Personas &amp; Studio Roles</h3>
+  <table class="clean-table" style="font-size:8.1pt; margin:3px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:16%;">Voice Name</th>
+        <th style="width:27%;">Acoustic Profile</th>
+        <th style="width:32%;">Ideal Multi-Speaker Role</th>
+        <th style="width:25%;">CLI / API Mapping Tip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>Kore</code></td>
+        <td>Firm, confident, crystal-clear articulation</td>
+        <td>Lead product host, structured support agent, IVR anchor</td>
+        <td>Default <code>gemini-api tts</code> voice</td>
+      </tr>
+      <tr>
+        <td><code>Puck</code></td>
+        <td>Upbeat, bright, energetic tempo</td>
+        <td>Co-host banter, launch promos, dynamic explainer intros</td>
+        <td>Pair with <code>Kore</code> for fast dialogue</td>
+      </tr>
+      <tr>
+        <td><code>Charon</code></td>
+        <td>Deep, resonant, grounded baritone</td>
+        <td>Executive briefings, technical engineering walk-throughs</td>
+        <td>Great contrast vs bright hosts</td>
+      </tr>
+      <tr>
+        <td><code>Fenrir</code></td>
+        <td>High-energy, expressive, dramatic range</td>
+        <td>Trailer hooks, animated characters, high-stakes debates</td>
+        <td>Keep turns concise to preserve punch</td>
+      </tr>
+      <tr>
+        <td><code>Aoede</code></td>
+        <td>Breezy, smooth, zero listener fatigue</td>
+        <td>Long-form audiobooks, meditation guides, doc narration</td>
+        <td>Ideal for 5+ min solo chapters</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:2px 0 0 0;">
+    <div class="callout-title">API Multi-Speaker Alignment Rule: Exact Speaker Label Matching</div>
+    When using <code>gemini-3.8-flash-tts</code> via CLI or REST <code>multiSpeakerVoiceConfig</code>, the prefix inside your text (such as <code>Maya:</code>) must match the key in <code>--multi-speaker "Maya=Kore,Leo=Puck"</code> character-for-character—otherwise the entire script collapses into one fallback voice.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: HEYGEN DIGITAL TWINS, AVATAR IV & VIDEO TRANSLATE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Avatars &amp; Lip-Sync Dubbing</span>
+    <span>HeyGen Digital Twins, Avatar IV &amp; 175+ Language Translation</span>
+  </div>
+
+  <h2 class="page-title">Digital Twins, Avatar IV &amp; 175-Language Video Translate</h2>
+  <p class="page-lead">
+    Transform one continuous studio recording—or even a single portrait photo—into localized talking-head video across 175+ languages and dialects, complete with natural micro-expressions and pixel-accurate mouth movement.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_2.jpg" alt="Visual studio prism splitting a single-take presenter feed into synchronized multilingual holographic streams" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Record Once, Speak Globally:</strong> A single studio presenter performance splits into parallel translated voice tracks while HeyGen re-animates mouth geometry, jaw motion, and subtle eyebrow cues for every target dialect.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:9px 11px; border-top:3px solid #2563eb;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Digital Twin vs. Avatar IV (Photo-to-Video)</div>
+      <ul style="font-size:7.85pt; margin:4px 0 0 0;">
+        <li><strong>Digital Twin:</strong> Built from a <code>15s</code> instant clip or <code>2 min</code> 1080p/4K tripod take—capturing posture, hand gestures, and room depth.</li>
+        <li><strong>Avatar IV:</strong> Animates any still portrait, 3D character, or brand mascot directly from your vocal audio (~16 cr/min Photo Look, ~31 cr/min Video Look).</li>
+        <li><strong>Pro Move:</strong> Upload your ElevenLabs WAV master as the audio driver so Avatar IV reacts to real studio pauses and breath cadence.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:9px 11px; border-top:3px solid #7c3aed;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge purple">2</span> Video Translate: Speed vs. Precision Mode</div>
+      <ul style="font-size:7.85pt; margin:4px 0 0 0;">
+        <li><strong>Speed Mode (~$0.0333/s API):</strong> Fast batch localization for screen-heavy tutorials or small presenter corner bubbles.</li>
+        <li><strong>Precision Mode (~$0.0667/s API):</strong> Deep pixel-level lip re-animation and multi-speaker joint recognition for close-up executive video.</li>
+        <li><strong>Proofread &amp; Brand Glossary:</strong> Edit segment translations before rendering and lock brand names, acronyms, and URLs so nothing gets mistranslated.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0;">5-Part Lip-Sync &amp; Dubbing Pre-Flight Spec</h3>
+  <div class="card" style="padding:8px 11px; margin-bottom:6px;">
+    <div style="font-size:8.25pt; line-height:1.68;">
+      <span class="p-tag p-subj">2 isolated speakers (Founder + PM)</span>
+      <span class="p-tag p-style">localized into es-MX and ja-JP formal customer register,</span>
+      <span class="p-tag p-act">Speed Sync enabled across 1.2s scene pauses,</span>
+      <span class="p-tag p-dial">Glossary locked for KestrelAI, SOC2, and api.kestrel.dev,</span>
+      <span class="p-tag p-cons">rendered in Precision Mode at 16:9 1080p with soft SRT captions.</span>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:0; padding:7.5px 11px;">
+    <div class="callout-title">The 15% Syllable Expansion Rule for Dubbed Videos</div>
+    Spanish, French, and German translations routinely take <strong>15% to 25% more syllables</strong> than English. Leave a calm 1-second pause at the end of every sentence in your source video—or trim redundant English adjectives during <strong>Proofread &amp; Edit</strong>—so Speed Sync never compresses translated speech unnaturally fast.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: LIVEAVATAR WEBRTC INTERACTIVE STREAMING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Real-Time Streaming</span>
+    <span>HeyGen LiveAvatar WebRTC SDK &amp; Conversational Agents</span>
+  </div>
+
+  <h2 class="page-title">Interactive Streaming Presenters With LiveAvatar WebRTC</h2>
+  <p class="page-lead">
+    Go beyond static MP4 files with <strong>HeyGen LiveAvatar</strong>—streaming real-time, two-way conversational digital presenters over WebRTC in sub-second latency for interactive onboarding, virtual tutors, and support desks.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card" style="border-top:3px solid #2563eb;">
+      <div class="card-title"><span class="num-badge">1</span> FULL Mode (~2 credits/min)</div>
+      <p style="font-size:8pt; margin:0;">
+        HeyGen operates the complete turn-taking stack: Voice Activity Detection (VAD), Speech-to-Text, LLM persona prompts, memory, TTS, and video streaming. Launch interactive kiosks or support widgets rapidly without managing custom voice orchestration servers.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #0d9488;">
+      <div class="card-title"><span class="num-badge teal">2</span> LITE Mode (~1 credit/min)</div>
+      <p style="font-size:8pt; margin:0;">
+        Bring your own conversational pipeline (ElevenLabs Flash/Conversational Agents, LiveKit, Pipecat, or Gemini) and use LiveAvatar purely as the synchronized visual renderer—keeping 100% control over custom RAG tools, lexicons, and latency.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0;">5. Server Route: Mint Ephemeral Session Token (Zero Client Key Exposure)</h3>
+  <pre class="code-block"><code>// app/api/liveavatar-token/route.ts (Server-side only — never expose X-API-KEY in browser)
+export async function POST() {
+  const res = await fetch("https://api.liveavatar.com/v1/sessions/token", {
+    method: "POST",
+    headers: { "X-API-KEY": process.env.HEYGEN_API_KEY!, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      mode: "LITE",
+      is_sandbox: process.env.NODE_ENV !== "production", // Free testing without burning credits!
+      avatar_id: "dd73ea75-1218-4ef3-92ce-606d5f7fbc0a"
+    })
+  });
+  const data = await res.json();
+  return Response.json({ sessionToken: data.data.session_token });
+}</code></pre>
+
+  <h3 style="margin:4px 0 4px 0;">6. Client SDK: Connect WebRTC Audio &amp; Video Tracks</h3>
+  <pre class="code-block"><code>// Install: npm install @heygen/liveavatar-web-sdk
+import { LiveAvatarSession } from "@heygen/liveavatar-web-sdk";
+
+async function startConcierge(videoEl: HTMLVideoElement) {
+  const { sessionToken } = await fetch("/api/liveavatar-token", { method: "POST" }).then((r) =&gt; r.json());
+
+  const session = new LiveAvatarSession(sessionToken, {
+    autoKeepAlive: true,              // Prevents idle WebRTC timeout during user pauses
+    voiceChat: { defaultMuted: false }
+  });
+
+  session.on("streamReady", (mediaStream) =&gt; { videoEl.srcObject = mediaStream; });
+  await session.start();
+  return session;                     // Call await session.stop() on unmount
+}</code></pre>
+
+  <div class="callout emerald" style="margin:4px 0 0 0;">
+    <div class="callout-title">3 LiveAvatar Production Safeguards Before Going Public</div>
+    <strong>1. Always prototype with <code>"is_sandbox": true</code></strong> so automated UI tests never burn production streaming minutes. &nbsp;
+    <strong>2. Enforce short-lived token minting</strong> per user session behind rate limits. &nbsp;
+    <strong>3. Enable browser acoustic echo cancellation</strong> (<code>echoCancellation: true</code>) on mic capture so avatar speech never triggers false self-interruptions.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE PRODUCTION RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Cookbook</span>
+    <span>5 Real-World Copy-Paste Voice, Dubbing &amp; Avatar Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Production Recipes You Can Ship Today</h2>
+  <p class="page-lead">
+    Each tested recipe pairs the ideal model, configuration flags, and pacing rule for common studio, localization, and developer workflows.
+  </p>
+
+  <table class="clean-table" style="font-size:7.85pt; margin:4px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Workflow Recipe</th>
+        <th style="width:26%;">Stack &amp; Tier Target</th>
+        <th style="width:29%;">Exact Settings &amp; Tags</th>
+        <th style="width:24%;">Deliverable &amp; Quality Win</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Global SaaS Keynote Dub</strong><br/>EN &rarr; ES, JA, DE</td>
+        <td>HeyGen Video Translate<br/><code>Creator</code> / <code>Pro</code> or API</td>
+        <td><code>Precision Mode</code>, speaker isolation ON, Brand Glossary locked, 1.2s scene end pauses.</td>
+        <td>1080p/4K localized videos with preserved speaker timbre &amp; crisp lip sync.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Two-Host Weekly Briefing</strong><br/>2–5 min audio episode</td>
+        <td>ElevenLabs Studio <code>Multi Cast</code> or <code>gemini-3.8-flash-tts</code></td>
+        <td>Map Host=<code>Kore</code> &amp; Guest=<code>Puck</code> (or <code>eleven_v3</code> with 1–2 <code>[curious]</code> / <code>[laughs]</code> tags).</td>
+        <td>Zero-stitching conversational WAV ready for RSS, Slack, or slide decks.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Medical / Fintech Narrator</strong><br/>Zero acronym mistakes</td>
+        <td>ElevenLabs PVC (<code>Creator+</code>)<br/>Model: <code>eleven_v4</code> / <code>v3</code></td>
+        <td>Upload W3C <code>.pls</code> with case-sensitive IPA <code>&lt;phoneme&gt;</code> + <code>&lt;alias&gt;</code> rules; Stability 55%.</td>
+        <td>100% consistent pronunciation across hundreds of product help videos.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Mascot / Photo Explainer</strong><br/>No camera required</td>
+        <td>ElevenLabs WAV + HeyGen <code>Avatar IV</code> (Photo Look)</td>
+        <td>Render expressive <code>44.1 kHz</code> WAV first; upload audio directly into Avatar IV portrait (~16 cr/m).</td>
+        <td>Animated character or founder portrait with natural head tilts &amp; emotion.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Live Onboarding Concierge</strong><br/>Embedded web tour</td>
+        <td>HeyGen <code>LiveAvatar</code> (<code>LITE</code>) + ElevenLabs Flash v2.5</td>
+        <td>Mint token with <code>is_sandbox: true</code>, set <code>autoKeepAlive: true</code>, ~75ms Flash TTS stream.</td>
+        <td>Sub-second interactive video guide answering live customer questions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0;">7. Copy-Paste Script: Multi-Language Audio + Dubbing Automation</h3>
+  <pre class="code-block"><code>#!/usr/bin/env bash
+set -euo pipefail
+
+# Step A: Rapidly audition a 2-speaker product script locally with Gemini 3.8 Flash TTS
+gemini-api tts "Maya: Welcome to KestrelAI 4.0. Leo: Let us demo live 175-language dubbing." \
+  -m gemini-3.8-flash-tts \
+  --multi-speaker "Maya=Kore,Leo=Puck" \
+  --out ./draft_mix.wav
+
+# Step B: Render final studio WAV via ElevenLabs using your locked W3C PLS pronunciation dictionary
+curl -sS -X POST "https://api.elevenlabs.io/v1/text-to-speech/$ELEVEN_PVC_ID?output_format=pcm_44100" \
+  -H "xi-api-key: $ELEVENLABS_API_KEY" -H "Content-Type: application/json" \
+  -d '{"text":"[warmly] Welcome to KestrelAI 4.0.","model_id":"eleven_v4",
+       "voice_settings":{"stability":0.45,"similarity_boost":0.85,"style":0.15},
+       "pronunciation_dictionary_locators":[{"pronunciation_dictionary_id":"$PLS_ID","version_id":"$PLS_VER"}]}' \
+  --output ./master_44k.pcm</code></pre>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Mixing Tip: Standardize Loudness Before Sending Audio to Avatars</div>
+    Normalize final WAV stems to <code>-16 LUFS</code> (stereo) or <code>-19 LUFS</code> (mono) with a gentle <code>-1.5 dBTP</code> true-peak ceiling before uploading to HeyGen or LMS portals so mobile and laptop speakers play every language at uniform volume.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: CONSENT, C2PA WATERMARKING & SAFEGUARDS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Trust, Consent &amp; Governance</span>
+    <span>Consent Verification, C2PA Provenance &amp; Deepfake Guardrails</span>
+  </div>
+
+  <h2 class="page-title">Consent Verification, C2PA Watermarks &amp; Deepfake Guardrails</h2>
+  <p class="page-lead">
+    Responsible synthetic media protects real speakers, builds audience trust, and satisfies regulatory disclosure mandates such as <strong>EU AI Act Article 50</strong>. Both ElevenLabs and HeyGen enforce strict multi-layer provenance controls.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card" style="border-top:3px solid #2563eb;">
+      <div class="card-title"><span class="num-badge">1</span> Biometric Consent Verification</div>
+      <ul style="font-size:7.85pt; margin:4px 0 0 0;">
+        <li><strong>HeyGen Consent Statement:</strong> Every custom Digital Twin requires a <code>&lt;30s</code> live webcam or QR smartphone video where the talent reads the exact on-screen consent prompt word-for-word.</li>
+        <li><strong>Anti-Spoofing Rejection:</strong> HeyGen moderation automatically rejects altered consent phrasing, mismatched speakers, or screen-recorded video playbacks.</li>
+        <li><strong>ElevenLabs Voice Captcha:</strong> Professional Voice Cloning requires recording a live randomized verification phrase that matches the biometric timbre of the training dataset.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid #059669;">
+      <div class="card-title"><span class="num-badge teal">2</span> Cryptographic Provenance &amp; Detection</div>
+      <ul style="font-size:7.85pt; margin:4px 0 0 0;">
+        <li><strong>C2PA Content Credentials:</strong> Cryptographically signed metadata manifests travel with exported assets, recording the generating tool, edit chain, and publisher.</li>
+        <li><strong>Imperceptible Watermarking (SynthID):</strong> Invisible audio watermarks survive MP3/AAC compression and social re-encoding without audible distortion.</li>
+        <li><strong>Public AI Speech Classifier:</strong> ElevenLabs provides a verification classifier allowing moderators and partners to audit whether an audio clip originated from its platform.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Enterprise Governance &amp; Deepfake Safeguard Matrix</h3>
+  <table class="clean-table" style="font-size:7.9pt; margin:4px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Safety Layer</th>
+        <th style="width:27%;">ElevenLabs Protection</th>
+        <th style="width:27%;">HeyGen Protection</th>
+        <th style="width:24%;">Team Operating Policy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Identity &amp; Likeness Lock</strong></td>
+        <td>Live voice captcha verification; blocks unauthorized public figure clones.</td>
+        <td>Mandatory <code>&lt;30s</code> live consent video; Enterprise pre-recorded API upload gated.</td>
+        <td>Store signed talent release defining geography, duration &amp; revocation rights.</td>
+      </tr>
+      <tr>
+        <td><strong>Workspace Role Control</strong></td>
+        <td>Scale/Business shared seats with scoped custom voice permissions.</td>
+        <td>Business/Enterprise SSO, SAML, MFA &amp; tiered avatar risk permissions.</td>
+        <td>Lock executive Digital Twins to approved producers; disable open export for guests.</td>
+      </tr>
+      <tr>
+        <td><strong>Runtime Guardrails</strong></td>
+        <td>Prompt-injection filtering and output content validators on voice agents.</td>
+        <td>Automated moderation screens political, deceptive, or harmful scripts.</td>
+        <td>Route sensitive customer-facing agent scripts through legal glossary rules.</td>
+      </tr>
+      <tr>
+        <td><strong>Disclosure &amp; Compliance</strong></td>
+        <td>Imperceptible watermarking + AI Speech Classifier auditability.</td>
+        <td>SOC 2 Type II, GDPR biometric lifecycle controls &amp; provenance headers.</td>
+        <td>Display clear AI-generated captions / C2PA manifests for EU Art. 50 compliance.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout violet" style="margin:2px 0 0 0;">
+    <div class="callout-title">Legal Hygiene: Platform Verification Is Necessary—Not a Replacement for Contracts</div>
+    Passing a platform&rsquo;s 30-second video consent or voice captcha proves biometric identity at upload time, but enterprise teams should always pair it with a written commercial talent release specifying whether cloned assets cover internal training only, paid social ads, or post-employment usage.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Studio Synergy</span>
+    <span>End-to-End Gemini TTS + ElevenLabs + HeyGen Pipeline</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Gemini TTS + ElevenLabs + HeyGen</h2>
+  <p class="page-lead">
+    Each platform excels at a specific link in the creative chain. Combine fast Gemini TTS script prototyping, ElevenLabs phoneme-locked voice mastery, and HeyGen visual localization into one repeatable global pipeline.
+  </p>
+
+  <h3>Master 4-Stage Localization &amp; Interactive Presenter Pipeline</h3>
+  <div class="figure-box" style="background:#f8fafc; padding:12px 14px; margin-bottom:10px;">
+    <svg viewBox="0 0 690 156" width="100%" height="156" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Phase Bars -->
+      <rect x="6" y="6" width="158" height="22" rx="5" fill="#0f766e"/>
+      <text x="85" y="21" text-anchor="middle" fill="#ccfbf1" font-size="8.3" font-weight="800">1. GEMINI TTS PROTOTYPE</text>
+
+      <rect x="178" y="6" width="164" height="22" rx="5" fill="#1e3a8a"/>
+      <text x="260" y="21" text-anchor="middle" fill="#dbeafe" font-size="8.3" font-weight="800">2. ELEVENLABS MASTER</text>
+
+      <rect x="356" y="6" width="164" height="22" rx="5" fill="#5b21b6"/>
+      <text x="438" y="21" text-anchor="middle" fill="#ede9fe" font-size="8.3" font-weight="800">3. HEYGEN VISUAL DUB</text>
+
+      <rect x="534" y="6" width="150" height="22" rx="5" fill="#0f172a"/>
+      <text x="609" y="21" text-anchor="middle" fill="#7dd3fc" font-size="8.3" font-weight="800">4. LIVEAVATAR &amp; SHIP</text>
+
+      <!-- Card 1 -->
+      <rect x="6" y="34" width="158" height="114" rx="8" fill="#f0fdfa" stroke="#0d9488" stroke-width="1.5"/>
+      <text x="16" y="52" fill="#115e59" font-size="9.2" font-weight="800">Rapid Pacing Test</text>
+      <text x="16" y="69" fill="#334155" font-size="8">&bull; Draft multi-speaker lines</text>
+      <text x="16" y="83" fill="#334155" font-size="8">&bull; Run gemini-3.8-flash-tts</text>
+      <text x="16" y="97" fill="#334155" font-size="8">&bull; Verify 140-WPM timing</text>
+      <text x="16" y="111" fill="#334155" font-size="8">&bull; Spot tricky jargon early</text>
+      <text x="16" y="135" fill="#0f766e" font-size="7.8" font-weight="700">Out: Approved Script + Beats</text>
+
+      <path d="M166 91 L176 91" stroke="#2563eb" stroke-width="2.2"/><polygon points="174,86 180,91 174,96" fill="#2563eb"/>
+
+      <!-- Card 2 -->
+      <rect x="178" y="34" width="164" height="114" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="188" y="52" fill="#1e40af" font-size="9.2" font-weight="800">Lexicon &amp; PVC Polish</text>
+      <text x="188" y="69" fill="#334155" font-size="8">&bull; Apply W3C .pls IPA rules</text>
+      <text x="188" y="83" fill="#334155" font-size="8">&bull; Add eleven_v3 Audio Tags</text>
+      <text x="188" y="97" fill="#334155" font-size="8">&bull; Lock approved chapters</text>
+      <text x="188" y="111" fill="#334155" font-size="8">&bull; Normalize to -16 LUFS</text>
+      <text x="188" y="135" fill="#1d4ed8" font-size="7.8" font-weight="700">Out: 44.1 kHz Studio WAV</text>
+
+      <path d="M344 91 L354 91" stroke="#7c3aed" stroke-width="2.2"/><polygon points="352,86 358,91 352,96" fill="#7c3aed"/>
+
+      <!-- Card 3 -->
+      <rect x="356" y="34" width="164" height="114" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="366" y="52" fill="#5b21b6" font-size="9.2" font-weight="800">Animate &amp; Translate</text>
+      <text x="366" y="69" fill="#334155" font-size="8">&bull; Drive Twin / Avatar IV</text>
+      <text x="366" y="83" fill="#334155" font-size="8">  directly with WAV master</text>
+      <text x="366" y="97" fill="#334155" font-size="8">&bull; Dub to 175+ languages</text>
+      <text x="366" y="111" fill="#334155" font-size="8">&bull; Lock Glossary + Proofread</text>
+      <text x="366" y="135" fill="#6d28d9" font-size="7.8" font-weight="700">Out: 1080p/4K Localized MP4</text>
+
+      <path d="M522 91 L532 91" stroke="#0f172a" stroke-width="2.2"/><polygon points="530,86 536,91 530,96" fill="#0f172a"/>
+
+      <!-- Card 4 -->
+      <rect x="534" y="34" width="150" height="114" rx="8" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+      <text x="544" y="52" fill="#0f172a" font-size="9.2" font-weight="800">Stream &amp; Certify</text>
+      <text x="544" y="69" fill="#334155" font-size="8">&bull; Verify C2PA &amp; SynthID</text>
+      <text x="544" y="83" fill="#334155" font-size="8">&bull; Publish SRT + SCORM</text>
+      <text x="544" y="97" fill="#334155" font-size="8">&bull; Wire Flash TTS into</text>
+      <text x="544" y="111" fill="#334155" font-size="8">  LiveAvatar LITE WebRTC</text>
+      <text x="544" y="135" fill="#2563eb" font-size="7.8" font-weight="700">Out: Global Web + Live AI</text>
+    </svg>
+  </div>
+
+  <h3>3 Architectural Patterns That Save Time &amp; Credits</h3>
+  <ul style="font-size:8.7pt;">
+    <li><strong>Audio-Driven Avatar Realism:</strong> Never settle for default avatar speech when dramatic emphasis matters. Synthesize your lead narration in ElevenLabs Studio first—using <code>[warmly]</code> tags and W3C <code>.pls</code> rules—then upload the finished WAV stem into HeyGen so your Digital Twin or Avatar IV character animates directly to true vocal nuance.</li>
+    <li><strong>Shared Glossary Governance:</strong> Maintain one canonical YAML/CSV term table in Git. Generate your ElevenLabs <code>.pls</code> XML dictionary from it for English masters and paste the exact same locked terms into HeyGen&rsquo;s Video Translate Brand Glossary before launching 10-language batches.</li>
+    <li><strong>Hybrid LITE WebRTC Agents:</strong> Pair ElevenLabs Flash v2.5 (~75ms) or <code>gemini-3.8-flash-tts</code> as the voice engine feeding HeyGen LiveAvatar <code>LITE</code> mode so your website concierge shares the exact same cloned brand voice heard in your marketing videos.</li>
+  </ul>
+
+  <div class="callout" style="margin:6px 0 0 0;">
+    <div class="callout-title">5-Second Tool Picker: Which Studio Should You Open First?</div>
+    Need <strong>fast multi-speaker developer audio</strong>? Run <code>gemini-api tts</code>. Crafting <strong>emotion-rich narration, audiobooks, or phoneme-locked clones</strong>? Open <strong>ElevenLabs Studio</strong>. Translating <strong>camera footage or animating a Digital Twin</strong>? Launch <strong>HeyGen</strong>. Embedding a <strong>live conversational video guide</strong>? Deploy <strong>LiveAvatar WebRTC</strong>.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting &amp; Pre-Flight</span>
+    <span>Clinic &amp; Production Readiness Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Production Sheet</h2>
+  <p class="page-lead">
+    Diagnose the seven most frequent voice cloning, pronunciation, lip-sync, and streaming failures in seconds—then run the 6-point checklist before releasing global campaigns.
+  </p>
+
+  <h3>Top 7 Voice, Dubbing &amp; Avatar Issues and 10-Second Fixes</h3>
+  <table class="clean-table" style="font-size:7.9pt; margin:4px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:31%;">Symptom / Failure Mode</th>
+        <th style="width:69%;">Root Cause &amp; Immediate Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Cloned PVC voice sounds hollow, metallic, or noisy</strong></td>
+        <td>Training files contained room reverb, HVAC hum, or heavy noise-gate/limiter plugins. Re-record raw <code>24-bit / 48 kHz</code> WAV in a damped room at <code>-20 dB</code> RMS without effects.</td>
+      </tr>
+      <tr>
+        <td><strong>Brand name still mispronounced despite <code>.pls</code> upload</strong></td>
+        <td><code>&lt;grapheme&gt;</code> tags are case-sensitive or the request targeted a non-phoneme model. Include both capitalized and lowercase entries (or <code>&lt;alias&gt;</code> fallbacks) and run <code>eleven_v4</code> / <code>v3</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Audio Tags like <code>[laughs]</code> are spoken aloud as words</strong></td>
+        <td>Script ran on a legacy model that lacks Eleven v3 Audio Tag support, or tags were stacked too densely. Switch to <code>eleven_v3</code>, lower Stability to ~40%, and cap at 1–2 cues per clip.</td>
+      </tr>
+      <tr>
+        <td><strong>Video Translate dub looks rushed or lip-sync drifts</strong></td>
+        <td>Translated language expanded &gt;20% beyond the source speech window. Trim filler words by 10–15% inside <strong>Proofread &amp; Edit</strong>, enable Speed Sync, and use Precision Mode.</td>
+      </tr>
+      <tr>
+        <td><strong>HeyGen Digital Twin consent video auto-rejected</strong></td>
+        <td>Talent altered the on-screen script, exceeded <code>30s</code>, or submitted a screen playback. Record a fresh live webcam or QR smartphone take reading the exact consent text verbatim.</td>
+      </tr>
+      <tr>
+        <td><strong>LiveAvatar WebRTC fails auth or leaks API key</strong></td>
+        <td>Browser tried connecting directly with master <code>X-API-KEY</code>. Always mint an ephemeral <code>session_token</code> via server <code>POST /v1/sessions/token</code> and test with <code>is_sandbox: true</code>.</td>
+      </tr>
+      <tr>
+        <td><strong><code>gemini-api tts --multi-speaker</code> outputs one voice</strong></td>
+        <td>Text turn labels (<code>Maya:</code>) did not match the <code>--multi-speaker</code> map keys character-for-character. Align exact prefixes and confirm <code>-m gemini-3.8-flash-tts</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:4px; padding:10px 13px;">
+    <div class="card-title" style="font-size:9.6pt; color:#38bdf8; margin-bottom:5px;">
+      6-Point Pre-Flight Checklist Before Publishing or Translating
+    </div>
+    <div class="grid-2" style="gap:4px 16px; font-size:8.1pt; color:#e2e8f0;">
+      <div>&#9744; <strong>1. Raw Acoustic Hygiene:</strong> <code>-23</code> to <code>-18 dB</code> RMS, zero clipping, single speaker per PVC stem.</div>
+      <div>&#9744; <strong>4. Consent Archived:</strong> Live voice captcha, <code>&lt;30s</code> video consent, and signed talent release filed.</div>
+      <div>&#9744; <strong>2. Lexicons &amp; Glossary Locked:</strong> Case-sensitive <code>.pls</code> rules and HeyGen Brand Glossary synced.</div>
+      <div>&#9744; <strong>5. Sandbox &amp; Token Proxy:</strong> LiveAvatar verified with <code>is_sandbox: true</code> and server token route.</div>
+      <div>&#9744; <strong>3. 1-Second Scene Breathing Tails:</strong> Source takes include end pauses for 15–25% translation growth.</div>
+      <div>&#9744; <strong>6. C2PA &amp; Captions Verified:</strong> Content Credentials intact and translated SRTs proofed on muted playback.</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:7px; padding:8px 12px;">
+    <div class="callout-title">Ready for Global Rollout</div>
+    Start your next release by locking brand terms inside a 10-line <code>.pls</code> dictionary, auditioning dialogue cadence via <code>gemini-3.8-flash-tts</code>, mastering expressive WAV stems in ElevenLabs Studio, and shipping 175-language lip-sync video and LiveAvatar support on a verified consent foundation.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Voices, Multilingual Dubbing &amp; Avatars &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

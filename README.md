@@ -4,12 +4,12 @@
 
 Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
-> **Read Online at [https://ai-field-guides.vercel.app](https://ai-field-guides.vercel.app)** — Browse all 58 guides in a clean, mobile-friendly web reader or download any 12-page PDF in one click.
+> **Read Online at [https://ai-field-guides.vercel.app](https://ai-field-guides.vercel.app)** — Browse all 66 guides in a clean, mobile-friendly web reader or download any 12-page PDF in one click.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-58%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-696%20Pages-059669?style=for-the-badge)
-![Ecosystems](https://img.shields.io/badge/Scope-6%20Ecosystems-7c3aed?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-66%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-792%20Pages-059669?style=for-the-badge)
+![Ecosystems](https://img.shields.io/badge/Scope-8%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
 
@@ -20,7 +20,7 @@ Every handbook in this repository is authored as a self-contained **12-page visu
 Click any cover card or **Read / Download PDF** link below to view the full handbook directly in GitHub or download a local copy.
 
 <!-- CATALOG:START -->
-**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems)
+**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems) &bull; [AI Music, Cinema & Presentation Studios](#ai-music-cinema--presentation-studios) &bull; [AI Search Visibility, Agentic Web & Workflows](#ai-search-visibility-agentic-web--workflows)
 
 ### Google AI & Creative Studios
 Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, Antigravity 2.0 customizations & swarms, Gemini 3.8 Live & Omni 1.2 Flash voice/video pipelines, agentic Firebase & Android CLI workflows, and autonomous browser agents.
@@ -386,7 +386,7 @@ Publication-grade 12-page visual handbooks for building production full-stack AI
 </table>
 
 ### AI Agent Engineering & Architecture
-Practical 12-page visual handbooks for context engineering, multi-agent orchestration, Orca workspaces & parallel Git worktrees, production MCP servers, Chrome DevTools & Playwright browser agents, OpenTelemetry & prompt caching, structured outputs & state machines, voice-first coding, vector RAG, security, evals, System One decisions, and local on-device AI.
+Practical 12-page visual handbooks for context engineering, multi-agent orchestration, Orca workspaces & parallel Git worktrees, production MCP servers, Chrome DevTools & Playwright browser agents, document & web scraping pipelines (Docling, Crawl4AI & Firecrawl), OpenTelemetry & prompt caching, structured outputs & state machines, voice-first coding, vector RAG, security, evals, System One decisions, and local on-device AI.
 
 <table>
   <tr>
@@ -524,7 +524,14 @@ Practical 12-page visual handbooks for context engineering, multi-agent orchestr
       <p><code>Voice Coding</code> &middot; <code>Whisper &amp; VAD</code> &middot; <code>Capture Pipelines</code></p>
       <p><a href="guides/agent-engineering/voice-first-coding-and-capture-workflows/Voice_First_Coding_and_Capture_Workflows_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/voice-first-coding-and-capture-workflows">&#128736; Editable Source</a></p>
     </td>
-    <td width="50%"></td>
+    <td width="50%" valign="top">
+      <a href="guides/agent-engineering/ai-document-and-web-scraping-pipelines/AI_Document_and_Web_Scraping_Pipelines_Complete_How_To_Guide.pdf"><img src="guides/agent-engineering/ai-document-and-web-scraping-pipelines/cover.png" alt="AI Document &amp; Web Scraping Pipelines Cover" width="100%" /></a>
+      <h3><a href="guides/agent-engineering/ai-document-and-web-scraping-pipelines/AI_Document_and_Web_Scraping_Pipelines_Complete_How_To_Guide.pdf">AI Document &amp; Web Scraping Pipelines</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Transform messy PDFs, Office suites, and JS-heavy websites into clean, chunked, citation-ready Markdown using Docling, Granite-Docling VLM, Crawl4AI fit_markdown, Firecrawl v2, and SHA-256 deduplication.</p>
+      <p><code>Docling</code> &middot; <code>Crawl4AI</code> &middot; <code>Firecrawl</code></p>
+      <p><a href="guides/agent-engineering/ai-document-and-web-scraping-pipelines/AI_Document_and_Web_Scraping_Pipelines_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/agent-engineering/ai-document-and-web-scraping-pipelines">&#128736; Editable Source</a></p>
+    </td>
   </tr>
 </table>
 
@@ -588,6 +595,83 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
   </tr>
 </table>
 
+### AI Music, Cinema & Presentation Studios
+Publication-grade 12-page visual handbooks for generative music, studio voice/avatar localization, interactive 3D world-building & AI cinema, and rapid visual pitch decks—covering Suno, ElevenLabs, Lyria 3.5, HeyGen, Project Genie, Runway, Kling, and Gamma.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/creative-media/ai-music-production-and-soundtracks/AI_Music_Production_and_Soundtracks_Complete_How_To_Guide.pdf"><img src="guides/creative-media/ai-music-production-and-soundtracks/cover.png" alt="AI Music Production &amp; Soundtracks Cover" width="100%" /></a>
+      <h3><a href="guides/creative-media/ai-music-production-and-soundtracks/AI_Music_Production_and_Soundtracks_Complete_How_To_Guide.pdf">AI Music Production &amp; Soundtracks</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Compose songs, brand beds, and looping SFX using Suno v6 meta-tags, Personas, and 12-stem WAV/MIDI exports alongside ElevenLabs Music, Google Lyria 3.5, and 2026 commercial clearance rules.</p>
+      <p><code>Suno v6</code> &middot; <code>ElevenLabs Music</code> &middot; <code>Lyria 3.5</code></p>
+      <p><a href="guides/creative-media/ai-music-production-and-soundtracks/AI_Music_Production_and_Soundtracks_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/creative-media/ai-music-production-and-soundtracks">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/creative-media/ai-voices-dubbing-and-avatars/AI_Voices_Multilingual_Dubbing_and_Avatars_Complete_How_To_Guide.pdf"><img src="guides/creative-media/ai-voices-dubbing-and-avatars/cover.png" alt="AI Voices, Multilingual Dubbing &amp; Avatars Cover" width="100%" /></a>
+      <h3><a href="guides/creative-media/ai-voices-dubbing-and-avatars/AI_Voices_Multilingual_Dubbing_and_Avatars_Complete_How_To_Guide.pdf">AI Voices, Multilingual Dubbing &amp; Avatars</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Produce studio voice clones, W3C PLS phoneme lexicons, multi-speaker Gemini TTS dialogues, 175-language HeyGen lip-sync dubbing, and real-time WebRTC LiveAvatars with C2PA provenance.</p>
+      <p><code>ElevenLabs</code> &middot; <code>HeyGen Avatars</code> &middot; <code>Voice Dubbing</code></p>
+      <p><a href="guides/creative-media/ai-voices-dubbing-and-avatars/AI_Voices_Multilingual_Dubbing_and_Avatars_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/creative-media/ai-voices-dubbing-and-avatars">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/creative-media/interactive-worlds-and-ai-cinema/Interactive_Worlds_and_AI_Cinema_Complete_How_To_Guide.pdf"><img src="guides/creative-media/interactive-worlds-and-ai-cinema/cover.png" alt="Interactive Worlds &amp; AI Cinema Cover" width="100%" /></a>
+      <h3><a href="guides/creative-media/interactive-worlds-and-ai-cinema/Interactive_Worlds_and_AI_Cinema_Complete_How_To_Guide.pdf">Interactive Worlds &amp; AI Cinema</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Generate navigable 3D sets in Google Project Genie, direct camera paths and Act-One facial performances in Runway Gen-4.5, lock characters with Kling Elements, and finish in 4K at 24fps.</p>
+      <p><code>Project Genie</code> &middot; <code>Runway Gen-4.5</code> &middot; <code>Kling AI</code></p>
+      <p><a href="guides/creative-media/interactive-worlds-and-ai-cinema/Interactive_Worlds_and_AI_Cinema_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/creative-media/interactive-worlds-and-ai-cinema">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/creative-media/ai-pitch-decks-and-visual-storytelling/AI_Pitch_Decks_and_Visual_Storytelling_Complete_How_To_Guide.pdf"><img src="guides/creative-media/ai-pitch-decks-and-visual-storytelling/cover.png" alt="AI Pitch Decks &amp; Visual Storytelling Cover" width="100%" /></a>
+      <h3><a href="guides/creative-media/ai-pitch-decks-and-visual-storytelling/AI_Pitch_Decks_and_Visual_Storytelling_Complete_How_To_Guide.pdf">AI Pitch Decks &amp; Visual Storytelling</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turn rough briefs into investor-grade stories using Gamma fluid cards, Studio Mode, Theme Builder brand locks, Spotlight viewer analytics, API/MCP automation, and PowerPoint or Google Slides round-trips.</p>
+      <p><code>Gamma Decks</code> &middot; <code>Visual Storytelling</code> &middot; <code>Brand Themes</code></p>
+      <p><a href="guides/creative-media/ai-pitch-decks-and-visual-storytelling/AI_Pitch_Decks_and_Visual_Storytelling_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/creative-media/ai-pitch-decks-and-visual-storytelling">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+</table>
+
+### AI Search Visibility, Agentic Web & Workflows
+Publication-grade 12-page visual handbooks for Generative Engine Optimization (GEO), AI search citations, agent-ready websites with is-agentic, llms.txt & WebMCP, and bot-free meeting capture pipelines with Granola.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/visibility-and-workflows/geo-and-ai-search-visibility/Generative_Engine_Optimization_and_AI_Visibility_Complete_How_To_Guide.pdf"><img src="guides/visibility-and-workflows/geo-and-ai-search-visibility/cover.png" alt="GEO &amp; AI Search Visibility Cover" width="100%" /></a>
+      <h3><a href="guides/visibility-and-workflows/geo-and-ai-search-visibility/Generative_Engine_Optimization_and_AI_Visibility_Complete_How_To_Guide.pdf">GEO &amp; AI Search Visibility</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Win inline citations across ChatGPT Search, Perplexity, Google AI Overviews, Claude, and Gemini using Answer-First prose capsules, entity corroboration, JSON-LD schema, SSR parity, and Share-of-Voice KPIs.</p>
+      <p><code>GEO</code> &middot; <code>AI Search</code> &middot; <code>JSON-LD &amp; SSR</code></p>
+      <p><a href="guides/visibility-and-workflows/geo-and-ai-search-visibility/Generative_Engine_Optimization_and_AI_Visibility_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/visibility-and-workflows/geo-and-ai-search-visibility">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/visibility-and-workflows/agent-ready-websites-and-webmcp/Agent_Ready_Websites_is_agentic_and_WebMCP_Complete_How_To_Guide.pdf"><img src="guides/visibility-and-workflows/agent-ready-websites-and-webmcp/cover.png" alt="Agent-Ready Websites &amp; WebMCP Cover" width="100%" /></a>
+      <h3><a href="guides/visibility-and-workflows/agent-ready-websites-and-webmcp/Agent_Ready_Websites_is_agentic_and_WebMCP_Complete_How_To_Guide.pdf">Agent-Ready Websites &amp; WebMCP</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Audit sites 0-100 with is-agentic, publish /llms.txt maps and Accept: text/markdown content negotiation, expose browser-native WebMCP tools, and enforce human-in-the-loop safety gates.</p>
+      <p><code>is-agentic</code> &middot; <code>llms.txt</code> &middot; <code>WebMCP</code></p>
+      <p><a href="guides/visibility-and-workflows/agent-ready-websites-and-webmcp/Agent_Ready_Websites_is_agentic_and_WebMCP_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/visibility-and-workflows/agent-ready-websites-and-webmcp">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/visibility-and-workflows/granola-bot-free-meetings-and-pipelines/Bot_Free_Meeting_Notes_and_Action_Pipelines_Complete_How_To_Guide.pdf"><img src="guides/visibility-and-workflows/granola-bot-free-meetings-and-pipelines/cover.png" alt="Bot-Free Meeting Notes &amp; Action Pipelines Cover" width="100%" /></a>
+      <h3><a href="guides/visibility-and-workflows/granola-bot-free-meetings-and-pipelines/Bot_Free_Meeting_Notes_and_Action_Pipelines_Complete_How_To_Guide.pdf">Bot-Free Meeting Notes &amp; Action Pipelines</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Capture meetings silently without call bots in Granola—merging rough human bullets with local transcripts, custom templates, Ask Granola folder Q&amp;A, Recipes, and Slack, Linear, MCP, and Obsidian _inbox/ sync.</p>
+      <p><code>Granola</code> &middot; <code>Meeting Pipelines</code> &middot; <code>Ask Granola</code></p>
+      <p><a href="guides/visibility-and-workflows/granola-bot-free-meetings-and-pipelines/Bot_Free_Meeting_Notes_and_Action_Pipelines_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/visibility-and-workflows/granola-bot-free-meetings-and-pipelines">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%"></td>
+  </tr>
+</table>
+
 ### Quick-Reference Index
 | Guide | Ecosystem | Version | Updated | Pages | Direct Links |
 | :--- | :--- | :---: | :---: | :---: | :--- |
@@ -643,12 +727,20 @@ Publication-grade 12-page visual handbooks for turning Obsidian vaults into AI-n
 | **Agentic Observability & Prompt Caching** — Instrument multi-agent workflows with OpenTelemetry GenAI trace trees, maximize static-first KV cache hit rates, compact historical tool outputs, and route models for predictable token FinOps. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/agentic-observability-and-prompt-caching/Agentic_Observability_and_Prompt_Caching_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/agentic-observability-and-prompt-caching) |
 | **Structured Outputs & State Machines** — Eliminate fragile regex loops with CFG/FSM constrained decoding, Pydantic v2 and Zod v4 contracts, streaming partial objects, explicit transition tables, idempotency, and HITL approval gates. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/structured-outputs-and-state-machines/Structured_Outputs_and_State_Machines_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/structured-outputs-and-state-machines) |
 | **Voice-First Coding & Capture Workflows** — Turn spoken architectural intent into code and notes with mlx-whisper and Superwhisper, codebase symbol glossaries, voice PR diff triage, and automated Obsidian _inbox/ capture pipelines. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/voice-first-coding-and-capture-workflows/Voice_First_Coding_and_Capture_Workflows_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/voice-first-coding-and-capture-workflows) |
+| **AI Document & Web Scraping Pipelines** — Transform messy PDFs, Office suites, and JS-heavy websites into clean, chunked, citation-ready Markdown using Docling, Granite-Docling VLM, Crawl4AI fit_markdown, Firecrawl v2, and SHA-256 deduplication. | AI Agent Engineering & Architecture | `v1.0` | `2026-11` | 12 | [PDF](guides/agent-engineering/ai-document-and-web-scraping-pipelines/AI_Document_and_Web_Scraping_Pipelines_Complete_How_To_Guide.pdf) &middot; [Source](guides/agent-engineering/ai-document-and-web-scraping-pipelines) |
 | **Obsidian + Desktop AI Agents** — Operating your Obsidian vault side-by-side with Claude Desktop and Google Antigravity Desktop—mastering Cowork folders, Local REST API MCP, the native Obsidian CLI, vault AGENTS.md rules, and scheduled briefings. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-desktop-ai-agents/Obsidian_and_Desktop_AI_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-desktop-ai-agents) |
 | **Obsidian Bases & JSON Canvas with AI** — Turning flat Markdown notes into live relational databases and spatial visual boards—having Claude Desktop and Antigravity generate native .base views, YAML schemas, and .canvas architecture maps. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-bases-and-json-canvas-agents/Obsidian_Bases_and_JSON_Canvas_with_AI_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-bases-and-json-canvas-agents) |
 | **Autonomous LLM Wiki & Research Vault** — Building a Karpathy-style self-maintaining knowledge base in Obsidian where Claude Desktop and Antigravity compile raw PDFs, transcripts, and web clips into interlinked evergreen concept notes. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/autonomous-llm-wiki-vault/Autonomous_LLM_Wiki_and_Research_Vault_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/autonomous-llm-wiki-vault) |
 | **AI Agents + Graphify + Obsidian** — Building persistent, queryable knowledge graphs from codebases and notes that you explore visually in Obsidian and expose to AI agents via MCP. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/graphify-and-obsidian-knowledge-graphs/AI_Agents_Graphify_and_Obsidian_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/graphify-and-obsidian-knowledge-graphs) |
 | **Obsidian Vault Security, Privacy & Sync** — Protecting private journals, API secrets, and multi-device sync when AI agents touch your vault—mastering privacy zones, sandboxes, prompt-injection defenses, and conflict-free Obsidian Sync + Git. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/vault-security-privacy-and-sync/Obsidian_Vault_Security_Privacy_and_Sync_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/vault-security-privacy-and-sync) |
 | **Obsidian Multimodal Capture & Pipelines** — Turn web articles, academic PDFs, voice memos, and whiteboard photos into structured vault notes—mastering Obsidian Web Clipper templates, Interpreter {{"..."}} prompts, Knap filters, PDF++ citations, and quarantine-safe _inbox/ routing. | Obsidian & AI Knowledge Systems | `v1.0` | `2026-11` | 12 | [PDF](guides/obsidian/obsidian-capture-and-multimodal-pipelines/Obsidian_Capture_and_Multimodal_Pipelines_Complete_How_To_Guide.pdf) &middot; [Source](guides/obsidian/obsidian-capture-and-multimodal-pipelines) |
+| **AI Music Production & Soundtracks** — Compose songs, brand beds, and looping SFX using Suno v6 meta-tags, Personas, and 12-stem WAV/MIDI exports alongside ElevenLabs Music, Google Lyria 3.5, and 2026 commercial clearance rules. | AI Music, Cinema & Presentation Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/creative-media/ai-music-production-and-soundtracks/AI_Music_Production_and_Soundtracks_Complete_How_To_Guide.pdf) &middot; [Source](guides/creative-media/ai-music-production-and-soundtracks) |
+| **AI Voices, Multilingual Dubbing & Avatars** — Produce studio voice clones, W3C PLS phoneme lexicons, multi-speaker Gemini TTS dialogues, 175-language HeyGen lip-sync dubbing, and real-time WebRTC LiveAvatars with C2PA provenance. | AI Music, Cinema & Presentation Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/creative-media/ai-voices-dubbing-and-avatars/AI_Voices_Multilingual_Dubbing_and_Avatars_Complete_How_To_Guide.pdf) &middot; [Source](guides/creative-media/ai-voices-dubbing-and-avatars) |
+| **Interactive Worlds & AI Cinema** — Generate navigable 3D sets in Google Project Genie, direct camera paths and Act-One facial performances in Runway Gen-4.5, lock characters with Kling Elements, and finish in 4K at 24fps. | AI Music, Cinema & Presentation Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/creative-media/interactive-worlds-and-ai-cinema/Interactive_Worlds_and_AI_Cinema_Complete_How_To_Guide.pdf) &middot; [Source](guides/creative-media/interactive-worlds-and-ai-cinema) |
+| **AI Pitch Decks & Visual Storytelling** — Turn rough briefs into investor-grade stories using Gamma fluid cards, Studio Mode, Theme Builder brand locks, Spotlight viewer analytics, API/MCP automation, and PowerPoint or Google Slides round-trips. | AI Music, Cinema & Presentation Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/creative-media/ai-pitch-decks-and-visual-storytelling/AI_Pitch_Decks_and_Visual_Storytelling_Complete_How_To_Guide.pdf) &middot; [Source](guides/creative-media/ai-pitch-decks-and-visual-storytelling) |
+| **GEO & AI Search Visibility** — Win inline citations across ChatGPT Search, Perplexity, Google AI Overviews, Claude, and Gemini using Answer-First prose capsules, entity corroboration, JSON-LD schema, SSR parity, and Share-of-Voice KPIs. | AI Search Visibility, Agentic Web & Workflows | `v1.0` | `2026-11` | 12 | [PDF](guides/visibility-and-workflows/geo-and-ai-search-visibility/Generative_Engine_Optimization_and_AI_Visibility_Complete_How_To_Guide.pdf) &middot; [Source](guides/visibility-and-workflows/geo-and-ai-search-visibility) |
+| **Agent-Ready Websites & WebMCP** — Audit sites 0-100 with is-agentic, publish /llms.txt maps and Accept: text/markdown content negotiation, expose browser-native WebMCP tools, and enforce human-in-the-loop safety gates. | AI Search Visibility, Agentic Web & Workflows | `v1.0` | `2026-11` | 12 | [PDF](guides/visibility-and-workflows/agent-ready-websites-and-webmcp/Agent_Ready_Websites_is_agentic_and_WebMCP_Complete_How_To_Guide.pdf) &middot; [Source](guides/visibility-and-workflows/agent-ready-websites-and-webmcp) |
+| **Bot-Free Meeting Notes & Action Pipelines** — Capture meetings silently without call bots in Granola—merging rough human bullets with local transcripts, custom templates, Ask Granola folder Q&A, Recipes, and Slack, Linear, MCP, and Obsidian _inbox/ sync. | AI Search Visibility, Agentic Web & Workflows | `v1.0` | `2026-11` | 12 | [PDF](guides/visibility-and-workflows/granola-bot-free-meetings-and-pipelines/Bot_Free_Meeting_Notes_and_Action_Pipelines_Complete_How_To_Guide.pdf) &middot; [Source](guides/visibility-and-workflows/granola-bot-free-meetings-and-pipelines) |
 <!-- CATALOG:END -->
 
 ---

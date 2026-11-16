@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interactive Worlds &amp; AI Cinema: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Field Guides Series &bull; Creative Media Edition</div>
+    <h1>Interactive Worlds &amp; <span>AI Cinema</span></h1>
+    <p class="cover-sub">
+      The complete 12-page visual handbook to playable 3D world generation, director-grade camera control, facial performance capture, and 4K finishing across Google Project Genie, Runway Gen-4.5, and Kling AI.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Project Genie 3D Worlds</span>
+      <span class="cover-badge">Runway Gen-4.5 &amp; Act-One</span>
+      <span class="cover-badge">Multi-Motion &amp; Camera Paths</span>
+      <span class="cover-badge">Kling Elements &amp; Keyframes</span>
+      <span class="cover-badge">5 Copy-Paste Cinema Recipes</span>
+      <span class="cover-badge">4K Upscale &amp; IP Hygiene</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Interactive AI Worlds and Cinema Production Studio Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Playable World Sketching</div>
+      <div class="cover-stat-desc">Turn prompts, sketches, or Street View pins into navigable 720p/24fps 3D worlds inside Google Project Genie.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Director-Level Control</div>
+      <div class="cover-stat-desc">Command camera trajectories, Multi-Motion Brush masks, Act-One acting, and Kling Elements identity locks.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Studio-Ready Finishing</div>
+      <div class="cover-stat-desc">Conform mixed clips at 24fps in DaVinci Resolve, upscale cleanly to 4K, and preserve SynthID + C2PA provenance.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & TOC ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Interactive Worlds &amp; AI Cinema Field Guide</span>
+  </div>
+
+  <h2 class="page-title">Inside This Guide: Playable Worlds vs. AI Cinema</h2>
+  <p class="page-lead">
+    Modern visual AI splits into two distinct superpowers: <strong>real-time playable world models</strong> (Google Project Genie) that let you walk inside a living set, and <strong>deterministic cinema engines</strong> (Runway &amp; Kling) that render locked shots for an editing timeline.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Playable Worlds vs. Cinema</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Kling Elements &amp; 4K Finishing</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Access, Tiers &amp; Credit Math</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Cinema Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Director Viewport</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Team Pre-Viz, IP &amp; Provenance</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Project Genie World-Building</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Runway Gen-4.5 &amp; Act-One</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Checklist</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Motion Brush &amp; Camera Paths</strong></span><span class="toc-pg">p. 7</span></div>
+  </div>
+
+  <h3>Core Mental Model: One Concept, Two Complementary Engines</h3>
+  <div class="figure-box" style="background:#140e06; padding: 12px 14px;">
+    <svg viewBox="0 0 700 172" width="100%" height="172" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="wgAmber" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#b45309"/><stop offset="100%" stop-color="#d97706"/>
+        </linearGradient>
+        <linearGradient id="wgSky" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#0369a1"/><stop offset="100%" stop-color="#0284c7"/>
+        </linearGradient>
+        <linearGradient id="wgPurple" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#6d28d9"/><stop offset="100%" stop-color="#7c3aed"/>
+        </linearGradient>
+      </defs>
+
+      <rect x="10" y="10" width="205" height="98" rx="10" fill="url(#wgAmber)" />
+      <text x="24" y="32" fill="#fef3c7" font-size="9" font-weight="700" letter-spacing="0.6">STAGE 1 &bull; WORLD SCOUTING</text>
+      <text x="24" y="51" fill="#ffffff" font-size="13.5" font-weight="800">Project Genie (Genie 3)</text>
+      <text x="24" y="69" fill="#fef3c7" font-size="9.5">Walk through interactive 3D</text>
+      <text x="24" y="82" fill="#fef3c7" font-size="9.5">sets at 720p/24fps (60s runs)</text>
+      <text x="24" y="95" fill="#fef3c7" font-size="9.5">and export location plates.</text>
+
+      <path d="M220 59 L243 59" stroke="#fbbf24" stroke-width="2.2" stroke-dasharray="4 3"/>
+      <polygon points="242,54 249,59 242,64" fill="#fbbf24"/>
+
+      <rect x="249" y="10" width="205" height="98" rx="10" fill="url(#wgSky)" />
+      <text x="263" y="32" fill="#bae6fd" font-size="9" font-weight="700" letter-spacing="0.6">STAGE 2 &bull; DIRECTED HERO</text>
+      <text x="263" y="51" fill="#ffffff" font-size="13.5" font-weight="800">Runway Gen-4.5 &amp; Act-One</text>
+      <text x="263" y="69" fill="#e0f2fe" font-size="9.5">Drive facial dialogue, camera</text>
+      <text x="263" y="82" fill="#e0f2fe" font-size="9.5">trajectories, and Multi-Motion</text>
+      <text x="263" y="95" fill="#e0f2fe" font-size="9.5">masks on locked characters.</text>
+
+      <path d="M459 59 L482 59" stroke="#fbbf24" stroke-width="2.2" stroke-dasharray="4 3"/>
+      <polygon points="481,54 488,59 481,64" fill="#fbbf24"/>
+
+      <rect x="488" y="10" width="202" height="98" rx="10" fill="url(#wgPurple)" />
+      <text x="502" y="32" fill="#e9d5ff" font-size="9" font-weight="700" letter-spacing="0.6">STAGE 3 &bull; KEYFRAME PHYSICS</text>
+      <text x="502" y="51" fill="#ffffff" font-size="13.5" font-weight="800">Kling AI 3.0 Omni</text>
+      <text x="502" y="69" fill="#f3e8ff" font-size="9.5">Bind @Elements across cuts,</text>
+      <text x="502" y="82" fill="#f3e8ff" font-size="9.5">morph Start-to-End frames,</text>
+      <text x="502" y="95" fill="#f3e8ff" font-size="9.5">and transfer stunt choreography.</text>
+
+      <path d="M112 108 L112 126 M351 108 L351 126 M589 108 L589 126" stroke="#fbbf24" stroke-width="2"/>
+      <rect x="10" y="126" width="680" height="36" rx="8" fill="#291c0c" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="350" y="148" text-anchor="middle" fill="#fef3c7" font-size="11" font-weight="700">
+        NLE Finishing Stage: DaVinci Resolve 24fps Conform + Topaz / Super Scale 4K Upscale + C2PA / SynthID Provenance
+      </text>
+    </svg>
+    <div class="figure-caption">
+      <strong>Figure 1.1:</strong> Treat Project Genie as your virtual location scout, Runway as your acting and motion-paint stage, and Kling as your stunt and keyframe morphing unit before cutting everything together in an NLE.
+    </div>
+  </div>
+
+  <h3>When to Use Interactive World Models vs. Shot-Based Video Engines</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">W</span> Interactive World Models (Project Genie)</div>
+      <ul>
+        <li><strong>Live Camera Ownership:</strong> Steer with <code>WASD</code>, jump with Spacebar, and pan with Arrow keys in real time.</li>
+        <li><strong>Spatial Memory (~60s):</strong> Walk around a corner, turn back, and see rooms and props hold geometry.</li>
+        <li><strong>Best Use:</strong> Level blockouts, architectural walkthroughs, and harvesting exact angle stills for downstream shots.</li>
+      </ul>
+    </div>
+    <div class="card" style="background:#fffbeb; border-color:#fde68a;">
+      <div class="card-title"><span class="num-badge sky">C</span> Directed AI Cinema (Runway &amp; Kling)</div>
+      <ul>
+        <li><strong>Frame-Exact Anchoring:</strong> Lock <code>first_frame</code> and <code>end_frame</code> compositions, character sheets, and 12-bit HDR color.</li>
+        <li><strong>Acting &amp; Physics Precision:</strong> Transfer real human facial nuance via Act-One or full-body motion via Kling.</li>
+        <li><strong>Best Use:</strong> Scripted commercials, narrative short films, music videos, and client-ready 4K masters.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, TIERS & ENGINE MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Budgeting</span>
+    <span>Access Tiers, Credits &amp; Engine Comparison</span>
+  </div>
+
+  <h2 class="page-title">Access Tiers, Credits &amp; Engine Decision Matrix</h2>
+  <p class="page-lead">
+    Every platform prices compute differently. Knowing per-second credit rates before pressing Generate lets you explore freely in cheap draft modes and save premium credits for locked final takes.
+  </p>
+
+  <h3>2026 Platform Tiers, Technical Ceilings &amp; Credit Rates</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Engine / Studio</th>
+        <th style="width:24%;">Access &amp; Pricing Tiers</th>
+        <th style="width:26%;">Output &amp; Credit Cost</th>
+        <th style="width:30%;">Sweet Spot &amp; Watch-Outs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Google Project Genie</strong><br/><span style="color:#64748b;font-size:7.6pt;">Genie 3 World Model</span></td>
+        <td>Google Labs web portal (<code>labs.google/fx/projectgenie</code>); Google AI Ultra tier (18+).</td>
+        <td><strong>720p at 24fps</strong> live stream; strict <strong>60-second</strong> interactive session limit; MP4 walkthrough export.</td>
+        <td>Best for interactive scouting, Street View world remixing, and angle discovery. Not a full game engine; physics drift past 60s.</td>
+      </tr>
+      <tr>
+        <td><strong>Runway Gen-4.5 &amp; Turbo</strong><br/><span style="color:#64748b;font-size:7.6pt;">Cinema Physics Engine</span></td>
+        <td>Free (125 one-time cr) &bull; Standard $15/mo (625 cr) &bull; Pro $35/mo (2,250 cr) &bull; Max $95/mo (9,500 cr).</td>
+        <td>5–10s clips; <strong>Gen-4.5: 12 cr/sec</strong> (~120 cr/10s); <strong>Gen-4 Turbo: 5 cr/sec</strong>; 12-bit / HDR mastering.</td>
+        <td>Best for fluid/fabric physics, Multi-Motion Brush layers, and Gen-4 References. No native voice track; pair with Act-One or NLE audio.</td>
+      </tr>
+      <tr>
+        <td><strong>Runway Act-One / Act-Two</strong><br/><span style="color:#64748b;font-size:7.6pt;">Performance Capture</span></td>
+        <td>Built inside Runway Standard, Pro, Max, and Team plans (no separate add-on fee).</td>
+        <td><strong>5 credits/sec</strong> (3-second minimum) driving a target character image from webcam/phone video.</td>
+        <td>Best for nuanced dialogue, eye-lines, and stylized avatar acting. Needs clear front lighting and unobstructed mouth/eyes.</td>
+      </tr>
+      <tr>
+        <td><strong>Kling AI 3.0 Omni</strong><br/><span style="color:#64748b;font-size:7.6pt;">Elements &amp; Keyframes</span></td>
+        <td>Standard ~$7–$10/mo (~660 cr) &bull; Pro ~$25–$37/mo (~3,000 cr) &bull; Premier 8,000+ cr.</td>
+        <td>Up to 15s multi-shot or 30s Motion Control; <strong>6–8 cr/sec</strong> (1080p) vs. <strong>~30 cr/sec</strong> (native 4K/60fps).</td>
+        <td>Best for <code>@Element</code> locking, Start/End keyframe morphs, and athletic stunts. Native 4K burns 4x credits; upscale 1080p when prototyping.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Three-Step First-Day Studio Setup</h3>
+  <div class="grid-3" style="margin-bottom: 9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Standardize Frame Spec</div>
+      <p>Pick one project ratio (<code>16:9</code> widescreen or <code>9:16</code> vertical) and lock frame rate to <strong>24fps</strong> across every engine before creating your first reference frame.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Build a Visual Bible</div>
+      <p>Generate neutral 3-angle character sheets and clean location plates first. Reusing one master portrait across Runway and Kling eliminates identity drift.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">3</span> Draft Low, Master High</div>
+      <p>Scout lighting in Project Genie, iterate motion timing on <strong>Gen-4 Turbo</strong> (5 cr/s) or <strong>Kling 1080p</strong>, and promote only winning seeds to Gen-4.5 or 4K.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="callout emerald" style="margin:0;">
+      <div class="callout-title">Credit Math Example: 30-Second Commercial</div>
+      A smart 6-shot commercial burns ~350–500 credits total: scout 4 sets in Project Genie (included in Ultra), test 6 motion drafts in Gen-4 Turbo (6 &times; 5s &times; 5 cr = 150 cr), and render 3 hero finishes in Gen-4.5 (3 &times; 8s &times; 12 cr = 288 cr).
+    </div>
+    <div class="callout sky" style="margin:0;">
+      <div class="callout-title">Safety Note: Official Web Portals Only</div>
+      Project Genie runs strictly inside Google Labs in your browser. There is no offline desktop installer or open-weight Genie 3 binary—avoid third-party sites offering downloadable Genie executables.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Interface Map</span>
+    <span>Touring the World &amp; Shot Director Viewport</span>
+  </div>
+
+  <h2 class="page-title">Annotated Workspace UI: World &amp; Shot Director HUD</h2>
+  <p class="page-lead">
+    Although Project Genie, Runway, and Kling organize menus differently, every production workflow centers on the same seven spatial controls. Learn this unified cockpit map to direct across all three engines.
+  </p>
+
+  <div class="ui-window" style="margin-bottom: 10px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#fef3c7;">AI Cinema &amp; World Director</span>
+        <span style="color:#78716c;">/</span>
+        <span style="color:#d6d3d1;">Scene 04: Rainy Harbor Crossing</span>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span style="background:#291c0c; padding:3px 8px; border-radius:99px; color:#fbbf24; font-weight:700;">Genie 00:44 / 01:00</span>
+        <span style="background:#1e293b; padding:3px 8px; border-radius:99px; color:#38bdf8; font-weight:700;">Seed #4291</span>
+        <span style="background:#d97706; padding:3px 10px; border-radius:6px; color:#fff; font-weight:700;">Render 1080p</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 150px 1fr 172px; gap:1px; background:#3d2a12;">
+      <!-- Left: Elements & Plates -->
+      <div style="background:#140e06; padding:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-weight:700; color:#fde68a; font-size:7.4pt;">ELEMENTS &amp; PLATES</span>
+          <span class="callout-pin">1</span>
+        </div>
+        <div style="background:#291c0c; border:1px solid #d97706; border-radius:6px; padding:5px; margin-bottom:6px;">
+          <div style="height:32px; background:linear-gradient(135deg,#78350f,#fbbf24); border-radius:4px; margin-bottom:4px;"></div>
+          <div style="color:#ffffff; font-weight:700;">@scout_mira</div>
+          <div style="color:#a8a29e; font-size:6.6pt;">3-Angle Sheet + Voice</div>
+        </div>
+        <div style="background:#1c1917; border:1px solid #44403c; border-radius:6px; padding:5px; margin-bottom:6px;">
+          <div style="height:32px; background:linear-gradient(135deg,#0c4a6e,#38bdf8); border-radius:4px; margin-bottom:4px;"></div>
+          <div style="color:#ffffff; font-weight:700;">Genie_Dock_A.png</div>
+          <div style="color:#a8a29e; font-size:6.6pt;">720p Scouted Plate</div>
+        </div>
+        <div style="border:1px dashed #57534e; border-radius:6px; padding:5px; text-align:center; color:#a8a29e;">
+          + Bind Element (Max 3)
+        </div>
+      </div>
+
+      <!-- Center: Interactive Viewport & Motion Masks -->
+      <div style="background:#0d0905; padding:8px; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+            <span style="color:#d6d3d1; font-weight:600;">LIVE WORLD / MOTION CANVAS &bull; 16:9 @ 24FPS</span>
+            <span class="callout-pin">2</span>
+          </div>
+          <div style="height:128px; border-radius:7px; border:1px solid #452f14; background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#451a03 100%); padding:8px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="background:rgba(0,0,0,0.65); padding:2px 7px; border-radius:4px; color:#fbbf24; font-weight:700;">Brush 1: Smoke Drift &nearr; (+1.5, -3.2)</span>
+              <span class="callout-pin">3</span>
+            </div>
+            <div style="display:flex; justify-content:center; gap:8px; align-items:center;">
+              <span style="border:1.5px dashed #38bdf8; color:#bae6fd; padding:5px 10px; border-radius:6px; background:rgba(2,132,199,0.2);">Subject Lock: @scout_mira</span>
+              <span style="border:1.5px dashed #fbbf24; color:#fef3c7; padding:5px 10px; border-radius:6px; background:rgba(217,119,6,0.2);">Brush 2: Water Ripple &rarr;</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:6.8pt;">
+              <span style="background:rgba(0,0,0,0.7); padding:2px 7px; border-radius:4px; color:#e7e5e4;">Genie Live Nav: [W A S D] Move &bull; [Space] Jump &bull; [Arrows] Pan</span>
+              <span style="background:rgba(0,0,0,0.7); padding:2px 7px; border-radius:4px; color:#34d399;">3rd-Person Follow</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Keyframe & Camera Curve Strip -->
+        <div style="background:#1c1409; border:1px solid #452f14; border-radius:7px; padding:7px; margin-top:7px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+            <div style="display:flex; gap:5px; align-items:center;">
+              <span class="callout-pin">4</span>
+              <span style="background:#291c0c; border:1px solid #fbbf24; padding:2px 6px; border-radius:4px; color:#fef3c7;">Start Frame: Dock_A</span>
+              <span style="color:#fbbf24;">&rarr;</span>
+              <span style="background:#291c0c; border:1px solid #38bdf8; padding:2px 6px; border-radius:4px; color:#bae6fd;">End Frame: Alley_B</span>
+            </div>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; gap:4px; align-items:center;">
+              <span style="background:#0f172a; padding:2px 6px; border-radius:4px; color:#38bdf8;">Dolly In: 3</span>
+              <span style="background:#0f172a; padding:2px 6px; border-radius:4px; color:#a78bfa;">Pan R: 2.5</span>
+              <span style="background:#0f172a; padding:2px 6px; border-radius:4px; color:#34d399;">Duration: 8s</span>
+              <span class="callout-pin">6</span>
+            </div>
+            <span style="background:#d97706; color:#fff; font-weight:800; padding:3px 9px; border-radius:5px;">Generate (96 cr)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Performance & Audio Inspector -->
+      <div style="background:#140e06; padding:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-weight:700; color:#38bdf8; font-size:7.4pt;">ACT-ONE &amp; MOTION</span>
+          <span class="callout-pin">7</span>
+        </div>
+        <div style="background:#1c1917; border:1px solid #334155; border-radius:6px; padding:6px; margin-bottom:6px; font-size:6.8pt;">
+          <div style="color:#bae6fd; font-weight:700; margin-bottom:2px;">Driving Video (Webcam)</div>
+          <div style="color:#d6d3d1;"><code>actor_take03.mp4</code> (6.5s)</div>
+          <div style="height:16px; margin-top:4px; background:repeating-linear-gradient(90deg,#0284c7 0px,#0284c7 3px,#1e293b 3px,#1e293b 6px); border-radius:3px;"></div>
+        </div>
+        <div style="background:#1c1917; border:1px solid #334155; border-radius:6px; padding:6px; font-size:6.8pt;">
+          <div style="color:#fde68a; font-weight:700; margin-bottom:2px;">Kling Orientation Mode</div>
+          <div style="color:#d6d3d1;">Match: <strong>Video Path (30s max)</strong></div>
+          <div style="color:#a8a29e; margin-top:2px;">Provenance: SynthID + C2PA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Seven Core Viewport Controls Explained</h3>
+  <div class="grid-2" style="gap:7px 14px; font-size:8.6pt;">
+    <div><span class="callout-pin">1</span> <strong>Element &amp; Plate Bin:</strong> Store multi-angle character sheets (<code>@scout_mira</code>), Kling voice profiles, and exported Project Genie still frames for reuse across scenes.</div>
+    <div><span class="callout-pin">2</span> <strong>Live World / Preview Canvas:</strong> Explore Project Genie sets via <code>WASD</code> + Spacebar + Arrows, or preview Runway/Kling motion trajectories in <code>16:9</code> / <code>9:16</code>.</div>
+    <div><span class="callout-pin">3</span> <strong>Multi-Motion Brush Masks:</strong> Paint isolated zones (smoke, water, hair) with independent <code>[x, y]</code> directional vectors while pinning buildings stationary.</div>
+    <div><span class="callout-pin">4</span> <strong>Start &amp; End Keyframe Slots:</strong> Anchor <code>first_frame</code> and <code>end_frame</code> stills in Kling or Runway to control exact opening framing and closing composition.</div>
+    <div><span class="callout-pin">5</span> <strong>Camera Curve &amp; Duration Controls:</strong> Dial physical dolly, pan, tilt, and roll velocity alongside clip duration (<code>5s</code>, <code>8s</code>, or <code>10s</code>) and locked random seed.</div>
+    <div><span class="callout-pin">6</span> <strong>Model Tier &amp; Credit Estimator:</strong> Switch between rapid Turbo/1080p drafting and high-cost Gen-4.5 or native 4K mastering with upfront credit cost feedback.</div>
+  </div>
+  <div style="margin-top:6px; font-size:8.6pt;">
+    <span class="callout-pin">7</span> <strong>Performance &amp; Motion Transfer Rack:</strong> Attach an Act-One actor video for micro-expression lip-sync, or choose Kling Motion Control orientation (<code>image</code> vs. <code>video</code>) for stunt choreography.
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: PROJECT GENIE WORKFLOW ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Project Genie</span>
+    <span>World-Sketching, Navigation &amp; Remixing</span>
+  </div>
+
+  <h2 class="page-title">Playable 3D Worlds in Project Genie (Genie 3)</h2>
+  <p class="page-lead">
+    Powered by Google DeepMind's <strong>Genie 3</strong> spatiotemporal world model, Project Genie generates navigable 3D spaces that react dynamically to your controls at <strong>720p / 24fps</strong> with roughly one minute of spatial object memory.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> World Sketching</div>
+      <p>Describe your terrain, upload a photo/sketch, or pick a <strong>Google Street View</strong> map pin. Preview the opening frame with Nano Banana Pro and refine elements before compiling.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Live 60s Exploration</div>
+      <p>Pick <strong>First-Person</strong> or <strong>Third-Person</strong> perspective, then move with <code>WASD</code>, jump with <code>Spacebar</code>, and pan the camera with <code>Arrow</code> keys as the path renders live.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">3</span> Remix &amp; Export Plates</div>
+      <p>Download your walkthrough MP4 or click <strong>Remix</strong> on any seed world to swap the character, weather, or physics mood while preserving spatial layout.</p>
+    </div>
+  </div>
+
+  <div class="figure-box">
+    <img src="assets/showcase_1.jpg" alt="Interactive 3D AI World Environment for Project Genie Scouting" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 4.1 &bull; Project Genie World Scouting:</strong> Use a single World Sketch to test camera angles dynamically inside a 60-second playable run, then grab crisp frames for Runway and Kling.
+    </div>
+  </div>
+
+  <h3>Structured World-Sketch &amp; Plate-Harvesting Blueprint</h3>
+  <pre><code># PROJECT GENIE WORLD SKETCH TEMPLATE (Copy &amp; Adapt inside labs.google/fx/projectgenie)
+ENVIRONMENT : Mist-drenched floating lantern harbor at twilight, wet basalt piers, wooden footbridges
+GROUNDING   : Optional Street View coordinates OR uploaded concept sketch (16:9 widescreen)
+CHARACTER   : Agile third-person explorer wearing an amber waxed canvas raincoat and satchel
+PHYSICS     : Grounded walking pace, buoyant water reflections, gentle cloth sway, soft jump arc
+PREVIEW EDIT: Use Nano Banana Pro preview -> [Add] distant lighthouse beam; [Remove] foreground crates
+SCOUT LOOP  : Walk forward 15s (Shot A wide) -> turn 90 deg left to bridge (Shot B) -> export MP4</code></pre>
+
+  <div class="callout emerald" style="margin-top:4px;">
+    <div class="callout-title">Filmmaker Secret: Turning Genie Walkthroughs into Cinema Storyboards</div>
+    Instead of begging a text-to-video generator to guess an unusual low-angle alleyway shot, build the street in Project Genie, walk to the exact corner you want with <code>WASD</code>, export the 720p MP4, and pause on your favorite frames. Those geometrically consistent plates become flawless <strong>Start Frames</strong> for Runway and Kling.
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: RUNWAY GEN-4.5 & ACT-ONE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Runway Cinema</span>
+    <span>Gen-4.5 Physics, References &amp; Act-One Performance</span>
+  </div>
+
+  <h2 class="page-title">Runway Gen-4.5 Director Controls &amp; Act-One</h2>
+  <p class="page-lead">
+    When your scene requires physical weight—fabric billowing in wind, water splashing against glass, or an actor delivering subtle heartbreak—pair <strong>Runway Gen-4.5</strong> with <strong>Gen-4 References</strong> and <strong>Act-One / Act-Two</strong>.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">A</span> Gen-4.5 Physics &amp; Gen-4 References</div>
+      <p>Gen-4.5 models cause-and-effect momentum across 5–10 second takes and exports up to 12-bit HDR (<code>hdr10</code>/<code>hlg</code>). Attach clean portrait and prop cards in <strong>Gen-4 References</strong> so your hero's face and jacket stay identical from wide shots to tight inserts without custom LoRA training.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">B</span> Act-One &amp; Act-Two Performance Capture</div>
+      <p>Record a 5–15 second driving clip on your phone or webcam. <strong>Act-One</strong> maps your micro-expressions, eye-lines, blinks, and lip-sync onto any stylized or photoreal character image at <strong>5 credits/sec</strong>, while <strong>Act-Two</strong> extends performance capture to hand and upper-body gestures.</p>
+    </div>
+  </div>
+
+  <h3>Color-Coded Runway Gen-4.5 Shot-List Formula</h3>
+  <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:9px 12px; margin-bottom:8px;">
+    <div style="margin-bottom:6px; display:flex; flex-wrap:wrap; gap:5px; font-size:7.6pt;">
+      <span class="p-tag p-style">1. Lens &amp; Look</span>
+      <span class="p-tag p-subj">2. Locked Subject</span>
+      <span class="p-tag p-act">3. Cause &amp; Physics</span>
+      <span class="p-tag p-cam">4. Camera Trajectory</span>
+      <span class="p-tag p-light">5. Lighting &amp; Atmosphere</span>
+      <span class="p-tag p-cons">6. Hold &amp; Constraints</span>
+    </div>
+    <div style="font-size:8.9pt; line-height:1.68; border-top:1px dashed #cbd5e1; padding-top:6px;">
+      <span class="p-tag p-style">35mm anamorphic cinema, tactile rain droplets on glass.</span>
+      <span class="p-tag p-subj">Character reference @scout_mira stands on a wet timber pier.</span>
+      <span class="p-tag p-act">She raises a heavy brass flare, wind whips her waxed coat hem violently left while harbor swells rock nearby buoys.</span>
+      <span class="p-tag p-cam">Slow dolly-in from waist-up to medium close-up, subtle handheld micro-drift, then hold 2 seconds.</span>
+      <span class="p-tag p-light">Warm amber flare reflections cutting through cold slate fog.</span>
+      <span class="p-tag p-cons">Natural skin texture, realistic gravity, no text overlays.</span>
+    </div>
+  </div>
+
+  <h3>Programmatic Runway Gen-4.5 Inference Payload (With Seed Lock)</h3>
+  <pre><code>{
+  "model": "runway-gen-4.5",
+  "taskType": "videoInference",
+  "input": {
+    "prompt": "Slow dolly-in on @scout_mira raising brass flare on rainy pier, heavy coat fabric physics.",
+    "image_url": "https://cdn.example.com/plates/Genie_Dock_A.png",
+    "duration": 8,
+    "ratio": "16:9",
+    "resolution": "1080p",
+    "fps": 24,
+    "seed": 4291
+  }
+}</code></pre>
+
+  <div class="callout amber" style="margin-top:4px;">
+    <div class="callout-title">Act-One Directing Tip: Shoot Your Driving Video Cleanly</div>
+    Sit facing a soft window or ring light, keep your chin level, and avoid waving hands in front of your mouth when using Act-One. Pause half a beat before and after speaking so you have clean editing handles in your NLE.
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: MOTION BRUSH & CAMERA PATHS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Motion &amp; Camera</span>
+    <span>Multi-Motion Brush &amp; Precision Camera Paths</span>
+  </div>
+
+  <h2 class="page-title">Multi-Motion Brush &amp; Precision Camera Paths</h2>
+  <p class="page-lead">
+    Text prompts alone often swirl static walls or freeze hair that should blow in the breeze. Combining <strong>Multi-Motion Brush</strong> masks with explicit camera path trajectories separates environmental motion from camera movement.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Isolate Motion Zones</div>
+      <p>Paint independent brush regions onto your start frame—assigning <strong>Brush 1</strong> to rising steam, <strong>Brush 2</strong> to flowing river water, and <strong>Brush 3</strong> to swaying tree branches.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Pin Static Anchors</div>
+      <p>Keep brushes strictly inside moving silhouettes and avoid feathering onto brick walls or horizons. Unpainted or zero-vector regions stay anchored like real set walls.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">3</span> Script Camera Arcs</div>
+      <p>In Gen-4/4.5, replace legacy sliders with crisp shot-list verbs (<em>slow dolly in, hold, orbit 90 degrees</em>) or structured <code>camera</code> axis vectors via the API.</p>
+    </div>
+  </div>
+
+  <div class="figure-box">
+    <img src="assets/showcase_2.jpg" alt="Studio Camera Rig and Multi-Motion Control Staging Illustration" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 6.1 &bull; Separating Camera Path from Subject Motion:</strong> Keep text prompts focused on texture and emotion while assigning directional vectors cleanly to camera and painted brush zones.
+    </div>
+  </div>
+
+  <h3>Multi-Motion Brush &amp; Compound Camera Trajectory JSON</h3>
+  <pre><code>"camera": {
+  "movement": "pan_right",
+  "speed": 3,
+  "zoom": "in",
+  "horizontal": 2.5,
+  "vertical": -0.8,
+  "roll": 0.0
+},
+"multi_motion_brush": [
+  { "id": 1, "mask_coordinates": [120, 440, 310, 620], "vector": [1.5, -3.2], "trajectory": "linear", "intensity": 7 },
+  { "id": 2, "mask_coordinates": [520, 190, 780, 410], "vector": [-2.0, 1.0],  "trajectory": "orbit",  "intensity": 5 }
+]</code></pre>
+
+  <div class="callout sky" style="margin-top:4px;">
+    <div class="callout-title">Rule of Thumb: Never Fight Your Camera Block in Text</div>
+    When sending structured <code>camera</code> and <code>multi_motion_brush</code> arrays via API, keep your text prompt concise and free of conflicting camera directions (do not write <em>fast whip pan left</em> in text if your JSON sets <code>pan_right</code>).
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: KLING ELEMENTS, KEYFRAMES & NLE FINISHING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Kling &amp; Finishing</span>
+    <span>Elements Locking, Start/End Keyframes &amp; 4K NLE</span>
+  </div>
+
+  <h2 class="page-title">Kling Elements, Keyframes &amp; 4K NLE Finishing</h2>
+  <p class="page-lead">
+    <strong>Kling AI 3.0 Omni</strong> shines when characters sprint, fight, dance, or transform smoothly between two exact still frames. Pair Kling's consistency tools with DaVinci Resolve or Premiere Pro to finish a broadcast-grade cut.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">1</span> Kling Elements &amp; Voice</div>
+      <p>Register multi-angle portraits and hero props inside the <strong>Element Library</strong>, bind a matching voice signature, and attach up to <strong>3 Elements</strong> (<code>@element_1</code>) to lock outfits and faces across head turns.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">2</span> Start &amp; End Keyframes</div>
+      <p>Supply <code>first_frame</code> and <code>end_frame</code> (<code>image_tail</code>) to morph cleanly between two compositions—or pin up to 10 timeline milestones in Kling 4.0 for multi-beat transitions.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Motion Control Transfer</div>
+      <p>Upload a character portrait plus a reference stunt/dance clip. Set <code>character_orientation</code> to <code>image</code> (max 10s) or <code>video</code> (up to 30s) to transfer exact body mechanics.</p>
+    </div>
+  </div>
+
+  <h3>Kling API Start-to-End Keyframe + Element Lock Payload</h3>
+  <pre><code>{
+  "model_name": "kling-v3",
+  "prompt": "Continuous tracking push-in as @element_1 steps from sunlit pier into neon fog.",
+  "negative_prompt": "blurry, warped fingers, flickering clothing, watermark",
+  "duration": 5,
+  "mode": "pro",
+  "cfg_scale": 0.5,
+  "first_frame": "https://cdn.example.com/plates/day_pier_start.jpg",
+  "end_frame": "https://cdn.example.com/plates/neon_alley_end.jpg",
+  "elements": [
+    { "element_id": "elem_scout_mira", "weight": 0.85, "position": { "region": [0.2, 0.1, 0.8, 0.9] } }
+  ]
+}</code></pre>
+
+  <h3>NLE Assembly &amp; 4K Upscaling Workflow</h3>
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> DaVinci Resolve / Premiere Pro Conform</div>
+      <ul>
+        <li>Drop Genie (720p), Runway (1080p), and Kling clips onto a single <strong>24fps Rec.709</strong> timeline.</li>
+        <li>Trim the first and last 8–12 frames of AI clips to cut cleanly on physical motion.</li>
+        <li>Unify disparate renders using one subtle Kodak film print LUT and 35mm grain overlay, plus layered Foley stems.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">B</span> Smart 4K Upscaling (Save 75% Credits)</div>
+      <ul>
+        <li>Instead of paying <strong>~30 cr/sec</strong> for native 4K in Kling during exploration, master locked takes at crisp <strong>1080p</strong> (6–8 cr/sec).</li>
+        <li>Upscale final locked timeline exports with <strong>DaVinci Resolve Studio Super Scale (2x/4x)</strong> or <strong>Topaz Video AI</strong> (Proteus / Rhea models) to sharpen fabric weave and eye highlights.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Recipes</span>
+    <span>5 Real-World Copy-Paste Workflows</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Cinema &amp; World Recipes</h2>
+  <p class="page-lead">
+    Stop reinventing settings for every new scene. Copy these five battle-tested recipes directly into Project Genie, Runway, Kling, and your finishing terminal.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:21%;">Recipe &amp; Engine</th>
+        <th style="width:45%;">Exact Inputs &amp; Prompt / Parameter Formula</th>
+        <th style="width:34%;">Pro Execution Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Playable Game Level Scout</strong><br/><span style="color:#d97706;font-weight:700;">Project Genie</span></td>
+        <td>Prompt: <em>Ancient sunken observatory overgrown with moss, third-person explorer with lantern, warm dust motes, realistic stone gravity.</em></td>
+        <td>Walk 20s with <code>WASD</code> to test vertical scale; pause and save 3 still frames (wide, corner reveal, hero balcony) for Runway/Kling.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Hero Product Orbit</strong><br/><span style="color:#0284c7;font-weight:700;">Runway Gen-4.5</span></td>
+        <td>Input: Studio packshot + Brush 1 rising mist (<code>[0.0, -2.5]</code>) + Prompt: <em>Slow 90-deg orbital arc around matte espresso brewer, 85mm macro rim light.</em></td>
+        <td>Keep intensity at <code>6</code> so steam swirls naturally while stainless steel edges remain razor-sharp across the orbit.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Dialogue Close-Up</strong><br/><span style="color:#7c3aed;font-weight:700;">Runway Act-One</span></td>
+        <td>Input: Locked character portrait + 8s front-lit webcam clip delivering 12 words cleanly with subtle eyebrow raise and glance left.</td>
+        <td>Costs just <strong>5 cr/s</strong> (40 credits). Export ProRes/MP4 and sweeten dialogue in DaVinci Fairlight with room-tone noise bed.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Day-to-Night Location Morph</strong><br/><span style="color:#059669;font-weight:700;">Kling Start/End</span></td>
+        <td>Inputs: <code>first_frame</code> (noon cafe) + <code>end_frame</code> (rainy neon midnight) + <code>@element_1</code> + 5s Pro mode, <code>cfg_scale: 0.5</code>.</td>
+        <td>Match horizon height and camera distance in both stills so buildings transform seamlessly rather than melting sideways.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Action Stunt Transfer</strong><br/><span style="color:#be185d;font-weight:700;">Kling Motion Ctrl</span></td>
+        <td>Inputs: Character portrait + 12s parkour vault video; <code>character_orientation: "video"</code>, <code>keep_original_sound: "no"</code>, Pro 1080p.</td>
+        <td>Always set orientation to <code>"video"</code> for clips over 10s or turns exceeding 90 degrees so limbs do not snap backward.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Recipe 5B &bull; Conforming Mixed Renders for DaVinci Resolve (FFmpeg)</h3>
+  <p>Before dropping 720p Project Genie walkthrough grabs, Runway H.264/ProRes renders, and Kling MP4s into one timeline, normalize frame rates and scale everything cleanly into an edit-friendly 4K ProRes 422 HQ intermediate:</p>
+  <pre><code># Normalize mixed 720p/1080p clips to unified 24fps 4K ProRes 422 HQ plates (zero re-compression stutter)
+for f in raw_renders/*.mp4; do
+  base=$(basename "$f" .mp4)
+  ffmpeg -i "$f" -vf "fps=24,scale=3840:2160:flags=lanczos" \
+    -c:v prores_ks -profile:v 3 -pix_fmt yuv422p10le -c:a pcm_s24le "conform/${base}_4k24.mov"
+done</code></pre>
+
+  <div class="callout amber" style="margin-top:4px;">
+    <div class="callout-title">Always Lock Your Seed Before Final Polish</div>
+    When a draft render nails body posture but misses minor texture detail, copy the exact integer <code>seed</code> into your upgraded Gen-4.5 or Kling Pro call so you refine the composition instead of rolling the dice again.
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: TEAM PRE-VIZ, IP HYGIENE & PROVENANCE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Governance &amp; IP</span>
+    <span>Team Pre-Viz, IP Hygiene, Provenance &amp; Budgets</span>
+  </div>
+
+  <h2 class="page-title">Team Pre-Viz, IP Hygiene &amp; Frame Provenance</h2>
+  <p class="page-lead">
+    Shipping AI-assisted films for clients, festivals, or studios requires clean rights hygiene, reproducible pre-viz packets, and verifiable provenance credentials under 2026 disclosure standards.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Portable Team Pre-Viz Packets</div>
+      <p>Share lightweight creative packets before rendering expensive masters: bundle your <strong>Project Genie 60s MP4 scout</strong>, seed prompt text, 3-angle Element sheets, and a rough 24fps animatic cut so directors approve blocking upfront.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Commercial IP Hygiene</div>
+      <p>Generate client deliverables strictly on <strong>paid commercial tiers</strong> (which exclude inputs from model training and remove watermarks). Never upload copyrighted characters, celebrity faces, or client competitor logos into Elements.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">3</span> Dual-Layer Provenance: SynthID + C2PA</div>
+      <p>Google embeds <strong>SynthID</strong> watermarks directly inside pixels and audio—resilient to cropping and compression—while <strong>C2PA Content Credentials</strong> attach signed metadata manifests. Always re-sign final NLE renders after editing.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">4</span> Two-Bucket Credit Governance</div>
+      <p>Split team monthly credits into an <strong>80% R&amp;D / Draft Pool</strong> (Genie scouting, Turbo 5 cr/s, Kling 1080p) and a locked <strong>20% Master Finishing Pool</strong> (Gen-4.5 12 cr/s &amp; Kling 4K) gated by creative-director sign-off.</p>
+    </div>
+  </div>
+
+  <h3>Re-Signing Edited AI Masters with C2PA Content Credentials</h3>
+  <p>Exporting from DaVinci Resolve or Premiere Pro strips upstream generation manifests unless you append an updated C2PA assertion documenting both AI source ingredients and human editorial finishing:</p>
+  <pre><code>// manifest.json — Declare hybrid AI source lineage + human NLE assembly before delivery
+{
+  "claim_generator": "Studio_Post_Pipeline/1.0",
+  "title": "Neon_Harbor_Director_Cut_4K.mp4",
+  "assertions": [
+    { "label": "c2pa.actions", "data": { "actions": [
+      { "action": "c2pa.created", "digitalSourceType": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia" },
+      { "action": "c2pa.edited",  "parameters": { "software": "DaVinci Resolve 20 + Topaz 4K" } }
+    ] } }
+  ]
+}
+// Sign final MP4: c2patool input_master.mp4 -m manifest.json -o final_signed_4k.mp4</code></pre>
+
+  <div class="callout purple" style="margin-top:4px;">
+    <div class="callout-title">Human Authorship &amp; Copyright Defensibility</div>
+    Raw, unedited AI clips generally cannot be registered for standalone copyright. Documenting human storyboards, custom webcam Act-One performances, NLE pacing cuts, color grading, and original sound design establishes meaningful human authorship across the finished piece.
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Synergy Pipeline</span>
+    <span>Connecting Genie, Kling, Runway &amp; NLE Finishing</span>
+  </div>
+
+  <h2 class="page-title">The Cross-Tool World-to-Cinema Synergy Pipeline</h2>
+  <p class="page-lead">
+    No single engine dominates every film task. Use this five-stage handoff pipeline to pair Project Genie's navigable worlds with Kling's action physics, Runway's acting polish, and studio 4K finishing.
+  </p>
+
+  <div class="figure-box" style="background:#140e06; padding:14px;">
+    <svg viewBox="0 0 700 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+      <!-- Row 1: Stages 1 -> 2 -> 3 -->
+      <rect x="10" y="10" width="204" height="82" rx="9" fill="#291c0c" stroke="#fbbf24" stroke-width="1.8"/>
+      <circle cx="30" cy="30" r="10" fill="#d97706"/><text x="30" y="34" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">1</text>
+      <text x="48" y="34" fill="#fef3c7" font-size="10.8" font-weight="800">Project Genie Scout</text>
+      <text x="22" y="53" fill="#e7e5e4" font-size="9">Sketch 3D world or Street View;</text>
+      <text x="22" y="66" fill="#e7e5e4" font-size="9">walk 60s with WASD; export</text>
+      <text x="22" y="79" fill="#fbbf24" font-size="9" font-weight="700">Output: 720p Angle Plates</text>
+
+      <path d="M218 51 L243 51" stroke="#fbbf24" stroke-width="2.2"/><polygon points="242,46 249,51 242,56" fill="#fbbf24"/>
+
+      <rect x="249" y="10" width="204" height="82" rx="9" fill="#1e1b4b" stroke="#a78bfa" stroke-width="1.8"/>
+      <circle cx="269" cy="30" r="10" fill="#7c3aed"/><text x="269" y="34" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">2</text>
+      <text x="287" y="34" fill="#f3e8ff" font-size="10.8" font-weight="800">Kling 3.0 Keyframes</text>
+      <text x="261" y="53" fill="#e0e7ff" font-size="9">Feed Genie plates as Start/End</text>
+      <text x="261" y="66" fill="#e0e7ff" font-size="9">frames + bind @Elements;</text>
+      <text x="261" y="79" fill="#c4b5fd" font-size="9" font-weight="700">Output: Wide Action &amp; Morphs</text>
+
+      <path d="M457 51 L482 51" stroke="#a78bfa" stroke-width="2.2"/><polygon points="481,46 488,51 481,56" fill="#a78bfa"/>
+
+      <rect x="488" y="10" width="202" height="82" rx="9" fill="#082f49" stroke="#38bdf8" stroke-width="1.8"/>
+      <circle cx="508" cy="30" r="10" fill="#0284c7"/><text x="508" y="34" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">3</text>
+      <text x="526" y="34" fill="#e0f2fe" font-size="10.8" font-weight="800">Runway Act-One / 4.5</text>
+      <text x="500" y="53" fill="#bae6fd" font-size="9">Drive close-up facial acting</text>
+      <text x="500" y="66" fill="#bae6fd" font-size="9">&amp; Multi-Motion Brush inserts;</text>
+      <text x="500" y="79" fill="#7dd3fc" font-size="9" font-weight="700">Output: Hero Emotional Cuts</text>
+
+      <!-- Connector Row 1 to Row 2 -->
+      <path d="M589 92 L589 112 L150 112 L150 124" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 3"/>
+      <polygon points="145,122 150,130 155,122" fill="#94a3b8"/>
+
+      <!-- Row 2: Stage 4 -> Stage 5 -->
+      <rect x="40" y="130" width="295" height="78" rx="9" fill="#064e3b" stroke="#34d399" stroke-width="1.8"/>
+      <circle cx="62" cy="150" r="10" fill="#059669"/><text x="62" y="154" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">4</text>
+      <text x="80" y="154" fill="#ecfdf5" font-size="10.8" font-weight="800">DaVinci Resolve + 4K Upscaling</text>
+      <text x="54" y="173" fill="#d1fae5" font-size="9">Conform mixed clips to 24fps ProRes; apply unified</text>
+      <text x="54" y="186" fill="#d1fae5" font-size="9">color LUT, 35mm grain, Super Scale / Topaz 4K,</text>
+      <text x="54" y="199" fill="#6ee7b7" font-size="9" font-weight="700">and continuous Foley + musical score bed.</text>
+
+      <path d="M341 169 L374 169" stroke="#34d399" stroke-width="2.2"/><polygon points="373,164 381,169 373,174" fill="#34d399"/>
+
+      <rect x="381" y="130" width="280" height="78" rx="9" fill="#1c1917" stroke="#f59e0b" stroke-width="1.8"/>
+      <circle cx="403" cy="150" r="10" fill="#d97706"/><text x="403" y="154" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">5</text>
+      <text x="421" y="154" fill="#fef3c7" font-size="10.8" font-weight="800">Provenance &amp; Commercial Delivery</text>
+      <text x="395" y="173" fill="#e7e5e4" font-size="9">Verify SynthID retention across plates;</text>
+      <text x="395" y="186" fill="#e7e5e4" font-size="9">re-sign export with c2patool manifest;</text>
+      <text x="395" y="199" fill="#fbbf24" font-size="9" font-weight="700">Deliver 4K HDR / Rec.709 Master MP4</text>
+    </svg>
+    <div class="figure-caption">
+      <strong>Figure 10.1:</strong> Each stage passes deterministic visual anchors forward—Genie sets spatial layout, Kling handles wide physical motion, Runway nails close-up acting, and Resolve unifies the finished film.
+    </div>
+  </div>
+
+  <h3>Three Critical Handoff Rules Between Engines</h3>
+  <div class="grid-3" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Match Aspect &amp; Horizon</div>
+      <p>Keep Project Genie still exports and downstream Runway/Kling keyframes at identical aspect ratios (<code>16:9</code> or <code>9:16</code>) with matching horizon lines.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> Lock Lighting Words</div>
+      <p>Carry identical time-of-day and color temperature descriptors (e.g., <em>overcast cyan fog, warm tungsten lantern</em>) across every tool's prompt.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Strip Auto-Music Early</div>
+      <p>Mute per-clip AI music during generation or strip audio tracks in Resolve so a single continuous score and Foley stem bridges every cut.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald">
+    <div class="callout-title">Why Cross-Tool Pipelines Outperform Single-Tool Prompts</div>
+    Trying to force one generator to invent a complex 3D architectural layout, deliver nuanced lip-synced grief, and execute an athletic parkour vault usually wastes hundreds of credits. Routing each beat to the specialized engine built for it drops re-roll waste dramatically while giving editors consistent, gradeable footage.
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Quick Reference</span>
+    <span>Troubleshooting Clinic &amp; Director Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Keep this final page next to your keyboard while directing. Every recurring world-drift, mask-bleed, lip-sync, or keyframe-warp snag has an immediate 10-second fix.
+  </p>
+
+  <h3>Top 7 World &amp; AI Cinema Problems &amp; Instant Fixes</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:29%;">Symptom / Failure Mode</th>
+        <th style="width:71%;">Root Cause &amp; Exact 10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Project Genie forgets geometry after turning around</strong></td>
+        <td>Exceeded the ~60-second spatial memory window or walked too far afield. Keep scouting loops tight inside the core set, grab angle stills early, or Remix a fresh seed.</td>
+      </tr>
+      <tr>
+        <td><strong>Runway Motion Brush moves walls or bleeds silhouettes</strong></td>
+        <td>Feathered brush spilled past object edges. Paint tighter masks strictly inside the moving element and leave surrounding architecture untouched as static anchors.</td>
+      </tr>
+      <tr>
+        <td><strong>Act-One facial expressions look stiff or miss eye-lines</strong></td>
+        <td>Dim or side-lit driving video confused landmark tracking. Re-record your phone clip facing even soft light at eye level, remove glasses, and keep hands away from your mouth.</td>
+      </tr>
+      <tr>
+        <td><strong>Kling Start-to-End morph twists or melts mid-transition</strong></td>
+        <td>Camera horizon or subject orientation jumped too far between <code>first_frame</code> and <code>end_frame</code>. Align horizon lines across both stills or shorten duration to 5 seconds.</td>
+      </tr>
+      <tr>
+        <td><strong>Hero face or jacket drifts during fast turns</strong></td>
+        <td>Single front portrait lacks side-profile cues. Upload a 3-angle sheet to Kling Elements (<code>@element_1</code>) or Runway Gen-4 References and drop repetitive clothing text.</td>
+      </tr>
+      <tr>
+        <td><strong>Cuts between Genie, Runway, and Kling feel disjointed</strong></td>
+        <td>Mixed frame rates, resolutions, and contrasting digital sheen. Conform all clips to <code>24fps</code> in Resolve, apply one unified color LUT + 35mm grain, and upscale to 4K together.</td>
+      </tr>
+      <tr>
+        <td><strong>Monthly credits disappear before final cut lock</strong></td>
+        <td>Rendering 10s Gen-4.5 (12 cr/s) or Kling 4K (30 cr/s) on unverified prompts. Draft in Genie, Gen-4 Turbo (5 cr/s), and Kling 1080p, then upscale locked winners.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark" style="margin-top:8px;">
+    <div class="card-title" style="font-size:10.3pt; color:#fbbf24; margin-bottom:6px;">
+      Pre-Flight Checklist: Verify These 6 Boxes Before Rendering Hero Takes
+    </div>
+    <div class="grid-2" style="gap:6px 16px; font-size:8.4pt; color:#e7e5e4;">
+      <div>&#9744; <strong>1. Format Locked?</strong> Same ratio (<code>16:9</code> / <code>9:16</code>) &amp; <code>24fps</code> set everywhere.</div>
+      <div>&#9744; <strong>4. Motion Separated?</strong> Brush masks &amp; <code>camera</code> path do not contradict text.</div>
+      <div>&#9744; <strong>2. Plates Scouted?</strong> Clean Genie or reference stills saved before rendering video.</div>
+      <div>&#9744; <strong>5. Drafted Cheaply?</strong> Timing verified in Turbo / 1080p before 4K / Gen-4.5 spend.</div>
+      <div>&#9744; <strong>3. Identity Bound?</strong> Character sheet attached via <code>@Element</code> or Gen-4 Ref.</div>
+      <div>&#9744; <strong>6. Provenance Ready?</strong> Paid tier active; NLE export queued for <code>c2patool</code> signing.</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:9px;">
+    <div class="callout-title">Ready to Direct Your First World-to-Cinema Scene?</div>
+    Open <strong><code>labs.google/fx/projectgenie</code></strong> to scout a 60-second location plate, bring your best frame into <strong>Runway Gen-4.5</strong> or <strong>Kling 3.0 Omni</strong> with a locked character reference, and cut your first 24fps sequence in DaVinci Resolve today.
+  </div>
+
+  <div class="page-footer">
+    <span>Interactive Worlds &amp; AI Cinema &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

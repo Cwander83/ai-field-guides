@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Music Production &amp; Soundtracks: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Field Guides Series &bull; Music &amp; Soundtracks Edition</div>
+    <h1>AI Music Production <span>&amp; Soundtracks</span></h1>
+    <p class="cover-sub">
+      Your complete 12-page visual handbook to songwriting, commercial scoring, and studio finishing—combining Suno v6 meta-tags &amp; 12-stem exports, ElevenLabs Music &amp; looping SFX, Google Lyria 3.5, and 2026 label licensing clarity.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Suno v6 &amp; Studio Meta-Tags</span>
+      <span class="cover-badge">Personas &amp; Replace Section</span>
+      <span class="cover-badge">ElevenLabs Music &amp; SFX Loops</span>
+      <span class="cover-badge">Google Lyria 3.5 &amp; SynthID</span>
+      <span class="cover-badge">12-Stem WAV &amp; MIDI Export</span>
+      <span class="cover-badge">2026 Label &amp; Client Clearance</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Glowing crimson and amber audio waveforms flowing across a dark synthesizer console into shimmering orchestral and stem tracks" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Structured Song Craft</div>
+      <div class="cover-stat-desc">Direct verses, drops, and locked vocal Personas in Suno v6 using bracketed meta-tags and bar-accurate section replacement.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Cleared Scoring &amp; Foley</div>
+      <div class="cover-stat-desc">Compose millisecond-timed brand beds and click-free ambient loops with ElevenLabs Music and Google Lyria 3.5.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Pro DAW Finishing</div>
+      <div class="cover-stat-desc">Split 12 WAV stems, extract tempo-mapped MIDI, swap in studio VSTs, and master to release loudness in Logic Pro or Ableton Live.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Architecture &amp; Navigation</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">Three Engines, One Modern Studio Mental Model</h2>
+  <p class="page-lead">
+    Rather than forcing a single generator to handle vocals, dialogue underscore, sound effects, and final mixing, modern producers route each job to a specialized engine and bring every piece home inside a desktop DAW.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Three-Engine Mental Model &amp; Map</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. 12-Stem Splits, MIDI &amp; DAW Finish</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Setup, Rights &amp; Engine Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Lyric &amp; Stem Studio</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Licensing, Settlements &amp; SynthID</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Suno v6 Meta-Tags &amp; Timeline Edits</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Scoring Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. ElevenLabs Music &amp; Looping SFX</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Sheet</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Google Lyria 3.5 CLI &amp; SDK</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Release Target:</strong> <code>-14 LUFS</code> / <code>-1 dBTP</code></span><span class="toc-pg">Master</span></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Songwriting &amp; Hooks (Suno v6)</div>
+      <p style="font-size: 8.5pt; margin-bottom: 0;">
+        Think of <strong>Suno v6</strong> and <strong>Suno Studio</strong> as your session band and vocal arranger. You write stage directions like <code>[Intro]</code> and <code>[Chorus]</code>, lock a recurring singer with <strong>Personas</strong>, repair shaky phrases via <strong>Replace Section</strong>, and pull 12 WAV stems plus tempo-mapped MIDI straight into your DAW.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">B</span> Scoring, SFX &amp; CLI (ElevenLabs + Lyria 3.5)</div>
+      <p style="font-size: 8.5pt; margin-bottom: 0;">
+        Think of <strong>ElevenLabs Music &amp; SFX</strong> and <strong>Google Lyria 3.5</strong> as your programmable scoring stage. ElevenLabs pairs Merlin/Kobalt commercial clearance with millisecond cues and seamless <code style="white-space: nowrap;">loop=True</code> Foley, while <code style="white-space: nowrap;">gemini-api music</code> generates full 44.1 kHz tracks with embedded <strong>SynthID</strong> provenance from the terminal.
+      </p>
+    </div>
+  </div>
+
+  <h3>Three-Engine Studio Routing Diagram</h3>
+  <div class="figure-box" style="background: #140a10; padding: 10px 12px;">
+    <svg viewBox="0 0 700 182" width="100%" height="182" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Three Engines -->
+      <rect x="8" y="8" width="218" height="106" rx="10" fill="#26101b" stroke="#fb7185" stroke-width="1.6"/>
+      <text x="20" y="26" fill="#fda4af" font-size="8.2" font-weight="800">SONGS &amp; VOCALS</text>
+      <text x="20" y="43" fill="#ffffff" font-size="10.4" font-weight="700">Suno v6 &amp; Suno Studio</text>
+      <text x="20" y="60" fill="#e2e8f0" font-size="8.1">&bull; Bracketed [Intro] / [Chorus] cues</text>
+      <text x="20" y="75" fill="#e2e8f0" font-size="8.1">&bull; Personas, Extend &amp; Replace Section</text>
+      <text x="20" y="90" fill="#e2e8f0" font-size="8.1">&bull; 12-stem WAV split &amp; Get MIDI</text>
+      <text x="20" y="105" fill="#fb7185" font-size="8" font-weight="700">Pro / Premier = Commercial Rights</text>
+
+      <rect x="241" y="8" width="218" height="106" rx="10" fill="#1e1710" stroke="#fbbf24" stroke-width="1.6"/>
+      <text x="253" y="26" fill="#fde68a" font-size="8.2" font-weight="800">SCORING &amp; FOLEY SFX</text>
+      <text x="253" y="43" fill="#ffffff" font-size="10.4" font-weight="700">ElevenLabs Music &amp; SFX</text>
+      <text x="253" y="60" fill="#e2e8f0" font-size="8.1">&bull; music_v2_5 + composition_plan</text>
+      <text x="253" y="75" fill="#e2e8f0" font-size="8.1">&bull; force_instrumental &amp; ms pacing</text>
+      <text x="253" y="90" fill="#e2e8f0" font-size="8.1">&bull; SFX v2 seamless loop=True beds</text>
+      <text x="253" y="105" fill="#fbbf24" font-size="8" font-weight="700">Merlin + Kobalt Cleared Catalog</text>
+
+      <rect x="474" y="8" width="218" height="106" rx="10" fill="#101a29" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="486" y="26" fill="#7dd3fc" font-size="8.2" font-weight="800">CLI, API &amp; REALTIME DJ</text>
+      <text x="486" y="43" fill="#ffffff" font-size="10.4" font-weight="700">Google Lyria 3.5</text>
+      <text x="486" y="60" fill="#e2e8f0" font-size="8.1">&bull; gemini-api music -m lyria-3.5</text>
+      <text x="486" y="75" fill="#e2e8f0" font-size="8.1">&bull; 44.1 kHz, BPM &amp; image-to-music</text>
+      <text x="486" y="90" fill="#e2e8f0" font-size="8.1">&bull; Lyria RealTime interactive loops</text>
+      <text x="486" y="105" fill="#38bdf8" font-size="8" font-weight="700">SynthID + C2PA Provenance</text>
+
+      <!-- Converging Lines -->
+      <path d="M117 114 L270 135 M350 114 L350 135 M583 114 L430 135" stroke="#fda4af" stroke-width="1.8" fill="none"/>
+
+      <!-- Bottom DAW Convergence -->
+      <rect x="90" y="135" width="520" height="40" rx="10" fill="#0f172a" stroke="#e11d48" stroke-width="1.6"/>
+      <text x="350" y="152" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">DESKTOP DAW FINISHING (LOGIC PRO &bull; ABLETON LIVE 12.3+)</text>
+      <text x="350" y="166" text-anchor="middle" fill="#cbd5e1" font-size="8.2">Local Stem Splitter &bull; Audio-to-MIDI VST Swap &bull; Live Human Overdubs &bull; -14 LUFS Master &amp; Cue Sheet</text>
+    </svg>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, RIGHTS & ENGINE MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup, Commercial Rights &amp; Specs</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">SDK Setup, Commercial Rights &amp; Audio Engine Matrix</h2>
+  <p class="page-lead">
+    Great soundtracks fail client audits when they come from the wrong plan tier or lack clean stem files. Install the official SDKs below and match every creative task to the right engine before pressing generate.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card-dark">
+      <div class="card-title">ElevenLabs Music &amp; SFX SDK</div>
+      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #3f182a;"><code>pip install -U elevenlabs
+<span class="kw">export</span> ELEVENLABS_API_KEY=<span class="str">"xi-..."</span>
+<span class="cm"># Python: client = ElevenLabs()</span></code></pre>
+    </div>
+    <div class="card-dark">
+      <div class="card-title">Google Lyria 3.5 CLI &amp; GenAI SDK</div>
+      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #3f182a;"><code>pip install -U google-genai
+gemini-api music <span class="str">"Lo-fi Rhodes beat, 86 BPM, instrumental"</span> \
+  -m lyria-3.5 --out ./bed.mp3</code></pre>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin: 5px 0 8px 0;">
+    <div class="callout-title">Plan Tier Warning: Free Generations Never Unlock Retroactive Rights</div>
+    On Suno, songs generated while on the Free plan remain permanently non-commercial—even if you upgrade to Pro or Premier later. Similarly, ElevenLabs Free tier sound effects require public attribution (<code>elevenlabs.io</code>), whereas paid plans waive attribution for web, social, and indie apps.
+  </div>
+
+  <h3>2026 Audio Engine &amp; Licensing Matrix</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width: 24%;">Engine / Model</th>
+        <th style="width: 20%;">Best Production Fit</th>
+        <th style="width: 26%;">Key Technical Specs</th>
+        <th style="width: 30%;">2026 Licensing &amp; Export Reality</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Suno v6 / v6-wild</strong><br/><code>Suno Studio</code></td>
+        <td>Full vocal tracks, anthems, hooks, multi-part songs</td>
+        <td>Custom meta-tags, Personas, Replace Section, 12-stem WAV + MIDI</td>
+        <td>Trained post-WMG/BMG/Believe deals; Pro (2,500 cr) &amp; Premier (10,000 cr) clear commercial use.</td>
+      </tr>
+      <tr>
+        <td><strong>ElevenLabs Music</strong><br/><code>music_v2_5</code></td>
+        <td>Brand ads, explainer beds, timed video scores</td>
+        <td>3s&ndash;10m (<code>music_length_ms</code>), <code>composition_plan</code>, stems</td>
+        <td>Backed by Merlin &amp; Kobalt; paid clears digital/ads; Film/TV &amp; AAA games require Enterprise.</td>
+      </tr>
+      <tr>
+        <td><strong>ElevenLabs SFX</strong><br/><code>eleven_text_to_sound_v2</code></td>
+        <td>Seamless game loops, UI clicks, ambient Foley</td>
+        <td><code>0.5s&ndash;30s</code>, <code>loop=True</code> (v2), <code>prompt_influence</code>, v3 cues</td>
+        <td>Paid tiers royalty-free without credit; reselling raw audio as standalone stock packs prohibited.</td>
+      </tr>
+      <tr>
+        <td><strong>Google Lyria 3.5</strong><br/><code>lyria-3.5</code> / <code>clip</code></td>
+        <td>CLI pipelines, AI Studio prototypes, RealTime DJ</td>
+        <td>Up to ~3m 44.1 kHz stereo, BPM control, image-to-music</td>
+        <td>Embeds <strong>SynthID</strong> watermark &amp; C2PA provenance automatically; artist voice clones blocked.</td>
+      </tr>
+      <tr>
+        <td><strong>Udio</strong><br/><code>Licensed Sandbox</code></td>
+        <td>Interactive fan remixing inside label ecosystem</td>
+        <td>UMG / WMG authorized artist catalog interactions</td>
+        <td>Walled-garden controls limit open stem &amp; DAW downloads; prefer Suno or ElevenLabs for scoring.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Suno Pro vs. Premier Tiers</div>
+      <p style="font-size: 8.3pt; margin-bottom: 0;">
+        <strong>Pro</strong> delivers 2,500 monthly credits and full commercial rights for solo creators. <strong>Premier</strong> scales to 10,000 monthly credits, maximum concurrent jobs, and full <strong>Suno Studio</strong> access for 12-stem WAV extraction and MIDI downloads.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Local DAW Finishing Prerequisites</div>
+      <p style="font-size: 8.3pt; margin-bottom: 0;">
+        Keep <strong>Logic Pro</strong> (Apple Silicon Neural Engine Stem Splitter) or <strong>Ableton Live 12.3+ Suite</strong> (<em>Separate Stems to New Audio Tracks</em>) ready alongside <code>ffmpeg</code> for sample-rate normalization (44.1 or 48 kHz / 24-bit WAV).
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">Lyric Meta-Tag &amp; Stem Mixer Studio: 7 Key Controls</h2>
+  <p class="page-lead">
+    Treat AI generation like a multitrack recording session rather than a vending machine. These seven studio controls bridge prompt authoring, timeline surgical edits, and multi-stem DAW export.
+  </p>
+
+  <div class="ui-window" style="margin-bottom: 9px;">
+    <div class="ui-topbar">
+      <div class="ui-dots"><span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span><span style="margin-left: 8px; color: #f8fafc; font-weight: 700;">Lyric Meta-Tag &amp; Stem Mixer Studio</span></div>
+      <div style="color: #fda4af; font-weight: 600;">Suno v6 Studio + ElevenLabs SFX &bull; 96 BPM &bull; D Minor &bull; 24-bit WAV</div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1.05fr 1fr; gap: 10px; padding: 10px;">
+      <!-- Left Pane: Lyric & Meta-Tag Arrangement Rack -->
+      <div style="background: #170d14; border: 1px solid #3f182a; border-radius: 8px; padding: 9px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; border-bottom: 1px solid #311725; padding-bottom: 5px;">
+          <strong style="color: #fb7185; font-size: 8.3pt;">CUSTOM MODE &amp; META-TAG RACK</strong>
+          <span style="background: rgba(225, 29, 72, 0.22); color: #fecdd3; padding: 2px 6px; border-radius: 4px; font-weight: 700;">v6 ENGINE &bull; ACTIVE</span>
+        </div>
+
+        <div style="background: #0d080c; border: 1px solid #4c1d34; border-radius: 6px; padding: 6px 8px; margin-bottom: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+            <span style="color: #fda4af; font-weight: 700;">STYLE, TEMPO &amp; MIX PROMPT</span>
+            <span class="callout-pin">1</span>
+          </div>
+          <div><code>Warm indie synth-pop, Juno-60 pads, dry punchy drums, 96 BPM</code></div>
+        </div>
+
+        <div style="background: #0d080c; border: 1px solid #4c1d34; border-radius: 6px; padding: 6px 8px; margin-bottom: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+            <span style="color: #fde68a; font-weight: 700;">PERSONA VOCAL LOCK</span>
+            <span class="callout-pin">2</span>
+          </div>
+          <div><code>Persona: "Velvet Midnight Lead"</code> &bull; <span style="color: #cbd5e1;">Timbre locked across EP</span></div>
+        </div>
+
+        <div style="background: #0d080c; border: 1px solid #4c1d34; border-radius: 6px; padding: 6px 8px; margin-bottom: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+            <span style="color: #7dd3fc; font-weight: 700;">BRACKETED LYRIC BLUEPRINT</span>
+            <span class="callout-pin">3</span>
+          </div>
+          <div style="color: #e2e8f0;"><code>[Intro | vinyl Rhodes]</code> &rarr; <code>[Verse 1]</code> &rarr; <code>[Chorus | stacked harmonies]</code></div>
+        </div>
+
+        <div style="background: #2b121e; border: 1px solid #e11d48; border-radius: 6px; padding: 5px 8px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="color: #fecdd3;">TIMELINE REPAIR: BARS 17&ndash;24</strong><br/>
+            <span style="color: #cbd5e1;"><code>Replace Section</code> &bull; <code>Extend +32 bars</code></span>
+          </div>
+          <span class="callout-pin">4</span>
+        </div>
+      </div>
+
+      <!-- Right Pane: 12-Stem & SFX Mixer Rack -->
+      <div style="background: #170d14; border: 1px solid #3f182a; border-radius: 8px; padding: 9px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; border-bottom: 1px solid #311725; padding-bottom: 5px;">
+          <strong style="color: #fbbf24; font-size: 8.3pt;">12-STEM &amp; SFX MIXER RACK</strong>
+          <span style="background: rgba(251, 191, 36, 0.16); color: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700;">12 STEMS + MIDI</span>
+        </div>
+
+        <div style="background: #0d080c; border: 1px solid #4c1d34; border-radius: 6px; padding: 6px 8px; margin-bottom: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+            <span style="color: #fda4af; font-weight: 700;">MULTI-STEM ISOLATION BUSES</span>
+            <span class="callout-pin">5</span>
+          </div>
+          <div><code>Lead Vocal</code> &bull; <code>Drums</code> &bull; <code>Bass</code> &bull; <code>Synth Chords</code> &bull; <code>FX</code></div>
+          <div style="color: #34d399; margin-top: 2px;">Clean separation ready &bull; Zero phase smear</div>
+        </div>
+
+        <div style="background: #0d080c; border: 1px solid #4c1d34; border-radius: 6px; padding: 6px 8px; margin-bottom: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+            <span style="color: #7dd3fc; font-weight: 700;">MIDI TRANSCRIPTION &amp; SFX LOOP</span>
+            <span class="callout-pin">6</span>
+          </div>
+          <div><code>Get MIDI (10 cr)</code> + Tempo Map &bull; <code>SFX v2 loop=True</code></div>
+          <div style="color: #cbd5e1; margin-top: 2px;">Swaps AI synth for Serum / Alchemy + vinyl ambience</div>
+        </div>
+
+        <div style="background: #062c25; border: 1px solid #10b981; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="color: #6ee7b7;">DAW MASTER EXPORT</strong><br/>
+            <code>Download .WAV Stems + .MID</code> &rarr; <code>-14 LUFS</code>
+          </div>
+          <span class="callout-pin">7</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>7-Point Studio Reference Legend</h3>
+  <div class="grid-2" style="gap: 8px 14px;">
+    <div style="font-size: 8.3pt;">
+      <p><span class="callout-pin">1</span> <strong>Style &amp; Mix Prompt Header:</strong> Front-load genre, core instruments, BPM, and dry mix hints (<code>dry drums, upfront vocal</code>) so stems isolate cleanly later.</p>
+      <p><span class="callout-pin">2</span> <strong>Persona Vocal Lock:</strong> Saves a winning voice and tonal vibe as a reusable Persona so sequels, intros, and full albums share the same lead singer.</p>
+      <p><span class="callout-pin">3</span> <strong>Bracketed Meta-Tag Script:</strong> Guides song arc with <code>[Intro]</code>, <code>[Pre-Chorus]</code>, <code>[Drop]</code>, and pipe cues (<code>[Chorus | anthemic]</code>) without singing the tags aloud.</p>
+      <p><span class="callout-pin">4</span> <strong>Replace Section &amp; Extend Bar:</strong> Regenerates weak four-bar or eight-bar spans in place or appends a new bridge/outro locked to the song's key.</p>
+    </div>
+    <div style="font-size: 8.3pt;">
+      <p><span class="callout-pin">5</span> <strong>12-Stem Splitter Rack:</strong> Separates vocals, drums, bass, guitars, keys, and textures into isolated channels inside Suno Studio or locally in Logic / Ableton.</p>
+      <p><span class="callout-pin">6</span> <strong>Get MIDI &amp; Looping SFX Layer:</strong> Converts harmonic stems into editable <code>.mid</code> files with tempo maps while blending seamless ElevenLabs Foley loops underneath.</p>
+      <p><span class="callout-pin">7</span> <strong>Uncompressed WAV &amp; DAW Export:</strong> Exports 24-bit WAV stems by clip, time range, or full mix ready for VST upgrades and broadcast loudness mastering.</p>
+      <div class="callout emerald" style="margin: 4px 0 0 0; padding: 6px 10px; font-size: 8.1pt;">
+        <strong>Studio Tip:</strong> Keep Style tags focused under 4&ndash;6 distinct sonic descriptors; overloaded genre soups cause muddy stems and confused rhythm sections.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: SUNO V6 META-TAGS, PERSONAS & STUDIO EDITS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Suno v6 Songwriting &amp; Timeline Craft</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">Suno v6: Meta-Tags, Personas &amp; Surgical Timeline Edits</h2>
+  <p class="page-lead">
+    Suno's v6 family (<code>v6</code> flagship, <code>v6-wild</code> ideation, and fast <code>v6-mini</code>) rewards clear architectural direction. Pair Custom Mode meta-tags with Personas and Suno Studio's timeline tools to shape radio-ready arrangements.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 8px;">
+    <img src="assets/showcase_1.jpg" alt="Crimson and amber musical waveforms segmented into luminous arrangement blocks inside a modern digital music studio" style="width: 100%; height: 245px; object-fit: cover; object-position: center; display: block;" />
+    <div class="figure-caption">
+      <strong>Figure 1:</strong> Bracketed structural cues divide a Suno v6 generation into distinct dynamic chapters, letting you lock a Persona voice and swap individual sections without losing the chorus hook.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card" style="padding: 8px 11px;">
+      <div class="card-title"><span class="num-badge">1</span> Structural &amp; Pipe Meta-Tags</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Always wrap stage cues in square brackets inside the Lyrics box: <code>[Intro]</code>, <code>[Verse 1]</code>, <code>[Pre-Chorus]</code>, <code>[Chorus]</code>, <code>[Bridge]</code>, <code>[Guitar Solo]</code>, <code>[Drop]</code>, <code>[Outro]</code>, and <code>[Fade Out]</code>. Combine section intent with arrangement modifiers using pipes, such as <code>[Chorus | double-tracked harmonies, wide drums]</code>, to force unmistakable energy lifts.
+      </p>
+    </div>
+    <div class="card" style="padding: 8px 11px;">
+      <div class="card-title"><span class="num-badge amber">2</span> Personas, Extend &amp; Replace Section</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Love a singer's grit or whisper? Save the track as a <strong>Persona</strong> (plus official opt-in artist Personas on v6) to carry that exact vocal identity into future songs. If one verse stumbles or the ending clips early, highlight the bars in Suno Studio and run <strong>Replace Section</strong> or anchor the playhead to <strong>Extend</strong> cleanly in key.
+      </p>
+    </div>
+  </div>
+
+  <h3>Color-Coded Anatomy: Suno v6 Custom Mode Blueprint</h3>
+  <div class="card" style="background: #ffffff; border: 1.5px solid #cbd5e1; padding: 9px 12px;">
+    <div style="font-size: 8.5pt; line-height: 1.65; margin-bottom: 6px;">
+      <span class="p-tag p-style">Genre &amp; Era</span> +
+      <span class="p-tag p-subj">Core Instrumentation</span> +
+      <span class="p-tag p-cam">Vocal Character &amp; Mix Space</span> +
+      <span class="p-tag p-act">Tempo &amp; Section Tags</span> +
+      <span class="p-tag p-cons">Negative Guardrail</span>
+    </div>
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 7px; padding: 7px 10px; font-size: 8.3pt; line-height: 1.6;">
+      <strong>Style Prompt:</strong>
+      <span class="p-tag p-style">Modern alt-pop synthwave</span>,
+      <span class="p-tag p-subj">warm analog Juno chords, tight fretless bass, crisp dry drum kit</span>,
+      <span class="p-tag p-cam">intimate alto lead upfront, clean stereo field</span>,
+      <span class="p-tag p-act">104 BPM</span>,
+      <span class="p-tag p-cons">no heavy distortion, no spoken chatter</span><br/>
+      <strong>Lyrics Box:</strong> <code>[Intro | airy synth pulse]</code> &rarr; <code>[Verse 1 | close vocal]</code> &rarr; <code>[Chorus | wide harmonies, driving kick]</code> &rarr; <code>[Outro | clean fade out]</code>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: ELEVENLABS MUSIC & LOOPING SFX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; ElevenLabs Music &amp; Looping SFX</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">ElevenLabs Music &amp; SFX: Cleared Scores &amp; Seamless Loops</h2>
+  <p class="page-lead">
+    When client projects demand clean chain-of-title clearance, exact millisecond timings for video cuts, or continuous ambient soundscapes that never click at the loop boundary, ElevenLabs Music (<code>music_v2_5</code>) and SFX v2/v3 shine.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 7px;">
+    <div class="card" style="padding: 8px 11px;">
+      <div class="card-title"><span class="num-badge">1</span> Millisecond Scores &amp; Composition Plans</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Call <code>client.music.compose()</code> with <code>model_id="music_v2_5"</code>. Set <code>force_instrumental=True</code> to guarantee zero stray vocals under dialogue, pass <code>music_length_ms</code> (3,000&ndash;600,000 ms) to match an exact ad spot, or supply a structured <code>composition_plan</code> dictionary with timed chunks for intros, drops, and finales.
+      </p>
+    </div>
+    <div class="card" style="padding: 8px 11px;">
+      <div class="card-title"><span class="num-badge teal">2</span> Seamless Looping SFX (<code>v2</code> vs <code>v3</code>)</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Call <code>client.text_to_sound_effects.convert()</code> with <code>duration_seconds</code> (0.5&ndash;30s) and <code>prompt_influence</code> (0.3 default; raise to 0.6&ndash;0.8 for strict adherence). Target <code>model_id="eleven_text_to_sound_v2"</code> whenever setting <code>loop=True</code> so the tail blends seamlessly back into frame zero; pick <code>v3</code> for multi-event Foley cues.
+      </p>
+    </div>
+  </div>
+
+  <pre class="code-block"><code><span class="kw">from</span> elevenlabs.client <span class="kw">import</span> ElevenLabs
+client = ElevenLabs()  <span class="cm"># reads ELEVENLABS_API_KEY</span>
+
+<span class="cm"># 1. Timed instrumental underscore using composition_plan (60 seconds total)</span>
+score = client.music.compose(
+    model_id=<span class="str">"music_v2_5"</span>, force_instrumental=<span class="kw">True</span>,
+    composition_plan={<span class="str">"chunks"</span>: [
+        {<span class="str">"style"</span>: <span class="str">"Minimalist felt piano &amp; soft pulse, 92 BPM"</span>, <span class="str">"duration_ms"</span>: 20000, <span class="str">"lyrics"</span>: <span class="str">""</span>},
+        {<span class="str">"style"</span>: <span class="str">"Warm cello swell &amp; crisp electronic percussion lift"</span>, <span class="str">"duration_ms"</span>: 40000, <span class="str">"lyrics"</span>: <span class="str">""</span>},
+    ]},
+)
+<span class="kw">with</span> open(<span class="str">"brand_score.mp3"</span>, <span class="str">"wb"</span>) <span class="kw">as</span> f:
+    <span class="kw">for</span> chunk <span class="kw">in</span> score: f.write(chunk)
+
+<span class="cm"># 2. Seamless 12-second looping rain &amp; vinyl room tone for games or video</span>
+sfx = client.text_to_sound_effects.convert(
+    text=<span class="str">"Gentle evening rain on studio skylight with soft analog tape warmth"</span>,
+    model_id=<span class="str">"eleven_text_to_sound_v2"</span>, duration_seconds=12.0, loop=<span class="kw">True</span>, prompt_influence=0.55,
+)
+<span class="kw">with</span> open(<span class="str">"rain_loop.mp3"</span>, <span class="str">"wb"</span>) <span class="kw">as</span> f:
+    <span class="kw">for</span> chunk <span class="kw">in</span> sfx: f.write(chunk)</code></pre>
+
+  <h3>Color-Coded Anatomy: ElevenLabs SFX &amp; Scoring Prompt</h3>
+  <div class="card" style="background: #ffffff; border: 1.5px solid #cbd5e1; padding: 9px 12px; margin-bottom: 8px;">
+    <div style="font-size: 8.5pt; line-height: 1.65; margin-bottom: 6px;">
+      <span class="p-tag p-subj">Sound Source</span> +
+      <span class="p-tag p-act">Physical Action &amp; Cadence</span> +
+      <span class="p-tag p-light">Space &amp; Mic Perspective</span> +
+      <span class="p-tag p-sfx">Loop &amp; Clean Tail Constraint</span>
+    </div>
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 7px; padding: 7px 10px; font-size: 8.3pt; line-height: 1.6;">
+      <span class="p-tag p-subj">Brushed mechanical tape transport and soft ocean surf</span>,
+      <span class="p-tag p-act">steady hypnotic swell with smooth rhythmic breathing</span>,
+      <span class="p-tag p-light">wide stereo condenser perspective inside a cedar room</span>,
+      <span class="p-tag p-sfx">constant energy for seamless loop=True, no sharp impacts or voices.</span>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin: 0;">
+    <div class="callout-title">API Reproducibility: Lock <code>seed</code> &amp; Tune <code>prompt_influence</code></div>
+    When clients approve a groove and ask for a 15-second cutdown, reuse the same integer <code>seed</code> alongside an updated <code>music_length_ms</code> to preserve harmonic texture. On SFX loops, keep <code>prompt_influence</code> around <code>0.45&ndash;0.65</code> so the model obeys your acoustic details without sounding stiff.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: GOOGLE LYRIA 3.5 CLI, SDK & AI STUDIO ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Google Lyria 3.5 CLI &amp; API</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">Google Lyria 3.5: CLI Soundtracks, GenAI SDK &amp; RealTime</h2>
+  <p class="page-lead">
+    Google's <code style="white-space: nowrap;">lyria-3.5</code> unifies full-length 44.1 kHz stereo music generation inside the same Gemini API and <code style="white-space: nowrap;">gemini-api</code> CLI used for text and video—bringing scriptable soundtracks, multimodal image cues, and SynthID into any workflow.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> <code>lyria-3.5</code> Full Songs</div>
+      <p style="font-size: 8.1pt; margin-bottom: 0;">
+        Produces coherent ~3-minute songs with verses, choruses, bridges, explicit BPM conditioning, global vocal languages (EN, ES, DE, FR, HI, JA, KO, PT), or custom user lyrics.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge indigo">2</span> <code>lyria-3-clip-preview</code></div>
+      <p style="font-size: 8.1pt; margin-bottom: 0;">
+        Purpose-built for snappy 30-second previews, podcast stingers, and fast loop tests through the Interactions API when you do not need a multi-verse structure.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> RealTime &amp; AI Studio</div>
+      <p style="font-size: 8.1pt; margin-bottom: 0;">
+        Use <strong>Google AI Studio</strong> for Prompt DJ live morphing via <strong>Lyria RealTime</strong> WebSockets or image-to-music generation driven directly by storyboard art.
+      </p>
+    </div>
+  </div>
+
+  <h3>Shell &amp; Python Production Usage (<code>gemini-api music</code> &amp; Interactions)</h3>
+  <pre class="code-block"><code><span class="cm"># 1. Generate a BPM-locked track directly from the shell (--out writes audio, prints path)</span>
+gemini-api music <span class="str">"Cinematic synthwave instrumental, analog arp, warm bass, 112 BPM, no vocals"</span> \
+  -m lyria-3.5 --out ./cues/neon_chase.mp3
+
+<span class="cm"># 2. Read brief from file (-f) or piped stdin (--stdin required when piping plain text!)</span>
+cat song_brief.txt | gemini-api music --stdin -m lyria-3.5 -o json --out ./cues/theme.mp3
+gemini-api music -f song_brief.txt -m lyria-3.5 --dry-run  <span class="cm"># inspect HTTP payload offline</span>
+
+<span class="cm"># 3. Python Google GenAI SDK (Interactions API with base64 output_audio)</span>
+<span class="kw">import</span> base64
+<span class="kw">from</span> google <span class="kw">import</span> genai
+client = genai.Client()
+res = client.interactions.create(
+    model=<span class="str">"lyria-3.5"</span>,
+    input=<span class="str">"Indie acoustic folk, uplifting mood, fingerpicked guitar, 108 BPM, instrumental, no vocals."</span>,
+)
+<span class="kw">with</span> open(<span class="str">"acoustic_bed.mp3"</span>, <span class="str">"wb"</span>) <span class="kw">as</span> f:
+    f.write(base64.b64decode(res.output_audio.data))</code></pre>
+
+  <div class="callout indigo" style="margin: 5px 0 8px 0;">
+    <div class="callout-title">Prompt Formula, Instrumental Guardrail &amp; Mandatory SynthID</div>
+    Structure Lyria 3.5 prompts as <strong>Genre/Style + Mood + Instrumentation + Tempo (BPM) + Vocal Style + Lyrics/Structure</strong>. For dialogue underscore, always append <code>"instrumental, no vocals"</code> so the singer stays silent. Every output carries an imperceptible <strong>SynthID</strong> audio watermark and <strong>C2PA</strong> signature that persist through MP3 compression and re-recording.
+  </div>
+
+  <div class="callout" style="margin: 0;">
+    <div class="callout-title">CLI Stdin Trap: Always Include <code>--stdin</code> When Piping Text</div>
+    By design, <code>gemini-api music</code> parses piped stdin as a raw JSON <code>--body</code> payload unless you explicitly add <code>--stdin</code> (or load a text file with <code>-f brief.txt</code>). Passing <code>-o json</code> writes the file and emits <code>{kind, path, size_bytes, mime_type, response_id, status}</code> for downstream scripts.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: 12-STEM SPLITS, MIDI & DAW FINISHING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Stem Splits, MIDI &amp; DAW Finishing</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">12-Stem Extraction, Tempo-Mapped MIDI &amp; DAW Mastering</h2>
+  <p class="page-lead">
+    Cloud generations sound exciting on laptop speakers yet often carry synth fizz, uneven low end, or subtle tempo drift. Export stems and MIDI into Logic Pro or Ableton Live 12.3+ to transform drafts into release-grade masters.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 8px;">
+    <img src="assets/showcase_2.jpg" alt="Separated translucent audio stems and luminous MIDI note tracks routing into warm studio mixing faders" style="width: 100%; height: 245px; object-fit: cover; object-position: center; display: block;" />
+    <div class="figure-caption">
+      <strong>Figure 2:</strong> Separated 24-bit WAV stems and extracted MIDI note data move cleanly into Logic Pro or Ableton Live so you can swap virtual instruments, tame mud, and master to target loudness.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card" style="padding: 8px 11px;">
+      <div class="card-title"><span class="num-badge">1</span> Suno Studio vs. Native DAW Splitters</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Inside <strong>Suno Studio</strong>, open the Stems panel to split songs into up to <strong>12 stems</strong> (vocals, drums, bass, chords, FX), run <strong>Get MIDI</strong> (~10 credits) for melodic/chord tracks with tempo maps, and download uncompressed <code>.wav</code> clips. Offline on your Mac or PC, use <strong>Logic Pro's Stem Splitter</strong> (including drum kit sub-stems) or right-click any clip in <strong>Ableton Live 12.3+ Suite</strong> to run <em>Separate Stems to New Audio Tracks</em>.
+      </p>
+    </div>
+    <div class="card" style="padding: 8px 11px;">
+      <div class="card-title"><span class="num-badge amber">2</span> VST Re-Voicing &amp; Loudness Targets</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Drag extracted bass or synth MIDI onto rich software instruments (Alchemy, Wavetable, Kontakt) to replace metallic AI timbre with clean studio transients. Group stems onto Drum, Bass, Music, and Vocal sub-buses, carve space around 250&ndash;400 Hz mud, and finish via Mastering Assistant or Ozone at <strong>-14 LUFS</strong> (streaming) or <strong>-24 LKFS</strong> (broadcast) with a <strong>-1.0 dBTP</strong> peak ceiling.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin: 0 0 8px 0;">
+    <div class="callout-title">Anchor Fluctuating AI Tempos Before Overdubbing</div>
+    Generative models breathe slightly between verses and choruses, making fixed-BPM click tracks drift. Importing Suno's tempo-mapped <code>.mid</code> file—or warping your WAV stems onto bar markers inside Logic Flex Time or Ableton Warp—locks every bar cleanly so live percussion and video edits snap in sync.
+  </div>
+
+  <div class="card" style="padding: 8px 11px;">
+    <div class="card-title"><span class="num-badge teal">3</span> Recommended 3-Step DAW Signal Chain</div>
+    <p style="font-size: 8.1pt; margin-bottom: 0;">
+      <strong>1. Gain-Stage Stems (-12 dBFS peaks):</strong> Pull faders down before bus plugins so AI transients never clip. &bull;
+      <strong>2. Dynamic De-Masking EQ:</strong> Carve 2&ndash;3 dB around 300 Hz on chords and sidechain bass gently against the kick. &bull;
+      <strong>3. Clean Limiter Ceiling:</strong> Run Logic Mastering Assistant or iZotope Ozone at <code>-1.0 dBTP</code> true peak to stop codec distortion on Spotify and YouTube.
+    </p>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Cookbook</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Production Recipes</h2>
+  <p class="page-lead">
+    Put these five field-tested patterns straight into Suno Custom Mode, Python audio pipelines, or terminal soundtrack scripts—each verified against 2026 API signatures and licensing best practices.
+  </p>
+
+  <table class="clean-table" style="font-size: 8pt; margin-bottom: 8px;">
+    <thead>
+      <tr>
+        <th style="width: 23%;">Recipe &amp; Engine</th>
+        <th style="width: 27%;">Production Goal</th>
+        <th style="width: 50%;">Copy-Paste Pattern / Command</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Suno v6 Brand Anthem</strong><br/><code>Suno v6 + Studio</code></td>
+        <td>Lock one recurring singer across a full product campaign.</td>
+        <td>
+          Style: <code>Upbeat indie synth-pop, dry drums, upfront vocal, 108 BPM</code><br/>
+          Lyrics: <code>[Intro | warm Juno arps] [Verse 1] ... [Chorus | stacked harmonies]</code> &rarr; save <strong>Persona</strong> &rarr; fix weak bars via <strong>Replace Section</strong>.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>2. Timed Explainer Bed</strong><br/><code>ElevenLabs music_v2_5</code></td>
+        <td>Exact 75-second vocal-free track cleared for paid social ads.</td>
+        <td>
+          <code>client.music.compose(prompt="Warm marimba, acoustic bass, subtle shaker, 94 BPM", music_length_ms=75000, force_instrumental=True, model_id="music_v2_5")</code>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>3. Click-Free Ambient Loop</strong><br/><code>eleven_text_to_sound_v2</code></td>
+        <td>15s seamless background room/rain bed for games or YouTube.</td>
+        <td>
+          <code>client.text_to_sound_effects.convert(text="Soft cedar cabin rain &amp; warm analog tape hum", model_id="eleven_text_to_sound_v2", duration_seconds=15.0, loop=True, prompt_influence=0.55)</code>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>4. Scripted Score Batch</strong><br/><code>gemini-api music</code></td>
+        <td>Generate JSON-tracked cues in CI or video build scripts.</td>
+        <td>
+          <code>gemini-api music -f cue_brief.txt -m lyria-3.5 -o json --out ./cues/hero_score.mp3</code><br/>
+          Append <code>--dry-run</code> first to validate payloads without spending quota.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>5. Hybrid AI-to-DAW Master</strong><br/><code>Stems + MIDI + DAW</code></td>
+        <td>Upgrade AI synth bass/keys with pro VSTs &amp; release loudness.</td>
+        <td>
+          Run Suno <strong>12-Stem Split</strong> + <strong>Get MIDI</strong> &rarr; drag <code>.wav</code> + <code>.mid</code> into Logic Pro or Ableton Live &rarr; re-voice synth MIDI &rarr; master to <code>-14 LUFS</code> / <code>-1.0 dBTP</code>.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>End-to-End Automated Scoring &amp; Loop Prep Script</h3>
+  <pre class="code-block"><code><span class="cm">#!/usr/bin/env bash — Generate a Lyria 3.5 hero cue, validate metadata, and normalize to 48 kHz WAV</span>
+set -euo pipefail
+CUE_JSON=$(gemini-api music <span class="str">"Warm documentary piano and muted strings, hopeful mood, 88 BPM, instrumental, no vocals"</span> \
+  -m lyria-3.5 -o json --out ./build/doc_cue.mp3)
+RAW_MP3=$(echo <span class="str">"$CUE_JSON"</span> | python3 -c <span class="str">'import sys,json; print(json.load(sys.stdin)["path"])'</span>)
+ffmpeg -y -i <span class="str">"$RAW_MP3"</span> -ar 48000 -ac 2 -c:a pcm_s24le ./build/doc_cue_48k_24bit.wav</code></pre>
+
+  <div class="callout" style="margin: 0;">
+    <div class="callout-title">Why 48 kHz / 24-Bit WAV Normalization Matters for Video Editors</div>
+    Most AI generators return compressed MP3s at 44.1 kHz, while Premiere Pro, DaVinci Resolve, and Final Cut Pro run timelines at <strong>48 kHz</strong>. Converting output cues immediately via <code>ffmpeg</code> prevents pitch drift and avoids MP3 encoder padding gaps on rhythmic cuts.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: COPYRIGHT, SETTLEMENTS & CLIENT CLEARANCE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Licensing, Settlements &amp; Clearance</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">2026 Licensing Reality: Settlements, Attribution &amp; Clearance</h2>
+  <p class="page-lead">
+    Landmark 2025&ndash;2026 label settlements transformed AI audio from a legal gray zone into tiered licensing agreements. Protect clients and releases by matching plan rights, provenance tags, and human authorship before publishing.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Label Settlements &amp; Platform Rules</div>
+      <ul style="font-size: 8.2pt; margin-bottom: 0; padding-left: 16px;">
+        <li><strong>Suno v6 Ecosystem:</strong> Following Warner Music Group, BMG, and Believe deals, Suno retired legacy models and built v6 on licensed/opt-in catalogs. <strong>Pro &amp; Premier</strong> grant forward commercial rights; Free tracks never gain retroactive clearance.</li>
+        <li><strong>ElevenLabs Merlin + Kobalt:</strong> Cleared at both master (Merlin) and publishing (Kobalt) layers. Paid tiers clear ads, social, and indie apps with zero credit; Free SFX require <code>elevenlabs.io</code> attribution; Film, TV, and AAA games require Enterprise agreements.</li>
+        <li><strong>Udio Walled Garden:</strong> UMG/WMG settlements shifted Udio into a controlled fan sandbox with tight download limits.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge indigo">2</span> SynthID, C2PA &amp; Human Authorship</div>
+      <ul style="font-size: 8.2pt; margin-bottom: 0; padding-left: 16px;">
+        <li><strong>Mandatory Watermarking:</strong> Google <code>lyria-3.5</code> embeds <strong>SynthID</strong> wave-level watermarks and <strong>C2PA</strong> cryptographic metadata automatically—surviving MP3 compression, edits, and analog speaker re-recording.</li>
+        <li><strong>The Copyright Paradox:</strong> A platform license lets you monetize audio, yet pure text-to-music prompts rarely qualify for U.S. Copyright Office registration due to missing human authorship.</li>
+        <li><strong>Building Protectable IP:</strong> Document original human lyrics, DAW stem edits, custom MIDI re-voicing, and live guitar or vocal overdubs in your session log.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Client Delivery Clearance Manifest (<code>cue_sheet_clearance.json</code>)</h3>
+  <pre class="code-block"><code>{
+  <span class="str">"project"</span>: <span class="str">"Autumn Brand Launch Film"</span>,
+  <span class="str">"cues"</span>: [
+    { <span class="str">"file"</span>: <span class="str">"01_hero_anthem.wav"</span>, <span class="str">"engine"</span>: <span class="str">"suno-v6"</span>, <span class="str">"tier"</span>: <span class="str">"Premier"</span>, <span class="str">"human_layers"</span>: [<span class="str">"custom_lyrics"</span>, <span class="str">"live_guitar"</span>, <span class="str">"logic_vst_bass"</span>] },
+    { <span class="str">"file"</span>: <span class="str">"02_explainer_bed.wav"</span>, <span class="str">"engine"</span>: <span class="str">"elevenlabs-music_v2_5"</span>, <span class="str">"tier"</span>: <span class="str">"Pro_Paid"</span>, <span class="str">"attribution_required"</span>: <span class="kw">false</span> },
+    { <span class="str">"file"</span>: <span class="str">"03_broll_stinger.mp3"</span>, <span class="str">"engine"</span>: <span class="str">"google-lyria-3.5"</span>, <span class="str">"provenance"</span>: [<span class="str">"SynthID"</span>, <span class="str">"C2PA"</span>], <span class="str">"instrumental"</span>: <span class="kw">true</span> }
+  ]
+}</code></pre>
+
+  <div class="callout amber" style="margin: 0;">
+    <div class="callout-title">Strict Prohibition: Never Resell Raw AI Outputs as Stock Libraries</div>
+    Across Suno, ElevenLabs, and Google terms, you may use outputs inside finished songs, games, podcasts, and videos—but repackaging raw generated music or loops directly into standalone sample packs, stock audio marketplaces, or competing AI training sets violates commercial terms.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Studio Synergy</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Pipeline: Prompt Blueprint to Mastered Soundtrack</h2>
+  <p class="page-lead">
+    Combine all three engines with your desktop DAW into a seamless four-stage production house—moving from rapid scriptable ideation and vocal hooks to dialogue-safe beds, clean stem splits, and broadcast-ready masters.
+  </p>
+
+  <div class="figure-box" style="background: #140a10; padding: 12px 14px; margin-bottom: 10px;">
+    <svg viewBox="0 0 700 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="14" width="154" height="192" rx="10" fill="#1f0e17" stroke="#fb7185" stroke-width="1.6"/>
+      <rect x="18" y="24" width="134" height="20" rx="5" fill="#be123c"/>
+      <text x="85" y="37" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 1 &bull; ARCHITECT</text>
+      <text x="20" y="63" fill="#fda4af" font-size="9.4" font-weight="700">Lyria 3.5 &amp; Suno v6</text>
+      <text x="20" y="81" fill="#e2e8f0" font-size="8.1">&bull; Prototype via CLI/AI Studio</text>
+      <text x="20" y="96" fill="#cbd5e1" font-size="8">&bull; Draft [Intro]/[Chorus] script</text>
+      <text x="20" y="111" fill="#cbd5e1" font-size="8">&bull; Lock Persona vocal identity</text>
+      <line x1="20" y1="124" x2="150" y2="124" stroke="#4c1d34" stroke-width="1"/>
+      <text x="20" y="141" fill="#fecdd3" font-size="8.4" font-weight="700">Timeline Repair</text>
+      <text x="20" y="156" fill="#cbd5e1" font-size="8">&bull; Replace Section on weak bars</text>
+      <text x="20" y="170" fill="#cbd5e1" font-size="8">&bull; Extend bridge/outro in key</text>
+      <text x="20" y="190" fill="#fb7185" font-size="8" font-weight="700">Output: Full Hero Draft</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M164 110 L182 110" stroke="#fb7185" stroke-width="2"/>
+      <polygon points="180,105 188,110 180,115" fill="#fb7185"/>
+
+      <!-- Stage 2 -->
+      <rect x="188" y="14" width="154" height="192" rx="10" fill="#1d160e" stroke="#fbbf24" stroke-width="1.6"/>
+      <rect x="198" y="24" width="134" height="20" rx="5" fill="#b45309"/>
+      <text x="265" y="37" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 2 &bull; SCORE &amp; SFX</text>
+      <text x="200" y="63" fill="#fde68a" font-size="9.4" font-weight="700">ElevenLabs Music &amp; SFX</text>
+      <text x="200" y="81" fill="#e2e8f0" font-size="8.1">&bull; music_v2_5 timed cues</text>
+      <text x="200" y="96" fill="#cbd5e1" font-size="8">&bull; force_instrumental=True</text>
+      <text x="200" y="111" fill="#cbd5e1" font-size="8">&bull; composition_plan swells</text>
+      <line x1="200" y1="124" x2="330" y2="124" stroke="#451a03" stroke-width="1"/>
+      <text x="200" y="141" fill="#fcd34d" font-size="8.4" font-weight="700">Seamless Foley Beds</text>
+      <text x="200" y="156" fill="#cbd5e1" font-size="8">&bull; eleven_text_to_sound_v2</text>
+      <text x="200" y="170" fill="#cbd5e1" font-size="8">&bull; loop=True room &amp; ambience</text>
+      <text x="200" y="190" fill="#fbbf24" font-size="8" font-weight="700">Output: Cleared Stings/Beds</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M344 110 L362 110" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="360,105 368,110 360,115" fill="#fbbf24"/>
+
+      <!-- Stage 3 -->
+      <rect x="368" y="14" width="154" height="192" rx="10" fill="#101827" stroke="#38bdf8" stroke-width="1.6"/>
+      <rect x="378" y="24" width="134" height="20" rx="5" fill="#0369a1"/>
+      <text x="445" y="37" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 3 &bull; EXTRACT</text>
+      <text x="380" y="63" fill="#7dd3fc" font-size="9.4" font-weight="700">12-Stem &amp; MIDI Split</text>
+      <text x="380" y="81" fill="#e2e8f0" font-size="8.1">&bull; Suno Studio 12-stem WAV</text>
+      <text x="380" y="96" fill="#cbd5e1" font-size="8">&bull; Get MIDI + Tempo Map</text>
+      <text x="380" y="111" fill="#cbd5e1" font-size="8">&bull; Or Logic / Ableton 12.3+ split</text>
+      <line x1="380" y1="124" x2="510" y2="124" stroke="#1e293b" stroke-width="1"/>
+      <text x="380" y="141" fill="#bae6fd" font-size="8.4" font-weight="700">Normalize &amp; Align</text>
+      <text x="380" y="156" fill="#cbd5e1" font-size="8">&bull; 48 kHz / 24-bit WAV prep</text>
+      <text x="380" y="170" fill="#cbd5e1" font-size="8">&bull; Quantize to DAW click grid</text>
+      <text x="380" y="190" fill="#38bdf8" font-size="8" font-weight="700">Output: Multitrack Folder</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M524 110 L542 110" stroke="#34d399" stroke-width="2"/>
+      <polygon points="540,105 548,110 540,115" fill="#34d399"/>
+
+      <!-- Stage 4 -->
+      <rect x="548" y="14" width="144" height="192" rx="10" fill="#0d1e19" stroke="#34d399" stroke-width="1.6"/>
+      <rect x="558" y="24" width="124" height="20" rx="5" fill="#047857"/>
+      <text x="620" y="37" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 4 &bull; MASTER</text>
+      <text x="560" y="63" fill="#a7f3d0" font-size="9.4" font-weight="700">DAW Finish &amp; Ship</text>
+      <text x="560" y="81" fill="#e2e8f0" font-size="8.1">&bull; Replace synth MIDI w/ VSTs</text>
+      <text x="560" y="96" fill="#cbd5e1" font-size="8">&bull; Layer human vocals/guitar</text>
+      <text x="560" y="111" fill="#cbd5e1" font-size="8">&bull; Bus EQ + sidechain space</text>
+      <line x1="560" y1="124" x2="680" y2="124" stroke="#14532d" stroke-width="1"/>
+      <text x="560" y="141" fill="#6ee7b7" font-size="8.4" font-weight="700">Loudness &amp; Clearance</text>
+      <text x="560" y="156" fill="#cbd5e1" font-size="8">&bull; -14 LUFS / -24 LKFS</text>
+      <text x="560" y="170" fill="#cbd5e1" font-size="8">&bull; Archive cue_sheet JSON</text>
+      <text x="560" y="190" fill="#34d399" font-size="8" font-weight="700">Output: Release Master</text>
+    </svg>
+  </div>
+
+  <div class="grid-3" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Draft Fast, Lock Early</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Explore chord moods in <code style="white-space: nowrap;">gemini-api music</code> or Suno <code style="white-space: nowrap;">v6-mini</code> before burning heavy Studio credits, then lock your chosen Persona voice for consistency across every deliverable.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Split Beds &amp; Vocals</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Let Suno carry sung hooks while ElevenLabs generates millisecond-accurate <code style="white-space: nowrap;">force_instrumental</code> underscore and <code style="white-space: nowrap;">loop=True</code> ambient textures beneath spoken narration.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> Humanize in the DAW</div>
+      <p style="font-size: 8.2pt; margin-bottom: 0;">
+        Re-voicing extracted MIDI with pro VSTs and recording a live acoustic instrument overdub elevates audio fidelity while anchoring statutory human authorship.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout indigo" style="margin: 0;">
+    <div class="callout-title">The 15-Minute Commercial Soundtrack Sprint</div>
+    Generate three harmonic sketch variations with <code>lyria-3.5</code> (2 minutes) &rarr; lock timed instrumental underscore and a 12-second <code>loop=True</code> ambience bed in ElevenLabs (4 minutes) &rarr; pull stems and MIDI into Logic or Ableton, layer a live acoustic motif, and bounce a <code>-14 LUFS</code> master plus <code>cue_sheet_clearance.json</code> (9 minutes).
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Pre-Flight</span>
+    <span>AI Music Production &amp; Soundtracks</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Bookmark this final page before bouncing a soundtrack or shipping client stems. Almost every AI music snag comes down to one of these seven fast fixes.
+  </p>
+
+  <table class="clean-table" style="font-size: 8pt; margin-bottom: 8px;">
+    <thead>
+      <tr>
+        <th style="width: 27%;">Symptom / Failure</th>
+        <th style="width: 29%;">Root Cause</th>
+        <th style="width: 44%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Stray Vocals in Underscore</strong></td>
+        <td>Generator improvised singing over a background score prompt.</td>
+        <td>Pass <code>force_instrumental=True</code> in ElevenLabs Music or explicitly write <code>"instrumental, no vocals"</code> in Lyria 3.5 &amp; Suno.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Singer Sings <code>[Bridge]</code> Aloud</strong></td>
+        <td>Section cues placed in parentheses or malformed brackets.</td>
+        <td>Wrap stage instructions strictly in square brackets (<code>[Chorus | wide harmonies]</code>) inside Suno's Custom Lyrics box.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Audible Click at Loop Seam</strong></td>
+        <td>Wrong SFX model chosen or sharp drum transient hits at the tail.</td>
+        <td>Use <code>model_id="eleven_text_to_sound_v2"</code> with <code>loop=True</code> and prompt continuous steady-state textures.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Stems Drift Off DAW Click Grid</strong></td>
+        <td>AI audio breathes subtly in tempo between verses and choruses.</td>
+        <td>Export Suno <strong>Get MIDI</strong> with its tempo map or snap bars manually with Logic Flex Time / Ableton Warp.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Artist-Style Prompt Blocked</strong></td>
+        <td>2026 label safety filters reject living artist names &amp; voice clones.</td>
+        <td>Describe sonic ingredients instead (e.g., <code>1980s analog chorus guitar, warm baritone, dry tape snare</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>6. <code style="white-space: nowrap;">gemini-api music</code> Pipe Error</strong></td>
+        <td>Piped text treated as JSON <code style="white-space: nowrap;">--body</code> payload by default.</td>
+        <td>Add <code style="white-space: nowrap;">--stdin</code> when piping plain prompts (<code>cat brief.txt | gemini-api music --stdin</code>) or pass <code style="white-space: nowrap;">-f brief.txt</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Client Flags License Violation</strong></td>
+        <td>Track created on Free tier or used in Film/Broadcast without Enterprise.</td>
+        <td>Regenerate under Suno Pro/Premier or ElevenLabs Paid/Enterprise and attach a <code>cue_sheet_clearance.json</code> log.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Release Checklist</h3>
+  <div class="grid-2" style="gap: 8px 14px;">
+    <div class="card" style="padding: 8px 11px;">
+      <ul style="font-size: 8.2pt; margin: 0; padding-left: 16px;">
+        <li><strong>Commercial Tier Locked:</strong> Verify every shipped cue was generated on a paid commercial plan (zero legacy Free-tier tracks).</li>
+        <li><strong>Dialogue &amp; Loop Tested:</strong> Confirm underscore beds contain zero phantom vocal murmurs and <code>loop=True</code> SFX repeat seamlessly over 60+ seconds.</li>
+        <li><strong>Stems &amp; MIDI Archived:</strong> Save all 12-stem 24-bit WAV exports, tempo-mapped <code>.mid</code> files, and original prompt strings together.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding: 8px 11px;">
+      <ul style="font-size: 8.2pt; margin: 0; padding-left: 16px;">
+        <li><strong>Human Authorship Logged:</strong> Record custom lyrics, DAW arrangement edits, VST replacements, and live overdubs in your session manifest.</li>
+        <li><strong>Target Loudness Verified:</strong> Check integrated loudness at <code>-14 LUFS</code> (streaming) or <code>-24 LKFS</code> (broadcast) with <code>-1.0 dBTP</code> true peak ceiling.</li>
+        <li><strong>Provenance &amp; Credit Audited:</strong> Preserve SynthID/C2PA flags on Lyria 3.5 cues and confirm zero standalone stock-pack repackaging.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Music Production &amp; Soundtracks &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

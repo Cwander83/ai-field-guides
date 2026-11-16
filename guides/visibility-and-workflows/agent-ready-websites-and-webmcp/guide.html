@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP): The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Visibility &amp; Workflows &bull; Field Guide</div>
+    <h1>Agent-Ready Websites <span>&amp; WebMCP</span></h1>
+    <p class="cover-sub">
+      The complete 12-page visual handbook to auditing websites with <code>is-agentic</code>, serving <code>/llms.txt</code> and <code>Accept: text/markdown</code> payloads, exposing browser-native WebMCP tools, and enforcing human-in-the-loop safety gates.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">is-agentic Audits</span>
+      <span class="cover-badge">llms.txt &amp; llms-full.txt</span>
+      <span class="cover-badge">Accept: text/markdown</span>
+      <span class="cover-badge">Browser WebMCP Tools</span>
+      <span class="cover-badge">RFC 9457 Errors</span>
+      <span class="cover-badge">Human Checkout Gates</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Dual-layer web architecture bridging visual human storefronts with structured machine-readable agent channels" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">0&ndash;100 Readiness Audits</div>
+      <div class="cover-stat-desc">Evaluate Essential, Recommended, and Bonus checks via <code>npx is-agentic</code>, the public REST API, or MCP.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Bloat Markdown</div>
+      <div class="cover-stat-desc">Publish <code>/llms.txt</code> maps and <code>Accept: text/markdown</code> negotiation to cut HTML token waste by over 80%.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Native Browser WebMCP</div>
+      <div class="cover-stat-desc">Turn HTML forms and frontend functions into typed client-side tools guarded by explicit human confirmation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: QUICK NAVIGATION & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">The Dual-Stack Web: Human Interfaces Meet Agent Protocols</h2>
+  <p class="page-lead">
+    Every modern website now serves two very different visitors: people browsing rich visual layouts, and AI agents that need clean Markdown, structured error contracts, and typed browser tools instead of brittle screen scraping.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Dual-Stack Web &amp; Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. RFC 9457 Error Contracts &amp; Recovery</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Setup, Audit Tiers &amp; Protocol Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Five Copy-Paste Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Is-Agentic &amp; WebMCP Inspector Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Rate Limits, Auth &amp; Checkout Gates</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Auditing &amp; Fixing with is-agentic</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Agentic Web Synergy</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. llms.txt &amp; Accept: text/markdown</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Checklist</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Imperative &amp; Declarative WebMCP</strong></span><span class="toc-pg">p. 7</span></div>
+  </div>
+
+  <div class="grid-3" style="margin: 2px 0 8px 0;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Discovery Layer</div>
+      <p style="font-size:8pt; margin:0;">Clear <code>robots.txt</code> rules, XML sitemaps, JSON-LD metadata, and <code>/llms.txt</code> tell agents what your site offers before they fetch a single page.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Content Channel</div>
+      <p style="font-size:8pt; margin:0;">Server-rendered HTML and <code>Accept: text/markdown</code> negotiation strip navigation chrome, scripts, and CSS clutter down to pure facts.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Browser Tool Layer</div>
+      <p style="font-size:8pt; margin:0;">WebMCP lets pages expose deterministic actions via HTML forms or <code>registerTool()</code>, protected by human approval prompts.</p>
+    </div>
+  </div>
+
+  <h3>Architecture: Request Routing Across Discovery, Markdown, Tools &amp; Errors</h3>
+  <div class="figure-box" style="background:#071410; padding:10px 12px;">
+    <svg viewBox="0 0 700 158" width="100%" height="158" xmlns="http://www.w3.org/2000/svg">
+      <!-- Agent Client -->
+      <rect x="10" y="18" width="142" height="122" rx="8" fill="#0b241c" stroke="#4ade80" stroke-width="1.6"/>
+      <text x="81" y="38" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">AI Agent / Host</text>
+      <text x="81" y="52" text-anchor="middle" fill="#86efac" font-size="7.4">CLI, IDE, Browser Agent</text>
+      <rect x="20" y="62" width="122" height="30" rx="5" fill="#071611" stroke="#16a34a"/>
+      <text x="81" y="75" text-anchor="middle" fill="#dcfce7" font-size="7.8" font-weight="700">Accept: text/markdown</text>
+      <text x="81" y="86" text-anchor="middle" fill="#94a3b8" font-size="6.8">Token-light HTTP GET</text>
+      <rect x="20" y="98" width="122" height="32" rx="5" fill="#071611" stroke="#0d9488"/>
+      <text x="81" y="112" text-anchor="middle" fill="#99f6e4" font-size="7.8" font-weight="700">WebMCP Client Call</text>
+      <text x="81" y="123" text-anchor="middle" fill="#94a3b8" font-size="6.8">Typed JSON Arguments</text>
+
+      <!-- Arrow 1 -->
+      <path d="M152 78 L194 78" stroke="#4ade80" stroke-width="2"/>
+      <polygon points="194,73 202,78 194,83" fill="#4ade80"/>
+      <text x="177" y="69" text-anchor="middle" fill="#86efac" font-size="7" font-weight="700">HTTP</text>
+
+      <!-- Discovery & Negotiation Edge -->
+      <rect x="202" y="18" width="154" height="122" rx="8" fill="#0d2621" stroke="#2dd4bf" stroke-width="1.6"/>
+      <text x="279" y="38" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Discovery &amp; Edge</text>
+      <rect x="212" y="48" width="134" height="26" rx="5" fill="#061613" stroke="#14b8a6"/>
+      <text x="279" y="64" text-anchor="middle" fill="#99f6e4" font-size="7.7" font-weight="700">/llms.txt + /llms-full.txt</text>
+      <rect x="212" y="79" width="134" height="26" rx="5" fill="#061613" stroke="#14b8a6"/>
+      <text x="279" y="95" text-anchor="middle" fill="#99f6e4" font-size="7.7" font-weight="700">Vary: Accept Negotiator</text>
+      <rect x="212" y="110" width="134" height="22" rx="5" fill="#061613" stroke="#14b8a6"/>
+      <text x="279" y="124" text-anchor="middle" fill="#a7f3d0" font-size="7.4" font-weight="700">robots.txt + SSR HTML</text>
+
+      <!-- Arrow 2 -->
+      <path d="M356 78 L398 78" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="398,73 406,78 398,83" fill="#2dd4bf"/>
+      <text x="381" y="69" text-anchor="middle" fill="#99f6e4" font-size="7" font-weight="700">DOM</text>
+
+      <!-- Browser WebMCP Layer -->
+      <rect x="406" y="18" width="146" height="122" rx="8" fill="#102517" stroke="#16a34a" stroke-width="1.6"/>
+      <text x="479" y="38" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Browser WebMCP</text>
+      <rect x="416" y="48" width="126" height="26" rx="5" fill="#08150d" stroke="#22c55e"/>
+      <text x="479" y="64" text-anchor="middle" fill="#bbf7d0" font-size="7.6" font-weight="700">Declarative HTML Forms</text>
+      <rect x="416" y="79" width="126" height="26" rx="5" fill="#08150d" stroke="#22c55e"/>
+      <text x="479" y="95" text-anchor="middle" fill="#bbf7d0" font-size="7.6" font-weight="700">modelContext.registerTool</text>
+      <rect x="416" y="110" width="126" height="22" rx="5" fill="#08150d" stroke="#f59e0b"/>
+      <text x="479" y="124" text-anchor="middle" fill="#fde68a" font-size="7.1" font-weight="700">requestUserInteraction()</text>
+
+      <!-- Arrow 3 -->
+      <path d="M552 78 L586 78" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="586,73 594,78 586,83" fill="#fbbf24"/>
+      <text x="570" y="69" text-anchor="middle" fill="#fde68a" font-size="6.8" font-weight="700">QA</text>
+
+      <!-- Audit & Error Contract -->
+      <rect x="594" y="18" width="96" height="122" rx="8" fill="#1f1709" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="642" y="38" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Audit &amp; API</text>
+      <rect x="602" y="50" width="80" height="36" rx="5" fill="#120d05" stroke="#d97706"/>
+      <text x="642" y="65" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">is-agentic</text>
+      <text x="642" y="78" text-anchor="middle" fill="#cbd5e1" font-size="6.7">0&ndash;100 Score</text>
+      <rect x="602" y="94" width="80" height="38" rx="5" fill="#120d05" stroke="#ef4444"/>
+      <text x="642" y="110" text-anchor="middle" fill="#fecaca" font-size="7.3" font-weight="700">RFC 9457</text>
+      <text x="642" y="122" text-anchor="middle" fill="#cbd5e1" font-size="6.6">problem+json</text>
+    </svg>
+  </div>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, AUDIT TIERS & PROTOCOL MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Scoring</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">Setup, <code>is-agentic</code> Audit Tiers &amp; Protocol Matrix</h2>
+  <p class="page-lead">
+    You can measure any public website in seconds with zero API keys or signups, then choose the right mix of Markdown endpoints and WebMCP tools for your architecture.
+  </p>
+
+  <h3>Quickstart: Run Audits &amp; Enable Experimental Browser WebMCP</h3>
+  <pre><code># 1. Run an instant CLI readiness scan (returns stored report or triggers a fresh scan)
+npx is-agentic https://example.com --json
+
+# 2. Query an existing snapshot via the public read-only API or install the agent skill
+curl -s "https://is-agentic.com/api/v1/report?url=https%3A%2F%2Fexample.com"
+npx skills add vercel-labs/is-agentic
+
+# 3. Enable WebMCP in Chrome 146+ for local tool testing:
+# Open chrome://flags/#enable-webmcp-testing -> Enabled -> Relaunch</code></pre>
+
+  <h3>How <code>is-agentic</code> Scores Every Website (0 to 100)</h3>
+  <div class="grid-3" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">E</span> Essential (80-Pt Pool)</div>
+      <p style="font-size:8pt; margin:0;">Core survival checks: clean HTTP status codes, server-rendered content without JS (<code>content-no-js</code>), permissive <code>robots.txt</code> rules, and clear page headings.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">R</span> Recommended (20-Pt Pool)</div>
+      <p style="font-size:8pt; margin:0;">Efficiency and discoverability signals: <code>/llms.txt</code> directory, <code>Accept: text/markdown</code> negotiation, XML sitemaps, and Schema.org <code>JSON-LD</code> metadata.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">B</span> Bonus (Up to +5 Pts)</div>
+      <p style="font-size:8pt; margin:0;">Additive <code>positive_signals</code> for emerging standards like WebMCP, public MCP servers, or commerce feeds. Missing bonus items never reduce your score.</p>
+    </div>
+  </div>
+
+  <h3>Agentic Web Protocol &amp; Standard Matrix</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width: 22%;">Protocol / Standard</th>
+        <th style="width: 24%;">Surface &amp; Entry Point</th>
+        <th style="width: 24%;">Primary Benefit</th>
+        <th style="width: 30%;">Best Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>is-agentic Audit</strong></td>
+        <td><code>npx is-agentic</code>, REST API, <code>/mcp</code></td>
+        <td>0&ndash;100 score + evidence-backed fixes</td>
+        <td>Baseline site benchmarking, CI gates, and post-deploy verification.</td>
+      </tr>
+      <tr>
+        <td><strong><code>/llms.txt</code> &amp; <code>/llms-full.txt</code></strong></td>
+        <td>Root Markdown files</td>
+        <td>Curated link index &amp; bulk docs dump</td>
+        <td>Documentation portals, SDK references, pricing and policy hubs.</td>
+      </tr>
+      <tr>
+        <td><strong><code>Accept: text/markdown</code></strong></td>
+        <td>HTTP header content negotiation</td>
+        <td>Same URL, 80%+ fewer tokens</td>
+        <td>Blogs, product pages, knowledge bases shared by humans and bots.</td>
+      </tr>
+      <tr>
+        <td><strong>Declarative WebMCP</strong></td>
+        <td>HTML <code>&lt;form toolname&gt;</code> attributes</td>
+        <td>Zero-JS schema synthesis</td>
+        <td>Booking forms, search filters, support tickets, lead capture flows.</td>
+      </tr>
+      <tr>
+        <td><strong>Imperative WebMCP</strong></td>
+        <td><code>navigator.modelContext.registerTool</code></td>
+        <td>Dynamic SPA state &amp; async handlers</td>
+        <td>Complex configurators, live carts, multi-step dashboards, user gates.</td>
+      </tr>
+      <tr>
+        <td><strong>RFC 9457 Errors</strong></td>
+        <td><code>application/problem+json</code></td>
+        <td>Machine-actionable recovery hints</td>
+        <td>Rate limits (429), auth errors, missing scans (404), validation faults.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Workspace Tour</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">Annotated Workspace: Is-Agentic Report &amp; WebMCP Inspector</h2>
+  <p class="page-lead">
+    Diagnosing agent readiness means reading both sides of the stack at once: server-side audit evidence from <code>is-agentic</code> and live tool registrations inside the browser&rsquo;s <code>modelContext</code> inspector.
+  </p>
+
+  <div class="ui-window" style="margin-bottom: 8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#a7f3d0; font-size:7.4pt;">Agentic Readiness Console &bull; acme-store.dev [WebMCP Enabled]</span>
+      </div>
+      <div style="color:#4ade80; font-weight:700; font-size:7.4pt;">Snapshot Age: 14m (6h Cache TTL)</div>
+    </div>
+
+    <div style="padding: 9px 13px; background:#05100c;">
+      <!-- Row 1: Score Summary -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid #1e3a2f; font-size:7.1pt;">
+        <div>
+          <span class="callout-pin">1</span> <strong>Score:</strong> <span style="color:#4ade80; font-weight:800;">88/100</span> &bull; Ess: <code>72/80</code> &bull; Rec: <code>12/20</code> &bull; Bonus: <code>+4</code>
+        </div>
+        <div>
+          <span class="callout-pin">4</span> <strong>View:</strong> <code>App &amp; Docs</code> &bull; <code>scanned_at: 2026-11-16T14:20Z</code>
+        </div>
+      </div>
+
+      <!-- Row 2: Dual Panes -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:11px;">
+        <!-- Left Pane: Is-Agentic Findings & Markdown Telemetry -->
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <div style="background:#030a07; border:1px solid #1e3a2f; border-radius:6px; padding:7px 9px;">
+            <div style="color:#4ade80; font-weight:700; font-size:7.3pt; margin-bottom:4px;">
+              <span class="callout-pin">2</span> PublicScanReport Issues &amp; Tier Breakdown
+            </div>
+            <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.9pt; line-height:1.45; color:#cbd5e1;">
+              <div><span style="color:#4ade80;">[PASS]</span> content-no-js (essential) &bull; SSR HTML 42KB</div>
+              <div><span style="color:#4ade80;">[PASS]</span> llms-txt (recommended) &bull; 14 curated links</div>
+              <div><span style="color:#fbbf24;">[PARTIAL]</span> accept-markdown &bull; Missing Vary: Accept</div>
+              <div><span style="color:#f87171;">[FAILED]</span> problem-json (essential) &bull; 404 returns HTML</div>
+            </div>
+          </div>
+
+          <div style="background:#030a07; border:1px solid #1e3a2f; border-radius:6px; padding:7px 9px;">
+            <div style="color:#2dd4bf; font-weight:700; font-size:7.3pt; margin-bottom:4px;">
+              <span class="callout-pin">3</span> Edge Content Negotiation Trace
+            </div>
+            <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.9pt; line-height:1.45; color:#94a3b8;">
+              <div>GET /docs/webhooks &bull; Accept: text/markdown</div>
+              <div style="color:#4ade80;">200 OK &bull; Content-Type: text/markdown; charset=utf-8</div>
+              <div>x-markdown-tokens: 580 (vs 6,420 HTML tokens)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Pane: Browser WebMCP Inspector -->
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <div style="background:#030a07; border:1px solid #1e3a2f; border-radius:6px; padding:7px 9px;">
+            <div style="color:#86efac; font-weight:700; font-size:7.3pt; margin-bottom:4px;">
+              <span class="callout-pin">5</span> Registered Browser WebMCP Tools (3 Active)
+            </div>
+            <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.9pt; line-height:1.45; color:#cbd5e1;">
+              <div><code>search_catalog</code> <span style="color:#2dd4bf;">[readOnlyHint: true]</span></div>
+              <div><code>book_demo_slot</code> <span style="color:#a7f3d0;">[Declarative Form]</span></div>
+              <div><code>place_order</code> <span style="color:#fbbf24;">[consequentialHint: true]</span></div>
+              <div style="color:#94a3b8; margin-top:2px;">Schema validated via navigator.modelContextTesting</div>
+            </div>
+          </div>
+
+          <div style="background:#030a07; border:1px solid #1e3a2f; border-radius:6px; padding:7px 9px;">
+            <div style="color:#fde68a; font-weight:700; font-size:7.3pt; margin-bottom:4px;">
+              <span class="callout-pin">6</span> Declarative Form SubmitEvent Bridge
+            </div>
+            <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.9pt; line-height:1.45; color:#94a3b8;">
+              <div>Event: submit &bull; <code>e.agentInvoked: true</code></div>
+              <div style="color:#4ade80;">e.respondWith({ status: 'confirmed', slotId: 'D-19' })</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Human Gate Status -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:7px; padding-top:6px; border-top:1px solid #1e3a2f; font-size:7.1pt;">
+        <div>
+          <span class="callout-pin">7</span> <strong>Human Gate:</strong> <code>client.requestUserInteraction()</code> paused <code>place_order</code> &bull; <span style="color:#4ade80;">[Approve Modal Open]</span>
+        </div>
+        <div style="color:#94a3b8;">[Rescan] &bull; [Export JSON]</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control Legend &amp; Inspection Points</h3>
+  <div class="grid-2">
+    <div>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;"><strong><span class="callout-pin">1</span> Composite Score &amp; Pools:</strong> Separates core 80-point Essential health from 20-point Recommended enhancements and optional +5 Bonus signals.</p>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;"><strong><span class="callout-pin">2</span> Evidence-Backed Issues List:</strong> Pinpoints failing or partial checks with exact observed HTML/header evidence and targeted fix guidance.</p>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;"><strong><span class="callout-pin">3</span> Markdown Negotiation Trace:</strong> Confirms clean <code>text/markdown</code> responses and tracks dramatic token reductions via <code>x-markdown-tokens</code>.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong><span class="callout-pin">4</span> Contextual Lens &amp; Timestamp:</strong> Switches audit emphasis by site type while tracking the immutable <code>scanned_at</code> timestamp against the 6-hour cache.</p>
+    </div>
+    <div>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;"><strong><span class="callout-pin">5</span> Live WebMCP Tool Registry:</strong> Lists all tools registered on the active page alongside safety hints like <code>readOnlyHint</code> and <code>consequentialHint</code>.</p>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;"><strong><span class="callout-pin">6</span> Declarative SubmitEvent Hook:</strong> Captures agent-submitted HTML forms via <code>e.agentInvoked</code> and returns structured confirmation with <code>e.respondWith()</code>.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong><span class="callout-pin">7</span> Human Confirmation Gate:</strong> Suspends consequential checkout or write operations using <code>requestUserInteraction()</code> until the user explicitly clicks Approve.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 8px;">
+    <div class="callout-title">Two Complementary Perspectives: Crawl Health vs. Live Interaction</div>
+    <code>is-agentic</code> evaluates what autonomous agents see before logging in—clean HTML, <code>/llms.txt</code> discovery, and Markdown headers—while Chrome&rsquo;s WebMCP inspector verifies what authenticated agents can safely invoke inside an open browser tab.
+  </div>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: IS-AGENTIC AUDITS WORKFLOW ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Technical Audits</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">Auditing &amp; Fixing Sites with <code>is-agentic</code> CLI, API &amp; MCP</h2>
+  <p class="page-lead">
+    Every check in <code>is-agentic</code> is grounded in live HTTP, HTML, and protocol evidence. Pick the interface that matches your environment—command line, REST API, or native MCP tool calls.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Official CLI</div>
+      <p style="font-size:7.9pt; margin:0;">Run <code>npx is-agentic &lt;domain&gt; --json</code> or <code>bunx is-agentic</code>. Returns a cached report at once, or starts a scan and waits if none exists.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Read-Only REST API</div>
+      <p style="font-size:7.9pt; margin:0;">Call <code>GET /api/v1/report?url=...</code>. Never starts a scan; returns <code>404</code> if missing. Supports <code>Accept: text/markdown</code> for compact text.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span> Streamable MCP</div>
+      <p style="font-size:7.9pt; margin:0;">Connect AI hosts to <code>https://is-agentic.com/mcp</code> for <code>is_agentic_get_report</code>, <code>_get_methodology</code>, and <code>_get_developer_docs</code>.</p>
+    </div>
+  </div>
+
+  <h3>Anatomy of a <code>PublicScanReport</code> JSON Response</h3>
+  <pre><code>{
+  "score": 84,
+  "score_label": null,
+  "report_url": "https://is-agentic.com/report/example.com",
+  "scanned_at": "2026-11-16T14:20:00.000Z",
+  "score_breakdown": {
+    "essential":   { "earned": 70, "available": 80, "passing": 7, "total": 8 },
+    "recommended": { "earned": 14, "available": 20, "passing": 4, "total": 6 },
+    "bonus":       { "points": 3, "positive_signals": ["llms-full-txt", "webmcp"] }
+  },
+  "issues": [
+    {
+      "id": "accept-markdown",
+      "name": "Markdown content negotiation",
+      "tier": "recommended",
+      "result": "failed",
+      "details": "GET / returned text/html even when Accept: text/markdown was sent.",
+      "recommendation": "Serve text/markdown with Vary: Accept for documentation and article routes."
+    }
+  ]
+}</code></pre>
+
+  <div class="callout" style="margin: 5px 0 7px 0;">
+    <div class="callout-title">Prioritized Remediation Formula (Never Chase Bonus Points First)</div>
+    <span class="p-tag p-style">1. Essential Failures</span> &rarr;
+    <span class="p-tag p-act">2. Essential Partials</span> &rarr;
+    <span class="p-tag p-subj">3. Recommended Checks</span> &rarr;
+    <span class="p-tag p-cons">4. Deploy &amp; Verify scanned_at</span>
+    <p style="font-size:8.2pt; margin:4px 0 0 0;">Always apply the specific fix in each issue&rsquo;s <code>recommendation</code> field because it is generated directly from observed scan evidence. Ignore missing <code>bonus</code> signals until every Essential and Recommended item passes.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Site-Type Contextual Views</div>
+      <p style="font-size:8.1pt; margin:0;">Reports adapt to <strong>Docs &amp; Content</strong>, <strong>Business</strong>, <strong>App</strong>, or <strong>Commerce</strong> views. Checks that do not apply (such as API schemas on a personal essay site) are excluded cleanly instead of hurting your score.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">B</span> Handling <code>score: null</code> Targets</div>
+      <p style="font-size:8.1pt; margin:0;">When an endpoint cannot be audited publicly—such as an OAuth-protected MCP server—<code>score</code> is <code>null</code> and <code>score_label</code> explains why. Remember: paths and query strings produce separate reports.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: LLMS.TXT & ACCEPT: TEXT/MARKDOWN ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Markdown &amp; Discovery</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">Zero-Bloat Discovery: <code>/llms.txt</code> &amp; <code>Accept: text/markdown</code></h2>
+  <p class="page-lead">
+    Raw HTML pages wrap a few paragraphs of useful knowledge inside megabytes of navigation menus, React hydration bundles, and cookie banners. Clean Markdown files and HTTP content negotiation eliminate that waste.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 7px;">
+    <img src="assets/showcase_1.jpg" alt="Visualizing raw HTML web pages streamlining into clean glowing Markdown channels for AI ingestion" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 6.1 &bull; Token-Light Content Negotiation:</strong> Heavy visual web pages route through an edge negotiator when an agent sends <code>Accept: text/markdown</code>, delivering clean, structured Markdown at the exact same canonical URL.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> <code>/llms.txt</code> &amp; <code>/llms-full.txt</code></div>
+      <p style="font-size:8pt; margin:0 0 4px 0;">
+        Place <code>/llms.txt</code> at your domain root using four simple Markdown elements: one <code># H1</code> site title, a <code>&gt; blockquote</code> summary, <code>## Section</code> headings with <code>- [Title](url): Description</code> links, and an optional <code>## Optional</code> section for secondary reading.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Pair it with <code>/llms-full.txt</code> when you want agents to ingest an entire documentation corpus in a single fetch.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> <code>Accept: text/markdown</code> Headers</div>
+      <p style="font-size:8pt; margin:0 0 4px 0;">
+        Keep URLs identical for humans and bots. When a client sends <code>Accept: text/markdown</code>, respond with <code>Content-Type: text/markdown; charset=utf-8</code>, include <code>Vary: Accept</code> so CDNs cache both variants separately, and optionally expose <code>x-markdown-tokens</code>.
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        Advertise alternate links in HTML via <code>&lt;link rel="alternate" type="text/markdown"&gt;</code>.
+      </p>
+    </div>
+  </div>
+
+  <h3>Next.js App Router Middleware: Serving Clean Markdown on the Same URL</h3>
+  <pre><code>import { NextRequest, NextResponse } from 'next/server';
+
+export function middleware(req: NextRequest) {
+  const accept = req.headers.get('accept') || '';
+  if (accept.includes('text/markdown')) {
+    const target = req.nextUrl.clone();
+    target.pathname = '/api/markdown' + target.pathname;
+    const res = NextResponse.rewrite(target);
+    res.headers.set('Vary', 'Accept');
+    return res;
+  }
+  return NextResponse.next();
+}</code></pre>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: BROWSER WEBMCP ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Browser WebMCP</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">Browser WebMCP: Turning Pages into Native Agent Tools</h2>
+  <p class="page-lead">
+    Developed in the W3C Web Machine Learning Community Group and available behind <code>chrome://flags/#enable-webmcp-testing</code> in Chrome 146+, WebMCP lets websites publish structured tools directly inside the user&rsquo;s browser session.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Declarative HTML Form Attributes</div>
+      <p style="font-size:8pt; margin:0;">
+        Turn standard forms into typed tools with zero JavaScript boilerplate using <code>toolname</code>, <code>tooldescription</code>, optional <code>toolautosubmit</code>, and <code>toolparamdescription</code> on fields. The browser converts HTML constraints (<code>required</code>, <code>type="date"</code>, <code>&lt;select&gt;</code>) into JSON Schema and sets <code>e.agentInvoked</code> on submit.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Imperative <code>modelContext</code> API</div>
+      <p style="font-size:8pt; margin:0;">
+        Register dynamic JavaScript tools with <code>navigator.modelContext.registerTool()</code> (note: newer W3C drafts also align on <code>document.modelContext</code>). Manage SPA view changes cleanly with <code>unregisterTool()</code>, <code>provideContext()</code>, and <code>clearContext()</code>, and label safe reads with <code>readOnlyHint: true</code>.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin: 4px 0 6px 0;">
+    <div class="callout-title">WebMCP Tool Registration Contract Anatomy</div>
+    <span class="p-tag p-style">toolname / name</span> +
+    <span class="p-tag p-subj">tooldescription</span> +
+    <span class="p-tag p-cam">JSON inputSchema</span> +
+    <span class="p-tag p-act">execute(input, client)</span> +
+    <span class="p-tag p-light">readOnlyHint / consequentialHint</span>
+  </div>
+
+  <h3>Pattern A: Declarative HTML Form with Agent Response Hook</h3>
+  <pre><code>&lt;form id="demo-form" toolname="book_demo" tooldescription="Reserve a product walkthrough slot" toolautosubmit&gt;
+  &lt;input name="email" type="email" required toolparamdescription="Work email for calendar invite" /&gt;
+  &lt;input name="date" type="date" required toolparamdescription="Preferred date in YYYY-MM-DD" /&gt;
+  &lt;button type="submit"&gt;Book Demo&lt;/button&gt;
+&lt;/form&gt;
+&lt;script&gt;
+  document.getElementById('demo-form').addEventListener('submit', (e) =&gt; {
+    e.preventDefault();
+    const booking = saveDemoSlot(new FormData(e.target));
+    if (e.agentInvoked &amp;&amp; typeof e.respondWith === 'function') {
+      e.respondWith(Promise.resolve({ content: [{ type: 'text', text: JSON.stringify(booking) }] }));
+    }
+  });
+&lt;/script&gt;</code></pre>
+
+  <h3>Pattern B: Imperative Read-Only Lookup via <code>navigator.modelContext.registerTool</code></h3>
+  <pre><code>if ('modelContext' in navigator) {
+  navigator.modelContext.registerTool({
+    name: 'search_docs',
+    description: 'Search product documentation pages by keyword and return matching snippets.',
+    inputSchema: {
+      type: 'object',
+      properties: { query: { type: 'string', description: 'Search keyword or error code' } },
+      required: ['query']
+    },
+    readOnlyHint: true,
+    execute: async ({ query }) =&gt; ({
+      content: [{ type: 'text', text: JSON.stringify(await runLocalDocSearch(query)) }]
+    })
+  });
+}</code></pre>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: RFC 9457 PROBLEM PAYLOADS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Error Contracts</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">Machine-Readable Errors: RFC 9457 &amp; Agent Recovery</h2>
+  <p class="page-lead">
+    Returning a 40KB styled HTML error page for a rate limit or missing route forces an LLM to burn tokens guessing what went wrong. RFC 9457 <code>application/problem+json</code> turns failures into deterministic instructions.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/showcase_2.jpg" alt="Luminous amber protective dome enclosing a central core amid an organized grid of emerald hex nodes" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 8.1 &bull; Deterministic Error &amp; Protocol Contracts:</strong> Instead of dumping unparsed HTML error pages into an agent context window, RFC 9457 gateways wrap failures in a golden protective schema carrying a stable <code>code</code> and an explicit <code>resolution</code> hint.
+    </div>
+  </div>
+
+  <h3>RFC 9457 <code>application/problem+json</code> Response Contract</h3>
+  <pre><code>HTTP/1.1 429 Too Many Requests
+Content-Type: application/problem+json
+Retry-After: 30
+
+{
+  "type": "https://is-agentic.com/errors/rate-limit-exceeded",
+  "title": "Rate limit exceeded",
+  "status": 429,
+  "detail": "Exceeded 120 requests per 60 seconds from this IP address.",
+  "code": "rate_limit_exceeded",
+  "resolution": "Honor the Retry-After header and wait 30 seconds before retrying."
+}</code></pre>
+
+  <table class="clean-table" style="margin-top: 4px;">
+    <thead>
+      <tr>
+        <th style="width: 26%;">Stable <code>code</code></th>
+        <th style="width: 12%;">HTTP</th>
+        <th style="width: 28%;">Meaning</th>
+        <th style="width: 34%;">Automated Agent Recovery Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>invalid_url</code></td>
+        <td><code>400</code></td>
+        <td>Target is malformed or private</td>
+        <td>Validate scheme and pass a public <code>http://</code> or <code>https://</code> URL.</td>
+      </tr>
+      <tr>
+        <td><code>report_not_found</code></td>
+        <td><code>404</code></td>
+        <td>No cached scan exists yet</td>
+        <td>Run <code>npx is-agentic &lt;url&gt; --json</code> or open <code>/scan/&lt;target&gt;</code>.</td>
+      </tr>
+      <tr>
+        <td><code>rate_limit_exceeded</code></td>
+        <td><code>429</code></td>
+        <td>Burst exceeded 120 req / 60s</td>
+        <td>Read the HTTP <code>Retry-After</code> header and sleep before retrying.</td>
+      </tr>
+      <tr>
+        <td><code>report_temporarily_unavailable</code></td>
+        <td><code>503</code></td>
+        <td>Transient backend hiccup</td>
+        <td>Retry briefly with backoff; do not trigger duplicate scans.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: FIVE COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Recipes</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">Five Copy-Paste Recipes for Agent-Ready Websites</h2>
+  <p class="page-lead">
+    Drop these battle-tested templates into documentation sites, SaaS applications, and storefronts to raise your <code>is-agentic</code> score and unlock reliable agent interactions.
+  </p>
+
+  <table class="clean-table" style="margin-bottom: 8px;">
+    <thead>
+      <tr>
+        <th style="width: 23%;">Recipe &amp; Goal</th>
+        <th style="width: 22%;">Stack</th>
+        <th style="width: 33%;">Implementation Pattern</th>
+        <th style="width: 22%;">Verification Step</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. CI Readiness Gate</strong><br/><span style="font-size:7.5pt; color:#64748b;">Block regressions on PR deploy</span></td>
+        <td>GitHub Actions + CLI</td>
+        <td><code>npx is-agentic $URL --json</code> parsed with <code>jq</code> or Node threshold check</td>
+        <td>Confirm <code>essential.passing == total</code></td>
+      </tr>
+      <tr>
+        <td><strong>2. Curated <code>/llms.txt</code></strong><br/><span style="font-size:7.5pt; color:#64748b;">Zero-noise documentation map</span></td>
+        <td>Static file or build script</td>
+        <td>Single <code># H1</code>, <code>&gt; blockquote</code>, grouped <code>- [Title](url): desc</code> links</td>
+        <td>Validate <code>200 OK</code> &amp; valid Markdown links</td>
+      </tr>
+      <tr>
+        <td><strong>3. Edge Markdown Switch</strong><br/><span style="font-size:7.5pt; color:#64748b;">Token-light page delivery</span></td>
+        <td>Next.js Middleware or CDN</td>
+        <td>Inspect <code>Accept: text/markdown</code>, rewrite route, set <code>Vary: Accept</code></td>
+        <td>Test <code>curl -H "Accept: text/markdown"</code></td>
+      </tr>
+      <tr>
+        <td><strong>4. Zero-JS Booking Tool</strong><br/><span style="font-size:7.5pt; color:#64748b;">Agent-callable HTML forms</span></td>
+        <td>HTML5 + WebMCP attributes</td>
+        <td>Add <code>toolname</code>, <code>tooldescription</code>, <code>toolparamdescription</code> + <code>e.respondWith</code></td>
+        <td>Verify schema in Chrome WebMCP flag</td>
+      </tr>
+      <tr>
+        <td><strong>5. SPA Tool Lifecycle</strong><br/><span style="font-size:7.5pt; color:#64748b;">Sync tools with route views</span></td>
+        <td>React / Vue + WebMCP</td>
+        <td>Call <code>registerTool</code> on mount and <code>unregisterTool(name)</code> on cleanup</td>
+        <td>Run <code>clearContext()</code> on sign-out</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Copy-Paste <code>/llms.txt</code> Root Template</h3>
+  <pre><code># Acme Cloud Platform
+
+&gt; Developer documentation, REST endpoints, and billing guides for Acme Cloud.
+
+## Core Guides
+- [Quickstart Guide](https://acme.example/docs/quickstart.md): Deploy your first service in three minutes.
+- [Authentication API](https://acme.example/docs/auth.md): Scoped API tokens, OAuth flows, and webhook signing.
+
+## Optional
+- [Complete Corpus Export](https://acme.example/llms-full.txt): Single-file documentation bundle for bulk indexing.</code></pre>
+
+  <h3>Copy-Paste CI/CD Readiness Gate (Shell + Node One-Liner)</h3>
+  <pre><code>REPORT=$(npx is-agentic https://staging.acme.example --json)
+node -e "const r=JSON.parse(process.argv[1]); if (r.score !== null &amp;&amp; r.score &lt; 85) process.exit(1);" "$REPORT"</code></pre>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, RATE LIMITS & CHECKOUT GATES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security &amp; Governance</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">Security Boundaries, Rate Limits &amp; Human Confirmation Gates</h2>
+  <p class="page-lead">
+    Because browser WebMCP tools run directly inside an authenticated user&rsquo;s session with live cookies, high-stakes actions like purchases or account deletions must never execute silently.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> 120 req / 60s Rate Limit</div>
+      <p style="font-size:7.9pt; margin:0;"><code>is-agentic.com</code> enforces 120 requests per IP per 60 seconds. Cache JSON results locally in CI and obey HTTP <code>Retry-After</code> headers on <code>429</code> responses.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> 6-Hour Snapshot Cache</div>
+      <p style="font-size:7.9pt; margin:0;">Reports are immutable snapshots that refresh only when a visit finds them older than 6 hours. Compare <code>scanned_at</code> after deploys or trigger manual Rescan.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Auth Surface Hygiene</div>
+      <p style="font-size:7.9pt; margin:0;">Private MCP servers yield <code>score: null</code>. Keep internal admin dashboards out of <code>/llms.txt</code> and <code>sitemap.xml</code> while allowing public docs.</p>
+    </div>
+  </div>
+
+  <h3>Human-in-the-Loop Checkout Gate Using <code>client.requestUserInteraction()</code></h3>
+  <pre><code>navigator.modelContext.registerTool({
+  name: 'place_order',
+  description: 'Submit the active shopping cart for final checkout after user confirmation.',
+  inputSchema: {
+    type: 'object',
+    properties: { shippingMethod: { type: 'string', enum: ['standard', 'express'] } },
+    required: ['shippingMethod']
+  },
+  consequentialHint: true,
+  execute: async ({ shippingMethod }, client) =&gt; {
+    const approved = await client.requestUserInteraction(async () =&gt; {
+      return window.confirm('Confirm checkout using ' + shippingMethod + ' shipping?');
+    });
+    if (!approved) {
+      throw new Error('Checkout cancelled by user.');
+    }
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ shippingMethod })
+    });
+    const order = await res.json();
+    return { content: [{ type: 'text', text: 'Confirmed Order ID: ' + order.orderId }] };
+  }
+});</code></pre>
+
+  <div class="callout amber" style="margin: 6px 0;">
+    <div class="callout-title">Proposal-Only Tool Design &amp; Backend Authorization</div>
+    Treat every mutating WebMCP tool as a proposal rather than an authoritative command. Display exact dollar totals, recipients, and shipping terms inside your confirmation modal, and verify session tokens, CSRF origins, and cryptographic bot-auth signatures independently on the backend API before committing any write.
+  </div>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Workflows &amp; Synergy</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From Source Docs to Verified Browser Actions</h2>
+  <p class="page-lead">
+    When static discovery files, edge Markdown negotiation, automated <code>is-agentic</code> audits, and browser WebMCP tools work in concert, agents spend fewer tokens reading and never break on brittle UI selectors.
+  </p>
+
+  <div class="figure-box" style="background:#071410; padding:11px 12px; margin-bottom: 9px;">
+    <svg viewBox="0 0 700 172" width="100%" height="172" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="18" width="118" height="134" rx="8" fill="#0b241c" stroke="#4ade80" stroke-width="1.5"/>
+      <text x="67" y="38" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">1. App Build</text>
+      <text x="67" y="52" text-anchor="middle" fill="#86efac" font-size="7.2">Next.js / Astro</text>
+      <rect x="16" y="64" width="102" height="76" rx="5" fill="#06140f" stroke="#16a34a"/>
+      <text x="67" y="82" text-anchor="middle" fill="#dcfce7" font-size="7.6" font-weight="700">SSR + JSON-LD</text>
+      <text x="67" y="98" text-anchor="middle" fill="#94a3b8" font-size="6.9">/llms.txt Index</text>
+      <text x="67" y="113" text-anchor="middle" fill="#94a3b8" font-size="6.9">/llms-full.txt</text>
+      <text x="67" y="128" text-anchor="middle" fill="#4ade80" font-size="6.9">WebMCP Forms</text>
+
+      <path d="M126 85 L152 85" stroke="#4ade80" stroke-width="2"/>
+      <polygon points="152,80 160,85 152,90" fill="#4ade80"/>
+
+      <!-- Stage 2 -->
+      <rect x="160" y="18" width="118" height="134" rx="8" fill="#0d2621" stroke="#2dd4bf" stroke-width="1.5"/>
+      <text x="219" y="38" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">2. Edge Layer</text>
+      <text x="219" y="52" text-anchor="middle" fill="#99f6e4" font-size="7.2">Cloudflare / Proxy</text>
+      <rect x="168" y="64" width="102" height="76" rx="5" fill="#061613" stroke="#0d9488"/>
+      <text x="219" y="82" text-anchor="middle" fill="#ccfbf1" font-size="7.6" font-weight="700">Content Switch</text>
+      <text x="219" y="98" text-anchor="middle" fill="#94a3b8" font-size="6.9">Accept: markdown</text>
+      <text x="219" y="113" text-anchor="middle" fill="#94a3b8" font-size="6.9">Vary: Accept</text>
+      <text x="219" y="128" text-anchor="middle" fill="#2dd4bf" font-size="6.9">RFC 9457 JSON</text>
+
+      <path d="M278 85 L304 85" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="304,80 312,85 304,90" fill="#2dd4bf"/>
+
+      <!-- Stage 3 -->
+      <rect x="312" y="18" width="122" height="134" rx="8" fill="#102517" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="373" y="38" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">3. Audit Loop</text>
+      <text x="373" y="52" text-anchor="middle" fill="#bbf7d0" font-size="7.2">is-agentic.com</text>
+      <rect x="320" y="64" width="106" height="76" rx="5" fill="#07150d" stroke="#16a34a"/>
+      <text x="373" y="82" text-anchor="middle" fill="#dcfce7" font-size="7.6" font-weight="700">CLI &amp; MCP Audit</text>
+      <text x="373" y="98" text-anchor="middle" fill="#94a3b8" font-size="6.9">npx is-agentic</text>
+      <text x="373" y="113" text-anchor="middle" fill="#94a3b8" font-size="6.9">Essential Check</text>
+      <text x="373" y="128" text-anchor="middle" fill="#4ade80" font-size="6.9">Fix &amp; Re-verify</text>
+
+      <path d="M434 85 L460 85" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="460,80 468,85 460,90" fill="#a78bfa"/>
+
+      <!-- Stage 4 -->
+      <rect x="468" y="18" width="114" height="134" rx="8" fill="#1b1430" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="525" y="38" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">4. Agent Read</text>
+      <text x="525" y="52" text-anchor="middle" fill="#ddd6fe" font-size="7.2">Coding &amp; Search</text>
+      <rect x="476" y="64" width="98" height="76" rx="5" fill="#0e0a1c" stroke="#7c3aed"/>
+      <text x="525" y="82" text-anchor="middle" fill="#ede9fe" font-size="7.6" font-weight="700">Context Fetch</text>
+      <text x="525" y="98" text-anchor="middle" fill="#94a3b8" font-size="6.9">Claude / Codex</text>
+      <text x="525" y="113" text-anchor="middle" fill="#94a3b8" font-size="6.9">80%+ Less Bloat</text>
+      <text x="525" y="128" text-anchor="middle" fill="#c4b5fd" font-size="6.9">Exact Citations</text>
+
+      <path d="M582 85 L606 85" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="606,80 614,85 606,90" fill="#fbbf24"/>
+
+      <!-- Stage 5 -->
+      <rect x="614" y="18" width="78" height="134" rx="8" fill="#211708" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="653" y="38" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">5. Act</text>
+      <text x="653" y="52" text-anchor="middle" fill="#fde68a" font-size="7.2">WebMCP</text>
+      <rect x="620" y="64" width="66" height="76" rx="5" fill="#120c04" stroke="#d97706"/>
+      <text x="653" y="84" text-anchor="middle" fill="#fef3c7" font-size="7.4" font-weight="700">Typed</text>
+      <text x="653" y="98" text-anchor="middle" fill="#fef3c7" font-size="7.4" font-weight="700">Tools</text>
+      <text x="653" y="116" text-anchor="middle" fill="#fbbf24" font-size="6.7">Human</text>
+      <text x="653" y="128" text-anchor="middle" fill="#fbbf24" font-size="6.7">Approved</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Coding Agents + <code>is-agentic</code> MCP Loop</div>
+      <p style="font-size:8.1pt; margin:0;">
+        Wire <code>https://is-agentic.com/mcp</code> into Claude Code, Cursor, or Antigravity alongside <code>npx skills add vercel-labs/is-agentic</code>. Your agent pulls failing Essential checks via <code>is_agentic_get_report</code>, edits your Next.js middleware or <code>/llms.txt</code> generator, deploys, and verifies the improvement.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span> Markdown Context + WebMCP Execution</div>
+      <p style="font-size:8.1pt; margin:0;">
+        First, agents read pricing, return policies, and API guides cleanly through <code>/llms.txt</code> and <code>Accept: text/markdown</code>. Once the user visits the interactive page in Chrome or Edge, WebMCP takes over to invoke search filters, cart updates, and gated checkouts without fragile DOM clicking.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout teal" style="margin: 2px 0 8px 0;">
+    <div class="callout-title">One Canonical URL, Zero Duplicate Logic</div>
+    Because Markdown negotiation reuses your human URLs and WebMCP wraps existing form handlers and frontend API calls, you never maintain a shadow bot website. Every improvement in structured clarity benefits search crawlers, coding assistants, and assistive browser agents simultaneously.
+  </div>
+
+  <h3>Connecting Your IDE or Agent Host via Streamable HTTP MCP</h3>
+  <pre><code>{
+  "mcpServers": {
+    "is-agentic": {
+      "type": "http",
+      "url": "https://is-agentic.com/mcp"
+    }
+  }
+}</code></pre>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Reference &amp; QA</span>
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP)</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Fast, evidence-backed fixes for the seven most common agentic web integration pitfalls, paired with a pre-flight readiness checklist before you ship to production.
+  </p>
+
+  <table class="clean-table" style="margin-bottom: 8px;">
+    <thead>
+      <tr>
+        <th style="width: 28%;">Symptom &amp; Error</th>
+        <th style="width: 28%;">Root Cause</th>
+        <th style="width: 44%;">10-Second Production Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Old score after deploying fix</strong></td>
+        <td>Cached snapshot (&lt; 6 hours old)</td>
+        <td>Compare <code>scanned_at</code>; click <strong>Rescan</strong> on <code>report_url</code> for an immediate re-run.</td>
+      </tr>
+      <tr>
+        <td><strong><code>404 report_not_found</code></strong></td>
+        <td>Read-only REST API never scans</td>
+        <td>Run <code>npx is-agentic &lt;url&gt; --json</code> or open <code>/scan/&lt;target&gt;</code> first.</td>
+      </tr>
+      <tr>
+        <td><strong><code>score: null</code> on MCP target</strong></td>
+        <td>Endpoint requires authentication</td>
+        <td>Check <code>score_label</code>; publish public docs or unauthenticated metadata card.</td>
+      </tr>
+      <tr>
+        <td><strong>CDN shows Markdown to humans</strong></td>
+        <td>Missing <code>Vary: Accept</code> header</td>
+        <td>Set <code>Vary: Accept</code> on every negotiated response and purge edge cache.</td>
+      </tr>
+      <tr>
+        <td><strong><code>content-no-js</code> Essential fail</strong></td>
+        <td>Client-only CSR renders blank shell</td>
+        <td>Enable SSR or static prerendering (SSG) for core content routes.</td>
+      </tr>
+      <tr>
+        <td><strong><code>modelContext</code> is undefined</strong></td>
+        <td>Missing Chrome flag or HTTPS</td>
+        <td>Enable <code>#enable-webmcp-testing</code>, serve over HTTPS, and guard with <code>'modelContext' in navigator</code>.</td>
+      </tr>
+      <tr>
+        <td><strong><code>429 rate_limit_exceeded</code></strong></td>
+        <td>Exceeded 120 req / 60s IP limit</td>
+        <td>Read the <code>Retry-After</code> header, back off, and cache reports across CI jobs.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Agent-Readiness Checklist</h3>
+  <div class="grid-2">
+    <div class="card">
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 1. Essential Tier Green:</strong> Run <code>npx is-agentic &lt;domain&gt; --json</code> and confirm zero failed or partial checks inside <code>score_breakdown.essential</code>.</p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 2. Curated <code>/llms.txt</code> Live:</strong> Confirm <code>GET /llms.txt</code> returns HTTP <code>200</code> with a crisp <code># H1</code>, blockquote summary, and valid Markdown links.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong>&square; 3. Safe Cache Negotiation:</strong> Test <code>Accept: text/markdown</code> and <code>Accept: text/html</code> back-to-back to verify <code>Vary: Accept</code> isolates both caches.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 4. RFC 9457 Error Contracts:</strong> Trigger 400, 404, and 429 paths with an agent header and confirm clean <code>application/problem+json</code> payloads.</p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 5. WebMCP Lifecycle Clean:</strong> Verify declarative forms return <code>e.respondWith()</code> and SPA views call <code>unregisterTool()</code> on unmount.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong>&square; 6. Human Checkout Gate Tested:</strong> Trigger consequential actions and verify <code>requestUserInteraction()</code> blocks execution until explicit user approval.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Agent-Ready Websites (is-agentic, llms.txt &amp; WebMCP) &bull; Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

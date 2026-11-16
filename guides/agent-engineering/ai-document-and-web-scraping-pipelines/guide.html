@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Document &amp; Web Scraping Pipelines (Docling, Crawl4AI &amp; Firecrawl): The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI Agent Engineering &amp; Architecture &bull; Field Guide</div>
+    <h1>AI Document &amp; <span>Web Scraping Pipelines</span></h1>
+    <p class="cover-sub">
+      The complete 12-page visual handbook to transforming messy PDFs, Office suites, and JavaScript-heavy websites into clean, chunked, citation-ready knowledge with Docling, Crawl4AI, and Firecrawl.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">DoclingDocument &amp; TableFormer</span>
+      <span class="cover-badge">Granite-Docling VLM &amp; OCR</span>
+      <span class="cover-badge">Crawl4AI Async &amp; CSS Schemas</span>
+      <span class="cover-badge">fit_markdown Noise Pruning</span>
+      <span class="cover-badge">Firecrawl v2 /extract &amp; Actions</span>
+      <span class="cover-badge">Sanitization &amp; SHA-256 Dedup</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Architectural visualization of documents and web data streams flowing through luminous cyan extraction prisms into structured crystalline knowledge nodes" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Structure-First Parsing</div>
+      <div class="cover-stat-desc">Preserve reading order, merged table headers, formulas, and page provenance instead of flattening layouts into broken plain text.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Bloat Web Markdown</div>
+      <div class="cover-stat-desc">Strip navigation chrome, ads, and footers using PruningContentFilter and declarative schemas before tokens touch your LLM.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Hardened Ingestion Hygiene</div>
+      <div class="cover-stat-desc">Quarantine hidden prompt-injection lures, honor robots.txt crawl delays, and skip redundant embeds via SHA-256 hashing.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: QUICK NAVIGATION & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">The Ingestion Boundary: Raw Files &amp; Live Web to Clean Context</h2>
+  <p class="page-lead">
+    Retrieval systems and autonomous agents rarely fail because the language model cannot reason; they fail because noisy ingestion feeds scrambled tables, broken multi-column reading order, and sprawling navigation bars into the context window.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Core Mental Model &amp; Ingestion Architecture</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. HybridChunker, Provenance &amp; Metadata</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Setup, Hardware Tiers &amp; Engine Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Five Copy-Paste Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Ingestion &amp; Chunk Inspector Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Crawl Ethics, Quarantine &amp; Deduplication</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Docling: PDF Layout, TableFormer &amp; OCR</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. End-to-End Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Crawl4AI: Async Crawling &amp; fit_markdown</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight Checklist</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Firecrawl v2: /map, /extract &amp; Webhooks</strong></span><span class="toc-pg">p. 7</span></div>
+  </div>
+
+  <div class="grid-3" style="margin: 2px 0 8px 0;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">D</span><span>Docling (Files)</span></div>
+      <p style="font-size:8pt; margin:0;">Local-first parser for PDFs, DOCX, PPTX, and scanned images. Builds a unified <code>DoclingDocument</code> hierarchy with TableFormer cell geometry.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">C</span><span>Crawl4AI (Local Web)</span></div>
+      <p style="font-size:8pt; margin:0;">Open-source async Playwright crawler for dynamic SPAs. Produces low-token <code>fit_markdown</code> and zero-LLM CSS or XPath JSON payloads.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">F</span><span>Firecrawl v2 (API)</span></div>
+      <p style="font-size:8pt; margin:0;">Cloud or self-hosted API offering instant <code>/map</code> discovery, schema-guided <code>/extract</code>, browser actions, and persistent change tracking.</p>
+    </div>
+  </div>
+
+  <h3>Architecture: Raw Sources &rarr; Specialized Parsers &rarr; Sanitize &amp; Dedup &rarr; Provenance Chunks</h3>
+  <div class="figure-box" style="background:#071418; padding:10px 12px;">
+    <svg viewBox="0 0 700 155" width="100%" height="155" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Raw Sources -->
+      <rect x="8" y="14" width="132" height="126" rx="8" fill="#0d272e" stroke="#22d3ee" stroke-width="1.5"/>
+      <text x="74" y="34" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">1. Raw Sources</text>
+      <text x="74" y="48" text-anchor="middle" fill="#67e8f9" font-size="7.3">Files &amp; Live Web</text>
+      <rect x="18" y="58" width="112" height="24" rx="5" fill="#071418" stroke="#0891b2"/>
+      <text x="74" y="74" text-anchor="middle" fill="#e0f2fe" font-size="7.6" font-weight="700">PDF / DOCX / Scans</text>
+      <rect x="18" y="86" width="112" height="24" rx="5" fill="#071418" stroke="#0891b2"/>
+      <text x="74" y="102" text-anchor="middle" fill="#e0f2fe" font-size="7.6" font-weight="700">Dynamic JS Websites</text>
+      <rect x="18" y="114" width="112" height="20" rx="4" fill="#071418" stroke="#164e63"/>
+      <text x="74" y="127" text-anchor="middle" fill="#94a3b8" font-size="6.9">robots.txt &amp; Auth Rules</text>
+
+      <!-- Arrow 1 -->
+      <path d="M140 77 L166 77" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="166,72 174,77 166,82" fill="#22d3ee"/>
+
+      <!-- Stage 2: Parse & Prune -->
+      <rect x="174" y="14" width="160" height="126" rx="8" fill="#0b2432" stroke="#0891b2" stroke-width="1.5"/>
+      <text x="254" y="34" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">2. Parse &amp; Prune</text>
+      <text x="254" y="48" text-anchor="middle" fill="#67e8f9" font-size="7.3">Structure Recovery</text>
+      <rect x="184" y="58" width="140" height="24" rx="5" fill="#071418" stroke="#0891b2"/>
+      <text x="254" y="74" text-anchor="middle" fill="#a5f3fc" font-size="7.5" font-weight="700">Docling + TableFormer</text>
+      <rect x="184" y="86" width="140" height="24" rx="5" fill="#071418" stroke="#0d9488"/>
+      <text x="254" y="102" text-anchor="middle" fill="#99f6e4" font-size="7.5" font-weight="700">Crawl4AI fit_markdown</text>
+      <rect x="184" y="114" width="140" height="20" rx="4" fill="#071418" stroke="#0284c7"/>
+      <text x="254" y="127" text-anchor="middle" fill="#7dd3fc" font-size="7.2" font-weight="700">Firecrawl /extract JSON</text>
+
+      <!-- Arrow 2 -->
+      <path d="M334 77 L360 77" stroke="#10b981" stroke-width="2"/>
+      <polygon points="360,72 368,77 360,82" fill="#10b981"/>
+
+      <!-- Stage 3: Sanitize & Dedup -->
+      <rect x="368" y="14" width="154" height="126" rx="8" fill="#072221" stroke="#10b981" stroke-width="1.5"/>
+      <text x="445" y="34" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">3. Quarantine &amp; Dedup</text>
+      <text x="445" y="48" text-anchor="middle" fill="#6ee7b7" font-size="7.3">Hygiene Gate</text>
+      <rect x="378" y="58" width="134" height="24" rx="5" fill="#041514" stroke="#059669"/>
+      <text x="445" y="74" text-anchor="middle" fill="#a7f3d0" font-size="7.4" font-weight="700">Strip Hidden CSS / Lures</text>
+      <rect x="378" y="86" width="134" height="24" rx="5" fill="#041514" stroke="#059669"/>
+      <text x="445" y="102" text-anchor="middle" fill="#a7f3d0" font-size="7.4" font-weight="700">NFKC &amp; Zero-Width Scrub</text>
+      <rect x="378" y="114" width="134" height="20" rx="4" fill="#041514" stroke="#f59e0b"/>
+      <text x="445" y="127" text-anchor="middle" fill="#fde68a" font-size="7.2" font-weight="700">SHA-256 Cache Skip</text>
+
+      <!-- Arrow 3 -->
+      <path d="M522 77 L548 77" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="548,72 556,77 548,82" fill="#a78bfa"/>
+
+      <!-- Stage 4: Chunk & Index -->
+      <rect x="556" y="14" width="136" height="126" rx="8" fill="#181736" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="624" y="34" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">4. Chunk &amp; Index</text>
+      <text x="624" y="48" text-anchor="middle" fill="#c4b5fd" font-size="7.3">RAG-Ready Payloads</text>
+      <rect x="566" y="58" width="116" height="24" rx="5" fill="#0d0c21" stroke="#6d28d9"/>
+      <text x="624" y="74" text-anchor="middle" fill="#ddd6fe" font-size="7.4" font-weight="700">HybridChunker (512 tok)</text>
+      <rect x="566" y="86" width="116" height="24" rx="5" fill="#0d0c21" stroke="#6d28d9"/>
+      <text x="624" y="102" text-anchor="middle" fill="#ddd6fe" font-size="7.4" font-weight="700">Headings + Page Prov</text>
+      <rect x="566" y="114" width="116" height="20" rx="4" fill="#071418" stroke="#22d3ee"/>
+      <text x="624" y="127" text-anchor="middle" fill="#67e8f9" font-size="7.2" font-weight="700">Vector DB + Nonce RAG</text>
+    </svg>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Why Unified Normalization Pays Off Immediately</div>
+    When local PDF parsers and live web scrapers output different ad-hoc formats, downstream agents choke on edge cases. Routing every source into one normalized contract—pruned Markdown, strict JSON records, and chunk provenance metadata—lets your RAG index and tool loops operate cleanly regardless of where knowledge originated.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, TIERS & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup &amp; Matrix</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">Setup, Hardware Tiers &amp; Extraction Engine Matrix</h2>
+  <p class="page-lead">
+    No single scraper handles every source well. Match PDFs, Office documents, open web crawls, and protected portals to the right local library or managed API before writing pipeline code.
+  </p>
+
+  <table class="clean-table" style="font-size: 7.9pt; margin: 4px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width: 19%;">Engine &amp; Mode</th>
+        <th style="width: 19%;">Best Input Sources</th>
+        <th style="width: 18%;">Compute &amp; Cost</th>
+        <th style="width: 21%;">Primary Outputs</th>
+        <th style="width: 23%;">Strengths &amp; Tradeoffs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Docling Standard</strong><br/><span style="font-size:7.1pt; color:#64748b;">Layout + TableFormer</span></td>
+        <td>Native PDFs, DOCX, PPTX, XLSX, HTML, audio</td>
+        <td>Local CPU or GPU; zero API fees</td>
+        <td><code>DoclingDocument</code>, Markdown, lossless JSON</td>
+        <td>Preserves reading order and merged table spans cleanly on local hardware.</td>
+      </tr>
+      <tr>
+        <td><strong>Docling VLM</strong><br/><span style="font-size:7.1pt; color:#64748b;">Granite-Docling 258M</span></td>
+        <td>Complex math, dense scans, chart-heavy PDFs</td>
+        <td>Apple MPS or NVIDIA GPU recommended</td>
+        <td>Compact DocTags, Markdown, HTML</td>
+        <td>End-to-end vision parsing replaces multi-step OCR chaining; heavier VRAM footprint.</td>
+      </tr>
+      <tr>
+        <td><strong>Crawl4AI (CSS)</strong><br/><span style="font-size:7.1pt; color:#64748b;">JsonCssExtraction</span></td>
+        <td>Repeated catalog cards, docs, tables, SPAs</td>
+        <td>Local Playwright; zero LLM token cost</td>
+        <td>Structured JSON + <code>fit_markdown</code></td>
+        <td>Blazing fast and deterministic once CSS or XPath selectors are mapped.</td>
+      </tr>
+      <tr>
+        <td><strong>Crawl4AI (LLM)</strong><br/><span style="font-size:7.1pt; color:#64748b;">LLMExtractionStrategy</span></td>
+        <td>Irregular layouts, articles, mixed prose pages</td>
+        <td>Local Playwright + LLM API tokens</td>
+        <td>Pydantic JSON + pruned Markdown</td>
+        <td>Handles changing DOM shapes flexibly; costs tokens per page unless pruned first.</td>
+      </tr>
+      <tr>
+        <td><strong>Firecrawl v2 Cloud</strong><br/><span style="font-size:7.1pt; color:#64748b;">API + firecrawl-mcp</span></td>
+        <td>Hard-to-scrape sites, sitemaps, live monitors</td>
+        <td>Managed SaaS credits; 2-day cache saves hits</td>
+        <td>Markdown, v2 JSON, screenshots, diffs</td>
+        <td>Built-in proxies, anti-bot retries, browser actions, and zero infra setup.</td>
+      </tr>
+      <tr>
+        <td><strong>Firecrawl Self-Host</strong><br/><span style="font-size:7.1pt; color:#64748b;">Docker Compose</span></td>
+        <td>Internal intranets, private VPC knowledge</td>
+        <td>Node.js + Redis + Playwright (2 GB+ RAM)</td>
+        <td>Universal REST API across languages</td>
+        <td>Full data sovereignty; requires maintaining your own proxy pools and containers.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Quick Installation &amp; Runtime Sizing</h3>
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span><span>Local Python Stack (Docling + Crawl4AI)</span></div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        Install both open-source toolkits in a Python 3.10+ virtual environment and initialize Playwright browser binaries in one step:
+      </p>
+      <p style="font-size:7.9pt; margin:0 0 4px 0;">
+        <code>pip install docling crawl4ai pydantic</code><br/>
+        <code>crawl4ai-setup</code>
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        <strong>Sizing tip:</strong> Standard Docling runs comfortably on 4&ndash;8 GB RAM; Apple Silicon MPS or CUDA GPUs cut <code>Granite-Docling</code> and <code>TableFormer</code> page latency by 4x&ndash;8x.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span><span>Firecrawl v2 SDK &amp; MCP Server</span></div>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;">
+        Connect agents or batch scripts to Firecrawl using the official v2 Python SDK or drop-in Model Context Protocol server:
+      </p>
+      <p style="font-size:7.9pt; margin:0 0 4px 0;">
+        <code>pip install firecrawl</code><br/>
+        <code>FIRECRAWL_API_KEY=fc-... npx -y firecrawl-mcp</code>
+      </p>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">
+        <strong>Quota tip:</strong> Firecrawl v2 caches scrapes for 2 days by default (<code>maxAge</code>), returning cached semantic index snapshots without burning fresh browser time.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top: 4px;">
+    <div class="callout-title">Avoid the Naive HTTP + BeautifulSoup Trap</div>
+    Fetching URLs with plain HTTP clients and flattening HTML with <code>soup.get_text()</code> fails silently on modern React and Next.js portals, merges sidebar links into paragraphs, and destroys financial PDF columns. Starting with layout-aware document parsers and pruned browser crawlers saves weeks of downstream prompt debugging.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Workspace Tour</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">Annotated Workspace: Ingestion &amp; Chunk Inspector HUD</h2>
+  <p class="page-lead">
+    Reliable data engineering pipelines expose live observability across every stage: source routing, token pruning ratios, prompt-injection drops, SHA-256 deduplication, and exact chunk provenance.
+  </p>
+
+  <div class="ui-window" style="margin-bottom: 8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#94a3b8; font-size:7.4pt;">Ingestion &amp; Chunk Inspector &bull; pipeline/enterprise-kb-sync [ACTIVE]</span>
+      </div>
+      <div style="color:#22d3ee; font-weight:700; font-size:7.4pt;">Throughput: 142 docs/min &bull; Dedup Saved: 38.4%</div>
+    </div>
+    <div style="padding: 9px 13px; background:#050f12;">
+      <!-- Row 1: Router & Token Pruning -->
+      <div style="display:flex; justify-content:space-between; margin-bottom:7px; padding-bottom:6px; border-bottom:1px solid #164e63;">
+        <div>
+          <span class="callout-pin">1</span> <strong>Source Router:</strong> <span style="color:#67e8f9;">Docling (PDF)</span> + <span style="color:#34d399;">Crawl4AI (Batch)</span> + <span style="color:#a78bfa;">Firecrawl (/map)</span>
+        </div>
+        <div>
+          <span class="callout-pin">4</span> <strong>Prune Ratio:</strong> 18,420 raw &rarr; <span style="color:#34d399;">4,190 fit_markdown (-77%)</span>
+        </div>
+      </div>
+
+      <!-- Row 2: Split panes -->
+      <div style="display:grid; grid-template-columns: 1.05fr 0.95fr; gap:10px;">
+        <!-- Left: Parsed Document / Markdown Preview -->
+        <div style="background:#030a0c; border:1px solid #164e63; border-radius:6px; padding:8px; font-family:'SF Mono',Menlo,monospace; font-size:7.1pt; color:#cbd5e1;">
+          <div style="color:#22d3ee; font-weight:700; margin-bottom:4px; display:flex; justify-content:space-between;">
+            <span><span class="callout-pin">3</span> Normalized TableFormer &amp; Pruned MD</span>
+            <span style="color:#64748b;">fit_markdown</span>
+          </div>
+          <div style="color:#67e8f9;">## Q4 Regional Revenue Breakdown</div>
+          <div style="color:#94a3b8; margin:2px 0;">| Region &nbsp;&nbsp;| ARR ($M) | YoY Growth |</div>
+          <div style="color:#94a3b8;">|---------|----------|------------|</div>
+          <div style="color:#e2e8f0;">| N. Amer | 142.8 &nbsp;&nbsp;&nbsp;| +34.2% &nbsp;&nbsp;&nbsp;&nbsp;|</div>
+          <div style="color:#e2e8f0;">| EMEA &nbsp;&nbsp;&nbsp;| 68.4 &nbsp;&nbsp;&nbsp;&nbsp;| +29.1% &nbsp;&nbsp;&nbsp;&nbsp;|</div>
+          <div style="color:#34d399; margin-top:4px;">{"schema": "FinancialRow", "valid": true}</div>
+        </div>
+
+        <!-- Right: Provenance & Quarantine -->
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <div style="background:#030a0c; border:1px solid #164e63; border-radius:6px; padding:7px;">
+            <div style="color:#e2e8f0; font-weight:700; font-size:7.1pt; margin-bottom:3px;">
+              <span class="callout-pin">2</span> HybridChunker Provenance Tree
+            </div>
+            <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.9pt; color:#94a3b8;">
+              <div><code>chunk_id</code>: "sec14_tbl_02" &bull; <strong>Tokens:</strong> 384 / 512</div>
+              <div><code>headings</code>: ["Annual Filing", "Q4 Regional Revenue"]</div>
+              <div><code>page_no</code>: 14 &bull; <code>bbox</code>: [72.4, 188.0, 520.1, 310.5]</div>
+            </div>
+          </div>
+
+          <div style="background:#030a0c; border:1px solid #164e63; border-radius:6px; padding:7px;">
+            <div style="color:#fb7185; font-weight:700; font-size:7.1pt; margin-bottom:3px;">
+              <span class="callout-pin">5</span> Security Quarantine &amp; SHA-256 Dedup
+            </div>
+            <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.9pt;">
+              <div style="color:#f87171;">BLOCKED &rarr; div[style*="display:none"] ("Ignore rules...")</div>
+              <div style="color:#fbbf24;">SCRUBBED &rarr; 14 zero-width U+200B chars removed</div>
+              <div style="color:#34d399;">SKIPPED &rarr; /pricing SHA-256 matched cache</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Politeness & Sink -->
+      <div style="display:flex; justify-content:space-between; margin-top:7px; padding-top:6px; border-top:1px solid #164e63; font-size:7pt;">
+        <div>
+          <span class="callout-pin">6</span> <strong>Politeness:</strong> <code>robots.txt</code> PASS &bull; Delay: 2s &bull; Diff: <span style="color:#fbbf24;">changed</span>
+        </div>
+        <div>
+          <span class="callout-pin">7</span> <strong>Sink:</strong> 48 chunks &rarr; Qdrant &bull; Webhook: <span style="color:#34d399;">200 OK (18ms)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control Legend &amp; Inspection Points</h3>
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;"><strong><span class="callout-pin">1</span> Multi-Engine Source Router:</strong> Dispatches binary documents to Docling, open batch web lists to Crawl4AI, and guarded or monitored portals to Firecrawl.</p>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;"><strong><span class="callout-pin">2</span> Provenance &amp; Chunk Tree:</strong> Inspects token counts alongside <code>headings</code> breadcrumbs, <code>page_no</code>, and layout bounding boxes before embedding.</p>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;"><strong><span class="callout-pin">3</span> Normalized Output Inspector:</strong> Compares TableFormer pipe tables, <code>fit_markdown</code> prose, and schema-validated JSON records side by side.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong><span class="callout-pin">4</span> Boilerplate Compression Gauge:</strong> Measures raw HTML versus pruned Markdown bytes so navigation bars and footer links never inflate token bills.</p>
+    </div>
+    <div>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;"><strong><span class="callout-pin">5</span> Quarantine &amp; Dedup Ledger:</strong> Flags stripped invisible CSS traps, scrubbed Unicode smuggling bytes, and unchanged pages skipped via <code>SHA-256</code> hashing.</p>
+      <p style="font-size:8.2pt; margin:0 0 4px 0;"><strong><span class="callout-pin">6</span> Politeness &amp; Change Monitor:</strong> Tracks <code>robots.txt</code> rules, adaptive backoff delays, and Firecrawl <code>changeTracking</code> diffs across scheduled runs.</p>
+      <p style="font-size:8.2pt; margin:0;"><strong><span class="callout-pin">7</span> Downstream Sink &amp; Webhooks:</strong> Confirms atomic vector database upserts and triggers real-time webhook notifications on document updates.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top: 4px;">
+    <div class="callout-title">Spotting Silent Ingestion Degradation Before Users Notice</div>
+    Always log the raw-to-fit compression ratio and extracted chunk count per URL pattern. A sudden drop in <code>fit_markdown</code> length or a spike in empty chunks usually means a target site shipped a new JavaScript paywall, cookie modal, or CSS class change that requires updating your <code>wait_for</code> selector.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: DOCLING DEEP WORKFLOW ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Docling Engine</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">Docling: PDF Layout, TableFormer &amp; VLM Conversion</h2>
+  <p class="page-lead">
+    Developed by IBM Research, Docling replaces brittle text dumpers with deep layout analysis, converting PDFs, Word files, slide decks, and scanned archives into a structured <code>DoclingDocument</code> tree.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span><span>Unified <code>DoclingDocument</code></span></div>
+      <p style="font-size:7.9pt; margin:0;">Represents titles, nested headings, reading order, captions, code blocks, and formulas in one schema exporting cleanly to Markdown, HTML, JSON, or DocTags.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span><span><code>TableFormer</code> Cell Grid</span></div>
+      <p style="font-size:7.9pt; margin:0;">Predicts bounding boxes, row spans, and multi-tier headers. Choose <code>FAST</code> for high volume or <code>ACCURATE</code> for dense financial tables.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">3</span><span>Modular OCR &amp; VLM</span></div>
+      <p style="font-size:7.9pt; margin:0;">Swap between <code>RapidOCR</code>, <code>EasyOCR</code>, <code>Tesseract</code>, and macOS Vision, or run <code>Granite-Docling</code> (258M) end-to-end via <code>VlmPipeline</code>.</p>
+    </div>
+  </div>
+
+  <div class="card-dark" style="font-family:'SF Mono',Menlo,monospace; font-size:7.1pt; line-height:1.45; padding:6px 10px; margin-bottom:5px;">
+    <span style="color:#67e8f9; font-weight:700;">Docling Formula:</span>
+    <span class="p-tag p-style">Pipeline Options</span> (<code>PdfPipelineOptions</code>) +
+    <span class="p-tag p-subj">Selective OCR</span> (<code>RapidOcrOptions</code>) +
+    <span class="p-tag p-act">Table Mode</span> (<code>TableFormerMode.ACCURATE</code>) +
+    <span class="p-tag p-cam">Converter</span> (<code>DocumentConverter</code>)
+  </div>
+
+  <pre><code>from docling.datamodel.base_models import InputFormat
+from docling.datamodel.pipeline_options import PdfPipelineOptions, RapidOcrOptions, TableFormerMode
+from docling.document_converter import DocumentConverter, PdfFormatOption
+
+opts = PdfPipelineOptions(do_ocr=True, do_table_structure=True)
+opts.ocr_options = RapidOcrOptions(force_full_page_ocr=False) # Run OCR only on scanned regions
+opts.table_structure_options.mode = TableFormerMode.ACCURATE  # Best fidelity for merged headers
+
+converter = DocumentConverter(format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=opts)})
+doc = converter.convert("quarterly_report.pdf").document
+print(doc.export_to_markdown()) # CLI VLM option: docling --pipeline vlm --vlm-model granite_docling file.pdf</code></pre>
+
+  <div class="figure-box" style="margin-bottom: 4px;">
+    <img src="assets/showcase_1.jpg" alt="Visual anatomy of multi-column document layout decomposition into structural blocks and clean table matrices" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 5.1 &bull; Structural Layout Decomposition:</strong> Docling separates multi-column narrative text, nested TableFormer cell grids, and embedded visual figures into distinct typed nodes before serializing reading-order Markdown.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: CRAWL4AI DEEP WORKFLOW ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Crawl4AI Engine</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">Crawl4AI: Async Playwright, Pruning &amp; Schema Extraction</h2>
+  <p class="page-lead">
+    Crawl4AI gives Python engineers direct programmatic control over headless Chromium instances—pairing concurrent crawling with heuristic Markdown noise pruning and deterministic CSS extraction schemas.
+  </p>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span><span>Zero-LLM <code>JsonCssExtractionStrategy</code></span></div>
+      <p style="font-size:8pt; margin:0;">Map repeating DOM cards once using CSS or XPath selectors. Extracting 10,000 uniform catalog or directory pages costs zero LLM tokens and finishes deterministically in milliseconds.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span><span>Schema-Guided <code>LLMExtractionStrategy</code></span></div>
+      <p style="font-size:8pt; margin:0;">When page HTML varies wildly, supply a Pydantic schema via <code>LLMConfig</code> and set <code>input_format="fit_markdown"</code> so the model only reads high-signal body text.</p>
+    </div>
+  </div>
+
+  <div class="card-dark" style="font-family:'SF Mono',Menlo,monospace; font-size:7.1pt; line-height:1.45; padding:6px 10px; margin-bottom:5px;">
+    <span style="color:#67e8f9; font-weight:700;">Crawl4AI Formula:</span>
+    <span class="p-tag p-style">Browser Env</span> (<code>BrowserConfig</code>) +
+    <span class="p-tag p-subj">Noise Pruner</span> (<code>PruningContentFilter</code>) +
+    <span class="p-tag p-act">CSS / LLM Extract</span> (<code>extraction_strategy</code>) +
+    <span class="p-tag p-cam">Wait &amp; Session</span> (<code>wait_for</code>, <code>session_id</code>)
+  </div>
+
+  <pre><code>import asyncio, json
+from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
+from crawl4ai.content_filter_strategy import PruningContentFilter
+from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
+from crawl4ai.extraction_strategy import JsonCssExtractionStrategy
+
+async def scrape_catalog():
+    md_gen = DefaultMarkdownGenerator(content_filter=PruningContentFilter(threshold=0.4, min_word_threshold=20))
+    schema = {"name": "Posts", "baseSelector": "article.post", "fields": [
+        {"name": "title", "selector": "h2", "type": "text"},
+        {"name": "href", "selector": "a", "type": "attribute", "attribute": "href"},
+    ]}
+    run_cfg = CrawlerRunConfig(cache_mode=CacheMode.BYPASS, markdown_generator=md_gen,
+        extraction_strategy=JsonCssExtractionStrategy(schema), wait_for="css:article.post")
+    async with AsyncWebCrawler(config=BrowserConfig(headless=True)) as crawler:
+        res = await crawler.arun(url="https://example.com/blog", config=run_cfg)
+        return res.markdown.fit_markdown, json.loads(res.extracted_content or "[]")</code></pre>
+
+  <div class="grid-2" style="margin-bottom: 5px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">P</span><span><code>PruningContentFilter</code> vs. <code>BM25</code></span></div>
+      <p style="font-size:8pt; margin:0;"><code>PruningContentFilter</code> scores DOM link density and text length to strip menus and footers across entire sites. Use <code>BM25ContentFilter(user_query=...)</code> when you only want blocks matching a specific search topic.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">S</span><span>Stateful <code>session_id</code> &amp; Lifecycle Hooks</span></div>
+      <p style="font-size:8pt; margin:0;">Keep a single browser tab alive across pagination clicks by reusing <code>session_id</code> with <code>js_only=True</code> and <code>js_code</code>, and inject cookies or auth headers safely inside <code>on_page_context_created</code>.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 2px;">
+    <div class="callout-title">Always Attach a Filter Before Reading <code>fit_markdown</code></div>
+    A frequent beginner pitfall is inspecting <code>result.markdown.fit_markdown</code> without passing a content filter to <code>DefaultMarkdownGenerator</code>—which leaves <code>fit_markdown</code> empty. Explicitly attach <code>PruningContentFilter</code> or <code>BM25ContentFilter</code> to unlock 60&ndash;80% boilerplate token reduction.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: FIRECRAWL V2 DEEP WORKFLOW ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Firecrawl v2</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">Firecrawl v2: Mapping, Structured <code>/extract</code> &amp; Change Tracking</h2>
+  <p class="page-lead">
+    Firecrawl v2 provides managed browser infrastructure, fast sitemap URL discovery, schema-guided JSON extraction, interactive page actions, and persistent change diffs over a clean REST and Python SDK.
+  </p>
+
+  <div class="figure-box" style="margin-bottom: 6px;">
+    <img src="assets/showcase_2.jpg" alt="Faceted cyan barrier deflecting messy web shards while structured luminous blocks stream into a persistent snapshot vault" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Figure 7.1 &bull; Managed Extraction &amp; Snapshot Vault:</strong> Firecrawl filters boilerplate noise and blocked markup at the browser edge, streaming schema-validated JSON records and persistent change-tracking diffs into your downstream store.
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span><span>Fast <code>/map</code> &amp; Smart <code>/crawl</code></span></div>
+      <p style="font-size:7.9pt; margin:0;">Inventory thousands of URLs via <code>firecrawl.map()</code> before scraping, then scope recursive crawls with <code>includePaths</code> or natural-language prompts previewed via <code>/crawl-params-preview</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span><span>JSON Mode, <code>/extract</code> &amp; Actions</span></div>
+      <p style="font-size:7.9pt; margin:0;">Pass <code>{"type": "json", "schema": ...}</code> inside <code>formats</code> for single URLs (or <code>/extract</code> for wildcard domains), paired with pre-scrape <code>actions</code> like <code>click</code>, <code>write</code>, and <code>wait</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span><span><code>changeTracking</code> &amp; Webhooks</span></div>
+      <p style="font-size:7.9pt; margin:0;">Compare live pages against persistent snapshots using <code>git-diff</code> or <code>json</code> modes to get <code>new</code>, <code>same</code>, <code>changed</code>, or <code>removed</code> events via HTTPS webhooks.</p>
+    </div>
+  </div>
+
+  <pre><code>from firecrawl import Firecrawl
+from pydantic import BaseModel
+
+class PricingTier(BaseModel):
+    plan_name: str
+    monthly_usd: float
+
+fc = Firecrawl(api_key="fc-YOUR_API_KEY") # Or run keyless sandbox / self-hosted endpoint
+urls = fc.map(url="https://docs.example.com", limit=100, sitemap="include")
+
+doc = fc.scrape(
+    "https://example.com/pricing",
+    actions=[{"type": "click", "selector": "#annual-toggle"}, {"type": "wait", "milliseconds": 600}],
+    formats=["markdown", {"type": "json", "schema": PricingTier.model_json_schema()},
+             {"type": "changeTracking", "modes": ["git-diff", "json"]}],
+)
+print(doc.change_tracking.get("changeStatus"), doc.json) # Webhooks fire on started, page, completed</code></pre>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: CHUNKING & PROVENANCE METADATA ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Chunking &amp; Provenance</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">HybridChunker, Contextualization &amp; Provenance Metadata</h2>
+  <p class="page-lead">
+    Clean Markdown is only half the ingestion pipeline. Naive character splitters tear apart Markdown tables and strip parent headings; structure-aware chunking preserves semantics and clickable citations.
+  </p>
+
+  <div class="card-dark" style="font-family:'SF Mono',Menlo,monospace; font-size:7.1pt; line-height:1.45; padding:6px 10px; margin-bottom:6px;">
+    <span style="color:#67e8f9; font-weight:700;">Provenance Formula:</span>
+    <span class="p-tag p-style">Token Cap</span> (<code>max_tokens=512</code>) +
+    <span class="p-tag p-subj">Heading Path</span> (<code>meta.headings</code>) +
+    <span class="p-tag p-act">Table Repeat</span> (<code>repeat_table_header</code>) +
+    <span class="p-tag p-light">Origin Anchor</span> (<code>page_no</code> + <code>source_url</code> + <code>sha256</code>)
+  </div>
+
+  <pre><code>import hashlib
+from datetime import datetime, timezone
+from docling.chunking import HybridChunker
+
+chunker = HybridChunker(tokenizer="sentence-transformers/all-MiniLM-L6-v2", max_tokens=512, repeat_table_header=True)
+records = []
+for idx, chunk in enumerate(chunker.chunk(doc)):
+    contextual_text = chunker.contextualize(chunk) # Automatically prepends parent section headings!
+    page_no = chunk.meta.doc_items[0].prov[0].page_no if chunk.meta.doc_items else None
+    records.append({
+        "id": f"{doc_id}_{idx}", "text": contextual_text,
+        "headings": chunk.meta.headings, "page_no": page_no,
+        "source_url": source_uri, "sha256": hashlib.sha256(contextual_text.encode()).hexdigest(),
+        "ingested_at": datetime.now(timezone.utc).isoformat(),
+    })</code></pre>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span><span>Why <code>HybridChunker</code> Beats Fixed Splits</span></div>
+      <p style="font-size:8pt; margin:0;">Operating directly on <code>DoclingDocument</code>, <code>HybridChunker</code> merges tiny adjacent bullets, splits oversized sections along sentence boundaries using your embedding model tokenizer, and repeats table headers if large tables span chunks.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span><span>Audit-Grade Citation Provenance</span></div>
+      <p style="font-size:8pt; margin:0;">Calling <code>chunker.contextualize(chunk)</code> embeds parent headings right above the chunk body for vector search, while <code>page_no</code> and bounding coordinates let agents render exact page links in regulated workflows.</p>
+    </div>
+  </div>
+
+  <h3>Recommended Chunking Profiles by Document Workload</h3>
+  <table class="clean-table" style="font-size: 7.9pt;">
+    <thead>
+      <tr>
+        <th style="width: 24%;">Workload Type</th>
+        <th style="width: 17%;">Token Target</th>
+        <th style="width: 29%;">Header &amp; Table Strategy</th>
+        <th style="width: 30%;">Mandatory Metadata Fields</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Developer Docs &amp; APIs</strong></td>
+        <td><code>384 &ndash; 512</code> tok</td>
+        <td>Keep fenced code blocks intact; prepend H1/H2/H3 breadcrumb.</td>
+        <td><code>source_url</code>, <code>headings</code>, <code>doc_version</code>, <code>sha256</code></td>
+      </tr>
+      <tr>
+        <td><strong>Financial Filings &amp; PDFs</strong></td>
+        <td><code>512 &ndash; 768</code> tok</td>
+        <td><code>TableFormer ACCURATE</code> + <code>repeat_table_header=True</code>.</td>
+        <td><code>file_name</code>, <code>page_no</code>, <code>bbox</code>, <code>fiscal_period</code></td>
+      </tr>
+      <tr>
+        <td><strong>Web Knowledge Portals</strong></td>
+        <td><code>400 &ndash; 600</code> tok</td>
+        <td>Markdown header split on <code>fit_markdown</code> after boilerplate prune.</td>
+        <td><code>canonical_url</code>, <code>last_modified</code>, <code>sha256</code></td>
+      </tr>
+      <tr>
+        <td><strong>Legal &amp; Policy Contracts</strong></td>
+        <td><code>256 &ndash; 400</code> tok</td>
+        <td>Clause-level split preserving numbered section hierarchy.</td>
+        <td><code>clause_id</code>, <code>page_no</code>, <code>effective_date</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: FIVE COPY-PASTE PRODUCTION RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Recipes</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">Five Copy-Paste Production Ingestion Recipes</h2>
+  <p class="page-lead">
+    Battle-tested patterns combining Docling, Crawl4AI, and Firecrawl across common engineering tasks—from local annual report extraction to live webhook-driven monitoring.
+  </p>
+
+  <table class="clean-table" style="font-size: 7.7pt; margin-bottom: 5px;">
+    <thead>
+      <tr>
+        <th style="width: 21%;">Recipe &amp; Goal</th>
+        <th style="width: 19%;">Recommended Stack</th>
+        <th style="width: 35%;">Core Implementation Pattern</th>
+        <th style="width: 25%;">Cost &amp; Reliability Gate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Financial Table Harvester</strong><br/><span style="font-size:6.9pt; color:#64748b;">Extract multi-page PDF tables</span></td>
+        <td>Docling + <code>TableFormer</code> + Pydantic</td>
+        <td><code>opts.table_structure_options.mode = TableFormerMode.ACCURATE</code><br/><code>chunks = HybridChunker(max_tokens=512).chunk(doc)</code></td>
+        <td>Zero cloud token fees; validate extracted row sums deterministically.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Zero-LLM Product Catalog</strong><br/><span style="font-size:6.9pt; color:#64748b;">Scrape 1,000+ listing URLs</span></td>
+        <td>Crawl4AI + <code>JsonCssExtraction</code></td>
+        <td><code>strategy = JsonCssExtractionStrategy(catalog_schema)</code><br/><code>await crawler.arun_many(urls, config=run_cfg)</code></td>
+        <td><code>MemoryAdaptiveDispatcher</code> caps browser RAM below 75%.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Authenticated SPA Docs</strong><br/><span style="font-size:6.9pt; color:#64748b;">Crawl portal behind login</span></td>
+        <td>Crawl4AI + <code>session_id</code> + Hooks</td>
+        <td>Set auth cookies in <code>on_page_context_created</code>; click tabs with <code>js_code</code> &amp; <code>js_only=True</code>.</td>
+        <td>Explicitly call <code>kill_session(session_id)</code> in <code>finally</code> block.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Live Pricing Diff Monitor</strong><br/><span style="font-size:6.9pt; color:#64748b;">Alert only when tiers change</span></td>
+        <td>Firecrawl v2 + <code>changeTracking</code></td>
+        <td><code>formats=["markdown", {"type": "changeTracking", "modes": ["git-diff"]}]</code>; check <code>changeStatus</code>.</td>
+        <td>Pass <code>max_age=0</code> to bypass 2-day cache on live monitors.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Coding Agent Web Tool</strong><br/><span style="font-size:6.9pt; color:#64748b;">Live API docs inside IDE</span></td>
+        <td><code>firecrawl-mcp</code> + Claude / Cursor</td>
+        <td>Agent calls <code>firecrawl_map(url)</code> then <code>firecrawl_scrape(target)</code> for pruned docs.</td>
+        <td>Whitelist approved doc domains; wrap output in nonce tags.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Recipe 2 Implementation: Resilient Concurrent Batch Crawl with Rate Limiter</h3>
+  <pre style="margin: 4px 0 6px 0; padding: 7px 10px;"><code>import asyncio
+from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode, RateLimiter
+from crawl4ai.async_dispatcher import MemoryAdaptiveDispatcher
+from crawl4ai.content_filter_strategy import PruningContentFilter
+from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
+
+async def batch_ingest_docs(urls: list[str]) -&gt; dict[str, str]:
+    dispatcher = MemoryAdaptiveDispatcher(memory_threshold_percent=75.0, max_session_permit=6,
+        rate_limiter=RateLimiter(base_delay=(1.0, 2.0), max_delay=30.0, max_retries=3))
+    run_cfg = CrawlerRunConfig(cache_mode=CacheMode.ENABLED,
+        markdown_generator=DefaultMarkdownGenerator(content_filter=PruningContentFilter(threshold=0.45)))
+    async with AsyncWebCrawler(config=BrowserConfig(headless=True, verbose=False)) as crawler:
+        results = await crawler.arun_many(urls=urls, config=run_cfg, dispatcher=dispatcher)
+        return {r.url: r.markdown.fit_markdown for r in results if r.success and r.markdown.fit_markdown}</code></pre>
+
+  <div class="callout emerald" style="margin: 3px 0 0 0; padding: 8px 11px;">
+    <div class="callout-title">Pro Tip: Pair <code>firecrawl.map()</code> with <code>Crawl4AI</code> Batch Workers</div>
+    Use Firecrawl <code>/map</code> once to obtain a clean, sitemap-verified list of documentation URLs in under two seconds, then feed that URL batch into local Crawl4AI <code>arun_many()</code> workers for free, high-speed Markdown pruning and custom CSS extraction.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: CRAWL ETHICS, QUARANTINE & DEDUPLICATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security &amp; Hygiene</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">Crawl Ethics, Prompt-Injection Quarantine &amp; Deduplication</h2>
+  <p class="page-lead">
+    External websites and third-party PDFs are untrusted inputs. Production pipelines respect domain crawl rules, sanitize invisible adversarial instructions deterministically, and hash normalized text before embedding.
+  </p>
+
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span><span>Politeness &amp; <code>robots.txt</code></span></div>
+      <p style="font-size:7.9pt; margin:0;">Check <code>robots.txt</code> rules before crawling, honor <code>Crawl-delay</code> and HTTP <code>429 Retry-After</code> headers, send an identifiable <code>User-Agent</code> contact string, and cache repeat fetches cleanly.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span><span>Prompt-Injection Defense</span></div>
+      <p style="font-size:7.9pt; margin:0;">Attackers embed hijacks inside <code>display:none</code> elements, HTML comments, <code>opacity:0</code> spans, or invisible Unicode tags (<code>U+200B</code>, <code>U+E0000</code>). Scrub them prior to chunking.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span><span><code>SHA-256</code> &amp; Near-Dedup</span></div>
+      <p style="font-size:7.9pt; margin:0;">Canonicalize URLs (strip <code>utm_*</code> params), normalize whitespace, and skip identical <code>SHA-256</code> hashes. Add MinHash or SimHash LSH to catch near-duplicate mirror pages.</p>
+    </div>
+  </div>
+
+  <h3>Production Sanitizer, SHA-256 Deduplicator &amp; Nonce Quarantine Wrapper</h3>
+  <pre><code>import hashlib, re, secrets, unicodedata
+from bs4 import BeautifulSoup, Comment
+
+INVISIBLE_RE = re.compile(r"[\u200b-\u200f\ufeff\u202a-\u202e\U000e0000-\U000e007f]")
+HIDDEN_STYLE_RE = re.compile(r"(display\s*:\s*none|visibility\s*:\s*hidden|opacity\s*:\s*0|font-size\s*:\s*0)", re.I)
+
+def sanitize_and_digest(raw_html: str) -&gt; tuple[str, str]:
+    soup = BeautifulSoup(raw_html, "html.parser")
+    for tag in soup(["script", "style", "noscript", "template"]): tag.decompose()
+    for c in soup.find_all(string=lambda t: isinstance(t, Comment)): c.extract()
+    for hidden in soup.find_all(style=HIDDEN_STYLE_RE): hidden.decompose()
+    clean = INVISIBLE_RE.sub("", unicodedata.normalize("NFKC", soup.get_text(" ", strip=True)))
+    digest = hashlib.sha256(re.sub(r"\s+", " ", clean).strip().encode("utf-8")).hexdigest()
+    return clean, digest
+
+def frame_for_rag(clean_text: str, source_url: str) -&gt; str:
+    nonce = secrets.token_hex(8)
+    return f'[UNTRUSTED_WEB_SOURCE url="{source_url}" nonce="{nonce}"]\n{clean_text}\n[/UNTRUSTED_WEB_SOURCE nonce="{nonce}"]'</code></pre>
+
+  <div class="grid-2" style="margin-bottom: 5px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">U</span><span>URL Canonicalization Rules</span></div>
+      <p style="font-size:7.9pt; margin:0;">Normalize scheme and lowercase host, strip fragment anchors (<code>#section</code>), drop tracking parameters (<code>utm_*</code>, <code>fbclid</code>, <code>gclid</code>), and sort remaining query keys so identical pages never enter the crawl queue twice.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">H</span><span>Exact Hash vs. Fuzzy Similarity</span></div>
+      <p style="font-size:7.9pt; margin:0;">Use exact <code>SHA-256</code> digests to skip byte-identical re-crawls at zero cost. Layer 128-permutation MinHash or SimHash LSH above that to collapse regional mirror pages that differ only by currency or timestamp banners.</p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top: 2px;">
+    <div class="callout-title">Defense in Depth: Never Rely on System Prompts Alone</div>
+    Telling an agent to ignore instructions found in scraped text fails whenever adversarial directives share the same token stream. Combine deterministic pre-ingestion DOM and Unicode sanitization with cryptographic nonce framing, output-schema checks, and strict sandbox egress controls so retrieved text remains inert data.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Synergy Pipeline: Discovery to Verified RAG</h2>
+  <p class="page-lead">
+    Rather than forcing one engine onto every workload, production teams route web links, interactive portals, and binary attachments to specialized extractors before merging everything into one clean index.
+  </p>
+
+  <div class="figure-box" style="background:#071418; padding:10px 12px; margin-bottom: 8px;">
+    <svg viewBox="0 0 700 172" width="100%" height="172" xmlns="http://www.w3.org/2000/svg">
+      <!-- Step 1: Discovery & Router -->
+      <rect x="8" y="16" width="114" height="138" rx="8" fill="#0d272e" stroke="#22d3ee" stroke-width="1.5"/>
+      <text x="65" y="36" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">1. Discovery</text>
+      <text x="65" y="50" text-anchor="middle" fill="#67e8f9" font-size="7.2">URL + MIME Router</text>
+      <rect x="16" y="62" width="98" height="24" rx="4" fill="#071418" stroke="#0891b2"/>
+      <text x="65" y="77" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">Firecrawl /map</text>
+      <rect x="16" y="92" width="98" height="24" rx="4" fill="#071418" stroke="#0891b2"/>
+      <text x="65" y="107" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">Canonicalize URL</text>
+      <rect x="16" y="122" width="98" height="22" rx="4" fill="#071418" stroke="#164e63"/>
+      <text x="65" y="136" text-anchor="middle" fill="#94a3b8" font-size="6.9">robots.txt Check</text>
+
+      <!-- Arrow 1 -->
+      <path d="M122 85 L146 85" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="146,80 154,85 146,90" fill="#22d3ee"/>
+
+      <!-- Step 2: Specialized Extractors -->
+      <rect x="154" y="16" width="144" height="138" rx="8" fill="#0b2432" stroke="#0891b2" stroke-width="1.5"/>
+      <text x="226" y="36" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">2. Extractors</text>
+      <text x="226" y="50" text-anchor="middle" fill="#67e8f9" font-size="7.2">Best-Fit Routing</text>
+      <rect x="164" y="60" width="124" height="26" rx="4" fill="#071418" stroke="#0891b2"/>
+      <text x="226" y="76" text-anchor="middle" fill="#a5f3fc" font-size="7.2" font-weight="700">Docling (PDF / DOCX)</text>
+      <rect x="164" y="91" width="124" height="26" rx="4" fill="#071418" stroke="#0d9488"/>
+      <text x="226" y="107" text-anchor="middle" fill="#99f6e4" font-size="7.2" font-weight="700">Crawl4AI (Batch CSS)</text>
+      <rect x="164" y="122" width="124" height="24" rx="4" fill="#071418" stroke="#0284c7"/>
+      <text x="226" y="137" text-anchor="middle" fill="#7dd3fc" font-size="7.1" font-weight="700">Firecrawl (JS / Diff)</text>
+
+      <!-- Arrow 2 -->
+      <path d="M298 85 L322 85" stroke="#10b981" stroke-width="2"/>
+      <polygon points="322,80 330,85 322,90" fill="#10b981"/>
+
+      <!-- Step 3: Sanitize & Dedup -->
+      <rect x="330" y="16" width="118" height="138" rx="8" fill="#072221" stroke="#10b981" stroke-width="1.5"/>
+      <text x="389" y="36" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">3. Hygiene Gate</text>
+      <text x="389" y="50" text-anchor="middle" fill="#6ee7b7" font-size="7.2">Security + Hash</text>
+      <rect x="338" y="62" width="102" height="26" rx="4" fill="#041514" stroke="#059669"/>
+      <text x="389" y="78" text-anchor="middle" fill="#a7f3d0" font-size="7.2" font-weight="700">Drop Hidden Traps</text>
+      <rect x="338" y="93" width="102" height="26" rx="4" fill="#041514" stroke="#059669"/>
+      <text x="389" y="109" text-anchor="middle" fill="#a7f3d0" font-size="7.2" font-weight="700">Unicode NFKC Scrub</text>
+      <rect x="338" y="124" width="102" height="22" rx="4" fill="#041514" stroke="#f59e0b"/>
+      <text x="389" y="138" text-anchor="middle" fill="#fde68a" font-size="7.0" font-weight="700">SHA-256 Skip Check</text>
+
+      <!-- Arrow 3 -->
+      <path d="M448 85 L472 85" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="472,80 480,85 472,90" fill="#a78bfa"/>
+
+      <!-- Step 4: Chunk & Context -->
+      <rect x="480" y="16" width="106" height="138" rx="8" fill="#181736" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="533" y="36" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">4. Chunking</text>
+      <text x="533" y="50" text-anchor="middle" fill="#c4b5fd" font-size="7.2">Context &amp; Prov</text>
+      <rect x="488" y="62" width="90" height="26" rx="4" fill="#0d0c21" stroke="#6d28d9"/>
+      <text x="533" y="78" text-anchor="middle" fill="#ddd6fe" font-size="7.2" font-weight="700">HybridChunker</text>
+      <rect x="488" y="93" width="90" height="26" rx="4" fill="#0d0c21" stroke="#6d28d9"/>
+      <text x="533" y="109" text-anchor="middle" fill="#ddd6fe" font-size="7.2" font-weight="700">Heading Context</text>
+      <rect x="488" y="124" width="90" height="22" rx="4" fill="#0d0c21" stroke="#6d28d9"/>
+      <text x="533" y="138" text-anchor="middle" fill="#ddd6fe" font-size="7.0" font-weight="700">page_no + URL</text>
+
+      <!-- Arrow 4 -->
+      <path d="M586 85 L608 85" stroke="#f43f5e" stroke-width="2"/>
+      <polygon points="608,80 616,85 608,90" fill="#f43f5e"/>
+
+      <!-- Step 5: Vector & Agent Sink -->
+      <rect x="616" y="16" width="76" height="138" rx="8" fill="#240c14" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="654" y="38" text-anchor="middle" fill="#ffffff" font-size="9.0" font-weight="800">5. Sinks</text>
+      <text x="654" y="51" text-anchor="middle" fill="#fda4af" font-size="7.0">Agents &amp; DB</text>
+      <rect x="622" y="64" width="64" height="26" rx="4" fill="#130409" stroke="#e11d48"/>
+      <text x="654" y="80" text-anchor="middle" fill="#fecdd3" font-size="7.0" font-weight="700">Vector Upsert</text>
+      <rect x="622" y="95" width="64" height="26" rx="4" fill="#130409" stroke="#e11d48"/>
+      <text x="654" y="111" text-anchor="middle" fill="#fecdd3" font-size="7.0" font-weight="700">Typed JSON</text>
+      <rect x="622" y="126" width="64" height="20" rx="4" fill="#130409" stroke="#e11d48"/>
+      <text x="654" y="139" text-anchor="middle" fill="#fb7185" font-size="6.8">Nonce RAG</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span><span>Hybrid Web + PDF Documentation Portals</span></div>
+      <p style="font-size:8pt; margin:0;">
+        Corporate knowledge portals constantly mix HTML pages with linked <code>.pdf</code> whitepapers and specification sheets. Configure Firecrawl <code>/map</code> or Crawl4AI to collect all links, route HTML pages through <code>PruningContentFilter</code>, and pass discovered <code>.pdf</code> and <code>.docx</code> URLs directly to <code>Docling</code> <code>DocumentConverter</code> so tables never flatten.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">2</span><span>Webhook-Driven Incremental Syncs</span></div>
+      <p style="font-size:8pt; margin:0;">
+        Rather than re-scraping and re-embedding your entire corpus nightly, attach Firecrawl <code>changeTracking</code> webhooks to trigger re-chunking only when <code>changeStatus</code> equals <code>changed</code> or <code>new</code>. Pair that gate with chunk-level <code>SHA-256</code> hashing to skip unchanged paragraphs and cut embedding costs by over 80%.
+      </p>
+    </div>
+  </div>
+
+  <h3>Ecosystem Handoffs: MCP, Vector Stores &amp; Eval Harnesses</h3>
+  <div class="grid-3" style="margin-bottom: 6px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge purple">M</span><span>Live Agent Tooling</span></div>
+      <p style="font-size:7.8pt; margin:0;">Expose <code>firecrawl-mcp</code> or Docling tools via MCP so coding agents pull fresh API docs and attachments on demand.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge amber">V</span><span>Hybrid Vector Search</span></div>
+      <p style="font-size:7.8pt; margin:0;">Index dense embeddings alongside sparse BM25 vectors and filter on <code>headings</code> and <code>source_url</code> metadata.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge emerald">E</span><span>Golden Regression Sets</span></div>
+      <p style="font-size:7.8pt; margin:0;">Keep 20 tricky PDFs and SPAs in CI to benchmark TableFormer accuracy and Markdown pruning on every upgrade.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top: 2px;">
+    <div class="callout-title">Four Pipeline SLIs Every Ingestion Team Should Track</div>
+    Measure four numbers on every run: (1) <strong>Extraction success rate</strong> across MIME types, (2) <strong>Markdown compression ratio</strong> comparing raw HTML to <code>fit_markdown</code>, (3) <strong>Quarantine strip count</strong> logging blocked hidden prompts, and (4) <strong>SHA-256 skip rate</strong> confirming incremental sync efficiency.
+  </div>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Reference &amp; QA</span>
+    <span>AI Document &amp; Web Scraping Pipelines</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Rapid fixes for the seven most frequent document parsing and web scraping failure modes, paired with a mandatory six-point pre-flight check before launching production ingestion jobs.
+  </p>
+
+  <table class="clean-table" style="font-size: 7.9pt; margin-bottom: 6px;">
+    <thead>
+      <tr>
+        <th style="width: 26%;">Symptom &amp; Error</th>
+        <th style="width: 30%;">Root Cause</th>
+        <th style="width: 44%;">10-Second Production Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>fit_markdown</code> is empty string</strong></td>
+        <td><code>DefaultMarkdownGenerator</code> initialized without a content filter.</td>
+        <td>Attach <code>PruningContentFilter(...)</code> or <code>BM25ContentFilter(...)</code> to <code>markdown_generator</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>TableFormer scrambles merged columns</strong></td>
+        <td>Default <code>FAST</code> table mode missed multi-row or hierarchical headers.</td>
+        <td>Set <code>opts.table_structure_options.mode = TableFormerMode.ACCURATE</code> or try <code>VlmPipeline</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Scanned PDF outputs blank text</strong></td>
+        <td>File holds raster page images with no text layer and OCR is off.</td>
+        <td>Enable <code>do_ocr=True</code> with <code>RapidOcrOptions</code> or <code>MacOcrOptions</code> (or <code>force_full_page_ocr=True</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>React / SPA scrape misses body</strong></td>
+        <td>Extractor read the DOM before client hydration or API fetch completed.</td>
+        <td>Add <code>wait_for="css:.article-body"</code> in Crawl4AI or <code>actions=[{"type": "wait", ...}]</code> in Firecrawl.</td>
+      </tr>
+      <tr>
+        <td><strong><code>arun_many</code> triggers OOM crash</strong></td>
+        <td>Too many headless Chromium contexts opened concurrently on host RAM.</td>
+        <td>Use <code>MemoryAdaptiveDispatcher(memory_threshold_percent=75.0)</code> and cap <code>max_session_permit</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Firecrawl returns stale page content</strong></td>
+        <td>Firecrawl v2 defaults to a 2-day semantic cache window (<code>maxAge</code>).</td>
+        <td>Pass <code>max_age=0</code> on live price, inventory, or changelog checks that require fresh fetches.</td>
+      </tr>
+      <tr>
+        <td><strong>Duplicate chunks pollute RAG</strong></td>
+        <td>Tracking query strings (<code>?utm_source=</code>) or unchanged re-crawls re-embedded.</td>
+        <td>Strip marketing query params during URL canonicalization and skip identical <code>SHA-256</code> digests.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Ingestion Readiness Checklist</h3>
+  <div class="grid-2">
+    <div class="card">
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 1. Robots &amp; Rate Limits Active:</strong> Verify <code>robots.txt</code> compliance, exponential backoff via <code>RateLimiter</code> on HTTP 429/503, and an honest <code>User-Agent</code> string.</p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 2. Boilerplate Pruning Verified:</strong> Sample raw HTML versus <code>fit_markdown</code> output to confirm navbars, cookie modals, and footers are stripped cleanly.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong>&square; 3. Table &amp; OCR Fidelity Tested:</strong> Run complex golden-set PDFs through <code>TableFormerMode.ACCURATE</code> and check numeric column alignment.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 4. Injection Sanitizer Armed:</strong> Test that <code>display:none</code> blocks, HTML comments, and <code>U+200B</code> tokens are removed and RAG context uses nonces.</p>
+      <p style="font-size:8.1pt; margin:0 0 4px 0;"><strong>&square; 5. SHA-256 Dedup &amp; Canonical URLs:</strong> Confirm normalized digests skip unchanged re-ingests and tracking query parameters are stripped.</p>
+      <p style="font-size:8.1pt; margin:0;"><strong>&square; 6. Provenance Metadata Populated:</strong> Check that every chunk in your vector database carries <code>source_url</code>, <code>headings</code>, <code>page_no</code>, and <code>ingested_at</code>.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>
