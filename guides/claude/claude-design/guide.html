@@ -149,16 +149,16 @@
 
   <h2 class="page-title">Plans, Activation &amp; Design Surface Decision Matrix</h2>
   <p class="page-lead" style="margin-bottom:7px;">
-    Born in Anthropic Labs, Claude Design runs natively inside main <code>claude.ai</code> (chat &amp; <strong>Artifacts</strong> tab), Claude Desktop, mobile apps, and <strong>Claude Code</strong> (<code>/design</code>)&mdash;as standalone <code>claude.ai/design</code> retires to read-only on <strong>Dec 14, 2026</strong>.
+    Born in Anthropic Labs, Claude Design runs natively inside main <code>claude.ai</code> (chat &amp; <strong>Artifacts</strong> tab), Claude Desktop, mobile apps, and <strong>Claude Code</strong> (<code>/design</code>)&mdash;as standalone <code>claude.ai/design</code> closes on <strong>Dec 14, 2026</strong>.
   </p>
 
   <div class="grid-2" style="margin-bottom:7px; gap:10px;">
     <div class="card" style="padding:8px 10.5px; border-top:3px solid #be185d;">
       <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Availability Across Plans &amp; Surfaces</div>
       <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
-        <li><strong>Free, Pro, Max &amp; Ultra Plans:</strong> Available across all individual tiers (Free within standard message caps); draws from your account&rsquo;s shared usage pool.</li>
-        <li><strong>Team &amp; Enterprise Plans:</strong> <strong>Enabled by default</strong> with shared Design Systems, org-scoped review links, inline comments, and governance under <code>Organization settings &rarr; Artifacts</code>.</li>
-        <li><strong>Unified Claude &amp; Dec 14 Migration:</strong> Build natively inside main chats and Artifacts; migrate legacy <code>claude.ai/design</code> projects before <strong>Dec 14, 2026</strong> when standalone links turn read-only.</li>
+        <li><strong>Free, Pro, Max &amp; Ultra Plans:</strong> Available across all individual tiers (Design Systems on by default for Pro/Max/Ultra; Free subject to message caps).</li>
+        <li><strong>Team vs. Enterprise Defaults:</strong> <strong>On by default</strong> for Team; on <strong>Enterprise</strong>, Design Systems (<code>Organization settings &rarr; Artifacts</code>) and standalone access are <strong>off by default</strong> until an owner enables them.</li>
+        <li><strong>Dec 14 Closure &amp; Migration:</strong> Migrate <code>claude.ai/design</code> design systems before <strong>Dec 14, 2026</strong> closure (migrated standalone kits turn read-only; standalone chats, comments, and links stop working).</li>
         <li><strong>Web, Desktop, Mobile &amp; Code:</strong> Build and dial Control Knobs on web or Desktop; review on iOS/Android; sync components in <strong>Claude Code</strong> via <code>/design</code> and <code>/design-sync</code>.</li>
       </ul>
     </div>
@@ -781,7 +781,7 @@
     <div class="card" style="padding:8px 10.5px; border-top:3px solid #4f46e5;">
       <div class="card-title" style="font-size:9pt;"><span class="num-badge indigo">2</span> Admin Policy &amp; Connector Governance</div>
       <ul style="font-size:7.9pt; margin:3.5px 0 0 0; padding-left:15px;">
-        <li><strong>Central Feature Controls:</strong> Primary Owners manage studio access under <code>Organization settings &rarr; Artifacts</code>, custom RBAC roles, and shared Design System publishing permissions.</li>
+        <li><strong>Central Feature Controls:</strong> Primary Owners enable Design Systems under <code>Organization settings &rarr; Artifacts</code> (off by default on Enterprise), custom RBAC roles, and shared publishing rules.</li>
         <li><strong>Zero Model Training Guarantee:</strong> On Claude Team and Enterprise plans, ingested code repositories, <code>tokens.json</code> schemas, brand PDFs, and generated designs are <strong>never</strong> used to train Anthropic models.</li>
         <li><strong>Approved MCP Export Targets:</strong> Security admins independently allowlist <strong>Figma MCP</strong>, Canva, Gamma, and headless CMS connectors to enforce strict data-egress boundaries.</li>
       </ul>
@@ -803,13 +803,13 @@
         <td><strong>Studio Access &amp; Roles</strong></td>
         <td>Included (Free subject to msg limits)</td>
         <td><strong>On by default</strong>; shared Projects</td>
-        <td><strong>On by default</strong>; RBAC under <code>Org settings</code></td>
+        <td><strong>Off by default</strong> (standalone); owner-enabled in <code>Org settings</code></td>
       </tr>
       <tr>
         <td><strong>Design System Governance</strong></td>
-        <td>Private reusable kits</td>
-        <td>Shared team brand &amp; token libraries</td>
-        <td>Locked canonical systems + owner approval</td>
+        <td><strong>On by default</strong> (Pro/Max/Ultra kits)</td>
+        <td><strong>On by default</strong>; shared team libraries</td>
+        <td><strong>Off by default</strong> (<code>Org settings &rarr; Artifacts</code>); owner approval</td>
       </tr>
       <tr>
         <td><strong>Prototype Link Scope</strong></td>
