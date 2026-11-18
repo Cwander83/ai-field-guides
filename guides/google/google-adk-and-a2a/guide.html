@@ -13,7 +13,7 @@
     <div class="brand-pill">GOOGLE AI &amp; CREATIVE STUDIOS &bull; FIELD GUIDE</div>
     <h1>Google ADK &amp; <span>Agent2Agent (A2A)</span> Protocol</h1>
     <p class="cover-sub">
-      Build, evaluate, and ship code-first multi-agent systems with Google&rsquo;s Agent Development Kit in Python and TypeScript&mdash;combining deterministic Workflow Agents, scoped state prefixes, <code>MCPToolset</code>, Vertex AI Agent Engine, and cross-vendor A2A Agent Cards.
+      Build, evaluate, and ship code-first multi-agent systems with Google&rsquo;s Agent Development Kit in Python and TypeScript&mdash;combining deterministic Workflow Agents, scoped state prefixes, <code>McpToolset</code>, Vertex AI Agent Engine, and cross-vendor A2A Agent Cards.
     </p>
     <div class="cover-badges">
       <span class="cover-badge">Python &amp; TypeScript ADK</span>
@@ -112,14 +112,14 @@
       <!-- Bottom Bar: Vertical MCP Tooling -->
       <path d="M161 156 L161 174 M542 156 L542 174" stroke="#6ee7b7" stroke-width="1.6" stroke-dasharray="3,3"/>
       <rect x="12" y="174" width="676" height="36" rx="8" fill="#06281c" stroke="#10b981" stroke-width="1.4"/>
-      <text x="350" y="190" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Vertical Tool Layer &bull; MCPToolset + FunctionTool + OpenAPI + Built-In Search / Code Exec</text>
+      <text x="350" y="190" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Vertical Tool Layer &bull; McpToolset + FunctionTool + OpenAPI + Built-In Search / Code Exec</text>
       <text x="350" y="203" text-anchor="middle" fill="#a7f3d0" font-size="8">MCP connects an agent to deterministic tools &amp; databases; A2A connects autonomous agents to peer agents</text>
     </svg>
   </div>
 
   <div class="callout">
     <div class="callout-title">The Golden Rule: MCP for Tools, A2A for Peers</div>
-    Use <strong>MCP</strong> (<code>MCPToolset</code>) when your agent needs structured functions like querying SQL or reading Git files. Use <strong>A2A</strong> (<code>RemoteA2aAgent</code>) when delegating a multi-turn goal to another team&rsquo;s specialist agent that maintains its own memory, reasoning loop, and private secrets.
+    Use <strong>MCP</strong> (<code>McpToolset</code>) when your agent needs structured functions like querying SQL or reading Git files. Use <strong>A2A</strong> (<code>RemoteA2aAgent</code>) when delegating a multi-turn goal to another team&rsquo;s specialist agent that maintains its own memory, reasoning loop, and private secrets.
   </div>
 
   <div class="page-footer">
@@ -156,15 +156,15 @@ adk api_server --port 8080</code></pre>
 
     <div class="card">
       <div class="card-title"><span class="num-badge sky">2</span> TypeScript ADK Bootstrap (<code>@google/adk</code>)</div>
-      <p style="font-size:8pt;">Requires Node.js 24+ and Zod schemas for typed <code>FunctionTool</code> definitions, paired with <code>@google/adk-devtools</code>:</p>
+      <p style="font-size:8pt;">Requires Node.js 24.13+ and Zod schemas for typed <code>FunctionTool</code> definitions, paired with <code>@google/adk-devtools</code>:</p>
       <pre class="code-block"><code>mkdir ts-agent &amp;&amp; cd ts-agent &amp;&amp; npm init -y
 npm pkg set type="module"
 npm i @google/adk zod dotenv
 npm i -D @google/adk-devtools typescript tsx
 
 # Launch local Dev UI or terminal runner
-npx @google/adk-devtools web
-npx @google/adk-devtools run src/agent.ts</code></pre>
+npx adk web
+npx adk run src/agent.ts</code></pre>
     </div>
   </div>
 
@@ -253,7 +253,7 @@ npx @google/adk-devtools run src/agent.ts</code></pre>
 
   <h2 class="page-title">Annotated Tour: Debugging Traces &amp; State in <code>adk web</code></h2>
   <p class="page-lead">
-    Running <code>adk web</code> (or <code>npx @google/adk-devtools web</code>) opens a local browser workbench at <code>http://localhost:8000</code>. Every prompt, sub-agent transfer, tool payload, state mutation, and saved golden eval lives one click away.
+    Running <code>adk web</code> (or <code>npx adk web</code> for TypeScript) opens a local browser workbench at <code>http://localhost:8000</code>. Every prompt, sub-agent transfer, tool payload, state mutation, and saved golden eval lives one click away.
   </p>
 
   <div class="ui-window" style="margin-bottom:9px;">
@@ -434,10 +434,10 @@ root_agent = SequentialAgent(name="AuditPipeline", sub_agents=[gather, refine])<
 <section class="page">
   <div class="page-header">
     <span class="section-tag">05 &bull; State, Guardrails &amp; MCP</span>
-    <span>Scoped State Prefixes, Lifecycle Callbacks &amp; <code>MCPToolset</code></span>
+    <span>Scoped State Prefixes, Lifecycle Callbacks &amp; <code>McpToolset</code></span>
   </div>
 
-  <h2 class="page-title">Scoped State Prefixes, Callbacks &amp; <code>MCPToolset</code></h2>
+  <h2 class="page-title">Scoped State Prefixes, Callbacks &amp; <code>McpToolset</code></h2>
   <p class="page-lead">
     Production agents need strict boundaries around what persists across turns and which tools are allowed to fire. ADK bakes persistence scopes directly into state key prefixes and wraps every model and tool boundary with synchronous guard callbacks.
   </p>
@@ -466,7 +466,9 @@ root_agent = SequentialAgent(name="AuditPipeline", sub_agents=[gather, refine])<
 
   <h3>Connecting External MCP Servers &amp; Blocking Unsafe Calls</h3>
   <pre class="code-block"><code>from google.adk.agents import LlmAgent
-from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StdioServerParameters
+from google.adk.tools.mcp_tool import McpToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
+from mcp import StdioServerParameters
 
 def block_destructive_sql(tool, args: dict, tool_context):
     sql = str(args.get("query", "")).upper()
@@ -474,8 +476,10 @@ def block_destructive_sql(tool, args: dict, tool_context):
         return {"error": "Blocked by policy: read-only SELECT queries required."}
     return None  # Returning None allows normal tool execution
 
-db_tools = MCPToolset(
-    connection_params=StdioServerParameters(command="npx", args=["-y", "@bytebase/dbhub"]),
+db_tools = McpToolset(
+    connection_params=StdioConnectionParams(
+        server_params=StdioServerParameters(command="npx", args=["-y", "@bytebase/dbhub"]),
+    ),
     tool_filter=["execute_sql", "list_tables"],  # Expose only approved MCP tools
 )
 analyst = LlmAgent(name="SqlAnalyst", model="gemini-2.5-flash",
@@ -487,7 +491,7 @@ analyst = LlmAgent(name="SqlAnalyst", model="gemini-2.5-flash",
       <span class="p-tag p-flow">Wrap a ParallelAgent intake stage and a 2-pass LoopAgent verifier inside a SequentialAgent root,</span>
       <span class="p-tag p-agent">assign gemini-2.5-flash to fast triage leaf agents and gemini-2.5-pro to the synthesis writer,</span>
       <span class="p-tag p-state">store scratch payloads in temp:raw_chunks and user preferences in user:locale,</span>
-      <span class="p-tag p-mcp">filter MCPToolset with tool_filter plus a before_tool_callback blocking mutating SQL,</span>
+      <span class="p-tag p-mcp">filter McpToolset with tool_filter plus a before_tool_callback blocking mutating SQL,</span>
       <span class="p-tag p-a2a">delegate billing disputes via RemoteA2aAgent pointing to /.well-known/agent-card.json,</span>
       <span class="p-tag p-eval">and gate deployment on adk eval passing 0.90 tool_trajectory_avg_score.</span>
     </div>
@@ -762,7 +766,7 @@ adk deploy agent_engine \
 
   <div class="grid-2">
     <div class="card">
-      <div class="card-title"><span class="num-badge amber">3</span> Least-Privilege <code>MCPToolset</code> Filtering</div>
+      <div class="card-title"><span class="num-badge amber">3</span> Least-Privilege <code>McpToolset</code> Filtering</div>
       <p style="font-size:8pt;">Third-party MCP servers often ship 25+ read, write, and delete tools in one bundle. Always pass an explicit allowlist via <code>tool_filter=["get_ticket", "search_docs"]</code> and pair mutating tools with human confirmation (<code>input-required</code> A2A state or ADK tool confirmation).</p>
     </div>
 
@@ -818,7 +822,7 @@ adk deploy agent_engine \
       <text x="225" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 2</text>
       <text x="196" y="61" fill="#ffffff" font-size="10.8" font-weight="800">adk web + MCP</text>
       <text x="196" y="76" fill="#7dd3fc" font-size="8.5" font-weight="700">Trace &amp; Capture</text>
-      <text x="196" y="95" fill="#e2e8f0" font-size="8">&bull; Attach MCPToolset</text>
+      <text x="196" y="95" fill="#e2e8f0" font-size="8">&bull; Attach McpToolset</text>
       <text x="196" y="110" fill="#e2e8f0" font-size="8">&bull; Verify temp:/user: state</text>
       <text x="196" y="125" fill="#e2e8f0" font-size="8">&bull; Export golden sessions</text>
       <text x="196" y="137" fill="#e2e8f0" font-size="8">to .evalset.json</text>
@@ -924,7 +928,7 @@ adk deploy agent_engine \
         <td>Default <code>InMemorySessionService</code> lives inside container RAM. Configure <code>--session_service_uri</code> with Cloud SQL Postgres or deploy on Vertex AI Agent Engine.</td>
       </tr>
       <tr>
-        <td><strong>7. <code>MCPToolset</code> hangs or leaks zombie subprocesses</strong></td>
+        <td><strong>7. <code>McpToolset</code> hangs or leaks zombie subprocesses</strong></td>
         <td>Stdio MCP servers require clean async lifecycle management. Use current <code>google-adk</code> async runner patterns and restrict slow servers via <code>tool_filter</code>.</td>
       </tr>
     </tbody>
@@ -943,7 +947,7 @@ adk deploy agent_engine \
       </div>
       <div class="check-item" style="background:#09261b; border-color:#134e38; color:#e2e8f0;">
         <span class="check-box">&#10003;</span>
-        <div><strong>Filtered MCP &amp; Callbacks:</strong> Applied <code>tool_filter</code> on every <code>MCPToolset</code> plus <code>before_tool_callback</code> policy guards.</div>
+        <div><strong>Filtered MCP &amp; Callbacks:</strong> Applied <code>tool_filter</code> on every <code>McpToolset</code> plus <code>before_tool_callback</code> policy guards.</div>
       </div>
       <div class="check-item" style="background:#09261b; border-color:#134e38; color:#e2e8f0;">
         <span class="check-box">&#10003;</span>
