@@ -141,7 +141,7 @@ function buildVercelConfig(scriptHashes) {
           {
             key: 'Permissions-Policy',
             value:
-              'camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), browsing-topics=(), focus-without-user-activation=()',
+              'camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=(), browsing-topics=(), focus-without-user-activation=()',
           },
           {
             key: 'Cross-Origin-Opener-Policy',
@@ -152,7 +152,30 @@ function buildVercelConfig(scriptHashes) {
             value: 'same-origin',
           },
           { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'X-Permitted-Cross-Domain-Policies', value: 'none' },
           { key: 'Content-Security-Policy', value: csp },
+        ],
+      },
+      {
+        source: '/.well-known/security.txt',
+        headers: [
+          { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
+          { key: 'Cache-Control', value: 'public, max-age=3600' },
+          { key: 'Cross-Origin-Resource-Policy', value: 'cross-origin' },
+        ],
+      },
+      {
+        source: '/robots.txt',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600' },
+          { key: 'Cross-Origin-Resource-Policy', value: 'cross-origin' },
+        ],
+      },
+      {
+        source: '/sitemap.xml',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600' },
+          { key: 'Cross-Origin-Resource-Policy', value: 'cross-origin' },
         ],
       },
       {
@@ -249,6 +272,27 @@ function buildVercelConfig(scriptHashes) {
       },
       {
         source: '/favicon.ico',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=86400' },
+          { key: 'Cross-Origin-Resource-Policy', value: 'cross-origin' },
+        ],
+      },
+      {
+        source: '/favicon-32x32.png',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=86400' },
+          { key: 'Cross-Origin-Resource-Policy', value: 'cross-origin' },
+        ],
+      },
+      {
+        source: '/icon-192.png',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=86400' },
+          { key: 'Cross-Origin-Resource-Policy', value: 'cross-origin' },
+        ],
+      },
+      {
+        source: '/icon-512.png',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=86400' },
           { key: 'Cross-Origin-Resource-Policy', value: 'cross-origin' },

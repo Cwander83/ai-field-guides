@@ -111,7 +111,15 @@ const resolvedMarkdownUrl = markdownUrl
     <meta name="twitter:image" content={resolvedOgImage} />
     {ogImageAlt && <meta name="twitter:image:alt" content={ogImageAlt} />}
 
-    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    {
+      jsonLd && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
+        />
+      )
+    }
 
     <script is:inline>
       (function () {
