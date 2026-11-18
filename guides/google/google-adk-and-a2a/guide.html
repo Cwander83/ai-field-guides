@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google ADK &amp; Agent2Agent (A2A) Protocol: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">GOOGLE AI &amp; CREATIVE STUDIOS &bull; FIELD GUIDE</div>
+    <h1>Google ADK &amp; <span>Agent2Agent (A2A)</span> Protocol</h1>
+    <p class="cover-sub">
+      Build, evaluate, and ship code-first multi-agent systems with Google&rsquo;s Agent Development Kit in Python and TypeScript&mdash;combining deterministic Workflow Agents, scoped state prefixes, <code>MCPToolset</code>, Vertex AI Agent Engine, and cross-vendor A2A Agent Cards.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Python &amp; TypeScript ADK</span>
+      <span class="cover-badge">Sequential, Parallel &amp; Loop</span>
+      <span class="cover-badge">Scoped State &amp; Callbacks</span>
+      <span class="cover-badge"><code>adk web</code> &amp; <code>adk eval</code></span>
+      <span class="cover-badge">A2A <code>agent-card.json</code></span>
+      <span class="cover-badge">Vertex AI Agent Engine</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Google ADK and Agent2Agent Protocol Architecture Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Deterministic Orchestration</div>
+      <div class="cover-stat-desc">Eliminate fragile routing loops with code-driven <code>SequentialAgent</code>, <code>ParallelAgent</code>, and <code>LoopAgent</code> controllers.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Open A2A Interoperability</div>
+      <div class="cover-stat-desc">Bridge Python, TypeScript, Go, and third-party agents across networks via <code>to_a2a()</code> and <code>RemoteA2aAgent</code>.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Eval-to-Cloud Lifecycle</div>
+      <div class="cover-stat-desc">Trace every turn in <code>adk web</code>, gate CI with <code>adk eval</code> rubrics, and deploy to Cloud Run or Vertex AI Agent Engine.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: NAVIGATION & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Architecture</span>
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol</span>
+  </div>
+
+  <h2 class="page-title">Code-First Agents Meet Open Network Interoperability</h2>
+  <p class="page-lead">
+    Prompt-only multi-agent setups break down when teams scale across repos, languages, and security boundaries. <strong>Google Agent Development Kit (ADK)</strong> gives you software-engineering rigor inside each agent, while the Linux Foundation <strong>Agent2Agent (A2A) Protocol</strong> connects independent agents across networks without exposing private prompts or credentials.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. ADK + A2A Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. A2A Protocol &amp; Agent Cards</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Setup, Quotas &amp; Runtime Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Evals (<code>adk eval</code>) &amp; Deployment</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated <code>adk web</code> UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Copy-Paste Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Workflow Agents in Motion</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Security, IAM &amp; Memory Isolation</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. State Prefixes, Callbacks &amp; MCP</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>Architecture: Vertical Tooling (MCP) vs. Horizontal Delegation (A2A)</h3>
+  <div class="figure-box" style="background:#061811; padding:12px 14px;">
+    <svg viewBox="0 0 700 218" width="100%" height="218" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left Box: Local ADK Coordinator -->
+      <rect x="12" y="14" width="298" height="142" rx="10" fill="#09261b" stroke="#34d399" stroke-width="1.6"/>
+      <text x="26" y="34" fill="#6ee7b7" font-size="8.4" font-weight="700">TEAM A &bull; PYTHON OR TYPESCRIPT ADK</text>
+      <text x="26" y="52" fill="#ffffff" font-size="11.5" font-weight="800">Root Orchestrator Agent</text>
+      <rect x="24" y="62" width="132" height="38" rx="6" fill="#061811" stroke="#10b981" stroke-width="1.2"/>
+      <text x="90" y="79" text-anchor="middle" fill="#a7f3d0" font-size="8.6" font-weight="700">Workflow Agents</text>
+      <text x="90" y="92" text-anchor="middle" fill="#cbd5e1" font-size="7.6">Sequential / Parallel / Loop</text>
+      <rect x="166" y="62" width="132" height="38" rx="6" fill="#061811" stroke="#fbbf24" stroke-width="1.2"/>
+      <text x="232" y="79" text-anchor="middle" fill="#fde68a" font-size="8.6" font-weight="700">RemoteA2aAgent</text>
+      <text x="232" y="92" text-anchor="middle" fill="#cbd5e1" font-size="7.6">Consumes Agent Card</text>
+      <rect x="24" y="108" width="274" height="36" rx="6" fill="#061811" stroke="#38bdf8" stroke-width="1.2"/>
+      <text x="161" y="124" text-anchor="middle" fill="#7dd3fc" font-size="8.5" font-weight="700">SessionService + MemoryService + Callbacks</text>
+      <text x="161" y="137" text-anchor="middle" fill="#94a3b8" font-size="7.6">Scoped state (temp:, user:, app:) &amp; before_tool_callback guards</text>
+
+      <!-- Horizontal Bridge: A2A Protocol -->
+      <path d="M310 72 L392 72" stroke="#fbbf24" stroke-width="2.2"/>
+      <polygon points="388,67 396,72 388,77" fill="#fbbf24"/>
+      <path d="M392 94 L310 94" stroke="#34d399" stroke-width="2.2"/>
+      <polygon points="314,89 306,94 314,99" fill="#34d399"/>
+      <rect x="316" y="40" width="70" height="22" rx="5" fill="#1e293b" stroke="#fbbf24" stroke-width="1.1"/>
+      <text x="351" y="54" text-anchor="middle" fill="#fde68a" font-size="8" font-weight="800">A2A RPC</text>
+      <text x="351" y="112" text-anchor="middle" fill="#a7f3d0" font-size="7.4">SSE + Artifacts</text>
+
+      <!-- Right Box: Remote Specialist Agent -->
+      <rect x="396" y="14" width="292" height="142" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="410" y="34" fill="#7dd3fc" font-size="8.4" font-weight="700">TEAM B &bull; REMOTE CLOUD RUN / VERTEX</text>
+      <text x="410" y="52" fill="#ffffff" font-size="11.5" font-weight="800">Opaque Specialist Agent (to_a2a)</text>
+      <rect x="410" y="62" width="264" height="38" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1.2"/>
+      <text x="542" y="79" text-anchor="middle" fill="#fde68a" font-size="8.6" font-weight="700">/.well-known/agent-card.json</text>
+      <text x="542" y="92" text-anchor="middle" fill="#cbd5e1" font-size="7.6">Publishes skills, capabilities, auth &amp; endpoint URL</text>
+      <rect x="410" y="108" width="264" height="36" rx="6" fill="#1e293b" stroke="#94a3b8" stroke-width="1.1"/>
+      <text x="542" y="124" text-anchor="middle" fill="#f8fafc" font-size="8.5" font-weight="700">Private Prompt, Weights &amp; Internal Credentials</text>
+      <text x="542" y="137" text-anchor="middle" fill="#94a3b8" font-size="7.6">Never leaked across organizational boundary</text>
+
+      <!-- Bottom Bar: Vertical MCP Tooling -->
+      <path d="M161 156 L161 174 M542 156 L542 174" stroke="#6ee7b7" stroke-width="1.6" stroke-dasharray="3,3"/>
+      <rect x="12" y="174" width="676" height="36" rx="8" fill="#06281c" stroke="#10b981" stroke-width="1.4"/>
+      <text x="350" y="190" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Vertical Tool Layer &bull; MCPToolset + FunctionTool + OpenAPI + Built-In Search / Code Exec</text>
+      <text x="350" y="203" text-anchor="middle" fill="#a7f3d0" font-size="8">MCP connects an agent to deterministic tools &amp; databases; A2A connects autonomous agents to peer agents</text>
+    </svg>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">The Golden Rule: MCP for Tools, A2A for Peers</div>
+    Use <strong>MCP</strong> (<code>MCPToolset</code>) when your agent needs structured functions like querying SQL or reading Git files. Use <strong>A2A</strong> (<code>RemoteA2aAgent</code>) when delegating a multi-turn goal to another team&rsquo;s specialist agent that maintains its own memory, reasoning loop, and private secrets.
+  </div>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, QUOTAS & MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup, Pricing &amp; Runtimes</span>
+    <span>Python &amp; TypeScript Quickstart + Agent Engine Meters</span>
+  </div>
+
+  <h2 class="page-title">Installation, Runtime Selection &amp; Vertex Agent Engine Meters</h2>
+  <p class="page-lead">
+    ADK ships first-class SDKs for Python, TypeScript, Go, and Java. Start locally against a Gemini API key in seconds, then promote the exact same agent graph to Cloud Run or managed Vertex AI Agent Engine with zero rewrites.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Python ADK Bootstrap (<code>google-adk</code>)</div>
+      <p style="font-size:8pt;">Install <code>google-adk</code> (plus the optional <code>[a2a]</code> extra for cross-network serving) and scaffold a ready-to-run package:</p>
+      <pre class="code-block"><code>pip install "google-adk[a2a]"
+adk create support_router --model gemini-2.5-flash
+
+# Launch interactive trace UI on localhost:8000
+adk web
+# Or run directly in terminal / expose REST API
+adk run support_router
+adk api_server --port 8080</code></pre>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> TypeScript ADK Bootstrap (<code>@google/adk</code>)</div>
+      <p style="font-size:8pt;">Requires Node.js 24+ and Zod schemas for typed <code>FunctionTool</code> definitions, paired with <code>@google/adk-devtools</code>:</p>
+      <pre class="code-block"><code>mkdir ts-agent &amp;&amp; cd ts-agent &amp;&amp; npm init -y
+npm pkg set type="module"
+npm i @google/adk zod dotenv
+npm i -D @google/adk-devtools typescript tsx
+
+# Launch local Dev UI or terminal runner
+npx @google/adk-devtools web
+npx @google/adk-devtools run src/agent.ts</code></pre>
+    </div>
+  </div>
+
+  <h3>Vertex AI Agent Engine Meters &amp; Default Quotas</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Resource / Meter</th>
+        <th style="width:24%;">On-Demand Rate</th>
+        <th style="width:24%;">Monthly Free Tier</th>
+        <th style="width:28%;">Default Regional Quota</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Agent Compute &amp; Sandbox</strong></td>
+        <td><code>$0.085</code> / vCPU-hour (active only; $0 idle)</td>
+        <td>First <strong>50 vCPU-hours</strong> free / project</td>
+        <td><code>90 RPM</code> queries; <code>1,000 RPM</code> sandbox execs</td>
+      </tr>
+      <tr>
+        <td><strong>Agent Memory (RAM)</strong></td>
+        <td><code>$0.009</code> / GiB-hour while active</td>
+        <td>First <strong>100 GiB-hours</strong> free / project</td>
+        <td><code>1,000</code> active sandbox entities / region</td>
+      </tr>
+      <tr>
+        <td><strong>Sessions &amp; Memory Bank</strong></td>
+        <td><code>~$0.30</code> / GiB-month stored events</td>
+        <td>First <strong>1 GiB-month</strong> free</td>
+        <td><code>10,000 RPM</code> session reads; <code>100 RPM</code> writes</td>
+      </tr>
+      <tr>
+        <td><strong>A2A &amp; Live Bidi Streams</strong></td>
+        <td>Standard compute + model tokens</td>
+        <td>Included in runtime tier</td>
+        <td><code>60 RPM</code> A2A POSTs; <code>10/min</code> BidiStream connects</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Deployment Target Decision Matrix</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Target</th>
+        <th style="width:26%;">Command</th>
+        <th style="width:28%;">Best When You Need</th>
+        <th style="width:24%;">Trade-Off</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Vertex Agent Engine</strong></td>
+        <td><code>adk deploy agent_engine</code></td>
+        <td>Turnkey managed Sessions, Memory Bank &amp; Code Execution Sandbox</td>
+        <td>Opinionated Python-first managed runtime</td>
+      </tr>
+      <tr>
+        <td><strong>Google Cloud Run</strong></td>
+        <td><code>adk deploy cloud_run --with_ui</code></td>
+        <td>Custom Dockerfiles, Python or TypeScript, public A2A endpoints, scale-to-zero</td>
+        <td>Bring your own Postgres/Redis session store for multi-instance state</td>
+      </tr>
+      <tr>
+        <td><strong>GKE / Self-Hosted</strong></td>
+        <td><code>adk deploy gke</code> / Uvicorn</td>
+        <td>VPC-isolated GPUs, strict data residency, sidecar service meshes</td>
+        <td>Highest Kubernetes operational overhead</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED ADK WEB UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Visual Debugger Tour</span>
+    <span>Inside the <code>adk web</code> Developer Cockpit</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Debugging Traces &amp; State in <code>adk web</code></h2>
+  <p class="page-lead">
+    Running <code>adk web</code> (or <code>npx @google/adk-devtools web</code>) opens a local browser workbench at <code>http://localhost:8000</code>. Every prompt, sub-agent transfer, tool payload, state mutation, and saved golden eval lives one click away.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:9px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; color:#6ee7b7; font-weight:700;">ADK Web Developer UI &bull; localhost:8000</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px; color:#cbd5e1; font-size:7.1pt;">
+        <span>Agent: <code>incident_triage_root</code></span>
+        <span class="callout-pin">1</span>
+        <span style="margin-left:6px;">Session: <code>sess_94f2</code></span>
+        <span class="callout-pin">2</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1.08fr 1.18fr 1.04fr; gap:1px; background:#134e38;">
+      <!-- Left Rail: Trace & Event Inspector -->
+      <div style="background:#061811; padding:8.5px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #134e38; padding-bottom:4px;">
+          <strong style="color:#34d399;">Events &amp; Trace Waterfall</strong>
+          <span class="callout-pin">3</span>
+        </div>
+        <div class="term-box">
+          <div style="color:#6ee7b7; font-weight:700;">[00:12ms] ParallelAgent: Gather</div>
+          <div style="color:#cbd5e1;">&vdash; <code>logs_mcp_agent</code> (180ms)</div>
+          <div style="color:#cbd5e1;">&Lsh; <code>billing_a2a_agent</code> (240ms)</div>
+        </div>
+        <div class="term-box" style="border-color:#059669;">
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:#fde68a; font-weight:700;">State Delta Inspector</span>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="color:#d1fae5; margin-top:2px;">
+            <code>temp:log_summary</code> = <code>"502 spike"</code><br/>
+            <code>user:tier</code> = <code>"enterprise"</code><br/>
+            <code>app:policy_v</code> = <code>"2026.4"</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Pane: Live Agent Graph & Chat -->
+      <div style="background:#04120c; padding:8.5px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #134e38; padding-bottom:4px;">
+          <strong style="color:#7dd3fc;">Live Agent Graph &amp; Stream</strong>
+          <span class="callout-pin">5</span>
+        </div>
+        <div class="term-box" style="text-align:center; background:#071f16;">
+          <span style="color:#ffffff; font-weight:700;">Root (Sequential)</span> &rarr;
+          <span style="color:#6ee7b7; font-weight:700;">Gather (Parallel)</span> &rarr;
+          <span style="color:#fde68a; font-weight:700;">Verify (Loop x2)</span>
+        </div>
+        <div class="term-box">
+          <div style="color:#94a3b8;">User: Why did checkout fail in us-east1?</div>
+          <div style="color:#f8fafc; margin-top:3px;">
+            <strong>Agent:</strong> Root cause traced to expired pool cert on <code>checkout-db</code>; A2A billing peer confirmed zero duplicate charges.
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#09261b; border:1px solid #10b981; border-radius:5px; padding:4px 7px;">
+          <span style="color:#a7f3d0; font-size:6.8pt;">Mic / Screen Bidi Stream Ready</span>
+          <span class="callout-pin">6</span>
+        </div>
+      </div>
+
+      <!-- Right Pane: Artifacts & Eval Saver -->
+      <div style="background:#061811; padding:8.5px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #134e38; padding-bottom:4px;">
+          <strong style="color:#fde68a;">Artifacts &amp; Eval Set</strong>
+          <span class="callout-pin">7</span>
+        </div>
+        <div class="term-box">
+          <div style="color:#7dd3fc; font-weight:700;">Saved Artifacts (v1)</div>
+          <div style="color:#cbd5e1;">&bull; <code>postmortem_draft.md</code> (4.2 KB)</div>
+          <div style="color:#cbd5e1;">&bull; <code>latency_flame.png</code> (92 KB)</div>
+        </div>
+        <div class="term-box" style="border-color:#d97706; background:#1c1608;">
+          <div style="color:#fde68a; font-weight:700;">+ Add Session to EvalSet</div>
+          <div style="color:#e2e8f0; margin-top:2px;">
+            Exports expected tool trajectory + final rubric into <code>incident_regression.evalset.json</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control Legend: What Each Numbered Zone Controls</h3>
+  <div class="grid-2" style="gap:7px 12px; font-size:8.2pt;">
+    <div class="card">
+      <strong><span class="callout-pin">1</span> Agent Package Picker:</strong> Hot-switches between every folder under your workspace containing a root <code>agent.py</code> or <code>agent.ts</code> export without restarting the server.
+    </div>
+    <div class="card">
+      <strong><span class="callout-pin">2</span> Session Switcher:</strong> Creates fresh <code>sessionId</code> runs or replays SQLite-persisted conversation histories to compare prompt edits side by side.
+    </div>
+    <div class="card">
+      <strong><span class="callout-pin">3</span> Event &amp; Latency Waterfall:</strong> Click any span to inspect exact Gemini request tokens, function arguments, MCP tool returns, and remote A2A JSON-RPC payloads.
+    </div>
+    <div class="card">
+      <strong><span class="callout-pin">4</span> State Delta Diff:</strong> Highlights every key written via <code>output_key</code> or <code>tool_context.state</code> during that exact turn across <code>temp:</code>, <code>user:</code>, and <code>app:</code> scopes.
+    </div>
+    <div class="card">
+      <strong><span class="callout-pin">5</span> Interactive Topology Graph:</strong> Highlights the currently executing node in real time so you can spot infinite loops or misrouted sub-agent transfers immediately.
+    </div>
+    <div class="card">
+      <strong><span class="callout-pin">6</span> Live Audio/Video &amp; <span class="callout-pin">7</span> Eval Export:</strong> Stream live mic/camera input for bidirectional voice testing, then freeze passing runs into <code>.evalset.json</code> files for CI.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: WORKFLOW AGENTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Deterministic Orchestration</span>
+    <span>Composing LlmAgent with Sequential, Parallel &amp; Loop Controllers</span>
+  </div>
+
+  <h2 class="page-title">Deterministic Workflow Agents: Zero-Hallucination Control Flow</h2>
+  <p class="page-lead">
+    Asking an LLM router to decide every next step wastes latency and invites skipped checks. ADK separates <strong>reasoning nodes</strong> (<code>LlmAgent</code>) from <strong>deterministic workflow controllers</strong> (<code>SequentialAgent</code>, <code>ParallelAgent</code>, and <code>LoopAgent</code>) that execute in predictable code order.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_1.jpg" alt="Sequential, Parallel, and Loop Workflow Agents Visual Metaphor" style="width:100%; height:228px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Three Composable Control Topologies:</strong> Chain strict stages with <code>SequentialAgent</code> (left), fan out concurrent research with <code>ParallelAgent</code> (center), and iterate draft-critic cycles until quality passes with <code>LoopAgent</code> (right).
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:6px; font-size:8pt;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> <code>SequentialAgent</code></div>
+      Runs <code>sub_agents</code> strictly one after another. Pair each stage&rsquo;s <code>output_key="parsed_spec"</code> with <code>{parsed_spec}</code> placeholders in the next agent&rsquo;s instruction.
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> <code>ParallelAgent</code></div>
+      Executes independent sub-agents concurrently in the same session, cutting wall-clock latency when querying docs, logs, and remote A2A peers simultaneously.
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> <code>LoopAgent</code></div>
+      Repeats its sub-agents until a reviewer tool sets <code>tool_context.actions.escalate = True</code> or the safety ceiling <code>max_iterations</code> is reached.
+    </div>
+  </div>
+
+  <h3>Composing All Three Primitives in 18 Lines of Python</h3>
+  <pre class="code-block"><code>from google.adk.agents import LlmAgent, SequentialAgent, ParallelAgent, LoopAgent
+from google.adk.tools import ToolContext
+
+def approve_draft(tool_context: ToolContext) -&gt; dict:
+    """Call only when the security report meets every citation requirement."""
+    tool_context.actions.escalate = True  # Cleanly exits the enclosing LoopAgent
+    return {"status": "approved"}
+
+gather = ParallelAgent(name="GatherIntel", sub_agents=[cve_agent, repo_scan_agent])
+writer = LlmAgent(name="Writer", model="gemini-2.5-pro",
+                  instruction="Synthesize {cve_notes} and {scan_notes}.", output_key="draft")
+critic = LlmAgent(name="Critic", model="gemini-2.5-flash", tools=[approve_draft],
+                  instruction="Audit {draft}. Request fixes or call approve_draft.")
+
+refine = LoopAgent(name="RefineLoop", sub_agents=[writer, critic], max_iterations=3)
+root_agent = SequentialAgent(name="AuditPipeline", sub_agents=[gather, refine])</code></pre>
+
+  <div class="callout amber">
+    <div class="callout-title">Distinct Output Keys Inside <code>ParallelAgent</code></div>
+    Because all branches of a <code>ParallelAgent</code> share the same active session state, assign each branch a unique <code>output_key</code> (such as <code>cve_notes</code> vs. <code>scan_notes</code>) so concurrent completions never overwrite each other.
+  </div>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: STATE, CALLBACKS, MCP & PROMPT ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; State, Guardrails &amp; MCP</span>
+    <span>Scoped State Prefixes, Lifecycle Callbacks &amp; <code>MCPToolset</code></span>
+  </div>
+
+  <h2 class="page-title">Scoped State Prefixes, Callbacks &amp; <code>MCPToolset</code></h2>
+  <p class="page-lead">
+    Production agents need strict boundaries around what persists across turns and which tools are allowed to fire. ADK bakes persistence scopes directly into state key prefixes and wraps every model and tool boundary with synchronous guard callbacks.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Four Built-In State Scopes</div>
+      <ul style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li><strong>No prefix (<code>state["draft"]</code>):</strong> Bound to the current <code>sessionId</code> conversation thread.</li>
+        <li><strong><code>temp:</code> (<code>state["temp:raw_sql"]</code>):</strong> Ephemeral scratchpad wiped automatically when the current invocation turn finishes.</li>
+        <li><strong><code>user:</code> (<code>state["user:timezone"]</code>):</strong> Persists across all sessions belonging to the same authenticated <code>userId</code>.</li>
+        <li><strong><code>app:</code> (<code>state["app:feature_flags"]</code>):</strong> Global read-mostly configuration shared across every user of the application.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge rose">2</span> Six Lifecycle Callback Intercepts</div>
+      <ul style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li><strong><code>before_agent</code> / <code>after_agent</code>:</strong> Check tenant quotas, inject trace tags, or redact PII on final responses.</li>
+        <li><strong><code>before_model</code> / <code>after_model</code>:</strong> Short-circuit cached prompts or inspect LLM outputs before tool dispatch.</li>
+        <li><strong><code>before_tool_callback</code>:</strong> Inspect <code>(tool, args, tool_context)</code>; return a dict to <strong>block execution</strong> cleanly without crashing the agent loop.</li>
+        <li><strong><code>after_tool_callback</code>:</strong> Truncate oversized payloads or save binary blobs via <code>tool_context.save_artifact()</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Connecting External MCP Servers &amp; Blocking Unsafe Calls</h3>
+  <pre class="code-block"><code>from google.adk.agents import LlmAgent
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StdioServerParameters
+
+def block_destructive_sql(tool, args: dict, tool_context):
+    sql = str(args.get("query", "")).upper()
+    if any(op in sql for op in ("DROP ", "TRUNCATE ", "DELETE ")):
+        return {"error": "Blocked by policy: read-only SELECT queries required."}
+    return None  # Returning None allows normal tool execution
+
+db_tools = MCPToolset(
+    connection_params=StdioServerParameters(command="npx", args=["-y", "@bytebase/dbhub"]),
+    tool_filter=["execute_sql", "list_tables"],  # Expose only approved MCP tools
+)
+analyst = LlmAgent(name="SqlAnalyst", model="gemini-2.5-flash",
+                   tools=[db_tools], before_tool_callback=block_destructive_sql)</code></pre>
+
+  <h3>Color-Coded Blueprint: Anatomy of a Production ADK Architecture Spec</h3>
+  <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:8.5px 11px;">
+    <div style="font-size:8.4pt; line-height:1.68; margin-bottom:6px;">
+      <span class="p-tag p-flow">Wrap a ParallelAgent intake stage and a 2-pass LoopAgent verifier inside a SequentialAgent root,</span>
+      <span class="p-tag p-agent">assign gemini-2.5-flash to fast triage leaf agents and gemini-2.5-pro to the synthesis writer,</span>
+      <span class="p-tag p-state">store scratch payloads in temp:raw_chunks and user preferences in user:locale,</span>
+      <span class="p-tag p-mcp">filter MCPToolset with tool_filter plus a before_tool_callback blocking mutating SQL,</span>
+      <span class="p-tag p-a2a">delegate billing disputes via RemoteA2aAgent pointing to /.well-known/agent-card.json,</span>
+      <span class="p-tag p-eval">and gate deployment on adk eval passing 0.90 tool_trajectory_avg_score.</span>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:6px; font-size:7.3pt; border-top:1px solid #e2e8f0; padding-top:5px;">
+      <span><span class="p-tag p-flow">Workflow Topology</span></span>
+      <span><span class="p-tag p-agent">Model Tiering</span></span>
+      <span><span class="p-tag p-state">State Scoping</span></span>
+      <span><span class="p-tag p-mcp">MCP + Guardrail</span></span>
+      <span><span class="p-tag p-a2a">A2A Delegation</span></span>
+      <span><span class="p-tag p-eval">CI Eval Gate</span></span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: A2A PROTOCOL & AGENT CARDS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Cross-Vendor Interoperability</span>
+    <span>Agent2Agent (A2A) Protocol, Agent Cards &amp; <code>RemoteA2aAgent</code></span>
+  </div>
+
+  <h2 class="page-title">Speaking A2A: Agent Cards, Tasks &amp; Cross-Network Handoffs</h2>
+  <p class="page-lead">
+    When your Python ADK orchestrator needs help from a finance team&rsquo;s Java service or a partner&rsquo;s LangGraph agent, the <strong>Agent2Agent (A2A)</strong> standard lets them collaborate over JSON-RPC 2.0 and Server-Sent Events (SSE) using self-describing <strong>Agent Cards</strong>.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_2.jpg" alt="Agent2Agent Protocol Suspension Bridge Between Independent Agent Islands" style="width:100%; height:222px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Opaque Peer Collaboration:</strong> Each domain keeps its internal prompts, databases, and keys sealed behind its own boundary while exchanging typed A2A Tasks, streaming status events, and structured Artifacts across the bridge.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:5px;">
+    <div>
+      <h3>1. Expose Any ADK Agent via <code>to_a2a()</code></h3>
+      <pre class="code-block"><code># server.py — serves /.well-known/agent-card.json
+from google.adk.agents import LlmAgent
+from google.adk.a2a.utils.agent_to_a2a import to_a2a
+
+billing_agent = LlmAgent(
+    name="billing_specialist",
+    model="gemini-2.5-flash",
+    description="Audits invoices and issues SLA credits.",
+    instruction="Verify invoice IDs before credit quotes.",
+    tools=[lookup_invoice, calculate_sla_credit],
+)
+a2a_app = to_a2a(billing_agent, port=8001)
+# Run: uvicorn server:a2a_app --host 0.0.0.0 --port 8001</code></pre>
+    </div>
+
+    <div>
+      <h3>2. Consume a Remote Peer via <code>RemoteA2aAgent</code></h3>
+      <pre class="code-block"><code># coordinator.py — zero custom HTTP boilerplate
+from google.adk.agents import LlmAgent
+from google.adk.agents.remote_a2a_agent import (
+    RemoteA2aAgent, AGENT_CARD_WELL_KNOWN_PATH
+)
+
+remote_billing = RemoteA2aAgent(
+    name="billing_peer",
+    description="Delegates invoice &amp; SLA credit checks.",
+    agent_card=f"https://billing.internal{AGENT_CARD_WELL_KNOWN_PATH}",
+)
+root_agent = LlmAgent(
+    name="support_lead", model="gemini-2.5-pro",
+    sub_agents=[remote_billing],
+    instruction="Delegate billing questions to billing_peer."
+)</code></pre>
+    </div>
+  </div>
+
+  <h3>Core A2A Protocol Methods &amp; Task Lifecycle</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:23%;">JSON-RPC Method</th>
+        <th style="width:27%;">Transport Behavior</th>
+        <th style="width:50%;">Task Lifecycle States &amp; Payload Semantics</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>message/send</code></td>
+        <td>Sync/Async HTTP POST</td>
+        <td>Sends text, file, or JSON <code>parts</code> with <code>contextId</code>; returns a reply or stateful <code>Task</code>.</td>
+      </tr>
+      <tr>
+        <td><code>message/stream</code></td>
+        <td>SSE Streaming POST</td>
+        <td>Streams incremental progress chunks, status updates, and partial artifacts in real time.</td>
+      </tr>
+      <tr>
+        <td><code>tasks/get</code> &amp; <code>tasks/cancel</code></td>
+        <td>Task Polling &amp; Abort</td>
+        <td>Tracks long-running states: <code>submitted</code> &rarr; <code>working</code> &rarr; <code>input-required</code> &rarr; <code>completed</code> / <code>failed</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: EVALS & DEPLOYMENT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; CI Evaluation &amp; Production Deploy</span>
+    <span>Trajectory Scoring with <code>adk eval</code> &amp; Cloud Deployment</span>
+  </div>
+
+  <h2 class="page-title">Regression Testing with <code>adk eval</code> &amp; One-Command Deploys</h2>
+  <p class="page-lead">
+    In multi-agent systems, a final answer that sounds polite is still a bug if the agent skipped an authorization tool or called the wrong A2A peer. <code>adk eval</code> grades both the <strong>exact tool-call trajectory</strong> and the <strong>semantic response quality</strong> on every pull request.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Configure Rubrics in <code>test_config.json</code></div>
+      <p style="font-size:7.9pt;">Set strict pass thresholds for both tool sequence accuracy and response similarity:</p>
+      <pre class="code-block"><code>{
+  "criteria": {
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.85
+  }
+}</code></pre>
+      <p style="font-size:7.8pt; color:#475569; margin:0;">Run in CI: <code>adk eval ./support_router tests/refunds.evalset.json --config_file_path=tests/test_config.json --print_detailed_results</code></p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> TypeScript Runner &amp; Zod Tool Pattern</div>
+      <p style="font-size:7.9pt;">In <code>@google/adk</code>, combine Zod-typed tools with <code>InMemoryRunner</code> inside Vitest suites:</p>
+      <pre class="code-block"><code>import { LlmAgent, FunctionTool, InMemoryRunner } from "@google/adk";
+import { z } from "zod";
+
+const lookupOrder = new FunctionTool({
+  name: "lookup_order",
+  description: "Fetch order status by ID.",
+  parameters: z.object({ orderId: z.string() }),
+  execute: async ({ orderId }) =&gt; ({ orderId, state: "shipped" }),
+});
+export const rootAgent = new LlmAgent({
+  name: "ops_ts", model: "gemini-2.5-flash", tools: [lookupOrder]
+});</code></pre>
+    </div>
+  </div>
+
+  <h3>3. Shipping to Cloud Run or Vertex AI Agent Engine</h3>
+  <pre class="code-block"><code># Option A: Serverless container on Google Cloud Run (supports Python &amp; TypeScript + A2A)
+adk deploy cloud_run \
+  --project=$GOOGLE_CLOUD_PROJECT \
+  --region=us-central1 \
+  --service_name=support-router-a2a \
+  ./support_router
+
+# Option B: Managed Vertex AI Agent Engine with persistent Sessions &amp; Memory Bank
+adk deploy agent_engine \
+  --project=$GOOGLE_CLOUD_PROJECT \
+  --region=us-central1 \
+  --staging_bucket=gs://$GOOGLE_CLOUD_PROJECT-adk-staging \
+  ./support_router</code></pre>
+
+  <div class="callout">
+    <div class="callout-title">Swap InMemory Stores Before Multi-Instance Scaling</div>
+    <code>InMemorySessionService</code> resets whenever a container scales down. On Cloud Run, pass <code>--session_service_uri="postgresql+asyncpg://..."</code> (DatabaseSessionService) or point to Vertex AI Agent Engine Sessions so users never lose mid-conversation state across load-balanced replicas.
+  </div>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Playbook</span>
+    <span>5 Real-World Copy-Paste Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead">
+    Drop these five battle-tested snippets straight into your Python or TypeScript repository to wire sub-agent tools, A2A manifests, artifact storage, CI gates, and Cloud Run deployments cleanly on the first try.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Recipe &amp; Goal</th>
+        <th style="width:54%;">Copy-Paste Snippet / Command</th>
+        <th style="width:24%;">Expected Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Wrap Specialist as <code>AgentTool</code> (Keep Control)</strong></td>
+        <td><code>from google.adk.tools.agent_tool import AgentTool</code><br/><code>coordinator = LlmAgent(name="Lead", model="gemini-2.5-pro", tools=[AgentTool(agent=math_specialist)])</code></td>
+        <td>Calls <code>math_specialist</code> like a function and returns control straight back to <code>Lead</code> instead of handing off the chat.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Inspect a Live A2A Agent Card Manifest</strong></td>
+        <td><code>curl -s https://billing.internal/.well-known/agent-card.json | jq '{name, version, capabilities, skills: [.skills[].id]}'</code></td>
+        <td>Verifies published A2A capabilities (<code>streaming</code>), skill IDs, and RPC URL before wiring <code>RemoteA2aAgent</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Save Versioned Binary Artifacts in Tools</strong></td>
+        <td><code>from google.genai import types</code><br/><code>part = types.Part.from_bytes(data=pdf_bytes, mime_type="application/pdf")</code><br/><code>ver = await tool_context.save_artifact("quote.pdf", part)</code></td>
+        <td>Stores heavy PDFs/CSVs out of the LLM token window while tracking monotonic revision numbers (<code>v0</code>, <code>v1</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>4. Deterministic CI Trajectory Gate</strong></td>
+        <td><code>adk eval ./agents/triage tests/golden.evalset.json --config_file_path=tests/strict.json --print_detailed_results</code></td>
+        <td>Fails the GitHub Action or Cloud Build step immediately if tool order or arguments drift from golden runs.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Postgres-Backed Cloud Run Deploy</strong></td>
+        <td><code>adk deploy cloud_run --project=$PROJECT_ID --region=us-central1 --service_name=ops-agent --session_service_uri="$DB_URI" ./agents/ops</code></td>
+        <td>Builds and ships a scale-to-zero container whose sessions survive restarts in Cloud SQL / Postgres.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin-top:6px;">
+    <div class="callout-title"><code>sub_agents</code> Transfer vs. <code>AgentTool</code> Invocation: Know the Difference</div>
+    Listing an agent inside <code>sub_agents=[...]</code> lets the parent transfer active conversation ownership to that child for follow-up turns. Wrapping it in <code>AgentTool(agent=...)</code> executes the child in an isolated call, captures its final summary, and keeps the parent orchestrator strictly in charge of user replies.
+  </div>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, IAM & MEMORY ISOLATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Enterprise Governance</span>
+    <span>A2A Authentication, Memory Scoping &amp; Sandbox Safety</span>
+  </div>
+
+  <h2 class="page-title">Security, A2A Auth &amp; Multi-Tenant Memory Isolation</h2>
+  <p class="page-lead">
+    Connecting autonomous agents across team boundaries multiplies blast radius if identity, memory scopes, or remote Agent Cards are left unverified. Enforce these four enterprise guardrails before exposing any ADK service outside localhost.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Authenticated A2A Agent Cards</div>
+      <ul style="font-size:8pt; margin:2px 0 0 0;">
+        <li><strong>Declare <code>securitySchemes</code>:</strong> Publish OAuth 2.0, OpenID Connect, or mTLS requirements directly inside <code>agent-card.json</code> rather than relying on network obscurity.</li>
+        <li><strong>Cloud Run OIDC Service-to-Service:</strong> Require IAM invoker tokens between internal Cloud Run A2A peers so rogue workloads cannot call <code>/v1/message:send</code>.</li>
+        <li><strong>Treat Remote Replies as Untrusted:</strong> Validate structured A2A payloads against Pydantic or Zod schemas before feeding them into privileged local tools.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge rose">2</span> Prevent Cross-Tenant Memory Poisoning</div>
+      <ul style="font-size:8pt; margin:2px 0 0 0;">
+        <li><strong>Bind <code>userId</code> from Verified JWTs:</strong> Never let prompt text or client JSON body fields supply the <code>userId</code> passed to <code>SessionService</code> or Vertex Memory Bank.</li>
+        <li><strong>Audit <code>app:</code> Writes:</strong> Restrict <code>app:*</code> state keys to startup config or admin pipelines; letting user turns mutate <code>app:</code> leaks data globally across tenants.</li>
+        <li><strong>Scrub Secrets into <code>temp:</code>:</strong> Short-lived OAuth exchange tokens belong in <code>ToolContext</code> auth handlers or <code>temp:</code>, never persisted in session history.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Least-Privilege <code>MCPToolset</code> Filtering</div>
+      <p style="font-size:8pt;">Third-party MCP servers often ship 25+ read, write, and delete tools in one bundle. Always pass an explicit allowlist via <code>tool_filter=["get_ticket", "search_docs"]</code> and pair mutating tools with human confirmation (<code>input-required</code> A2A state or ADK tool confirmation).</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">4</span> Bounded Loops &amp; Isolated Code Sandboxes</div>
+      <p style="font-size:8pt;">Always set a low <code>max_iterations</code> (typically <code>2</code>&ndash;<code>4</code>) on every <code>LoopAgent</code> to prevent runaway token bills, and route dynamic Python calculation tasks to Vertex AI Agent Engine&rsquo;s isolated <strong>Code Execution Sandbox</strong> instead of host <code>subprocess</code> calls.</p>
+    </div>
+  </div>
+
+  <div class="callout rose" style="margin-top:7px;">
+    <div class="callout-title">Never Forward Raw User Credentials Over A2A Messages</div>
+    A2A preserves agent opacity in both directions. Exchange scoped, audience-restricted OAuth tokens via protocol headers rather than pasting user API keys or session cookies inside conversational <code>message/send</code> text parts where remote LLM logs would capture them.
+  </div>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; End-to-End Orchestration</span>
+    <span>Cross-Tool Synergy Pipeline</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From AI Studio Prototype to Multi-Cloud A2A Mesh</h2>
+  <p class="page-lead">
+    ADK shines brightest as the connective backbone between rapid prompt exploration, local IDE coding agents, CI trajectory gates, and cross-framework enterprise deployments.
+  </p>
+
+  <div class="figure-box" style="background:#061811; padding:13px;">
+    <svg viewBox="0 0 700 222" width="100%" height="222" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="16" width="154" height="154" rx="10" fill="#09261b" stroke="#34d399" stroke-width="1.5"/>
+      <rect x="18" y="26" width="58" height="18" rx="4" fill="#059669"/>
+      <text x="47" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 1</text>
+      <text x="18" y="61" fill="#ffffff" font-size="10.8" font-weight="800">AI Studio + Antigravity</text>
+      <text x="18" y="76" fill="#6ee7b7" font-size="8.5" font-weight="700">Prompt &amp; Scaffold</text>
+      <text x="18" y="95" fill="#d1fae5" font-size="8">&bull; Tune instructions &amp;</text>
+      <text x="25" y="107" fill="#d1fae5" font-size="8">schemas in AI Studio</text>
+      <text x="18" y="122" fill="#d1fae5" font-size="8">&bull; Scaffold adk create</text>
+      <text x="25" y="134" fill="#d1fae5" font-size="8">in Antigravity IDE</text>
+      <text x="18" y="153" fill="#fde68a" font-size="7.9" font-weight="700">Out: Typed ADK Repo</text>
+
+      <path d="M162 93 L180 93" stroke="#34d399" stroke-width="2.2"/>
+      <polygon points="178,88 186,93 178,98" fill="#34d399"/>
+
+      <!-- Stage 2 -->
+      <rect x="186" y="16" width="154" height="154" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <rect x="196" y="26" width="58" height="18" rx="4" fill="#0284c7"/>
+      <text x="225" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 2</text>
+      <text x="196" y="61" fill="#ffffff" font-size="10.8" font-weight="800">adk web + MCP</text>
+      <text x="196" y="76" fill="#7dd3fc" font-size="8.5" font-weight="700">Trace &amp; Capture</text>
+      <text x="196" y="95" fill="#e2e8f0" font-size="8">&bull; Attach MCPToolset</text>
+      <text x="196" y="110" fill="#e2e8f0" font-size="8">&bull; Verify temp:/user: state</text>
+      <text x="196" y="125" fill="#e2e8f0" font-size="8">&bull; Export golden sessions</text>
+      <text x="196" y="137" fill="#e2e8f0" font-size="8">to .evalset.json</text>
+      <text x="196" y="153" fill="#fde68a" font-size="7.9" font-weight="700">Out: Golden Eval Suite</text>
+
+      <path d="M340 93 L358 93" stroke="#38bdf8" stroke-width="2.2"/>
+      <polygon points="356,88 364,93 356,98" fill="#38bdf8"/>
+
+      <!-- Stage 3 -->
+      <rect x="364" y="16" width="154" height="154" rx="10" fill="#1e1b4b" stroke="#a78bfa" stroke-width="1.5"/>
+      <rect x="374" y="26" width="58" height="18" rx="4" fill="#7c3aed"/>
+      <text x="403" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 3</text>
+      <text x="374" y="61" fill="#ffffff" font-size="10.8" font-weight="800">CI Gate (adk eval)</text>
+      <text x="374" y="76" fill="#c4b5fd" font-size="8.5" font-weight="700">Trajectory Proof</text>
+      <text x="374" y="95" fill="#ede9fe" font-size="8">&bull; Run on every PR</text>
+      <text x="374" y="110" fill="#ede9fe" font-size="8">&bull; Score tool sequence</text>
+      <text x="374" y="125" fill="#ede9fe" font-size="8">&bull; Block regressions before</text>
+      <text x="381" y="137" fill="#ede9fe" font-size="8">container build</text>
+      <text x="374" y="153" fill="#fde68a" font-size="7.9" font-weight="700">Out: Verified Release</text>
+
+      <path d="M518 93 L536 93" stroke="#fbbf24" stroke-width="2.2"/>
+      <polygon points="534,88 542,93 534,98" fill="#fbbf24"/>
+
+      <!-- Stage 4 -->
+      <rect x="542" y="16" width="150" height="154" rx="10" fill="#1c1406" stroke="#fbbf24" stroke-width="1.5"/>
+      <rect x="552" y="26" width="58" height="18" rx="4" fill="#d97706"/>
+      <text x="581" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 4</text>
+      <text x="552" y="61" fill="#ffffff" font-size="10.8" font-weight="800">Agent Engine + A2A</text>
+      <text x="552" y="76" fill="#fde68a" font-size="8.5" font-weight="700">Mesh Production</text>
+      <text x="552" y="95" fill="#fef3c7" font-size="8">&bull; Vertex Memory Bank</text>
+      <text x="552" y="110" fill="#fef3c7" font-size="8">&bull; Publish agent-card.json</text>
+      <text x="552" y="125" fill="#fef3c7" font-size="8">&bull; Interop with OpenAI,</text>
+      <text x="559" y="137" fill="#fef3c7" font-size="8">Claude &amp; Vercel peers</text>
+      <text x="552" y="153" fill="#6ee7b7" font-size="7.9" font-weight="700">Out: Live A2A Service</text>
+
+      <!-- Feedback Loop -->
+      <path d="M617 170 L617 196 L85 196 L85 170" stroke="#34d399" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+      <polygon points="80,174 85,166 90,174" fill="#34d399"/>
+      <rect x="195" y="184" width="310" height="22" rx="11" fill="#09261b" stroke="#34d399" stroke-width="1.1"/>
+      <text x="350" y="198" text-anchor="middle" fill="#a7f3d0" font-size="8.3" font-weight="700">OpenTelemetry Cloud Trace Failures Convert Into New Eval Cases</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-top:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Bridging Frontend Apps (Next.js / Android)</div>
+      <p style="font-size:8.1pt;">Connect Next.js or Kotlin mobile clients to <code>adk api_server</code> or Vertex Agent Engine SSE endpoints for user-facing chat while letting the backend orchestrator fan out over private internal A2A microservices.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">B</span> Polyglot Team Autonomy</div>
+      <p style="font-size:8.1pt;">Data science teams can ship Python ADK agents on Vertex Agent Engine while web platform teams ship TypeScript <code>@google/adk</code> services on Cloud Run&mdash;both discovering each other via standard <code>/.well-known/agent-card.json</code> manifests.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Clinic &amp; Pre-Flight</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Release Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Diagnose the seven most common ADK and A2A pitfalls in seconds, then run the 6-point pre-flight check before promoting any multi-agent workflow to production.
+  </p>
+
+  <table class="clean-table" style="font-size:7.85pt; margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:35%;">Symptom / Error</th>
+        <th style="width:65%;">10-Second Root-Cause Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. <code>adk web</code> dropdown shows zero agents</strong></td>
+        <td>Run <code>adk web</code> from the <strong>parent directory</strong> above your agent package folder, and ensure <code>__init__.py</code> imports <code>agent</code> which defines <code>root_agent</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. <code>{draft}</code> placeholder raises <code>KeyError</code> in instruction</strong></td>
+        <td>The upstream agent failed or has not set <code>output_key="draft"</code> yet. Initialize default keys in session state or append <code>?</code> (<code>{draft?}</code>) for optional state interpolation.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>LoopAgent</code> burns tokens without ever stopping</strong></td>
+        <td>No tool set <code>tool_context.actions.escalate = True</code> and <code>max_iterations</code> was omitted. Always pass <code>max_iterations=3</code> and expose an explicit exit tool.</td>
+      </tr>
+      <tr>
+        <td><strong>4. LLM ignores your Python custom function tool</strong></td>
+        <td>ADK generates tool schemas from type hints and docstrings. Add explicit parameter types, return type <code>dict</code>, and a clear docstring explaining <em>when</em> to call it.</td>
+      </tr>
+      <tr>
+        <td><strong>5. <code>RemoteA2aAgent</code> fails on <code>localhost</code> inside Docker</strong></td>
+        <td><code>agent-card.json</code> advertised <code>http://localhost:8001</code> instead of the reachable service hostname/HTTPS URL. Pass public <code>host</code>/<code>port</code> or explicit RPC URL to <code>to_a2a()</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Cloud Run users lose history mid-conversation</strong></td>
+        <td>Default <code>InMemorySessionService</code> lives inside container RAM. Configure <code>--session_service_uri</code> with Cloud SQL Postgres or deploy on Vertex AI Agent Engine.</td>
+      </tr>
+      <tr>
+        <td><strong>7. <code>MCPToolset</code> hangs or leaks zombie subprocesses</strong></td>
+        <td>Stdio MCP servers require clean async lifecycle management. Use current <code>google-adk</code> async runner patterns and restrict slow servers via <code>tool_filter</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark">
+    <div class="card-title" style="color:#6ee7b7; font-size:9.6pt; margin-bottom:6px;">6-Point Pre-Flight Checklist Before Production Deploy</div>
+    <div class="check-grid" style="margin-top:2px;">
+      <div class="check-item" style="background:#09261b; border-color:#134e38; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Deterministic Control First:</strong> Replaced open-ended LLM routers with <code>SequentialAgent</code>, <code>ParallelAgent</code>, and capped <code>LoopAgent</code> nodes.</div>
+      </div>
+      <div class="check-item" style="background:#09261b; border-color:#134e38; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Scoped State Hygiene:</strong> Verified <code>temp:</code>, <code>user:</code>, and <code>app:</code> prefixes with JWT-derived <code>userId</code> isolation.</div>
+      </div>
+      <div class="check-item" style="background:#09261b; border-color:#134e38; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Filtered MCP &amp; Callbacks:</strong> Applied <code>tool_filter</code> on every <code>MCPToolset</code> plus <code>before_tool_callback</code> policy guards.</div>
+      </div>
+      <div class="check-item" style="background:#09261b; border-color:#134e38; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Verified A2A Agent Card:</strong> Checked <code>/.well-known/agent-card.json</code> public URLs, <code>securitySchemes</code>, and OIDC auth.</div>
+      </div>
+      <div class="check-item" style="background:#09261b; border-color:#134e38; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Durable Session Backend:</strong> Replaced <code>InMemorySessionService</code> with Postgres or Vertex AI Agent Engine Sessions.</div>
+      </div>
+      <div class="check-item" style="background:#09261b; border-color:#134e38; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Green <code>adk eval</code> Gate:</strong> Golden <code>.evalset.json</code> trajectory and rubric scores pass automatically in CI.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Google ADK &amp; Agent2Agent (A2A) Protocol &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

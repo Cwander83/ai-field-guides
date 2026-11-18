@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mac vs. Windows AI Power-User Playbook: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">DESKTOP OS &amp; PERSONAL OPS &bull; CROSS-PLATFORM FIELD GUIDE</div>
+    <h1>Mac vs. Windows <span>AI Power-User Playbook</span></h1>
+    <p class="cover-sub">
+      Master both sides of modern desktop AI&mdash;comparing Apple Silicon unified memory, Apple Intelligence, Shortcuts, and Raycast against Windows 11 Copilot+ PCs, Click to Do, opt-in Recall, PowerToys Command Palette, MLX, DirectML/ONNX NPUs, and WSL2 CUDA passthrough.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Apple Intelligence &amp; PCC</span>
+      <span class="cover-badge">Copilot+ &amp; Click to Do</span>
+      <span class="cover-badge">Unified RAM vs. 40+ TOPS NPU</span>
+      <span class="cover-badge">Raycast &amp; PowerToys Parity</span>
+      <span class="cover-badge">MLX vs. DirectML &amp; WSL2</span>
+      <span class="cover-badge">Recall &amp; Privacy Guardrails</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Midnight titanium workstation comparing a glowing unified Apple Silicon core with a modular Windows Copilot+ NPU, GPU, and CPU compute architecture linked by a luminous cyan workflow bridge" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Silicon-Matched Compute</div>
+      <div class="cover-stat-desc">Size models to Apple Silicon unified memory bandwidth with <code>MLX</code>, or offload background AI onto 45&ndash;80 TOPS Windows NPUs and <code>WSL2</code> CUDA GPUs.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Mirrored Daily Launchers</div>
+      <div class="cover-stat-desc">Keep identical keyboard muscle memory across Raycast (now on both Mac &amp; Windows), Apple Shortcuts, PowerToys Command Palette, and Advanced Paste.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Verified Privacy Boundaries</div>
+      <div class="cover-stat-desc">Enforce cryptographic Private Cloud Compute checks on macOS alongside BitLocker, Windows Hello ESS, and strict app/site Recall exclusions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Hardware Mental Model</span>
+    <span>Mac vs. Windows AI Power-User Playbook</span>
+  </div>
+
+  <h2 class="page-title">Two Philosophies of Personal AI Silicon &amp; Compute</h2>
+  <p class="page-lead">
+    macOS and Windows 11 solve on-device intelligence from opposite hardware directions. Apple pools CPU, GPU, and Neural Engine access into one high-bandwidth unified memory slab, while Microsoft orchestrates specialized execution providers across dedicated 40+ TOPS NPUs, discrete GPUs, and Linux WSL2 containers.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Two Philosophies of AI Silicon</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Compute: MLX vs. DirectML &amp; WSL2</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Hardware Tiers &amp; Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Dual-OS Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Dual-OS Launcher &amp; Screen Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Privacy: PCC, Recall &amp; Admin Policy</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Mac Stack: Apple AI &amp; Raycast</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-OS Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Hotkey Parity &amp; 5-Part Formula</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Windows Copilot+ &amp; PowerToys</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Match Work to Silicon</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>The Architectural Split: Unified Pool vs. Modular Execution Providers</h3>
+  <p style="font-size:8.5pt;">
+    Local token speed rarely bottlenecks on raw math cores; it bottlenecks on how fast weights stream out of memory. On Apple Silicon, one shared pool feeds Metal and <code>mlx-lm</code> without copying data across a PCIe slot. On Windows 11 Copilot+ hardware, Windows ML and ONNX Runtime dynamically route lightweight always-on models to an ultra-efficient NPU while heavier inference targets DirectML, TensorRT, or WSL2 CUDA.
+  </p>
+
+  <h3>Architecture: Side-by-Side Execution Paths Across macOS &amp; Windows 11</h3>
+  <div class="figure-box" style="background:#090d16; padding:9px 12px; border-color:#1e3a8a;">
+    <svg viewBox="0 0 700 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Row: macOS Apple Silicon Pipeline -->
+      <rect x="8" y="8" width="684" height="78" rx="9" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="20" y="25" fill="#7dd3fc" font-size="7.8" font-weight="800">MACOS APPLE SILICON PATH (MONOLITHIC UNIFIED MEMORY)</text>
+
+      <rect x="20" y="34" width="144" height="42" rx="6" fill="#172554" stroke="#0284c7" stroke-width="1"/>
+      <text x="92" y="51" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">1. Trigger &amp; Launcher</text>
+      <text x="92" y="65" text-anchor="middle" fill="#bae6fd" font-size="7">Raycast / Shortcuts / Brew</text>
+
+      <path d="M164 55 L186 55" stroke="#38bdf8" stroke-width="2"/><polygon points="184,51 192,55 184,59" fill="#38bdf8"/>
+
+      <rect x="193" y="34" width="168" height="42" rx="6" fill="#172554" stroke="#38bdf8" stroke-width="1"/>
+      <text x="277" y="51" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">2. On-Device (~3B &amp; MLX)</text>
+      <text x="277" y="65" text-anchor="middle" fill="#bae6fd" font-size="7">ANE + Metal GPU Zero-Copy</text>
+
+      <path d="M361 55 L383 55" stroke="#38bdf8" stroke-width="2"/><polygon points="381,51 389,55 381,59" fill="#38bdf8"/>
+
+      <rect x="390" y="34" width="142" height="42" rx="6" fill="#1e293b" stroke="#2dd4bf" stroke-width="1"/>
+      <text x="461" y="51" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">3. Unified RAM Pool</text>
+      <text x="461" y="65" text-anchor="middle" fill="#99f6e4" font-size="7">120 GB/s to 1.2 TB/s</text>
+
+      <path d="M532 55 L552 55" stroke="#2dd4bf" stroke-width="2"/><polygon points="550,51 558,55 550,59" fill="#2dd4bf"/>
+
+      <rect x="559" y="34" width="121" height="42" rx="6" fill="#0f2942" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="619" y="51" text-anchor="middle" fill="#e0f2fe" font-size="8" font-weight="700">4. Private Cloud</text>
+      <text x="619" y="65" text-anchor="middle" fill="#7dd3fc" font-size="6.9">Ephemeral PCC Nodes</text>
+
+      <!-- Bottom Row: Windows 11 Copilot+ Pipeline -->
+      <rect x="8" y="98" width="684" height="78" rx="9" fill="#131629" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="20" y="115" fill="#c7d2fe" font-size="7.8" font-weight="800">WINDOWS 11 COPILOT+ PATH (HETEROGENEOUS NPU + GPU + WSL2)</text>
+
+      <rect x="20" y="124" width="144" height="42" rx="6" fill="#1e1b4b" stroke="#6366f1" stroke-width="1"/>
+      <text x="92" y="141" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">1. Trigger &amp; Screen</text>
+      <text x="92" y="155" text-anchor="middle" fill="#c7d2fe" font-size="7">CmdPal / Click to Do / Win+V</text>
+
+      <path d="M164 145 L186 145" stroke="#818cf8" stroke-width="2"/><polygon points="184,141 192,145 184,149" fill="#818cf8"/>
+
+      <rect x="193" y="124" width="168" height="42" rx="6" fill="#1e1b4b" stroke="#818cf8" stroke-width="1"/>
+      <text x="277" y="141" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">2. Windows ML / ONNX</text>
+      <text x="277" y="155" text-anchor="middle" fill="#c7d2fe" font-size="7">QNN &bull; OpenVINO &bull; DirectML</text>
+
+      <path d="M361 145 L383 145" stroke="#818cf8" stroke-width="2"/><polygon points="381,141 389,145 381,149" fill="#818cf8"/>
+
+      <rect x="390" y="124" width="142" height="42" rx="6" fill="#172554" stroke="#a78bfa" stroke-width="1"/>
+      <text x="461" y="141" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">3. 45-80 TOPS NPU</text>
+      <text x="461" y="155" text-anchor="middle" fill="#ddd6fe" font-size="7">Recall &bull; Phi Silica &bull; OCR</text>
+
+      <path d="M532 145 L552 145" stroke="#a78bfa" stroke-width="2"/><polygon points="550,141 558,145 550,149" fill="#a78bfa"/>
+
+      <rect x="559" y="124" width="121" height="42" rx="6" fill="#1e293b" stroke="#34d399" stroke-width="1"/>
+      <text x="619" y="141" text-anchor="middle" fill="#a7f3d0" font-size="8" font-weight="700">4. WSL2 / RTX CUDA</text>
+      <text x="619" y="155" text-anchor="middle" fill="#cbd5e1" font-size="6.9">Foundry &amp; PyTorch Linux</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:3px 0 0 0;">
+    <div class="callout-title">Core Rule: Stop Fighting Your Machine&rsquo;s Silicon</div>
+    Use Apple Silicon unified memory and <code>mlx_lm</code> when you want large local LLMs (14B&ndash;70B) running silently on a laptop. Use Windows Copilot+ NPUs for low-wattage always-on desktop vision (Click to Do, Recall, local OCR) and lean on discrete NVIDIA CUDA inside WSL2 for heavy batch training or high-throughput local serving.
+  </div>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: HARDWARE TIERS, SETUP & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Silicon Tiers, Setup &amp; Matrix</span>
+    <span>Apple Silicon, Copilot+ NPUs &amp; Cross-OS Hardware Fit</span>
+  </div>
+
+  <h2 class="page-title">Silicon Tiers, Onboarding &amp; Mac-vs-Windows Matrix</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Before tuning launchers or local models, check what hardware tier you are standing on. Unified memory bandwidth determines large-model speed on macOS, while Copilot+ certification and discrete VRAM govern NPU and CUDA workloads on Windows 11.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px; gap:11px;">
+    <div class="card" style="padding:8px 10.5px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> macOS Readiness (Sequoia &amp; Tahoe)</div>
+      <ul style="font-size:7.8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Silicon Floor:</strong> Apple M1 or newer with <strong>16 GB+ unified RAM</strong>; 24&ndash;64 GB unlocks smooth 14B&ndash;32B 4-bit MLX weights alongside Xcode or Docker.</li>
+        <li><strong>Bandwidth Ladder:</strong> Base M4/M5 (~120&ndash;150 GB/s), Pro (273&ndash;307 GB/s), Max (546&ndash;614 GB/s), and Mac Studio Ultra (~1.2 TB/s) scale token rates linearly.</li>
+        <li><strong>Native AI Stack:</strong> Enable <code>System Settings &rarr; Apple Intelligence &amp; Siri</code>; verify matching system/Siri language and FileVault encryption.</li>
+        <li><strong>Power Layer:</strong> Install Homebrew (<code>brew</code>), Raycast (or Alfred Powerpack), and Python <code>mlx-lm</code> for zero-copy Metal inference.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10.5px; border-top:3px solid #4f46e5;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge indigo">2</span> Windows 11 Copilot+ Readiness (24H2+)</div>
+      <ul style="font-size:7.8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Copilot+ Floor:</strong> <strong>40+ TOPS NPU</strong> (Snapdragon X Elite 45 / X2 80 TOPS, Intel Lunar Lake 48 TOPS, AMD Strix Point/Halo 50 TOPS), 16 GB RAM, 256 GB SSD.</li>
+        <li><strong>Security Prerequisites:</strong> Opt-in Recall requires active <strong>BitLocker / Device Encryption</strong> and <strong>Windows Hello Enhanced Sign-in Security (ESS)</strong> biometrics.</li>
+        <li><strong>Power Layer:</strong> Install <strong>PowerToys</strong> (Command Palette + Advanced Paste), <strong>Raycast for Windows v2.0</strong>, and <strong>Microsoft Foundry Local</strong>.</li>
+        <li><strong>Linux Escape Hatch:</strong> Run <code>wsl --install</code> with host-only NVIDIA Studio/Game Ready drivers for near-native CUDA inside Ubuntu.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-dark" style="padding:7.5px 12px; margin-bottom:7px;">
+    <div class="card-title" style="font-size:8.8pt; color:#38bdf8; margin-bottom:2px;">90-Second Cross-OS Parity Bootstrap (Terminal One-Liners)</div>
+    <div style="font-size:7.7pt; color:#e2e8f0; line-height:1.38;">
+      <strong>macOS Terminal:</strong> <code>brew install --cask raycast &amp;&amp; pip3 install -U mlx-lm</code> &nbsp;|&nbsp;
+      <strong>Windows PowerShell:</strong> <code>winget install --id Microsoft.PowerToys -e &amp;&amp; winget install --id Microsoft.FoundryLocal -e &amp;&amp; winget install --id 9PFXXSHC64H3 -e</code>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0; font-size:10.2pt;">Hardware &amp; Ecosystem Decision Matrix (2025&ndash;2026 Silicon)</h3>
+  <table class="clean-table" style="font-size:7.55pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Machine Class</th>
+        <th style="width:18%;">Memory Bandwidth</th>
+        <th style="width:20%;">Accelerator Topology</th>
+        <th style="width:20%;">Native OS AI Features</th>
+        <th style="width:22%;">Best Power-User Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>MacBook Air / Pro</strong><br/><em>M4 or M5 Base / Pro</em></td>
+        <td>120&ndash;307 GB/s unified memory</td>
+        <td>Apple GPU + ~35&ndash;38 TOPS ANE via Metal &amp; MLX</td>
+        <td>Writing Tools, Shortcuts Use Model, Private Cloud Compute</td>
+        <td>Silent battery-friendly daily coding, Raycast AI &amp; 7B&ndash;14B MLX models.</td>
+      </tr>
+      <tr>
+        <td><strong>Mac Studio / Max</strong><br/><em>M4/M5 Max &amp; Ultra</em></td>
+        <td>546 GB/s to 1.2 TB/s unified</td>
+        <td>High-core Metal GPU sharing 64&ndash;512 GB RAM</td>
+        <td>Full Apple Intelligence + massive zero-copy local context</td>
+        <td>Running 32B&ndash;120B+ local reasoning models &amp; LoRA fine-tuning offline.</td>
+      </tr>
+      <tr>
+        <td><strong>Copilot+ Ultrabook</strong><br/><em>Snapdragon X / Lunar Lake</em></td>
+        <td>100&ndash;228 GB/s LPDDR5X</td>
+        <td>45&ndash;80 TOPS dedicated NPU (QNN / OpenVINO EP)</td>
+        <td>Click to Do, Opt-in Recall, Phi Silica, Studio Effects</td>
+        <td>All-day office ops, screen OCR, instant PowerToys Paste with AI.</td>
+      </tr>
+      <tr>
+        <td><strong>AMD Strix Halo PC</strong><br/><em>Ryzen AI Max (256-bit)</em></td>
+        <td>~256&ndash;273 GB/s quad-channel</td>
+        <td>50 TOPS XDNA 2 NPU + large shared iGPU pool</td>
+        <td>Copilot+ NPU suite + Windows ML / DirectML / ROCm</td>
+        <td>Windows counterpart to Mac Pro-tier unified memory for big local LLMs.</td>
+      </tr>
+      <tr>
+        <td><strong>Windows RTX Tower</strong><br/><em>Desktop + WSL2 Ubuntu</em></td>
+        <td>120 GB/s system + 500&ndash;1,000+ GB/s GDDR6X/7</td>
+        <td>Discrete NVIDIA Tensor Cores + TensorRT EP / CUDA</td>
+        <td>PowerToys AI + Foundry Local + native WSL2 Linux CUDA</td>
+        <td>Heavy PyTorch training, vLLM multi-user serving, image/video diffusion.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.05pt;">
+    <div class="callout-title">Smart Two-Machine Strategy: Portable Mac + Windows Workstation (or Vice Versa)</div>
+    You no longer need to abandon favorite workflows when switching desks. With Raycast v2.0 now running natively on Windows 11 alongside PowerToys Command Palette and Foundry Local, one standardized shortcut scheme and Git-backed dotfile setup travels cleanly across both operating systems.
+  </div>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Raycast &amp; Shortcuts vs. PowerToys &amp; Click to Do</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Mirrored Mac &amp; Windows AI Controls</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Although Apple and Microsoft build radically different system UIs, power users rely on seven parallel control points&mdash;mapping global launchers, clipboard transforms, on-screen vision overlays, and local model endpoints into one coherent daily rhythm.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#bae6fd; white-space:nowrap;">Cross-OS Power Desktop</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:5px; font-size:6.5pt; white-space:nowrap;">
+        <span class="os-chip" style="background:#0c4a6e; border:1px solid #38bdf8; color:#e0f2fe;">macOS Silicon</span>
+        <span class="os-chip" style="background:#312e81; border:1px solid #818cf8; color:#e0e7ff;">Windows 11 Copilot+</span>
+        <span class="os-chip" style="background:#064e3b; border:1px solid #34d399; color:#d1fae5;">Loopback :8080 <span class="callout-pin">7</span></span>
+      </div>
+    </div>
+
+    <!-- Main Split View -->
+    <div style="display:grid; grid-template-columns: 50% 50%; min-height:256px;">
+      <!-- Left: macOS Desktop -->
+      <div style="border-right:1px solid #1e3a8a; padding:8px 10px; display:flex; flex-direction:column; justify-content:space-between; background:#090e1a;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; font-size:6.6pt; color:#94a3b8;">
+            <strong style="color:#7dd3fc;">MACOS SEQUOIA / TAHOE</strong>
+            <span>Metal + ANE &bull; PCC Ready</span>
+          </div>
+
+          <!-- Raycast Global Launcher -->
+          <div class="os-pane" style="border:1px solid #0284c7; margin-bottom:5px; background:#0c172a;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+              <strong style="color:#ffffff;">Raycast Launcher &nbsp;<code>Opt + Space</code> <span class="callout-pin">1</span></strong>
+              <span style="color:#38bdf8; font-size:6.3pt;">Quicklinks &amp; Extensions</span>
+            </div>
+            <div style="color:#cbd5e1; line-height:1.36;">
+              &gt; <code>@claude</code> Summarize clipboard diff as 3 risk bullets<br/>
+              &gt; Quicklink: <code>gh-pr</code> &bull; Tool: <code>@browser</code> &bull; <code>Clipboard</code>
+            </div>
+          </div>
+
+          <!-- Apple Intelligence & Shortcuts Use Model -->
+          <div class="os-pane" style="border:1px solid #0ea5e9; margin-bottom:5px; background:#0f172a;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+              <strong style="color:#bae6fd;">Shortcuts &ldquo;Use Model&rdquo; <span class="callout-pin">2</span></strong>
+              <span style="background:#0284c7; color:#fff; padding:1px 6px; border-radius:4px; font-size:6.2pt; font-weight:700;">On-Device / PCC</span>
+            </div>
+            <div style="color:#e2e8f0; line-height:1.35;">
+              Receive Finder PDF &rarr; Extract Text &rarr; <strong>Use Model (On-Device ~3B)</strong> &rarr; Save renamed summary to <code>_inbox/</code>.
+            </div>
+          </div>
+        </div>
+
+        <!-- Homebrew + Alfred/Privacy Footer -->
+        <div class="os-pane" style="border:1px solid #334155; background:#0b1324; display:flex; justify-content:space-between; align-items:center;">
+          <span><strong>TCC &amp; Brewfile:</strong> FileVault ON &bull; <code>mlx_lm.server</code> <span class="callout-pin">3</span></span>
+          <span style="color:#38bdf8; font-weight:700; white-space:nowrap;">Zero Swap</span>
+        </div>
+      </div>
+
+      <!-- Right: Windows 11 Copilot+ Desktop -->
+      <div style="padding:8px 10px; display:flex; flex-direction:column; justify-content:space-between; background:#0d1021;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; font-size:6.6pt; color:#94a3b8;">
+            <strong style="color:#a5b4fc;">WINDOWS 11 COPILOT+ (24H2+)</strong>
+            <span>45+ TOPS NPU &bull; BitLocker</span>
+          </div>
+
+          <!-- PowerToys Command Palette -->
+          <div class="os-pane" style="border:1px solid #6366f1; margin-bottom:5px; background:#151836;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+              <strong style="color:#ffffff;">Command Palette &nbsp;<code>Win + Alt + Space</code> <span class="callout-pin">4</span></strong>
+              <span style="color:#a5b4fc; font-size:6.3pt;">Alt+1..9 Quick Shelf</span>
+            </div>
+            <div style="color:#e0e7ff; line-height:1.36;">
+              &gt; <code>$ display</code> &bull; <code>&gt; wsl -d Ubuntu</code> &bull; <code>= 24 * 1024</code><br/>
+              &gt; Map hardware <strong>Copilot Key</strong> directly to CmdPal or Raycast v2.0
+            </div>
+          </div>
+
+          <!-- Advanced Paste + Click to Do -->
+          <div class="os-pane" style="border:1px solid #818cf8; margin-bottom:5px; background:#141a33;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+              <strong style="color:#c7d2fe;">Advanced Paste &nbsp;<code>Win + Shift + V</code> <span class="callout-pin">5</span></strong>
+              <span style="background:#4f46e5; color:#fff; padding:1px 6px; border-radius:4px; font-size:6.2pt; font-weight:700;">Paste with AI</span>
+            </div>
+            <div style="color:#e2e8f0; line-height:1.35;">
+              1. Plain Text &bull; 2. Markdown &bull; 3. JSON &bull; 4. Image OCR &bull; 5. <strong>Foundry Local</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click to Do + Recall Exclusion Status -->
+        <div class="os-pane" style="border:1px solid #4338ca; background:#11152c; display:flex; justify-content:space-between; align-items:center;">
+          <span><strong>Click to Do</strong> (<code>Win + Q</code>) &bull; <strong>Recall</strong> Opt-In <span class="callout-pin">6</span></span>
+          <span style="color:#34d399; font-weight:700; white-space:nowrap;">Hello ESS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Unified Endpoint Bridge Bar -->
+    <div style="background:#0f172a; border-top:1px solid #1e3a8a; padding:5px 10px; display:flex; justify-content:space-between; align-items:center; font-size:6.7pt; color:#cbd5e1;">
+      <span><strong>Loopback Standard <span class="callout-pin">7</span>:</strong> OpenAI API <code>127.0.0.1:8080/v1</code> (<code>mlx_lm.server</code> &harr; <code>Foundry / WSL2 CUDA</code>)</span>
+      <span style="color:#38bdf8; font-weight:700; white-space:nowrap;">brew bundle &harr; winget</span>
+    </div>
+  </div>
+
+  <!-- 7-Point Legend -->
+  <div class="grid-2" style="gap:5.5px 12px; font-size:7.8pt;">
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">1</span> <strong>Raycast Launcher (Mac &amp; Win v2.0):</strong> Unified <code>Opt+Space</code> command bar running multi-model Quick AI, Quicklinks, and React/TS Extensions on both platforms.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">2</span> <strong>Shortcuts &ldquo;Use Model&rdquo; Action:</strong> Native macOS Sequoia/Tahoe automation step routing text through On-Device Apple models, PCC, or opt-in ChatGPT.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">3</span> <strong>TCC &amp; Homebrew Provisioning:</strong> Declarative <code>Brewfile</code> app bundles paired with strict macOS Privacy &amp; Security permissions and local MLX acceleration.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">4</span> <strong>PowerToys Command Palette:</strong> Fast keyboard launcher (<code>Win+Alt+Space</code>) with <code>$</code> settings jumps, WSL commands, and <code>Alt+1..9</code> pinned shelf slots.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">5</span> <strong>Advanced Paste (<code>Win+Shift+V</code>):</strong> Converts clipboard data to Plain Text, Markdown, JSON, local image OCR, or AI transforms via Foundry Local / Phi Silica.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">6</span> <strong>Click to Do &amp; Recall Guardrails:</strong> Press <code>Win+Q</code> for instant on-screen NPU actions while keeping opt-in Recall protected behind BitLocker, ESS, and exclusions.
+    </div>
+  </div>
+  <div class="card-sky" style="padding:5.5px 10px; margin-top:5.5px; font-size:7.8pt;">
+    <span class="callout-pin">7</span> <strong>Shared Loopback Endpoint Standard:</strong> Expose <code>mlx_lm.server</code> on macOS or Foundry Local / Ollama on Windows behind <code>127.0.0.1</code> so scripts, editor plugins, and Raycast AI work identically on every desk.
+  </div>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: MACOS POWER STACK ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; macOS AI Power Stack</span>
+    <span>Apple Intelligence, PCC, Shortcuts Use Model, Raycast &amp; Alfred/Homebrew</span>
+  </div>
+
+  <h2 class="page-title">macOS Power Stack: Apple Intelligence, Shortcuts &amp; Raycast</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    On Apple Silicon, native privacy meets effortless keyboard velocity. Combine system-wide Writing Tools and deterministic Shortcuts automations with Raycast Quicklinks, Alfred offline scripts, and reproducible Homebrew environments.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_2.jpg" style="width:100%; height:240px; object-fit:cover; object-position:center; display:block;" alt="Dual translucent command-palette prisms dispatching luminous sky-blue and cobalt workflow streams into synchronized folders and terminal blocks" />
+    <div class="figure-caption">
+      <strong>Keyboard-First Orchestration:</strong> Clean macOS launchers turn fleeting clipboard selections, Finder files, and shell outputs into deterministic Shortcuts or multi-model Raycast extensions without touching a browser tab.
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Four Pillars of a Modern macOS AI Setup</h3>
+  <div class="grid-2" style="gap:8px; margin-bottom:6px;">
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> On-Device Models vs. PCC Escalation</div>
+      <p style="font-size:7.75pt; margin:0;">
+        Apple&rsquo;s ~3B on-device foundation model handles instant Writing Tools rewrites and summaries locally. Larger reasoning steps escalate automatically to <strong>Private Cloud Compute (PCC)</strong> nodes running Apple Silicon with cryptographic attestation and zero persistent storage.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge sky">2</span> Shortcuts &ldquo;Use Model&rdquo; Pipelines</div>
+      <p style="font-size:7.75pt; margin:0;">
+        In macOS Sequoia/Tahoe Shortcuts, pair deterministic triggers (Finder Quick Actions, folder watches, or <code>shortcuts run</code>) with the built-in <strong>Use Model</strong> block&mdash;explicitly choosing On-Device, Private Cloud Compute, or ChatGPT with zero API key overhead.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge indigo">3</span> Raycast AI, Quicklinks &amp; Extensions</div>
+      <p style="font-size:7.75pt; margin:0;">
+        Use Raycast (<code>Opt+Space</code>) when you want model choice (Claude, GPT, Gemini, or local Ollama/MLX), dynamic <strong>AI Quicklinks</strong> with <code>{selection}</code> or <code>{clipboard}</code> tokens, and <code>@tool</code> mentions across GitHub, Linear, and your active browser tab.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge teal">4</span> Alfred Powerpack &amp; Homebrew <code>Brewfile</code></div>
+      <p style="font-size:7.75pt; margin:0;">
+        Prefer zero-account local speed? <strong>Alfred</strong> remains unmatched for instant offline file filters and custom shell Script Filters. Anchor your CLI tools, casks, and fonts in a versioned <code>Brewfile</code> synced via <code>brew bundle</code>.
+      </p>
+    </div>
+  </div>
+
+  <pre class="code-block"><code># ~/.Brewfile — Declarative macOS AI power-user setup (apply with: brew bundle --global)
+cask "raycast"             # Global launcher, AI Quicklinks, Extensions &amp; Clipboard History
+cask "orbstack"            # Lightweight Linux containers on Apple Silicon
+brew "mlx"                 # Apple Silicon array runtime; install LLM tools via: pip3 install mlx-lm
+
+# Trigger a saved Apple Intelligence Shortcuts workflow directly from zsh or Raycast Script Command:
+pbpaste | shortcuts run "Clean Clipboard to Markdown" | pbcopy</code></pre>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:6.5px 11px; font-size:8.0pt;">
+    <div class="callout-title">Pro Tip: Keep Triggers Deterministic, Let the Model Handle Only Ambiguity</div>
+    Do not ask an AI agent to rename files or move folders blindly. Let macOS Shortcuts or zsh gather exact file metadata first, pass only extracted text into <strong>Use Model</strong> (On-Device), and validate output format before writing changes back to disk.
+  </div>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: CROSS-OS HOTKEY PARITY & 5-PART FORMULA ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Cross-OS Command Engineering</span>
+    <span>Hotkey Parity, Clipboard Pipelines &amp; 5-Part Execution Anatomy</span>
+  </div>
+
+  <h2 class="page-title">Cross-OS Hotkey Parity &amp; the 5-Part Workflow Formula</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Switching between a MacBook Pro and a Windows 11 Copilot+ desk feels effortless when your muscle memory stays identical. Standardize four core shortcut pairs, then compose every desktop AI action from the same five-part blueprint.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card-sky" style="padding:8px 10.5px;">
+      <div class="card-title" style="font-size:8.9pt; color:#0c4a6e;">macOS Muscle-Memory Map</div>
+      <ul style="font-size:7.75pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Command Launcher:</strong> <code>Opt + Space</code> (Raycast) or <code>Cmd + Space</code> (Spotlight)</li>
+        <li><strong>Clipboard &amp; Paste AI:</strong> <code>Cmd + Shift + V</code> (Raycast Clipboard / Paste Plain)</li>
+        <li><strong>Screen Region AI / OCR:</strong> <code>Cmd + Shift + 5</code> &rarr; Shortcut / Raycast OCR</li>
+        <li><strong>Package Provisioning:</strong> <code>brew install</code> &amp; <code>brew bundle dump</code></li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10.5px; border-top:3px solid #4f46e5;">
+      <div class="card-title" style="font-size:8.9pt; color:#312e81;">Windows 11 Copilot+ Mirror Map</div>
+      <ul style="font-size:7.75pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Command Launcher:</strong> <code>Win + Alt + Space</code> (Command Palette) or Raycast v2.0</li>
+        <li><strong>Clipboard &amp; Paste AI:</strong> <code>Win + Shift + V</code> (PowerToys Advanced Paste)</li>
+        <li><strong>Screen Region AI / OCR:</strong> <code>Win + Q</code> / <code>Win + Click</code> (Click to Do overlay)</li>
+        <li><strong>Package Provisioning:</strong> <code>winget import -i winget.json</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0;">The 5-Part Cross-OS Desktop AI Workflow Formula</h3>
+  <div class="card" style="padding:8px 11px; margin-bottom:6px; background:#ffffff; border:1.5px solid #7dd3fc;">
+    <div style="font-size:8.1pt; line-height:1.82;">
+      <span class="p-tag p-trigger">[1. Hotkey Trigger]</span> Instant muscle-memory chord (<code>Opt+Space</code> / <code>Win+Shift+V</code>)
+      <span class="p-tag p-context">[2. Local Context]</span> pulls selected text, clipboard, or screen OCR,
+      <span class="p-tag p-runtime">[3. Silicon Runtime]</span> routes to MLX / PCC on Mac or NPU / Foundry on Win,
+      <span class="p-tag p-action">[4. Structured Transform]</span> outputs clean JSON, Markdown, or diff summary,
+      <span class="p-tag p-guard">[5. Privacy &amp; Approval Gate]</span> after checking app exclusions and human review before paste.
+    </div>
+  </div>
+
+  <table class="clean-table" style="font-size:7.55pt; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Workflow Element</th>
+        <th style="width:39%;">What It Controls</th>
+        <th style="width:38%;">What Fails When Skipped</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="p-tag p-trigger">1. Hotkey Trigger</span></td>
+        <td>Binds one memorable chord (launcher or paste menu) to fire without touching the mouse.</td>
+        <td>Opening a browser chat tab breaks deep focus and slows quick tasks by 5x.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-context">2. Local Context</span></td>
+        <td>Grabs exact clipboard text, active file path, or Click to Do screen selection automatically.</td>
+        <td>You waste time manually copying paragraphs or re-explaining which file you mean.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-runtime">3. Silicon Runtime</span></td>
+        <td>Matches task size to local NPU/MLX for speed and privacy, or frontier cloud for deep logic.</td>
+        <td>Sensitive logs leak to external APIs or tiny NPUs choke on 64K-token codebases.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-action">4. Structured Transform</span></td>
+        <td>Forces strict output shape (JSON schema, table, Conventional Commit, or bullet checklist).</td>
+        <td>Chatty prose spills into your terminal or Slack channel, forcing manual cleanup.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-guard">5. Privacy Gate</span></td>
+        <td>Enforces password-manager exclusions, PII scrubbing, and clipboard preview before pasting.</td>
+        <td>Secrets, API keys, or confidential client details accidentally enter history or logs.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code>// Portable Raycast AI Command &amp; PowerToys Advanced Paste Prompt (Identical Across Mac &amp; Windows)
+SYSTEM: Convert the clipboard snippet into valid JSON with keys: "summary" (1 sentence), "risks" (array), "next_action".
+RULES: Strip emails, bearer tokens, and internal IP addresses as [REDACTED]. Output raw JSON only, no Markdown fences.</code></pre>
+
+  <div class="callout" style="margin:4px 0 0 0; padding:7.5px 11px; font-size:8.0pt;">
+    <div class="callout-title">Parity Tip: Keep Outputs Machine-Readable by Default</div>
+    Asking both Raycast Quick AI and PowerToys Advanced Paste for strict JSON or Markdown bullet lists prevents chatty preambles, letting you paste straight into terminal pipes, Git commit messages, Linear tickets, or Obsidian notes without manual trimming.
+  </div>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: WINDOWS 11 COPILOT+ & POWERTOYS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Windows Copilot+ Stack</span>
+    <span>Click to Do, PowerToys, Recall &amp; Winget</span>
+  </div>
+
+  <h2 class="page-title">Windows Copilot+: Click to Do, PowerToys &amp; Recall</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Windows 11 Copilot+ PCs combine 40+ TOPS NPUs with Microsoft&rsquo;s sharpest utility kit yet&mdash;pairing Click to Do visual screen intelligence with PowerToys Command Palette, Advanced Paste AI, Raycast for Windows v2.0, and opt-in Recall.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:7px; gap:9px;">
+    <div class="card" style="border-top:3px solid #4f46e5; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge indigo">1</span> Click to Do (<code>Win + Q</code>)</div>
+      <p style="font-size:7.65pt; margin:0;">
+        Press <code>Win + Q</code> or <code>Win + Click</code> to freeze an interactive overlay over your screen. Select any visible paragraph or image to summarize, rewrite, extract tables, blur backgrounds, or launch directly into apps using local NPU models.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #0284c7; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">2</span> Command Palette (CmdPal)</div>
+      <p style="font-size:7.65pt; margin:0;">
+        Press <code>Win + Alt + Space</code> (or remap the Copilot key) to summon PowerToys Command Palette. Search apps, run <code>$</code> system settings jumps, execute shell commands, calculate math, and pin top actions to an <code>Alt+1..9</code> quick shelf.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #0d9488; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge teal">3</span> Advanced Paste AI</div>
+      <p style="font-size:7.65pt; margin:0;">
+        Press <code>Win + Shift + V</code> to transform clipboard text into Plain Text, Markdown, JSON, audio/video transcodes, or local image OCR. Enable <strong>Paste with AI</strong> backed by <strong>Foundry Local</strong>, Ollama, or Phi Silica for 100% offline reformatting.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0;">Windows 11 AI Power-Tool Matrix</h3>
+  <table class="clean-table" style="font-size:7.55pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Windows Utility</th>
+        <th style="width:18%;">Trigger / Hotkey</th>
+        <th style="width:20%;">Compute Engine</th>
+        <th style="width:40%;">Power-User Workflow Sweet Spot</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Click to Do</strong><br/><em>Copilot+ Exclusive</em></td>
+        <td><code>Win + Q</code> or <code>Win + Click</code></td>
+        <td>On-device 40+ TOPS NPU (Phi Silica / Vision)</td>
+        <td>Grab unselectable text from Zoom screen-shares, screenshots, or PDFs and summarize instantly.</td>
+      </tr>
+      <tr>
+        <td><strong>Windows Recall</strong><br/><em>Strictly Opt-In</em></td>
+        <td>Tray Icon / Recall Search</td>
+        <td>NPU Semantic Index + VBS Encrypted Store</td>
+        <td>Locate a design mockup, terminal error, or web page you glanced at three days ago (with strict exclusions).</td>
+      </tr>
+      <tr>
+        <td><strong>PowerToys Command Palette</strong></td>
+        <td><code>Win + Alt + Space</code> or Copilot Key</td>
+        <td>Native WinUI 3 + Extensible Plugins</td>
+        <td>Launch apps, switch Windows settings via <code>$</code>, jump into WSL distros, and trigger custom scripts fast.</td>
+      </tr>
+      <tr>
+        <td><strong>PowerToys Advanced Paste</strong></td>
+        <td><code>Win + Shift + V</code></td>
+        <td>Local OCR + Foundry Local / Ollama / Cloud</td>
+        <td>Turn messy HTML tables into clean Markdown or extract text from snipped error dialogs before pasting.</td>
+      </tr>
+      <tr>
+        <td><strong>Raycast for Windows v2.0</strong></td>
+        <td><code>Alt + Space</code> (customizable)</td>
+        <td>Multi-Model Cloud + Local OpenAI Endpoints</td>
+        <td>Share identical Quicklinks, Dictate to AI, and React/TS Extensions directly with your macOS setup.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># PowerShell Workstation Bootstrap: install PowerToys, Foundry Local, Raycast v2.0 &amp; WSL2 Ubuntu
+winget install --id Microsoft.PowerToys -e
+winget install --id Microsoft.FoundryLocal -e
+winget install --id 9PFXXSHC64H3 -e
+wsl --install -d Ubuntu-24.04</code></pre>
+
+  <div class="callout indigo" style="margin:2px 0 0 0; padding:6.5px 11px; font-size:8.0pt;">
+    <div class="callout-title">Copilot+ Best Practice: Remap the Hardware Copilot Key to Command Palette or Raycast</div>
+    If you rarely open the web-style Copilot sidebar, open <code>Settings &rarr; Personalization &rarr; Text input</code> (or PowerToys Keyboard Manager) and bind your dedicated Copilot key straight to Command Palette or Raycast for Windows&mdash;turning a static key into a true command hub.
+  </div>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: LOCAL ACCELERATION: MLX VS DIRECTML, ONNX & WSL2 ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Local AI Acceleration</span>
+    <span>Apple MLX/Metal vs. DirectML, ONNX NPU &amp; WSL2</span>
+  </div>
+
+  <h2 class="page-title">Local AI Acceleration: MLX, DirectML, ONNX &amp; WSL2</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Running private models fast requires speaking your hardware&rsquo;s native dialect. On Mac, Apple&rsquo;s <code>mlx</code> framework compiles straight onto Metal and unified memory; on Windows, execution providers split across NPUs, DirectML GPUs, Foundry Local, and WSL2 Linux CUDA.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_1.jpg" style="width:100%; height:240px; object-fit:cover; object-position:center; display:block;" alt="Architectural visualization contrasting a monolithic sky-blue unified memory pool feeding a single crystal die on the left with dual separated memory reservoirs and bus lanes feeding a modular three-chip cluster on the right" />
+    <div class="figure-caption">
+      <strong>Memory Topology Dictates Speed:</strong> Apple Silicon avoids CPU-to-GPU copies via one unified memory pool (left), while Windows routes specialized sub-graphs across modular NPU, GPU, and discrete VRAM lanes (right).
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0;">Local Acceleration Runtimes &amp; Execution Providers</h3>
+  <table class="clean-table" style="font-size:7.5pt; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Runtime / Provider</th>
+        <th style="width:17%;">Target Silicon</th>
+        <th style="width:21%;">Key Strength</th>
+        <th style="width:39%;">When Power Users Choose It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Apple MLX (<code>mlx-lm</code>)</strong></td>
+        <td>Apple Silicon M1&ndash;M5+ (Metal + ANE)</td>
+        <td>Zero-copy unified memory &amp; native 4-bit quants</td>
+        <td>Running 7B&ndash;70B+ local LLMs, LoRA fine-tuning, and OpenAI-compatible <code>mlx_lm.server</code> on macOS.</td>
+      </tr>
+      <tr>
+        <td><strong>Windows ML / ORT (QNN &amp; OpenVINO)</strong></td>
+        <td>Qualcomm, Intel &amp; AMD NPUs (40&ndash;80 TOPS)</td>
+        <td>Ultra-low battery draw for continuous background AI</td>
+        <td>Always-on voice, live captions, local embeddings, and Phi Silica desktop apps unplugged from power.</td>
+      </tr>
+      <tr>
+        <td><strong>ONNX DirectML / TensorRT for RTX EP</strong></td>
+        <td>Any DirectX 12 GPU or NVIDIA RTX</td>
+        <td>Broad vendor GPU reach; TensorRT unlocks Tensor Cores</td>
+        <td>Cross-vendor Windows desktop apps (DirectML) or max-speed local inference on GeForce RTX cards.</td>
+      </tr>
+      <tr>
+        <td><strong>Microsoft Foundry Local</strong></td>
+        <td>Windows CPU, GPU &amp; Copilot+ NPU</td>
+        <td>One-command model catalog &amp; PowerToys integration</td>
+        <td>Pulling quantized Phi-4 Mini or Qwen ONNX models offline for Advanced Paste AI and local scripts.</td>
+      </tr>
+      <tr>
+        <td><strong>WSL2 GPU Passthrough</strong></td>
+        <td>Windows + NVIDIA CUDA (or AMD ROCm)</td>
+        <td>Near-native Linux kernel PyTorch &amp; vLLM speed</td>
+        <td>Running Linux-first ML stacks (PyTorch, vLLM, ComfyUI, Docker GPU containers) on a Windows host.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># macOS (Apple Silicon): Launch an OpenAI-compatible Metal server on :8080 with 4-bit MLX weights
+mlx_lm.server --model mlx-community/Qwen2.5-Coder-14B-Instruct-4bit --port 8080
+
+# Windows 11: Run Foundry Local on NPU/GPU, or verify near-native CUDA inside WSL2 Ubuntu (host driver only)
+foundry model run phi-4-mini
+wsl -d Ubuntu-24.04 -- python3 -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))"</code></pre>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Dual-OS Recipes</span>
+    <span>Clipboard Scrubbing, Local RAG, Screen OCR, Git Diffs &amp; Voice Specs</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Cross-OS AI Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Wire these five high-leverage recipes into Raycast AI Commands, macOS Shortcuts, PowerToys Advanced Paste, Click to Do, or Foundry Local so you execute identical daily cleanups and developer checks on both operating systems.
+  </p>
+
+  <table class="clean-table" style="font-size:7.5pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Recipe &amp; Goal</th>
+        <th style="width:40%;">macOS Execution (Shortcuts / Raycast / MLX)</th>
+        <th style="width:41%;">Windows 11 Execution (PowerToys / Click to Do / Foundry)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Clipboard PII Scrub &rarr; JSON</strong><br/><em>Safe log sharing</em></td>
+        <td>Save Raycast AI Command bound to <code>Cmd+Opt+J</code> targeting local <code>mlx_lm.server</code>; mask tokens/emails and copy valid JSON.</td>
+        <td>Open Advanced Paste (<code>Win+Shift+V</code>) &rarr; <strong>Paste with AI</strong> (backed by Foundry Local) with strict JSON redaction rule.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Screen Region OCR &rarr; Action List</strong><br/><em>Grab slide tables</em></td>
+        <td>Trigger Raycast Screen Capture OCR or Shortcuts <em>Extract Text from Image</em> &rarr; <strong>Use Model (On-Device)</strong> &rarr; Markdown checklist.</td>
+        <td>Press <code>Win+Q</code> (Click to Do) over any video frame or dialog &rarr; copy OCR text &rarr; <code>Win+Shift+V</code> Paste as Markdown.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Offline PDF Digest &amp; Tag</strong><br/><em>Zero cloud leak</em></td>
+        <td>Finder Quick Action &rarr; Shortcuts <em>Get Text from PDF</em> &rarr; <strong>Use Model (On-Device)</strong> &rarr; save summary &amp; 3 tags to Obsidian.</td>
+        <td>Pipe extracted PDF text via PowerShell to <code>foundry model run phi-4-mini</code> locally on NPU/GPU and emit YAML frontmatter.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Git Diff &rarr; Risk &amp; Commit Check</strong><br/><em>Pre-PR sanity</em></td>
+        <td>Run <code>git diff --staged | pbcopy</code> then fire Raycast Quick AI on local 14B MLX coder model for a 3-bullet regression scan.</td>
+        <td>In WSL2 Ubuntu or PowerShell: pipe <code>git diff --staged | clip.exe</code>, then run <code>Win+Shift+V</code> AI prompt or local Ollama/Foundry script.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Voice Braindump &rarr; Clean Spec</strong><br/><em>Hands-free capture</em></td>
+        <td>Raycast Dictation or macOS Voice Memos transcript &rarr; Apple Intelligence Writing Tools <em>Key Points</em> or Custom Prompt.</td>
+        <td><code>Win+H</code> Windows Voice Typing or Raycast v2.0 <em>Dictate to AI</em> &rarr; format structured user story + acceptance bullets.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># Portable Python Client: works identically against macOS mlx_lm.server (:8080) or Windows Foundry/Ollama
+import os, sys, urllib.request, json
+
+base = os.getenv("LOCAL_AI_URL", "http://127.0.0.1:8080/v1")
+payload = {
+    "model": os.getenv("LOCAL_AI_MODEL", "mlx-community/Qwen2.5-Coder-14B-Instruct-4bit"),
+    "messages": [
+        {"role": "system", "content": "Extract 3 concise action items with owners from the input."},
+        {"role": "user", "content": sys.stdin.read()},
+    ],
+    "temperature": 0.1,
+}
+req = urllib.request.Request(f"{base}/chat/completions", data=json.dumps(payload).encode(),
+                             headers={"Content-Type": "application/json"})
+print(json.loads(urllib.request.urlopen(req).read())["choices"][0]["message"]["content"])</code></pre>
+
+  <div class="grid-2" style="gap:10px; margin-top:4px;">
+    <div class="callout" style="margin:0; padding:7.5px 11px; font-size:7.95pt;">
+      <div class="callout-title">Standardize One Env Var Across Both OSes</div>
+      Export <code>LOCAL_AI_URL</code> and <code>LOCAL_AI_MODEL</code> in both <code>~/.zshrc</code> and your PowerShell <code>$PROFILE</code>. Every helper script in your dotfiles then works transparently whether powered by Metal MLX or Windows Foundry/WSL2.
+    </div>
+    <div class="callout amber" style="margin:0; padding:7.5px 11px; font-size:7.95pt;">
+      <div class="callout-title">Never Store Cloud API Keys Inside Synced Quicklinks</div>
+      If you sync Raycast Quicklinks or PowerToys scripts across machines via Git or cloud drive, read cloud credentials exclusively from macOS Keychain, Windows Credential Manager, or an untracked <code>.env</code> file.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: PRIVACY, RECALL BOUNDARIES & ENTERPRISE POLICY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Privacy &amp; Governance</span>
+    <span>Private Cloud Compute, Recall &amp; Admin Policy</span>
+  </div>
+
+  <h2 class="page-title">Privacy Guardrails: PCC, Recall Encryption &amp; Admin Policy</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    System-wide assistants touch your screen, clipboard, and local files&mdash;making encryption locks, exclusion lists, and enterprise MDM policies essential before enabling continuous OS intelligence on work machines.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10.5px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:8.9pt; color:#0c4a6e;"><span class="num-badge">1</span> Apple Intelligence &amp; Private Cloud Compute</div>
+      <ul style="font-size:7.75pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>On-Device Priority:</strong> Simple summarization and notification triage stay inside Apple Silicon RAM with zero network calls.</li>
+        <li><strong>Verifiable PCC Offload:</strong> Heavy requests route to hardened Apple Silicon cloud nodes running signed, publicly inspectable images with ephemeral memory and zero Apple access.</li>
+        <li><strong>External Extension Gate:</strong> ChatGPT or third-party integrations prompt explicitly per request unless pre-approved, and admins can lock them down via MDM.</li>
+        <li><strong>Self-Audit Report:</strong> Inspect <code>System Settings &rarr; Privacy &amp; Security &rarr; Apple Intelligence Report</code> to export exact request telemetry.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10.5px; border-top:3px solid #4f46e5;">
+      <div class="card-title" style="font-size:8.9pt; color:#312e81;"><span class="num-badge indigo">2</span> Windows Recall Security &amp; Exclusion Vault</div>
+      <ul style="font-size:7.75pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Strict Opt-In Only:</strong> Recall ships disabled until explicitly opted in during setup or Windows Settings&mdash;never silent capture by default.</li>
+        <li><strong>BitLocker + Hello ESS Lock:</strong> Snapshots live inside a Virtualization-based Security (VBS) enclave requiring <strong>BitLocker</strong> and biometric <strong>Windows Hello ESS</strong> liveness before viewing.</li>
+        <li><strong>App &amp; Site Exclusions:</strong> Block password managers, HR portals, banking tabs, and Edge/Chrome InPrivate sessions; click the tray icon anytime to Pause or Wipe snapshots.</li>
+        <li><strong>Zero Cloud Upload:</strong> Recall snapshots stay strictly on your encrypted local SSD unless you manually share an item.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 4px 0;">Cross-OS Security, Encryption &amp; Admin Governance Matrix</h3>
+  <table class="clean-table" style="font-size:7.5pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Security Layer</th>
+        <th style="width:39%;">macOS / Enterprise MDM Control</th>
+        <th style="width:40%;">Windows 11 / Intune &amp; Group Policy Control</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Disk &amp; Enclave Encryption</strong></td>
+        <td>FileVault full-disk encryption + Apple Secure Enclave biometric Touch ID / Watch unlock.</td>
+        <td>BitLocker / Device Encryption + TPM 2.0 + Windows Hello Enhanced Sign-in Security (ESS) VBS enclave.</td>
+      </tr>
+      <tr>
+        <td><strong>Screen Capture Consent</strong></td>
+        <td>Explicit TCC <code>Screen &amp; System Audio Recording</code> prompt per app; no silent system-wide capture.</td>
+        <td>Recall tray indicator always visible when active; <code>AllowRecallEnablement</code> CSP disables or removes feature.</td>
+      </tr>
+      <tr>
+        <td><strong>Snapshot / Log Blocking</strong></td>
+        <td>Per-app TCC toggles + disable Apple Intelligence Writing Tools / External Extensions in MDM profile.</td>
+        <td>Intune OMA-URI <code>./Device/Vendor/MSFT/Policy/Config/WindowsAI/DisableAIDataAnalysis</code> stops all snapshots.</td>
+      </tr>
+      <tr>
+        <td><strong>Sensitive App Filtering</strong></td>
+        <td>Add password managers and SSH terminals to Raycast <em>Ignore Applications</em> &amp; Clipboard exclusions.</td>
+        <td>Add 1Password, KeePass, VDI clients, and banking URLs to Recall exclusions + enable sensitive info filter.</td>
+      </tr>
+      <tr>
+        <td><strong>Air-Gapped Local Mode</strong></td>
+        <td>Run <code>mlx_lm.server</code> bound strictly to <code>127.0.0.1</code> with outbound firewall block if needed.</td>
+        <td>Run Foundry Local or Ollama offline; verify Windows Firewall blocks local loopback ports externally.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># Quick Encryption &amp; Policy Audit (Run on every client laptop before enabling OS AI features)
+# macOS:                                           # Windows 11 PowerShell (Admin):
+fdesetup status                                    manage-bde -status C:
+spctl --status                                     Get-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsAI" -ErrorAction SilentlyContinue</code></pre>
+
+  <div class="callout rose" style="margin:2px 0 0 0; padding:6.5px 11px; font-size:7.95pt;">
+    <div class="callout-title">Consultant &amp; Regulated Work Watchout: Protect Clipboard History &amp; Screen Memory</div>
+    Clipboard managers (Raycast, Alfred, PowerToys Advanced Paste) and Recall can accidentally cache copied production credentials or patient/financial records. Configure automatic clipboard exclusion for password managers on both OSes, and verify Recall is paused or disabled by policy on client VDI machines.
+  </div>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Architecture</span>
+    <span>Unifying Mac, Windows, WSL2, Dotfiles &amp; Local AI Endpoints</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: One Brain Across Both Operating Systems</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Whether you carry an Apple Silicon laptop on the road and sit down at a Windows 11 RTX/Copilot+ tower at home, unifying hotkeys, Git-managed dotfiles, and standard <code>localhost</code> AI endpoints turns two distinct machines into one seamless workspace.
+  </p>
+
+  <div class="figure-box" style="background:#090d16; padding:10px 12px; border-color:#1e3a8a; margin-bottom:9px;">
+    <svg viewBox="0 0 700 202" width="100%" height="202" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Mirrored Triggers -->
+      <rect x="8" y="18" width="146" height="166" rx="9" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="81" y="36" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">STAGE 1 &bull; INPUTS</text>
+      <text x="81" y="51" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Mirrored Hotkeys</text>
+      <rect x="17" y="61" width="128" height="52" rx="5" fill="#172554" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="81" y="76" text-anchor="middle" fill="#e0f2fe" font-size="7.3" font-weight="700">macOS Triggers</text>
+      <text x="81" y="88" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Opt+Space (Raycast)</text>
+      <text x="81" y="100" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Cmd+Shift+V &amp; Shortcuts</text>
+      <rect x="17" y="121" width="128" height="52" rx="5" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="81" y="136" text-anchor="middle" fill="#e0e7ff" font-size="7.3" font-weight="700">Windows Triggers</text>
+      <text x="81" y="148" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Win+Alt+Space (CmdPal)</text>
+      <text x="81" y="160" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Win+Shift+V &amp; Win+Q</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M154 101 L178 101" stroke="#38bdf8" stroke-width="2"/><polygon points="176,96 184,101 176,106" fill="#38bdf8"/>
+
+      <!-- Stage 2: Privacy & Context Guard -->
+      <rect x="185" y="14" width="152" height="174" rx="10" fill="#111c36" stroke="#38bdf8" stroke-width="1.8"/>
+      <text x="261" y="32" text-anchor="middle" fill="#bae6fd" font-size="7.4" font-weight="700">STAGE 2 &bull; GUARDRAIL</text>
+      <text x="261" y="48" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">Context &amp; Privacy</text>
+      <rect x="195" y="58" width="132" height="36" rx="5" fill="#090d16" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="261" y="72" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">App &amp; Site Exclusions</text>
+      <text x="261" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.6">Password Vaults &amp; InPrivate</text>
+      <rect x="195" y="100" width="132" height="38" rx="5" fill="#090d16" stroke="#818cf8" stroke-width="0.9"/>
+      <text x="261" y="114" text-anchor="middle" fill="#c7d2fe" font-size="7.2" font-weight="700">BitLocker / FileVault</text>
+      <text x="261" y="126" text-anchor="middle" fill="#cbd5e1" font-size="6.6">Hello ESS &amp; Touch ID Enclaves</text>
+      <rect x="195" y="144" width="132" height="34" rx="5" fill="#090d16" stroke="#fb7185" stroke-width="0.9"/>
+      <text x="261" y="158" text-anchor="middle" fill="#fecdd3" font-size="7.2" font-weight="700">PII Scrubbing Prompt</text>
+      <text x="261" y="170" text-anchor="middle" fill="#cbd5e1" font-size="6.6">Mask keys before external route</text>
+
+      <!-- Branching Arrows 2 -> 3 -->
+      <path d="M337 72 L368 60" stroke="#38bdf8" stroke-width="2"/><polygon points="365,56 374,58 368,65" fill="#38bdf8"/>
+      <path d="M337 132 L368 144" stroke="#818cf8" stroke-width="2"/><polygon points="368,139 374,146 365,148" fill="#818cf8"/>
+
+      <!-- Stage 3A: Mac Compute -->
+      <rect x="375" y="16" width="158" height="82" rx="8" fill="#0f2942" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="454" y="33" text-anchor="middle" fill="#7dd3fc" font-size="7.3" font-weight="700">STAGE 3A &bull; MAC SILICON</text>
+      <text x="454" y="48" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="800">Metal, MLX &amp; PCC</text>
+      <text x="454" y="63" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Shortcuts Use Model (3B/PCC)</text>
+      <text x="454" y="75" text-anchor="middle" fill="#cbd5e1" font-size="6.8">mlx_lm.server :8080 (Unified)</text>
+      <text x="454" y="88" text-anchor="middle" fill="#38bdf8" font-size="6.8" font-weight="700">Zero-Copy 120-1,224 GB/s</text>
+
+      <!-- Stage 3B: Windows Compute -->
+      <rect x="375" y="106" width="158" height="82" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="454" y="123" text-anchor="middle" fill="#c7d2fe" font-size="7.3" font-weight="700">STAGE 3B &bull; WINDOWS SILICON</text>
+      <text x="454" y="138" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="800">NPU, Foundry &amp; WSL2</text>
+      <text x="454" y="153" text-anchor="middle" fill="#cbd5e1" font-size="6.8">QNN / OpenVINO 45-80 TOPS</text>
+      <text x="454" y="165" text-anchor="middle" fill="#cbd5e1" font-size="6.8">DirectML / TensorRT / Foundry</text>
+      <text x="454" y="178" text-anchor="middle" fill="#a7f3d0" font-size="6.8" font-weight="700">WSL2 Ubuntu CUDA Passthrough</text>
+
+      <!-- Arrows 3 -> 4 -->
+      <path d="M533 58 L556 80" stroke="#38bdf8" stroke-width="2"/><polygon points="552,82 561,85 557,76" fill="#38bdf8"/>
+      <path d="M533 146 L556 124" stroke="#34d399" stroke-width="2"/><polygon points="557,128 561,119 552,122" fill="#34d399"/>
+
+      <!-- Stage 4: Unified Outputs -->
+      <rect x="562" y="24" width="130" height="156" rx="9" fill="#0b1f24" stroke="#2dd4bf" stroke-width="1.6"/>
+      <text x="627" y="42" text-anchor="middle" fill="#99f6e4" font-size="7.3" font-weight="700">STAGE 4 &bull; SYNCED</text>
+      <text x="627" y="58" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="800">Unified Output</text>
+      <rect x="572" y="68" width="110" height="32" rx="5" fill="#112e34" stroke="#14b8a6" stroke-width="0.9"/>
+      <text x="627" y="82" text-anchor="middle" fill="#ccfbf1" font-size="7.1" font-weight="700">Git Dotfiles Repo</text>
+      <text x="627" y="93" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Brewfile + winget.json</text>
+      <rect x="572" y="106" width="110" height="32" rx="5" fill="#112e34" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="627" y="120" text-anchor="middle" fill="#e0f2fe" font-size="7.1" font-weight="700">Raycast Cloud Sync</text>
+      <text x="627" y="131" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Quicklinks &amp; Extensions</text>
+      <rect x="572" y="144" width="110" height="28" rx="5" fill="#112e34" stroke="#818cf8" stroke-width="0.9"/>
+      <text x="627" y="158" text-anchor="middle" fill="#e0e7ff" font-size="7.1" font-weight="700">Obsidian &amp; Git PRs</text>
+    </svg>
+  </div>
+
+  <h3>Four Habits That Keep Dual-OS Power Users Fast</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:8px;">
+    <div class="card" style="padding:8px 10.5px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Unify Your Launcher via Raycast Cloud</div>
+      <p style="font-size:7.85pt; margin:0;">
+        With Raycast v2.0 available on both macOS and Windows 11, enable encrypted Cloud Sync so your custom Quicklinks, snippets, and AI Commands appear automatically on every machine you touch.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10.5px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge indigo">2</span> Keep OS-Native Superpowers Separate</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Don&rsquo;t force Mac patterns onto Windows or vice versa: embrace Shortcuts &ldquo;Use Model&rdquo; + Metal MLX on Mac, and pair PowerToys Advanced Paste + Click to Do + WSL2 CUDA on Windows.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10.5px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge teal">3</span> Standardize Localhost Ports &amp; CLI Wrappers</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Point editors, Obsidian plugins, and terminal helpers at an OpenAI-compatible <code>LOCAL_AI_URL</code> so switching from <code>mlx_lm.server</code> to Foundry Local or WSL2 vLLM requires zero code changes.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10.5px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge sky">4</span> Track Provisioning in One Git Repo</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Commit your <code>Brewfile</code>, <code>winget.json</code>, <code>.zshrc</code>, and PowerShell <code>$PROFILE</code> side by side so spinning up a fresh Mac or Copilot+ laptop takes one reproducible command.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.05pt;">
+    <div class="callout-title">Close the Cross-OS Loop: One Prompt Library, Any Silicon Backend</div>
+    Treat your prompt recipes, redaction rules, and dotfiles as portable infrastructure. Whether inference lands on an M5 Max unified memory pool, a 48 TOPS Intel NPU, or a WSL2 CUDA card, your workflows stay sharp and repeatable.
+  </div>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Pre-Flight</span>
+    <span>Top 7 Cross-OS Issues, 10-Second Fixes &amp; 6-Point Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Cross-OS Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Use this field clinic whenever local models swap-thrash on macOS, Recall refuses activation on Windows, hotkeys collide, or WSL2 PyTorch fails to detect your GPU&mdash;then lock in your setup with the 6-point pre-flight check.
+  </p>
+
+  <table class="clean-table" style="font-size:7.45pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:28%;">Symptom / Issue</th>
+        <th style="width:27%;">Root Cause</th>
+        <th style="width:45%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Mac local <code>mlx_lm</code> crawls or triggers heavy SSD swap</strong></td>
+        <td>Model weights + KV cache exceed ~75% of unified memory, starving macOS WindowServer.</td>
+        <td>Check Activity Monitor memory pressure, drop from 8-bit to 4-bit <code>mlx-community</code> weights, or cap context length.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Apple Intelligence or Shortcuts &ldquo;Use Model&rdquo; missing</strong></td>
+        <td>Older macOS release, unsupported Intel chip, or mismatched System vs. Siri language.</td>
+        <td>Confirm Apple Silicon (M1+), update to macOS Sequoia/Tahoe, align System &amp; Siri region/language, and verify MDM allows it.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Windows Recall toggle grayed out or blocked</strong></td>
+        <td>Missing 40+ TOPS NPU, BitLocker off, Hello ESS disabled, or Intune <code>DisableAIDataAnalysis</code>.</td>
+        <td>Verify Copilot+ 24H2+ PC, run <code>manage-bde -status</code> to enable BitLocker, enroll Windows Hello ESS biometrics, or check GPO.</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>Win + Shift + V</code> opens notifications instead of Advanced Paste</strong></td>
+        <td>Windows system shortcut conflict steals the notification-focus chord before PowerToys hooks it.</td>
+        <td>Open PowerToys Settings &rarr; Advanced Paste, verify activation hotkey or remap cleanly to <code>Ctrl + Alt + V</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. DirectML / ONNX model silently falls back to slow CPU</strong></td>
+        <td>Missing vendor Execution Provider (QNN/OpenVINO/TensorRT) or unsupported FP16 graph op.</td>
+        <td>Update NPU/GPU drivers via Windows Update, install the matching ORT EP package, or pull tested graphs via <code>foundry model</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. WSL2 PyTorch reports <code>cuda.is_available() == False</code></strong></td>
+        <td>Someone installed a Linux NVIDIA driver inside WSL2, overwriting Microsoft&rsquo;s <code>DXGKRNL</code> stub.</td>
+        <td>Remove Linux NVIDIA driver packages inside Ubuntu, run <code>wsl --update</code>, and install the latest Windows-host NVIDIA driver only.</td>
+      </tr>
+      <tr>
+        <td><strong>7. <code>Opt+Space</code> types non-breaking space or <code>Win+Alt+Space</code> hits Game Bar</strong></td>
+        <td>macOS Option-key character input or Windows Xbox Game Bar intercepts launcher chord.</td>
+        <td>Disable Spotlight shortcut on Mac (rebind Raycast to <code>Opt+Space</code>) and turn off conflicting Game Bar shortcuts on Windows.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:2px 0 4px 0;">6-Point Cross-OS AI Power-User Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Lock Encryption &amp; Biometrics:</strong> Confirm FileVault + Touch ID on Mac and BitLocker + Windows Hello ESS on Windows 11.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. Audit Screen &amp; App Exclusions:</strong> Add password vaults, banking URLs, and VDI apps to Raycast clipboard ignore &amp; Recall exclusions.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. Mirror Launcher &amp; Paste Chords:</strong> Align Raycast / Command Palette and Advanced Paste hotkeys so muscle memory holds across desks.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Size Models to Bandwidth:</strong> Fit 4-bit MLX inside 70% of Mac unified RAM; keep always-on Copilot+ screen ops on the 40+ TOPS NPU.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. Verify Local &amp; WSL2 Endpoints:</strong> Test <code>mlx_lm.server</code> on macOS and confirm <code>foundry</code> + WSL2 <code>torch.cuda.is_available()</code> on Windows.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. Back Up Declarative Manifests:</strong> Commit <code>Brewfile</code>, <code>winget.json</code>, Shortcuts, and Raycast Cloud exports (excluding API secrets).</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:6px 0 0 0; padding:6.5px 11px; font-size:7.95pt;">
+    <div class="callout-title">Final Takeaway: Master the Tradeoffs, Own Both Platforms</div>
+    Apple Silicon wins on quiet unified-memory capacity and verifiable Private Cloud Compute; Windows 11 Copilot+ wins on modular 40+ TOPS NPU features, Click to Do, PowerToys speed, and raw WSL2 CUDA versatility. With mirrored launchers and disciplined privacy locks, you get the best of both worlds.
+  </div>
+
+  <div class="page-footer"><span>Mac vs. Windows AI Power-User Playbook &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

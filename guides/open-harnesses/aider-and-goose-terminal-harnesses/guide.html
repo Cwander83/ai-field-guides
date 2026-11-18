@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes — Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">OPEN HARNESSES &bull; AIDER &amp; BLOCK GOOSE FIELD GUIDE</div>
+    <h1>Aider &amp; Block Goose: <span>Git Pair Coding &amp; Local MCP Recipes</span></h1>
+    <p class="cover-sub">
+      Master two flagship open-source terminal harnesses&mdash;pairing Aider&rsquo;s tree-sitter PageRank Repo Map, <code>/architect</code> dual-model splits, and atomic Git commits with Block Goose&rsquo;s native MCP extensions, Lead/Worker routing, and reusable YAML Recipes.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Tree-Sitter PageRank Map</span>
+      <span class="cover-badge">/architect + Editor Split</span>
+      <span class="cover-badge">Atomic Git &amp; /undo Safety</span>
+      <span class="cover-badge">Goose MCP Extensions</span>
+      <span class="cover-badge">Parameterized YAML Recipes</span>
+      <span class="cover-badge">Lead/Worker &amp; Smart Approve</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Nordic navy studio still-life showing a glowing arctic-teal branching crystal graph feeding modular code slabs and MCP tool cubes along luminous fiber rails" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Surgical Git Pair Coding</div>
+      <div class="cover-stat-desc">Aider builds a weighted symbol map across your repository, scopes editable files via <code>/add</code> and <code>/read-only</code>, auto-runs linters and tests, and logs clean commits you can revert with one <code>/undo</code>.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Open MCP Agent Recipes</div>
+      <div class="cover-stat-desc">Block Goose (now stewarded under Linux Foundation AAIF) unites CLI, Desktop, and built-in or custom MCP servers inside parameterized YAML Recipes with isolated <code>sub_recipes</code>.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Dual-Model Cost &amp; Guardrails</div>
+      <div class="cover-stat-desc">Pair frontier planners with local Ollama workers using <code>--editor-model</code> and <code>GOOSE_LEAD_MODEL</code>&mdash;guarded by <code>GOOSE_MODE</code>, <code>permission.yaml</code>, and ignore files.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Dual-Harness Mental Model</span>
+    <span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes</span>
+  </div>
+
+  <h2 class="page-title">Two Open-Source Terminal Harnesses, One Seamless Craft</h2>
+  <p class="page-lead">
+    Proprietary coding assistants lock you into one cloud model and one workflow style. By combining <strong>Aider</strong>&mdash;a precision Git-first pair programmer&mdash;with <strong>Block Goose</strong>&mdash;an extensible Model Context Protocol (MCP) task orchestrator&mdash;you gain total ownership over models, context windows, version control, and repeatable team automations.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Dual-Harness Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. YAML Recipes &amp; Lead/Worker Routing</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Install, Edit Formats &amp; Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Harness Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Split-Terminal Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Git Safety, Permissions &amp; Teams</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Repo Map, /add &amp; /architect Loops</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Watch Comments &amp; 5-Part Formula</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Goose CLI, Desktop &amp; MCP Extensions</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Scope Context, Commit Often</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>When Aider Leads vs. When Block Goose Leads</h3>
+  <p style="font-size:8.65pt;">
+    Think of <strong>Aider</strong> as your master surgical coder inside a Git working tree: it reads symbol relationships across hundreds of files via tree-sitter and PageRank, drafts tight diffs, verifies linters and unit tests, and writes clean commits. Think of <strong>Block Goose</strong> as your versatile automation orchestrator across apps and APIs: it speaks native MCP to shell tools, GitHub, databases, browsers, and desktop UI, executing multi-step YAML Recipes with strict tool-level approvals.
+  </p>
+
+  <h3>Architecture: Shared Project Rules Driving Two Specialized Loops</h3>
+  <div class="figure-box" style="background:#0b1320; padding:9px 12px; border-color:#1e3554;">
+    <svg viewBox="0 0 700 186" width="100%" height="186" xmlns="http://www.w3.org/2000/svg">
+      <!-- Column 1: Shared Rules & Context -->
+      <rect x="8" y="12" width="194" height="162" rx="9" fill="#111d30" stroke="#2dd4bf" stroke-width="1.6"/>
+      <text x="18" y="30" fill="#5eead4" font-size="7.9" font-weight="700">1. CONTEXT &amp; GUARDRAILS</text>
+      <text x="18" y="46" fill="#ffffff" font-size="10" font-weight="800">Project Truth Layer</text>
+      <rect x="18" y="56" width="174" height="25" rx="5" fill="#16243b" stroke="#0d9488" stroke-width="0.9"/>
+      <text x="26" y="72" fill="#ccfbf1" font-size="7.5" font-weight="600">&bull; CONVENTIONS.md &amp; .goosehints</text>
+      <rect x="18" y="86" width="174" height="26" rx="5" fill="#16243b" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="26" y="102" fill="#e0f2fe" font-size="7.5" font-weight="600">&bull; Tree-Sitter PageRank Repo Map</text>
+      <rect x="18" y="117" width="174" height="26" rx="5" fill="#16243b" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="26" y="133" fill="#e0e7ff" font-size="7.5" font-weight="600">&bull; MCP Servers + .aider.conf.yml</text>
+      <rect x="18" y="148" width="174" height="19" rx="5" fill="#23121a" stroke="#e11d48" stroke-width="0.9"/>
+      <text x="26" y="160" fill="#fecdd3" font-size="7.3" font-weight="600">&bull; .aiderignore &amp; .gooseignore</text>
+
+      <!-- Branching Arrows 1 -> 2 -->
+      <path d="M202 68 L234 56" stroke="#2dd4bf" stroke-width="2.1"/>
+      <polygon points="232,51 241,54 234,61" fill="#2dd4bf"/>
+      <path d="M202 118 L234 130" stroke="#38bdf8" stroke-width="2.1"/>
+      <polygon points="234,125 241,132 232,135" fill="#38bdf8"/>
+
+      <!-- Column 2: Dual Terminal Engines -->
+      <rect x="242" y="10" width="220" height="78" rx="9" fill="#0f242c" stroke="#2dd4bf" stroke-width="1.8"/>
+      <text x="352" y="27" text-anchor="middle" fill="#5eead4" font-size="7.8" font-weight="700">2A. AIDER GIT PAIR ENGINE</text>
+      <text x="352" y="42" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">/architect &rarr; Editor Diff &rarr; Lint/Test</text>
+      <text x="352" y="56" text-anchor="middle" fill="#cbd5e1" font-size="7.2">/add, /read-only &amp; # AI! watch comments</text>
+      <text x="352" y="70" text-anchor="middle" fill="#99f6e4" font-size="7.1">Auto-commits every verified patch cleanly</text>
+
+      <rect x="242" y="98" width="220" height="78" rx="9" fill="#131f3a" stroke="#38bdf8" stroke-width="1.8"/>
+      <text x="352" y="115" text-anchor="middle" fill="#7dd3fc" font-size="7.8" font-weight="700">2B. BLOCK GOOSE MCP ENGINE</text>
+      <text x="352" y="130" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">Lead/Worker &rarr; YAML Recipes &amp; MCP</text>
+      <text x="352" y="144" text-anchor="middle" fill="#cbd5e1" font-size="7.2">developer, computercontroller, memory, GitHub</text>
+      <text x="352" y="158" text-anchor="middle" fill="#bae6fd" font-size="7.1">Isolated sub_recipes + permission.yaml gates</text>
+
+      <!-- Converging Arrows 2 -> 3 -->
+      <path d="M462 54 L494 68" stroke="#2dd4bf" stroke-width="2.1"/>
+      <polygon points="494,63 501,71 491,72" fill="#2dd4bf"/>
+      <path d="M462 132 L494 118" stroke="#38bdf8" stroke-width="2.1"/>
+      <polygon points="491,114 501,115 494,123" fill="#38bdf8"/>
+
+      <!-- Column 3: Verified Outcomes -->
+      <rect x="502" y="12" width="190" height="162" rx="9" fill="#111d30" stroke="#818cf8" stroke-width="1.6"/>
+      <text x="512" y="30" fill="#c7d2fe" font-size="7.9" font-weight="700">3. VERIFIED OUTCOMES</text>
+      <text x="512" y="46" fill="#ffffff" font-size="10" font-weight="800">Auditable Shipping</text>
+      <rect x="512" y="56" width="170" height="32" rx="5" fill="#16243b" stroke="#2dd4bf" stroke-width="0.9"/>
+      <text x="520" y="70" fill="#ccfbf1" font-size="7.5" font-weight="700">Atomic Git Commits</text>
+      <text x="520" y="82" fill="#cbd5e1" font-size="7">Clean history + instant /undo</text>
+      <rect x="512" y="94" width="170" height="33" rx="5" fill="#16243b" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="520" y="108" fill="#bae6fd" font-size="7.5" font-weight="700">Shareable goose:// Recipes</text>
+      <text x="520" y="120" fill="#cbd5e1" font-size="7">One-click team CLI &amp; Desktop runs</text>
+      <rect x="512" y="133" width="170" height="32" rx="5" fill="#16243b" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="520" y="147" fill="#fef3c7" font-size="7.5" font-weight="700">Human-Gated Safety</text>
+      <text x="520" y="159" fill="#cbd5e1" font-size="7">smart_approve + tested PR diffs</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">The Division-of-Labor Principle</div>
+    Keep tightly coupled code changes inside <strong>Aider</strong>, where tree-sitter symbol ranking and instant <code>/undo</code> protect your Git history. Reach for <strong>Block Goose</strong> when a workflow crosses boundaries&mdash;querying GitHub or databases via MCP, driving desktop or browser tools, or running repeatable team YAML Recipes.
+  </div>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, EDIT FORMATS & HARNESS MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Installation, Edit Formats &amp; Harness Matrix</span>
+    <span>Fast Setup, Model Prefixes &amp; Open-Source Comparison</span>
+  </div>
+
+  <h2 class="page-title">Installation, Aider Edit Formats &amp; Harness Matrix</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Both Aider and Block Goose install cleanly on macOS, Linux, and Windows (WSL2 or native) without vendor lock-in. Choosing the right installation channel and Aider edit format prevents patchy diffs and wasted tokens on your very first run.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px; gap:11px;">
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #0d9488;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Fast Install: Aider &amp; Block Goose</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Aider via uv (Recommended):</strong> Run <code>uv tool install aider-chat</code> (or <code>python -m pip install aider-install &amp;&amp; aider-install</code>) inside an initialized Git repo.</li>
+        <li><strong>Aider Model Prefixes:</strong> Set API keys in environment or <code>.env</code>, then launch with <code>anthropic/...</code>, <code>openai/...</code>, <code>gemini/...</code>, or local <code>ollama_chat/...</code>.</li>
+        <li><strong>Goose CLI (AAIF / Block):</strong> Run <code>curl -fsSL https://github.com/aaif-goose/goose/releases/download/stable/download_cli.sh | bash</code> or <code>brew install block-goose-cli</code>, then run <code>goose configure</code>.</li>
+        <li><strong>Goose Desktop &amp; Web:</strong> Pair the terminal CLI with Goose Desktop (macOS/Windows) or <code>goose web</code> for visual recipe forms and clickable <code>activities</code>.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge sky">2</span> Mastering Aider Edit Formats</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong><code>diff</code> (Search/Replace):</strong> Default for most frontier models; replaces targeted blocks using <code>SEARCH</code>/<code>REPLACE</code> fences so large files stay cheap.</li>
+        <li><strong><code>udiff</code> (Unified Diff):</strong> Simplified unified diff syntax ideal for reasoning models like GPT-4o/o-series on multi-hunk edits across long files.</li>
+        <li><strong><code>whole</code> (Full File Rewrite):</strong> Model outputs the entire updated file; reliable for smaller files or local 7B&ndash;14B Ollama models that fumble line anchors.</li>
+        <li><strong><code>architect</code> + <code>editor-diff</code> / <code>editor-whole</code>:</strong> Separates free-form design reasoning from strict syntax patching across two specialized models.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-dark" style="padding:8px 12px; margin-bottom:8px;">
+    <div class="card-title" style="font-size:8.9pt; color:#2dd4bf; margin-bottom:3px;">60-Second Dual-Harness Verification Commands</div>
+    <div style="font-size:7.8pt; color:#e2e8f0; line-height:1.4;">
+      1. <strong>Aider Architect Pair:</strong> <code>aider --architect --model anthropic/claude-sonnet-4-5 --editor-model ollama_chat/qwen2.5-coder:32b --read CONVENTIONS.md</code><br/>
+      2. <strong>Goose Safe Interactive / Recipe Run:</strong> <code>GOOSE_MODE=smart_approve goose session</code> &nbsp;|&nbsp; <code>goose run --recipe ./recipes/pr-audit.yaml --params branch=main</code>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.3pt;">Open-Source Terminal Harness Decision Matrix</h3>
+  <table class="clean-table" style="font-size:7.7pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:18%;">Tool / Harness</th>
+        <th style="width:21%;">Core Superpower</th>
+        <th style="width:21%;">Context &amp; Discovery</th>
+        <th style="width:20%;">Multi-Model Routing</th>
+        <th style="width:20%;">Safety &amp; Undo Guardrail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Aider</strong><br/><em>Git Pair Coder</em></td>
+        <td>Surgical code diffs, IDE <code># AI!</code> watch loops &amp; atomic Git commits.</td>
+        <td>Tree-sitter + PageRank Repo Map (<code>/map</code>) + explicit <code>/add</code> &amp; <code>/read-only</code>.</td>
+        <td><code>/architect</code> planner + <code>--editor-model</code> + <code>--weak-model</code> commits.</td>
+        <td>Instant <code>/undo</code> Git revert, <code>--dirty-commits</code> &amp; <code>.aiderignore</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Block Goose</strong><br/><em>MCP Orchestrator</em></td>
+        <td>General-purpose local agent running MCP tools, Desktop UI &amp; YAML Recipes.</td>
+        <td><code>.goosehints</code>, <code>AGENTS.md</code>, persistent <code>memory</code> &amp; MCP resources.</td>
+        <td><code>GOOSE_LEAD_MODEL</code> + fast worker turns + failure fallback.</td>
+        <td><code>GOOSE_MODE=smart_approve</code>, <code>permission.yaml</code> &amp; <code>.gooseignore</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>OpenCode</strong><br/><em>TUI Agent</em></td>
+        <td>Interactive Plan/Build TUI with LSP diagnostics &amp; TypeScript plugins.</td>
+        <td><code>@file</code> fuzzy search, <code>@explore</code> subagent &amp; live LSP errors.</td>
+        <td>Per-agent routing in <code>opencode.json</code> across 75+ providers.</td>
+        <td>Git snapshot <code>/undo</code> &amp; granular <code>allow</code>/<code>ask</code>/<code>deny</code> rules.</td>
+      </tr>
+      <tr>
+        <td><strong>IDE Copilots</strong><br/><em>Cursor / Continue</em></td>
+        <td>Inline tab autocomplete (FIM) &amp; visual editor diff gutters.</td>
+        <td>Open editor tabs, local embeddings &amp; IDE workspace indexing.</td>
+        <td>Separate chat vs. autocomplete model endpoints.</td>
+        <td>Editor buffer undo; weaker headless CI or Git commit discipline.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.15pt;">
+    <div class="callout-title">First-Run Rule: Never Launch Into a Dirty Git Tree Without Snapshot Protection</div>
+    Aider expects a Git repository so it can isolate each AI change into a reversible commit. Run <code>git status</code> first, commit or stash unrelated human edits, or keep <code>dirty-commits: true</code> enabled so <code>/undo</code> never wipes your own unfinished work.
+  </div>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Side-by-Side Aider Git Pair &amp; Block Goose MCP Session</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Inside Aider &amp; Block Goose Sessions</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Running Aider alongside Block Goose in split terminal panes pairs disciplined Git patching on the left with multi-tool MCP orchestration on the right. Here are the seven live controls that keep context sharp, costs low, and execution safe.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#ccfbf1; white-space:nowrap;">Split Terminal &bull; ~/code/payments-api &bull; main (clean)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px; font-size:6.8pt; white-space:nowrap;">
+        <span class="term-chip" style="background:#0f2942; border:1px solid #2dd4bf; color:#99f6e4;">Aider Repo Map <span class="callout-pin">1</span></span>
+        <span class="term-chip" style="background:#172554; border:1px solid #38bdf8; color:#bae6fd;">Goose MCP Active <span class="callout-pin">5</span></span>
+        <span class="term-chip" style="background:#3b1d0a; border:1px solid #f59e0b; color:#fef3c7;">smart_approve <span class="callout-pin">7</span></span>
+      </div>
+    </div>
+
+    <!-- Split Panes -->
+    <div style="display:grid; grid-template-columns: 51% 49%; min-height:262px;">
+      <!-- Left Pane: Aider Session -->
+      <div style="border-right:1px solid #1e3554; padding:8px 9px; display:flex; flex-direction:column; justify-content:space-between; background:#09101c;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; font-size:6.6pt; color:#94a3b8;">
+            <span><code>aider --architect --auto-test</code></span>
+            <span style="color:#2dd4bf; font-weight:700;">Repo-map: 1.8k / 2048 tok</span>
+          </div>
+
+          <!-- Context Scope Box -->
+          <div class="term-box" style="border-top:2px solid #2dd4bf; margin-bottom:5px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+              <strong style="color:#99f6e4;">Active Context &amp; Read-Only Rules <span class="callout-pin">2</span></strong>
+              <span style="color:#5eead4; font-size:6.3pt;">Scoped Files</span>
+            </div>
+            <div style="color:#e2e8f0; line-height:1.38;">
+              &bull; <code>/add</code> <code>src/jwt.py</code>, <code>tests/test_jwt.py</code><br/>
+              &bull; <code>/read-only</code> <code>CONVENTIONS.md</code>, <code>docs/auth-spec.md</code><br/>
+              &bull; <code>/drop</code> <code>src/legacy_oauth.py</code> <em>(freed 3.2k tokens)</em>
+            </div>
+          </div>
+
+          <!-- Architect + Editor Loop -->
+          <div class="term-box" style="border-top:2px solid #38bdf8; background:#0d1a2d; margin-bottom:5px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+              <strong style="color:#7dd3fc;">/architect &rarr; Editor Diff &amp; Test Loop <span class="callout-pin">3</span></strong>
+              <span style="background:#0284c7; color:#fff; padding:1px 6px; border-radius:4px; font-size:6.2pt; font-weight:700;">PASS</span>
+            </div>
+            <div style="color:#e0f2fe; line-height:1.36;">
+              <strong>Architect (Sonnet):</strong> Enforce 15m TTL + clock-skew leeway.<br/>
+              <strong>Editor (Qwen-32B):</strong> Applied <code>diff</code> to <code>src/jwt.py</code> (+14/-3).<br/>
+              <strong>Auto-Check:</strong> <code>ruff check</code> &check; &bull; <code>pytest -q</code> (18 passed) &check;
+            </div>
+          </div>
+        </div>
+
+        <!-- Atomic Git Commit Bar -->
+        <div style="background:#0f292a; border:1px solid #0d9488; border-radius:6px; padding:5px 8px; font-size:6.7pt; color:#ccfbf1; display:flex; justify-content:space-between; align-items:center;">
+          <span><code>Commit a4c9f1b:</code> feat: enforce JWT skew leeway &nbsp;|&nbsp; Type <code>/undo</code> to revert</span>
+          <span class="callout-pin">4</span>
+        </div>
+      </div>
+
+      <!-- Right Pane: Block Goose Session -->
+      <div style="padding:8px 9px; background:#0d1524; display:flex; flex-direction:column; justify-content:space-between; gap:5px;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; font-size:6.5pt; color:#94a3b8; white-space:nowrap;">
+            <span><code>goose run --recipe audit.yaml</code></span>
+            <span style="color:#818cf8; font-weight:700;">Lead: Opus &rarr; Worker</span>
+          </div>
+
+          <!-- MCP Extensions Pill Strip -->
+          <div class="term-box" style="border-top:2px solid #38bdf8; margin-bottom:5px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+              <strong style="color:#bae6fd;">Loaded MCP Extensions + .goosehints</strong>
+              <span style="color:#7dd3fc; font-size:6.3pt;">config.yaml</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:4px; font-size:6.4pt;">
+              <span style="background:#0d9488; color:#fff; padding:1.5px 6px; border-radius:4px; font-weight:700;">developer</span>
+              <span style="background:#1e3a8a; color:#dbeafe; padding:1.5px 6px; border-radius:4px;">github-mcp</span>
+              <span style="background:#1e293b; color:#cbd5e1; padding:1.5px 6px; border-radius:4px;">memory</span>
+              <span style="background:#1e293b; color:#cbd5e1; padding:1.5px 6px; border-radius:4px;">computercontroller</span>
+            </div>
+          </div>
+
+          <!-- Recipe + Sub-Recipes -->
+          <div class="term-box" style="border-top:2px solid #818cf8; background:#141d36; margin-bottom:5px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+              <strong style="color:#c7d2fe;">Lead/Worker &amp; Sub-Recipe Execution <span class="callout-pin">6</span></strong>
+              <span style="color:#a5b4fc; font-size:6.3pt;">Turn 4/10</span>
+            </div>
+            <div style="color:#e0e7ff; line-height:1.36;">
+              <strong>Params:</strong> <code>target_branch=main</code>, <code>strict=true</code><br/>
+              <strong>Sub-Recipe 1:</strong> <code>dep-audit.yaml</code> (isolated session &check;)<br/>
+              <strong>Sub-Recipe 2:</strong> <code>secrets-scan.yaml</code> (0 leaks found &check;)
+            </div>
+          </div>
+        </div>
+
+        <!-- Permission Gate Prompt -->
+        <div style="background:#261a0c; border:1px solid #d97706; border-radius:6px; padding:5px 8px; font-size:6.65pt; color:#fef3c7; line-height:1.35;">
+          <strong style="color:#fbbf24;">Approval Gate (<code>developer__shell</code>):</strong> Run <code>gh pr comment 42</code>?<br/>
+          <span style="color:#fde68a;">[1] Allow Once &nbsp; [2] Always Allow &nbsp; [3] Deny</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Point Legend -->
+  <div class="grid-2" style="gap:6px 12px; font-size:7.9pt;">
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">1</span> <strong>Tree-Sitter PageRank Repo Map:</strong> Indexes classes and signatures across your repo inside a tight token budget (<code>--map-tokens</code>) so Aider sees callers without reading every file.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">2</span> <strong>Scoped Chat Context:</strong> Only <code>/add</code> files you want edited; pass rules or specs via <code>/read-only</code> and clear finished modules with <code>/drop</code>.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">3</span> <strong>/architect + Editor Auto-Loop:</strong> Separates reasoning from patch formatting, then automatically triggers <code>/lint</code> and <code>/test</code> until checks pass.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">4</span> <strong>Atomic Git Commits &amp; /undo:</strong> Every AI edit writes a descriptive Git commit immediately&mdash;letting you roll back cleanly with a single <code>/undo</code> command.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">5</span> <strong>Native MCP Extension Ecosystem:</strong> Goose connects built-in <code>developer</code>, <code>memory</code>, and <code>computercontroller</code> tools alongside GitHub or database MCP servers.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">6</span> <strong>Lead/Worker &amp; YAML Sub-Recipes:</strong> Lead models handle planning and recovery while cheaper workers run parameterized recipes and isolated <code>sub_recipes</code>.
+    </div>
+  </div>
+  <div class="card-mint" style="padding:6px 10px; margin-top:6px; font-size:7.9pt;">
+    <span class="callout-pin">7</span> <strong>Smart Approval &amp; <code>permission.yaml</code> Gate:</strong> <code>GOOSE_MODE=smart_approve</code> lets safe reads flow automatically while pausing shell mutations or external API posts for explicit confirmation.
+  </div>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: AIDER DEEP-DIVE WORKFLOWS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Aider Core Workflows</span>
+    <span>Repo Map, Context Hygiene, /architect Split &amp; Lint/Test Loops</span>
+  </div>
+
+  <h2 class="page-title">Aider Mastery: Repo Map, Context Hygiene &amp; Auto-Fix Loops</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Aider earns its reputation on reliability: instead of stuffing random files into an overflowing prompt, it builds a graph-ranked map of your repository, edits only explicitly staged files, and tests every patch automatically.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_1.jpg" style="width:100%; height:242px; object-fit:cover; object-position:center; display:block;" alt="Nordic navy 3D visualization of luminous arctic-teal AST tree branches passing through a prism into dual planner and editor blocks forming crisp Git commit cubes" />
+    <div class="figure-caption">
+      <strong>Graph-Ranked Precision:</strong> Tree-sitter parses functions and call sites into a PageRank graph, guiding the <code>/architect</code> planner and fast editor model straight to the files that need atomic commits.
+    </div>
+  </div>
+
+  <h3>Four Habits That Make Aider Unbeatable on Real Codebases</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0d9488;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Tune the Tree-Sitter Repo Map</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Aider parses code into ASTs with tree-sitter and runs PageRank over cross-file symbol references. Default <code>--map-tokens</code> is <code>1024</code>; bump to <code>2048</code>&ndash;<code>4096</code> on multi-package repos, inspect with <code>/map</code>, or pass <code>--subtree-only</code> in giant monorepos.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge sky">2</span> Separate <code>/add</code> From <code>/read-only</code></div>
+      <p style="font-size:7.9pt; margin:0;">
+        Add only the files you intend to modify via <code>/add path/to/file</code>. Load style guides, OpenAPI specs, or reference modules with <code>/read-only</code> so Aider reads them accurately without accidentally editing them, and run <code>/drop</code> as soon as a module is done.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #7c3aed;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge purple">3</span> Split Reasoning With <code>/architect</code></div>
+      <p style="font-size:7.9pt; margin:0;">
+        Run <code>/architect</code> (or <code>--architect</code>) so a strong reasoning model proposes architectural changes in plain prose without wrestling diff syntax, while a fast <code>--editor-model</code> (such as a local Ollama coder or Haiku) applies exact <code>editor-diff</code> patches.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0f766e;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge teal">4</span> Wire Auto-Lint &amp; Auto-Test Loops</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Run <code>/lint</code> on modified files or <code>/test pytest -q</code> inside chat&mdash;or enable <code>--auto-lint</code> and <code>--auto-test</code>. Whenever a linter warning or test traceback fires, Aider captures stdout and self-corrects before moving on.
+      </p>
+    </div>
+  </div>
+
+  <pre class="code-block"><code># Launch Aider in dual-model Architect mode with read-only conventions, 2048-token Repo Map, and test auto-fix loop:
+aider --architect \
+  --model anthropic/claude-sonnet-4-5 \
+  --editor-model ollama_chat/qwen2.5-coder:32b --editor-edit-format editor-diff \
+  --read CONVENTIONS.md --map-tokens 2048 \
+  --lint-cmd "ruff check" --auto-lint --test-cmd "pytest -q" --auto-test</code></pre>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.1pt;">
+    <div class="callout-title">Pro Tip: Use <code>/ask</code> Before Refactoring, <code>/code</code> When Ready</div>
+    Unsure how a module interacts with billing or auth? Prefix a turn with <code>/ask</code> (or switch temporarily out of edit mode) to interrogate the Repo Map with zero file modifications, then return to <code>/code</code> or <code>/architect</code> once the plan is crisp.
+  </div>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: AIDER WATCH COMMENTS, CONFIG & 5-PART FORMULA ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Config, Watch Mode &amp; Formula</span>
+    <span>.aider.conf.yml, CONVENTIONS.md, # AI! Comments &amp; 5-Part Loop</span>
+  </div>
+
+  <h2 class="page-title"><code>.aider.conf.yml</code>, Watch Comments &amp; the 5-Part Formula</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Once your repo includes <code>.aider.conf.yml</code> and <code>CONVENTIONS.md</code>, starting Aider takes two words. Watch mode (<code>--watch-files</code>) turns any IDE or text editor into a live prompt canvas using inline <code>AI!</code> and <code>AI?</code> comments.
+  </p>
+
+  <div class="grid-2" style="gap:11px; margin-bottom:8px;">
+    <div class="card-mint" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9pt; color:#115e59;">Editor-Native Watch Mode (<code>--watch-files</code>)</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong><code># ... AI!</code> (Trigger Edit):</strong> Save a comment like <code>// Add rate-limit retry with backoff AI!</code> in VS Code, Neovim, or Zed. Aider modifies the code, deletes the marker, and commits cleanly.</li>
+        <li><strong><code># ... AI?</code> (Ask Without Editing):</strong> Save <code># Why does this deadlock under load? AI?</code> to get an explanation right in the terminal pane without altering source files.</li>
+        <li><strong>Zero Context Switching:</strong> Works alongside any editor, Markdown doc, or Obsidian note&mdash;ideal when spotting small bugs mid-review.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #1e3a8a;">
+      <div class="card-title" style="font-size:9pt; color:#1e3a8a;">Config Precedence &amp; <code>CONVENTIONS.md</code></div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>4-Layer Precedence:</strong> CLI flags override environment variables (<code>AIDER_*</code>), which override repo-root <code>.aider.conf.yml</code>, which overrides <code>~/.aider.conf.yml</code>.</li>
+        <li><strong>Persistent <code>CONVENTIONS.md</code>:</strong> List <code>read: [CONVENTIONS.md]</code> in YAML so Aider always obeys your typing rules, test fixtures, and error conventions read-only.</li>
+        <li><strong>Weak Model Savings:</strong> Assign <code>weak-model</code> to a fast inexpensive model to generate Git commit messages and Repo Map summaries automatically.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">The 5-Part Open-Harness Execution Formula</h3>
+  <div class="card" style="padding:8.5px 12px; margin-bottom:7px; background:#ffffff; border:1.5px solid #5eead4;">
+    <div style="font-size:8.25pt; line-height:1.85;">
+      <span class="p-tag p-map">[1. Repo Map &amp; Hints]</span> Scoped AST graph + <code>CONVENTIONS.md</code> / <code>.goosehints</code>,
+      <span class="p-tag p-arch">[2. Architect / Lead Plan]</span> reasoned by a frontier model without syntax clutter,
+      <span class="p-tag p-edit">[3. Editor / Worker Diff]</span> patched cleanly into scoped files or MCP actions,
+      <span class="p-tag p-verify">[4. Lint, Test &amp; Smart Approve]</span> verified by automated gates &amp; human consent,
+      <span class="p-tag p-recipe">[5. Atomic Commit / Recipe]</span> and saved as a reversible Git commit or YAML Recipe.
+    </div>
+  </div>
+
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Harness Stage</th>
+        <th style="width:39%;">What It Governs</th>
+        <th style="width:37%;">What Breaks When Skipped</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="p-tag p-map">Repo Map &amp; Hints</span></td>
+        <td>Supplies real symbol names, repo conventions, and off-limits secrets.</td>
+        <td>Models hallucinate non-existent helpers or invent inconsistent patterns.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-arch">Architect / Lead Plan</span></td>
+        <td>Isolates multi-file design choices before generating line-by-line diffs.</td>
+        <td>Single-pass coding models jump into dead-end patches and waste turns.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-edit">Editor / Worker Diff</span></td>
+        <td>Uses fast, low-cost models tuned for clean <code>diff</code> / <code>whole</code> or tool calls.</td>
+        <td>Frontier models burn 5x&ndash;10x budget rewriting boilerplate lines manually.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-verify">Verify &amp; Approve</span></td>
+        <td>Runs <code>/lint</code>, <code>/test</code>, and <code>smart_approve</code> checks before acceptance.</td>
+        <td>Silent regressions or unsafe shell side effects slip into your workspace.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-recipe">Commit / Recipe</span></td>
+        <td>Records an atomic Git SHA (<code>/undo</code>) or reusable Goose YAML workflow.</td>
+        <td>Broken multi-file edits tangle with human WIP and cannot be cleanly reverted.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># .aider.conf.yml (commit to repo root so every teammate inherits identical guardrails):
+model: anthropic/claude-sonnet-4-5
+architect: true
+editor-model: ollama_chat/qwen2.5-coder:32b
+weak-model: openai/gpt-4o-mini
+read: [CONVENTIONS.md]
+map-tokens: 2048
+watch-files: true
+auto-commits: true
+dirty-commits: true
+auto-lint: true
+auto-test: true
+test-cmd: pytest -q</code></pre>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: BLOCK GOOSE CLI, DESKTOP, MCP & .GOOSEHINTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Block Goose &amp; Local MCP Ecosystem</span>
+    <span>goose CLI, Goose Desktop, Native MCP Extensions &amp; .goosehints</span>
+  </div>
+
+  <h2 class="page-title">Block Goose: CLI, Desktop &amp; Native MCP Extensions</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Originally open-sourced by Block and now stewarded under the Linux Foundation&rsquo;s Agentic AI Foundation (AAIF), <strong>Goose</strong> treats every capability as a standard Model Context Protocol (MCP) extension&mdash;giving you the exact same tools in CLI, Web, and Desktop.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:8px; gap:9px;">
+    <div class="card" style="border-top:3px solid #0d9488; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge">1</span> CLI, Web &amp; Desktop</div>
+      <p style="font-size:7.75pt; margin:0;">
+        Start interactive terminal coding via <code>goose session</code>, run headless jobs via <code>goose run</code>, launch a browser UI with <code>goose web</code>, or use <strong>Goose Desktop</strong> for visual extensions and clickable recipe <code>activities</code>.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #0284c7; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge sky">2</span> Native MCP Extensions</div>
+      <p style="font-size:7.75pt; margin:0;">
+        Goose ships built-in MCP extensions&mdash;including <code>developer</code>, <code>computercontroller</code>, and <code>memory</code>&mdash;and lets you wire any stdio or HTTP MCP server via <code>goose configure</code> or <code>goose mcp &lt;name&gt;</code>.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #1e3a8a; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge navy">3</span> <code>.goosehints</code> &amp; <code>AGENTS.md</code></div>
+      <p style="font-size:7.75pt; margin:0;">
+        Drop a <code>.goosehints</code> file (or <code>AGENTS.md</code>) into any repository root alongside global rules in <code>~/.config/goose/.goosehints</code> so every Goose session starts knowing your build, test, and style rules.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Core Built-In &amp; Ecosystem MCP Extensions for Daily Workflows</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Extension</th>
+        <th style="width:20%;">Type / Source</th>
+        <th style="width:31%;">What Tools It Exposes</th>
+        <th style="width:30%;">High-Leverage Workflow</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>developer</code></strong></td>
+        <td>Built-In MCP<br/><em>(Enabled Default)</em></td>
+        <td>Text editor, shell execution, ripgrep search, file tree inspection.</td>
+        <td>Repository triage, test debugging, script running &amp; multi-file automation.</td>
+      </tr>
+      <tr>
+        <td><strong><code>computercontroller</code></strong></td>
+        <td>Built-In MCP<br/><em>(Toggle in Config)</em></td>
+        <td>Web scraping/browsing, PDF/Word/Excel parsing, desktop OS automation.</td>
+        <td>Extracting local reports, driving browsers &amp; automating non-CLI apps.</td>
+      </tr>
+      <tr>
+        <td><strong><code>memory</code></strong></td>
+        <td>Built-In MCP<br/><em>(Local Persistent)</em></td>
+        <td>Cross-session key/topic storage (global and project-scoped).</td>
+        <td>Remembering team conventions, preferred linters &amp; deploy quirks.</td>
+      </tr>
+      <tr>
+        <td><strong>GitHub / Linear</strong></td>
+        <td>External MCP<br/><em>(<code>npx</code> / <code>uvx</code> / HTTP)</em></td>
+        <td>PR diffs, issue comments, CI check logs, backlog triage &amp; labels.</td>
+        <td>Pulling failing CI context and turning issues into clean PR drafts.</td>
+      </tr>
+      <tr>
+        <td><strong>SQLite / Postgres</strong></td>
+        <td>External MCP<br/><em>(Read-Only Preferred)</em></td>
+        <td>Schema inspection and parameterized read queries against staging DBs.</td>
+        <td>Validating migration indexes or diagnosing customer data anomalies safely.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># .goosehints (place at repo root; auto-loaded by Goose CLI &amp; Desktop at session start)
+Project: payments-api (Python 3.12 + FastAPI + SQLAlchemy).
+- Always run "uv run pytest -q" and "uv run ruff check" before reporting a task complete.
+- Never modify Alembic migration files already merged to main; create a new revision instead.
+- Check docs/openapi.yaml before changing any /v1/webhook response schema.
+
+# Launch an ad-hoc Goose CLI session with extra built-in or custom MCP extensions:
+goose session --with-builtin "developer,memory" --with-extension "uvx mcp-server-git"</code></pre>
+
+  <div class="callout sky" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.1pt;">
+    <div class="callout-title">Test Any MCP Server Directly With <code>goose mcp</code></div>
+    Suspect an extension isn&rsquo;t registering tools properly? Run <code>goose mcp computercontroller</code> (or inspect <code>~/.config/goose/config.yaml</code>) to boot and verify an extension standalone before blaming your prompt or recipe.
+  </div>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: GOOSE YAML RECIPES, SUB-RECIPES & LEAD/WORKER ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Reusable YAML Recipes &amp; Lead/Worker</span>
+    <span>Parameters, Sub-Recipes, Deeplinks &amp; Routing</span>
+  </div>
+
+  <h2 class="page-title">YAML Recipes, Sub-Recipes &amp; Lead/Worker Routing</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Once a multi-step MCP workflow clicks, freeze it into a versioned <strong>Goose YAML Recipe</strong>. Recipes lock down exact extensions, typed parameters, isolated <code>sub_recipes</code>, and <strong>Lead/Worker</strong> model routing&mdash;and share cleanly across teams via <code>goose://</code> deeplinks.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_2.jpg" style="width:100%; height:236px; object-fit:cover; object-position:center; display:block;" alt="Minimalist 3D Nordic navy editorial visual of a frosted-teal blueprint prism splitting work across three guarded modular worker pods into a unified archive crystal" />
+    <div class="figure-caption">
+      <strong>Composable Isolation:</strong> A parent YAML Recipe delegates independent scans to isolated <code>sub_recipes</code> so worker sub-sessions never bloat the parent context window, then merges verified results safely.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #0d9488;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Parameters, Sub-Recipes &amp; Deeplinks</div>
+      <ul style="font-size:7.75pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Typed <code>parameters</code>:</strong> Define <code>key</code>, <code>input_type</code> (<code>string</code>, <code>number</code>, <code>boolean</code>, <code>date</code>, <code>file</code>, <code>select</code>), and <code>requirement</code> (<code>required</code>, <code>optional</code>, <code>user_prompt</code>), interpolated via <code>{{ key }}</code>.</li>
+        <li><strong>Isolated <code>sub_recipes</code>:</strong> Delegate parallel audits or clean-room subtasks without polluting parent chat memory.</li>
+        <li><strong>Validate &amp; Share:</strong> Run <code>goose recipe validate file.yaml</code>, execute via <code>goose run --recipe</code>, or mint a clickable Desktop link with <code>goose recipe deeplink file.yaml</code>.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #7c3aed;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge purple">2</span> Lead/Worker Cost &amp; Recovery Routing</div>
+      <ul style="font-size:7.75pt; margin:3px 0 0 0; padding-left:15px;">
+        <li><strong>Smart Handoff:</strong> Set <code>GOOSE_LEAD_MODEL</code> (plus <code>GOOSE_LEAD_PROVIDER</code>) for planning while your configured fast <code>GOOSE_MODEL</code> executes routine tool steps.</li>
+        <li><strong><code>GOOSE_LEAD_TURNS</code>:</strong> Controls how many opening turns the Lead model directs architecture before handing execution to the worker.</li>
+        <li><strong>Auto-Rescue Thresholds:</strong> Set <code>GOOSE_LEAD_FAILURE_THRESHOLD</code> (e.g., <code>2</code> errors) and <code>GOOSE_LEAD_FALLBACK_TURNS</code> so the Lead model automatically steps back in whenever the worker gets stuck.</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block"><code>version: "1.0.0"
+title: "PR Security &amp; Dependency Audit"
+description: "Runs isolated dependency and secret checks against a target branch."
+parameters:
+  - key: target_branch
+    input_type: string
+    requirement: optional
+    default: "main"
+    description: "Git branch or tag to diff against"
+instructions: |
+  Diff current changes against {{ target_branch }}, invoke both sub-recipes, and return a concise Markdown risk report.
+extensions:
+  - type: builtin
+    name: developer
+    timeout: 300
+sub_recipes:
+  - name: "dep_audit"
+    path: "./subrecipes/dep-audit.yaml"
+  - name: "secrets_scan"
+    path: "./subrecipes/secrets-scan.yaml"</code></pre>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Recipe Library</span>
+    <span>5 Production Recipes Spanning Aider, Watch Mode &amp; Block Goose</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Harness Recipes</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Drop these proven recipes straight into your terminal, <code>.aider.conf.yml</code>, or <code>.goose/recipes/</code> directory to standardize quality across feature builds, zero-switch refactors, PR release digests, security sweeps, and bug triage.
+  </p>
+
+  <table class="clean-table" style="font-size:7.6pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Recipe &amp; Use Case</th>
+        <th style="width:55%;">Copy-Paste Command or YAML / Prompt Spec</th>
+        <th style="width:24%;">Guardrail &amp; Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Dual-Model Feature</strong><br/><em>Aider Cost + Quality</em></td>
+        <td><code>aider --architect --model anthropic/claude-sonnet-4-5 --editor-model ollama_chat/qwen2.5-coder:32b --edit-format editor-diff --read CONVENTIONS.md</code></td>
+        <td>Frontier design + $0 local diffs + clean atomic Git commit.</td>
+      </tr>
+      <tr>
+        <td><strong>2. IDE Watch Triage</strong><br/><em>Zero-Switch Editing</em></td>
+        <td><code>aider --watch-files --auto-lint --auto-test --test-cmd "pytest -q"</code> &rarr; save inline <code># Validate expiry &amp; return 401 AI!</code> or <code># Explain flow AI?</code> in editor.</td>
+        <td>Auto-strips <code>AI!</code> marker, verifies <code>pytest</code> &amp; commits.</td>
+      </tr>
+      <tr>
+        <td><strong>3. PR Release Digest</strong><br/><em>Goose GitHub MCP</em></td>
+        <td><code>goose run --recipe ./recipes/release-notes.yaml --params since_tag="v2.4.0"</code> &mdash; queries <code>github-mcp</code> merged PRs &amp; groups Features, Fixes, and Breaking Changes.</td>
+        <td>Read-only <code>smart_approve</code> + structured Markdown changelog.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Parallel Sub-Audits</strong><br/><em>Goose Sub-Recipes</em></td>
+        <td>Parent YAML calls isolated <code>sub_recipes</code> (<code>dep-audit.yaml</code>, <code>secrets-scan.yaml</code>, <code>license-check.yaml</code>) and aggregates JSON findings into one PR checklist.</td>
+        <td>Zero parent context bloat; deterministic pass/fail gate.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Goose &rarr; Aider Fix</strong><br/><em>Issue to Verified PR</em></td>
+        <td>Step 1: Goose pulls CI traceback via MCP and writes repro test.<br/>Step 2: <code>aider --yes --auto-test --message "Fix failing test_auth_refresh" src/auth.py tests/test_auth.py</code></td>
+        <td>Combines cross-tool discovery with reversible Git commit.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># Validate, execute with parameters, and generate a clickable Goose Desktop deeplink for teammates:
+goose recipe validate ./recipes/pr-audit.yaml
+goose run --recipe ./recipes/pr-audit.yaml --params target_branch="release/2.5"
+goose recipe deeplink ./recipes/pr-audit.yaml -p target_branch="main"
+
+# Set Lead/Worker environment routing before launching Goose CLI on complex multi-step tasks:
+export GOOSE_PROVIDER=openai GOOSE_MODEL=gpt-4o-mini
+export GOOSE_LEAD_PROVIDER=anthropic GOOSE_LEAD_MODEL=claude-sonnet-4-5
+export GOOSE_LEAD_TURNS=3 GOOSE_LEAD_FAILURE_THRESHOLD=2 GOOSE_LEAD_FALLBACK_TURNS=2</code></pre>
+
+  <div class="grid-2" style="gap:10px; margin-top:4px;">
+    <div class="callout" style="margin:0; padding:8px 11px; font-size:8.05pt;">
+      <div class="callout-title">Save Team Recipes in Git (<code>.goose/recipes/</code>)</div>
+      Check non-secret <code>.aider.conf.yml</code>, <code>CONVENTIONS.md</code>, <code>.goosehints</code>, and <code>.goose/recipes/*.yaml</code> straight into your repository so new engineers inherit your best workflows on clone.
+    </div>
+    <div class="callout amber" style="margin:0; padding:8px 11px; font-size:8.05pt;">
+      <div class="callout-title">Earn Headless <code>--yes</code> After Dry Runs</div>
+      Never wire <code>aider --yes</code> or <code>GOOSE_MODE=auto</code> into scripts on day one. Run every new workflow interactively first to tune file scopes, ignore rules, and test assertions.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: GIT SAFETY, PERMISSION MODES & TEAM GOVERNANCE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Safety, Permissions &amp; Governance</span>
+    <span>Git Reversibility, GOOSE_MODE &amp; Ignore Guards</span>
+  </div>
+
+  <h2 class="page-title">Git Commit Safety, Permission Modes &amp; Team Guardrails</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Autonomous terminal agents hold real keys to your filesystem, Git history, and external MCP APIs. Pairing Aider&rsquo;s clean commit isolation with Goose&rsquo;s risk-tiered <code>GOOSE_MODE</code> and <code>permission.yaml</code> policies keeps experimentation fearless and auditable.
+  </p>
+
+  <div class="grid-2" style="gap:11px; margin-bottom:8px;">
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #e11d48;">
+      <div class="card-title" style="font-size:9pt; color:#9f1239;"><span class="num-badge rose">1</span> Aider Git Isolation &amp; Secret Masks</div>
+      <ul style="font-size:7.8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong><code>dirty-commits: true</code> + <code>/undo</code>:</strong> Commits any dirty human edits in their own commit first so AI changes land on a clean SHA that <code>/undo</code> reverts safely.</li>
+        <li><strong>Commit Attribution:</strong> Configure <code>attribute-author</code> and <code>attribute-committer</code> flags in <code>.aider.conf.yml</code> so code reviewers see AI-coauthored commits clearly.</li>
+        <li><strong><code>.aiderignore</code> Shield:</strong> Block <code>.env*</code>, private keys, certificates, and bulky <code>node_modules/</code> or <code>dist/</code> builds from ever entering the Repo Map or chat.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #0d9488;">
+      <div class="card-title" style="font-size:9pt; color:#115e59;"><span class="num-badge">2</span> Goose <code>GOOSE_MODE</code> &amp; Tool Tiers</div>
+      <ul style="font-size:7.8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Four Macro Modes:</strong> Choose <code>chat</code> (zero tools), <code>approve</code> (ask before every write/shell), <code>smart_approve</code> (auto-allow safe reads, prompt on risky writes), or <code>auto</code> (unattended&mdash;sandbox only!).</li>
+        <li><strong><code>permission.yaml</code> Rules:</strong> Pin individual MCP tools under <code>always_allow</code>, <code>ask_before</code>, or <code>never_allow</code> inside <code>~/.config/goose/config/permission.yaml</code>.</li>
+        <li><strong><code>.gooseignore</code> Shield:</strong> Uses gitignore syntax to block Goose from reading <code>.env</code> secrets, credentials, or sensitive customer exports.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Security &amp; Autonomy Control Matrix for Engineering Teams</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Safety Boundary</th>
+        <th style="width:27%;">Aider Mechanism</th>
+        <th style="width:28%;">Block Goose Mechanism</th>
+        <th style="width:25%;">Recommended Default</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Secret &amp; File Exclusion</strong></td>
+        <td><code>.aiderignore</code> + <code>/read-only</code> protection</td>
+        <td><code>.gooseignore</code> + read-only MCP scopes</td>
+        <td>Ignore <code>.env*</code>, <code>*.pem</code>, <code>secrets/</code></td>
+      </tr>
+      <tr>
+        <td><strong>Shell &amp; Write Approval</strong></td>
+        <td>Prompts before running <code>/run</code> commands; scoped <code>/add</code></td>
+        <td><code>GOOSE_MODE</code> + <code>permission.yaml</code> per tool</td>
+        <td><code>smart_approve</code> + <code>ask_before</code> shell</td>
+      </tr>
+      <tr>
+        <td><strong>Change Rollback</strong></td>
+        <td>Atomic Git commit per turn + instant <code>/undo</code></td>
+        <td>Git status diff + <code>approve</code> pre-write review</td>
+        <td>Always work on a feature branch</td>
+      </tr>
+      <tr>
+        <td><strong>Model &amp; Token Spend</strong></td>
+        <td><code>/tokens</code> budget, <code>/drop</code>, <code>--architect</code> split</td>
+        <td><code>GOOSE_LEAD_MODEL</code> + isolated <code>sub_recipes</code></td>
+        <td>Frontier Lead + cheap/local Worker</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># ~/.config/goose/config/permission.yaml &mdash; Safe team workstation defaults (paired with GOOSE_MODE=smart_approve):
+user:
+  always_allow:
+    - memory__remember
+  ask_before:
+    - developer__shell
+    - developer__text_editor
+    - github-mcp__create_pull_request
+  never_allow:
+    - computercontroller__system_shutdown</code></pre>
+
+  <div class="callout rose" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.05pt;">
+    <div class="callout-title">Prompt-Injection Watchout: Never Pair <code>GOOSE_MODE=auto</code> With Untrusted Web or Issue Data</div>
+    When Goose scrapes live web pages via <code>computercontroller</code> or reads public GitHub issue bodies via MCP, hidden text inside untrusted inputs can attempt prompt injection. Keep <code>GOOSE_MODE=smart_approve</code> (or explicit <code>ask_before</code> on <code>developer__shell</code>) whenever external data enters the session.
+  </div>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy</span>
+    <span>MCP Discovery &rarr; Git Coding &rarr; Team Recipe</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Goose Orchestration + Aider Commits</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Instead of forcing one tool to do everything poorly, chain Block Goose and Aider across four crisp stages: Goose gathers cross-app evidence via MCP, Aider writes tested Git commits inside strict file scopes, and Goose ships verified PRs and reusable team recipes.
+  </p>
+
+  <div class="figure-box" style="background:#0b1320; padding:10px 12px; border-color:#1e3554; margin-bottom:9px;">
+    <svg viewBox="0 0 700 206" width="100%" height="206" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Goose MCP Discovery -->
+      <rect x="8" y="20" width="148" height="166" rx="9" fill="#111d30" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="82" y="38" text-anchor="middle" fill="#7dd3fc" font-size="7.5" font-weight="700">STAGE 1 &bull; GOOSE MCP</text>
+      <text x="82" y="53" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Gather &amp; Triage</text>
+      <rect x="17" y="64" width="130" height="50" rx="5" fill="#16243b" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="82" y="79" text-anchor="middle" fill="#e0f2fe" font-size="7.3" font-weight="700">External Context</text>
+      <text x="82" y="91" text-anchor="middle" fill="#cbd5e1" font-size="6.8">GitHub PRs, Linear issues</text>
+      <text x="82" y="102" text-anchor="middle" fill="#cbd5e1" font-size="6.8">DB schemas &amp; CI logs</text>
+      <rect x="17" y="122" width="130" height="52" rx="5" fill="#16243b" stroke="#2dd4bf" stroke-width="0.9"/>
+      <text x="82" y="137" text-anchor="middle" fill="#99f6e4" font-size="7.3" font-weight="700">Bounded Brief</text>
+      <text x="82" y="149" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Writes specs/repro.md</text>
+      <text x="82" y="160" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Respects .gooseignore</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M156 103 L180 103" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="178,98 186,103 178,108" fill="#38bdf8"/>
+
+      <!-- Stage 2: Aider Repo Map & Architect -->
+      <rect x="187" y="16" width="160" height="174" rx="10" fill="#0f242c" stroke="#2dd4bf" stroke-width="1.9"/>
+      <text x="267" y="34" text-anchor="middle" fill="#5eead4" font-size="7.6" font-weight="700">STAGE 2 &bull; AIDER PLAN</text>
+      <text x="267" y="49" text-anchor="middle" fill="#ffffff" font-size="9.9" font-weight="800">Map &amp; Architect</text>
+      <rect x="197" y="60" width="140" height="36" rx="5" fill="#0b1320" stroke="#0d9488" stroke-width="0.9"/>
+      <text x="267" y="74" text-anchor="middle" fill="#ccfbf1" font-size="7.3" font-weight="700">Tree-Sitter + PageRank</text>
+      <text x="267" y="86" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Identifies exact callers</text>
+      <rect x="197" y="102" width="140" height="38" rx="5" fill="#0b1320" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="267" y="116" text-anchor="middle" fill="#bae6fd" font-size="7.3" font-weight="700">/read-only + /add Scope</text>
+      <text x="267" y="128" text-anchor="middle" fill="#cbd5e1" font-size="6.7">CONVENTIONS.md + repro</text>
+      <rect x="197" y="146" width="140" height="34" rx="5" fill="#0b1320" stroke="#818cf8" stroke-width="0.9"/>
+      <text x="267" y="160" text-anchor="middle" fill="#e0e7ff" font-size="7.3" font-weight="700">/architect Strategy</text>
+      <text x="267" y="172" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Clean plan before diffs</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M347 103 L371 103" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="369,98 377,103 369,108" fill="#2dd4bf"/>
+
+      <!-- Stage 3: Editor Diff & Auto-Test -->
+      <rect x="378" y="20" width="154" height="166" rx="9" fill="#131f3a" stroke="#818cf8" stroke-width="1.6"/>
+      <text x="455" y="38" text-anchor="middle" fill="#c7d2fe" font-size="7.5" font-weight="700">STAGE 3 &bull; SURGICAL CODE</text>
+      <text x="455" y="53" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Patch &amp; Verify</text>
+      <rect x="388" y="64" width="134" height="50" rx="5" fill="#1a294a" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="455" y="79" text-anchor="middle" fill="#e0e7ff" font-size="7.3" font-weight="700">Fast / Local Editor</text>
+      <text x="455" y="91" text-anchor="middle" fill="#cbd5e1" font-size="6.8">editor-diff or whole</text>
+      <text x="455" y="102" text-anchor="middle" fill="#cbd5e1" font-size="6.8"># AI! watch or CLI turn</text>
+      <rect x="388" y="122" width="134" height="52" rx="5" fill="#1a294a" stroke="#2dd4bf" stroke-width="0.9"/>
+      <text x="455" y="137" text-anchor="middle" fill="#99f6e4" font-size="7.3" font-weight="700">Lint, Test &amp; Commit</text>
+      <text x="455" y="149" text-anchor="middle" fill="#cbd5e1" font-size="6.8">--auto-lint + --auto-test</text>
+      <text x="455" y="160" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Atomic Git SHA (/undo safe)</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M532 103 L556 103" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="554,98 562,103 554,108" fill="#818cf8"/>
+
+      <!-- Stage 4: Goose Ship & Package -->
+      <rect x="563" y="20" width="129" height="166" rx="9" fill="#111d30" stroke="#f59e0b" stroke-width="1.6"/>
+      <text x="627" y="38" text-anchor="middle" fill="#fde68a" font-size="7.5" font-weight="700">STAGE 4 &bull; SHIP</text>
+      <text x="627" y="53" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Audit &amp; Reuse</text>
+      <rect x="572" y="64" width="111" height="50" rx="5" fill="#1c2434" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="627" y="79" text-anchor="middle" fill="#fef3c7" font-size="7.2" font-weight="700">Isolated Sub-Recipes</text>
+      <text x="627" y="91" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Security &amp; browser QA</text>
+      <text x="627" y="102" text-anchor="middle" fill="#cbd5e1" font-size="6.7">smart_approve PR push</text>
+      <rect x="572" y="122" width="111" height="52" rx="5" fill="#1c2434" stroke="#2dd4bf" stroke-width="0.9"/>
+      <text x="627" y="137" text-anchor="middle" fill="#99f6e4" font-size="7.2" font-weight="700">Team Compounding</text>
+      <text x="627" y="149" text-anchor="middle" fill="#cbd5e1" font-size="6.7">goose:// deeplinks +</text>
+      <text x="627" y="160" text-anchor="middle" fill="#cbd5e1" font-size="6.7">updated .goosehints</text>
+    </svg>
+  </div>
+
+  <h3>Four-Step Daily Execution Loop</h3>
+  <div class="grid-2" style="gap:10px; margin-bottom:9px;">
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge sky">1</span> Triage Cross-App Context in Goose</div>
+      <p style="font-size:8pt; margin:0;">
+        Let Goose pull issue comments, database schemas, or failing CI logs via MCP, then distill findings into a focused spec file (<code>specs/task.md</code>) before touching production code.
+      </p>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #0d9488;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">2</span> Scope &amp; Plan Inside Aider</div>
+      <p style="font-size:8pt; margin:0;">
+        Add <code>specs/task.md</code> and <code>CONVENTIONS.md</code> via <code>/read-only</code>, <code>/add</code> only the modules to modify, and verify callers through the tree-sitter Repo Map and <code>/architect</code>.
+      </p>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #7c3aed;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge purple">3</span> Patch, Auto-Test &amp; Commit Atomically</div>
+      <p style="font-size:8pt; margin:0;">
+        Let the editor model apply clean <code>diff</code> patches (or respond to <code># AI!</code> watch markers), verify green <code>/lint</code> and <code>/test</code> runs, and keep or <code>/undo</code> each commit cleanly.
+      </p>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge amber">4</span> Verify &amp; Package as a Team Recipe</div>
+      <p style="font-size:8pt; margin:0;">
+        Hand final checks back to Goose <code>sub_recipes</code> (browser smoke checks via <code>computercontroller</code>, PR updates via MCP), and export repeatable steps with <code>goose recipe deeplink</code>.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:8px 12px; font-size:8.15pt;">
+    <div class="callout-title">Compound Every Session Back Into Shared Hints</div>
+    Whenever an agent trips over an obscure environment flag, mock fixture, or API quirk, add a single crisp bullet to both <code>CONVENTIONS.md</code> and <code>.goosehints</code> (or Goose&rsquo;s <code>memory</code> extension) so neither harness makes the same mistake twice.
+  </div>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Pre-Flight</span>
+    <span>Top 7 Harness Issues, 10-Second Fixes &amp; 6-Point Rollout Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Keep this clinic handy whenever Aider hallucinates out-of-scope symbols, local models break diff syntax, watch markers get ignored, or Goose MCP servers and YAML Recipes need a quick diagnostic check.
+  </p>
+
+  <table class="clean-table" style="font-size:7.55pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Issue</th>
+        <th style="width:27%;">Root Cause</th>
+        <th style="width:46%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Aider misses callers or invents wrong function names</strong></td>
+        <td><code>--map-tokens</code> too tight, or target files weren&rsquo;t added via <code>/add</code> or <code>/read-only</code>.</td>
+        <td>Run <code>/map</code> to inspect coverage, raise <code>--map-tokens 2048</code> (or <code>4096</code>), and add reference headers with <code>/read-only</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Local Ollama model mangles <code>diff</code> patches</strong></td>
+        <td>Small/mid local coders struggle with strict <code>SEARCH</code>/<code>REPLACE</code> fencing.</td>
+        <td>Pass <code>--edit-format whole</code> for small files, or pair a frontier <code>--architect</code> model with <code>--editor-edit-format editor-whole</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>/undo</code> refuses or entangles human WIP</strong></td>
+        <td>Dirty uncommitted edits in Git mixed with AI patches, or <code>--no-auto-commits</code> set.</td>
+        <td>Enable <code>dirty-commits: true</code> and <code>auto-commits: true</code> in <code>.aider.conf.yml</code>, or commit WIP before starting Aider.</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>--watch-files</code> ignores <code># AI!</code> comments</strong></td>
+        <td>Comment syntax missing trailing <code>AI!</code>/<code>AI?</code>, or file matched <code>.aiderignore</code>.</td>
+        <td>End comment cleanly with <code>AI!</code> (edit) or <code>AI?</code> (question), save the file, and verify path is not excluded in <code>.aiderignore</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Goose MCP extension fails or times out</strong></td>
+        <td>Missing <code>npx</code>/<code>uvx</code> binary on <code>PATH</code>, bad env var, or default timeout too short.</td>
+        <td>Test standalone with <code>goose mcp &lt;name&gt;</code>, check <code>~/.config/goose/config.yaml</code>, and set <code>timeout: 300</code> on slow servers.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Goose runs shell commands without asking</strong></td>
+        <td>Session launched in <code>GOOSE_MODE=auto</code> instead of gated approval.</td>
+        <td>Set <code>export GOOSE_MODE=smart_approve</code> (or <code>/mode approve</code> live) and place <code>developer__shell</code> under <code>ask_before</code> in <code>permission.yaml</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. YAML Recipe params fail or Lead/Worker loops</strong></td>
+        <td>Missing <code>key</code>/<code>requirement</code> match or low <code>GOOSE_LEAD_FAILURE_THRESHOLD</code>.</td>
+        <td>Run <code>goose recipe validate file.yaml</code>, verify <code>{{ param }}</code> names match <code>parameters[].key</code>, and tune <code>GOOSE_LEAD_FAILURE_THRESHOLD=2</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0;">6-Point Open-Harness Production Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Clean Git Tree &amp; Ignore Shields:</strong> Verify <code>git status</code> is clean and commit <code>.aiderignore</code> + <code>.gooseignore</code> covering <code>.env*</code> and keys.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. Shared Rules Committed:</strong> Keep <code>CONVENTIONS.md</code> and <code>.goosehints</code> (or <code>AGENTS.md</code>) synced at the repo root.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. Dual-Model Routing Tuned:</strong> Pair <code>/architect</code> with <code>--editor-model</code> in YAML config and set <code>GOOSE_LEAD_MODEL</code> for complex jobs.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Auto-Lint &amp; Auto-Test Active:</strong> Wire project <code>--lint-cmd</code> and <code>--test-cmd</code> so every Aider commit passes deterministic verification.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. Goose Permissions Hardened:</strong> Lock <code>GOOSE_MODE=smart_approve</code> and pin risky MCP write/shell tools under <code>ask_before</code> in <code>permission.yaml</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. Team Recipes Validated:</strong> Run <code>goose recipe validate</code> on every YAML workflow and share parameterized <code>goose://</code> deeplinks with teammates.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:7px 0 0 0; padding:7px 11px; font-size:8.05pt;">
+    <div class="callout-title">Final Takeaway: Own Your Models, Your Diffs &amp; Your Workflows</div>
+    Open-source terminal harnesses put engineering control back in your hands. Pair Aider&rsquo;s disciplined Repo Map and atomic Git commits with Block Goose&rsquo;s MCP extensions and parameterized YAML Recipes, and every sprint leaves behind cleaner code and reusable team automation.
+  </div>
+
+  <div class="page-footer"><span>Aider &amp; Block Goose: Git Pair Coding &amp; Local MCP Recipes &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

@@ -1,15 +1,15 @@
-# AI Field Guides
+# Twelve Pages
 
-> **Visual, magazine-grade PDF how-to handbooks for modern AI studios, coding agents, creative tools, and developer workflows.**
+> **Visual, magazine-grade 12-page handbooks for modern software, AI studios, coding agents, creative tools, and developer workflows.**
 
-Every handbook in this repository is authored as a self-contained **12-page visual field manual**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
+Every handbook in this repository is authored as a self-contained **12-page visual handbook**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
-> **Read Online at [https://ai-field-guides.vercel.app](https://ai-field-guides.vercel.app)** — Browse all 66 guides in a clean, mobile-friendly web reader or download any 12-page PDF in one click.
+> **Read Online at [twelve-pages.com](https://twelve-pages.com)** — Browse all 77 handbooks in a clean, mobile-friendly web reader or download any 12-page magazine PDF in one click.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-66%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-792%20Pages-059669?style=for-the-badge)
-![Ecosystems](https://img.shields.io/badge/Scope-8%20Ecosystems-7c3aed?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-77%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-924%20Pages-059669?style=for-the-badge)
+![Ecosystems](https://img.shields.io/badge/Scope-10%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
 
@@ -20,10 +20,10 @@ Every handbook in this repository is authored as a self-contained **12-page visu
 Click any cover card or **Read / Download PDF** link below to view the full handbook directly in GitHub or download a local copy.
 
 <!-- CATALOG:START -->
-**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems) &bull; [AI Music, Cinema & Presentation Studios](#ai-music-cinema--presentation-studios) &bull; [AI Search Visibility, Agentic Web & Workflows](#ai-search-visibility-agentic-web--workflows)
+**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems) &bull; [AI Music, Cinema & Presentation Studios](#ai-music-cinema--presentation-studios) &bull; [AI Search Visibility, Agentic Web & Workflows](#ai-search-visibility-agentic-web--workflows) &bull; [Open Harnesses, AI Terminals & Local Models](#open-harnesses-ai-terminals--local-models) &bull; [AI Desktop, OS Power Workflows & Personal Ops](#ai-desktop-os-power-workflows--personal-ops)
 
 ### Google AI & Creative Studios
-Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, Antigravity 2.0 customizations & swarms, Gemini 3.8 Live & Omni 1.2 Flash voice/video pipelines, agentic Firebase & Android CLI workflows, and autonomous browser agents.
+Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, Google ADK & Agent2Agent (A2A) protocol, Antigravity 2.0 customizations & swarms, Gemini 3.8 Live & Omni 1.2 Flash voice/video pipelines, agentic Firebase & Android CLI workflows, and autonomous browser agents.
 
 <table>
   <tr>
@@ -143,7 +143,14 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
       <p><code>Firebase MCP</code> &middot; <code>Android CLI</code> &middot; <code>Device Hub &amp; Journeys</code></p>
       <p><a href="guides/google/agentic-firebase-and-android-cli/Agentic_Firebase_and_Android_CLI_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/google/agentic-firebase-and-android-cli">&#128736; Editable Source</a></p>
     </td>
-    <td width="50%"></td>
+    <td width="50%" valign="top">
+      <a href="guides/google/google-adk-and-a2a/Google_ADK_and_A2A_Protocol_Complete_How_To_Guide.pdf"><img src="guides/google/google-adk-and-a2a/cover.png" alt="Google ADK &amp; Agent2Agent (A2A) Protocol Cover" width="100%" /></a>
+      <h3><a href="guides/google/google-adk-and-a2a/Google_ADK_and_A2A_Protocol_Complete_How_To_Guide.pdf">Google ADK &amp; Agent2Agent (A2A) Protocol</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Build, evaluate, and ship code-first multi-agent systems with Google&#x27;s Agent Development Kit in Python and TypeScript—combining deterministic Workflow Agents, scoped state prefixes, MCPToolset, Vertex AI Agent Engine, and cross-vendor A2A Agent Cards.</p>
+      <p><code>Google ADK</code> &middot; <code>A2A Protocol</code> &middot; <code>Vertex Agent Engine</code></p>
+      <p><a href="guides/google/google-adk-and-a2a/Google_ADK_and_A2A_Protocol_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/google/google-adk-and-a2a">&#128736; Editable Source</a></p>
+    </td>
   </tr>
 </table>
 
@@ -672,6 +679,108 @@ Publication-grade 12-page visual handbooks for Generative Engine Optimization (G
   </tr>
 </table>
 
+### Open Harnesses, AI Terminals & Local Models
+Publication-grade 12-page visual handbooks for vendor-agnostic terminal harnesses, AI command lines, and local coding models—covering OpenCode TUI, Plan/Build routing, plugins & CI, Aider & Block Goose, Warp AI Terminal & Drive, and Ollama Modelfiles, tool calling & private LAN harnesses.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/open-harnesses/opencode-tui-agents-and-routing/OpenCode_TUI_Agents_and_Routing_Complete_How_To_Guide.pdf"><img src="guides/open-harnesses/opencode-tui-agents-and-routing/cover.png" alt="OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing Cover" width="100%" /></a>
+      <h3><a href="guides/open-harnesses/opencode-tui-agents-and-routing/OpenCode_TUI_Agents_and_Routing_Complete_How_To_Guide.pdf">OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Master the open-source, provider-agnostic terminal coding harness—switching between read-only Plan and Build modes with Tab, routing 75+ cloud and local models in opencode.json, closing compiler loops via native LSP, and rewinding edits with /undo snapshots.</p>
+      <p><code>OpenCode TUI</code> &middot; <code>Plan &amp; Build</code> &middot; <code>Multi-Model Routing</code></p>
+      <p><a href="guides/open-harnesses/opencode-tui-agents-and-routing/OpenCode_TUI_Agents_and_Routing_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/open-harnesses/opencode-tui-agents-and-routing">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/open-harnesses/opencode-plugins-tools-and-ci/OpenCode_Plugins_Tools_and_CI_Complete_How_To_Guide.pdf"><img src="guides/open-harnesses/opencode-plugins-tools-and-ci/cover.png" alt="OpenCode Plugins, Custom Tools, Servers &amp; CI Cover" width="100%" /></a>
+      <h3><a href="guides/open-harnesses/opencode-plugins-tools-and-ci/OpenCode_Plugins_Tools_and_CI_Complete_How_To_Guide.pdf">OpenCode Plugins, Custom Tools, Servers &amp; CI</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Extend OpenCode into a programmable engineering platform—authoring Zod-typed .opencode/tools/ modules, intercepting calls via @opencode-ai/plugin hooks, enforcing permission firewalls, running headless opencode serve daemons, and automating PRs in GitHub Actions.</p>
+      <p><code>OpenCode Plugins</code> &middot; <code>opencode serve</code> &middot; <code>GitHub Actions CI</code></p>
+      <p><a href="guides/open-harnesses/opencode-plugins-tools-and-ci/OpenCode_Plugins_Tools_and_CI_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/open-harnesses/opencode-plugins-tools-and-ci">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/open-harnesses/aider-and-goose-terminal-harnesses/Aider_and_Block_Goose_Terminal_Harnesses_Complete_How_To_Guide.pdf"><img src="guides/open-harnesses/aider-and-goose-terminal-harnesses/cover.png" alt="Aider &amp; Block Goose Terminal Harnesses Cover" width="100%" /></a>
+      <h3><a href="guides/open-harnesses/aider-and-goose-terminal-harnesses/Aider_and_Block_Goose_Terminal_Harnesses_Complete_How_To_Guide.pdf">Aider &amp; Block Goose Terminal Harnesses</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Master two flagship open-source terminal harnesses—pairing Aider&#x27;s tree-sitter PageRank Repo Map, /architect dual-model splits, and atomic Git commits with Block Goose&#x27;s native MCP extensions, Lead/Worker routing, and reusable YAML Recipes.</p>
+      <p><code>Aider Repo Map</code> &middot; <code>Block Goose</code> &middot; <code>MCP Recipes</code></p>
+      <p><a href="guides/open-harnesses/aider-and-goose-terminal-harnesses/Aider_and_Block_Goose_Terminal_Harnesses_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/open-harnesses/aider-and-goose-terminal-harnesses">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/open-harnesses/warp-ai-terminal-agents-and-drive/Warp_AI_Terminal_Agents_and_Drive_Complete_How_To_Guide.pdf"><img src="guides/open-harnesses/warp-ai-terminal-agents-and-drive/cover.png" alt="Warp AI Terminal, Agent Mode &amp; Drive Cover" width="100%" /></a>
+      <h3><a href="guides/open-harnesses/warp-ai-terminal-agents-and-drive/Warp_AI_Terminal_Agents_and_Drive_Complete_How_To_Guide.pdf">Warp AI Terminal, Agent Mode &amp; Drive</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Upgrade the command line into an agentic development environment—combining filterable Command Blocks, autonomous Agent Mode with allowlist safety gates, parameterized {{arg}} Workflows, team Notebooks, WARP.md Rules, and Zero Data Retention.</p>
+      <p><code>Warp Terminal</code> &middot; <code>Agent Mode</code> &middot; <code>Warp Drive</code></p>
+      <p><a href="guides/open-harnesses/warp-ai-terminal-agents-and-drive/Warp_AI_Terminal_Agents_and_Drive_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/open-harnesses/warp-ai-terminal-agents-and-drive">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/open-harnesses/ollama-modelfiles-tools-and-vision/Ollama_Modelfiles_Tools_and_Vision_Complete_How_To_Guide.pdf"><img src="guides/open-harnesses/ollama-modelfiles-tools-and-vision/cover.png" alt="Ollama Modelfiles, Tool Calling &amp; Vision Cover" width="100%" /></a>
+      <h3><a href="guides/open-harnesses/ollama-modelfiles-tools-and-vision/Ollama_Modelfiles_Tools_and_Vision_Complete_How_To_Guide.pdf">Ollama Modelfiles, Tool Calling &amp; Vision</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Go beyond basic ollama run prompts—author deterministic Modelfile blueprints with LoRA adapters, orchestrate native multi-turn tools loops, lock JSON Schema format outputs, extract structured data from images, and tune VRAM concurrency.</p>
+      <p><code>Modelfile &amp; LoRA</code> &middot; <code>Ollama Tools</code> &middot; <code>Vision &amp; VRAM</code></p>
+      <p><a href="guides/open-harnesses/ollama-modelfiles-tools-and-vision/Ollama_Modelfiles_Tools_and_Vision_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/open-harnesses/ollama-modelfiles-tools-and-vision">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/open-harnesses/ollama-local-coding-and-harnesses/Ollama_Local_Coding_and_Harnesses_Complete_How_To_Guide.pdf"><img src="guides/open-harnesses/ollama-local-coding-and-harnesses/cover.png" alt="Ollama Local Coding &amp; Hybrid Harnesses Cover" width="100%" /></a>
+      <h3><a href="guides/open-harnesses/ollama-local-coding-and-harnesses/Ollama_Local_Coding_and_Harnesses_Complete_How_To_Guide.pdf">Ollama Local Coding &amp; Hybrid Harnesses</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Wire local Ollama weights (localhost:11434/v1) into OpenCode, Aider, Continue, Raycast, Obsidian, and n8n—pairing cloud planners with zero-cost local coders, defeating the silent num_ctx repo-map trap, and securing LAN serving over Tailscale.</p>
+      <p><code>Local Coding</code> &middot; <code>num_ctx Tuning</code> &middot; <code>Tailscale LAN</code></p>
+      <p><a href="guides/open-harnesses/ollama-local-coding-and-harnesses/Ollama_Local_Coding_and_Harnesses_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/open-harnesses/ollama-local-coding-and-harnesses">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+</table>
+
+### AI Desktop, OS Power Workflows & Personal Ops
+Publication-grade 12-page visual handbooks for cross-platform desktop AI, inbox & schedule defense, safe digital decluttering, and visual workflow automation—covering macOS vs. Windows Copilot+ PCs, AI Inbox Zero & Calendar Defense, File System Cleanup, and n8n & Make.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/desktop-and-os/mac-vs-windows-ai-power-playbook/Mac_vs_Windows_AI_Power_User_Playbook_Complete_How_To_Guide.pdf"><img src="guides/desktop-and-os/mac-vs-windows-ai-power-playbook/cover.png" alt="Mac vs. Windows AI Power-User Playbook Cover" width="100%" /></a>
+      <h3><a href="guides/desktop-and-os/mac-vs-windows-ai-power-playbook/Mac_vs_Windows_AI_Power_User_Playbook_Complete_How_To_Guide.pdf">Mac vs. Windows AI Power-User Playbook</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Master both sides of modern desktop AI—comparing Apple Silicon unified memory, Apple Intelligence, Shortcuts, and Raycast against Windows 11 Copilot+ PCs, Click to Do, opt-in Recall, PowerToys Command Palette, MLX, ONNX NPUs, and WSL2 CUDA.</p>
+      <p><code>Apple Intelligence</code> &middot; <code>Copilot+ &amp; WSL2</code> &middot; <code>Raycast &amp; PowerToys</code></p>
+      <p><a href="guides/desktop-and-os/mac-vs-windows-ai-power-playbook/Mac_vs_Windows_AI_Power_User_Playbook_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/desktop-and-os/mac-vs-windows-ai-power-playbook">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/desktop-and-os/ai-inbox-zero-and-calendar-defense/AI_Inbox_Zero_and_Calendar_Defense_Complete_How_To_Guide.pdf"><img src="guides/desktop-and-os/ai-inbox-zero-and-calendar-defense/cover.png" alt="AI Inbox Zero &amp; Calendar Defense Cover" width="100%" /></a>
+      <h3><a href="guides/desktop-and-os/ai-inbox-zero-and-calendar-defense/AI_Inbox_Zero_and_Calendar_Defense_Complete_How_To_Guide.pdf">AI Inbox Zero &amp; Calendar Defense</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turn a flooded mailbox and fragmented schedule into a calm, draft-only operating system—combining 5-bucket triage, Gmail Gemini, Shortwave, Superhuman, Workspace CLI &amp; MCP pipelines, prompt-injection shields, and automated focus-block protection.</p>
+      <p><code>Inbox Zero</code> &middot; <code>Calendar Defense</code> &middot; <code>Workspace MCP</code></p>
+      <p><a href="guides/desktop-and-os/ai-inbox-zero-and-calendar-defense/AI_Inbox_Zero_and_Calendar_Defense_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/desktop-and-os/ai-inbox-zero-and-calendar-defense">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/desktop-and-os/ai-file-system-cleanup-and-declutter/AI_File_System_Cleanup_and_Declutter_Complete_How_To_Guide.pdf"><img src="guides/desktop-and-os/ai-file-system-cleanup-and-declutter/cover.png" alt="AI File System Cleanup &amp; Digital Declutter Cover" width="100%" /></a>
+      <h3><a href="guides/desktop-and-os/ai-file-system-cleanup-and-declutter/AI_File_System_Cleanup_and_Declutter_Complete_How_To_Guide.pdf">AI File System Cleanup &amp; Digital Declutter</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Reclaim chaotic Downloads/ and Desktop folders without losing irreplaceable files—combining dry-run manifests, SHA-256 duplicate sweeps, VLM/OCR receipt renaming, 30-day quarantine staging, and native macOS + Windows automation.</p>
+      <p><code>Dry-Run Cleanup</code> &middot; <code>SHA-256 Dedup</code> &middot; <code>VLM Receipt OCR</code></p>
+      <p><a href="guides/desktop-and-os/ai-file-system-cleanup-and-declutter/AI_File_System_Cleanup_and_Declutter_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/desktop-and-os/ai-file-system-cleanup-and-declutter">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/desktop-and-os/visual-ai-workflows-n8n-and-make/Visual_AI_Workflows_with_n8n_and_Make_Complete_How_To_Guide.pdf"><img src="guides/desktop-and-os/visual-ai-workflows-n8n-and-make/cover.png" alt="Visual AI Workflows with n8n &amp; Make Cover" width="100%" /></a>
+      <h3><a href="guides/desktop-and-os/visual-ai-workflows-n8n-and-make/Visual_AI_Workflows_with_n8n_and_Make_Complete_How_To_Guide.pdf">Visual AI Workflows with n8n &amp; Make</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Design reliable, production-grade AI automations on a visual node canvas—combining deterministic pre-LLM routers, stateful Postgres &amp; Data Store memory, MCP tool bridges, Slack/email approval pauses, and runaway spend circuit breakers.</p>
+      <p><code>n8n AI Agents</code> &middot; <code>Make Scenarios</code> &middot; <code>MCP &amp; Queue Mode</code></p>
+      <p><a href="guides/desktop-and-os/visual-ai-workflows-n8n-and-make/Visual_AI_Workflows_with_n8n_and_Make_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/desktop-and-os/visual-ai-workflows-n8n-and-make">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+</table>
+
 ### Quick-Reference Index
 | Guide | Ecosystem | Version | Updated | Pages | Direct Links |
 | :--- | :--- | :---: | :---: | :---: | :--- |
@@ -688,6 +797,7 @@ Publication-grade 12-page visual handbooks for Generative Engine Optimization (G
 | **Antigravity 2.0 Customizations, Skills & Swarms** — Tailor Google Antigravity 2.0, IDE, CLI (agy), and Python SDK with progressive SKILL.md modules, AGENTS.md rules, lifecycle hooks.json, namespaced plugins, and message-board agent swarms. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/antigravity-2-customizations-and-swarms/Antigravity_2_Customizations_and_Swarms_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/antigravity-2-customizations-and-swarms) |
 | **Gemini 3.8 Live & Omni 1.2 Flash Studio** — Build low-latency bidirectional voice/vision agents with Gemini 3.8 Live (Extended Thinking, NON_BLOCKING tools, Live Translate) and multi-shot 4K generative video workflows with Gemini Omni 1.2 Flash. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/gemini-live-and-omni-flash/Gemini_Live_and_Omni_Flash_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/gemini-live-and-omni-flash) |
 | **Agentic Firebase & Android CLI Workflows** — Ship full-stack mobile and web apps with firebase-tools MCP, Firebase AI Logic + App Check, Data Connect, Android CLI, live Device Hub mirroring, Compose Preview sidecars, and XML Journey tests. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/agentic-firebase-and-android-cli/Agentic_Firebase_and_Android_CLI_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/agentic-firebase-and-android-cli) |
+| **Google ADK & Agent2Agent (A2A) Protocol** — Build, evaluate, and ship code-first multi-agent systems with Google's Agent Development Kit in Python and TypeScript—combining deterministic Workflow Agents, scoped state prefixes, MCPToolset, Vertex AI Agent Engine, and cross-vendor A2A Agent Cards. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-adk-and-a2a/Google_ADK_and_A2A_Protocol_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-adk-and-a2a) |
 | **Claude Code Mods** — Customizing Claude Code from the inside with in-process TypeScript/JavaScript mods—building live terminal HUDs, prompt/tool interceptors, custom slash commands, and sec-default guardrails. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-code-mods/Claude_Code_Mods_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-code-mods) |
 | **Claude Whiteboards** — Turning messy voice and text brainstorms into real-time multiplayer visual canvases—mastering region-box prompting, retro clustering, Doc/Slide handoffs, and Miro/Lucid exports. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-whiteboards/Claude_Whiteboards_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-whiteboards) |
 | **Claude Dashboards & Data** — Connecting warehouses and CRMs to natural-language analytics—building auditable SQL charts, Certified Queries, Scrollytellers, Visual Shorts, and credential-safe live team shares. | Anthropic Claude & Workspace Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/claude/claude-dashboards-and-data/Claude_Dashboards_and_Data_Complete_How_To_Guide.pdf) &middot; [Source](guides/claude/claude-dashboards-and-data) |
@@ -741,6 +851,16 @@ Publication-grade 12-page visual handbooks for Generative Engine Optimization (G
 | **GEO & AI Search Visibility** — Win inline citations across ChatGPT Search, Perplexity, Google AI Overviews, Claude, and Gemini using Answer-First prose capsules, entity corroboration, JSON-LD schema, SSR parity, and Share-of-Voice KPIs. | AI Search Visibility, Agentic Web & Workflows | `v1.0` | `2026-11` | 12 | [PDF](guides/visibility-and-workflows/geo-and-ai-search-visibility/Generative_Engine_Optimization_and_AI_Visibility_Complete_How_To_Guide.pdf) &middot; [Source](guides/visibility-and-workflows/geo-and-ai-search-visibility) |
 | **Agent-Ready Websites & WebMCP** — Audit sites 0-100 with is-agentic, publish /llms.txt maps and Accept: text/markdown content negotiation, expose browser-native WebMCP tools, and enforce human-in-the-loop safety gates. | AI Search Visibility, Agentic Web & Workflows | `v1.0` | `2026-11` | 12 | [PDF](guides/visibility-and-workflows/agent-ready-websites-and-webmcp/Agent_Ready_Websites_is_agentic_and_WebMCP_Complete_How_To_Guide.pdf) &middot; [Source](guides/visibility-and-workflows/agent-ready-websites-and-webmcp) |
 | **Bot-Free Meeting Notes & Action Pipelines** — Capture meetings silently without call bots in Granola—merging rough human bullets with local transcripts, custom templates, Ask Granola folder Q&A, Recipes, and Slack, Linear, MCP, and Obsidian _inbox/ sync. | AI Search Visibility, Agentic Web & Workflows | `v1.0` | `2026-11` | 12 | [PDF](guides/visibility-and-workflows/granola-bot-free-meetings-and-pipelines/Bot_Free_Meeting_Notes_and_Action_Pipelines_Complete_How_To_Guide.pdf) &middot; [Source](guides/visibility-and-workflows/granola-bot-free-meetings-and-pipelines) |
+| **OpenCode TUI, Plan/Build Agents & Multi-Model Routing** — Master the open-source, provider-agnostic terminal coding harness—switching between read-only Plan and Build modes with Tab, routing 75+ cloud and local models in opencode.json, closing compiler loops via native LSP, and rewinding edits with /undo snapshots. | Open Harnesses, AI Terminals & Local Models | `v1.0` | `2026-11` | 12 | [PDF](guides/open-harnesses/opencode-tui-agents-and-routing/OpenCode_TUI_Agents_and_Routing_Complete_How_To_Guide.pdf) &middot; [Source](guides/open-harnesses/opencode-tui-agents-and-routing) |
+| **OpenCode Plugins, Custom Tools, Servers & CI** — Extend OpenCode into a programmable engineering platform—authoring Zod-typed .opencode/tools/ modules, intercepting calls via @opencode-ai/plugin hooks, enforcing permission firewalls, running headless opencode serve daemons, and automating PRs in GitHub Actions. | Open Harnesses, AI Terminals & Local Models | `v1.0` | `2026-11` | 12 | [PDF](guides/open-harnesses/opencode-plugins-tools-and-ci/OpenCode_Plugins_Tools_and_CI_Complete_How_To_Guide.pdf) &middot; [Source](guides/open-harnesses/opencode-plugins-tools-and-ci) |
+| **Aider & Block Goose Terminal Harnesses** — Master two flagship open-source terminal harnesses—pairing Aider's tree-sitter PageRank Repo Map, /architect dual-model splits, and atomic Git commits with Block Goose's native MCP extensions, Lead/Worker routing, and reusable YAML Recipes. | Open Harnesses, AI Terminals & Local Models | `v1.0` | `2026-11` | 12 | [PDF](guides/open-harnesses/aider-and-goose-terminal-harnesses/Aider_and_Block_Goose_Terminal_Harnesses_Complete_How_To_Guide.pdf) &middot; [Source](guides/open-harnesses/aider-and-goose-terminal-harnesses) |
+| **Warp AI Terminal, Agent Mode & Drive** — Upgrade the command line into an agentic development environment—combining filterable Command Blocks, autonomous Agent Mode with allowlist safety gates, parameterized {{arg}} Workflows, team Notebooks, WARP.md Rules, and Zero Data Retention. | Open Harnesses, AI Terminals & Local Models | `v1.0` | `2026-11` | 12 | [PDF](guides/open-harnesses/warp-ai-terminal-agents-and-drive/Warp_AI_Terminal_Agents_and_Drive_Complete_How_To_Guide.pdf) &middot; [Source](guides/open-harnesses/warp-ai-terminal-agents-and-drive) |
+| **Ollama Modelfiles, Tool Calling & Vision** — Go beyond basic ollama run prompts—author deterministic Modelfile blueprints with LoRA adapters, orchestrate native multi-turn tools loops, lock JSON Schema format outputs, extract structured data from images, and tune VRAM concurrency. | Open Harnesses, AI Terminals & Local Models | `v1.0` | `2026-11` | 12 | [PDF](guides/open-harnesses/ollama-modelfiles-tools-and-vision/Ollama_Modelfiles_Tools_and_Vision_Complete_How_To_Guide.pdf) &middot; [Source](guides/open-harnesses/ollama-modelfiles-tools-and-vision) |
+| **Ollama Local Coding & Hybrid Harnesses** — Wire local Ollama weights (localhost:11434/v1) into OpenCode, Aider, Continue, Raycast, Obsidian, and n8n—pairing cloud planners with zero-cost local coders, defeating the silent num_ctx repo-map trap, and securing LAN serving over Tailscale. | Open Harnesses, AI Terminals & Local Models | `v1.0` | `2026-11` | 12 | [PDF](guides/open-harnesses/ollama-local-coding-and-harnesses/Ollama_Local_Coding_and_Harnesses_Complete_How_To_Guide.pdf) &middot; [Source](guides/open-harnesses/ollama-local-coding-and-harnesses) |
+| **Mac vs. Windows AI Power-User Playbook** — Master both sides of modern desktop AI—comparing Apple Silicon unified memory, Apple Intelligence, Shortcuts, and Raycast against Windows 11 Copilot+ PCs, Click to Do, opt-in Recall, PowerToys Command Palette, MLX, ONNX NPUs, and WSL2 CUDA. | AI Desktop, OS Power Workflows & Personal Ops | `v1.0` | `2026-11` | 12 | [PDF](guides/desktop-and-os/mac-vs-windows-ai-power-playbook/Mac_vs_Windows_AI_Power_User_Playbook_Complete_How_To_Guide.pdf) &middot; [Source](guides/desktop-and-os/mac-vs-windows-ai-power-playbook) |
+| **AI Inbox Zero & Calendar Defense** — Turn a flooded mailbox and fragmented schedule into a calm, draft-only operating system—combining 5-bucket triage, Gmail Gemini, Shortwave, Superhuman, Workspace CLI & MCP pipelines, prompt-injection shields, and automated focus-block protection. | AI Desktop, OS Power Workflows & Personal Ops | `v1.0` | `2026-11` | 12 | [PDF](guides/desktop-and-os/ai-inbox-zero-and-calendar-defense/AI_Inbox_Zero_and_Calendar_Defense_Complete_How_To_Guide.pdf) &middot; [Source](guides/desktop-and-os/ai-inbox-zero-and-calendar-defense) |
+| **AI File System Cleanup & Digital Declutter** — Reclaim chaotic Downloads/ and Desktop folders without losing irreplaceable files—combining dry-run manifests, SHA-256 duplicate sweeps, VLM/OCR receipt renaming, 30-day quarantine staging, and native macOS + Windows automation. | AI Desktop, OS Power Workflows & Personal Ops | `v1.0` | `2026-11` | 12 | [PDF](guides/desktop-and-os/ai-file-system-cleanup-and-declutter/AI_File_System_Cleanup_and_Declutter_Complete_How_To_Guide.pdf) &middot; [Source](guides/desktop-and-os/ai-file-system-cleanup-and-declutter) |
+| **Visual AI Workflows with n8n & Make** — Design reliable, production-grade AI automations on a visual node canvas—combining deterministic pre-LLM routers, stateful Postgres & Data Store memory, MCP tool bridges, Slack/email approval pauses, and runaway spend circuit breakers. | AI Desktop, OS Power Workflows & Personal Ops | `v1.0` | `2026-11` | 12 | [PDF](guides/desktop-and-os/visual-ai-workflows-n8n-and-make/Visual_AI_Workflows_with_n8n_and_Make_Complete_How_To_Guide.pdf) &middot; [Source](guides/desktop-and-os/visual-ai-workflows-n8n-and-make) |
 <!-- CATALOG:END -->
 
 ---
