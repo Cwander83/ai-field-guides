@@ -410,7 +410,8 @@ const resp = await fetch('https://api.openai.com/v1/realtime/client_secrets', {
     session: { type: 'realtime', model: 'gpt-realtime-2.1' }
   })
 });
-const { value: ephemeralKey } = await resp.json(); // Default 600s if omitted</code></pre>
+// Default TTL is 600s if expires_after is omitted
+const { value: ephemeralKey } = await resp.json();</code></pre>
     </div>
     <div>
       <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">2. Browser Client: Connect Over WebRTC</p>
@@ -422,7 +423,8 @@ const agent = new RealtimeAgent({
 });
 const session = new RealtimeSession(agent);
 const { ephemeralKey } = await fetch('/api/realtime-token', { method: 'POST' }).then(r =&gt; r.json());
-await session.connect({ apiKey: ephemeralKey }); // Auto-uses WebRTC</code></pre>
+// Connects directly over WebRTC in browsers
+await session.connect({ apiKey: ephemeralKey });</code></pre>
     </div>
   </div>
 
@@ -528,14 +530,14 @@ await session.addImage(frameDataUrl, { triggerResponse: false });</code></pre>
   <div class="grid-2" style="margin-bottom:5px; gap:9px;">
     <div>
       <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">1. Tuning Server VAD &amp; Clean <code>interrupt()</code></p>
-      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.8pt; line-height:1.33;"><code>// Configure Server VAD in RealtimeSession audio.input config
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.8pt; line-height:1.33;"><code>// Configure Server VAD under audio.input
 config: { audio: { input: { turnDetection: {
   type: 'server_vad', threshold: 0.55,
   prefix_padding_ms: 300, silence_duration_ms: 500
 }}}}
-// Flush client speaker queue when VAD interrupts playback:
+// Flush client speaker queue on VAD interrupt:
 session.on('audio_interrupted', () =&gt; player.stopAndFlush());
-// Or call session.interrupt() on a manual Stop button</code></pre>
+// Or call session.interrupt() on a Stop button</code></pre>
     </div>
     <div>
       <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">2. Async Tools &amp; Hosted MCP Approvals</p>
