@@ -165,9 +165,9 @@
     <div class="card" style="padding:7px 10px; border-top:3px solid #0284c7;">
       <div class="card-title" style="font-size:8.9pt;"><span class="num-badge sky">2</span> Browser Permission Modes &amp; Scopes</div>
       <ul style="font-size:7.75pt; margin:3px 0 0 0; padding-left:15px;">
-        <li><strong>Ask Before Acting (Manual):</strong> Pauses and asks <em>Allow / Deny</em> before clicking, submitting forms, or navigating&mdash;ideal for staging admin panels.</li>
-        <li><strong>Auto-Approve (Classifier-Screened):</strong> Runs multi-step flows smoothly while secondary background safety classifiers block risky actions or prompt on anomaly.</li>
-        <li><strong>Skip All Approvals:</strong> Bypasses prompts completely; reserve strictly for isolated local servers like <code>localhost:3000</code>, never open web browsing.</li>
+        <li><strong>Manually Approve:</strong> (Formerly <em>Ask before acting</em>.) Pauses and asks <em>Allow / Deny</em> before clicking, submitting forms, or navigating&mdash;ideal for staging admin panels.</li>
+        <li><strong>Automatically Approve (Auto):</strong> Default in the Cowork side panel; runs multi-step flows smoothly while safety classifiers block risky actions or prompt on anomaly.</li>
+        <li><strong>Skip All Approvals:</strong> (Formerly <em>Act without asking</em>.) Runs uninterrupted without automated safety gating; reserve strictly for isolated local servers like <code>localhost:3000</code>.</li>
         <li><strong>Site Permissions:</strong> Manage approved domains in side-panel <em>Settings &rarr; Permissions</em> and Chrome&rsquo;s <code>chrome://extensions</code> site-access selector.</li>
       </ul>
     </div>
@@ -261,7 +261,7 @@
       </div>
       <div style="display:flex; align-items:center; gap:5px; font-size:6.6pt; white-space:nowrap;">
         <span class="ui-chip" style="background:#3b1d6a; border:1px solid #c084fc; color:#f3e8ff; padding:2px 6px;">MCP Tab Group <span class="callout-pin">1</span></span>
-        <span class="ui-chip" style="background:#064e3b; border:1px solid #10b981; color:#a7f3d0; padding:2px 6px;">Auto (Safe) <span class="callout-pin">2</span></span>
+        <span class="ui-chip" style="background:#064e3b; border:1px solid #10b981; color:#a7f3d0; padding:2px 6px;">Auto Approve <span class="callout-pin">2</span></span>
         <span class="ui-chip" style="background:#0c4a6e; border:1px solid #38bdf8; color:#bae6fd; padding:2px 6px;">/memories <span class="callout-pin">6</span></span>
       </div>
     </div>
@@ -338,7 +338,7 @@
       <span class="callout-pin">1</span> <strong>MCP Tab Group Scope (<code>tabs_context_mcp</code>):</strong> Discovers open tabs and isolates Claude inside color-coded tab groups so unrelated personal tabs stay untouched.
     </div>
     <div class="card" style="padding:5.5px 9px;">
-      <span class="callout-pin">2</span> <strong>Tiered Approvals &amp; Allowlists:</strong> Switch between <em>Ask</em>, classifier-screened <em>Auto</em>, or local-only <em>Skip</em>, locked to approved site permissions.
+      <span class="callout-pin">2</span> <strong>Tiered Approvals &amp; Allowlists:</strong> Switch between <em>Manually approve</em>, classifier-screened <em>Automatically approve</em> (Auto), or local-only <em>Skip all approvals</em> under approved site rules.
     </div>
     <div class="card" style="padding:5.5px 9px;">
       <span class="callout-pin">3</span> <strong>Console &amp; Network Forensics:</strong> Pulls live JS stack traces via <code>read_console_messages</code> and failing API payloads via <code>read_network_requests</code>.
@@ -441,7 +441,7 @@ $ claude --chrome
       <span class="p-tag p-probe">[2. Console &amp; Network Probe]</span> trigger the CSV export button and capture all console errors plus failed POST responses.
       <span class="p-tag p-verify">[3. Patch &amp; Live Re-Test]</span> Fix the serialization bug in exportWorker.ts and re-verify in Chrome until 200 OK returns cleanly.
       <span class="p-tag p-memory">[4. Memory Persistence]</span> Update /memories/export_pipeline.md with the verified header format via str_replace.
-      <span class="p-tag p-guard">[5. Guardrail]</span> Keep permission mode on Ask before touching any billing route or production domain.
+      <span class="p-tag p-guard">[5. Guardrail]</span> Keep permission mode on Manually approve before touching any billing route or production domain.
     </div>
   </div>
 
@@ -476,7 +476,7 @@ $ claude --chrome
       </tr>
       <tr>
         <td><span class="p-tag p-guard">Safety Guardrail</span></td>
-        <td>Enforces <em>Ask</em> / <em>Auto</em> approval tiers and excludes prod or finance tabs.</td>
+        <td>Enforces <em>Manually approve</em> / <em>Automatically approve</em> tiers and excludes prod or finance tabs.</td>
         <td>Risky actions or accidental writes run on live customer accounts.</td>
       </tr>
     </tbody>
@@ -751,7 +751,7 @@ tools   = [{"type": "memory_20250818", "name": "memory"}]
       <ul style="font-size:7.8pt; margin:3px 0 0 0; padding-left:15px;">
         <li><strong>High-Risk Category Blocks:</strong> Banking, crypto wallets, medical portals, and explicit domains are blocked by default so agents cannot transfer funds or alter records.</li>
         <li><strong>Dedicated QA Chrome Profile:</strong> Run staging debugging inside a dedicated Chrome work profile&mdash;never alongside personal finance, password vaults, or production root consoles.</li>
-        <li><strong>Never Skip Approvals on Open Web:</strong> Reserve <em>Skip all approvals</em> strictly for offline/local builds; keep <em>Ask</em> or <em>Auto</em> enabled elsewhere.</li>
+        <li><strong>Never Skip Approvals on Open Web:</strong> Reserve <em>Skip all approvals</em> strictly for offline/local builds; keep <em>Manually approve</em> or <em>Automatically approve</em> enabled elsewhere.</li>
       </ul>
     </div>
   </div>
@@ -769,7 +769,7 @@ tools   = [{"type": "memory_20250818", "name": "memory"}]
       <tr>
         <td><strong>DOM Prompt Injection</strong></td>
         <td>Untrusted GitHub issue or webpage tricks Claude into clicking transfer or exfiltration links.</td>
-        <td>Keep permission mode on <em>Ask</em> or <em>Auto</em>; restrict active sites in extension <em>Settings &rarr; Permissions</em>.</td>
+        <td>Keep permission mode on <em>Manually approve</em> or <em>Automatically approve</em>; restrict active sites in extension <em>Settings &rarr; Permissions</em>.</td>
       </tr>
       <tr>
         <td><strong>Path Traversal in <code>/memories</code></strong></td>
@@ -1003,7 +1003,7 @@ def resolve_memory_path(raw_path: str) -&gt; Path:
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>
-      <div><strong>3. Lock Approval Tiers Safely:</strong> Use <em>Ask</em> or classifier-screened <em>Auto</em> on live sites; reserve <em>Skip</em> strictly for trusted local dev.</div>
+      <div><strong>3. Lock Approval Tiers Safely:</strong> Use <em>Manually approve</em> or classifier-screened <em>Automatically approve</em> on live sites; reserve <em>Skip all approvals</em> for trusted local dev.</div>
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>

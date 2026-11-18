@@ -149,25 +149,25 @@
 
   <h2 class="page-title">Plans, Activation &amp; Design Surface Decision Matrix</h2>
   <p class="page-lead" style="margin-bottom:7px;">
-    Born in Anthropic Labs, Claude Design operates across web (<code>claude.ai</code> and <code>claude.ai/design</code>), Claude Desktop (macOS and Windows), mobile review apps, and <strong>Claude Code</strong> workflows&mdash;powered by Anthropic&rsquo;s vision-capable Claude Opus models.
+    Born in Anthropic Labs, Claude Design runs natively inside main <code>claude.ai</code> (chat &amp; <strong>Artifacts</strong> tab), Claude Desktop, mobile apps, and <strong>Claude Code</strong> (<code>/design</code>)&mdash;as standalone <code>claude.ai/design</code> retires to read-only on <strong>Dec 14, 2026</strong>.
   </p>
 
   <div class="grid-2" style="margin-bottom:7px; gap:10px;">
     <div class="card" style="padding:8px 10.5px; border-top:3px solid #be185d;">
       <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Availability Across Plans &amp; Surfaces</div>
       <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
-        <li><strong>Pro &amp; Max Plans:</strong> Available directly in your workspace and Artifacts studio; draws from your subscription&rsquo;s shared Claude Opus usage pool.</li>
-        <li><strong>Team Plan:</strong> Supports shared Design Systems, workspace-wide interactive review links, and inline commenting across colleagues.</li>
-        <li><strong>Enterprise Plan:</strong> Governed under <code>Organization settings &rarr; Artifacts</code> with org-locked brand kits, SSO-scoped previews, and MCP allowlists.</li>
-        <li><strong>Web, Desktop &amp; Mobile:</strong> Build and dial Control Knobs on web or Desktop; tap through prototypes and post inline feedback from iOS/Android.</li>
+        <li><strong>Free, Pro, Max &amp; Ultra Plans:</strong> Available across all individual tiers (Free within standard message caps); draws from your account&rsquo;s shared usage pool.</li>
+        <li><strong>Team &amp; Enterprise Plans:</strong> <strong>Enabled by default</strong> with shared Design Systems, org-scoped review links, inline comments, and governance under <code>Organization settings &rarr; Artifacts</code>.</li>
+        <li><strong>Unified Claude &amp; Dec 14 Migration:</strong> Build natively inside main chats and Artifacts; migrate legacy <code>claude.ai/design</code> projects before <strong>Dec 14, 2026</strong> when standalone links turn read-only.</li>
+        <li><strong>Web, Desktop, Mobile &amp; Code:</strong> Build and dial Control Knobs on web or Desktop; review on iOS/Android; sync components in <strong>Claude Code</strong> via <code>/design</code> and <code>/design-sync</code>.</li>
       </ul>
     </div>
     <div class="card" style="padding:8px 10.5px; border-top:3px solid #d97706;">
       <div class="card-title" style="font-size:9pt;"><span class="num-badge amber">2</span> Three Ways to Launch Claude Design</div>
       <ol style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
-        <li><strong>Studio Onboarding (<code>claude.ai/design</code>):</strong> Pick your role, upload brand guidelines or a Figma link, and build a reusable Design System before Screen 1.</li>
-        <li><strong>Codebase-First via Claude Code:</strong> Run <code>/design-sync</code> in your frontend repo so Claude imports <code>tokens.json</code>, Tailwind config, and <code>shadcn/ui</code> primitives.</li>
-        <li><strong>In-Chat &amp; Artifacts Picker:</strong> Choose <strong>Design</strong> from the Artifacts studio or prompt inside a Claude Project already holding your product specs.</li>
+        <li><strong>In-Chat &amp; Artifacts Tab:</strong> Select <strong>Design</strong> in the <code>claude.ai</code> Artifacts tab or prompt in chat (and migrate pre-Dec 14 standalone <code>claude.ai/design</code> kits via the built-in tool).</li>
+        <li><strong>Codebase-First via Claude Code:</strong> Run <code>/design</code> or <code>/design-sync</code> in your frontend repo so Claude imports <code>tokens.json</code>, Tailwind config, and <code>shadcn/ui</code> primitives.</li>
+        <li><strong>Inside a Claude Project:</strong> Prompt directly inside a Project holding your product PRDs and brand PDFs so every generated flow matches existing specs.</li>
       </ol>
     </div>
   </div>
@@ -429,7 +429,7 @@
 
   <pre class="code-block" style="margin:2px 0 5px 0;"><code># Recommended Onboarding Sequence (Codebase + Brand Brief):
 1. Open Claude Code in your web repo and run: /design-sync (indexes tailwind.config, tokens.json, components/ui/*)
-2. Upload Brand_Guidelines_2026.pdf + Product_Voice_Brief.md inside claude.ai/design onboarding
+2. Upload Brand_Guidelines_2026.pdf + Product_Voice_Brief.md inside claude.ai Design onboarding (Artifacts tab)
 3. Inspect the generated Design System preview (Colors, Type Scale, Spacing, Primitives) &rarr; Click "Lock &amp; Publish"</code></pre>
 
   <div class="callout amber" style="margin:2px 0 0 0; padding:6.5px 11px; font-size:8.1pt;">
@@ -793,7 +793,7 @@
     <thead>
       <tr>
         <th style="width:22%;">Capability / Guardrail</th>
-        <th style="width:24%;">Pro &amp; Max</th>
+        <th style="width:24%;">Free, Pro, Max &amp; Ultra</th>
         <th style="width:26%;">Team Plan</th>
         <th style="width:28%;">Enterprise Plan</th>
       </tr>
@@ -801,9 +801,9 @@
     <tbody>
       <tr>
         <td><strong>Studio Access &amp; Roles</strong></td>
-        <td>Personal studio access</td>
-        <td>Org-wide toggle &amp; shared Projects</td>
-        <td>RBAC role-scoped under <code>Org settings</code></td>
+        <td>Included (Free subject to msg limits)</td>
+        <td><strong>On by default</strong>; shared Projects</td>
+        <td><strong>On by default</strong>; RBAC under <code>Org settings</code></td>
       </tr>
       <tr>
         <td><strong>Design System Governance</strong></td>
