@@ -139,13 +139,15 @@
   <div class="grid-2" style="margin-bottom: 6px;">
     <div class="card-dark">
       <div class="card-title">Python 3.10+ Setup (<code>google-genai &gt;= 3.2.0</code>)</div>
-      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #1e293b;">pip install -U google-genai  <span class="cm"># v3+ defaults to v1</span>
+      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #1e293b;"><span class="cm"># v3+ defaults to v1; pin v1beta for Live:</span>
+pip install -U google-genai
 <span class="kw">from</span> google <span class="kw">import</span> genai
 client = genai.Client(http_options={<span class="str">"api_version"</span>: <span class="str">"v1beta"</span>})</pre>
     </div>
     <div class="card-dark">
       <div class="card-title">TypeScript (<code>@google/genai &gt;= 3.2.0</code>)</div>
-      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #1e293b;">npm install @google/genai  <span class="cm">// Live API needs v1beta</span>
+      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #1e293b;"><span class="cm">// v3+ defaults to v1; pin v1beta for Live:</span>
+npm install @google/genai
 <span class="kw">import</span> { GoogleGenAI } <span class="kw">from</span> <span class="str">'@google/genai'</span>;
 <span class="kw">const</span> ai = <span class="kw">new</span> GoogleGenAI({ httpOptions: { apiVersion: <span class="str">'v1beta'</span> } });</pre>
     </div>

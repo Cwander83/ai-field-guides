@@ -251,7 +251,7 @@
       </div>
       <div style="display:flex; gap:6px; align-items:center;">
         <span class="callout-pin">5</span>
-        <span style="background:#1e293b; border:1px solid #38bdf8; color:#7dd3fc; padding:2px 7px; border-radius:5px; font-weight:700;">&#9679; Saved Gem Routine</span>
+        <span style="background:#1e293b; border:1px solid #38bdf8; color:#7dd3fc; padding:2px 7px; border-radius:5px; font-weight:700;">&#9679; /skill-name Routine</span>
         <span class="callout-pin">4</span>
         <span style="background:#f59e0b; color:#0f172a; padding:2px 8px; border-radius:5px; font-weight:800;">&#9995; Pause / Take Over</span>
       </div>
@@ -347,7 +347,7 @@
     <div><span class="callout-pin">2</span> <strong>Live Viewport &amp; AI Cursor:</strong> Watch the agent highlight buttons, scroll tables, and fill inputs inside its isolated VM or glowing Chrome tab.</div>
     <div><span class="callout-pin">3</span> <strong>Step-by-Step Reasoning Log:</strong> Plain-English narration of <em>why</em> the agent clicked each link or swapped an item—easy to audit in seconds.</div>
     <div><span class="callout-pin">4</span> <strong>Pause / Take Over Task:</strong> Freeze the run at any instant to sign in, tweak a filter, or adjust a cart, then click <strong>Give back task</strong> (or Resume).</div>
-    <div><span class="callout-pin">5</span> <strong>Reusable Gem Routine:</strong> Save your multi-step portal playbook once inside a <strong>Custom Gem</strong> or Saved Routine to replay every week cleanly.</div>
+    <div><span class="callout-pin">5</span> <strong>Reusable Gemini Skill (<code>/skill-name</code>):</strong> Save your multi-step portal playbook as a modular <strong>Gemini Skill</strong> (or Workspace Gem until 2027) to replay weekly.</div>
     <div><span class="callout-pin">6</span> <strong>Sensitive-Action Safety Gate:</strong> Automatic hard pause whenever the agent hits a login wall, CAPTCHA, terms checkbox, send button, or payment screen.</div>
   </div>
   <div style="margin-top:5px; font-size:8.55pt;">
@@ -515,7 +515,7 @@
 
   <h2 class="page-title">Reusable Routines + Human-in-the-Loop Safety Gates</h2>
   <p class="page-lead">
-    Project Mariner pioneered <strong>Teach and Repeat</strong> in Google Labs; since standalone Mariner graduated in May 2026, you achieve that same reliable repeatability by turning one worked session into a reusable <strong>Custom Gem / Routine</strong> paired with strict safety gates.
+    Project Mariner pioneered <strong>Teach and Repeat</strong> in Google Labs; since standalone Mariner graduated in May 2026, you achieve that same repeatability by packaging a worked session as a modular <strong>Gemini Skill</strong> (<code>/skill-name</code>, replacing personal 18+ Gems Nov 17, 2026; Workspace Gems run until 2027).
   </p>
 
   <div class="figure-box" style="background:#040d1a;">
@@ -537,12 +537,12 @@
       <p style="font-size:8.3pt;">Write down the semantic rules right away (e.g., <em>"Always switch billing toggle to Annual first, and skip Enterprise Call-Us columns"</em>).</p>
     </div>
     <div class="card" style="padding:8px 11px;">
-      <div class="card-title"><span class="num-badge purple">3</span> Save as a Custom Gem</div>
-      <p style="font-size:8.3pt;">Store that 5-part formula inside a <strong>Custom Gem</strong> or Saved Routine template so dates and target URLs act as clean swap-in variables.</p>
+      <div class="card-title"><span class="num-badge purple">3</span> Save as a Gemini Skill</div>
+      <p style="font-size:8.3pt;">Package that 5-part formula as a portable <code>SKILL.md</code> Skill (<code>/pricing-audit</code>) or Workspace Gem so dates and URLs swap in cleanly.</p>
     </div>
     <div class="card" style="padding:8px 11px;">
       <div class="card-title"><span class="num-badge amber">4</span> Replay With Fresh Inputs</div>
-      <p style="font-size:8.3pt;">Next Monday, open your Gem + <strong>Agent Mode</strong> and say: <code>Run my Competitor Pricing Audit on Linear, Asana, and Monday.com</code>!</p>
+      <p style="font-size:8.3pt;">Next Monday, invoke your Skill + <strong>Agent Mode</strong> inline: <code>/pricing-audit on Linear, Asana, and Monday.com</code>!</p>
     </div>
   </div>
 
@@ -696,7 +696,7 @@
       </tr>
       <tr>
         <td><strong>3. Weekly Competitor Pricing &amp; Feature Tracker</strong></td>
-        <td><strong>Custom Gem + Agent Mode</strong> across 6–10 competitor URLs.</td>
+        <td><strong>Gemini Skill (<code>/pricing-audit</code>) + Agent Mode</strong> across 6–10 competitor URLs.</td>
         <td>Demonstrate toggling Monthly vs. Annual pricing, expanding feature comparison accordions, and checking changelog banners for newly shipped AI tiers.</td>
         <td><strong>Stop Gate:</strong> Read-only.<br/><strong>Output:</strong> Google Sheet diff highlighting price/tier changes.</td>
       </tr>
@@ -797,12 +797,12 @@
 <section class="page">
   <div class="page-header">
     <span class="section-tag">10 &bull; Studio Synergy &amp; Builders</span>
-    <span>Mariner &rarr; Sheets &rarr; NotebookLM &rarr; Opal / Antigravity + Computer Use API</span>
+    <span>Mariner &rarr; Sheets &rarr; NotebookLM &rarr; AI Studio / Antigravity + Computer Use</span>
   </div>
 
   <h2 class="page-title">Power Pipelines &amp; Building Custom Mariner Agents</h2>
   <p class="page-lead">
-    Project Mariner shines brightest as the <strong>live web sensor</strong> at the front of your Google AI Ultra stack—feeding fresh, real-world data straight into <strong>Sheets</strong>, <strong>NotebookLM</strong>, <strong>Opal</strong>, and <strong>Antigravity</strong>.
+    Project Mariner's engine shines brightest as the <strong>live web sensor</strong> at the front of your Google AI Ultra stack—feeding fresh web data straight into <strong>Sheets</strong>, <strong>NotebookLM</strong>, <strong>AI Studio / Gemini Skills</strong>, and <strong>Antigravity</strong>.
   </p>
 
   <!-- 4-Stage Studio Synergy SVG -->
@@ -829,11 +829,11 @@
       <path d="M344 71 L360 71" stroke="#34d399" stroke-width="2"/><polygon points="359,66 366,71 359,76" fill="#34d399"/>
 
       <rect x="368" y="28" width="150" height="86" rx="8" fill="#3b0764" stroke="#c084fc" stroke-width="1.5"/>
-      <text x="378" y="46" fill="#e9d5ff" font-size="9.2" font-weight="800">3. GOOGLE OPAL</text>
-      <text x="378" y="62" fill="#f8fafc" font-size="8.6" font-weight="700">No-Code AI Mini-Apps</text>
+      <text x="378" y="46" fill="#e9d5ff" font-size="9.0" font-weight="800">3. AI STUDIO / SKILLS</text>
+      <text x="378" y="62" fill="#f8fafc" font-size="8.6" font-weight="700">Interactive Apps &amp; Skills</text>
       <text x="378" y="76" fill="#f3e8ff" font-size="8.2">Turn your Sheet &amp; prompt</text>
-      <text x="378" y="88" fill="#f3e8ff" font-size="8.2">chain into a shareable</text>
-      <text x="378" y="100" fill="#f3e8ff" font-size="8.2">team workflow app.</text>
+      <text x="378" y="88" fill="#f3e8ff" font-size="8.2">into an AI Studio Build app</text>
+      <text x="378" y="100" fill="#f3e8ff" font-size="8.2">or /skill-name playbook.</text>
 
       <path d="M521 71 L537 71" stroke="#c084fc" stroke-width="2"/><polygon points="536,66 543,71 536,76" fill="#c084fc"/>
 
@@ -850,7 +850,7 @@
   <ul>
     <li><strong>Mariner &rarr; Google Sheets &rarr; Gemini Charts:</strong> Export Mariner's multi-portal table straight to Google Sheets, then ask Gemini in Sheets to plot price-vs-rating scatter charts automatically.</li>
     <li><strong>Mariner &rarr; NotebookLM Executive Podcast:</strong> Have Mariner collect 8 competitor pricing tables + release notes into a Doc, drop it into <strong>NotebookLM</strong> alongside Gemini Deep Research's industry report, and generate a 7-minute commute Audio Overview!</li>
-    <li><strong>Mariner Visual Recon &rarr; Whisk &amp; Flow Creative Briefs:</strong> Have Mariner audit top-performing landing pages or ad creatives in your niche, summarize visual hooks, and feed those insights into <strong>Google Whisk</strong> &amp; <strong>Google Flow</strong>.</li>
+    <li><strong>Agent Recon &rarr; Google Flow Creative Briefs:</strong> Audit top-performing landing pages or ad creatives in your niche, summarize visual hooks, and feed those insights straight into <strong>Google Flow</strong> (<code>flow.google</code>, uniting Whisk &amp; Veo 3.1).</li>
   </ul>
 
   <div class="card-dark" style="margin-top:8px;">
@@ -909,8 +909,8 @@
         <td>Stubborn sticky overlay. Usually Mariner clicks the <code>X</code> automatically; if a custom popup traps focus, tap <strong>Take Over</strong>, press <code>Esc</code> once, and resume.</td>
       </tr>
       <tr>
-        <td><strong>Saved Gem routine breaks after a portal redesign</strong></td>
-        <td>Target site changed its layout or button labels. Open your Custom Gem's step instructions, tweak the updated filter wording, and run one test pass to confirm.</td>
+        <td><strong>Saved Skill / Gem routine breaks after a portal redesign</strong></td>
+        <td>Target site changed its layout or labels. Open your Skill's <code>SKILL.md</code> instructions (or Workspace Gem under Settings), tweak the updated filter wording, and run one test pass.</td>
       </tr>
       <tr>
         <td><strong>Cart items picked wrong package size or store location</strong></td>
