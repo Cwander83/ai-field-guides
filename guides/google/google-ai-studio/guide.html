@@ -10,7 +10,7 @@
 <!-- ==================== PAGE 1: COVER ==================== -->
 <section class="page cover">
   <div class="cover-top">
-    <div class="brand-pill">Google AI Ultra Creative Studio Series &bull; Late 2026 Edition</div>
+    <div class="brand-pill">Google AI Ultra Creative Studio Series &bull; Late 2026 Edition (v1.1)</div>
     <h1>Mastering <span>Google AI Studio</span></h1>
     <p class="cover-sub">
       The complete visual handbook to Google's fastest Gemini workbench—mastering 1M-token video &amp; PDF analysis, Stream Realtime screen sharing, vibe-coding web apps, Structured JSON, and Cloud Run deployment.
@@ -89,7 +89,7 @@
       <text x="18" y="89" fill="#ffffff" font-size="10.5" font-weight="700">Deep Prompt Lab</text>
       <text x="18" y="105" fill="#cbd5e1" font-size="8.6">&bull; 1M+ token videos &amp; PDFs</text>
       <text x="18" y="118" fill="#cbd5e1" font-size="8.6">&bull; System Instructions</text>
-      <text x="18" y="131" fill="#cbd5e1" font-size="8.6">&bull; Thinking level &amp; Temp</text>
+      <text x="18" y="131" fill="#cbd5e1" font-size="8.6">&bull; Thinking level &amp; Tools</text>
       <text x="18" y="144" fill="#7dd3fc" font-size="8.6" font-weight="700">&bull; Split Compare Mode</text>
 
       <!-- Pillar 2: Stream Realtime -->
@@ -145,12 +145,12 @@
   </p>
 
   <h3>2026 Gemini Model Lineup Inside AI Studio</h3>
-  <table class="clean-table">
+  <table class="clean-table" style="font-size:8.2pt; margin-bottom:8px;">
     <thead>
       <tr>
         <th style="width:27%;">Model Family / Code</th>
-        <th style="width:18%;">Context / Speed</th>
-        <th style="width:55%;">When to Select It</th>
+        <th style="width:17%;">Context / Speed</th>
+        <th style="width:56%;">When to Select It</th>
       </tr>
     </thead>
     <tbody>
@@ -160,9 +160,9 @@
         <td>Hard multi-file coding, complex financial/legal reasoning, architecture audits, scientific proofs, and nuanced synthesis across massive documents.</td>
       </tr>
       <tr>
-        <td><strong>Balanced Workhorse</strong><br/><code>gemini-3.8-flash</code></td>
-        <td><strong>1M Tokens</strong><br/>Fast &amp; Smart</td>
-        <td><strong>Best everyday default!</strong> Snappy 1-hour video Q&amp;A, structured JSON extraction, live tool calling, and interactive Build mode apps.</td>
+        <td><strong>Balanced Daily Workhorse</strong><br/><code>gemini-4-hydrogen</code></td>
+        <td><strong>1M Unified</strong><br/>Fast &amp; Agentic</td>
+        <td><strong>Best everyday default!</strong> Supersedes <code>3.8-flash</code> with 1-hour video Q&amp;A, <code>xhigh</code> thinking, long decode, structured JSON, and Build apps.</td>
       </tr>
       <tr>
         <td><strong>Ultra-Fast / High-Volume</strong><br/><code>gemini-3.5-flash-lite</code></td>
@@ -170,14 +170,14 @@
         <td>Classifying thousands of rows, instant translation, lightweight autocomplete, and high-frequency API pipelines at pennies per million tokens.</td>
       </tr>
       <tr>
-        <td><strong>Live &amp; Native Media</strong><br/><code>gemini-3.8-live</code> &bull; <code>gemini-3.8-flash-tts</code> &bull; <code>gemini-nano-banana-2.1</code></td>
+        <td><strong>Live, Media &amp; Decisions</strong><br/><code>3.8-live</code> &bull; <code>3.8-flash-tts</code> &bull; <code>nano-banana-2.1</code></td>
         <td><strong>Realtime / Native</strong><br/>Audio, Image, Video</td>
-        <td>Powers two-way voice/screen streaming (<code>Stream</code>), 2-speaker podcast dialogue &amp; Voice Design, Nano Banana 2.1 images, and Veo / Omni Flash clips.</td>
+        <td>Two-way streaming (<code>Stream</code>), Voice Design TTS, Nano Banana 2.1 images, <code>gemini-omni-1.2-flash</code> video, and <code>gemini-decision-1</code> scoring.</td>
       </tr>
     </tbody>
   </table>
 
-  <div class="callout amber">
+  <div class="callout amber" style="margin:6px 0 8px 0; padding:8px 12px;">
     <div class="callout-title">CRITICAL PRIVACY RULE: Free Tier vs. Paid Billing Tier</div>
     <ul style="margin:3px 0 0 0;">
       <li><strong>Unpaid / Free Tier:</strong> Great for learning and public experiments, <em>but prompts and uploads may be reviewed by human annotators and used to train Google models</em> (outside EEA, UK, and Switzerland). <strong>Never paste client secrets, private code, or PII on the Free Tier!</strong></li>
@@ -185,23 +185,23 @@
     </ul>
   </div>
 
-  <h3>Mastering the 4 Right-Sidebar Run Settings</h3>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title"><span class="num-badge">1</span> Thinking Level / Budget</div>
-      <p style="font-size:8.4pt;">Controls how long Gemini reasons internally before speaking. Use <code>low</code> for instant chat/classification, <code>medium</code> (default) for daily coding &amp; analysis, and <code>high</code> for thorny math, bugs, or strategy.</p>
+  <h3 style="margin-top:8px;">Mastering the 4 Right-Sidebar Run Settings</h3>
+  <div class="grid-2" style="gap:9px;">
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge">1</span> Thinking Level</div>
+      <p style="font-size:8.25pt;">Controls reasoning depth before answering. Pick <code>low</code> for fast chat, <code>medium</code> for analysis, <code>high</code> (Hydrogen default) for hard bugs, and <code>xhigh</code> on Hydrogen (<code>minimal</code> is Flash-Lite only).</p>
     </div>
-    <div class="card">
-      <div class="card-title"><span class="num-badge teal">2</span> Temperature Slider</div>
-      <p style="font-size:8.4pt;">Controls randomness. Leave at model default (<code>1.0</code>) for Gemini 3.8/4 reasoning models; lower toward <code>0.1–0.3</code> only when demanding strict deterministic extraction on non-thinking tasks.</p>
+    <div class="card" style="padding:9px 11px;">
+      <div class="card-title"><span class="num-badge teal">2</span> Sampling &amp; Determinism</div>
+      <p style="font-size:8.25pt;">Gemini 4 models (<code>hydrogen</code>, <code>argon</code>, <code>carbon</code>) and <code>3.5-flash-lite</code> deprecate <code>temperature</code>, <code>top_p</code>, and <code>top_k</code>. Use <strong>Structured outputs</strong> and <strong>System Instructions</strong> for deterministic results.</p>
     </div>
-    <div class="card">
+    <div class="card" style="padding:9px 11px;">
       <div class="card-title"><span class="num-badge purple">3</span> Live Token Counter</div>
-      <p style="font-size:8.4pt;">Displays exact usage (e.g., <code>142,810 / 1,048,576 tokens</code>) before you even hit Run—so you always know how much memory and API spend a giant PDF or video consumes.</p>
+      <p style="font-size:8.25pt;">Displays exact usage (e.g., <code>142,810 / 1,048,576 tokens</code>) before you even hit Run—so you always know how much memory and API spend a giant PDF or video consumes.</p>
     </div>
-    <div class="card">
+    <div class="card" style="padding:9px 11px;">
       <div class="card-title"><span class="num-badge amber">4</span> Safety &amp; Output Limits</div>
-      <p style="font-size:8.4pt;">Adjust harassment/hate/dangerous content filter thresholds for legitimate security or fiction testing, and raise <code>Max output tokens</code> (up to 64K+) so long reports never cut off mid-sentence.</p>
+      <p style="font-size:8.25pt;">Adjust safety filter thresholds for legitimate security or fiction testing, and raise <code>Max output tokens</code> (up to 64K+) so long reports never cut off mid-sentence.</p>
     </div>
   </div>
 
@@ -328,7 +328,7 @@
     <div><span class="callout-pin">1</span> <strong>Left Mode Rail:</strong> Jump instantly between <em>Chat</em>, live <em>Stream Realtime</em>, full-stack <em>Build</em> apps, <em>Generate Media</em>, <em>Logs</em>, and <em>API Keys</em>.</div>
     <div><span class="callout-pin">2</span> <strong>System Instructions Drawer:</strong> Sets persistent persona, tone, and formatting rules that govern the entire session without cluttering your chat turns.</div>
     <div><span class="callout-pin">3</span> <strong>Multimodal <code>+</code> Insert Menu:</strong> Pull files straight from Google Drive, upload local videos/PDFs/audio, record voice notes, or drop whole code folders.</div>
-    <div><span class="callout-pin">4</span> <strong>Compare Mode Button:</strong> Splits your screen into two side-by-side columns so you can race <code>gemini-3.8-flash</code> against <code>gemini-4-argon</code> on the exact same prompt!</div>
+    <div><span class="callout-pin">4</span> <strong>Compare Mode Button:</strong> Splits your screen into two side-by-side columns so you can race <code>gemini-4-hydrogen</code> against <code>gemini-4-argon</code> on the exact same prompt!</div>
     <div><span class="callout-pin">5</span> <strong>Run Settings &amp; Thinking Box:</strong> Swap models mid-conversation, monitor live token fill, and inspect collapsible <em>Thoughts</em> to see <em>how</em> Gemini reached its answer.</div>
     <div><span class="callout-pin">6</span> <strong>One-Click Tool Toggles:</strong> Give Gemini live Google Search, URL reading, a Python math/chart sandbox, or strict JSON Schema enforcement with simple switches.</div>
   </div>
@@ -464,7 +464,7 @@
 
   <div class="callout emerald">
     <div class="callout-title">Power Habit: Use Compare Mode (<code>&#8644;</code>) Before Committing to a Model</div>
-    Click the <strong>Compare</strong> icon in the top bar to open two synchronized panels. Put <code>gemini-4-argon</code> on the left and <code>gemini-3.8-flash</code> on the right—or test two different System Instructions on the same model. One prompt fires both panels simultaneously so you can compare speed, token cost, and quality side by side!
+    Click the <strong>Compare</strong> icon in the top bar to open two synchronized panels. Put <code>gemini-4-argon</code> on the left and <code>gemini-4-hydrogen</code> on the right—or test two different System Instructions on the same model. One prompt fires both panels simultaneously so you can compare speed, token cost, and quality side by side!
   </div>
 
   <div class="callout" style="margin-top:7px;">
@@ -620,7 +620,7 @@
     <tbody>
       <tr>
         <td><strong>1. 60-Min Meeting or Lecture Extractor</strong></td>
-        <td><strong>Chat Playground</strong><br/><code>gemini-3.8-flash</code></td>
+        <td><strong>Chat Playground</strong><br/><code>gemini-4-hydrogen</code></td>
         <td>Upload MP4 / YouTube link &bull; Thinking: <code>Medium</code></td>
         <td><em>"Extract every decision made, owner, deadline, and onscreen slide chart with exact <code>[MM:SS]</code> timestamps."</em></td>
       </tr>
@@ -638,7 +638,7 @@
       </tr>
       <tr>
         <td><strong>4. Receipt / PDF Batch to Clean Table</strong></td>
-        <td><strong>Chat Playground</strong><br/><code>gemini-3.8-flash</code></td>
+        <td><strong>Chat Playground</strong><br/><code>gemini-4-hydrogen</code></td>
         <td><strong>Structured Outputs</strong> ON (define schema)</td>
         <td>Drop 15 receipt photos or vendor PDFs at once &rarr; copy guaranteed JSON output straight into any JSON-to-CSV/Sheets importer.</td>
       </tr>
@@ -686,7 +686,7 @@
     <li>Store it in your shell or <code>.env</code> file as <code>export GEMINI_API_KEY="your_key_here"</code>—the official SDKs detect that exact variable name automatically so you <strong>never hardcode keys inside source files or public GitHub repos!</strong></li>
   </ul>
 
-  <h3>Step 2: Use Only Current Official SDKs (<code>google-genai</code> &amp; <code>@google/genai</code>)</h3>
+  <h3>Step 2: Use Only Current Official SDKs (<code>google-genai</code> &amp; <code>@google/genai</code> &ge; 3.2.0)</h3>
   <div class="grid-2" style="gap:10px; margin-bottom:6px;">
     <div>
       <div style="font-size:8.2pt; font-weight:700; color:#1e40af; margin-bottom:2px;">Python &bull; <code>pip install -U google-genai</code></div>
@@ -695,7 +695,7 @@
 client = genai.Client()  # Uses GEMINI_API_KEY
 
 res = client.interactions.create(
-    model="gemini-3.8-flash",
+    model="gemini-4-hydrogen",
     system_instruction="Reply in 3 crisp bullets.",
     input="Why 1M context beats RAG chunking.",
     tools=[{"type": "google_search"}],
@@ -710,7 +710,7 @@ print(res.output_text)</code></pre>
 const ai = new GoogleGenAI({}); // GEMINI_API_KEY
 
 const res = await ai.interactions.create({
-  model: "gemini-3.8-flash",
+  model: "gemini-4-hydrogen",
   system_instruction: "Reply in 3 crisp bullets.",
   input: "Why 1M context beats RAG chunking.",
   tools: [{ type: "google_search" }],
@@ -722,7 +722,7 @@ console.log(res.output_text);</code></pre>
 
   <div class="callout amber" style="padding:7px 11px; margin:4px 0 8px 0;">
     <div class="callout-title">SDK Trap to Avoid: Never Install Legacy <code>google-generativeai</code>!</div>
-    Older blog posts online show <code>import google.generativeai</code> or <code>@google/generative-ai</code> and <code>gemini-1.5</code> / <code>gemini-2.0</code> models—those are <strong>deprecated</strong>. Always use <code>google-genai</code> (Python) and <code>@google/genai</code> (JS/TS) with the modern <code>client.interactions.create()</code> API!
+    Older tutorials show deprecated <code>google.generativeai</code> / <code>@google/generative-ai</code> and <code>gemini-1.5</code>–<code>3.8-flash</code> models. Use <code>google-genai</code> / <code>@google/genai</code> (&ge; 3.2.0, defaulting to Interactions GA <code>v1</code>; pass <code>v1beta</code> for Managed Agents or Decisions API) with <code>gemini-4-hydrogen</code>!
   </div>
 
   <h3>Step 3: Graduating From AI Studio <code>Build</code> to Google Antigravity IDE</h3>
@@ -756,7 +756,7 @@ console.log(res.output_text);</code></pre>
 
   <h2 class="page-title">The Complete Google AI Ultra Ecosystem Map</h2>
   <p class="page-lead">
-    Wondering when to open <strong>Google AI Studio</strong> versus <strong>Antigravity</strong>, <strong>Stitch</strong>, <strong>Opal</strong>, <strong>Whisk</strong>, <strong>Vids</strong>, or <strong>Flow</strong>? Here is how the entire Google AI Ultra suite snaps together like a single modular studio.
+    Wondering when to open <strong>Google AI Studio</strong> versus <strong>Antigravity</strong>, <strong>Stitch</strong>, <strong>Gemini Skills</strong> (successor to Opal), <strong>Flow</strong> (which unified Whisk), or <strong>Google Vids</strong>? Here is how the entire suite snaps together like a single modular studio.
   </p>
 
   <!-- Ecosystem Architecture SVG -->
@@ -768,18 +768,18 @@ console.log(res.output_text);</code></pre>
       <text x="350" y="80" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="800">Google AI Studio</text>
       <text x="350" y="96" text-anchor="middle" fill="#dbeafe" font-size="8.5">Prompts &bull; 1M Context &bull; Live &bull; Build &bull; APIs</text>
 
-      <!-- Left Side: Visual & No-Code Creation -->
+      <!-- Left Side: Design, Skills & Research -->
       <rect x="10" y="8" width="178" height="42" rx="7" fill="#1e293b" stroke="#c084fc" stroke-width="1.4"/>
       <text x="20" y="25" fill="#e9d5ff" font-size="9.2" font-weight="800">Google Stitch (UI Design)</text>
       <text x="20" y="39" fill="#cbd5e1" font-size="8">Prompt &rarr; Figma UI &amp; frontend code</text>
 
       <rect x="10" y="57" width="178" height="42" rx="7" fill="#1e293b" stroke="#34d399" stroke-width="1.4"/>
-      <text x="20" y="74" fill="#6ee7b7" font-size="9.2" font-weight="800">Google Opal (Mini-Workflows)</text>
-      <text x="20" y="88" fill="#cbd5e1" font-size="8">Visual node chains for no-code AI apps</text>
+      <text x="20" y="74" fill="#6ee7b7" font-size="9.2" font-weight="800">Gemini Skills (ex-Opal)</text>
+      <text x="20" y="88" fill="#cbd5e1" font-size="8">Slash-triggered reusable workflows</text>
 
       <rect x="10" y="106" width="178" height="42" rx="7" fill="#1e293b" stroke="#fbbf24" stroke-width="1.4"/>
-      <text x="20" y="123" fill="#fde68a" font-size="9.2" font-weight="800">Google Whisk (Image Remix)</text>
-      <text x="20" y="137" fill="#cbd5e1" font-size="8">Subject + Scene + Style look-dev cards</text>
+      <text x="20" y="123" fill="#fde68a" font-size="9.2" font-weight="800">NotebookLM (Research)</text>
+      <text x="20" y="137" fill="#cbd5e1" font-size="8">500+ grounded sources &amp; Audio/Video</text>
 
       <!-- Right Side: Engineering & Cinema Production -->
       <rect x="512" y="8" width="178" height="42" rx="7" fill="#1e293b" stroke="#38bdf8" stroke-width="1.4"/>
@@ -787,8 +787,8 @@ console.log(res.output_text);</code></pre>
       <text x="522" y="39" fill="#cbd5e1" font-size="8">Agentic IDE + async GitHub cloud devs</text>
 
       <rect x="512" y="57" width="178" height="42" rx="7" fill="#1e293b" stroke="#f472b6" stroke-width="1.4"/>
-      <text x="522" y="74" fill="#fbcfe8" font-size="9.2" font-weight="800">Google Flow (AI Filmmaking)</text>
-      <text x="522" y="88" fill="#cbd5e1" font-size="8">Veo 3.1 cinema shots, @Ingredients, cuts</text>
+      <text x="522" y="74" fill="#fbcfe8" font-size="9.2" font-weight="800">Google Flow (Whisk + Veo)</text>
+      <text x="522" y="88" fill="#cbd5e1" font-size="8">Look-dev remixing, Veo 3.1 &amp; cuts</text>
 
       <rect x="512" y="106" width="178" height="42" rx="7" fill="#1e293b" stroke="#fb923c" stroke-width="1.4"/>
       <text x="522" y="123" fill="#fed7aa" font-size="9.2" font-weight="800">Google Vids (Work Video)</text>
@@ -826,14 +826,14 @@ console.log(res.output_text);</code></pre>
         <td>Generate pixel-clean UI screens in <strong>Stitch</strong>, then drop those screenshots or HTML exports into AI Studio <strong>Build</strong> (or Antigravity) to wire live Gemini brains!</td>
       </tr>
       <tr>
-        <td><strong>Google Opal</strong><br/>Visual Mini-Apps</td>
-        <td>Drag-and-drop visual multi-step AI workflows you can share via link</td>
-        <td>Great when non-coders want visual node graphs for repeatable team workflows; move to AI Studio <strong>Build</strong> when you want custom UIs, databases, or Cloud Run.</td>
+        <td><strong>Gemini Skills</strong><br/>(ex-Google Opal)</td>
+        <td>Reusable <code>/skill-name</code> workflows in the Gemini app</td>
+        <td>Following Opal's Nov 17, 2026 graduation, port saved Drive prompts to <strong>Gemini Skills</strong> for daily tasks—or move multi-step chains into AI Studio <strong>Build</strong>!</td>
       </tr>
       <tr>
-        <td><strong>Whisk &rarr; Flow &rarr; Vids</strong><br/>Visual &amp; Video Suite</td>
-        <td>Concept art (<strong>Whisk</strong>), cinema films (<strong>Flow</strong>), &amp; business decks/videos (<strong>Vids</strong>)</td>
-        <td>Write scripts, shot lists, and custom 2-speaker voiceovers in <strong>AI Studio</strong>, design consistent visual cards in <strong>Whisk</strong>, shoot cinema scenes in <strong>Flow</strong>, or assemble polished company explainers in <strong>Google Vids</strong>!</td>
+        <td><strong>Flow (Whisk) &rarr; Vids</strong><br/>Visual &amp; Video Suite</td>
+        <td>Look-dev &amp; cinema films (<strong>Flow</strong>, incorporating Whisk) &amp; decks (<strong>Vids</strong>)</td>
+        <td>Write scripts, shot lists, and custom 2-speaker voiceovers in <strong>AI Studio</strong>, remix looks &amp; shoot Veo scenes in <strong>Flow</strong>, or assemble explainers in <strong>Google Vids</strong>!</td>
       </tr>
     </tbody>
   </table>
@@ -867,7 +867,7 @@ console.log(res.output_text);</code></pre>
     <tbody>
       <tr>
         <td><strong><code>429 RESOURCE_EXHAUSTED</code> error</strong></td>
-        <td>Hit Free Tier RPM/RPD quota (enforced per Cloud project, not per key!). Switch to <code>gemini-3.8-flash</code> / <code>flash-lite</code> or link Cloud Billing to unlock Tier 1+ quotas.</td>
+        <td>Hit Free Tier RPM/RPD quota (enforced per Cloud project, not per key!). Switch to <code>gemini-4-hydrogen</code> / <code>3.5-flash-lite</code> or link Cloud Billing to unlock Tier 1+ quotas.</td>
       </tr>
       <tr>
         <td><strong>Long report or code stops mid-sentence</strong></td>
