@@ -32,7 +32,7 @@
   <div class="cover-bottom">
     <div class="cover-stat">
       <div class="cover-stat-title">Sandboxed Terminal Speed</div>
-      <div class="cover-stat-desc">Run rapid edit-test loops locally on <code>GPT-6.1 Sol</code> with deterministic <code>read-only</code>, <code>local-container</code>, and <code>full-host</code> isolation.</div>
+      <div class="cover-stat-desc">Run rapid edit-test loops locally on <code>GPT-6.1 Sol</code> with deterministic <code>read-only</code>, <code>workspace-write</code>, and <code>danger-full-access</code> isolation.</div>
     </div>
     <div class="cover-stat">
       <div class="cover-stat-title">Hierarchical Repo Memory</div>
@@ -109,9 +109,9 @@
       <rect x="240" y="54" width="76" height="24" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="0.8"/>
       <text x="278" y="69" text-anchor="middle" fill="#ecfdf5" font-size="7" font-weight="700">read-only</text>
       <rect x="323" y="54" width="88" height="24" rx="4" fill="#065f46" stroke="#34d399" stroke-width="0.8"/>
-      <text x="367" y="69" text-anchor="middle" fill="#ecfdf5" font-size="7" font-weight="700">local-container</text>
+      <text x="367" y="69" text-anchor="middle" fill="#ecfdf5" font-size="6.8" font-weight="700">workspace-write</text>
       <rect x="418" y="54" width="74" height="24" rx="4" fill="#064e3b" stroke="#f59e0b" stroke-width="0.8"/>
-      <text x="455" y="69" text-anchor="middle" fill="#fde68a" font-size="7" font-weight="700">full-host</text>
+      <text x="455" y="69" text-anchor="middle" fill="#fde68a" font-size="6.3" font-weight="700">danger-full-access</text>
 
       <!-- Bottom Track: Codex Cloud -->
       <rect x="228" y="100" width="276" height="74" rx="8" fill="#081c24" stroke="#38bdf8" stroke-width="1.7"/>
@@ -186,60 +186,60 @@ codex --version</code></pre>
     <div class="card" style="border-top:3px solid #0d9488;">
       <div class="card-title"><span class="num-badge teal">2</span> <code>GPT-6.1 Sol</code> Speed &amp; Context Tiers</div>
       <ul style="font-size:7.95pt; margin:3px 0 0 0;">
-        <li><strong>~500k+ Context Window:</strong> Holds entire service modules, stack traces, and multi-file test suites without aggressive truncation.</li>
+        <li><strong>500k Default (1.05M Max):</strong> Defaults to a 500k context window in Codex (expandable to 1.05M tokens) to hold full modules and test suites.</li>
         <li><strong>High-Velocity Reasoning:</strong> Tuned specifically for terminal tool calls, patch synthesis, and fast edit-compile-test feedback loops.</li>
         <li><strong>Adaptive Effort Profiles:</strong> Switch between rapid interactive edits locally and deep multi-step planning in Cloud runs via <code>/model</code>.</li>
       </ul>
     </div>
   </div>
 
-  <h3>Decision Matrix: Approval Modes &amp; Sandbox Isolation Tiers</h3>
-  <table class="clean-table" style="font-size:7.75pt; margin-bottom:6px;">
+  <h3>Decision Matrix: Approval Policies &amp; Sandbox Isolation Tiers</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin-bottom:6px;">
     <thead>
       <tr>
-        <th style="width:20%;">Axis / Mode</th>
+        <th style="width:20%;">Axis / Policy</th>
         <th style="width:24%;"><code>read-only</code> Sandbox</th>
-        <th style="width:28%;"><code>local-container</code> Sandbox</th>
-        <th style="width:28%;"><code>full-host</code> Sandbox</th>
+        <th style="width:28%;"><code>workspace-write</code> Sandbox</th>
+        <th style="width:28%;"><code>danger-full-access</code></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><strong>What Codex Can Touch</strong></td>
-        <td>Reads repository files and inspects git status; <strong>all file writes and shell mutations blocked</strong>.</td>
-        <td>Reads and writes inside the project workspace inside a jailed OS/container boundary; <strong>network disabled by default</strong>.</td>
-        <td>Direct access to your full host shell, Docker daemon, system packages, and outbound network endpoints.</td>
+        <td>Reads repository files and inspects git status; <strong>all file writes and mutating shell calls blocked</strong>.</td>
+        <td>Reads and writes inside your project directory under OS sandboxing (Seatbelt/Landlock); <strong>network off by default</strong>.</td>
+        <td>Disables OS sandboxing completely, granting direct host filesystem and outbound network access.</td>
       </tr>
       <tr>
-        <td><strong><code>suggest</code> Mode</strong><br/><span style="color:#059669; font-weight:600;">Default &amp; Safest</span></td>
-        <td>Proposes findings and patch previews; ideal for zero-risk code reviews and architecture Q&amp;A.</td>
-        <td>Prompts before running shell commands or writing files; great for learning an unfamiliar codebase.</td>
-        <td>Prompts before every host command; catches accidental destructive calls on production-adjacent machines.</td>
+        <td><strong><code>on-request</code> Policy</strong><br/><span style="color:#059669; font-weight:600;">Default &amp; Safest</span></td>
+        <td>Runs read-only inspections smoothly; pauses and asks before stepping outside safe bounds.</td>
+        <td><strong>Sweet Spot:</strong> Runs edits and local tests cleanly; prompts if leaving workspace or accessing network.</td>
+        <td>Prompts before escalating outside trusted commands; catches destructive calls on host machines.</td>
       </tr>
       <tr>
-        <td><strong><code>automatic</code> Mode</strong><br/><span style="color:#0284c7; font-weight:600;">Daily Driver</span></td>
-        <td>Runs read-only grep, tree, and diagnostic queries without interruption.</td>
-        <td><strong>Sweet Spot:</strong> Auto-approves edits and local test runs inside the workspace; asks only if escaping the sandbox.</td>
-        <td>Runs multi-step host tasks autonomously; reserve strictly for isolated VMs or disposable dev machines.</td>
+        <td><strong><code>never</code> Policy</strong><br/><span style="color:#0284c7; font-weight:600;">Non-Interactive</span></td>
+        <td>Executes analysis without prompting; any attempted disk write fails cleanly against the sandbox.</td>
+        <td>Runs unattended inside the workspace, or pair with <code>--approve-for-me</code> (<code>auto_review</code>) for AI review.</td>
+        <td>Zero prompts and zero isolation (<code>--yolo</code>); reserve strictly for throwaway VMs or CI pods.</td>
       </tr>
       <tr>
-        <td><strong><code>manual</code> Mode</strong><br/><span style="color:#d97706; font-weight:600;">Strict Gate</span></td>
-        <td>Requires explicit confirmation even for non-trivial inspection commands.</td>
-        <td>Every single file diff and test command pauses for human sign-off before execution.</td>
-        <td>Mandatory step-by-step approval for sensitive host migrations, secrets rotation, or release tags.</td>
+        <td><strong><code>granular</code> Policy</strong><br/><span style="color:#d97706; font-weight:600;">Fine-Grained</span></td>
+        <td>Uses TOML booleans (<code>sandbox_approval</code>, <code>rules</code>, <code>mcp_elicitations</code>) to gate tool categories.</td>
+        <td>Auto-permits safe repo edits while prompting specifically for MCP elicitations or skill scripts.</td>
+        <td>Enforces explicit human confirmation gates on sensitive host mutations and external connectors.</td>
       </tr>
     </tbody>
   </table>
 
-  <pre class="code-block" style="padding:5.5px 9px; font-size:7.05pt; margin:0 0 6px 0;"><code># Daily driver launch: automatic approvals inside a jailed local-container sandbox
-codex --sandbox local-container --approval automatic "Fix failing webhook signature tests"
+  <pre class="code-block" style="padding:5.5px 9px; font-size:7.0pt; margin:0 0 6px 0;"><code># Daily driver launch: workspace-write sandbox with on-request approval prompts
+codex --sandbox workspace-write --ask-for-approval on-request "Fix failing webhook signature tests"
 
 # Safe security audit: zero disk writes allowed
-codex --sandbox read-only --approval suggest "Audit auth middleware for IDOR risks"</code></pre>
+codex --sandbox read-only --ask-for-approval on-request "Audit auth middleware for IDOR risks"</code></pre>
 
   <div class="callout sky" style="margin:2px 0 0 0;">
-    <div class="callout-title">Golden Pairing Rule: Start in <code>local-container</code> + <code>automatic</code></div>
-    Never jump straight to <code>full-host</code> out of convenience. Running <code>automatic</code> inside <code>local-container</code> lets <code>GPT-6.1 Sol</code> iterate through dozens of compile-and-test cycles uninterrupted while guaranteeing it cannot touch <code>~/.ssh</code>, sibling repositories, or live production APIs.
+    <div class="callout-title">Golden Pairing Rule: Start in <code>workspace-write</code> + <code>on-request</code></div>
+    Never jump straight to <code>danger-full-access</code> out of convenience. Running <code>on-request</code> inside <code>workspace-write</code> lets <code>GPT-6.1 Sol</code> iterate through compile-and-test cycles smoothly while guaranteeing it cannot touch <code>~/.ssh</code>, sibling repositories, or live production APIs without asking.
   </div>
 
   <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
@@ -272,7 +272,7 @@ codex --sandbox read-only --approval suggest "Audit auth middleware for IDOR ris
 
     <!-- Approval & Skill Banner -->
     <div style="background:#071c16; border-bottom:1px solid #065f46; padding:4.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.2pt;">
-      <span><strong style="color:#34d399;">[APPROVAL: AUTOMATIC]</strong> <span style="color:#cbd5e1;">Workspace edits &amp; tests auto-run; network escalation prompts</span> <span class="callout-pin">1</span></span>
+      <span><strong style="color:#34d399;">[POLICY: ON-REQUEST]</strong> <span style="color:#cbd5e1;">Workspace edits run; boundary escalations prompt</span> <span class="callout-pin">1</span></span>
       <span><strong style="color:#fde68a;">Active Skill:</strong> <code>tdd-webhook-fix/SKILL.md</code> <span class="callout-pin">3</span></span>
     </div>
 
@@ -284,15 +284,15 @@ codex --sandbox read-only --approval suggest "Audit auth middleware for IDOR ris
           <div style="color:#94a3b8; font-size:7pt;">Turn 3 &bull; Tool Call: <code>pytest tests/test_webhooks.py -q</code></div>
           <div style="background:#04110d; border:1px solid #065f46; border-radius:5px; padding:5px 7px; margin-top:3px; color:#a7f3d0; font-size:7pt;">
             <div>&bull; Verifying HMAC timestamp tolerance... <strong style="color:#34d399;">PASSED (14/14)</strong></div>
-            <div style="color:#94a3b8;">&bull; Runtime: 0.84s inside isolated filesystem cage</div>
+            <div style="color:#94a3b8;">&bull; Runtime: 0.84s inside OS-enforced workspace sandbox</div>
           </div>
         </div>
 
         <div>
-          <div style="color:#34d399; font-weight:700; font-size:7.3pt;">&gt; /cloud --parallel 3 &quot;Port this signature fix to Go &amp; Rust SDKs&quot; <span class="callout-pin">7</span></div>
+          <div style="color:#34d399; font-weight:700; font-size:7.3pt;">&gt; /cloud &quot;Port this signature fix to Go &amp; Rust SDKs&quot; <span class="callout-pin">7</span></div>
           <div style="background:#08202c; border:1px solid #0284c7; border-radius:5px; padding:5px 7px; margin-top:3px; color:#e0f2fe; font-size:7pt;">
-            Queued 3 Codex Cloud containers from branch <code>feat/hmac-window</code>.<br/>
-            Tracking PRs: <code>#418</code>, <code>#419</code>, <code>#420</code> &bull; Run <code>codex cloud status</code> anytime.
+            Dispatched Codex Cloud job from branch <code>feat/hmac-window</code>.<br/>
+            Task: <code>task_418a</code> &bull; Inspect anytime via <code>codex cloud status</code>.
           </div>
         </div>
       </div>
@@ -315,18 +315,18 @@ codex --sandbox read-only --approval suggest "Audit auth middleware for IDOR ris
     <!-- Bottom Sandbox & Context Meter -->
     <div style="background:#0b241d; padding:5.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.2pt;">
       <div style="display:flex; align-items:center; gap:9px;">
-        <span><strong style="color:#34d399;">Sandbox:</strong> <code>local-container</code> (Net: OFF) <span class="callout-pin">5</span></span>
+        <span><strong style="color:#34d399;">Sandbox:</strong> <code>workspace-write</code> (Net: OFF) <span class="callout-pin">5</span></span>
         <span style="color:#475569;">|</span>
-        <span><strong style="color:#cbd5e1;">Context:</strong> 78k / 500k+ (15%)</span>
+        <span><strong style="color:#cbd5e1;">Context:</strong> 78k / 500k (15%)</span>
       </div>
-      <span style="color:#6ee7b7;">Shortcuts: <code>/diff</code> &bull; <code>/skills</code> &bull; <code>/cloud</code></span>
+      <span style="color:#6ee7b7;">Shortcuts: <code>/diff</code> &bull; <code>/skills</code> &bull; <code>/permissions</code></span>
     </div>
   </div>
 
   <h3>Interface Legend: The 7 Live Codex CLI Touchpoints</h3>
   <div class="grid-2" style="font-size:7.95pt; gap:6px 12px;">
     <div class="card" style="padding:6.5px 9px;">
-      <strong><span class="callout-pin">1</span> Approval Mode Banner:</strong> Displays whether Codex is running in <code>suggest</code>, <code>automatic</code>, or <code>manual</code> mode so you always know when actions pause for sign-off.
+      <strong><span class="callout-pin">1</span> Approval Policy Banner:</strong> Displays active policy (<code>on-request</code>, <code>never</code>, or <code>granular</code> / <code>auto_review</code>) so you know when actions pause for sign-off.
     </div>
     <div class="card" style="padding:6.5px 9px;">
       <strong><span class="callout-pin">2</span> Loaded <code>AGENTS.md</code> Badge:</strong> Confirms every active instruction file merged from global config, repo root, and the current working directory.
@@ -338,7 +338,7 @@ codex --sandbox read-only --approval suggest "Audit auth middleware for IDOR ris
       <strong><span class="callout-pin">4</span> Inline Diff Hunk Preview:</strong> Shows exact line-by-line edits and test results before you stage commits or invoke <code>/diff</code> for full review.
     </div>
     <div class="card" style="padding:6.5px 9px;">
-      <strong><span class="callout-pin">5</span> Sandbox &amp; Network Meter:</strong> Verifies your active isolation boundary (<code>read-only</code>, <code>local-container</code>, or <code>full-host</code>) and whether network egress is sealed.
+      <strong><span class="callout-pin">5</span> Sandbox &amp; Network Meter:</strong> Verifies your active isolation boundary (<code>read-only</code>, <code>workspace-write</code>, or <code>danger-full-access</code>) and whether network egress is sealed.
     </div>
     <div class="card" style="padding:6.5px 9px;">
       <strong><span class="callout-pin">6</span> MCP Server Status Pill:</strong> Confirms configured tools from <code>~/.codex/config.toml</code> (such as Postgres or GitHub) connected cleanly at startup.
@@ -367,8 +367,8 @@ codex --sandbox read-only --approval suggest "Audit auth middleware for IDOR ris
     <div>
       <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#065f46;">1. <code>~/.codex/config.toml</code> &mdash; Defaults &amp; MCP Wiring</p>
       <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.85pt; line-height:1.33;"><code>model = "gpt-6.1-sol"
-approval_policy = "automatic"
-sandbox_mode = "local-container"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
 
 [sandbox_workspace_write]
 network_access = false
@@ -397,9 +397,9 @@ url = "https://mcp.internal.company.dev/sse"</code></pre>
   </div>
 
   <div class="figure-box" style="margin:2px 0 0 0;">
-    <img src="assets/sandbox_approval_matrix.jpg" alt="Three glowing protective glass isolation domes shielding emerald code cores representing read-only, local-container, and full-host sandboxes" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <img src="assets/sandbox_approval_matrix.jpg" alt="Three glowing protective glass isolation domes shielding emerald code cores representing read-only, workspace-write, and danger-full-access sandboxes" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
     <div class="figure-caption">
-      <strong>Defense in Depth Across Three Isolation Domes:</strong> Whether Codex runs inside a sealed <code>read-only</code> vault, a jailed <code>local-container</code> prism, or a <code>full-host</code> workshop, <code>config.toml</code> enforces tool boundaries deterministically while <code>AGENTS.md</code> supplies project judgment.
+      <strong>Defense in Depth Across Three Isolation Domes:</strong> Whether Codex runs inside a sealed <code>read-only</code> vault, a jailed <code>workspace-write</code> prism, or a <code>danger-full-access</code> workshop, <code>config.toml</code> enforces tool boundaries deterministically while <code>AGENTS.md</code> supplies project judgment.
     </div>
   </div>
 
@@ -504,7 +504,7 @@ description: Create, verify, and test reversible SQL
 
   <h2 class="page-title">Terminal Power Workflows with <code>GPT-6.1 Sol</code></h2>
   <p class="page-lead">
-    Because <code>GPT-6.1 Sol</code> pairs a ~500k+ token window with low-latency tool execution, Codex CLI shines at tight verify-as-you-go loops. Give it a concrete verification signal up front and watch it self-correct before you review a single line.
+    Because <code>GPT-6.1 Sol</code> pairs a 500k default (1.05M max) token window with low-latency tool execution, Codex CLI shines at tight verify-as-you-go loops. Give it a concrete verification signal up front and watch it self-correct before you review a single line.
   </p>
 
   <div class="grid-2" style="margin-bottom:7px;">
@@ -534,8 +534,8 @@ description: Create, verify, and test reversible SQL
     Tools wired under <code>[mcp_servers.*]</code> in <code>~/.codex/config.toml</code> become native capabilities inside Codex CLI. Instead of copy-pasting database schemas, Sentry stack traces, or GitHub issue threads into your prompt, let Codex fetch live facts directly inside the reasoning loop:
   </p>
 
-  <pre class="code-block" style="padding:6.5px 9px; font-size:7.05pt; line-height:1.36;"><code># 1. Start an interactive session with automatic workspace execution
-codex --sandbox local-container --approval automatic
+  <pre class="code-block" style="padding:6.5px 9px; font-size:7.05pt; line-height:1.36;"><code># 1. Start an interactive session inside workspace-write with on-request prompts
+codex --sandbox workspace-write --ask-for-approval on-request
 
 # 2. Prompt combining MCP context + TDD verification loop:
 &gt; Fetch GitHub issue #842 via the github MCP server, inspect the failing query plan
@@ -603,10 +603,10 @@ codex --sandbox local-container --approval automatic
     </div>
   </div>
 
-  <pre class="code-block" style="padding:5.5px 9px; font-size:6.95pt; margin:0 0 6px 0;"><code># Dispatch parallel Codex Cloud tasks from CLI or inspect active fleet pods
-codex cloud run --repo acme/core-api --branch main "Migrate v1 auth endpoints to OAuth2 PKCE"
-codex cloud status                                   # View running pods, test exit codes &amp; opened PR links
-codex cloud apply &lt;task-id&gt;                          # Pull a Cloud container's clean patch locally to inspect</code></pre>
+  <pre class="code-block" style="padding:5.5px 9px; font-size:6.95pt; margin:0 0 6px 0;"><code># Dispatch parallel Codex Cloud attempts from CLI or open interactive TUI via: codex cloud
+codex cloud exec --env env_core_api --branch main --attempts 3 "Migrate v1 auth endpoints to OAuth2 PKCE"
+codex cloud status &lt;task-id&gt;                        # Check progress &amp; PR links (or codex cloud list)
+codex cloud diff &lt;task-id&gt; &amp;&amp; codex cloud apply &lt;task-id&gt;  # Preview &amp; apply a Cloud patch locally</code></pre>
 
   <div class="figure-box" style="margin:2px 0 0 0;">
     <img src="assets/codex_cloud_pr_fleet.jpg" alt="Parallel translucent cloud worker pods assembling modular software blocks and streaming emerald pull requests into a central repository nexus" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
@@ -641,22 +641,22 @@ codex cloud apply &lt;task-id&gt;                          # Pull a Cloud contai
     <tbody>
       <tr>
         <td><strong>1. Production Incident Triage</strong><br/><span style="color:#059669; font-weight:600;">Codex CLI (Local)</span></td>
-        <td><code>local-container</code><br/><code>automatic</code><br/>MCP: Sentry / Logs</td>
+        <td><code>workspace-write</code><br/><code>on-request</code><br/>MCP: Sentry / Logs</td>
         <td>&ldquo;Inspect the 500 spike on <code>POST /v2/checkout</code> using our error-logs MCP. Trace the stack frame in <code>src/checkout/</code>, write a failing unit test reproducing the null payload crash, apply the minimal guard fix, and confirm <code>npm test</code> passes.&rdquo;</td>
       </tr>
       <tr>
         <td><strong>2. Cross-Repo SDK Migration</strong><br/><span style="color:#0284c7; font-weight:600;">Codex Cloud Fleet</span></td>
-        <td>Cloud Containers<br/>3 Parallel Pods<br/>GitHub PR Output</td>
-        <td>&ldquo;<code>/cloud --parallel 3</code> Update deprecated <code>v1.Client</code> imports to <code>v2.UnifiedClient</code> across <code>packages/web</code>, <code>packages/mobile</code>, and <code>packages/cli</code>. Follow each package&rsquo;s <code>AGENTS.md</code>, run full typechecks and tests, and open one clean PR per package.&rdquo;</td>
+        <td>Cloud Containers<br/><code>--attempts 3</code><br/>GitHub PR Output</td>
+        <td>&ldquo;Dispatch via <code>codex cloud exec --env &lt;id&gt;</code>: Update deprecated <code>v1.Client</code> imports to <code>v2.UnifiedClient</code> across <code>packages/web</code>, <code>packages/mobile</code>, and <code>packages/cli</code>. Follow each package&rsquo;s <code>AGENTS.md</code>, run full typechecks and tests, and open one clean PR per package.&rdquo;</td>
       </tr>
       <tr>
         <td><strong>3. Test Harness Generation</strong><br/><span style="color:#059669; font-weight:600;">Codex CLI (Local)</span></td>
-        <td><code>local-container</code><br/><code>automatic</code><br/><code>SKILL.md</code> QA module</td>
+        <td><code>workspace-write</code><br/><code>on-request</code><br/><code>SKILL.md</code> QA module</td>
         <td>&ldquo;Analyze <code>src/billing/proration.ts</code> for leap-year, negative credit, and timezone rollover edge cases. Generate a Vitest suite in <code>tests/proration.test.ts</code> targeting 95%+ branch coverage without mocking core math helpers. Run coverage until all cases pass.&rdquo;</td>
       </tr>
       <tr>
         <td><strong>4. Read-Only Security Audit</strong><br/><span style="color:#d97706; font-weight:600;">Codex CLI (Safe)</span></td>
-        <td><code>read-only</code><br/><code>suggest</code><br/>Zero Disk Writes</td>
+        <td><code>read-only</code><br/><code>on-request</code><br/>Zero Disk Writes</td>
         <td>&ldquo;Launch with <code>codex --sandbox read-only</code>: Audit every route in <code>api/routes/</code> for missing tenant ownership checks (IDOR), unvalidated SQL interpolation, and SSRF URL fetches. Output a severity-ranked Markdown report with exact <code>file:line</code> citations.&rdquo;</td>
       </tr>
       <tr>
@@ -696,7 +696,7 @@ codex cloud apply &lt;task-id&gt;                          # Pull a Cloud contai
     <div class="card-dark">
       <div class="card-title">Network Egress Controls (Local &amp; Cloud)</div>
       <ul style="font-size:7.85pt; color:#cbd5e1; margin:3px 0 0 0;">
-        <li><strong>Default-Deny Outbound:</strong> Inside <code>local-container</code> and Codex Cloud execution phases, outbound internet access is disabled by default so agents cannot exfiltrate source code or pull unvetted binaries mid-run.</li>
+        <li><strong>Default-Deny Outbound:</strong> Inside <code>workspace-write</code> and Codex Cloud execution phases, outbound internet access is disabled by default so agents cannot exfiltrate source code or pull unvetted binaries mid-run.</li>
         <li><strong>Two-Phase Cloud Lifecycle:</strong> Network access is enabled only during the pre-flight <em>setup phase</em> (to install npm/pip packages), then severed before the agent reads prompts or writes code.</li>
         <li><strong>Domain Allowlists:</strong> Enterprise admins can permit specific internal registries or test endpoints (e.g., <code>registry.npmjs.org</code>, internal PyPI) while blocking arbitrary HTTP calls.</li>
       </ul>
@@ -734,15 +734,15 @@ codex cloud apply &lt;task-id&gt;                          # Pull a Cloud contai
       </tr>
       <tr>
         <td><strong>3. Managed <code>config.toml</code> Baseline</strong></td>
-        <td>Admins can enforce organization-wide sandbox floors and block <code>full-host</code> escalation on corporate laptops.</td>
-        <td>Pin default <code>sandbox_mode = "local-container"</code> and restrict network egress in managed workstation profiles.</td>
+        <td>Admins can enforce organization-wide sandbox floors and block <code>danger-full-access</code> escalation on corporate laptops.</td>
+        <td>Pin default <code>sandbox_mode = "workspace-write"</code> and <code>approval_policy = "on-request"</code> with restricted egress in managed profiles.</td>
       </tr>
     </tbody>
   </table>
 
   <div class="callout sky" style="margin:2px 0 0 0;">
     <div class="callout-title">Prompt Injection Defense: Separate Untrusted Data from Write Privileges</div>
-    When asking Codex to summarize external web pages, third-party GitHub issues, or untrusted logs, keep the session in <code>read-only</code> sandbox or review every proposed shell tool call in <code>suggest</code> mode so hidden instructions in external text cannot trigger unintended writes.
+    When asking Codex to summarize external web pages, third-party GitHub issues, or untrusted logs, keep the session in <code>read-only</code> sandbox and review proposed shell tool calls under <code>on-request</code> policy so hidden instructions in external text cannot trigger unintended writes.
   </div>
 
   <div class="page-footer"><span>Codex CLI &amp; Codex Cloud &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
@@ -786,7 +786,7 @@ codex cloud apply &lt;task-id&gt;                          # Pull a Cloud contai
       <line x1="200" y1="77" x2="324" y2="77" stroke="#065f46" stroke-width="1"/>
       <text x="198" y="93" fill="#ecfdf5" font-size="7.3">&bull; Interactive TDD fix loops</text>
       <text x="198" y="107" fill="#ecfdf5" font-size="7.3">&bull; Author SKILL.md playbooks</text>
-      <text x="198" y="121" fill="#ecfdf5" font-size="7.3">&bull; Verify inside local-container</text>
+      <text x="198" y="121" fill="#ecfdf5" font-size="7.3">&bull; Verify in workspace-write</text>
       <rect x="198" y="133" width="128" height="20" rx="4" fill="#064e3b"/>
       <text x="262" y="146" text-anchor="middle" fill="#6ee7b7" font-size="7.1" font-weight="700">Proves HOW it works locally</text>
 
@@ -832,7 +832,7 @@ codex cloud apply &lt;task-id&gt;                          # Pull a Cloud contai
   <div class="grid-2" style="margin-bottom:7px;">
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> Spec &amp; Local Proof (Spaces &rarr; Codex CLI)</div>
-      <p style="font-size:8pt; margin:0;">Your team aligns on an API schema change inside <strong>ChatGPT Spaces</strong>, exporting the spec into your repo. You open <strong>Codex CLI</strong> in <code>local-container</code> mode, refine the core TypeScript handler with <code>GPT-6.1 Sol</code>, and capture the migration steps in a reusable <code>SKILL.md</code> module.</p>
+      <p style="font-size:8pt; margin:0;">Your team aligns on an API schema change inside <strong>ChatGPT Spaces</strong>, exporting the spec into your repo. You open <strong>Codex CLI</strong> in <code>workspace-write</code> mode, refine the core TypeScript handler with <code>GPT-6.1 Sol</code>, and capture the migration steps in a reusable <code>SKILL.md</code> module.</p>
     </div>
     <div class="card">
       <div class="card-title"><span class="num-badge sky">2</span> Fleet Rollout &amp; Automation (Cloud &rarr; Agents SDK)</div>
@@ -877,7 +877,7 @@ codex cloud apply &lt;task-id&gt;                          # Pull a Cloud contai
       <tr>
         <td><strong>2. Sandbox permission denied on write or install</strong></td>
         <td>Session is running in <code>read-only</code> or trying to write outside the jailed workspace root.</td>
-        <td>Switch to <code>--sandbox local-container</code> for project edits, or install global tools manually outside Codex before retrying.</td>
+        <td>Switch to <code>--sandbox workspace-write</code> for project edits, or install global tools manually outside Codex before retrying.</td>
       </tr>
       <tr>
         <td><strong>3. Custom <code>SKILL.md</code> never triggers automatically</strong></td>
@@ -911,7 +911,7 @@ codex cloud apply &lt;task-id&gt;                          # Pull a Cloud contai
   <div class="checklist-grid">
     <div class="check-item">
       <span class="check-box">&#10003;</span>
-      <div><strong>Narrowest Sandbox Active:</strong> Confirmed <code>local-container</code> (or <code>read-only</code> for audits) rather than unnecessary <code>full-host</code>.</div>
+      <div><strong>Narrowest Sandbox Active:</strong> Confirmed <code>workspace-write</code> (or <code>read-only</code> for audits) rather than unnecessary <code>danger-full-access</code>.</div>
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>

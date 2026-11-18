@@ -40,7 +40,7 @@
     </div>
     <div class="cover-stat">
       <div class="cover-stat-title">Full-Duplex &amp; Async Tools</div>
-      <div class="cover-stat-desc">Interrupt cleanly with <code>interrupt()</code> and resolve slow CRM or database lookups via non-blocking <code>sendMcpResponse()</code>.</div>
+      <div class="cover-stat-desc">Interrupt cleanly with <code>interrupt()</code> and run slow CRM or DB lookups off the audio thread via <code>tool()</code> &amp; <code>hostedMcpTool()</code>.</div>
     </div>
   </div>
 </section>
@@ -147,10 +147,10 @@
       <text x="620" y="76" text-anchor="middle" fill="#a7f3d0" font-size="6.9">+ Synced Transcript Deltas</text>
 
       <rect x="540" y="96" width="160" height="70" rx="8" fill="#291b09" stroke="#fbbf24" stroke-width="1.5"/>
-      <text x="620" y="114" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">ASYNC MCP &amp; FUNCTIONS</text>
-      <text x="620" y="130" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="700">sendMcpResponse()</text>
-      <text x="620" y="144" text-anchor="middle" fill="#fef3c7" font-size="6.9">Non-blocking CRM / DB calls</text>
-      <text x="620" y="156" text-anchor="middle" fill="#fef3c7" font-size="6.9">Zero dead air while waiting</text>
+      <text x="620" y="114" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">ASYNC TOOLS &amp; MCP</text>
+      <text x="620" y="130" text-anchor="middle" fill="#ffffff" font-size="8.0" font-weight="700">sendFunctionCallOutput()</text>
+      <text x="620" y="144" text-anchor="middle" fill="#fef3c7" font-size="6.9">Non-blocking CRM / DB results</text>
+      <text x="620" y="156" text-anchor="middle" fill="#fef3c7" font-size="6.9">+ sendMcpResponse() approvals</text>
 
       <!-- Bottom Return Loop -->
       <path d="M620 166 L620 179 L421 179 L421 168" fill="none" stroke="#fbbf24" stroke-width="1.3" stroke-dasharray="4 3"/>
@@ -326,18 +326,18 @@
         </div>
       </div>
 
-      <!-- Right: Async MCP Stream -->
+      <!-- Right: Async Tool & MCP Stream -->
       <div style="padding:7px 10px; background:#180914;">
         <div style="font-weight:700; color:#fde68a; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
-          <span>ASYNC MCP &amp; FUNCTION QUEUE</span> <span class="callout-pin">6</span>
+          <span>ASYNC TOOLS &amp; MCP APPROVALS</span> <span class="callout-pin">6</span>
         </div>
         <div style="background:#26160b; border:1px solid #d97706; border-radius:5px; padding:4.5px 7px; margin-bottom:4px; font-size:6.95pt;">
           <div style="color:#fcd34d; font-weight:700;">&#9889; <code>lookup_warranty(serial="B4-992")</code></div>
           <div style="color:#fef3c7;">Spoken filler sent &bull; Running async (640ms) &bull; Audio stays live</div>
         </div>
         <div style="background:#0e261d; border:1px solid #10b981; border-radius:5px; padding:4.5px 7px; font-size:6.95pt;">
-          <div style="color:#6ee7b7; font-weight:700;">&#10003; <code>sendMcpResponse(call_881)</code></div>
-          <div style="color:#d1fae5;">Result injected silently &rarr; Model speaks next sentence seamlessly.</div>
+          <div style="color:#6ee7b7; font-weight:700;">&#10003; <code>sendFunctionCallOutput(toolCall, json)</code></div>
+          <div style="color:#d1fae5;">Result injected cleanly &bull; <code>sendMcpResponse(req, true)</code> approves MCP.</div>
         </div>
       </div>
     </div>
@@ -373,7 +373,7 @@
       <strong><span class="callout-pin">5</span> Synced Transcript &amp; Prosody:</strong> Streams dual transcripts for captions and audit logs while preserving vocal inflection inside the raw audio turn.
     </div>
     <div class="card" style="padding:6px 8.5px;">
-      <strong><span class="callout-pin">6</span> Async <code>sendMcpResponse()</code>:</strong> Executes slow CRM, SQL, or API lookups out-of-band so the assistant acknowledges naturally instead of freezing in dead air.
+      <strong><span class="callout-pin">6</span> Async Tools &amp; <code>sendMcpResponse()</code>:</strong> Runs slow CRM/SQL lookups out-of-band via async <code>tool()</code> / <code>sendFunctionCallOutput()</code>, while <code>sendMcpResponse(req, true)</code> approves MCP calls.
     </div>
     <div class="card-rose" style="padding:6px 8.5px; grid-column: span 2;">
       <strong><span class="callout-pin">7</span> Audio Hygiene &amp; ICE Health Strip:</strong> Verifies browser echo cancellation (AEC), UDP NAT traversal, and matching sample rates (Opus 48kHz / PCM16 24kHz / G.711 8kHz) so self-echo never causes false interruptions.
@@ -406,10 +406,11 @@ const resp = await fetch('https://api.openai.com/v1/realtime/client_secrets', {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
+    expires_after: { anchor: 'created_at', seconds: 60 },
     session: { type: 'realtime', model: 'gpt-realtime-2.1' }
   })
 });
-const { value: ephemeralKey } = await resp.json(); // Expires ~60s</code></pre>
+const { value: ephemeralKey } = await resp.json(); // Default 600s if omitted</code></pre>
     </div>
     <div>
       <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">2. Browser Client: Connect Over WebRTC</p>
@@ -527,31 +528,26 @@ await session.addImage(frameDataUrl, { triggerResponse: false });</code></pre>
   <div class="grid-2" style="margin-bottom:5px; gap:9px;">
     <div>
       <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">1. Tuning Server VAD &amp; Clean <code>interrupt()</code></p>
-      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.85pt; line-height:1.33;"><code>// Configure Server VAD turn boundaries on session connect
-turn_detection: {
-  type: 'server_vad',
-  threshold: 0.55,          // Raise to 0.65 in noisy rooms
-  prefix_padding_ms: 300,   // Keep word-start consonants
-  silence_duration_ms: 500  // Wait 500ms before claiming turn
-}
-
-// When user starts talking while playback buffer still plays:
-session.on('audio_interrupted', () =&gt; {
-  player.stopAndFlush();    // Clear WebAudio / speaker queue
-  session.interrupt();      // Truncate unplayed server state
-});</code></pre>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.8pt; line-height:1.33;"><code>// Configure Server VAD in RealtimeSession audio.input config
+config: { audio: { input: { turnDetection: {
+  type: 'server_vad', threshold: 0.55,
+  prefix_padding_ms: 300, silence_duration_ms: 500
+}}}}
+// Flush client speaker queue when VAD interrupts playback:
+session.on('audio_interrupted', () =&gt; player.stopAndFlush());
+// Or call session.interrupt() on a manual Stop button</code></pre>
     </div>
     <div>
-      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">2. Non-Blocking Async MCP &amp; Function Responses</p>
-      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.85pt; line-height:1.33;"><code>// Do NOT block the audio loop waiting 2s for a CRM database!
-// 1. Let the model speak a quick filler: "Checking order 402..."
-// 2. Run MCP / API call asynchronously in the background:
-const order = await mcpClient.callTool('get_order', { id: '402' });
-
-// 3. Inject completed output back into the live session:
-await session.sendMcpResponse(callId, order);
-// (Or for standard function tools:)
-await session.sendFunctionCallOutput(callId, JSON.stringify(order));</code></pre>
+      <p style="font-size:7.8pt; font-weight:700; margin-bottom:2px; color:#9d174d;">2. Async Tools &amp; Hosted MCP Approvals</p>
+      <pre class="code-block" style="margin:0; padding:5.5px 8px; font-size:6.8pt; line-height:1.33;"><code>// Run slow DB/API work inside async tool() or out-of-band:
+const order = await db.getOrder(toolCall.callId);
+session.transport.sendFunctionCallOutput(
+  toolCall, JSON.stringify(order), true
+);
+// For hosted MCP tools needing human approval:
+session.on('mcp_tool_call_approval_request', (req) =&gt; {
+  session.transport.sendMcpResponse(req, true);
+});</code></pre>
     </div>
   </div>
 
@@ -563,7 +559,7 @@ await session.sendFunctionCallOutput(callId, JSON.stringify(order));</code></pre
   <div class="figure-box" style="margin:2px 0 0 0;">
     <img src="assets/vad_bargein_mcp_stream.jpg" alt="Editorial diagram art showing incoming cyan and outgoing rose-magenta soundwave ribbons parting cleanly at a crystalline rose-gold interruption gate while amber hexagonal tool sparks run asynchronously underneath" style="width:100%; height:235px; object-fit:cover; object-position:center; display:block;" />
     <div class="figure-caption">
-      <strong>Two Parallel Planes of Responsiveness:</strong> Top lane&mdash;incoming and outgoing soundwaves part instantaneously at the <strong>VAD Barge-In Gate</strong> when <code>interrupt()</code> fires. Bottom lane&mdash;glowing <strong>Async MCP Tool Sparks</strong> execute database and API calls off the main audio thread, delivering results via <code>sendMcpResponse()</code> with zero dead air.
+      <strong>Two Parallel Planes of Responsiveness:</strong> Top lane&mdash;incoming and outgoing soundwaves part instantaneously at the <strong>VAD Barge-In Gate</strong> on <code>audio_interrupted</code> / <code>interrupt()</code>. Bottom lane&mdash;glowing <strong>Async Tool &amp; MCP Sparks</strong> return data via <code>sendFunctionCallOutput()</code> and approve gated MCP calls via <code>sendMcpResponse()</code> with zero dead air.
     </div>
   </div>
 
@@ -671,7 +667,7 @@ await session.sendFunctionCallOutput(callId, JSON.stringify(order));</code></pre
       <tr>
         <td><strong>1. Browser Support Copilot</strong><br/><span style="color:#be185d; font-weight:600;">Ephemeral WebRTC</span></td>
         <td><code>POST /v1/realtime/client_secrets</code><br/><code>@openai/agents/realtime</code><br/><code>gpt-realtime-2.1</code></td>
-        <td>Add a <code>/api/realtime-token</code> Next.js route that mints a 60s <code>ek_...</code> key using <code>OPENAI_API_KEY</code>. On button click in React, create <code>new RealtimeSession(agent)</code>, call <code>session.connect({ apiKey })</code>, and pass DOM route state via <code>session.update</code> so the copilot explains buttons currently on screen.</td>
+        <td>Add a <code>/api/realtime-token</code> Next.js route that mints a short-lived <code>ek_...</code> key using <code>OPENAI_API_KEY</code>. On button click in React, create <code>new RealtimeSession(agent)</code>, call <code>session.connect({ apiKey })</code>, and push DOM route state via <code>session.transport.sendEvent({ type: 'session.update', ... })</code>.</td>
       </tr>
       <tr>
         <td><strong>2. Live Camera Field Technician</strong><br/><span style="color:#be185d; font-weight:600;">Visual Diagnostics</span></td>
@@ -684,21 +680,21 @@ await session.sendFunctionCallOutput(callId, JSON.stringify(order));</code></pre
         <td>Point your Twilio or Telnyx inbound number to your call controller, negotiate <code>g711_ulaw</code> audio with zero resampling, and load a compact greeting prompt on <code>gpt-realtime-2.1-mini</code>. Expose <code>book_appointment</code> and <code>transfer_sip_extension</code> tools for instant call routing under $0.05/min.</td>
       </tr>
       <tr>
-        <td><strong>4. Non-Blocking Order Lookup</strong><br/><span style="color:#be185d; font-weight:600;">Async MCP Flow</span></td>
-        <td><code>sendMcpResponse()</code><br/><code>sendFunctionCallOutput()</code><br/>Background Worker</td>
-        <td>Instruct the model: <em>&ldquo;Before calling order tools, say a 4-word filler like Checking your order now.&rdquo;</em> Execute the slow Postgres or Shopify MCP query off the audio thread; when it resolves, inject the JSON with <code>session.sendMcpResponse(callId, data)</code> so the assistant resumes speaking naturally.</td>
+        <td><strong>4. Non-Blocking Order Lookup</strong><br/><span style="color:#be185d; font-weight:600;">Async Tool Flow</span></td>
+        <td>Async <code>tool()</code><br/><code>sendFunctionCallOutput()</code><br/><code>sendMcpResponse()</code></td>
+        <td>Instruct the model: <em>&ldquo;Before calling order tools, say Checking your order now.&rdquo;</em> Execute slow Postgres or Shopify lookups off the audio thread via async <code>tool()</code> (or push manually with <code>sendFunctionCallOutput(toolCall, json)</code>, and approve gated MCP calls with <code>sendMcpResponse(req, true)</code>).</td>
       </tr>
       <tr>
         <td><strong>5. Barge-In-Safe Language Tutor</strong><br/><span style="color:#be185d; font-weight:600;">Coaching &amp; Pacing</span></td>
         <td><code>server_vad</code><br/><code>silence_duration_ms: 850</code><br/><code>interrupt()</code></td>
-        <td>Raise <code>silence_duration_ms</code> from <code>500ms</code> to <code>850ms</code> so language learners have extra breathing room to finish thinking without getting cut off. Wire <code>audio_interrupted</code> to flush local WebAudio queues and call <code>session.interrupt()</code> whenever the student repeats a phrase mid-explanation.</td>
+        <td>Raise <code>silence_duration_ms</code> from <code>500ms</code> to <code>850ms</code> so language learners have extra breathing room to finish thinking without getting cut off. Wire <code>audio_interrupted</code> to flush local WebAudio queues, and call <code>session.interrupt()</code> on any manual Stop button.</td>
       </tr>
     </tbody>
   </table>
 
   <div class="callout emerald" style="margin:2px 0 0 0;">
     <div class="callout-title">Combining Recipes 1 + 2 + 4: The Multimodal Support Super-App</div>
-    Pair a browser <strong>WebRTC</strong> connection with optional screen-share <code>addImage()</code> snapshots and async <code>sendMcpResponse()</code> account lookups. Your support agent can literally look at a customer&rsquo;s broken checkout screen, check their live Stripe invoice in the background, and walk them to a fix in under 45 seconds.
+    Pair a browser <strong>WebRTC</strong> connection with optional screen-share <code>addImage()</code> snapshots and async <code>tool()</code> / <code>sendFunctionCallOutput()</code> account lookups. Your support agent can literally look at a customer&rsquo;s broken checkout screen, check their live Stripe invoice in the background, and walk them to a fix in under 45 seconds.
   </div>
 
   <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
@@ -798,7 +794,7 @@ await session.sendFunctionCallOutput(callId, JSON.stringify(order));</code></pre
       <rect x="242" y="18" width="212" height="142" rx="9" fill="#181b2e" stroke="#38bdf8" stroke-width="1.8"/>
       <text x="348" y="37" text-anchor="middle" fill="#7dd3fc" font-size="7.6" font-weight="700">2. ASYNC REASONING BACKPLANE</text>
       <text x="348" y="55" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Agents SDK Specialists</text>
-      <text x="348" y="69" text-anchor="middle" fill="#bae6fd" font-size="7.2">sendMcpResponse() &amp; Handoffs</text>
+      <text x="348" y="69" text-anchor="middle" fill="#bae6fd" font-size="7.2">Async Tools &amp; Handoffs</text>
       <line x1="258" y1="78" x2="438" y2="78" stroke="#1e3a8a" stroke-width="1"/>
       <text x="256" y="95" fill="#e2e8f0" font-size="7.4">&bull; Multi-step billing &amp; policy audits</text>
       <text x="256" y="109" fill="#e2e8f0" font-size="7.4">&bull; Deep CRM, SQL &amp; RAG retrieval</text>
@@ -833,7 +829,7 @@ await session.sendFunctionCallOutput(callId, JSON.stringify(order));</code></pre
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> Fast Voice Frontline + Background Specialist</div>
       <p style="font-size:8pt; margin:0;">
-        A homeowner calls in over <strong>WebRTC</strong> and aims their phone camera at a blinking router via <code>addImage()</code>. <code>gpt-realtime-2.1</code> keeps them engaged smoothly while handing off serial-number warranty checks and firmware history to an <strong>Agents SDK</strong> specialist via <code>sendMcpResponse()</code>.
+        A homeowner calls in over <strong>WebRTC</strong> and aims their phone camera at a blinking router via <code>addImage()</code>. <code>gpt-realtime-2.1</code> keeps them engaged smoothly while handing off serial-number warranty checks and firmware history to an <strong>Agents SDK</strong> specialist via async <code>tool()</code> / <code>sendFunctionCallOutput()</code>.
       </p>
     </div>
     <div class="card">
@@ -846,7 +842,7 @@ await session.sendFunctionCallOutput(callId, JSON.stringify(order));</code></pre
 
   <div class="callout" style="margin:2px 0 0 0;">
     <div class="callout-title">Architectural Golden Rule: Keep Heavy Reasoning Out of the Hot Audio Loop</div>
-    Never force <code>gpt-realtime-2.1</code> to read 40 pages of policy PDFs inline during a live voice turn. Let a fast background Agents SDK worker query your vector store or database and return a two-sentence spoken summary back through <code>sendMcpResponse()</code>.
+    Never force <code>gpt-realtime-2.1</code> to read 40 pages of policy PDFs inline during a live voice turn. Let a fast background Agents SDK worker query your vector store or database and return a two-sentence spoken summary back through async <code>tool()</code> or <code>sendFunctionCallOutput()</code>.
   </div>
 
   <div class="page-footer"><span>OpenAI Realtime Voice &amp; Vision &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
@@ -901,11 +897,11 @@ await session.sendFunctionCallOutput(callId, JSON.stringify(order));</code></pre
       <tr>
         <td><strong>6. Awkward dead air during tool calls</strong></td>
         <td>Tool handler awaits a 3-second database query synchronously before the model can speak again.</td>
-        <td>Prompt the model to speak a brief acknowledgment first, run slow MCP queries asynchronously, and return data via <code>sendMcpResponse()</code>.</td>
+        <td>Prompt the model to speak a brief acknowledgment first, run slow queries inside async <code>tool()</code> or return manually via <code>sendFunctionCallOutput(toolCall, json)</code> (<code>sendMcpResponse()</code> is for MCP approvals).</td>
       </tr>
       <tr>
         <td><strong>7. Ephemeral token expires before user clicks Start</strong></td>
-        <td>App pre-fetches <code>ek_...</code> on page load, but the user waits &gt;60 seconds before clicking &ldquo;Start Voice&rdquo;.</td>
+        <td>App pre-fetches <code>ek_...</code> on page load, but the user waits past its <code>expires_after</code> TTL (60s&ndash;600s).</td>
         <td>Mint the ephemeral secret <strong>on demand inside the Start click handler</strong> right before calling <code>session.connect()</code>, never at initial page render.</td>
       </tr>
     </tbody>
@@ -931,7 +927,7 @@ await session.sendFunctionCallOutput(callId, JSON.stringify(order));</code></pre
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>
-      <div><strong>Async MCP Non-Blocking:</strong> Verified slow tools speak an acknowledgment and resolve cleanly via <code>sendMcpResponse()</code>.</div>
+      <div><strong>Async Tools Non-Blocking:</strong> Verified slow tools speak an acknowledgment and resolve via async <code>tool()</code> / <code>sendFunctionCallOutput()</code>.</div>
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>
