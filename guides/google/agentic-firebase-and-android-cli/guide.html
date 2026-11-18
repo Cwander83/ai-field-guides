@@ -13,11 +13,11 @@
     <div class="brand-pill">GOOGLE AI &amp; CREATIVE STUDIOS &bull; FIELD GUIDE</div>
     <h1>Agentic <span>Firebase &amp; Android CLI</span> Workflows</h1>
     <p class="cover-sub">
-      The complete 12-page visual handbook to full-stack AI mobile engineering—uniting scoped Firebase MCP backends, App Check-protected Gemini 3.8 Kotlin apps, headless Compose Preview rendering, and automated Android Device Hub journeys.
+      The complete 12-page visual handbook to full-stack AI mobile engineering—uniting scoped Firebase MCP backends, App Check-protected Firebase AI Logic Kotlin apps, headless Compose Preview rendering, and automated Android Device Hub journeys.
     </p>
     <div class="cover-badges">
       <span class="cover-badge">Firebase MCP &amp; Agent Skills</span>
-      <span class="cover-badge">Gemini 3.8 Flash &amp; Live</span>
+      <span class="cover-badge">Gemini 3.8 / 4 &amp; Live API</span>
       <span class="cover-badge">Play Integrity App Check</span>
       <span class="cover-badge">android CLI &amp; Delta Builds</span>
       <span class="cover-badge">Compose Preview Sidecar</span>
@@ -35,8 +35,8 @@
       <div class="cover-stat-desc">Query Firestore, inspect Data Connect GraphQL, and diagnose App Hosting logs safely via scoped <code>firebase mcp</code>.</div>
     </div>
     <div class="cover-stat">
-      <div class="cover-stat-title">Protected Gemini 3.8 Apps</div>
-      <div class="cover-stat-desc">Ship Android Kotlin experiences on <code>gemini-3.8-flash</code> and <code>gemini-3.8-live</code> gated by Firebase App Check.</div>
+      <div class="cover-stat-title">Protected AI Logic Apps</div>
+      <div class="cover-stat-desc">Ship Android Kotlin experiences on <code>gemini-3.8-flash</code>, <code>gemini-4-hydrogen</code>, and <code>gemini-3.1-flash-live-preview</code> gated by App Check.</div>
     </div>
     <div class="cover-stat">
       <div class="cover-stat-title">Closed-Loop Device QA</div>
@@ -102,8 +102,8 @@
       <!-- Middle App Bar -->
       <path d="M155 160 L155 174 M545 160 L545 174" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="3,3"/>
       <rect x="12" y="174" width="676" height="38" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.4"/>
-      <text x="350" y="191" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Android Kotlin Client (firebase-bom:35.1.0 + firebase-ai + App Check)</text>
-      <text x="350" y="205" text-anchor="middle" fill="#fde68a" font-size="8.5">Calls gemini-3.8-flash &amp; gemini-3.8-live directly with automatic App Check attestation tokens</text>
+      <text x="350" y="191" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Android Kotlin Client (firebase-bom:35.2.0 + firebase-ai + App Check)</text>
+      <text x="350" y="205" text-anchor="middle" fill="#fde68a" font-size="8.5">Calls gemini-3.8-flash &amp; gemini-3.1-flash-live-preview directly with automatic App Check tokens</text>
     </svg>
   </div>
 
@@ -365,7 +365,7 @@ claude mcp add firebase npx -- -y firebase-tools@latest mcp \
       <tr>
         <td><strong>AI Logic Schema Consulting</strong></td>
         <td>Verify Gemini Developer API / Vertex AI backend setup, App Check enforcement, and quotas</td>
-        <td>Prevents client SDK mismatches before testing <code>gemini-3.8-flash</code> or <code>gemini-3.8-live</code></td>
+        <td>Prevents client SDK mismatches before testing <code>gemini-3.8-flash</code> or <code>gemini-3.1-flash-live-preview</code></td>
       </tr>
     </tbody>
   </table>
@@ -395,10 +395,10 @@ claude mcp add firebase npx -- -y firebase-tools@latest mcp \
 
   <div class="grid-2" style="margin-bottom:6px;">
     <div class="card" style="padding:7px 10px;">
-      <div class="card-title"><span class="num-badge">1</span> Gradle Dependencies (BoM <code>35.1.0</code>)</div>
+      <div class="card-title"><span class="num-badge">1</span> Gradle Dependencies (BoM <code>35.2.0</code>)</div>
       <div class="code-block" style="font-size:6.5pt; line-height:1.34; padding:5px 7px; margin:3px 0;"><span class="c-cm">// app/build.gradle.kts</span>
 dependencies {
-  implementation(platform(<span class="c-str">"com.google.firebase:firebase-bom:35.1.0"</span>))
+  implementation(platform(<span class="c-str">"com.google.firebase:firebase-bom:35.2.0"</span>))
   implementation(<span class="c-str">"com.google.firebase:firebase-ai"</span>)
   <span class="c-cm">// Local debug vs Play Store attestation</span>
   debugImplementation(<span class="c-str">"com.google.firebase:firebase-appcheck-debug"</span>)
@@ -417,21 +417,21 @@ Firebase.appCheck.installAppCheckProviderFactory(
     </div>
   </div>
 
-  <h3>3. Invoking Gemini 3.8 Flash &amp; Gemini 3.8 Live in Kotlin</h3>
-  <div class="code-block" style="font-size:7.3pt; line-height:1.4; padding:8px 11px;"><span class="c-cm">// Text &amp; multimodal generation (automatically attaches App Check tokens)</span>
-<span class="c-kw">val</span> flashModel = Firebase.ai.<span class="c-fn">generativeModel</span>(modelName = <span class="c-str">"gemini-3.8-flash"</span>)
-<span class="c-kw">val</span> reply = flashModel.<span class="c-fn">generateContent</span>(<span class="c-str">"Summarize today's field inspection checklist."</span>)
+  <h3>3. Invoking Gemini Flash &amp; Live API in Kotlin (Explicit <code>GenerativeBackend</code>)</h3>
+  <div class="code-block" style="font-size:7.1pt; line-height:1.38; padding:7px 11px;"><span class="c-cm">// Text generation (passes GoogleAI backend; App Check enforced automatically)</span>
+<span class="c-kw">val</span> ai = Firebase.<span class="c-fn">ai</span>(backend = GenerativeBackend.<span class="c-fn">googleAI</span>())
+<span class="c-kw">val</span> reply = ai.<span class="c-fn">generativeModel</span>(<span class="c-str">"gemini-3.8-flash"</span>).<span class="c-fn">generateContent</span>(<span class="c-str">"Summarize inspection checklist."</span>)
 
-<span class="c-cm">// Real-time bidirectional voice &amp; streaming session via Gemini 3.8 Live</span>
-<span class="c-kw">val</span> liveSession = Firebase.ai.<span class="c-fn">liveModel</span>(modelName = <span class="c-str">"gemini-3.8-live"</span>).<span class="c-fn">connect</span>()
-liveSession.<span class="c-fn">send</span>(<span class="c-str">"Start guided voice walkthrough for step one."</span>)</div>
+<span class="c-cm">// Real-time bidirectional voice session (Firebase AI Logic Live preview model)</span>
+<span class="c-kw">val</span> live = ai.<span class="c-fn">liveModel</span>(<span class="c-str">"gemini-3.1-flash-live-preview"</span>, liveGenerationConfig { responseModality = ResponseModality.AUDIO }).<span class="c-fn">connect</span>()
+live.<span class="c-fn">startAudioConversation</span>()</div>
 
   <h3>Anatomy of a Complete Full-Stack Agent Prompt</h3>
   <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:9px 11px;">
     <div style="font-size:8.6pt; line-height:1.68; margin-bottom:6px;">
       <span class="p-tag p-backend">Use Firebase MCP (--only firestore,dataconnect) to verify the InspectionLog schema and rules,</span>
       <span class="p-tag p-sec">enable App Check with DebugAppCheckProviderFactory for debug and PlayIntegrity for release,</span>
-      <span class="p-tag p-model">wire a Kotlin ViewModel calling gemini-3.8-flash for summaries and gemini-3.8-live for voice mode,</span>
+      <span class="p-tag p-model">wire a Kotlin ViewModel calling gemini-3.8-flash for summaries and gemini-3.1-flash-live-preview for voice,</span>
       <span class="p-tag p-ui">render InspectionCardPreview via the Compose Preview sidecar to confirm clickable semantics in bounds_url,</span>
       <span class="p-tag p-device">deploy with android run --use-delta-install onto emulator-5554,</span>
       <span class="p-tag p-check">and verify the end-to-end XML &lt;journey&gt; using android layout --diff.</span>
@@ -439,7 +439,7 @@ liveSession.<span class="c-fn">send</span>(<span class="c-str">"Start guided voi
     <div style="display:flex; flex-wrap:wrap; gap:6px; font-size:7.4pt; border-top:1px solid #e2e8f0; padding-top:6px;">
       <span><span class="p-tag p-backend">Backend MCP Scope</span></span>
       <span><span class="p-tag p-sec">App Check Security</span></span>
-      <span><span class="p-tag p-model">Gemini 3.8 Models</span></span>
+      <span><span class="p-tag p-model">AI Logic Models</span></span>
       <span><span class="p-tag p-ui">Compose Bounds QA</span></span>
       <span><span class="p-tag p-device">Delta Deploy</span></span>
       <span><span class="p-tag p-check">Journey Assertion</span></span>
@@ -580,13 +580,13 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
         <td>Installs Firebase idioms and pins MCP strictly to your target directory and services.</td>
       </tr>
       <tr>
-        <td><strong>2. App Check Protected <code>gemini-3.8-live</code> Screen</strong></td>
-        <td><code>Firebase.initialize(this); Firebase.appCheck.installAppCheckProviderFactory(DebugAppCheckProviderFactory.getInstance()); val live = Firebase.ai.liveModel(modelName = "gemini-3.8-live").connect()</code></td>
+        <td><strong>2. App Check Protected Live API Screen</strong></td>
+        <td><code>Firebase.initialize(this); Firebase.appCheck.installAppCheckProviderFactory(DebugAppCheckProviderFactory.getInstance()); val live = Firebase.ai(backend = GenerativeBackend.googleAI()).liveModel("gemini-3.1-flash-live-preview").connect()</code></td>
         <td>Establishes a real-time Live session with automatic App Check attestation headers.</td>
       </tr>
       <tr>
         <td><strong>3. Fast Delta Run + Studio Analysis Loop</strong></td>
-        <td><code>android studio check &amp;&amp; android studio analyze-file --file app/src/main/java/ChatVm.kt &amp;&amp; android run --device emulator-5554 --use-delta-install</code></td>
+        <td><code>android studio check &amp;&amp; android studio analyze-file app/src/main/java/ChatVm.kt &amp;&amp; android run --device emulator-5554 --use-delta-install</code></td>
         <td>Catches Kotlin lint/type issues via Studio PSI before shipping a delta APK to the AVD.</td>
       </tr>
       <tr>
@@ -640,7 +640,7 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
       <ul style="font-size:8.1pt; margin:3px 0 0 0;">
         <li><strong>Local Debug Tokens:</strong> Register the Logcat token printed by <code>firebase-appcheck-debug</code> in Firebase Console for emulator tests.</li>
         <li><strong>Release Attestation:</strong> Swap to <code>firebase-appcheck-playintegrity</code> and add your Play App Signing <strong>SHA-256</strong> fingerprint in Console.</li>
-        <li><strong>Enforce Last:</strong> Monitor App Check metrics for <code>gemini-3.8-flash</code> and <code>gemini-3.8-live</code> traffic before flipping enforcement on.</li>
+        <li><strong>Enforced by Default (Nov 2, 2026):</strong> Firebase enforces App Check automatically for AI Logic—verify debug &amp; Play Integrity tokens before testing.</li>
       </ul>
     </div>
   </div>
@@ -652,7 +652,7 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
       <ul style="font-size:8pt; margin:3px 0 0 0;">
         <li><code>android studio check</code> &mdash; verify running IDE instances.</li>
         <li><code>android studio find-declaration</code> &amp; <code>find-usages</code> &mdash; trace Compose callbacks and ViewModels accurately.</li>
-        <li><code>android studio version-lookup</code> &mdash; fetch latest Maven artifacts like <code>firebase-bom:35.1.0</code> and SDK tools.</li>
+        <li><code>android studio version-lookup</code> &mdash; fetch latest Maven artifacts like <code>firebase-bom:35.2.0</code> and SDK tools.</li>
       </ul>
     </div>
 
@@ -687,7 +687,7 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
 
   <h2 class="page-title">Cross-Tool Synergy: From Cloud Schema to Verified APK</h2>
   <p class="page-lead">
-    Watch how all four toolchains interlock in a single sprint—passing validated schemas, protected Gemini 3.8 clients, accessibility-checked Compose trees, and sequential XML journey reports cleanly from stage to stage.
+    Watch how all four toolchains interlock in a single sprint—passing validated schemas, protected AI Logic clients, accessibility-checked Compose trees, and sequential XML journey reports cleanly from stage to stage.
   </p>
 
   <div class="figure-box" style="background:#0f172a; padding:14px;">
@@ -713,10 +713,10 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
       <rect x="197" y="28" width="58" height="18" rx="4" fill="#d97706"/>
       <text x="226" y="40" text-anchor="middle" fill="#ffffff" font-size="8.2" font-weight="800">STAGE 2</text>
       <text x="197" y="64" fill="#ffffff" font-size="11.2" font-weight="800">Kotlin + AI Logic</text>
-      <text x="197" y="79" fill="#fde68a" font-size="8.8" font-weight="700">Gemini 3.8 + Shield</text>
-      <text x="197" y="99" fill="#e2e8f0" font-size="8.2">&bull; firebase-bom:35.1.0</text>
+      <text x="197" y="79" fill="#fde68a" font-size="8.8" font-weight="700">AI Logic + Shield</text>
+      <text x="197" y="99" fill="#e2e8f0" font-size="8.2">&bull; firebase-bom:35.2.0</text>
       <text x="197" y="114" fill="#e2e8f0" font-size="8.2">&bull; gemini-3.8-flash</text>
-      <text x="197" y="129" fill="#e2e8f0" font-size="8.2">&bull; gemini-3.8-live</text>
+      <text x="197" y="129" fill="#e2e8f0" font-size="6.9">&bull; gemini-3.1-flash-live-preview</text>
       <text x="197" y="144" fill="#e2e8f0" font-size="8.2">&bull; App Check provider</text>
       <text x="197" y="159" fill="#6ee7b7" font-size="8" font-weight="700">Out: Compiled Feature</text>
 
@@ -811,8 +811,8 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
         <td>Modules with product flavors have no bare <code>debug</code> variant. Supply the flavor-first reference, e.g. <code>gradle://.?:feature:home@demoDebug</code>.</td>
       </tr>
       <tr>
-        <td><strong>4. <code>gemini-3.8-live</code> drops immediately on physical release builds</strong></td>
-        <td>App Check rejected an unverified token. Ensure <code>firebase-appcheck-playintegrity</code> is installed and your Play App Signing <strong>SHA-256</strong> is registered in Console.</td>
+        <td><strong>4. AI Logic calls fail immediately on physical release builds</strong></td>
+        <td>App Check is enforced automatically for AI Logic (Nov 2, 2026). Ensure <code>firebase-appcheck-playintegrity</code> is installed and your Play App Signing <strong>SHA-256</strong> is registered in Console.</td>
       </tr>
       <tr>
         <td><strong>5. <code>adb shell input text</code> drops words after the first space</strong></td>
@@ -836,7 +836,7 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
     <div class="grid-2" style="gap:6px 16px; font-size:8.2pt; color:#e2e8f0;">
       <div>&#9744; <strong>1. Scoped MCP &amp; Skills:</strong> <code>firebase mcp --dir --only</code> paired with <code>firebase/agent-skills</code> and <code>android init</code>.</div>
       <div>&#9744; <strong>4. Clean Compose Bounds:</strong> <code>bounds_url</code> verified for <code>clickable</code> semantics and <code>contentDescription</code>.</div>
-      <div>&#9744; <strong>2. Current Models Only:</strong> Kotlin calls target <code>gemini-3.8-flash</code> and <code>gemini-3.8-live</code> via BoM <code>35.1.0</code>.</div>
+      <div>&#9744; <strong>2. Current Models Only:</strong> Kotlin calls target <code>gemini-3.8-flash</code> / <code>3.1-flash-live-preview</code> via BoM <code>35.2.0</code>.</div>
       <div>&#9744; <strong>5. Delta Deploy Ready:</strong> <code>android run --use-delta-install</code> boots cleanly on AVD with <code>sys.boot_completed</code>.</div>
       <div>&#9744; <strong>3. App Check Parity:</strong> Debug provider locally; Play Integrity + Console SHA-256 verified for release.</div>
       <div>&#9744; <strong>6. Sequential Journey Pass:</strong> All XML <code>&lt;actions&gt;</code> pass in order with a signed-off <code>&#9989;</code> Markdown audit.</div>
