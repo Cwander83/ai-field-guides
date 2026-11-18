@@ -185,7 +185,7 @@
 npx create-chat-sdk
 
 # Or add Chat SDK + adapters to an existing repo
-npm i chat @chat-adapter/slack @chat-adapter/redis</code></pre>
+npm i chat @chat-adapter/slack @chat-adapter/state-redis</code></pre>
       <p style="font-size:7.75pt; margin:0; color:#334155;">
         Every install ships version-matched markdown guides in <code>node_modules/chat/docs/</code>, 13 production recipes in <code>node_modules/chat/resources/</code>, and starter blueprints in <code>node_modules/chat/resources/templates.json</code>.
       </p>
@@ -198,7 +198,7 @@ npm i chat @chat-adapter/slack @chat-adapter/redis</code></pre>
       </p>
       <ul style="font-size:7.65pt; margin:0;">
         <li><code>listAdapters()</code> &amp; <code>getCatalogEntry(slug)</code>: Discover npm packages, peer deps, and platform vs. state adapter roles before installing.</li>
-        <li><code>getFeatureSupport(slug)</code>: Check streaming, modals, and distributed locking support at build time or runtime.</li>
+        <li><code>getFeatureSupport(slug, key)</code>: Check streaming or modals status (<code>yes</code>/<code>partial</code>/<code>no</code>) at build time or runtime.</li>
         <li><code>listEnvVars(slug)</code> &amp; <code>getSecretEnvVars(slug)</code>: Generate accurate onboarding checklists and secret vaults automatically.</li>
       </ul>
     </div>
@@ -229,7 +229,7 @@ npm i chat @chat-adapter/slack @chat-adapter/redis</code></pre>
       </tr>
       <tr>
         <td><strong>Concurrency &amp; State</strong></td>
-        <td>Pluggable <code>@chat-adapter/redis</code> locks threads and persists subscriptions across serverless instances.</td>
+        <td>Pluggable <code>@chat-adapter/state-redis</code> locks threads and persists subscriptions across serverless instances.</td>
         <td>Manual DIY Redis locks; stateful WebSocket clients like <code>discord.js</code> break on serverless cold starts.</td>
         <td>Durable filesystem-backed session history, schedules, and subagents managed by the runtime.</td>
       </tr>
@@ -290,7 +290,7 @@ npm i chat @chat-adapter/slack @chat-adapter/redis</code></pre>
           <div style="color:#94a3b8;">bot.onNewMention(async (thread, msg) =&gt; {</div>
           <div style="color:#7dd3fc;">&nbsp;&nbsp;await thread.subscribe();</div>
           <div style="color:#fde68a;">&nbsp;&nbsp;const res = await opsAgent.stream({ prompt: msg.text });</div>
-          <div style="color:#6ee7b7;">&nbsp;&nbsp;await thread.post(res.textStream);</div>
+          <div style="color:#6ee7b7;">&nbsp;&nbsp;await thread.post(res.fullStream);</div>
           <div style="color:#94a3b8;">});</div>
         </div>
         <div style="background:#1c0f08; border:1px solid #ea580c; border-radius:5px; padding:5px 7px; font-size:6.95pt; color:#ffedd5;">
@@ -317,7 +317,7 @@ npm i chat @chat-adapter/slack @chat-adapter/redis</code></pre>
 
     <!-- Bottom Status Strip -->
     <div style="background:#23120a; padding:5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.1pt;">
-      <span><strong style="color:#fb923c;">Capability Check:</strong> <code>getFeatureSupport(&quot;slack&quot;)</code> &rarr; streaming: true, modals: true, locking: true</span>
+      <span><strong style="color:#fb923c;">Capability Check:</strong> <code>getFeatureSupport(&quot;slack&quot;, &quot;streaming&quot;)</code> &rarr; <code>{ status: &quot;yes&quot; }</code> &bull; <code>modals: yes</code></span>
       <span style="color:#fdba74;"><code>AI Gateway: anthropic/claude-sonnet-4.6</code></span>
     </div>
   </div>
@@ -368,7 +368,7 @@ npm i chat @chat-adapter/slack @chat-adapter/redis</code></pre>
       <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.8pt; line-height:1.33;"><code>import { Chat } from "chat";
 import { createSlackAdapter } from "@chat-adapter/slack";
 import { createTeamsAdapter } from "@chat-adapter/teams";
-import { createRedisState } from "@chat-adapter/redis";
+import { createRedisState } from "@chat-adapter/state-redis";
 
 export const bot = new Chat({
   userName: "ops-copilot",
@@ -378,8 +378,8 @@ export const bot = new Chat({
 
 bot.onNewMention(async (thread, msg) =&gt; {
   await thread.subscribe();
-  const stream = await supportAgent.stream({ prompt: msg.text });
-  await thread.post(stream.textStream); // Streams natively per adapter
+  const result = await supportAgent.stream({ prompt: msg.text });
+  await thread.post(result.fullStream); // Preserves tool-step breaks
 });
 
 bot.onSubscribedMessage(async (thread, msg) =&gt; { /* follow-up turn */ });
@@ -399,33 +399,33 @@ bot.onSlashCommand("/triage", async (event) =&gt; { /* modal or card */ });</cod
         </thead>
         <tbody>
           <tr>
-            <td><strong>Slack / Teams</strong></td>
-            <td>Live Edit</td>
+            <td><strong>Slack</strong></td>
+            <td>Native Stream</td>
             <td>Native</td>
-            <td>Block Kit / Adaptive</td>
+            <td>Block Kit &amp; Sessions</td>
           </tr>
           <tr>
-            <td><strong>Discord</strong></td>
-            <td>Chunk Edit</td>
+            <td><strong>MS Teams</strong></td>
+            <td>Native DM / Buf</td>
             <td>Native</td>
-            <td>Embeds &amp; Slash</td>
+            <td>Adaptive Cards</td>
           </tr>
           <tr>
-            <td><strong>Telegram</strong></td>
-            <td>Draft / Edit</td>
-            <td>Inline Buttons</td>
-            <td>Commands &amp; Topics</td>
+            <td><strong>Discord / TG</strong></td>
+            <td>Post + Edit</td>
+            <td>Discord / Links</td>
+            <td>Embeds &amp; Inline Keys</td>
           </tr>
           <tr>
             <td><strong>GitHub / Linear</strong></td>
-            <td>Final Post</td>
+            <td>Buf / Sessions</td>
             <td>Markdown Links</td>
-            <td>PR &amp; Issue Threads</td>
+            <td>PRs &amp; Issue Threads</td>
           </tr>
         </tbody>
       </table>
       <p style="font-size:7.55pt; margin:0; color:#334155;">
-        Call <code>getFeatureSupport(slug)</code> before invoking modals or token streaming so your bot degrades gracefully on issue-tracker threads without throwing runtime errors.
+        Call <code>getFeatureSupport(slug, &quot;modals&quot;)</code> or <code>getFeatureSupport(slug, &quot;streaming&quot;)</code> so your bot degrades cleanly without runtime errors.
       </p>
     </div>
   </div>
@@ -454,7 +454,7 @@ bot.onSlashCommand("/triage", async (event) =&gt; { /* modal or card */ });</cod
 
   <h2 class="page-title">Redis Thread Locks &amp; Multi-Platform Handler Anatomy</h2>
   <p class="page-lead" style="margin-bottom:6px;">
-    Serverless webhook functions run concurrently across regions. Without a shared state layer, two rapid messages in the same thread overwrite each other&rsquo;s context and post scrambled replies. Pairing <code>@chat-adapter/redis</code> with durable Workflow handoffs keeps every conversation deterministic.
+    Serverless webhook functions run concurrently across regions. Without a shared state layer, two rapid messages in the same thread overwrite each other&rsquo;s context and post scrambled replies. Pairing <code>@chat-adapter/state-redis</code> with durable Workflow handoffs keeps every conversation deterministic.
   </p>
 
   <div class="grid-2" style="margin-bottom:6px; gap:10px;">
@@ -462,7 +462,7 @@ bot.onSlashCommand("/triage", async (event) =&gt; { /* modal or card */ });</cod
       <div class="card-title"><span class="num-badge">1</span> Redis Subscriptions &amp; Distributed Locks</div>
       <ul style="font-size:7.8pt; margin:2px 0 0 0;">
         <li><strong>Thread Subscriptions:</strong> Calling <code>await thread.subscribe()</code> stores the active thread ID in Redis so users can reply naturally without re-typing <code>@bot</code> every turn.</li>
-        <li><strong>Per-Thread Mutual Exclusion:</strong> Redis distributed locks serialize concurrent webhook deliveries on the same thread key, protecting message history and tool side-effects.</li>
+        <li><strong>Automatic Per-Thread Locking:</strong> Redis state locks serialize concurrent webhooks on the same thread automatically; tune overlap via <code>concurrency</code> (<code>drop</code>, <code>queue</code>, <code>burst</code>, <code>debounce</code>).</li>
         <li><strong>Zero Cold-Start Drift:</strong> Any Vercel Function instance can pick up the next turn seamlessly using shared Redis state.</li>
       </ul>
     </div>
@@ -488,10 +488,10 @@ bot.onSlashCommand("/triage", async (event) =&gt; { /* modal or card */ });</cod
 
   <div class="card" style="background:#f8fafc; border:1px solid #fed7aa; padding:8px 10px; margin-bottom:7px; font-size:8.05pt; line-height:1.65;">
     <span class="p-tag p-event">Listen on bot.onNewMention &amp; bot.onSubscribedMessage after adapter signature verification succeeds.</span>
-    <span class="p-tag p-lock">Acquire the Redis thread lock, load recent thread messages, and mark thread.subscribe() active.</span>
+    <span class="p-tag p-lock">Chat SDK holds the Redis thread lock automatically while you mark thread.subscribe() and load history.</span>
     <span class="p-tag p-agent">Invoke new ToolLoopAgent({ model: &quot;anthropic/claude-sonnet-4.6&quot;, tools, stopWhen: isStepCount(6) }) via AI Gateway.</span>
-    <span class="p-tag p-card">Stream textStream into thread.post() and append an interactive Card when human approval is needed.</span>
-    <span class="p-tag p-guard">Check getFeatureSupport(thread.adapterName) before opening modals; release the Redis lock in finally {}.</span>
+    <span class="p-tag p-card">Stream result.fullStream into thread.post() and append an interactive Card when human approval is needed.</span>
+    <span class="p-tag p-guard">Check getFeatureSupport(thread.adapter.name, &quot;modals&quot;).status before opening modals; pass thread.signal to abort.</span>
   </div>
 
   <h3>3-Phase Execution Lifecycle Across Serverless Invocations</h3>
@@ -558,26 +558,28 @@ bot.onSlashCommand("/triage", async (event) =&gt; { /* modal or card */ });</cod
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="num-badge">2</span> Approval-Gated Vercel Blob / Files SDK Tools</div>
+      <div class="card-title"><span class="num-badge">2</span> Approval-Gated Files SDK + Vercel Blob Tools</div>
       <ul style="font-size:7.75pt; margin:3px 0 0 0;">
-        <li><strong><code>createFileTools</code> Factory:</strong> Expose Vercel Blob buckets directly to <code>ToolLoopAgent</code> so Slack users can list, search, and read reports conversationally.</li>
-        <li><strong>Read-Only vs. Write Modes:</strong> Allow safe read/list calls automatically while placing uploads and deletes behind explicit human approval.</li>
-        <li><strong>Scoped Paths:</strong> Restrict prefixes per channel or tenant (e.g. <code>reports/eng/</code>) so bots never traverse unrelated buckets.</li>
+        <li><strong><code>createFileTools</code> Factory:</strong> Bridge Vercel Blob via <code>files-sdk</code> (<code>files-sdk/ai-sdk</code> + <code>files-sdk/vercel-blob</code>) so bots list, search, and read reports conversationally.</li>
+        <li><strong>Read-Only vs. Write Modes:</strong> Reads run freely while <code>uploadFile</code>, <code>deleteFile</code>, and <code>copyFile</code> require explicit approval by default.</li>
+        <li><strong>Scoped Prefixes:</strong> Construct <code>new Files({ adapter: vercelBlob(), prefix })</code> per channel or tenant so bots never traverse unrelated keys.</li>
       </ul>
     </div>
   </div>
 
-  <pre class="code-block" style="padding:6px 9px; font-size:6.85pt; line-height:1.35; margin:0 0 6px 0;"><code>// 1. Provision &amp; link connector via CLI: vercel connect create slack &amp;&amp; vercel connect attach slack/acme-ops
-import { getToken } from "@vercel/connect";
+  <pre class="code-block" style="padding:6px 9px; font-size:6.8pt; line-height:1.33; margin:0 0 6px 0;"><code>// 1. Provision &amp; link connector: vercel connect create slack &amp;&amp; vercel connect attach slack/acme-ops
+import { createSlackAdapter } from "@chat-adapter/slack";
+import { connectSlackAdapter } from "@vercel/connect/chat"; // Outbound OAuth + OIDC webhook verifier
+import { Files } from "files-sdk";
+import { vercelBlob } from "files-sdk/vercel-blob";
+import { createFileTools } from "files-sdk/ai-sdk";
 import { ToolLoopAgent, isStepCount } from "ai";
-import { createFileTools } from "@vercel/blob/ai"; // Approval-gated Files SDK tools
 
-const slackToken = await getToken("slack/acme-ops", { subject: { type: "app" } });
-const fileTools = createFileTools({ prefix: "team-docs/", readOnly: false, requireWriteApproval: true });
-
+const slack = createSlackAdapter({ ...connectSlackAdapter("slack/acme-ops") });
+const files = new Files({ adapter: vercelBlob(), prefix: "team-docs/" });
 export const docsAgent = new ToolLoopAgent({
-  model: "openai/gpt-5.4", // Routed via AI Gateway with VERCEL_OIDC_TOKEN
-  tools: fileTools,
+  model: "openai/gpt-5.4",
+  tools: createFileTools({ files }), // Writes require approval by default; pass { readOnly: true } to lock reads
   stopWhen: isStepCount(6),
 });</code></pre>
 
@@ -621,13 +623,13 @@ export const docsAgent = new ToolLoopAgent({
     </div>
   </div>
 
-  <pre class="code-block" style="padding:5.5px 9px; font-size:6.8pt; margin:0 0 6px 0;"><code>// Workflow 5 HITL gate: suspends cleanly until Slack/Teams button click or 24h durable sleep()
+  <pre class="code-block" style="padding:5.5px 9px; font-size:6.75pt; margin:0 0 6px 0;"><code>// Workflow 5 HITL gate: suspends cleanly until button callback or 24h durable sleep() (or use requestApproval from "chat/workflow")
 import { createWebhook, sleep } from "workflow";
 export async function deployApprovalWorkflow(releaseTag: string, channelId: string) {
   "use workflow";
   const approvalHook = createWebhook();
-  await postApprovalCardStep(channelId, releaseTag, approvalHook.token);
-  const decision = await Promise.race([approvalHook, sleep("24h").then(() =&gt; ({ approved: false, reason: "timeout" }))]);
+  await postApprovalCardStep(channelId, releaseTag, approvalHook.url, approvalHook.token);
+  const decision = await Promise.race([approvalHook.then((req) =&gt; req.json()), sleep("24h").then(() =&gt; ({ approved: false }))]);
   if (decision.approved) await promoteProductionStep(releaseTag);
 }</code></pre>
 
@@ -664,8 +666,8 @@ export async function deployApprovalWorkflow(releaseTag: string, channelId: stri
     <tbody>
       <tr>
         <td><strong>1. Streaming AI Slack Bot</strong><br/><span style="color:#c2410c; font-weight:600;">Slack Threads &amp; DMs</span></td>
-        <td><code>@chat-adapter/slack</code><br/><code>@chat-adapter/redis</code><br/><code>ToolLoopAgent</code> + Gateway</td>
-        <td>Subscribe on <code>onNewMention</code>, acquire the Redis thread lock, call <code>agent.stream()</code> with <code>anthropic/claude-sonnet-4.6</code> via AI Gateway, and pipe <code>stream.textStream</code> into <code>thread.post()</code> for live Slack message updates.</td>
+        <td><code>@chat-adapter/slack</code><br/><code>@chat-adapter/state-redis</code><br/><code>ToolLoopAgent</code> + Gateway</td>
+        <td>Subscribe on <code>onNewMention</code> (Chat SDK auto-locks the thread via Redis), call <code>agent.stream()</code> with <code>anthropic/claude-sonnet-4.6</code> via AI Gateway, and pipe <code>result.fullStream</code> into <code>thread.post()</code> for live Slack updates.</td>
       </tr>
       <tr>
         <td><strong>2. GitHub PR Diff Reviewer</strong><br/><span style="color:#0284c7; font-weight:600;">GitHub PR Comments</span></td>
@@ -675,17 +677,17 @@ export async function deployApprovalWorkflow(releaseTag: string, channelId: stri
       <tr>
         <td><strong>3. HITL Deploy Gate Card</strong><br/><span style="color:#059669; font-weight:600;">Slack + MS Teams + Linear</span></td>
         <td><code>@chat-adapter/slack</code><br/><code>@chat-adapter/teams</code><br/>Workflow 5 <code>createWebhook</code></td>
-        <td>Trigger <code>start(deployApprovalWorkflow)</code> from <code>/deploy</code>. Inside the workflow, call <code>createWebhook()</code>, post a native <code>Card</code> with the token, race against <code>sleep(&quot;24h&quot;)</code>, validate <code>event.user</code> on click, and call <code>resumeWebhook()</code>.</td>
+        <td>Trigger <code>start(deployApprovalWorkflow)</code> from <code>/deploy</code>. Inside the workflow, call <code>createWebhook()</code> (or <code>requestApproval()</code> from <code>chat/workflow</code>), post a native <code>Card</code>, race against <code>sleep(&quot;24h&quot;)</code>, and validate <code>event.user</code> before resuming.</td>
       </tr>
       <tr>
         <td><strong>4. Discord &amp; Telegram Knowledge Bot</strong><br/><span style="color:#7c3aed; font-weight:600;">Discord + Telegram Topics</span></td>
         <td><code>@chat-adapter/discord</code><br/><code>@chat-adapter/telegram</code><br/>Nuxt + Redis Locks</td>
-        <td>Share one <code>onSubscribedMessage</code> handler across Discord threads and Telegram topics. Check <code>getFeatureSupport()</code> so Discord opens native <code>Modal</code> forms while Telegram falls back cleanly to threaded prompt questions.</td>
+        <td>Share one <code>onSubscribedMessage</code> handler across Discord threads and Telegram topics. Check <code>getFeatureSupport(&quot;telegram&quot;, &quot;modals&quot;).status</code> so Discord opens native <code>Modal</code> forms while Telegram falls back cleanly to threaded prompt questions.</td>
       </tr>
       <tr>
         <td><strong>5. Zero-Secret Connect Channel Automation</strong><br/><span style="color:#c2410c; font-weight:600;">Slack + GitHub + Linear</span></td>
         <td><code>@vercel/connect/chat</code><br/><code>VERCEL_OIDC_TOKEN</code><br/>Connect Triggers</td>
-        <td>Link connectors via <code>vercel connect attach</code>, verify inbound webhooks via Vercel OIDC trigger headers instead of raw secrets, and mint short-lived <code>app</code> or per-<code>user</code> tokens with <code>getToken()</code> right before posting digests.</td>
+        <td>Link connectors via <code>vercel connect attach</code>, spread <code>connectSlackAdapter()</code> / <code>connectGitHubAdapter()</code> to verify OIDC-forwarded triggers, and request short-lived per-<code>user</code> or <code>app</code> tokens via <code>getToken()</code> when needed.</td>
       </tr>
     </tbody>
   </table>
@@ -723,7 +725,7 @@ export async function deployApprovalWorkflow(releaseTag: string, channelId: stri
     <div class="card">
       <div class="card-title"><span class="num-badge">!</span> Graceful Adapter Feature Fallbacks</div>
       <ul style="font-size:7.75pt; margin:3px 0 0 0;">
-        <li><strong>Check <code>getFeatureSupport(slug)</code>:</strong> Never assume every adapter supports live token streaming or popup modals.</li>
+        <li><strong>Check <code>getFeatureSupport(slug, key)</code>:</strong> Never assume every adapter supports live token streaming or popup modals.</li>
         <li><strong>Modal Fallback:</strong> When <code>modals</code> is unsupported (e.g., GitHub PR comments or Telegram), collect fields via sequential threaded questions or a signed web link button.</li>
         <li><strong>Streaming Fallback:</strong> When <code>streaming</code> is buffered rather than live-edited, buffer chunks cleanly and post one crisp formatted reply to avoid rate-limit <code>429</code> throttling.</li>
       </ul>
@@ -895,7 +897,7 @@ export async function deployApprovalWorkflow(releaseTag: string, channelId: stri
       <tr>
         <td><strong>2. Parallel thread replies race or overwrite context</strong></td>
         <td>Serverless webhook invocations execute simultaneously without a distributed thread mutex.</td>
-        <td>Configure <code>state: createRedisState()</code> with <code>@chat-adapter/redis</code> so Chat SDK locks per thread ID automatically.</td>
+        <td>Configure <code>state: createRedisState()</code> with <code>@chat-adapter/state-redis</code> so Chat SDK locks per thread ID automatically.</td>
       </tr>
       <tr>
         <td><strong>3. Hardcoded bot tokens in <code>.env</code></strong></td>
@@ -915,7 +917,7 @@ export async function deployApprovalWorkflow(releaseTag: string, channelId: stri
       <tr>
         <td><strong>6. Streaming or modals crash on GitHub / Telegram</strong></td>
         <td>Bot invokes live modals or token-stream edits on adapters whose platform API does not support them.</td>
-        <td>Inspect <code>getFeatureSupport(slug)</code> first and branch cleanly to threaded follow-ups or buffered final posts.</td>
+        <td>Inspect <code>getFeatureSupport(slug, &quot;modals&quot;).status</code> first and branch cleanly to threaded follow-ups or buffered final posts.</td>
       </tr>
       <tr>
         <td><strong>7. Preview webhooks fail AI calls (401/403)</strong></td>
@@ -929,11 +931,11 @@ export async function deployApprovalWorkflow(releaseTag: string, channelId: stri
   <div class="checklist-grid">
     <div class="check-item">
       <span class="check-box">&#10003;</span>
-      <div><strong>Catalog Capabilities Checked:</strong> Verified <code>getFeatureSupport()</code> fallbacks for streaming and modals on every enabled adapter.</div>
+      <div><strong>Catalog Capabilities Checked:</strong> Verified <code>getFeatureSupport(slug, key)</code> fallbacks for streaming and modals on every enabled adapter.</div>
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>
-      <div><strong>Redis Thread Locks Active:</strong> Confirmed <code>@chat-adapter/redis</code> handles distributed locks and thread subscriptions across instances.</div>
+      <div><strong>Redis Thread Locks Active:</strong> Confirmed <code>@chat-adapter/state-redis</code> handles distributed locks and thread subscriptions across instances.</div>
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>
