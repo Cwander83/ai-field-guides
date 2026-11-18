@@ -574,7 +574,7 @@ const stream = createUIMessageStream({
 
 // Multimodal images via Gateway (reads result.files, no DALL-E!)
 const img = await generateText({
-  model: 'google/gemini-3.1-flash-image-preview',
+  model: 'google/gemini-3.1-flash-image',
   prompt: 'Minimalist glass prism studio render',
 });
 // img.files[0].uint8Array / base64 ready for Vercel Blob</code></pre>
@@ -783,9 +783,9 @@ const result = await researcher.generate({ prompt: topic });</code></pre></td>
       </tr>
       <tr>
         <td><strong>5. Gateway Image Gen &rarr; Vercel Blob</strong><br/><span style="color:#d97706; font-weight:600;">Asset Generation API</span></td>
-        <td><code>gemini-3.1-flash-image-preview</code><br/><code>@vercel/blob</code></td>
+        <td><code>gemini-3.1-flash-image</code><br/><code>@vercel/blob</code></td>
         <td><pre class="code-block" style="margin:0; padding:4px 6px; font-size:6.55pt; line-height:1.3;"><code>const { files } = await generateText({
-  model: 'google/gemini-3.1-flash-image-preview',
+  model: 'google/gemini-3.1-flash-image',
   prompt: 'Clean isometric product icon on slate background',
 });
 const blob = await put('renders/icon.png', Buffer.from(files[0].uint8Array), { access: 'public' });</code></pre></td>

@@ -75,7 +75,7 @@
 
   <h3>From Swarm Experiments to a Production Harness</h3>
   <p style="font-size:8.65pt;">
-    In early LLM apps, engineers wrote fragile <code>while True</code> loops by hand: parsing tool JSON, catching schema errors, appending messages, and guessing why an agent stalled. The <strong>Agents SDK</strong> replaces that plumbing with a transparent execution loop owned by <code>Runner</code>. You define lightweight <code>Agent</code> objects (instructions, model, tools, handoffs, guardrails) and hand them to <code>Runner.run()</code>. If you prefer zero infrastructure management, the hosted <strong>Agents API</strong> runs the exact same harness server-side with managed threads, retries, and background execution.
+    In early LLM apps, engineers wrote fragile <code>while True</code> loops by hand: parsing tool JSON, catching schema errors, appending messages, and guessing why an agent stalled. The <strong>Agents SDK</strong> replaces that plumbing with a transparent execution loop owned by <code>Runner</code>. You define lightweight <code>Agent</code> objects (instructions, model, tools, handoffs, guardrails) and hand them to <code>Runner.run()</code>. If you prefer zero infrastructure management, the hosted <strong>Agents API</strong> runs the exact same Codex harness server-side with durable Sessions (<code>v1/agents/sessions</code>), retries, and background execution.
   </p>
 
   <h3>Inside One <code>Runner</code> Execution Loop</h3>
@@ -174,14 +174,14 @@ pip install "openai-agents[redis]"
 
 # Verify version &amp; export credentials
 export OPENAI_API_KEY="sk-..."</code></pre>
-      <p style="font-size:7.8pt; margin:0; color:#334155;">Requires Python 3.9+. Uses Pydantic v2 for strict tool schemas and async <code>asyncio</code> execution via <code>Runner.run()</code>.</p>
+      <p style="font-size:7.8pt; margin:0; color:#334155;">Requires Python 3.10+. Uses Pydantic v2 for strict tool schemas and async <code>asyncio</code> execution via <code>Runner.run()</code>.</p>
     </div>
     <div class="card" style="border-top:3px solid #0891b2;">
       <div class="card-title"><span class="num-badge cyan">2</span> TypeScript SDK (<code>@openai/agents</code>)</div>
       <pre class="code-block" style="margin:3px 0 4px 0; padding:6px 8px; font-size:7pt;"><code># Core SDK + Zod v3/v4 schema validation
 npm install @openai/agents zod
 
-# Works on Node 20+, Deno, Bun &amp; Edge runtimes
+# Works on Node 22+, Deno, Bun &amp; Edge runtimes
 export OPENAI_API_KEY="sk-..."</code></pre>
       <p style="font-size:7.8pt; margin:0; color:#334155;">First-class TypeScript types infer <code>finalOutput</code> directly from your Zod schema with zero manual type casting.</p>
     </div>
@@ -210,7 +210,7 @@ export OPENAI_API_KEY="sk-..."</code></pre>
       <tr>
         <td><strong>Typed Function Tool</strong></td>
         <td><code>@function_tool</code> decorator + type hints</td>
-        <td><code>tool({ parameters: z.object(...), execute })</code> / <code>functionTool</code></td>
+        <td><code>tool({ parameters: z.object(...), execute })</code></td>
       </tr>
       <tr>
         <td><strong>Agent Transfer / Tool</strong></td>
@@ -237,7 +237,7 @@ export OPENAI_API_KEY="sk-..."</code></pre>
     <tbody>
       <tr>
         <td><strong>Execution &amp; State</strong></td>
-        <td>Managed server-side harness; OpenAI persists threads, background polling, and tool turns automatically.</td>
+        <td>Managed server-side harness; OpenAI persists durable Sessions, sandbox environments, and compaction automatically.</td>
         <td>Runs inside your own API server, worker queue, or CLI using <code>SQLiteSession</code> or <code>RedisSession</code>.</td>
       </tr>
       <tr>
@@ -294,7 +294,7 @@ export OPENAI_API_KEY="sk-..."</code></pre>
     <!-- Summary Telemetry Bar -->
     <div style="background:#111430; border-bottom:1px solid #312e81; padding:5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.2pt;">
       <div style="display:flex; gap:12px; align-items:center;">
-        <span><strong style="color:#818cf8;">Model Routing:</strong> <code>gpt-6.1-sol</code> (triage) &rarr; <code>gpt-5.4</code> (billing) <span class="callout-pin">5</span></span>
+        <span><strong style="color:#818cf8;">Model Routing:</strong> <code>gpt-6.1-sol</code> (triage) &rarr; <code>gpt-6.2-astra</code> (billing) <span class="callout-pin">5</span></span>
         <span style="color:#475569;">|</span>
         <span><strong style="color:#38bdf8;">Tokens:</strong> 1,420 in (68% cached) / 184 out</span>
       </div>
@@ -505,7 +505,7 @@ agent = Agent(
     </div>
 
     <div>
-      <p style="font-size:7.8pt; font-weight:700; margin:0 0 3px 0; color:#0e7490;">TypeScript: <code>tool()</code> / <code>functionTool</code> + Zod</p>
+      <p style="font-size:7.8pt; font-weight:700; margin:0 0 3px 0; color:#0e7490;">TypeScript: <code>tool()</code> (<code>FunctionTool</code>) + Zod</p>
       <pre class="code-block" style="margin:0; padding:6px 8px; font-size:6.85pt; line-height:1.34;"><code>import { z } from "zod";
 import { Agent, tool } from "@openai/agents";
 
@@ -798,7 +798,7 @@ add_trace_processor(BatchTraceProcessor(OtlpSpanExporter()))</code></pre>
       </tr>
       <tr>
         <td><strong>Flagship Reasoning Tier</strong></td>
-        <td><code>model="gpt-5.4"</code> / <code>o3</code></td>
+        <td><code>model="gpt-6.2-astra"</code> / <code>gpt-5.4</code></td>
         <td>Reserved strictly for complex specialist synthesis, multi-step code diagnostics, and high-stakes financial/policy planning.</td>
       </tr>
       <tr>
@@ -901,7 +901,7 @@ add_trace_processor(BatchTraceProcessor(OtlpSpanExporter()))</code></pre>
   <div class="grid-2" style="margin-bottom:7px;">
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> Build With Codex, Orchestrate in the SDK</div>
-      <p style="font-size:7.95pt; margin:0;">Use <strong>Codex CLI</strong> to scaffold strictly typed <code>@function_tool</code> handlers, Zod schemas, and unit-tested MCP adapters. Your <strong>Agents SDK</strong> backend mounts those tools behind parallel input guardrails and durable <code>RedisSession</code> threads.</p>
+      <p style="font-size:7.95pt; margin:0;">Use <strong>Codex CLI</strong> to scaffold strictly typed <code>@function_tool</code> handlers, Zod schemas, and unit-tested MCP adapters. Your <strong>Agents SDK</strong> backend mounts those tools behind parallel input guardrails and durable <code>RedisSession</code> history.</p>
     </div>
     <div class="card">
       <div class="card-title"><span class="num-badge cyan">2</span> Voice Speed + Human Approval Gates</div>
@@ -992,7 +992,7 @@ add_trace_processor(BatchTraceProcessor(OtlpSpanExporter()))</code></pre>
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>
-      <div><strong>Durable Session Pooled:</strong> Replaced local <code>SQLiteSession</code> with pooled <code>RedisSession</code> (plus TTL) or hosted Agents API threads.</div>
+      <div><strong>Durable Session Pooled:</strong> Replaced local <code>SQLiteSession</code> with pooled <code>RedisSession</code> (plus TTL) or hosted Agents API Sessions.</div>
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>

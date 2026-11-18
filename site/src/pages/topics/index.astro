@@ -313,4 +313,11 @@ const topicsJsonLd = {
       grid-template-columns: 1fr;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .topic-hub-title a,
+    .topic-hub-samples a {
+      transition: opacity 0.1s linear;
+    }
+  }
 </style>

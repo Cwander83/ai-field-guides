@@ -124,13 +124,10 @@ const topicJsonLd = {
         <h1 id="topic-heading" class="topic-title">{category.title}</h1>
         <p class="topic-lead">{category.description}</p>
 
-        <div class="topic-meta-row tabular">
+        <div class="topic-meta-row meta-flow tabular">
           <span>{ecoGuides.length} {ecoGuides.length === 1 ? 'Handbook' : 'Handbooks'}</span>
-          <span class="meta-sep" aria-hidden="true"></span>
           <span>{ecoPages} Illustrated Pages</span>
-          <span class="meta-sep" aria-hidden="true"></span>
           <span>Free Online &amp; Printable PDF</span>
-          <span class="meta-sep" aria-hidden="true"></span>
           <a href="/editorial" class="topic-ai-link">AI-Authored &amp; Human-Directed</a>
         </div>
       </div>
@@ -209,10 +206,6 @@ const topicJsonLd = {
   }
 
   .topic-meta-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem 0.75rem;
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--ink-muted);
@@ -250,6 +243,7 @@ const topicJsonLd = {
   .other-topic-pill {
     display: inline-flex;
     align-items: center;
+    min-height: 36px;
     padding: 0.4375rem 0.875rem;
     border-radius: 999px;
     border: 1px solid var(--border-hair);
@@ -265,5 +259,11 @@ const topicJsonLd = {
     background: var(--bg-subtle);
     border-color: var(--accent);
     color: var(--accent-hover);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .other-topic-pill {
+      transition: opacity 0.1s linear;
+    }
   }
 </style>

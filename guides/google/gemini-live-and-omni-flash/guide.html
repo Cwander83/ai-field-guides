@@ -40,7 +40,7 @@
     </div>
     <div class="cover-stat">
       <div class="cover-stat-title">Production-Hardened SDKs</div>
-      <div class="cover-stat-desc">Build securely on <code>google-genai &gt;= 2.30.1</code> and <code>@google/genai &gt;= 2.29.1</code> with resumption tokens and WebRTC partners.</div>
+      <div class="cover-stat-desc">Build securely on <code>google-genai &gt;= 3.2.0</code> and <code>@google/genai &gt;= 3.2.0</code> (pinning <code>v1beta</code> for Live &amp; tokens).</div>
     </div>
   </div>
 </section>
@@ -70,7 +70,7 @@
     <div class="toc-item"><span><strong>5. Transcribe, Translate &amp; Prompt Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
     <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Sheet</strong></span><span class="toc-pg">p. 12</span></div>
     <div class="toc-item"><span><strong>6. Omni 1.2 Flash: Interactions &amp; Keyframes</strong></span><span class="toc-pg">p. 7</span></div>
-    <div class="toc-item"><span><strong>Core SDK:</strong> <code>google-genai &gt;= 2.30.1</code></span><span class="toc-pg">Py / TS</span></div>
+    <div class="toc-item"><span><strong>Core SDK:</strong> <code>google-genai &gt;= 3.2.0</code></span><span class="toc-pg">Py / TS</span></div>
   </div>
 
   <div class="grid-2" style="margin-bottom: 8px;">
@@ -93,7 +93,7 @@
     <svg viewBox="0 0 700 185" width="100%" height="185" xmlns="http://www.w3.org/2000/svg">
       <!-- Top Unified SDK -->
       <rect x="175" y="6" width="350" height="28" rx="14" fill="#15103a" stroke="#38bdf8" stroke-width="1.5"/>
-      <text x="350" y="24" text-anchor="middle" fill="#f8fafc" font-size="9.8" font-weight="800" letter-spacing="0.4">UNIFIED GOOGLE GENAI SDK (PYTHON &gt;= 2.30.1 / TS &gt;= 2.29.1)</text>
+      <text x="350" y="24" text-anchor="middle" fill="#f8fafc" font-size="9.8" font-weight="800" letter-spacing="0.4">UNIFIED GOOGLE GENAI SDK (PYTHON &gt;= 3.2.0 / TS &gt;= 3.2.0)</text>
 
       <!-- Branch Lines -->
       <path d="M265 34 L170 54 M435 34 L530 54" stroke="#7dd3fc" stroke-width="1.8" fill="none"/>
@@ -138,16 +138,18 @@
 
   <div class="grid-2" style="margin-bottom: 6px;">
     <div class="card-dark">
-      <div class="card-title">Python 3.10+ Setup (<code>google-genai &gt;= 2.30.1</code>)</div>
-      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #1e293b;">pip install -U google-genai
+      <div class="card-title">Python 3.10+ Setup (<code>google-genai &gt;= 3.2.0</code>)</div>
+      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #1e293b;"><span class="cm"># v3+ defaults to v1; pin v1beta for Live:</span>
+pip install -U google-genai
 <span class="kw">from</span> google <span class="kw">import</span> genai
-client = genai.Client()  <span class="cm"># reads GEMINI_API_KEY</span></pre>
+client = genai.Client(http_options={<span class="str">"api_version"</span>: <span class="str">"v1beta"</span>})</pre>
     </div>
     <div class="card-dark">
-      <div class="card-title">JS / TypeScript Setup (<code>@google/genai &gt;= 2.29.1</code>)</div>
-      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #1e293b;">npm install @google/genai
+      <div class="card-title">TypeScript (<code>@google/genai &gt;= 3.2.0</code>)</div>
+      <pre class="code-block" style="margin: 4px 0 0 0; padding: 6px 8px; border-color: #1e293b;"><span class="cm">// v3+ defaults to v1; pin v1beta for Live:</span>
+npm install @google/genai
 <span class="kw">import</span> { GoogleGenAI } <span class="kw">from</span> <span class="str">'@google/genai'</span>;
-<span class="kw">const</span> ai = <span class="kw">new</span> GoogleGenAI({});</pre>
+<span class="kw">const</span> ai = <span class="kw">new</span> GoogleGenAI({ httpOptions: { apiVersion: <span class="str">'v1beta'</span> } });</pre>
     </div>
   </div>
 
@@ -183,7 +185,7 @@ client = genai.Client()  <span class="cm"># reads GEMINI_API_KEY</span></pre>
         <td><code>gemini-3.5-transcribe-live</code></td>
         <td>WebSocket</td>
         <td>Real-time streaming STT with interim hypotheses &amp; final transcripts.</td>
-        <td><code>smart</code> vs <code>verbatim</code> mode + Hybrid VAD.</td>
+        <td><code>SMART</code> vs <code>VERBATIM</code> mode + Hybrid VAD.</td>
       </tr>
       <tr>
         <td><code>gemini-3.5-live-translate-preview</code></td>
@@ -243,7 +245,7 @@ client = genai.Client()  <span class="cm"># reads GEMINI_API_KEY</span></pre>
   <div class="ui-window" style="margin-bottom: 9px;">
     <div class="ui-topbar">
       <div class="ui-dots"><span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span><span style="margin-left:8px; color:#cbd5e1; font-weight:700;">Gemini 3.8 Live + Omni 1.2 Flash Studio Cockpit</span></div>
-      <div style="color:#7dd3fc; font-weight:600;">SDK v2.30.1 &bull; wss://live &amp; /interactions</div>
+      <div style="color:#7dd3fc; font-weight:600;">SDK v3.2+ &bull; v1beta wss://live &amp; v1 /interactions</div>
     </div>
 
     <div style="display:grid; grid-template-columns: 1.05fr 1fr; gap: 10px; padding: 10px;">
@@ -392,7 +394,7 @@ client = genai.Client()  <span class="cm"># reads GEMINI_API_KEY</span></pre>
 
   <pre class="code-block" style="font-size: 7.1pt; line-height: 1.32; padding: 7px 10px; margin: 4px 0;"><span class="kw">from</span> google <span class="kw">import</span> genai
 <span class="kw">from</span> google.genai <span class="kw">import</span> types
-client = genai.Client()
+client = genai.Client(http_options={<span class="str">"api_version"</span>: <span class="str">"v1beta"</span>})
 lookup_crm = types.FunctionDeclaration(
     name=<span class="str">"lookup_crm"</span>, description=<span class="str">"Fetch customer ticket status"</span>, behavior=<span class="str">"NON_BLOCKING"</span>,
     parameters={<span class="str">"type"</span>: <span class="str">"OBJECT"</span>, <span class="str">"properties"</span>: {<span class="str">"email"</span>: {<span class="str">"type"</span>: <span class="str">"STRING"</span>}}, <span class="str">"required"</span>: [<span class="str">"email"</span>]},
@@ -433,7 +435,7 @@ config = types.LiveConnectConfig(
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> <code>gemini-3.5-transcribe-live</code></div>
       <p style="font-size: 8.5pt;">
-        Streams live speech-to-text with interim hypotheses and finalized sentences using <code>response_modalities=["TEXT"]</code>. Choose <code>mode: "smart"</code> to clean filler words and format punctuation, or <code>"verbatim"</code> (default) for exact word-for-word logs.
+        Streams live speech-to-text with interim hypotheses and finalized sentences using <code>response_modalities=["TEXT"]</code>. Choose <code>mode="SMART"</code> to clean filler words and format punctuation, or <code>"VERBATIM"</code> (default) for exact word-for-word logs.
       </p>
       <pre class="code-block" style="margin: 4px 0 0 0; font-size: 7.4pt;"><span class="cm">// Hybrid VAD: instant flush on local silence</span>
 session.sendRealtimeInput({ audioStreamEnd: <span class="kw">true</span> });
@@ -730,7 +732,8 @@ session.sendRealtimeInput({ audioStreamEnd: <span class="kw">true</span> });
   <p style="font-size: 8.7pt;">
     Never embed your master <code>GEMINI_API_KEY</code> in browser or mobile code. Mint short-lived ephemeral tokens on your backend (default <code>new_session_expire_time</code> 1 minute, <code>expire_time</code> 30 minutes) and lock model/config constraints server-side using <code>live_connect_constraints</code>.
   </p>
-  <pre class="code-block"><span class="cm"># Backend (Python): mint locked single-use ephemeral token for v1beta Live WebSocket</span>
+  <pre class="code-block"><span class="cm"># Backend (Python): client initialized with v1beta for ephemeral tokens</span>
+client = genai.Client(http_options={<span class="str">"api_version"</span>: <span class="str">"v1beta"</span>})
 token = client.auth_tokens.create(config={
     <span class="str">"uses"</span>: 1,
     <span class="str">"live_connect_constraints"</span>: {
@@ -738,8 +741,8 @@ token = client.auth_tokens.create(config={
         <span class="str">"config"</span>: {<span class="str">"response_modalities"</span>: [<span class="str">"AUDIO"</span>], <span class="str">"session_resumption"</span>: {}, <span class="str">"context_window_compression"</span>: {<span class="str">"sliding_window"</span>: {}}},
     },
 })
-<span class="cm">// Frontend (JS): pass token.name as apiKey into @google/genai</span>
-<span class="kw">const</span> ai = <span class="kw">new</span> GoogleGenAI({ apiKey: token.name });</pre>
+<span class="cm">// Frontend (JS): pass token.name + v1beta apiVersion into @google/genai</span>
+<span class="kw">const</span> ai = <span class="kw">new</span> GoogleGenAI({ apiKey: token.name, httpOptions: { apiVersion: <span class="str">"v1beta"</span> } });</pre>
 
   <div class="callout amber" style="margin: 4px 0 0 0;">
     <div class="callout-title">Regional Video Upload Guardrail &amp; Stateless Storage Opt-Out</div>
@@ -926,7 +929,7 @@ token = client.auth_tokens.create(config={
   <div class="grid-2" style="gap: 8px 14px;">
     <div class="card" style="padding: 9px 12px;">
       <ul style="font-size: 8.4pt; margin: 0; padding-left: 16px;">
-        <li><strong>SDK &amp; Binary Lock:</strong> Confirm <code>google-genai &gt;= 2.30.1</code> or <code>@google/genai &gt;= 2.29.1</code>, Python 3.10+, and <code>ffmpeg</code> / <code>ffprobe</code> on <code>PATH</code>.</li>
+        <li><strong>SDK &amp; Binary Lock:</strong> Confirm <code>google-genai &gt;= 3.2.0</code> or <code>@google/genai &gt;= 3.2.0</code> (<code>v1beta</code> for Live), Python 3.10+, and <code>ffmpeg</code> / <code>ffprobe</code> on <code>PATH</code>.</li>
         <li><strong>Audio &amp; Barge-In Ready:</strong> Stream 16kHz mono PCM in, play 24kHz PCM out, flush queue on <code>interrupted=True</code>, and fire <code>audio_stream_end</code> on pause.</li>
         <li><strong>Long-Session Resilience:</strong> Enable <code>context_window_compression</code>, persist <code>session_resumption</code> handles (2h TTL), and handle <code>GoAway</code> signals.</li>
       </ul>

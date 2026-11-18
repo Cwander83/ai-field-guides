@@ -39,11 +39,11 @@ const searchText = `${guide.title} ${guide.subtitle} ${guide.ecosystemShort} ${g
 
       <div class="guide-card-meta">
         {guide.isFeaturedNew && <span class="badge-new">New</span>}
-        <span class="meta-topic">{guide.ecosystemShort}</span>
-        <span class="meta-sep" aria-hidden="true"></span>
-        <span class="meta-detail tabular">{guide.readingMinutes} min read</span>
-        <span class="meta-sep" aria-hidden="true"></span>
-        <span class="meta-detail tabular">v{guide.version}</span>
+        <div class="guide-meta-items meta-flow">
+          <span class="meta-topic">{guide.ecosystemShort}</span>
+          <span class="meta-detail tabular">{guide.readingMinutes} min read</span>
+          <span class="meta-detail tabular">v{guide.version}</span>
+        </div>
       </div>
     </div>
   </div>

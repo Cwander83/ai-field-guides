@@ -156,8 +156,8 @@
     <div class="card" style="padding:8.5px 11px; border-top:3px solid #b45309;">
       <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Plan Availability &amp; Admin Defaults</div>
       <ul style="font-size:7.95pt; margin:3px 0 0 0; padding-left:16px;">
-        <li><strong>Claude Team Plan:</strong> Enabled <strong>on by default</strong>; workspace Owners can toggle it off anytime in organization settings.</li>
-        <li><strong>Claude Enterprise Plan:</strong> Turned <strong>off by default</strong>; Primary Owners enable org-wide or scope access via <strong>custom roles</strong> (<code>Claude Meetings</code> &amp; <code>Meetings with external guests</code>).</li>
+        <li><strong>Claude Team Plan:</strong> Enabled <strong>on by default</strong> (including external-guest calls); workspace Owners can disable either setting in organization settings.</li>
+        <li><strong>Claude Enterprise Plan:</strong> Turned <strong>off by default</strong> and restricted to internal calls initially; Primary Owners enable org-wide or scope access via <strong>custom roles</strong> (<code>Claude Meetings</code> &amp; <code>Meetings with external guests</code>).</li>
         <li><strong>Compliance Exclusions (Beta):</strong> Unavailable during beta for organizations using <strong>Zero Data Retention (ZDR)</strong>, <strong>HIPAA-ready (BAA)</strong>, or <strong>Customer-Managed Encryption Keys (CMEK)</strong>.</li>
         <li><strong>Supported Platform:</strong> Google Meet at launch, paired with Google Calendar on web and Desktop.</li>
       </ul>
@@ -198,7 +198,7 @@
         <td><strong>Claude Meetings</strong><br/><em>Google Meet Beta</em></td>
         <td><strong>Native Live Co-Editing:</strong> Whiteboards, Docs, Sheets + CRM lookups in call.</td>
         <td><strong>Google Meet</strong> at launch (additional platforms planned).</td>
-        <td>Visible bot + auto-leaves unapproved external calls.</td>
+        <td>Visible bot; internal-only default on Enterprise, toggleable on Team.</td>
         <td>Internal sprints, planning, design &amp; architecture working sessions.</td>
       </tr>
       <tr>
@@ -451,9 +451,9 @@
     <div class="card" style="padding:8.5px 11px; border-top:3px solid #e11d48;">
       <div class="card-title" style="font-size:9.1pt; color:#9f1239;">External-Guest Security Guardrail</div>
       <ul style="font-size:7.95pt; margin:4px 0 0 0; padding-left:16px;">
-        <li><strong>Blocked by Default:</strong> Claude refuses to join any Google Meet containing participants outside your organization unless an org admin enables external calls.</li>
-        <li><strong>Instant Mid-Call Auto-Leave:</strong> If an unapproved external guest enters halfway through an internal meeting, Claude <strong>automatically disconnects immediately</strong>.</li>
-        <li><strong>Admin-Authorized Guest Mode:</strong> Even when allowed by custom role, Claude posts a visible notice and limits active chat replies to protect internal context.</li>
+        <li><strong>Plan-Dependent Defaults:</strong> On <strong>Enterprise</strong>, external calls are blocked by default (internal-only) until an admin enables them; on <strong>Team</strong>, external-guest calls are <strong>allowed by default</strong> unless an Owner toggles them off.</li>
+        <li><strong>Instant Mid-Call Auto-Leave:</strong> When restricted to internal-only, if an external guest (or outside AI notetaker bot) joins mid-call, Claude <strong>disconnects immediately</strong>.</li>
+        <li><strong>External Guest Guardrails:</strong> When allowed on external calls, Claude posts a visible notice and captures notes silently&mdash;it <strong>does not reply in Meet chat</strong> and withholds the post-call hub and recap from outside guests.</li>
       </ul>
     </div>
   </div>
@@ -768,7 +768,7 @@
       <div class="card-title" style="font-size:9.1pt;"><span class="num-badge rose">2</span> Anti-Stealth &amp; External-Guest Guardrails</div>
       <ul style="font-size:7.95pt; margin:4px 0 0 0; padding-left:16px;">
         <li><strong>Visible Presence Always:</strong> Claude shows openly in the Google Meet participant list and announces itself in Meet chat upon arrival.</li>
-        <li><strong>Auto-Block &amp; Mid-Call Auto-Leave:</strong> Refuses external calls unless admin-authorized, and <strong>exits immediately mid-call</strong> if an unapproved external guest joins.</li>
+        <li><strong>Auto-Block &amp; Mid-Call Auto-Leave:</strong> Under internal-only policy (Enterprise default, or Team when restricted), refuses external calls and <strong>exits immediately mid-call</strong> if an external guest or outside bot joins.</li>
         <li><strong>Zero Model Training:</strong> Meeting transcripts, notes, and Artifacts on Team &amp; Enterprise are never used to train Anthropic models.</li>
       </ul>
     </div>
@@ -793,8 +793,8 @@
       </tr>
       <tr>
         <td><strong>External-Guest Rule</strong></td>
-        <td>Blocked unless owner authorizes</td>
-        <td>Custom role gated (auto-leaves if unapproved)</td>
+        <td><strong>Allowed by default</strong> (owner can disable)</td>
+        <td><strong>Internal-only by default</strong>; custom role gated (auto-leaves if unapproved)</td>
         <td>N/A &mdash; use approved manual upload</td>
       </tr>
       <tr>
@@ -1010,7 +1010,7 @@
       </tr>
       <tr>
         <td><strong>6. External guest call joined, but Claude won&rsquo;t reply in chat</strong></td>
-        <td>Admin-enabled external guest mode enforces passive/muted reply guardrails.</td>
+        <td>Admin-enabled external-guest mode enforces silent mode (no Meet chat replies or external recap access).</td>
         <td>Let Claude capture transcript and notes quietly during the external call, then run follow-up prompts inside the post-meeting <code>claude.ai</code> hub afterward.</td>
       </tr>
       <tr>

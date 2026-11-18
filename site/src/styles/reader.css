@@ -1,10 +1,5 @@
 /* Quiet Reading Room — Handbook Reader Styles */
 
-::selection {
-  background: var(--accent-soft);
-  color: var(--ink-main);
-}
-
 /* Top Sticky Reader Bar */
 .reader-bar {
   position: sticky;
@@ -96,7 +91,7 @@
   font-weight: 600;
   line-height: 1.2;
   padding: 0.375rem 0.625rem;
-  min-height: 30px;
+  min-height: 32px;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
@@ -237,18 +232,10 @@
 }
 
 .reader-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.375rem 0.625rem;
   margin-bottom: 1.75rem;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--ink-muted);
-}
-
-.meta-dot {
-  color: var(--accent);
 }
 
 .reader-meta-link {
@@ -457,10 +444,10 @@
     position: sticky;
     top: 76px;
     max-height: calc(100vh - 96px);
+    max-height: calc(100dvh - 96px - var(--cookie-bar-clearance, 0px));
     overflow-y: auto;
     padding-right: 0.25rem;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-hair) transparent;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
   }
 
   .rail-heading {
@@ -562,6 +549,10 @@
   margin-right: 0.25rem;
 }
 
+[data-paper="sepia"] .chapter-num {
+  color: var(--accent-hover);
+}
+
 .chapter-lead {
   margin: 0 0 1.5rem;
   max-width: var(--measure, 68ch);
@@ -653,6 +644,13 @@
 .guide-reader-body .toc-link:hover {
   color: var(--accent-hover);
   border-bottom-color: var(--accent-hover);
+}
+
+.guide-reader-body .toc-item.toc-note {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hair);
+  border-radius: 7px;
+  padding: 0.4375rem 0.6875rem;
 }
 
 .guide-reader-body .toc-pg {
@@ -945,9 +943,19 @@
   margin: 1.35rem 0;
   border: 1px solid var(--border-hair);
   border-radius: 10px;
-  background: var(--bg-surface);
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-hair) transparent;
+  background:
+    linear-gradient(to right, var(--bg-surface) 30%, transparent) left center / 2.25rem 100% no-repeat local,
+    linear-gradient(to left, var(--bg-surface) 30%, transparent) right center / 2.25rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgb(24 23 20 / 0.14), transparent) left center / 0.75rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgb(24 23 20 / 0.14), transparent) right center / 0.75rem 100% no-repeat scroll,
+    var(--bg-surface);
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+.guide-reader-body .table-scroll-wrap:focus-visible,
+.guide-reader-body .ui-tour-wrap:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .guide-reader-body table.clean-table {
@@ -963,7 +971,7 @@
 }
 
 .guide-reader-body table.clean-table th {
-  background: var(--bg-subtle);
+  background: rgb(24 23 20 / 0.045);
   color: var(--ink-main);
   text-align: left;
   padding: 0.75rem 0.9rem;
@@ -983,7 +991,24 @@
 }
 
 .guide-reader-body table.clean-table tbody tr:nth-child(even) td {
-  background: var(--bg-page);
+  background: rgb(24 23 20 / 0.02);
+}
+
+.guide-reader-body .cell-copyable {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.guide-reader-body .cell-copy-target {
+  min-width: 0;
+}
+
+.guide-reader-body .cell-copy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Visual Figures & Inline SVGs */
@@ -1035,8 +1060,7 @@
   -webkit-overflow-scrolling: touch;
   margin: 1.5rem 0;
   border-radius: 12px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-hair) transparent;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
 }
 
 .guide-reader-body .ui-window {
@@ -1164,8 +1188,12 @@
 .guide-reader-body pre .c-fn,
 .guide-reader-body pre .tok-fn { color: #7DD3FC; }
 .guide-reader-body pre .c-flag,
-.guide-reader-body pre .tok-num { color: #FDE68A; }
+.guide-reader-body pre .tok-num,
+.guide-reader-body pre .c-num { color: #FDE68A; }
 .guide-reader-body pre .tok-type { color: #F9A8D4; }
+.guide-reader-body pre .c-key { color: #7DD3FC; }
+.guide-reader-body pre .c-val { color: #86EFAC; }
+.guide-reader-body pre .c-warn { color: #FCA5A5; font-weight: 600; }
 
 .guide-reader-body .badge-pill,
 .guide-reader-body .sev-pill {
@@ -1196,6 +1224,7 @@
   overflow-x: auto;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+  scrollbar-color: #8A8173 transparent;
 }
 
 .guide-reader-body pre code {
@@ -1323,6 +1352,41 @@
 .guide-reader-body .copy-tip:not(:empty) {
   opacity: 1;
   transform: translateY(0);
+}
+
+.guide-reader-body .copy-btn--cell {
+  background: var(--bg-subtle);
+  color: var(--ink-main);
+  border-color: var(--border-hair);
+  min-inline-size: 24px;
+  min-block-size: 28px;
+  padding: 0.25rem 0.5625rem;
+}
+
+.guide-reader-body .copy-btn--cell:hover {
+  background: var(--bg-page);
+  border-color: var(--ink-muted);
+}
+
+.guide-reader-body .copy-btn--cell[data-copied] {
+  background: #ECFDF5;
+  border-color: #86EFAC;
+  color: #166534;
+}
+
+.guide-reader-body .copy-btn--cell[data-failed] {
+  background: #FEF2F2;
+  border-color: #FCA5A5;
+  color: #991B1B;
+}
+
+.guide-reader-body .copy-tip--cell {
+  order: 0;
+  color: #166534;
+}
+
+.guide-reader-body .copy-btn--cell[data-failed] + .copy-tip--cell {
+  color: #991B1B;
 }
 
 /* Bottom PDF Callout, Adjacent Pager & Footer */
@@ -1643,6 +1707,11 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
+  }
+
+  .paper-btn {
+    min-height: 36px;
+    padding: 0.375rem 0.75rem;
   }
 
   .reader-view-pdf {

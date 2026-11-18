@@ -435,11 +435,11 @@
       <span class="p-tag p-vault"># 2. Session Creation: attach user-scoped Vault ID at runtime for server-side token injection</span><br/>
       <span class="p-tag p-vault">session.create(agent_id="agt_triage", environment_id="env_locked", vault_ids=["vault_usr_91f"])</span><br/>
       <span class="p-tag p-router"># 3. Model Provider Router: direct inference to Anthropic, Bedrock, Vertex, or Foundry</span><br/>
-      <span class="p-tag p-router">CMA_PROVIDER__DEFAULT="vertex" | VERTEX_REGION="us-east5" | MODEL="claude-sonnet-4-5"</span><br/>
+      <span class="p-tag p-router">CMA_INFERENCE__PROVIDER="vertex" | VERTEX_REGION="us-east5" | MODEL="claude-opus-5-5"</span><br/>
       <span class="p-tag p-store"># 4. PostgreSQL Persistence: durable agents, session logs, and event listener</span><br/>
       <span class="p-tag p-store">CMA_STORE__DATABASE_URL="postgres://cma:***@pg-primary.internal:5432/managed_agents"</span><br/>
-      <span class="p-tag p-egress"># 5. Sandbox Egress Policy: restrict container network to vetted registries only</span><br/>
-      <span class="p-tag p-egress">environment.networking: { type: "limited", allowed_hosts: ["pypi.org", "registry.npmjs.org"] }</span>
+      <span class="p-tag p-egress"># 5. Sandbox Egress Policy: enable registries/MCP explicitly or list allowed hosts</span><br/>
+      <span class="p-tag p-egress">environment.networking: { type: "limited", allow_package_managers: true, allow_mcp_servers: true }</span>
     </div>
   </div>
 
@@ -456,7 +456,7 @@
       <div class="card-title"><span class="num-badge teal">2</span> Environment &amp; Networking Controls</div>
       <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:15px;">
         <li><strong>Pinned Toolchains:</strong> Pre-bake Python, Node.js, and internal CLI linters into an Environment image so sessions skip 40-second <code>pip install</code> cold starts.</li>
-        <li><strong>Strict Egress Allowlists:</strong> Set <code>allowed_hosts</code> to exact domains (or disable internet entirely) while letting server-side MCP calls still reach SaaS APIs.</li>
+        <li><strong>Strict Egress Allowlists:</strong> Under <code>limited</code> networking, set <code>allow_package_managers: true</code> and <code>allow_mcp_servers: true</code> (or list exact domains in <code>allowed_hosts</code>) to avoid <code>400</code> errors.</li>
         <li><strong>Resource Caps:</strong> Enforce memory, disk, and execution-time ceilings per sandbox container to stop infinite loops cleanly.</li>
       </ul>
     </div>
@@ -465,7 +465,7 @@
   <pre class="code-block" style="padding:6px 9px; font-size:7.1pt; line-height:1.35; margin:2px 0 0 0;"><code># Declarative Agent + Environment payload pattern (JSON): zero credentials embedded
 {
   "name": "incident-investigator",
-  "model": "claude-sonnet-4-5",
+  "model": "claude-sonnet-5-5",
   "mcp_servers": [{ "type": "url", "name": "datadog-ro", "url": "https://mcp.acme.dev/datadog/mcp" }],
   "tools": [{ "type": "agent_toolset_20260401" }, { "type": "mcp_toolset", "mcp_server_name": "datadog-ro" }]
 }</code></pre>

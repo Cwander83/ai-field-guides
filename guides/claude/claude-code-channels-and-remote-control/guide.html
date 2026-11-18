@@ -403,7 +403,8 @@ claude remote-control --name "Checkout API Ops" --spawn worktree --capacity 8</c
 /plugin install discord@claude-plugins-official
 
 # Start a warm multi-channel session with Telegram + custom CI webhook server
-claude --channels plugin:telegram@claude-plugins-official server:ci-webhook</code></pre>
+claude --channels plugin:telegram@claude-plugins-official \
+       --dangerously-load-development-channels server:ci-webhook</code></pre>
 
   <div class="callout amber" style="margin:2px 0 0 0; padding:6.5px 11px; font-size:8.1pt;">
     <div class="callout-title">Always Keep the Session Alive Inside <code>tmux</code> or a Dev VPS</div>
@@ -629,9 +630,9 @@ claude remote-control --name "MacStudio-Main" --spawn worktree --capacity 8
     </div>
   </div>
 
-  <pre class="code-block" style="margin:2px 0 6px 0;"><code>// .claude/settings.json — Hardened Local Profile for Remote Control &amp; Channels
+  <pre class="code-block" style="margin:2px 0 6px 0;"><code>// .claude/settings.json — Hardened Local Profile for Remote Control &amp; Channels (v2.1.325+)
 {
-  "sandbox": { "enabled": true },
+  "sandbox": { "enabled": true, "autoAllowBashIfSandboxed": true },
   "permissions": {
     "deny":  ["Read(~/.ssh/**)", "Read(~/.aws/**)", "Read(**/.env*)", "Bash(rm -rf *)"],
     "ask":   ["Bash(git push *)", "Bash(curl *)", "Edit(package.json)"],
@@ -641,7 +642,7 @@ claude remote-control --name "MacStudio-Main" --spawn worktree --capacity 8
 
   <div class="callout rose" style="margin:2px 0 0 0; padding:6.5px 11px; font-size:8.05pt;">
     <div class="callout-title">Security Lesson: Never Trust Browser Contexts Without OS Isolation</div>
-    Prompt instructions alone cannot stop a compromised browser extension or injected webhook payload. Always combine OS sandboxing (<code>sandbox.enabled</code>), explicit credential <code>deny</code> globs, and worktree confinement&mdash;or run untrusted repos inside ephemeral <code>claude --cloud</code> containers.
+    Prompt instructions alone cannot stop a compromised browser extension or injected webhook payload. Always combine OS sandboxing (<code>sandbox.enabled</code>; note <code>v2.1.325+</code> requires <code>autoAllowBashIfSandboxed: true</code> to skip prompts inside sandboxes), explicit credential <code>deny</code> globs, and worktrees&mdash;or use <code>claude --cloud</code>.
   </div>
 
   <div class="page-footer"><span>Claude Code Channels, Remote Control &amp; Dispatch &bull; Field Guide</span><span class="page-num">Page 8 of 12</span></div>
@@ -670,7 +671,7 @@ claude remote-control --name "MacStudio-Main" --spawn worktree --capacity 8
     <tbody>
       <tr>
         <td><strong>1. CI/CD Failure Auto-Triage</strong><br/><em>GitHub Actions + Worktree</em></td>
-        <td><code>claude --channels server:ci-webhook --worktree ci-triage</code><br/>Prompt rule: <em>&ldquo;On failed build webhook, run failing test locally, draft minimal patch, stop before commit.&rdquo;</em></td>
+        <td><code>claude --dangerously-load-development-channels server:ci-webhook --worktree ci-triage</code><br/>Prompt rule: <em>&ldquo;On failed build webhook, run failing test locally, draft minimal patch, stop before commit.&rdquo;</em></td>
         <td>Warm fix staged cleanly in isolated branch while main checkout stays untouched.</td>
       </tr>
       <tr>
@@ -680,7 +681,7 @@ claude remote-control --name "MacStudio-Main" --spawn worktree --capacity 8
       </tr>
       <tr>
         <td><strong>3. Telegram Sentry Responder</strong><br/><em>On-Call Alert Bridge</em></td>
-        <td><code>claude --channels plugin:telegram@claude-plugins-official server:sentry-hook --rc</code><br/>Pair phone via <code>/telegram:access pair &lt;code&gt;</code>; summarize exceptions &amp; propose unit test.</td>
+        <td><code>claude --channels plugin:telegram@claude-plugins-official --dangerously-load-development-channels server:sentry-hook --rc</code><br/>Pair phone via <code>/telegram:access pair &lt;code&gt;</code>; summarize exceptions &amp; propose unit test.</td>
         <td>Concise root-cause ping in Telegram plus full Remote Control diff view on tap.</td>
       </tr>
       <tr>
@@ -951,7 +952,7 @@ tmux attach -t claude-bridge</code></pre>
       <tr>
         <td><strong>4. <code>claude remote-control</code> exits on <code>--sandbox</code> or auth error</strong></td>
         <td><code>--sandbox</code>/<code>--no-sandbox</code> CLI flags removed, or authenticated only with raw API key.</td>
-        <td>Remove the deprecated CLI flag, set <code>"sandbox": { "enabled": true }</code> in <code>.claude/settings.json</code>, and run <code>claude auth login</code> with Pro/Max/Team/Enterprise.</td>
+        <td>Remove the deprecated CLI flag, set <code>"sandbox": { "enabled": true }</code> in <code>.claude/settings.json</code> (plus <code>"autoAllowBashIfSandboxed": true</code> on <code>v2.1.325+</code>), and run <code>claude auth login</code>.</td>
       </tr>
       <tr>
         <td><strong>5. Mobile <code>Code</code> tab shows session offline</strong></td>
@@ -983,7 +984,7 @@ tmux attach -t claude-bridge</code></pre>
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>
-      <div><strong>3. Enable OS Sandbox &amp; Deny Globs:</strong> Set <code>sandbox.enabled: true</code> and deny <code>~/.ssh/**</code>, <code>~/.aws/**</code>, and <code>**/.env*</code> in <code>.claude/settings.json</code>.</div>
+      <div><strong>3. Enable OS Sandbox &amp; Deny Globs:</strong> Set <code>sandbox.enabled: true</code> (and <code>autoAllowBashIfSandboxed</code> on <code>v2.1.325+</code>) and deny <code>~/.ssh/**</code>, <code>~/.aws/**</code>, and <code>**/.env*</code> in <code>.claude/settings.json</code>.</div>
     </div>
     <div class="check-item">
       <span class="check-box">&#10003;</span>
