@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import catalogData from '../generated/catalog-enriched.json';
+import { buildOrganizationSchema, SITE_ORIGIN, WEBSITE_ID } from '../lib/schema';
+import '../styles/legal.css';
+
+const { totalGuides, totalEcosystems } = catalogData.stats;
+
+const title = 'Privacy & Cookie Notice | Twelve Pages';
+const description =
+  'Plain-English privacy and cookie disclosures for Twelve Pages: Google Consent Mode v2 (GTM-WBBHXC7S), local paper preferences, Global Privacy Control support, and zero data sales.';
+const privacyUrl = `${SITE_ORIGIN}/privacy`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildOrganizationSchema(),
+    {
+      '@type': 'WebPage',
+      name: 'Privacy & Cookie Notice',
+      url: privacyUrl,
+      description,
+      inLanguage: 'en-US',
+      isPartOf: {
+        '@id': WEBSITE_ID,
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Twelve Pages',
+          item: SITE_ORIGIN,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Privacy & Cookie Notice',
+          item: privacyUrl,
+        },
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  pageType="legal"
+  jsonLd={jsonLd}
+>
+  <SiteHeader totalGuides={totalGuides} />
+
+  <main id="main-content" class="legal-main">
+    <nav class="legal-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">All Handbooks</a>
+      <span aria-hidden="true">/</span>
+      <span>Privacy &amp; Cookie Notice</span>
+    </nav>
+
+    <header class="legal-header">
+      <h1 class="legal-title">Privacy &amp; Cookie Notice</h1>
+      <p class="legal-lead">
+        Twelve Pages collects zero user accounts, runs no ad-retargeting trackers, and gates Google Analytics cookies strictly behind your explicit consent.
+      </p>
+      <p class="legal-meta tabular">Last updated: November 17, 2026</p>
+    </header>
+
+    <aside class="legal-summary-box" aria-labelledby="privacy-summary-heading">
+      <h2 id="privacy-summary-heading" class="legal-summary-title">Plain-English Privacy Summary</h2>
+      <ul>
+        <li>
+          <strong>Zero cookies before consent:</strong> Google Tag Manager (<code>GTM-WBBHXC7S</code>) and Google Analytics 4 (<code>G-NZ3122XDWR</code>) start with <code>analytics_storage</code> and all ad signals set to <code>denied</code>.
+        </li>
+        <li>
+          <strong>Global Privacy Control (GPC) honored automatically:</strong> If your browser sends <code>navigator.globalPrivacyControl</code>, optional analytics cookies stay off and the banner stays hidden.
+        </li>
+        <li>
+          <strong>Zero data sales &amp; zero accounts:</strong> We do not collect email addresses, payment cards, or user logins on this site, and we never sell personal information.
+        </li>
+        <li>
+          <strong>About our AI-authored content:</strong> This notice covers visitor data; see <a href="/editorial">How Twelve Pages Is Made</a> and our <a href="/terms">Terms of Use</a> for AI content disclosures.
+        </li>
+      </ul>
+    </aside>
+
+    <div class="legal-sections">
+      <section class="legal-card" aria-labelledby="sec-analytics">
+        <h2 id="sec-analytics">1. Analytics &amp; Google Consent Mode v2</h2>
+        <p>
+          Twelve Pages loads Google Tag Manager (<code>GTM-WBBHXC7S</code>) routing to Google Analytics 4 (<code>G-NZ3122XDWR</code>) to measure aggregate handbook readership, 12-page PDF downloads, site search queries (<code>?q=</code>), scroll depth, and outbound clicks.
+        </p>
+        <ul>
+          <li>
+            <strong>Default Denied State &amp; Ad Data Redaction:</strong> Before you make a choice, <code>ad_storage</code>, <code>ad_user_data</code>, <code>ad_personalization</code>, and <code>analytics_storage</code> default to <code>denied</code>, with <code>ads_data_redaction</code> enabled and <code>url_passthrough</code> disabled so ad-click identifiers are redacted and never appended to page URLs.
+          </li>
+          <li>
+            <strong>Cookies Only After Affirmative Consent:</strong> If you click <strong>Accept Cookies</strong>, GA4 may store first-party cookies (<code>_ga</code> and <code>_ga_NZ3122XDWR</code>, up to 2 years) to distinguish aggregate browser sessions. Email auto-redaction is active in the container.
+          </li>
+          <li>
+            <strong>Instant Withdrawal &amp; Cookie Deletion:</strong> Clicking <strong>Decline Optional</strong> in the consent bar updates Google Consent Mode back to <code>denied</code> and immediately expires any existing Google Analytics cookies (<code>_ga*</code>, <code>_gid*</code>, and <code>_gat*</code>) in your browser.
+          </li>
+        </ul>
+
+        <div class="legal-btn-row">
+          <button type="button" class="legal-btn" data-open-cookie-prefs>
+            Manage Cookie Preferences
+          </button>
+        </div>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-storage">
+        <h2 id="sec-storage">2. Local Browser Storage (<code>localStorage</code>)</h2>
+        <p>
+          Two non-tracking keys are saved strictly inside your own browser&rsquo;s <code>localStorage</code> when you interact with site controls, and are never transmitted to any server:
+        </p>
+
+        <div class="legal-table-wrap">
+          <table class="legal-table">
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Stored When</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>tp-paper</code> (legacy fallback: <code>afg-paper</code>)</td>
+                <td>When you click Warm, Crisp, or Sepia in the reader bar</td>
+                <td>Remembers your chosen paper tone so pages open comfortably without flicker.</td>
+              </tr>
+              <tr>
+                <td><code>tp-consent</code></td>
+                <td>When you click Accept Cookies or Decline Optional</td>
+                <td>Remembers your analytics preference across page views.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-processors">
+        <h2 id="sec-processors">3. Infrastructure &amp; Sub-Processors</h2>
+        <div class="legal-table-wrap">
+          <table class="legal-table">
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Role</th>
+                <th>Data Handled &amp; Safeguards</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Google</strong> (GTM <code>GTM-WBBHXC7S</code> / GA4 <code>G-NZ3122XDWR</code>)</td>
+                <td>Optional aggregate usage analytics</td>
+                <td>Active cookies set only after Accept; ad personalization disabled; GPC respected.</td>
+              </tr>
+              <tr>
+                <td><strong>Vercel</strong></td>
+                <td>Static website hosting and global edge CDN</td>
+                <td>Processes standard transient HTTP request metadata (IP/User-Agent) to deliver HTML and PDFs securely over HTTPS.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-rights">
+        <h2 id="sec-rights">4. Your Privacy Rights (GDPR, UK GDPR &amp; CCPA/CPRA)</h2>
+        <p>
+          Regardless of your jurisdiction, you have the right to decline non-essential cookies, withdraw consent at any time using the <strong>Manage Cookie Preferences</strong> button above or in the footer, clear <code>localStorage</code> in your browser settings, or enable Global Privacy Control (<code>Sec-GPC: 1</code>) in a supported browser.
+        </p>
+        <p>
+          Because Twelve Pages stores no user accounts or personal email lists, there is no personal profile stored on our servers. If you have privacy questions, please open an inquiry in the <a href="https://github.com/Cwander83/ai-field-guides/issues" rel="noopener noreferrer" target="_blank">Twelve Pages GitHub repository</a>.
+        </p>
+      </section>
+    </div>
+
+    <nav class="legal-nav-strip" aria-label="Related policy pages">
+      <a href="/editorial">AI &amp; Editorial Disclosure</a>
+      <a href="/terms">Terms &amp; Licensing</a>
+      <a href="/topics">Browse All Topics</a>
+    </nav>
+  </main>
+
+  <SiteFooter totalGuides={totalGuides} totalEcosystems={totalEcosystems} />
+</BaseLayout>

@@ -1,0 +1,89 @@
+---
+import type { EnrichedGuide } from '../types/guide';
+
+export interface Props {
+  guide: EnrichedGuide;
+  eager?: boolean;
+}
+
+const { guide, eager = false } = Astro.props;
+const searchText = `${guide.title} ${guide.subtitle} ${guide.ecosystemShort} ${guide.tags.join(' ')}`.toLowerCase();
+---
+
+<article
+  class="guide-card"
+  data-goals={guide.goals.join(',')}
+  data-eco={guide.ecosystem}
+  data-search={searchText}
+>
+  <div class="guide-card-main">
+    <a href={guide.url} class="guide-cover-link" tabindex="-1" aria-hidden="true">
+      <img
+        class="book-cover guide-card-cover"
+        src={guide.coverWebpUrl}
+        alt=""
+        width={guide.coverWidth}
+        height={guide.coverHeight}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        style={`aspect-ratio: ${guide.coverWidth} / ${guide.coverHeight};`}
+      />
+    </a>
+
+    <div class="guide-card-content">
+      <h3 class="guide-card-title">
+        <a href={guide.url}>{guide.title}</a>
+      </h3>
+
+      <p class="guide-card-subtitle">{guide.subtitle}</p>
+
+      <div class="guide-card-meta">
+        {guide.isFeaturedNew && <span class="badge-new">New</span>}
+        <span class="meta-topic">{guide.ecosystemShort}</span>
+        <span class="meta-sep" aria-hidden="true"></span>
+        <span class="meta-detail tabular">{guide.readingMinutes} min read</span>
+        <span class="meta-sep" aria-hidden="true"></span>
+        <span class="meta-detail tabular">v{guide.version}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-card-footer">
+    <a href={guide.url} class="guide-read-link">
+      <span>Read Online</span>
+      <svg
+        aria-hidden="true"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 12h14"></path>
+        <path d="m12 5 7 7-7 7"></path>
+      </svg>
+    </a>
+
+    <a href={guide.pdfUrl} download={guide.pdfFilename} class="guide-pdf-btn">
+      <svg
+        aria-hidden="true"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      <span>PDF <span class="tabular">({guide.pdfSizeLabel})</span></span>
+    </a>
+  </div>
+</article>

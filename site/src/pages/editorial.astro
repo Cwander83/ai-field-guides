@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import catalogData from '../generated/catalog-enriched.json';
+import {
+  buildOrganizationSchema,
+  ORGANIZATION_ID,
+  SITE_ORIGIN,
+  WEBSITE_ID,
+} from '../lib/schema';
+import '../styles/legal.css';
+
+const { totalGuides, totalPages, totalEcosystems } = catalogData.stats;
+
+const title = 'How Twelve Pages Is Made — AI & Editorial Disclosure | Twelve Pages';
+const description =
+  'Transparency into how Twelve Pages generates articles, topic overviews, visual diagrams, and 12-page handbooks with AI under human editorial direction and print QA.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildOrganizationSchema(),
+    {
+      '@type': 'AboutPage',
+      name: 'How Twelve Pages Is Made — AI & Editorial Disclosure',
+      url: `${SITE_ORIGIN}/editorial`,
+      description,
+      inLanguage: 'en-US',
+      isPartOf: { '@id': WEBSITE_ID },
+      about: { '@id': ORGANIZATION_ID },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Twelve Pages',
+          item: SITE_ORIGIN,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'How Twelve Pages Is Made',
+          item: `${SITE_ORIGIN}/editorial`,
+        },
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  pageType="legal"
+  jsonLd={jsonLd}
+>
+  <SiteHeader totalGuides={totalGuides} />
+
+  <main id="main-content" class="legal-main">
+    <nav class="legal-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">All Handbooks</a>
+      <span aria-hidden="true">/</span>
+      <span>How Twelve Pages Is Made</span>
+    </nav>
+
+    <header class="legal-header">
+      <h1 class="legal-title">How Twelve Pages Is Made</h1>
+      <p class="legal-lead">
+        Full transparency into how our handbooks, topic guides, illustrations, and website pages are generated using artificial intelligence under human direction and print-layout verification.
+      </p>
+      <p class="legal-meta tabular">
+        Library Scope: {totalGuides} Handbooks &middot; {totalPages} Illustrated Pages &middot; {totalEcosystems} Topics &middot; Last updated: November 17, 2026
+      </p>
+    </header>
+
+    <aside class="legal-summary-box" aria-labelledby="ai-summary-heading">
+      <h2 id="ai-summary-heading" class="legal-summary-title">Plain-English Summary</h2>
+      <ul>
+        <li>
+          <strong>AI-authored library:</strong> All handbook articles, topic hub overviews, prompt and code recipes, inline SVG diagrams, zero-text 16:9 illustrations, and supporting site copy are generated with AI systems.
+        </li>
+        <li>
+          <strong>Human direction &amp; print QA:</strong> A human publisher chooses topics, enforces the 12-page structure and Quiet Reading Room design system, and verifies every rendered PDF page before release.
+        </li>
+        <li>
+          <strong>Zero paid placements:</strong> Handbooks are free to read and download with no vendor sponsorships or affiliate steering.
+        </li>
+      </ul>
+    </aside>
+
+    <div class="legal-sections">
+      <section class="legal-card" aria-labelledby="sec-ai-scope">
+        <h2 id="sec-ai-scope">1. AI Generation Across Handbooks, Topics &amp; Pages</h2>
+        <p>
+          Every edition published on Twelve Pages is authored using modern AI language, coding, and image-generation models. Specifically, AI tools are used to produce:
+        </p>
+        <ul>
+          <li>Handbook prose, chapter outlines, copy-paste prompt and code recipes, step-by-step workflows, and comparison tables across all 12-page editions.</li>
+          <li>Topic hub introductions, category descriptions, and clean Markdown mirrors for search and agent readers.</li>
+          <li>Zero-text 16:9 editorial illustrations, inline SVG architecture diagrams, and annotated UI walkthrough layouts.</li>
+          <li>Website copy, helper utilities, and policy or reference pages refined under human review.</li>
+        </ul>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-human-qa">
+        <h2 id="sec-human-qa">2. Human Editorial Direction &amp; 12-Page Print QA</h2>
+        <p>
+          AI models do not publish autonomously without oversight. Each handbook follows an explicit 12-page editorial blueprint and build verification workflow:
+        </p>
+        <ul>
+          <li>
+            <strong>Topic &amp; Structure Selection:</strong> Human direction determines which tools, workflows, and ecosystem combinations belong in the catalog.
+          </li>
+          <li>
+            <strong>Layout &amp; Typography Verification:</strong> Every handbook is rendered via Chromium to a print-verified 12-page PDF and inspected page by page for overflow, clipped footers, broken diagrams, and visual legibility.
+          </li>
+          <li>
+            <strong>Automated Parser &amp; Link Integrity Checks:</strong> Every web reader page and Markdown twin is validated at build time against the single-source HTML edition so web reading matches the downloadable PDF.
+          </li>
+        </ul>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-limitations">
+        <h2 id="sec-limitations">3. Known AI Limitations &amp; Reader Verification</h2>
+        <p>
+          Because handbook content is generated with AI and covers fast-moving software studios, APIs, and command-line tools, AI models can occasionally misstate an option or fall behind recent releases, so inaccuracies or stale instructions can appear over time.
+        </p>
+        <p>
+          Before relying on any guide in production, always verify commands, pricing tiers, quota limits, CLI flags, security configurations, and legal compliance requirements directly against the official documentation of the software vendor you are using. See our <a href="/terms">Terms of Use</a> for full warranty and liability terms.
+        </p>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-corrections">
+        <h2 id="sec-corrections">4. Editorial Independence, Versioning &amp; Corrections</h2>
+        <p>
+          Twelve Pages has no commercial affiliation with Google, Anthropic, OpenAI, Vercel, Obsidian, or any software provider covered in the library. Each handbook displays an explicit version tag (such as <code>v1.0</code>) and update month (such as <code>2026-11</code>).
+        </p>
+        <p>
+          If you spot an inaccurate command, broken step, or outdated product limit, please report it in the public <a href="https://github.com/Cwander83/ai-field-guides/issues" rel="noopener noreferrer" target="_blank">Twelve Pages GitHub issue tracker</a> so the edition can be regenerated and updated.
+        </p>
+      </section>
+    </div>
+
+    <nav class="legal-nav-strip" aria-label="Related policy pages">
+      <a href="/terms">Terms &amp; Licensing</a>
+      <a href="/privacy">Privacy &amp; Cookie Notice</a>
+      <a href="/topics">Browse All Topics</a>
+    </nav>
+  </main>
+
+  <SiteFooter totalGuides={totalGuides} totalEcosystems={totalEcosystems} />
+</BaseLayout>

@@ -1,0 +1,316 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import catalogData from '../../generated/catalog-enriched.json';
+import { ECOSYSTEM_SHORT_NAMES } from '../../lib/goals';
+import { buildOrganizationSchema, SITE_ORIGIN, WEBSITE_ID } from '../../lib/schema';
+import type { EcosystemCategory, EnrichedGuide } from '../../types/guide';
+import '../../styles/home.css';
+
+const categories = catalogData.categories as EcosystemCategory[];
+const guides = catalogData.guides as EnrichedGuide[];
+const { totalGuides, totalPages, totalEcosystems } = catalogData.stats;
+
+const guidesByEco = new Map<string, EnrichedGuide[]>();
+for (const cat of categories) {
+  guidesByEco.set(cat.id, []);
+}
+for (const g of guides) {
+  const list = guidesByEco.get(g.ecosystem) ?? [];
+  list.push(g);
+  guidesByEco.set(g.ecosystem, list);
+}
+
+const title = `All ${totalEcosystems} Handbook Topics — Twelve Pages`;
+const description = `Explore ${totalGuides} illustrated 12-page visual handbooks (${totalPages} pages) organized across ${totalEcosystems} dedicated topic collections on Twelve Pages.`;
+
+const topicsJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildOrganizationSchema(),
+    {
+      '@type': 'CollectionPage',
+      name: `All ${totalEcosystems} Handbook Topics`,
+      url: `${SITE_ORIGIN}/topics`,
+      description,
+      inLanguage: 'en-US',
+      isPartOf: { '@id': WEBSITE_ID },
+      publisher: { '@id': `${SITE_ORIGIN}/#organization` },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: categories.length,
+        itemListElement: categories.map((cat, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          name: ECOSYSTEM_SHORT_NAMES[cat.id] || cat.shortTitle || cat.title,
+          url: `${SITE_ORIGIN}/topics/${cat.id}`,
+        })),
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Twelve Pages',
+          item: SITE_ORIGIN,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Topics',
+          item: `${SITE_ORIGIN}/topics`,
+        },
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/og-default.png"
+  ogImageWidth={1200}
+  ogImageHeight={630}
+  pageType="topic"
+  jsonLd={topicsJsonLd}
+>
+  <SiteHeader totalGuides={totalGuides} />
+
+  <main id="main-content">
+    <section class="topics-hero" aria-labelledby="topics-heading">
+      <div class="shell">
+        <nav class="topics-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">All Handbooks</a>
+          <span aria-hidden="true">/</span>
+          <span>Topics</span>
+        </nav>
+
+        <h1 id="topics-heading" class="topics-title">
+          Browse by Topic ({totalEcosystems} Collections)
+        </h1>
+        <p class="topics-lead">
+          Every topic hub collects step-by-step 12-page handbooks authored with AI under human editorial direction. Read online in your browser or save any printable magazine PDF in one click.
+          <a href="/editorial" class="topics-inline-link">How Twelve Pages is made</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="topics-grid-section" aria-label="Topic collections">
+      <div class="shell">
+        <div class="topics-grid">
+          {
+            categories.map((cat) => {
+              const ecoGuides = guidesByEco.get(cat.id) ?? [];
+              const ecoPages = ecoGuides.reduce((acc, g) => acc + g.pages, 0);
+              const shortName = ECOSYSTEM_SHORT_NAMES[cat.id] || cat.shortTitle || cat.title;
+              return (
+                <article class="topic-hub-card">
+                  <div class="topic-hub-head">
+                    <h2 class="topic-hub-title">
+                      <a href={`/topics/${cat.id}`}>{shortName}</a>
+                    </h2>
+                    <span class="topic-hub-count tabular">
+                      {ecoGuides.length} {ecoGuides.length === 1 ? 'handbook' : 'handbooks'} &middot; {ecoPages} pages
+                    </span>
+                  </div>
+
+                  <p class="topic-hub-desc">{cat.description}</p>
+
+                  {ecoGuides.length > 0 && (
+                    <ul class="topic-hub-samples" aria-label={`Sample ${shortName} handbooks`}>
+                      {ecoGuides.slice(0, 3).map((g) => (
+                        <li>
+                          <a href={g.url}>{g.title}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  <div class="topic-hub-foot">
+                    <a href={`/topics/${cat.id}`} class="guide-read-link">
+                      <span>Explore {shortName}</span>
+                      <svg
+                        aria-hidden="true"
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </article>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter totalGuides={totalGuides} totalEcosystems={totalEcosystems} />
+</BaseLayout>
+
+<style>
+  .topics-hero {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid var(--border-hair);
+  }
+
+  .topics-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+  }
+
+  .topics-breadcrumb a {
+    color: var(--ink-muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .topics-breadcrumb a:hover {
+    color: var(--ink-main);
+    border-bottom-color: var(--border-hair);
+  }
+
+  .topics-title {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.875rem, 3.6vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink-main);
+  }
+
+  .topics-lead {
+    margin: 0;
+    max-width: var(--measure);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--ink-muted);
+  }
+
+  .topics-inline-link {
+    color: var(--accent-hover);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin-left: 0.25rem;
+  }
+
+  .topics-grid-section {
+    padding: 2.25rem 0 1rem;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .topic-hub-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-hair);
+    border-radius: 12px;
+    padding: 1.375rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .topic-hub-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+  }
+
+  .topic-hub-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.3125rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .topic-hub-title a {
+    color: var(--ink-main);
+    text-decoration: none;
+  }
+
+  .topic-hub-title a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .topic-hub-count {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent-hover);
+    background: var(--accent-soft);
+    border: 1px solid var(--border-hair);
+    border-radius: 999px;
+    padding: 0.125rem 0.625rem;
+    white-space: nowrap;
+  }
+
+  .topic-hub-desc {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--ink-muted);
+  }
+
+  .topic-hub-samples {
+    margin: 0;
+    padding-left: 1.125rem;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--ink-muted);
+  }
+
+  .topic-hub-samples li {
+    margin: 0.25rem 0;
+  }
+
+  .topic-hub-samples a {
+    color: var(--ink-main);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-hair);
+  }
+
+  .topic-hub-samples a:hover {
+    color: var(--accent-hover);
+    border-bottom-color: var(--accent-hover);
+  }
+
+  .topic-hub-foot {
+    margin-top: auto;
+    padding-top: 0.625rem;
+    border-top: 1px solid var(--border-hair);
+  }
+
+  @media (max-width: 780px) {
+    .topics-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

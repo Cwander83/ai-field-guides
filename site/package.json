@@ -1,0 +1,22 @@
+{
+  "name": "twelve-pages-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/prepare-assets.mjs",
+    "build": "node scripts/prepare-assets.mjs && astro build && node scripts/sync-csp.mjs && node scripts/test-parser.mjs && node scripts/test-seo-and-compliance.mjs",
+    "dev": "node scripts/prepare-assets.mjs && astro dev",
+    "preview": "astro preview",
+    "test:parser": "node scripts/test-parser.mjs",
+    "test:seo": "node scripts/test-seo-and-compliance.mjs",
+    "test": "node scripts/test-parser.mjs && node scripts/test-seo-and-compliance.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.18.2",
+    "node-html-parser": "^9.0.7",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

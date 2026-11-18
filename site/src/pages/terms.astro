@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import catalogData from '../generated/catalog-enriched.json';
+import { buildOrganizationSchema, SITE_ORIGIN, WEBSITE_ID } from '../lib/schema';
+import '../styles/legal.css';
+
+const { totalGuides, totalEcosystems } = catalogData.stats;
+
+const title = 'Terms of Use, AI Disclaimer & Licensing | Twelve Pages';
+const description =
+  'Terms governing use of Twelve Pages handbooks, PDF downloads, AI-generated content accuracy disclaimers, trademark non-affiliation, and automated access.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildOrganizationSchema(),
+    {
+      '@type': 'WebPage',
+      name: 'Terms of Use, AI Disclaimer & Licensing',
+      url: `${SITE_ORIGIN}/terms`,
+      description,
+      inLanguage: 'en-US',
+      isPartOf: { '@id': WEBSITE_ID },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Twelve Pages',
+          item: SITE_ORIGIN,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Terms of Use & Licensing',
+          item: `${SITE_ORIGIN}/terms`,
+        },
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  pageType="legal"
+  jsonLd={jsonLd}
+>
+  <SiteHeader totalGuides={totalGuides} />
+
+  <main id="main-content" class="legal-main">
+    <nav class="legal-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">All Handbooks</a>
+      <span aria-hidden="true">/</span>
+      <span>Terms &amp; Licensing</span>
+    </nav>
+
+    <header class="legal-header">
+      <h1 class="legal-title">Terms of Use &amp; Licensing</h1>
+      <p class="legal-lead">
+        Clear rules for reading, downloading, and adapting Twelve Pages handbooks, plus important disclaimers covering AI-generated content and third-party trademarks.
+      </p>
+      <p class="legal-meta tabular">Last updated: November 17, 2026</p>
+    </header>
+
+    <aside class="legal-summary-box" aria-labelledby="terms-summary-heading">
+      <h2 id="terms-summary-heading" class="legal-summary-title">Key Terms at a Glance</h2>
+      <ul>
+        <li>
+          <strong>Free for study &amp; workflows:</strong> Read online, save 12-page PDFs for personal or internal team use, and adapt prompt recipes freely.
+        </li>
+        <li>
+          <strong>AI-generated &ldquo;as-is&rdquo;:</strong> Content is AI-authored educational reference material provided without warranty; verify critical settings with official vendor docs.
+        </li>
+        <li>
+          <strong>Independent library:</strong> Not affiliated with or endorsed by Google, Anthropic, OpenAI, Vercel, Obsidian, or any featured vendor.
+        </li>
+      </ul>
+    </aside>
+
+    <div class="legal-sections">
+      <section class="legal-card" aria-labelledby="sec-ai-warranty">
+        <h2 id="sec-ai-warranty">1. AI-Generated Content &amp; &ldquo;As-Is&rdquo; Disclaimer</h2>
+        <p>
+          As described in our <a href="/editorial">AI &amp; Editorial Disclosure</a>, all handbook articles, topic summaries, code/prompt examples, diagrams, illustrations, and supporting site pages on Twelve Pages are generated with artificial intelligence under human direction.
+        </p>
+        <p>
+          All materials are provided strictly for general educational and informational purposes on an <strong>&ldquo;as is&rdquo; and &ldquo;as available&rdquo;</strong> basis, without warranties of any kind&mdash;express or implied&mdash;including warranties of accuracy, completeness, reliability, merchantability, non-infringement, or fitness for a particular purpose.
+        </p>
+        <p>
+          Nothing on Twelve Pages constitutes professional legal, tax, financial, medical, cybersecurity, or software-engineering advice. You remain solely responsible for testing and verifying any command, prompt, pricing limit, or security configuration before using it in a live environment. To the maximum extent permitted by law, Twelve Pages and its publisher shall not be liable for any direct, indirect, incidental, special, consequential, or exemplary damages (including loss of data, revenue, or system availability) arising from your use of, or reliance upon, any handbook, prompt, command, or configuration shown on this site.
+        </p>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-license">
+        <h2 id="sec-license">2. Permitted Use, PDF Downloads &amp; Compilation Notice</h2>
+        <p>
+          You are welcome to read all {totalGuides} handbooks online, download the 12-page magazine PDFs for personal study or internal team sharing, and copy or adapt prompt recipes and code snippets inside your own projects.
+        </p>
+        <p>
+          While pure AI-generated outputs carry legal limitations on copyrightability under U.S. Copyright Office guidance and similar laws, the Twelve Pages web application codebase, Quiet Reading Room design system, brand marks, and the curated human selection, arrangement, and compilation of this library remain protected intellectual property. You may not repackage, mirror, or sell the compiled Twelve Pages PDF bundle or site clone as your own commercial product.
+        </p>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-trademarks">
+        <h2 id="sec-trademarks">3. Independent Publication &amp; Trademark Disclaimer</h2>
+        <p>
+          Twelve Pages is an independent publication. All third-party product names, logos, service names, and company trademarks referenced in our handbooks&mdash;including Google, Gemini, NotebookLM, Anthropic, Claude, OpenAI, ChatGPT, Codex, Vercel, Obsidian, GitHub, and others&mdash;are the property of their respective owners.
+        </p>
+        <p>
+          Reference to any product, model, or tool does not imply affiliation with, sponsorship by, or endorsement from its vendor.
+        </p>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-crawlers">
+        <h2 id="sec-crawlers">4. Automated Access &amp; AI Search Crawlers</h2>
+        <p>
+          Search engines, assistive tools, and AI agents are invited to index and cite Twelve Pages using our public <a href="/robots.txt"><code>/robots.txt</code></a> rules, <a href="/sitemap.xml">XML sitemap</a>, <a href="/llms.txt"><code>/llms.txt</code></a>, <a href="/llms-full.txt"><code>/llms-full.txt</code></a>, and clean <code>.md</code> markdown editions. Automated clients must honor our <code>/robots.txt</code> directives, respect standard HTTP rate etiquette without placing excessive load on our host, avoid denial-of-service scraping, and attribute Twelve Pages when quoting handbook content.
+        </p>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-changes">
+        <h2 id="sec-changes">5. Governing Changes &amp; Questions</h2>
+        <p>
+          We may update these Terms from time to time as new tools or site capabilities launch. For questions, corrections, or takedown requests, open an issue on the <a href="https://github.com/Cwander83/ai-field-guides/issues" rel="noopener noreferrer" target="_blank">Twelve Pages GitHub issue tracker</a>.
+        </p>
+      </section>
+    </div>
+
+    <nav class="legal-nav-strip" aria-label="Related policy pages">
+      <a href="/editorial">AI &amp; Editorial Disclosure</a>
+      <a href="/privacy">Privacy &amp; Cookie Notice</a>
+      <a href="/topics">Browse All Topics</a>
+    </nav>
+  </main>
+
+  <SiteFooter totalGuides={totalGuides} totalEcosystems={totalEcosystems} />
+</BaseLayout>

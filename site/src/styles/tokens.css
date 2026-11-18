@@ -1,0 +1,116 @@
+:root,
+[data-paper="warm"] {
+  color-scheme: light;
+
+  /* Quiet Reading Room — Warm Daylight Paper */
+  --bg-page: #FAF8F4;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F2EDE4;
+  --ink-main: #181714;
+  --ink-muted: #575248;
+  --border-hair: #E4DED2;
+  --accent: #B45309;
+  --accent-hover: #92400E;
+  --accent-soft: #FEF3C7;
+  --accent-ink: #FFFFFF;
+
+  /* System Editorial Font Stacks (zero web-font CLS) */
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Palatino", "Book Antiqua", Georgia, serif;
+  --font-body: "Avenir Next", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+
+  /* Reading measure */
+  --measure: 68ch;
+}
+
+[data-paper="white"] {
+  --bg-page: #FFFFFF;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F5F5F4;
+  --border-hair: #E7E5E4;
+}
+
+[data-paper="sepia"] {
+  --bg-page: #F4ECD8;
+  --bg-surface: #FAF5E8;
+  --bg-subtle: #EBE0C7;
+  --border-hair: #DDD1B6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--bg-page);
+  color: var(--ink-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p,
+li,
+dd {
+  text-wrap: pretty;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 1000;
+  padding: 0.625rem 1rem;
+  background: var(--ink-main);
+  color: var(--bg-surface);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--ink-main);
+  border-radius: 6px;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
