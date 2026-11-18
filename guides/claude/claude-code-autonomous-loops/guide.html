@@ -179,7 +179,7 @@
 
   <h3>Essential Workspace Paths &amp; CLI Launch Flags</h3>
   <pre class="code-block" style="padding:6px 9px; font-size:7.0pt; line-height:1.35;"><code># Launch an isolated autonomous worktree session with Opus 5.5 (1M context) and budget cap
-claude --worktree feat-billing-v2 --model opus-5.5 --max-budget-usd 12
+claude --worktree feat-billing-v2 --model claude-opus-5-5 --max-budget-usd 12
 
 # Open the interactive fleet monitor across all active background loops in this repo
 claude agents --cwd .           # Add --json --all to script status dashboards in CI
@@ -513,7 +513,7 @@ claude agents --cwd .           # Add --json --all to script status dashboards i
   <pre class="code-block" style="padding:6px 9px; font-size:6.95pt; line-height:1.34; margin:0 0 7px 0;"><code>---
 name: test-verifier
 description: Neutral test and type-check runner invoked by /goal loops via /subtask
-model: opus-5.5
+model: claude-opus-5-5
 tools: Read, Grep, Glob, Bash
 ---
 Run only read-only checks and test commands. Never modify source files or add .skip/.only flags.

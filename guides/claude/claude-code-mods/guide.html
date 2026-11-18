@@ -291,7 +291,7 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
 
     <!-- Custom Top Status Banner -->
     <div style="background:#29150b; border-bottom:1px solid #7c2d12; padding:4.5px 11px; display:flex; justify-content:space-between; align-items:center; font-size:7.3pt;">
-      <span><strong style="color:#fb923c;">[ui.render &bull; top-banner]</strong> <span style="color:#f5f5f4;">Branch: <code>feat/stripe-webhooks</code> &bull; Staging DB Tunnel: <strong>READ-ONLY</strong></span> <span class="callout-pin">1</span></span>
+      <span><strong style="color:#fb923c;">[ui.render &bull; AbovePrompt]</strong> <span style="color:#f5f5f4;">Branch: <code>feat/stripe-webhooks</code> &bull; Staging DB Tunnel: <strong>READ-ONLY</strong></span> <span class="callout-pin">1</span></span>
       <span style="color:#fdba74;">Mods Queue: <code>sec-default &rarr; blast-guard &rarr; hud-pro</code></span>
     </div>
 
@@ -351,10 +351,10 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
   <h3>Interface Legend: The 7 Mod-Powered Touchpoints</h3>
   <div class="grid-2" style="font-size:8pt; gap:6px 12px;">
     <div class="card" style="padding:6.5px 9px;">
-      <strong><span class="callout-pin">1</span> Environment Banner (<code>ui.render</code>):</strong> Persistent header painting live Git branch, active cloud profile, and ordered mod queue so you never run prod commands by mistake.
+      <strong><span class="callout-pin">1</span> Environment Strip (<code>AbovePrompt</code>):</strong> Persistent header above the prompt painting live Git branch, active cloud profile, and ordered mod queue via <code>ui.render</code>.
     </div>
     <div class="card" style="padding:6.5px 9px;">
-      <strong><span class="callout-pin">2</span> Prompt-Band Telemetry HUD:</strong> Draws right above the input prompt with context fullness, 5-minute prompt-cache TTL countdown, and live session cost.
+      <strong><span class="callout-pin">2</span> Status Line Telemetry (<code>$.ui.status</code>):</strong> Pins compact metrics below the prompt for context fullness, 5-minute prompt-cache TTL countdown, and live session cost.
     </div>
     <div class="card" style="padding:6.5px 9px;">
       <strong><span class="callout-pin">3</span> Zero-Token Slash Command (<code>command.run</code>):</strong> Local commands like <code>/blast-radius</code> execute pure TypeScript in under a millisecond without spending a single LLM token.
@@ -369,7 +369,7 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
       <strong><span class="callout-pin">6</span> <code>sec-default</code> Baseline Lock:</strong> Confirms Anthropic&rsquo;s built-in org policy mod occupies Slot #1, shielding managed rules and enterprise permissions.
     </div>
     <div class="card-warm" style="padding:6.5px 9px; grid-column: span 2;">
-      <strong><span class="callout-pin">7</span> Docked Side Pane &amp; Panel Override:</strong> Uses side-pane and diff render slots in wide terminals and Claude Code Desktop to track subagent tasks, line-count diffs, and blocked file touches without scrolling up.
+      <strong><span class="callout-pin">7</span> Docked Side Pane (<code>Pane</code> &amp; <code>$.ui.open</code>):</strong> Opens a side column in wide terminals and Claude Code Desktop to track subagent tasks, line-count diffs, and blocked file touches without scrolling up.
     </div>
   </div>
 
@@ -426,16 +426,16 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
 
   // 2. INSTEAD OF + AROUND + AFTER (tool.call on Bash): Block destructive commands &amp; redact .env secrets
   on('tool.call', { tool: 'Bash' }, async ($: any, e: any, next: any) => {
-    const cmd = String(e.input?.command || '');
+    const cmd = String(e.command || e.input?.command || '');
     if (cmd.includes('rm -rf /') || (options.strictGit !== false &amp;&amp; cmd.includes('git reset --hard'))) {
-      $.ui.toast({ level: 'warning', message: 'Blocked destructive command: ' + cmd });
+      $.ui.toast('Blocked destructive command: ' + cmd);
       return { deny: 'Blocked by ops-shield mod. Use git stash or targeted file removal instead.' };
     }
     const startedAt = Date.now();
     const result = await next(e); // Execute downstream mods + actual Bash tool
     const elapsedMs = Date.now() - startedAt;
     const cleanOut = String(result?.output || '').replace(/(API_KEY|SECRET|TOKEN)=([^\s]+)/gi, '$1=[REDACTED]');
-    await $.state.set('lastBashMs', elapsedMs);
+    $.state.set('lastBashMs', elapsedMs);
     return { ...result, output: cleanOut };
   });
 }</code></pre>
@@ -466,15 +466,15 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
   <div class="grid-3" style="margin-bottom:7px;">
     <div class="card" style="border-top:2.5px solid #ea580c;">
       <div class="card-title"><code>$.ui</code> &amp; Layout</div>
-      <p style="font-size:7.85pt; margin:0;">Trigger non-blocking <code>$.ui.toast()</code> alerts, request re-renders, and return declarative box/row/badge trees inside <code>ui.render</code> slots.</p>
+      <p style="font-size:7.85pt; margin:0;">Trigger <code>$.ui.toast()</code> alerts, pin <code>$.ui.status()</code> text, open <code>$.ui.open()</code> panes, and resolve <code>Box</code>/<code>Text</code> trees via <code>$.ui.resolve(e)</code>.</p>
     </div>
     <div class="card" style="border-top:2.5px solid #d97706;">
       <div class="card-title"><code>$.state</code> &amp; <code>$.timer</code></div>
-      <p style="font-size:7.85pt; margin:0;">Persist typed key-value counters across turns (<code>$.state.get/set</code>) and schedule clean session-scoped countdown intervals.</p>
+      <p style="font-size:7.85pt; margin:0;">Persist reactive key-value state across reloads (<code>$.state.get/set</code> or <code>atom()</code>) and schedule clean session-scoped intervals.</p>
     </div>
     <div class="card" style="border-top:2.5px solid #0891b2;">
       <div class="card-title"><code>$.fs</code> &amp; <code>$.process</code></div>
-      <p style="font-size:7.85pt; margin:0;">Read workspace metadata or run quick helper commands (like <code>git status --porcelain</code>) through auditable host methods.</p>
+      <p style="font-size:7.85pt; margin:0;">Read workspace metadata or execute quick binaries (<code>$.process.run(['git', 'status'])</code>) safely without spawning a shell.</p>
     </div>
     <div class="card" style="border-top:2.5px solid #059669;">
       <div class="card-title"><code>$.command</code></div>
@@ -513,19 +513,19 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
 
   // Handle /checkpoint locally in sub-millisecond TypeScript — zero LLM round-trip!
   on('command.run', { command: 'checkpoint' }, async ($: any, e: any) => {
-    const gitOut = await $.process.exec('git', ['status', '--short']);
-    const stats = await $.session.stats();
+    const gitOut = await $.process.run(['git', 'status', '--short']);
+    const usage = await $.session.usage();
     const label = e.args ? ' [' + e.args + ']' : '';
     const summary = gitOut.stdout.trim() || 'Working tree clean.';
     return {
-      text: 'Checkpoint' + label + ' (' + stats.contextTokens + ' tokens used):\n' + summary
+      text: 'Checkpoint' + label + ' (' + usage.context.tokens + ' tokens used):\n' + summary
     };
   });
 }</code></pre>
 
   <div class="callout emerald" style="margin:3px 0 0 0;">
     <div class="callout-title">Hybrid Pattern: Local Fast-Path First, Optional Sidecar Model Second</div>
-    Inside <code>command.run</code>, handle deterministic checks (Git state, port checks, regex lint) in pure TypeScript first, and call <code>$.model.complete()</code> only when genuine natural-language summarization is needed.
+    Inside <code>command.run</code>, handle deterministic checks (Git state, port checks, regex lint) in pure TypeScript first, and call <code>$.model.complete({ model: 'haiku', prompt })</code> only when natural-language synthesis is needed.
   </div>
 
   <div class="page-footer"><span>Claude Code Mods &bull; Complete How-To Guide</span><span>Page 6 of 12</span></div>
@@ -575,7 +575,7 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
     &ldquo;Build a live session dev-mod named <code>migration-guard</code>.
     <span class="p-tag p-event">Listen to tool.call for Write and Edit, plus session.start for a /lock-db toggle command.</span>
     <span class="p-tag p-mode">Intercept before execution: if any path touches prisma/migrations/*.sql while locked, return a { deny } explanation instead of calling next(e).</span>
-    <span class="p-tag p-ui">Render a compact prompt-band badge via ui.render showing MIGRATIONS LOCKED in amber or UNLOCKED in emerald.</span>
+    <span class="p-tag p-ui">Render a compact AbovePrompt strip via ui.render ({ component: 'AbovePrompt' }) showing MIGRATIONS LOCKED in amber or UNLOCKED in emerald.</span>
     <span class="p-tag p-npm">Use pure zero-dependency TypeScript and only the $ Mods API ($.state, $.command, $.ui) with zero npm or node:fs imports.</span>
     <span class="p-tag p-safe">Wrap logic in try/catch so unexpected errors log a warning toast and safely return next(e) without freezing the session.</span>&rdquo;
   </div>
@@ -620,54 +620,55 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
 <section class="page">
   <div class="page-header">
     <span class="section-tag">07 &bull; Programmable Terminal &amp; Desktop UI</span>
-    <span>Status Bars, Live HUDs &amp; Panel Overrides via ui.render</span>
+    <span>AbovePrompt, Pane, Spinner &amp; $.ui.status via ui.render</span>
   </div>
 
-  <h2 class="page-title">Customizing the UI: HUDs, Gauges &amp; Custom Panels</h2>
+  <h2 class="page-title">Customizing the UI: HUDs, Gauges &amp; Custom Panes</h2>
   <p class="page-lead" style="margin-bottom:6px;">
-    Unlike external CLI wrappers, a single <code>ui.render</code> handler renders seamlessly in <strong>both</strong> the terminal TUI and the Claude Code Desktop app&mdash;using declarative layout primitives (<code>box</code>, <code>row</code>, <code>text</code>, <code>badge</code>, <code>progress</code>) instead of brittle ANSI escape codes.
+    Unlike external CLI wrappers, a single <code>ui.render</code> handler renders seamlessly in <strong>both</strong> the terminal TUI and Claude Code Desktop&mdash;resolving cross-surface primitives (<code>Box</code>, <code>Text</code>, <code>Button</code>) via <code>$.ui.resolve(e)</code> instead of brittle ANSI escapes.
   </p>
 
   <div class="grid-2" style="margin-bottom:6px;">
     <div class="card">
-      <div class="card-title"><span class="num-badge">A</span> Additive Render Sites</div>
+      <div class="card-title"><span class="num-badge">A</span> Additive UI Components &amp; Helpers</div>
       <ul style="font-size:7.9pt; margin:2px 0 0 0;">
-        <li><strong><code>status-line</code>:</strong> Compact pill metrics pinned beside model and branch indicators.</li>
-        <li><strong><code>prompt-band</code>:</strong> A 1&ndash;2 row telemetry strip directly above your typing cursor (ideal for cache TTL &amp; token gauges).</li>
-        <li><strong><code>side-pane</code>:</strong> Docked vertical column for live subagent queues, test checklists, or touched-file summaries.</li>
+        <li><strong><code>AbovePrompt</code>:</strong> Filter <code>{ component: 'AbovePrompt' }</code> to draw a telemetry strip directly above your input cursor (cache TTL &amp; context gauges).</li>
+        <li><strong><code>Pane</code> + <code>$.ui.open()</code>:</strong> Open a docked vertical column for live subagent queues, test checklists, or touched-file summaries.</li>
+        <li><strong><code>$.ui.status(text)</code>:</strong> Pin compact status metrics directly beneath the prompt without rewriting layout trees.</li>
       </ul>
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge cyan">B</span> Built-In Panel Overrides</div>
+      <div class="card-title"><span class="num-badge cyan">B</span> Built-In Component Interceptors</div>
       <ul style="font-size:7.9pt; margin:2px 0 0 0;">
-        <li><strong>Custom Diff Viewer:</strong> Intercept the built-in <code>diff-panel</code> site to group changes by architectural layer or highlight schema risks.</li>
-        <li><strong>Tool Approval Cards:</strong> Enrich confirmation prompts with blast-radius scores and plain-English explanations before you press Allow.</li>
+        <li><strong><code>Spinner</code> Hook:</strong> Intercept <code>{ component: 'Spinner' }</code> to append live tool-call counters or elapsed timers onto the thinking indicator.</li>
+        <li><strong><code>CommandOutput</code> Hook:</strong> Intercept <code>{ component: 'CommandOutput' }</code> to format structured results returned by custom slash commands.</li>
       </ul>
     </div>
   </div>
 
-  <pre class="code-block" style="padding:6px 9px; font-size:6.95pt; line-height:1.34; margin:0 0 6px 0;"><code>export function register(on: any) {
-  // Record timestamp whenever an LLM turn completes so we can track the 5-minute prompt cache window
+  <pre class="code-block" style="padding:6px 9px; font-size:6.85pt; line-height:1.33; margin:0 0 6px 0;"><code>export function register(on: any) {
+  // Record timestamp &amp; context % on turn completion using reactive $.state
   on('turn.complete', async ($: any, e: any, next: any) => {
-    await $.state.set('lastTurnEpochMs', Date.now());
-    await $.state.set('ctxPct', Math.round(((e.contextTokens || 0) / 200000) * 100));
+    const usage = await $.session.usage();
+    $.state.set('lastTurnEpochMs', Date.now());
+    $.state.set('ctxPct', Math.round(usage.context?.percent || 0));
     return next(e);
   });
 
-  // Paint a flicker-free Prompt Cache TTL + Context Gauge directly above the input box
-  on('ui.render', { site: 'prompt-band' }, async ($: any, e: any, next: any) => {
-    const lastMs = (await $.state.get('lastTurnEpochMs')) || 0;
-    const pct = (await $.state.get('ctxPct')) || 0;
+  // Paint a reactive Prompt Cache TTL + Context Gauge directly AbovePrompt
+  on('ui.render', { component: 'AbovePrompt' }, async ($: any, e: any, next: any) => {
+    const lastMs = $.state.get('lastTurnEpochMs') || 0;
+    const pct = $.state.get('ctxPct') || 0;
     const remainSec = lastMs ? Math.max(0, 300 - Math.floor((Date.now() - lastMs) / 1000)) : 0;
-    const cacheLabel = remainSec &gt; 60 ? 'CACHE WARM ' + remainSec + 's' : (remainSec &gt; 0 ? 'COOLING ' + remainSec + 's' : 'CACHE COLD');
-    return {
-      type: 'row',
-      gap: 2,
+    const label = remainSec &gt; 60 ? 'CACHE WARM ' + remainSec + 's' : (remainSec &gt; 0 ? 'COOLING ' + remainSec + 's' : 'CACHE COLD');
+    const { Box, Text } = $.ui.resolve(e);
+    return Box({
+      flexDirection: 'row', columnGap: 2,
       children: [
-        { type: 'badge', tone: remainSec &gt; 60 ? 'success' : 'warning', text: cacheLabel },
-        { type: 'text', text: 'Context Window: ' + pct + '% full' }
+        Text({ color: remainSec &gt; 60 ? 'success' : 'warning', bold: true, children: [label] }),
+        Text({ children: ['Context Window: ' + pct + '% full'] })
       ]
-    };
+    });
   });
 }</code></pre>
 
@@ -705,7 +706,7 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
       <tr>
         <td><strong>1. Prompt Cache TTL &amp; Cost HUD</strong><br/><span style="color:#c2410c; font-weight:600;">Cost Saver</span></td>
         <td><code>turn.complete</code><br/><code>ui.render</code><br/><code>$.state</code>, <code>$.timer</code></td>
-        <td>&ldquo;Create a zero-npm dev-mod <code>cache-hud</code>. On <code>turn.complete</code> store timestamp, context %, and cumulative spend in <code>$.state</code>. Render a <code>prompt-band</code> row via <code>ui.render</code> counting down the 300s prompt-cache TTL (emerald &gt;90s, amber &lt;90s, slate when cold) so I send follow-ups before cache expiry. Memoize state per second to prevent flicker.&rdquo;</td>
+        <td>&ldquo;Create a zero-npm dev-mod <code>cache-hud</code>. On <code>turn.complete</code> store timestamp, <code>$.session.usage()</code> context %, and cost in <code>$.state</code>. Render an <code>AbovePrompt</code> row via <code>ui.render</code> (resolving <code>Box</code>/<code>Text</code> via <code>$.ui.resolve(e)</code>) counting down the 300s prompt-cache TTL so I send follow-ups before expiry.&rdquo;</td>
       </tr>
       <tr>
         <td><strong>2. Blast-Radius Shell Interceptor</strong><br/><span style="color:#c2410c; font-weight:600;">Safety Shield</span></td>
@@ -715,7 +716,7 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
       <tr>
         <td><strong>3. Secret &amp; API-Key Redactor</strong><br/><span style="color:#c2410c; font-weight:600;">Zero-Leak Privacy</span></td>
         <td><code>tool.call</code> (All)<br/><code>prompt.submit</code><br/><code>$.state</code></td>
-        <td>&ldquo;Create a zero-npm dev-mod <code>secret-scrub</code>. Wrap <code>await next(e)</code> on <code>tool.call</code> (<code>Bash</code>, <code>Read</code>, <code>Grep</code>) and scrub <code>sk-ant-*</code>, <code>sk-proj-*</code>, <code>AKIA*</code>, <code>ghp_*</code>, Bearer JWTs, and <code>.env</code> assignments from returned output before the model sees them. Keep a redacted counter in <code>$.state</code> and display total scrubbed secrets in <code>status-line</code>.&rdquo;</td>
+        <td>&ldquo;Create a zero-npm dev-mod <code>secret-scrub</code>. Wrap <code>await next(e)</code> on <code>tool.call</code> (<code>Bash</code>, <code>Read</code>, <code>Grep</code>) and scrub <code>sk-ant-*</code>, <code>sk-proj-*</code>, <code>AKIA*</code>, <code>ghp_*</code>, Bearer JWTs, and <code>.env</code> assignments from returned output before the model sees them. Keep a redacted counter in <code>$.state</code> and display total scrubbed secrets via <code>$.ui.status()</code>.&rdquo;</td>
       </tr>
       <tr>
         <td><strong>4. Rambling Voice-Prompt Structurer</strong><br/><span style="color:#c2410c; font-weight:600;">Input Polish</span></td>
@@ -724,8 +725,8 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
       </tr>
       <tr>
         <td><strong>5. Subagent &amp; Touched-Files Tracker</strong><br/><span style="color:#c2410c; font-weight:600;">Swarm Visibility</span></td>
-        <td><code>tool.call</code><br/><code>subagent.*</code><br/><code>ui.render</code> (side-pane)</td>
-        <td>&ldquo;Create a zero-npm dev-mod <code>swarm-radar</code>. Track every file modified by <code>Write</code>/<code>Edit</code> and active subagent tasks in <code>$.state</code>. Render a <code>side-pane</code> via <code>ui.render</code> listing running subagents at the top and deduplicated modified paths with edit counts underneath, plus a <code>/reset-radar</code> local slash command to clear the list.&rdquo;</td>
+        <td><code>tool.call</code><br/><code>$.ui.open</code><br/><code>ui.render</code> (Pane)</td>
+        <td>&ldquo;Create a zero-npm dev-mod <code>swarm-radar</code>. Track every file modified by <code>Write</code>/<code>Edit</code> and active subagent tasks in <code>$.state</code>. Open a side <code>Pane</code> via <code>$.ui.open()</code> and render via <code>ui.render</code> listing running subagents at the top and deduplicated modified paths underneath, plus a <code>/reset-radar</code> command.&rdquo;</td>
       </tr>
     </tbody>
   </table>
@@ -946,7 +947,7 @@ claude plugin validate ./tools/claude-mods/ops-shield --strict</code></pre>
       <tr>
         <td><strong>4. Status bar or HUD flickers on every keystroke</strong></td>
         <td><code>ui.render</code> runs slow shell subprocesses or recomputes uncached values synchronously on each frame.</td>
-        <td>Never call <code>$.process.exec</code> inside <code>ui.render</code>! Compute state asynchronously on <code>turn.complete</code> / <code>tool.call</code>, store in <code>$.state</code>, and read memory in <code>ui.render</code>.</td>
+        <td>Never call <code>$.process.run</code> inside <code>ui.render</code>! Compute state asynchronously on <code>turn.complete</code> / <code>tool.call</code>, store in <code>$.state</code>, and read reactive <code>$.state.get</code> in <code>ui.render</code>.</td>
       </tr>
       <tr>
         <td><strong>5. Module not found for <code>./register.ts</code></strong></td>

@@ -167,9 +167,9 @@
     <div class="card" style="padding:8px 11px; border-top:3px solid #4d7c0f;">
       <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> November 2026 Model Lineup &amp; Fast Mode</div>
       <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
-        <li><strong>Claude Fable 5.2:</strong> Default flagship coding powerhouse with <strong>30% faster generation</strong> out of the box, adaptive thinking, and a 1M-token window (<code>$8/$40</code> per M input/output tokens).</li>
-        <li><strong>Optional 2.5x Fast Mode (<code>/fast</code>):</strong> Dedicated high-throughput pool boosting streaming output tokens per second by up to <strong>2.5x</strong> on Fable 5.2 or Opus 5.5 (<code>$16/$80</code> per M tokens) for rapid live pairing and PR reconciliation.</li>
-        <li><strong>Opus 5.5 &amp; Haiku 5.5:</strong> Use <strong>Opus 5.5</strong> for deep Coordinator architecture planning, and route lightweight <code>/btw</code> lookups or log scans to <strong>Haiku 5.5</strong> for instant pennies-per-run triage.</li>
+        <li><strong>Claude Fable 5.2 (Coordinator):</strong> Flagship orchestrator with <strong>30% faster generation</strong> than 5.1, adaptive thinking, and a 1M-token window (<code>$8/$40</code> per M input/output tokens).</li>
+        <li><strong>Optional 2.5x Fast Mode (<code>/fast</code>):</strong> High-throughput pool boosting output speed up to <strong>2.5x</strong> (<code>$16/$80</code> per M tokens on Fable 5.2; <code>$8/$40</code> on Opus 5.5) for live pairing and PR review.</li>
+        <li><strong>Opus 5.5 &amp; Haiku 5.5:</strong> Use <strong>Opus 5.5</strong> (<code>$4/$20</code>) as your fast daily-driver worker model, and route lightweight <code>/btw</code> lookups or log scans to <strong>Haiku 5.5</strong> for pennies-per-run triage.</li>
       </ul>
     </div>
     <div class="card" style="padding:8px 11px; border-top:3px solid #0284c7;">
@@ -177,7 +177,7 @@
       <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
         <li><strong>Connect Repository &amp; Branch Policy:</strong> Link your GitHub or GitLab repo inside a Claude Code Project on <code>claude.ai/code</code> or Desktop; each worker checks out an isolated clone automatically.</li>
         <li><strong>Pin Project Reminders &amp; <code>CLAUDE.md</code>:</strong> Store build commands, coding standards, and built-in project reminders once so every Coordinator and child worker inherits them silently.</li>
-        <li><strong>Terminal &amp; VS Code Continuity:</strong> Run <code>claude /resume</code> in your local terminal or VS Code extension to pull any cloud worker branch locally, or push local sessions back up to the Session Rail.</li>
+        <li><strong>Terminal &amp; VS Code Continuity:</strong> Run <code>claude --resume</code> in your local terminal (or <code>/resume</code> in an active session or VS Code) to pull cloud branches locally or push sessions to the Session Rail.</li>
       </ul>
     </div>
   </div>
@@ -495,7 +495,7 @@ Push proactive updates only on blockers or test completion, then reconcile branc
       <tr>
         <td><span class="p-tag p-scope">Scope &amp; Model Tier</span></td>
         <td>Pins model speed/cost (<code>Fable 5.2</code>, <code>Opus 5.5</code>, <code>Haiku 5.5</code>) &amp; Project context.</td>
-        <td>Coordinator burns flagship Opus tokens on trivial lookups or ignores repo conventions.</td>
+        <td>Coordinator burns flagship Fable tokens on trivial lookups or ignores repo conventions.</td>
       </tr>
       <tr>
         <td><span class="p-tag p-topo">Parallel Branch Split</span></td>
@@ -597,7 +597,7 @@ Push proactive updates only on blockers or test completion, then reconcile branc
     <div class="card" style="padding:8.5px 11px; border-top:3px solid #3f6212;">
       <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Expanded Auto-Mode Gateway Controls</div>
       <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
-        <li><strong>Smart Classifier Middle Ground:</strong> Launch with <code>claude --enable-auto-mode</code> (or toggle mid-session via <code>Shift+Tab</code>). Instead of approving every trivial read or running completely unchecked, a background safety classifier audits each tool call before execution.</li>
+        <li><strong>Smart Classifier Default:</strong> Auto Mode is the default interactive mode across Pro, Max, Ultra &amp; Team plans (or start explicitly with <code>claude --enable-auto-mode</code> / cycle via <code>Shift+Tab</code>). A background classifier audits each tool call automatically.</li>
         <li><strong>Gateway Rules &amp; Tool Escalation Blocks:</strong> Tune project rules via <code>/auto-mode-setup</code> and inspect baseline policies with <code>claude auto-mode defaults</code>. Expanded gateway checks intercept indirect prompt injections&mdash;stopping untrusted web docs from tricking Claude out of safe <code>WebFetch</code> into raw <code>curl</code> shell scripts.</li>
         <li><strong>Soft vs. Hard Denials:</strong> Routine workspace tests auto-approve cleanly, risky commands pause for explicit human review, and forbidden operations hard-fail with clear audit explanations.</li>
       </ul>

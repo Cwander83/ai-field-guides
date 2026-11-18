@@ -159,8 +159,8 @@
       <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Claude.ai, Claude Desktop &amp; Cowork</div>
       <ol style="font-size:8pt; margin:3px 0 0 0; padding-left:16px;">
         <li><strong>Enable Sandbox Runtime:</strong> Open <code>Settings &rarr; Capabilities</code> and toggle <strong>Code execution and file creation</strong> ON (Skills rely on this container to read files and run scripts).</li>
-        <li><strong>Toggle Built-In Skills:</strong> In the <strong>Skills</strong> section, enable document skills (<code>pptx</code>, <code>xlsx</code>, <code>docx</code>, <code>pdf</code>) and <code>skill-creator</code>.</li>
-        <li><strong>Upload Custom <code>.zip</code>:</strong> Click <strong>Upload skill</strong> to add any zipped skill folder (Pro, Max, Team, and Enterprise plans; Team/Enterprise Owners can provision org-wide).</li>
+        <li><strong>Toggle Built-In Skills:</strong> Open <code>Customize &rarr; Skills</code> (or <code>Settings &rarr; Capabilities</code>) and toggle document skills (<code>pptx</code>, <code>xlsx</code>, <code>docx</code>, <code>pdf</code>) and <code>skill-creator</code>.</li>
+        <li><strong>Upload Custom <code>.zip</code>:</strong> Click <strong><code>+</code> &rarr; <code>+ Create skill</code> &rarr; Upload a skill</strong> (Free, Pro, Max, Ultra, Team &amp; Enterprise plans; Team/Enterprise Owners can provision org-wide).</li>
       </ol>
     </div>
     <div class="card" style="padding:8px 11px; border-top:3px solid #d97706;">
@@ -255,9 +255,9 @@ ls -la .claude/skills/pr-audit/SKILL.md     # Inside Claude Code, run /skills or
     </div>
 
     <div style="display:grid; grid-template-columns:1.05fr 1.35fr 1.05fr; border-bottom:1px solid #3b0764;">
-      <!-- Left Pane: Capabilities -> Skills -->
+      <!-- Left Pane: Customize -> Skills -->
       <div style="padding:8px 9px; border-right:1px solid #3b0764; background:#190a24;">
-        <div style="font-size:7.1pt; font-weight:800; color:#fde68a; letter-spacing:0.05em; margin-bottom:5px;">CAPABILITIES &rarr; SKILLS</div>
+        <div style="font-size:7.1pt; font-weight:800; color:#fde68a; letter-spacing:0.05em; margin-bottom:5px;">CUSTOMIZE &rarr; SKILLS</div>
         <div style="background:#261036; border:1px solid #581c87; border-radius:6px; padding:5px 7px; margin-bottom:5px;">
           <div style="display:flex; justify-content:space-between; align-items:center; font-weight:700; color:#ffffff; font-size:7.4pt;">
             <span>Anthropic Document Skills <span class="callout-pin">2</span></span>
@@ -326,7 +326,7 @@ ls -la .claude/skills/pr-audit/SKILL.md     # Inside Claude Code, run /skills or
       <strong><span class="callout-pin">3</span> <code>skill-creator</code> Meta-Skill:</strong> Interactive builder skill that interviews you, drafts sharp YAML triggers, scaffolds helper scripts, runs benchmark prompts, and exports clean <code>.zip</code> bundles.
     </div>
     <div class="card" style="padding:6.5px 10px; font-size:8pt;">
-      <strong><span class="callout-pin">4</span> Upload Skill (<code>.zip</code>) Control:</strong> Accepts zipped skill folders whose top-level directory wraps <code>SKILL.md</code>. Validates YAML frontmatter syntax immediately on upload.
+      <strong><span class="callout-pin">4</span> Upload a Skill (<code>.zip</code>) Control:</strong> Under <code>Customize &rarr; Skills</code> (<code>+</code> &rarr; <code>+ Create skill</code>), accepts zipped skill folders wrapping <code>SKILL.md</code> and validates YAML immediately.
     </div>
     <div class="card" style="padding:6.5px 10px; font-size:8pt;">
       <strong><span class="callout-pin">5</span> Transparent Multi-Skill Trigger Trace:</strong> Shows exactly which skill descriptions matched your prompt and confirms when Claude transitions from Level 1 metadata to reading Level 2 <code>SKILL.md</code>.
@@ -497,7 +497,7 @@ import sys, zipfile, xml.etree.ElementTree as ET
 
   <h3 style="margin:3px 0 4px 0; font-size:10.4pt;">The Golden <code>.zip</code> Packaging Rule for Claude.ai &amp; Claude Desktop Uploads</h3>
   <p style="font-size:8.25pt; margin-bottom:5px;">
-    When uploading a custom skill under <code>Settings &rarr; Capabilities &rarr; Skills</code>, Claude&rsquo;s validator requires the <strong>skill folder itself</strong> at the root of the archive&mdash;never loose files and never double-nested parent directories.
+    When uploading a custom skill via <code>Customize &rarr; Skills</code> (with code execution enabled in <code>Settings &rarr; Capabilities</code>), Claude&rsquo;s validator requires the <strong>skill folder itself</strong> at the root of the archive&mdash;never loose files and never double-nested parent directories.
   </p>
 
   <pre class="code-block" style="padding:6.5px 9px; font-size:7.2pt; line-height:1.36; margin:2px 0 7px 0;"><code># CORRECT: Zip the skill directory from its parent folder so brand-deck/SKILL.md sits cleanly at archive root
