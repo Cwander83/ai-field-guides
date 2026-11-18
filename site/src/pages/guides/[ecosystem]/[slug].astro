@@ -159,15 +159,11 @@ const guideJsonLd = {
       <header class="reader-header">
         <h1 class="reader-h1">{guide.title}</h1>
         <p class="reader-lead">{guide.subtitle}</p>
-        <div class="reader-meta tabular">
+        <div class="reader-meta meta-flow tabular">
           <span>Updated {guide.updated}</span>
-          <span class="meta-dot" aria-hidden="true">&middot;</span>
           <span>v{guide.version}</span>
-          <span class="meta-dot" aria-hidden="true">&middot;</span>
           <span>{guide.readingMinutes} min read</span>
-          <span class="meta-dot" aria-hidden="true">&middot;</span>
           <span>{guide.pages}-Page Illustrated Edition</span>
-          <span class="meta-dot" aria-hidden="true">&middot;</span>
           <a href="/editorial" class="reader-meta-link">AI-Authored &amp; Human-Directed</a>
         </div>
       </header>
@@ -177,6 +173,8 @@ const guideJsonLd = {
           <img
             src={parsed.heroImageUrl}
             alt={parsed.heroImageAlt || `${guide.title} illustration`}
+            width={parsed.heroImageWidth ?? 1600}
+            height={parsed.heroImageHeight ?? 900}
             loading="eager"
             fetchpriority="high"
             decoding="async"
@@ -421,11 +419,17 @@ const guideJsonLd = {
   }
 
   async function copy(button: HTMLButtonElement, target: HTMLElement) {
-    const text =
+    let text =
       target instanceof HTMLInputElement ||
       target instanceof HTMLTextAreaElement
         ? target.value
         : (target.innerText || target.textContent || '').trim();
+
+    if (text && target.classList.contains('cell-copy-target')) {
+      text = text.replace(/^(?:\u201C([\s\S]+)\u201D|"([\s\S]+)")$/, (_, a, b) =>
+        (a ?? b).trim(),
+      );
+    }
 
     if (!text) return;
 

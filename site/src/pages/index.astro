@@ -77,14 +77,14 @@ const homeJsonLd = {
       <div class="shell hero-grid">
         <div class="hero-copy">
           <h1 id="hero-heading" class="hero-title">
-            Clear, visual 12-page handbooks you can read in minutes.
+            Clear, visual <span class="nowrap">12-page</span> handbooks you can read in minutes.
           </h1>
           <p class="hero-subtitle">
             Step-by-step illustrated editions for modern tools, creative studios, coding, and
             workflows. Read right in your browser on a phone, tablet, or laptop, or save any
-            12-page magazine PDF in one click.
+            <span class="nowrap">12-page</span> magazine PDF in one click.
           </p>
-          <ul class="hero-facts" aria-label="Library overview">
+          <ul class="hero-facts meta-flow" aria-label="Library overview">
             <li class="tabular">{stats.totalGuides} Handbooks</li>
             <li class="tabular">{stats.totalPages} Illustrated Pages</li>
             <li>Read Online or Save PDF</li>
@@ -120,17 +120,18 @@ const homeJsonLd = {
                   </h2>
                   <p class="featured-desc">{featuredGuide.subtitle}</p>
 
-                  <div class="featured-meta">
+                  <div class="featured-badge-row">
                     <span class="badge-new">Featured new release</span>
+                  </div>
+
+                  <div class="featured-meta meta-flow">
                     <span>{featuredGuide.ecosystemShort}</span>
-                    <span class="meta-sep" aria-hidden="true" />
                     <span class="tabular">{featuredGuide.pages} pages</span>
-                    <span class="meta-sep" aria-hidden="true" />
                     <span class="tabular">{featuredGuide.readingMinutes} min read</span>
                   </div>
 
                   <div class="featured-actions">
-                    <a href="/guides/claude/claude-meetings" class="btn-primary">
+                    <a href={featuredGuide.url} class="btn-primary">
                       <span>Read Online</span>
                       <svg
                         aria-hidden="true"
@@ -218,9 +219,8 @@ const homeJsonLd = {
                 <p class="start-card-rationale">{item.rationale}</p>
 
                 <div class="start-card-footer">
-                  <span class="start-card-meta">
+                  <span class="start-card-meta meta-flow">
                     <span>{item.guide.ecosystemShort}</span>
-                    <span class="meta-sep" aria-hidden="true" />
                     <span class="tabular">{item.guide.readingMinutes} min read</span>
                   </span>
                   <a href={item.guide.url} class="start-card-link">

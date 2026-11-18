@@ -4,6 +4,9 @@ export interface Props {
 }
 
 const { totalGuides = 77 } = Astro.props;
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isTopics = pathname === '/topics' || pathname.startsWith('/topics/');
+const isEditorial = pathname === '/editorial' || pathname.startsWith('/editorial/');
 ---
 
 <header class="site-header">
@@ -18,10 +21,10 @@ const { totalGuides = 77 } = Astro.props;
         fill="none"
       >
         <rect x="6.5" y="3.5" width="21.5" height="25.5" rx="4.5" fill="currentColor"></rect>
-        <rect x="3" y="3" width="21.5" height="25.5" rx="4.5" fill="#FAF8F4" stroke="#181714" stroke-width="1.5"></rect>
+        <rect x="3" y="3" width="21.5" height="25.5" rx="4.5" fill="var(--bg-surface)" stroke="var(--ink-main)" stroke-width="1.5"></rect>
         <rect x="6.5" y="6.5" width="14.5" height="2" rx="1" fill="currentColor"></rect>
-        <path d="M7.6 14.4 L9.6 12.8 V23.4 M7.6 23.4 H11.6" stroke="#181714" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M14.1 15.2 C14.1 13.4 15.5 12.6 17.3 12.6 C19.1 12.6 20.4 13.7 20.4 15.3 C20.4 16.9 19.1 18.1 17.1 19.8 L14.0 22.5 V23.4 H20.6" stroke="#181714" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M7.6 14.4 L9.6 12.8 V23.4 M7.6 23.4 H11.6" stroke="var(--ink-main)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M14.1 15.2 C14.1 13.4 15.5 12.6 17.3 12.6 C19.1 12.6 20.4 13.7 20.4 15.3 C20.4 16.9 19.1 18.1 17.1 19.8 L14.0 22.5 V23.4 H20.6" stroke="var(--ink-main)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
       <span class="brand-name">Twelve Pages</span>
     </a>
@@ -31,8 +34,8 @@ const { totalGuides = 77 } = Astro.props;
         All <span class="tabular">{totalGuides}</span> Handbooks
       </a>
       <a href="/#start-here" class="nav-link">Start Here</a>
-      <a href="/topics" class="nav-link">Topics</a>
-      <a href="/editorial" class="nav-link">How It&rsquo;s Made</a>
+      <a href="/topics" class="nav-link" aria-current={isTopics ? 'page' : undefined}>Topics</a>
+      <a href="/editorial" class="nav-link" aria-current={isEditorial ? 'page' : undefined}>How It&rsquo;s Made</a>
       <a href="/guides/claude/claude-meetings" class="nav-cta">Claude Meetings</a>
     </nav>
   </div>
@@ -86,13 +89,17 @@ const { totalGuides = 77 } = Astro.props;
   }
 
   .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    min-height: 36px;
     color: var(--ink-muted);
     text-decoration: none;
     font-size: 0.9375rem;
     font-weight: 500;
-    padding: 0.375rem 0.125rem;
+    padding: 0.25rem 0.125rem;
     white-space: nowrap;
-    border-bottom: 1px solid transparent;
+    border-bottom: 2px solid transparent;
     transition: color 0.15s ease, border-color 0.15s ease;
   }
 
@@ -101,11 +108,18 @@ const { totalGuides = 77 } = Astro.props;
     border-bottom-color: var(--ink-muted);
   }
 
+  .nav-link[aria-current="page"] {
+    color: var(--ink-main);
+    font-weight: 600;
+    border-bottom-color: var(--accent);
+  }
+
   .nav-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 0.9375rem;
+    min-height: 38px;
+    padding: 0.45rem 0.9375rem;
     background: var(--accent);
     color: var(--accent-ink);
     border: 1px solid var(--accent);
@@ -123,16 +137,16 @@ const { totalGuides = 77 } = Astro.props;
     border-color: var(--accent-hover);
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 780px) {
     .site-header-inner {
       padding: 0.75rem 1rem;
-      gap: 0.625rem;
+      gap: 0.5rem;
     }
 
     .site-nav {
       width: 100%;
-      justify-content: space-between;
-      gap: 0.45rem 0.75rem;
+      justify-content: flex-start;
+      gap: 0.25rem 0.875rem;
       padding-top: 0.375rem;
       border-top: 1px solid var(--border-hair);
     }
@@ -142,9 +156,7 @@ const { totalGuides = 77 } = Astro.props;
     }
 
     .nav-cta {
-      min-height: 36px;
-      padding: 0.4375rem 0.75rem;
-      font-size: 0.8125rem;
+      display: none;
     }
   }
 

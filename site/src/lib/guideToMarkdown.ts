@@ -48,6 +48,7 @@ function shouldSkipElement(el: HTMLElement): boolean {
   }
   if (
     hasClass(el, 'copyable-bar') ||
+    hasClass(el, 'cell-copy-actions') ||
     hasClass(el, 'copy-tip') ||
     hasClass(el, 'callout-pin') ||
     hasClass(el, 'ui-pin') ||

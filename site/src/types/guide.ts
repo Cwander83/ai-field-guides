@@ -65,6 +65,8 @@ export interface ParsedGuide {
   guide: EnrichedGuide;
   heroImageUrl: string | null;
   heroImageAlt: string;
+  heroImageWidth?: number;
+  heroImageHeight?: number;
   badges: string[];
   pillars: CoverPillar[];
   scopedCss: string;

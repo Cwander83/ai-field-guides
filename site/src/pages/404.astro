@@ -22,10 +22,10 @@ import catalogData from '../generated/catalog-enriched.json';
           fill="none"
         >
           <rect x="6.5" y="3.5" width="21.5" height="25.5" rx="4.5" fill="currentColor"></rect>
-          <rect x="3" y="3" width="21.5" height="25.5" rx="4.5" fill="#FAF8F4" stroke="#181714" stroke-width="1.5"></rect>
+          <rect x="3" y="3" width="21.5" height="25.5" rx="4.5" fill="var(--bg-surface)" stroke="var(--ink-main)" stroke-width="1.5"></rect>
           <rect x="6.5" y="6.5" width="14.5" height="2" rx="1" fill="currentColor"></rect>
-          <path d="M7.6 14.4 L9.6 12.8 V23.4 M7.6 23.4 H11.6" stroke="#181714" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
-          <path d="M14.1 15.2 C14.1 13.4 15.5 12.6 17.3 12.6 C19.1 12.6 20.4 13.7 20.4 15.3 C20.4 16.9 19.1 18.1 17.1 19.8 L14.0 22.5 V23.4 H20.6" stroke="#181714" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M7.6 14.4 L9.6 12.8 V23.4 M7.6 23.4 H11.6" stroke="var(--ink-main)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M14.1 15.2 C14.1 13.4 15.5 12.6 17.3 12.6 C19.1 12.6 20.4 13.7 20.4 15.3 C20.4 16.9 19.1 18.1 17.1 19.8 L14.0 22.5 V23.4 H20.6" stroke="var(--ink-main)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </div>
 
@@ -173,6 +173,13 @@ import catalogData from '../generated/catalog-enriched.json';
 
     .error-card {
       padding: 1.75rem 1.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .error-btn-primary,
+    .error-btn-secondary {
+      transition: opacity 0.1s linear;
     }
   }
 </style>

@@ -9,6 +9,7 @@ import type {
 interface NodeFsLike {
   existsSync(filePath: string): boolean;
   readFileSync(filePath: string, encoding: 'utf8'): string;
+  readFileSync(filePath: string): Uint8Array;
 }
 
 interface NodePathLike {
@@ -92,6 +93,92 @@ function rewriteAssetPath(src: string | undefined, eco: string, slug: string): s
   }
   const cleanRel = trimmed.replace(/^\.\//, '');
   return `/guides/${eco}/${slug}/${cleanRel}`;
+}
+
+const imageDimCache = new Map<string, { width: number; height: number } | null>();
+
+function readImageDimensions(
+  fs: NodeFsLike,
+  filePath: string,
+): { width: number; height: number } | null {
+  if (imageDimCache.has(filePath)) {
+    return imageDimCache.get(filePath) ?? null;
+  }
+
+  let dims: { width: number; height: number } | null = null;
+  try {
+    if (fs.existsSync(filePath)) {
+      const bytes = fs.readFileSync(filePath);
+      if (
+        bytes.length >= 24 &&
+        bytes[0] === 0x89 &&
+        bytes[1] === 0x50 &&
+        bytes[2] === 0x4e &&
+        bytes[3] === 0x47
+      ) {
+        const width =
+          ((bytes[16] << 24) | (bytes[17] << 16) | (bytes[18] << 8) | bytes[19]) >>> 0;
+        const height =
+          ((bytes[20] << 24) | (bytes[21] << 16) | (bytes[22] << 8) | bytes[23]) >>> 0;
+        if (width > 0 && height > 0) dims = { width, height };
+      } else if (bytes.length >= 4 && bytes[0] === 0xff && bytes[1] === 0xd8) {
+        let offset = 2;
+        while (offset + 3 < bytes.length) {
+          if (bytes[offset] !== 0xff) {
+            offset += 1;
+            continue;
+          }
+          while (offset < bytes.length && bytes[offset] === 0xff) offset += 1;
+          if (offset >= bytes.length) break;
+          const marker = bytes[offset];
+          offset += 1;
+          if (marker === 0x01 || (marker >= 0xd0 && marker <= 0xd9)) continue;
+          if (offset + 1 >= bytes.length) break;
+          const segLen = (bytes[offset] << 8) | bytes[offset + 1];
+          if (segLen < 2 || offset + segLen > bytes.length) break;
+          const isSof =
+            (marker >= 0xc0 && marker <= 0xc3) ||
+            (marker >= 0xc5 && marker <= 0xc7) ||
+            (marker >= 0xc9 && marker <= 0xcb) ||
+            (marker >= 0xcd && marker <= 0xcf);
+          if (isSof && offset + 6 < bytes.length) {
+            const height = (bytes[offset + 3] << 8) | bytes[offset + 4];
+            const width = (bytes[offset + 5] << 8) | bytes[offset + 6];
+            if (width > 0 && height > 0) {
+              dims = { width, height };
+            }
+            break;
+          }
+          offset += segLen;
+        }
+      }
+    }
+  } catch {
+    dims = null;
+  }
+
+  imageDimCache.set(filePath, dims);
+  return dims;
+}
+
+function resolveGuideImagePath(
+  rawSrc: string | undefined,
+  guideDir: string,
+  repoRoot: string,
+  path: NodePathLike,
+): string | null {
+  if (!rawSrc) return null;
+  const trimmed = rawSrc.trim();
+  if (!trimmed || trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:')) {
+    return null;
+  }
+  if (trimmed.startsWith('/guides/')) {
+    return path.join(repoRoot, trimmed.replace(/^\/+/, ''));
+  }
+  if (trimmed.startsWith('/')) {
+    return null;
+  }
+  return path.join(guideDir, trimmed.replace(/^\.\//, ''));
 }
 
 function parseDeclarations(raw: string): CssDeclaration[] {
@@ -222,11 +309,20 @@ function shouldKeepInlineColor(el: HTMLElement, ownDecls: CssDeclaration[]): boo
 function transformTocItems(page: HTMLElement): void {
   for (const item of page.querySelectorAll('.toc-item')) {
     const pgSpan = item.querySelector('.toc-pg');
-    if (!pgSpan) continue;
+    if (!pgSpan) {
+      item.classList.add('toc-note');
+      continue;
+    }
     const match = pgSpan.text.trim().match(/^p\.\s*(\d+)$/i);
-    if (!match) continue;
+    if (!match) {
+      item.classList.add('toc-note');
+      continue;
+    }
     const pageNum = Number.parseInt(match[1], 10);
-    if (pageNum < 2 || pageNum > 12) continue;
+    if (pageNum < 2 || pageNum > 12) {
+      item.classList.add('toc-note');
+      continue;
+    }
     const partNum = pageNum - 1;
     pgSpan.set_content(`Part ${partNum}`);
     item.replaceWith(
@@ -235,15 +331,35 @@ function transformTocItems(page: HTMLElement): void {
   }
 }
 
-function rewriteImages(page: HTMLElement, eco: string, slug: string): void {
+function rewriteImages(
+  page: HTMLElement,
+  eco: string,
+  slug: string,
+  fs: NodeFsLike,
+  path: NodePathLike,
+  guideDir: string,
+  repoRoot: string,
+): void {
   for (const img of page.querySelectorAll('img')) {
-    const src = img.getAttribute('src');
-    if (src) {
-      img.setAttribute('src', rewriteAssetPath(src, eco, slug));
+    const rawSrc = img.getAttribute('src');
+    if (rawSrc) {
+      img.setAttribute('src', rewriteAssetPath(rawSrc, eco, slug));
     }
+    const diskPath = resolveGuideImagePath(rawSrc, guideDir, repoRoot, path);
+    const dims = (diskPath ? readImageDimensions(fs, diskPath) : null) ?? {
+      width: 1600,
+      height: 900,
+    };
+    img.setAttribute('width', String(dims.width));
+    img.setAttribute('height', String(dims.height));
+    const rawStyle = img.getAttribute('style') ?? '';
+    const decls = parseDeclarations(rawStyle).filter(
+      (d) => d.prop !== 'aspect-ratio',
+    );
+    decls.push({ prop: 'aspect-ratio', value: `${dims.width} / ${dims.height}` });
+    img.setAttribute('style', serializeDeclarations(decls));
     img.setAttribute('loading', 'lazy');
     img.setAttribute('decoding', 'async');
-    img.removeAttribute('height');
   }
 }
 
@@ -301,6 +417,21 @@ function upscaleUiWindows(page: HTMLElement): void {
       });
       el.setAttribute('style', serializeDeclarations(decls));
     }
+  }
+}
+
+function normalizeDivCodeBlocks(page: HTMLElement): void {
+  for (const el of page.querySelectorAll('div.code-block, div.code-snippet')) {
+    if (el.closest('.ui-window') || el.querySelector('pre')) continue;
+    let html = el.innerHTML;
+    if (/<br\s*\/?>/i.test(html)) {
+      html = html
+        .replace(/\r?\n[ \t]*/g, '')
+        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/&nbsp;/gi, ' ');
+    }
+    html = html.replace(/^\s*\n/, '').replace(/\s+$/, '');
+    el.replaceWith(`<pre>${html}</pre>`);
   }
 }
 
@@ -390,6 +521,62 @@ function stripPrintStylesOutsideUi(page: HTMLElement): void {
   }
 }
 
+const RECIPE_COL_RE = /\b(copy[- ]paste|prompt|snippet|command|commands|blueprint|implementation pattern)\b/i;
+
+function enhanceRecipeTables(
+  page: HTMLElement,
+  slug: string,
+  counter: { value: number },
+  isRecipeChapter: boolean,
+): void {
+  for (const table of page.querySelectorAll('table')) {
+    if (table.closest('.ui-window')) continue;
+    const headerRow = table.querySelector('thead tr') ?? table.querySelector('tr');
+    const ths = headerRow ? headerRow.querySelectorAll('th') : [];
+    const matchedCols = new Set<number>();
+    if (isRecipeChapter) {
+      ths.forEach((th, idx) => {
+        if (RECIPE_COL_RE.test(normalizeWhitespace(th.text))) {
+          matchedCols.add(idx);
+        }
+      });
+    }
+
+    const bodyRows = table.querySelectorAll('tbody tr');
+    const rows =
+      bodyRows.length > 0
+        ? bodyRows
+        : table.querySelectorAll('tr').filter((tr) => tr !== headerRow);
+
+    for (const tr of rows) {
+      const cells = tr.querySelectorAll('td');
+      cells.forEach((td, idx) => {
+        if (td.querySelector('.copy-btn, pre')) return;
+        const hasRecipeCode = Boolean(td.querySelector('code.recipe-code'));
+        if (!matchedCols.has(idx) && !hasRecipeCode) return;
+        if (normalizeWhitespace(td.text).length < 12) return;
+
+        counter.value += 1;
+        const snippetId = `snippet-${slug}-${counter.value}`;
+        const cellInner = td.innerHTML.trim();
+        td.set_content(
+          `<div class="cell-copyable">` +
+            `<div id="${snippetId}" class="cell-copy-target">${cellInner}</div>` +
+            `<div class="cell-copy-actions">` +
+            `<button type="button" class="copy-btn copy-btn--cell" command="--copy" commandfor="${snippetId}">` +
+            `${COPY_ICON_SVG}${CHECK_ICON_SVG}` +
+            `<span class="copy-btn-label">Copy</span>` +
+            `<span class="sr-only"> snippet ${counter.value}</span>` +
+            `</button>` +
+            `<span class="copy-tip copy-tip--cell" role="status"></span>` +
+            `</div>` +
+            `</div>`,
+        );
+      });
+    }
+  }
+}
+
 function wrapTables(page: HTMLElement): void {
   for (const table of page.querySelectorAll('table')) {
     if (table.closest('.ui-window')) continue;
@@ -397,6 +584,16 @@ function wrapTables(page: HTMLElement): void {
       `<div class="table-scroll-wrap" tabindex="0" role="region" aria-label="Reference table">${table.outerHTML}</div>`,
     );
   }
+}
+
+function wrapCliFlagsInPreHtml(html: string): string {
+  return html.replace(/(^|>)([^<]+)/g, (_m, boundary: string, textSeg: string) => {
+    const updated = textSeg.replace(
+      /(^|\s)(--[A-Za-z0-9][A-Za-z0-9._-]*)/g,
+      '$1<span class="nowrap">$2</span>',
+    );
+    return `${boundary}${updated}`;
+  });
 }
 
 function wrapPreCopyables(
@@ -409,14 +606,19 @@ function wrapPreCopyables(
     counter.value += 1;
     const snippetId = `snippet-${slug}-${counter.value}`;
     pre.setAttribute('id', snippetId);
+    const wrappedInner = wrapCliFlagsInPreHtml(pre.innerHTML);
+    if (wrappedInner !== pre.innerHTML) {
+      pre.set_content(wrappedInner);
+    }
     pre.replaceWith(
       `<div class="copyable-block">` +
         `<div class="copyable-bar">` +
         `<span class="copyable-kind">Prompt / Snippet</span>` +
         `<div class="copy-wrap">` +
-        `<button type="button" class="copy-btn" command="--copy" commandfor="${snippetId}" aria-label="Copy snippet to clipboard">` +
+        `<button type="button" class="copy-btn" command="--copy" commandfor="${snippetId}">` +
         `${COPY_ICON_SVG}${CHECK_ICON_SVG}` +
         `<span class="copy-btn-label">Copy</span>` +
+        `<span class="sr-only"> snippet ${counter.value}</span>` +
         `</button>` +
         `<span class="copy-tip" role="status"></span>` +
         `</div>` +
@@ -429,7 +631,9 @@ function wrapPreCopyables(
 
 function wrapUiWindows(page: HTMLElement): void {
   for (const win of page.querySelectorAll('.ui-window')) {
-    win.replaceWith(`<div class="ui-tour-wrap">${win.outerHTML}</div>`);
+    win.replaceWith(
+      `<div class="ui-tour-wrap" tabindex="0" role="region" aria-label="Annotated interface tour">${win.outerHTML}</div>`,
+    );
   }
 }
 
@@ -467,6 +671,7 @@ function shouldKeepSelector(rawSelector: string): boolean {
   }
   if (/^\.figure-caption$/.test(s)) return false;
   if (/showcase-img/.test(s)) return false;
+  if (/^\.code-block\b|^\.code-snippet\b/.test(s)) return false;
   if (/^code\b|^\.pill-code\b|^pre$|^\.card$|^\.card-title$|^\.callout$|^\.callout-title$/.test(s)) {
     return false;
   }
@@ -622,8 +827,16 @@ export function parseGuide(guide: EnrichedGuide): ParsedGuide {
     : [];
 
   const heroImg = coverPage?.querySelector('.cover-hero-wrap img') ?? null;
+  const rawHeroSrc = heroImg?.getAttribute('src');
   const heroImageUrl = heroImg
-    ? rewriteAssetPath(heroImg.getAttribute('src'), guide.ecosystem, guide.slug)
+    ? rewriteAssetPath(rawHeroSrc, guide.ecosystem, guide.slug)
+    : null;
+  const heroDiskPath = resolveGuideImagePath(rawHeroSrc, guideDir, repoRoot, path);
+  const heroDims = heroImg
+    ? ((heroDiskPath ? readImageDimensions(fs, heroDiskPath) : null) ?? {
+        width: 1600,
+        height: 900,
+      })
     : null;
   const heroImageAlt = heroImg
     ? normalizeWhitespace(heroImg.getAttribute('alt') || guide.title)
@@ -668,10 +881,12 @@ export function parseGuide(guide: EnrichedGuide): ParsedGuide {
     leadEl?.remove();
 
     transformTocItems(page);
-    rewriteImages(page, guide.ecosystem, guide.slug);
+    rewriteImages(page, guide.ecosystem, guide.slug, fs, path, guideDir, repoRoot);
     normalizeSvgs(page);
     upscaleUiWindows(page);
+    normalizeDivCodeBlocks(page);
     stripPrintStylesOutsideUi(page);
+    enhanceRecipeTables(page, guide.slug, snippetCounter, chapterNum === 8);
     wrapTables(page);
     wrapPreCopyables(page, guide.slug, snippetCounter);
     wrapUiWindows(page);
@@ -690,6 +905,8 @@ export function parseGuide(guide: EnrichedGuide): ParsedGuide {
     guide,
     heroImageUrl,
     heroImageAlt,
+    heroImageWidth: heroDims?.width,
+    heroImageHeight: heroDims?.height,
     badges,
     pillars,
     scopedCss,
