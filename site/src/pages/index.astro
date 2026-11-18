@@ -1,0 +1,561 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import GuideCard from '../components/GuideCard.astro';
+import '../styles/home.css';
+import catalogData from '../generated/catalog-enriched.json';
+import { GOAL_CATEGORIES, START_HERE_PATHS, ECOSYSTEM_SHORT_NAMES } from '../lib/goals';
+import {
+  buildOrganizationSchema,
+  buildWebSiteSchema,
+  ORGANIZATION_ID,
+  SITE_ORIGIN,
+  WEBSITE_ID,
+} from '../lib/schema';
+import type { EcosystemCategory, EnrichedGuide } from '../types/guide';
+
+interface CatalogPayload {
+  categories: EcosystemCategory[];
+  guides: EnrichedGuide[];
+  stats: {
+    totalGuides: number;
+    totalPages: number;
+    totalEcosystems: number;
+  };
+}
+
+const catalog = catalogData as CatalogPayload;
+const { categories, guides, stats } = catalog;
+
+const guidesById = new Map<string, EnrichedGuide>(guides.map((g) => [g.id, g]));
+const featuredGuide = guidesById.get('claude/claude-meetings') ?? guides[0];
+
+const startHereItems = START_HERE_PATHS.map((entry) => ({
+  ...entry,
+  guide: guidesById.get(entry.id),
+})).filter((item): item is { id: string; pathwayTitle: string; rationale: string; guide: EnrichedGuide } =>
+  Boolean(item.guide),
+);
+
+const homeDescription =
+  'Twelve Pages publishes clear, visual 12-page handbooks for modern software, AI studios, coding workflows, and creative tools — free to read online or download as a printable PDF.';
+
+const homeJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildOrganizationSchema(),
+    buildWebSiteSchema(homeDescription),
+    {
+      '@type': 'CollectionPage',
+      name: `Twelve Pages — ${stats.totalGuides} Visual 12-Page Handbooks`,
+      url: SITE_ORIGIN,
+      description: homeDescription,
+      inLanguage: 'en-US',
+      numberOfItems: stats.totalGuides,
+      isPartOf: { '@id': WEBSITE_ID },
+      publisher: { '@id': ORGANIZATION_ID },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={`Twelve Pages — ${stats.totalGuides} Visual 12-Page Handbooks You Can Read in Minutes`}
+  description={homeDescription}
+  ogImage="/og-default.png"
+  ogImageAlt="Twelve Pages — Visual 12-page handbooks you can read online or save as a printable PDF"
+  ogImageWidth={1200}
+  ogImageHeight={630}
+  pageType="home"
+  jsonLd={homeJsonLd}
+>
+  <SiteHeader totalGuides={stats.totalGuides} />
+
+  <main id="main-content">
+    <section class="hero-section" aria-labelledby="hero-heading">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <h1 id="hero-heading" class="hero-title">
+            Clear, visual 12-page handbooks you can read in minutes.
+          </h1>
+          <p class="hero-subtitle">
+            Step-by-step illustrated editions for modern tools, creative studios, coding, and
+            workflows. Read right in your browser on a phone, tablet, or laptop, or save any
+            12-page magazine PDF in one click.
+          </p>
+          <ul class="hero-facts" aria-label="Library overview">
+            <li class="tabular">{stats.totalGuides} Handbooks</li>
+            <li class="tabular">{stats.totalPages} Illustrated Pages</li>
+            <li>Read Online or Save PDF</li>
+          </ul>
+        </div>
+
+        {
+          featuredGuide && (
+            <aside class="featured-card" aria-labelledby="featured-heading">
+              <div class="featured-layout">
+                <a
+                  href={featuredGuide.url}
+                  class="featured-cover-link"
+                  tabindex="-1"
+                  aria-hidden="true"
+                >
+                  <img
+                    class="book-cover featured-cover"
+                    src={featuredGuide.coverWebpUrl}
+                    alt=""
+                    width={featuredGuide.coverWidth}
+                    height={featuredGuide.coverHeight}
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                    style={`aspect-ratio: ${featuredGuide.coverWidth} / ${featuredGuide.coverHeight};`}
+                  />
+                </a>
+
+                <div class="featured-body">
+                  <h2 id="featured-heading" class="featured-title">
+                    <a href={featuredGuide.url}>{featuredGuide.title}</a>
+                  </h2>
+                  <p class="featured-desc">{featuredGuide.subtitle}</p>
+
+                  <div class="featured-meta">
+                    <span class="badge-new">Featured new release</span>
+                    <span>{featuredGuide.ecosystemShort}</span>
+                    <span class="meta-sep" aria-hidden="true" />
+                    <span class="tabular">{featuredGuide.pages} pages</span>
+                    <span class="meta-sep" aria-hidden="true" />
+                    <span class="tabular">{featuredGuide.readingMinutes} min read</span>
+                  </div>
+
+                  <div class="featured-actions">
+                    <a href="/guides/claude/claude-meetings" class="btn-primary">
+                      <span>Read Online</span>
+                      <svg
+                        aria-hidden="true"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </a>
+                    <a
+                      href={featuredGuide.pdfUrl}
+                      download={featuredGuide.pdfFilename}
+                      class="btn-secondary"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                      <span>
+                        Download PDF <span class="tabular">({featuredGuide.pdfSizeLabel})</span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          )
+        }
+      </div>
+    </section>
+
+    <section id="start-here" class="start-section" aria-labelledby="start-here-heading">
+      <div class="shell">
+        <div class="section-header">
+          <h2 id="start-here-heading" class="section-title">Start here</h2>
+          <p class="section-lead">
+            Three approachable starting points designed to give you a useful result in under 15
+            minutes.
+          </p>
+        </div>
+
+        <div class="start-grid">
+          {
+            startHereItems.map((item) => (
+              <article class="start-card">
+                <div class="start-card-head">
+                  <a href={item.guide.url} tabindex="-1" aria-hidden="true">
+                    <img
+                      class="book-cover start-cover"
+                      src={item.guide.coverWebpUrl}
+                      alt=""
+                      width={item.guide.coverWidth}
+                      height={item.guide.coverHeight}
+                      loading="eager"
+                      decoding="async"
+                      style={`aspect-ratio: ${item.guide.coverWidth} / ${item.guide.coverHeight};`}
+                    />
+                  </a>
+                  <div class="start-head-text">
+                    <h3 class="start-card-title">
+                      <a href={item.guide.url}>{item.pathwayTitle}</a>
+                    </h3>
+                    <p class="start-card-book">{item.guide.title}</p>
+                  </div>
+                </div>
+
+                <p class="start-card-rationale">{item.rationale}</p>
+
+                <div class="start-card-footer">
+                  <span class="start-card-meta">
+                    <span>{item.guide.ecosystemShort}</span>
+                    <span class="meta-sep" aria-hidden="true" />
+                    <span class="tabular">{item.guide.readingMinutes} min read</span>
+                  </span>
+                  <a href={item.guide.url} class="start-card-link">
+                    <span>Open guide</span>
+                    <svg
+                      aria-hidden="true"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section id="library" class="library-section" aria-labelledby="library-heading">
+      <div class="shell">
+        <div class="section-header">
+          <h2 id="library-heading" class="section-title">Explore all handbooks</h2>
+          <p class="section-lead">
+            Filter by what you want to do, pick a topic, or type a word below to find the right
+            guide. <a href="/topics" class="topics-index-link">Browse all {stats.totalEcosystems} topic hubs</a>.
+          </p>
+        </div>
+
+        <search class="explorer-controls" aria-label="Search and filter handbooks">
+          <div class="search-field">
+            <label for="guide-search" class="sr-only">Search handbooks</label>
+            <svg
+              class="search-icon"
+              aria-hidden="true"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input
+              id="guide-search"
+              type="search"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="Search by what you want to do (e.g. meetings, notes, video)..."
+            />
+            <kbd id="search-kbd" class="search-kbd" aria-hidden="true">/</kbd>
+            <button id="search-clear" type="button" class="search-clear" aria-label="Clear search" hidden>
+              <svg
+                aria-hidden="true"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="filter-group" role="group" aria-labelledby="goal-filter-label">
+            <span id="goal-filter-label" class="filter-label">By goal</span>
+            <div class="filter-pills">
+              <button
+                type="button"
+                class="filter-pill"
+                data-filter-goal="all"
+                aria-pressed="true"
+              >
+                All <span class="tabular">{stats.totalGuides}</span> Handbooks
+              </button>
+              {
+                GOAL_CATEGORIES.map((goal) => (
+                  <button
+                    type="button"
+                    class="filter-pill"
+                    data-filter-goal={goal.id}
+                    aria-pressed="false"
+                    title={goal.description}
+                  >
+                    {goal.label}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+
+          <div id="ecosystems" class="filter-group" role="group" aria-labelledby="topic-filter-label">
+            <span id="topic-filter-label" class="filter-label">By topic</span>
+            <div class="filter-pills">
+              <button
+                type="button"
+                class="filter-pill filter-pill--topic"
+                data-filter-eco="all"
+                aria-pressed="true"
+              >
+                All Topics
+              </button>
+              {
+                categories.map((cat) => (
+                  <button
+                    type="button"
+                    class="filter-pill filter-pill--topic"
+                    data-filter-eco={cat.id}
+                    aria-pressed="false"
+                  >
+                    {ECOSYSTEM_SHORT_NAMES[cat.id] || cat.shortTitle || cat.title}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+        </search>
+
+        <div class="results-bar">
+          <p id="results-count" class="results-count tabular" aria-live="polite">
+            Showing {stats.totalGuides} of {stats.totalGuides} handbooks
+          </p>
+          <button id="active-reset" type="button" class="reset-link" hidden>Reset filters</button>
+        </div>
+
+        <div id="bookshelf-grid" class="bookshelf-grid">
+          {guides.map((guide, idx) => <GuideCard guide={guide} eager={idx < 4} />)}
+        </div>
+
+        <div id="empty-state" class="empty-state" hidden>
+          <div class="empty-icon" aria-hidden="true">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+          </div>
+          <h3 class="empty-title">No handbooks match those filters</h3>
+          <p class="empty-desc">
+            Try switching back to all topics or searching with a simpler word like meetings, notes,
+            or video.
+          </p>
+          <button id="empty-reset" type="button" class="btn-primary">Reset filters</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter totalGuides={stats.totalGuides} totalEcosystems={stats.totalEcosystems} />
+</BaseLayout>
+
+<script>
+  const searchInput = document.getElementById('guide-search') as HTMLInputElement | null;
+  const searchClear = document.getElementById('search-clear') as HTMLButtonElement | null;
+  const searchKbd = document.getElementById('search-kbd') as HTMLElement | null;
+  const resultsCount = document.getElementById('results-count') as HTMLParagraphElement | null;
+  const activeReset = document.getElementById('active-reset') as HTMLButtonElement | null;
+  const emptyReset = document.getElementById('empty-reset') as HTMLButtonElement | null;
+  const grid = document.getElementById('bookshelf-grid') as HTMLElement | null;
+  const emptyState = document.getElementById('empty-state') as HTMLElement | null;
+
+  const goalButtons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-filter-goal]'),
+  );
+  const ecoButtons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-filter-eco]'),
+  );
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.guide-card'));
+
+  const validGoals = new Set(goalButtons.map((btn) => btn.dataset.filterGoal || 'all'));
+  const validEcos = new Set(ecoButtons.map((btn) => btn.dataset.filterEco || 'all'));
+
+  const state = {
+    goal: 'all',
+    eco: 'all',
+    q: '',
+  };
+
+  function readQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    const goal = params.get('goal');
+    const eco = params.get('eco');
+    const q = params.get('q');
+
+    if (goal && validGoals.has(goal)) state.goal = goal;
+    if (eco && validEcos.has(eco)) state.eco = eco;
+    if (q) state.q = q.trim();
+  }
+
+  function syncUrl() {
+    const params = new URLSearchParams();
+    if (state.goal !== 'all') params.set('goal', state.goal);
+    if (state.eco !== 'all') params.set('eco', state.eco);
+    if (state.q.length > 0) params.set('q', state.q);
+
+    const query = params.toString();
+    const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
+    window.history.replaceState(null, '', nextUrl);
+  }
+
+  function applyFilters(updateUrl = true) {
+    const tokens = state.q
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(Boolean);
+
+    let visibleCount = 0;
+
+    for (const card of cards) {
+      const cardGoals = (card.dataset.goals || '').split(',').filter(Boolean);
+      const cardEco = card.dataset.eco || '';
+      const cardSearch = card.dataset.search || '';
+
+      const matchesGoal = state.goal === 'all' || cardGoals.includes(state.goal);
+      const matchesEco = state.eco === 'all' || cardEco === state.eco;
+      const matchesSearch =
+        tokens.length === 0 || tokens.every((token) => cardSearch.includes(token));
+
+      const isVisible = matchesGoal && matchesEco && matchesSearch;
+      card.hidden = !isVisible;
+      if (isVisible) visibleCount += 1;
+    }
+
+    for (const btn of goalButtons) {
+      btn.setAttribute('aria-pressed', String((btn.dataset.filterGoal || 'all') === state.goal));
+    }
+    for (const btn of ecoButtons) {
+      btn.setAttribute('aria-pressed', String((btn.dataset.filterEco || 'all') === state.eco));
+    }
+
+    if (searchInput && searchInput.value !== state.q) {
+      searchInput.value = state.q;
+    }
+    const hasQuery = state.q.length > 0;
+    if (searchClear) searchClear.hidden = !hasQuery;
+    if (searchKbd) searchKbd.hidden = hasQuery;
+
+    const isFiltered = state.goal !== 'all' || state.eco !== 'all' || hasQuery;
+    if (activeReset) activeReset.hidden = !isFiltered;
+
+    if (resultsCount) {
+      const total = cards.length;
+      resultsCount.textContent = `Showing ${visibleCount} of ${total} ${total === 1 ? 'handbook' : 'handbooks'}`;
+    }
+
+    if (grid) grid.hidden = visibleCount === 0;
+    if (emptyState) emptyState.hidden = visibleCount > 0;
+
+    if (updateUrl) syncUrl();
+  }
+
+  function resetAllFilters() {
+    state.goal = 'all';
+    state.eco = 'all';
+    state.q = '';
+    if (searchInput) searchInput.value = '';
+    applyFilters(true);
+  }
+
+  for (const btn of goalButtons) {
+    btn.addEventListener('click', () => {
+      state.goal = btn.dataset.filterGoal || 'all';
+      applyFilters(true);
+    });
+  }
+
+  for (const btn of ecoButtons) {
+    btn.addEventListener('click', () => {
+      state.eco = btn.dataset.filterEco || 'all';
+      applyFilters(true);
+    });
+  }
+
+  searchInput?.addEventListener('input', () => {
+    state.q = searchInput.value.trim();
+    applyFilters(true);
+  });
+
+  searchInput?.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && searchInput.value.length > 0) {
+      event.preventDefault();
+      state.q = '';
+      searchInput.value = '';
+      applyFilters(true);
+    }
+  });
+
+  searchClear?.addEventListener('click', () => {
+    state.q = '';
+    if (searchInput) {
+      searchInput.value = '';
+      searchInput.focus();
+    }
+    applyFilters(true);
+  });
+
+  activeReset?.addEventListener('click', resetAllFilters);
+  emptyReset?.addEventListener('click', resetAllFilters);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== '/' || event.metaKey || event.ctrlKey || event.altKey) return;
+    const active = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const tag = active ? active.tagName.toLowerCase() : '';
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || active?.isContentEditable) {
+      return;
+    }
+    event.preventDefault();
+    searchInput?.focus();
+  });
+
+  readQueryParams();
+  applyFilters(false);
+</script>

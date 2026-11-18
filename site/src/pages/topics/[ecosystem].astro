@@ -1,0 +1,269 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import catalogData from '../../generated/catalog-enriched.json';
+import { ECOSYSTEM_SHORT_NAMES } from '../../lib/goals';
+import { buildOrganizationSchema, SITE_ORIGIN, WEBSITE_ID } from '../../lib/schema';
+import type { EcosystemCategory, EnrichedGuide } from '../../types/guide';
+import '../../styles/home.css';
+
+export function getStaticPaths() {
+  const categories = catalogData.categories as EcosystemCategory[];
+  const guides = catalogData.guides as EnrichedGuide[];
+
+  return categories.map((category) => {
+    const ecoGuides = guides.filter((g) => g.ecosystem === category.id);
+    const otherCategories = categories.filter((c) => c.id !== category.id);
+    return {
+      params: { ecosystem: category.id },
+      props: {
+        category,
+        ecoGuides,
+        otherCategories,
+        totalGuides: catalogData.stats.totalGuides,
+        totalEcosystems: catalogData.stats.totalEcosystems,
+      },
+    };
+  });
+}
+
+interface Props {
+  category: EcosystemCategory;
+  ecoGuides: EnrichedGuide[];
+  otherCategories: EcosystemCategory[];
+  totalGuides: number;
+  totalEcosystems: number;
+}
+
+const { category, ecoGuides, otherCategories, totalGuides, totalEcosystems } = Astro.props;
+const shortName = ECOSYSTEM_SHORT_NAMES[category.id] || category.shortTitle || category.title;
+const ecoPages = ecoGuides.reduce((sum, g) => sum + g.pages, 0);
+const topicUrl = `${SITE_ORIGIN}/topics/${category.id}`;
+const ogImage = ecoGuides[0]?.ogImageUrl ?? '/og-default.png';
+
+const title = `${category.title} — ${ecoGuides.length} Visual 12-Page Handbooks | Twelve Pages`;
+const description = category.description
+  ? `${category.description} Explore ${ecoGuides.length} free visual 12-page handbooks (${ecoPages} illustrated pages).`
+  : `Explore ${ecoGuides.length} illustrated 12-page handbooks in ${shortName} on Twelve Pages.`;
+
+const topicJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildOrganizationSchema(),
+    {
+      '@type': 'CollectionPage',
+      name: category.title,
+      url: topicUrl,
+      description,
+      inLanguage: 'en-US',
+      numberOfItems: ecoGuides.length,
+      isPartOf: { '@id': WEBSITE_ID },
+      publisher: { '@id': `${SITE_ORIGIN}/#organization` },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: ecoGuides.length,
+        itemListElement: ecoGuides.map((g, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          name: g.title,
+          url: `${SITE_ORIGIN}${g.url}`,
+        })),
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Twelve Pages',
+          item: SITE_ORIGIN,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Topics',
+          item: `${SITE_ORIGIN}/topics`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: shortName,
+          item: topicUrl,
+        },
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={ogImage}
+  ogImageWidth={1200}
+  ogImageHeight={630}
+  pageType="topic"
+  jsonLd={topicJsonLd}
+>
+  <SiteHeader totalGuides={totalGuides} />
+
+  <main id="main-content">
+    <section class="topic-hero" aria-labelledby="topic-heading">
+      <div class="shell">
+        <nav class="topic-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">All Handbooks</a>
+          <span aria-hidden="true">/</span>
+          <a href="/topics">Topics</a>
+          <span aria-hidden="true">/</span>
+          <span>{shortName}</span>
+        </nav>
+
+        <h1 id="topic-heading" class="topic-title">{category.title}</h1>
+        <p class="topic-lead">{category.description}</p>
+
+        <div class="topic-meta-row tabular">
+          <span>{ecoGuides.length} {ecoGuides.length === 1 ? 'Handbook' : 'Handbooks'}</span>
+          <span class="meta-sep" aria-hidden="true"></span>
+          <span>{ecoPages} Illustrated Pages</span>
+          <span class="meta-sep" aria-hidden="true"></span>
+          <span>Free Online &amp; Printable PDF</span>
+          <span class="meta-sep" aria-hidden="true"></span>
+          <a href="/editorial" class="topic-ai-link">AI-Authored &amp; Human-Directed</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-shelf-section" aria-label={`${shortName} handbooks`}>
+      <div class="shell">
+        <div class="bookshelf-grid">
+          {ecoGuides.map((guide, idx) => <GuideCard guide={guide} eager={idx < 4} />)}
+        </div>
+      </div>
+    </section>
+
+    <section class="other-topics-section" aria-labelledby="other-topics-heading">
+      <div class="shell">
+        <h2 id="other-topics-heading" class="other-topics-title">Explore Other Topics</h2>
+        <div class="other-topics-pills">
+          {
+            otherCategories.map((other) => (
+              <a href={`/topics/${other.id}`} class="other-topic-pill">
+                {ECOSYSTEM_SHORT_NAMES[other.id] || other.shortTitle || other.title}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter totalGuides={totalGuides} totalEcosystems={totalEcosystems} />
+</BaseLayout>
+
+<style>
+  .topic-hero {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid var(--border-hair);
+  }
+
+  .topic-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+  }
+
+  .topic-breadcrumb a {
+    color: var(--ink-muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .topic-breadcrumb a:hover {
+    color: var(--ink-main);
+    border-bottom-color: var(--border-hair);
+  }
+
+  .topic-title {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.875rem, 3.6vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink-main);
+  }
+
+  .topic-lead {
+    margin: 0 0 1.25rem;
+    max-width: var(--measure);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--ink-muted);
+  }
+
+  .topic-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+  }
+
+  .topic-ai-link {
+    color: var(--accent-hover);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .topic-shelf-section {
+    padding: 2.25rem 0 1.5rem;
+  }
+
+  .other-topics-section {
+    padding: 1.5rem 0 0.5rem;
+  }
+
+  .other-topics-title {
+    margin: 0 0 0.875rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink-main);
+  }
+
+  .other-topics-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .other-topic-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4375rem 0.875rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-hair);
+    background: var(--bg-surface);
+    color: var(--ink-main);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .other-topic-pill:hover {
+    background: var(--bg-subtle);
+    border-color: var(--accent);
+    color: var(--accent-hover);
+  }
+</style>

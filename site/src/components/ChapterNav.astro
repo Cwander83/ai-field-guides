@@ -1,0 +1,167 @@
+---
+import type { GuideChapter } from '../types/guide';
+
+export interface Props {
+  chapters: GuideChapter[];
+  pdfUrl: string;
+  pdfSizeLabel: string;
+}
+
+const { chapters, pdfUrl, pdfSizeLabel } = Astro.props;
+---
+
+<aside class="chapter-nav-wrap" aria-label="Guide contents">
+  <details class="mobile-toc" id="mobile-toc">
+    <summary class="mobile-toc-summary">
+      <span>Contents — <span class="tabular">{chapters.length}</span> Sections</span>
+      <svg
+        class="mobile-toc-chevron"
+        aria-hidden="true"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </summary>
+    <ol class="mobile-toc-list">
+      {chapters.map((ch) => (
+        <li>
+          <a href={`#${ch.id}`} class="chapter-nav-link">
+            <span class="chapter-nav-num tabular">{ch.number}.</span>
+            <span class="chapter-nav-text">{ch.title}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </details>
+
+  <nav class="chapter-rail" aria-label="Chapter navigation">
+    <p class="rail-heading">In This Handbook</p>
+    <ol class="rail-list">
+      {chapters.map((ch, idx) => (
+        <li>
+          <a
+            href={`#${ch.id}`}
+            class="chapter-nav-link"
+            aria-current={idx === 0 ? 'location' : undefined}
+          >
+            <span class="chapter-nav-num tabular">{ch.number}.</span>
+            <span class="chapter-nav-text">{ch.title}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+
+    <div class="rail-pdf-card">
+      <p class="rail-pdf-title">Read Offline or Print</p>
+      <p class="rail-pdf-meta tabular">12-Page Magazine Edition ({pdfSizeLabel})</p>
+      <a href={pdfUrl} download class="rail-pdf-btn">
+        <svg
+          aria-hidden="true"
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>Download 12-Page PDF</span>
+      </a>
+    </div>
+  </nav>
+</aside>
+
+<script>
+  const mobileToc = document.getElementById('mobile-toc');
+  if (mobileToc instanceof HTMLDetailsElement) {
+    mobileToc.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest('a[href^="#"]')) {
+        mobileToc.open = false;
+      }
+    });
+  }
+
+  const chapterLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('.chapter-rail a.chapter-nav-link'),
+  );
+  const mobileLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('.mobile-toc a.chapter-nav-link'),
+  );
+  const chapterSections = Array.from(
+    document.querySelectorAll<HTMLElement>('.guide-reader-body .chapter-section[id]'),
+  );
+
+  function setActiveChapter(activeId: string) {
+    for (const link of [...chapterLinks, ...mobileLinks]) {
+      const matches = link.getAttribute('href') === `#${activeId}`;
+      if (matches) {
+        link.setAttribute('aria-current', 'location');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    }
+  }
+
+  if (chapterSections.length > 0) {
+    const hashId = window.location.hash.replace(/^#/, '');
+    const initialId = chapterSections.some((sec) => sec.id === hashId)
+      ? hashId
+      : chapterSections[0].id;
+    setActiveChapter(initialId);
+
+    const visibleIds = new Set<string>();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = (entry.target as HTMLElement).id;
+          if (entry.isIntersecting) {
+            visibleIds.add(id);
+          } else {
+            visibleIds.delete(id);
+          }
+        }
+
+        if (visibleIds.size > 0) {
+          const firstVisible = chapterSections.find((sec) =>
+            visibleIds.has(sec.id),
+          );
+          if (firstVisible) {
+            setActiveChapter(firstVisible.id);
+          }
+          return;
+        }
+
+        // Fall back to the last chapter whose top has scrolled past the bar
+        let current = chapterSections[0].id;
+        for (const sec of chapterSections) {
+          if (sec.getBoundingClientRect().top <= 120) {
+            current = sec.id;
+          }
+        }
+        setActiveChapter(current);
+      },
+      {
+        rootMargin: '-84px 0px -62% 0px',
+        threshold: 0,
+      },
+    );
+
+    for (const sec of chapterSections) {
+      observer.observe(sec);
+    }
+  }
+</script>

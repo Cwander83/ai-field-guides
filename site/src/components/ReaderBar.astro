@@ -1,0 +1,176 @@
+---
+export interface Props {
+  title: string;
+  pdfUrl: string;
+  pdfSizeLabel: string;
+  ecosystemShort: string;
+  totalGuides?: number;
+}
+
+const {
+  title,
+  pdfUrl,
+  pdfSizeLabel,
+  ecosystemShort,
+  totalGuides = 50,
+} = Astro.props;
+---
+
+<header class="reader-bar">
+  <div class="reader-bar-inner">
+    <div class="reader-bar-left">
+      <a
+        href="/"
+        class="reader-back"
+        aria-label={`Back to Twelve Pages — All ${totalGuides} Handbooks`}
+      >
+        <svg
+          aria-hidden="true"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        <span>Twelve Pages</span>
+      </a>
+      <span class="reader-bar-divider" aria-hidden="true"></span>
+      <span class="reader-bar-title" title={`${title} (${ecosystemShort})`}>
+        {title}
+      </span>
+    </div>
+
+    <div class="reader-bar-right">
+      <div class="paper-switcher" role="group" aria-label="Paper tone">
+        <button
+          type="button"
+          class="paper-btn"
+          data-paper-choice="warm"
+          aria-pressed="true"
+        >
+          Warm
+        </button>
+        <button
+          type="button"
+          class="paper-btn"
+          data-paper-choice="white"
+          aria-pressed="false"
+        >
+          Crisp
+        </button>
+        <button
+          type="button"
+          class="paper-btn"
+          data-paper-choice="sepia"
+          aria-pressed="false"
+        >
+          Sepia
+        </button>
+      </div>
+
+      <a
+        href={pdfUrl}
+        target="_blank"
+        rel="noopener"
+        class="reader-view-pdf"
+      >
+        View PDF
+      </a>
+
+      <a href={pdfUrl} download class="reader-download-pdf">
+        <svg
+          aria-hidden="true"
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>Download PDF <span class="tabular">({pdfSizeLabel})</span></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="reader-progress-track" aria-hidden="true">
+    <div id="reader-progress-fill" class="reader-progress-fill"></div>
+  </div>
+</header>
+
+<script>
+  const THEME_COLORS: Record<string, string> = {
+    warm: '#FAF8F4',
+    white: '#FFFFFF',
+    sepia: '#F4ECD8',
+  };
+
+  const paperButtons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-paper-choice]'),
+  );
+  const themeMeta = document.querySelector<HTMLMetaElement>(
+    'meta[name="theme-color"]',
+  );
+
+  function syncPaperTone(tone: string, persist: boolean) {
+    const validTone =
+      tone === 'warm' || tone === 'white' || tone === 'sepia' ? tone : 'warm';
+    document.documentElement.dataset.paper = validTone;
+    if (themeMeta) {
+      themeMeta.content = THEME_COLORS[validTone];
+    }
+    for (const btn of paperButtons) {
+      const isSelected = btn.dataset.paperChoice === validTone;
+      btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+    }
+    if (persist) {
+      try {
+        localStorage.setItem('tp-paper', validTone);
+      } catch {
+        /* Storage may be unavailable in restricted contexts */
+      }
+    }
+  }
+
+  syncPaperTone(document.documentElement.dataset.paper || 'warm', false);
+
+  for (const btn of paperButtons) {
+    btn.addEventListener('click', () => {
+      const choice = btn.dataset.paperChoice || 'warm';
+      syncPaperTone(choice, true);
+    });
+  }
+
+  const progressFill = document.getElementById('reader-progress-fill');
+  if (progressFill) {
+    let rafId = 0;
+
+    const updateProgress = () => {
+      rafId = 0;
+      const docEl = document.documentElement;
+      const maxScroll = Math.max(1, docEl.scrollHeight - window.innerHeight);
+      const ratio = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+      progressFill.style.transform = `scaleX(${ratio.toFixed(4)})`;
+    };
+
+    const scheduleProgress = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(updateProgress);
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', scheduleProgress, { passive: true });
+    window.addEventListener('resize', scheduleProgress, { passive: true });
+  }
+</script>

@@ -1,0 +1,489 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ReaderBar from '../../../components/ReaderBar.astro';
+import ChapterNav from '../../../components/ChapterNav.astro';
+import catalogData from '../../../generated/catalog-enriched.json';
+import { parseGuide } from '../../../lib/parseGuide';
+import {
+  buildOrganizationSchema,
+  formatIsoDate,
+  ORGANIZATION_ID,
+  SITE_ORIGIN,
+  WEBSITE_ID,
+} from '../../../lib/schema';
+import type { EnrichedGuide } from '../../../types/guide';
+import '../../../styles/reader.css';
+
+export function getStaticPaths() {
+  const guides = catalogData.guides as EnrichedGuide[];
+
+  return guides.map((guide, index) => {
+    const prevGuide = index > 0 ? guides[index - 1] : null;
+    const nextGuide = index < guides.length - 1 ? guides[index + 1] : null;
+
+    return {
+      params: {
+        ecosystem: guide.ecosystem,
+        slug: guide.slug,
+      },
+      props: {
+        guide,
+        prevGuide,
+        nextGuide,
+        totalGuides: guides.length,
+      },
+    };
+  });
+}
+
+interface Props {
+  guide: EnrichedGuide;
+  prevGuide: EnrichedGuide | null;
+  nextGuide: EnrichedGuide | null;
+  totalGuides: number;
+}
+
+const { guide, prevGuide, nextGuide, totalGuides } = Astro.props;
+const parsed = parseGuide(guide);
+
+const siteOrigin = SITE_ORIGIN;
+const canonicalGuideUrl = `${siteOrigin}${guide.url}`;
+const topicUrl = `${siteOrigin}/topics/${guide.ecosystem}`;
+const ogImagePath = guide.ogImageUrl;
+const ogImageAlt = `${guide.title} — 12-page visual handbook on Twelve Pages`;
+const ogImageWidth = 1200;
+const ogImageHeight = 630;
+const dateModified = formatIsoDate(guide.updated);
+const articleImages = [
+  `${siteOrigin}${guide.ogImageUrl}`,
+  ...(parsed.heroImageUrl ? [`${siteOrigin}${parsed.heroImageUrl}`] : []),
+  `${siteOrigin}${guide.coverPngUrl}`,
+];
+
+const encodedShareUrl = encodeURIComponent(canonicalGuideUrl);
+const encodedShareText = encodeURIComponent(`${guide.title} — ${guide.subtitle}`);
+const shareXUrl = `https://x.com/intent/tweet?text=${encodedShareText}&url=${encodedShareUrl}`;
+const shareLinkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`;
+
+const guideJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildOrganizationSchema(),
+    {
+      '@type': 'TechArticle',
+      headline: guide.title,
+      description: guide.subtitle,
+      url: canonicalGuideUrl,
+      mainEntityOfPage: canonicalGuideUrl,
+      image: articleImages,
+      keywords: guide.tags.join(', '),
+      dateModified,
+      numberOfPages: guide.pages,
+      inLanguage: 'en-US',
+      isAccessibleForFree: true,
+      publisher: { '@id': ORGANIZATION_ID },
+      isPartOf: {
+        '@id': WEBSITE_ID,
+      },
+      encoding: {
+        '@type': 'MediaObject',
+        contentUrl: `${siteOrigin}${guide.pdfUrl}`,
+        encodingFormat: 'application/pdf',
+        name: `${guide.title} (12-Page Printable PDF)`,
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Twelve Pages',
+          item: siteOrigin,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Topics',
+          item: `${siteOrigin}/topics`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: guide.ecosystemShort,
+          item: topicUrl,
+        },
+        {
+          '@type': 'ListItem',
+          position: 4,
+          name: guide.title,
+          item: canonicalGuideUrl,
+        },
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={`${guide.title} — Twelve Pages`}
+  description={guide.subtitle}
+  ogImage={ogImagePath}
+  ogImageAlt={ogImageAlt}
+  ogImageWidth={ogImageWidth}
+  ogImageHeight={ogImageHeight}
+  pageType="reader"
+  markdownUrl={guide.markdownUrl}
+  jsonLd={guideJsonLd}
+>
+  <ReaderBar
+    title={guide.title}
+    pdfUrl={guide.pdfUrl}
+    pdfSizeLabel={guide.pdfSizeLabel}
+    ecosystemShort={guide.ecosystemShort}
+    totalGuides={totalGuides}
+  />
+
+  {parsed.scopedCss && <style is:inline set:html={parsed.scopedCss} />}
+
+  <main id="main-content" class="reader-main">
+    <div class="reader-intro">
+      <nav class="reader-breadcrumb" aria-label="Breadcrumb">
+        <a href="/">All Handbooks</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <a href="/topics">Topics</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <a href={`/topics/${guide.ecosystem}`}>{guide.ecosystemShort}</a>
+      </nav>
+
+      <header class="reader-header">
+        <h1 class="reader-h1">{guide.title}</h1>
+        <p class="reader-lead">{guide.subtitle}</p>
+        <div class="reader-meta tabular">
+          <span>Updated {guide.updated}</span>
+          <span class="meta-dot" aria-hidden="true">&middot;</span>
+          <span>v{guide.version}</span>
+          <span class="meta-dot" aria-hidden="true">&middot;</span>
+          <span>{guide.readingMinutes} min read</span>
+          <span class="meta-dot" aria-hidden="true">&middot;</span>
+          <span>{guide.pages}-Page Illustrated Edition</span>
+          <span class="meta-dot" aria-hidden="true">&middot;</span>
+          <a href="/editorial" class="reader-meta-link">AI-Authored &amp; Human-Directed</a>
+        </div>
+      </header>
+
+      {parsed.heroImageUrl && (
+        <figure class="reader-hero">
+          <img
+            src={parsed.heroImageUrl}
+            alt={parsed.heroImageAlt || `${guide.title} illustration`}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </figure>
+      )}
+
+      {parsed.badges.length > 0 && (
+        <ul class="reader-badges" aria-label="Topics covered">
+          {parsed.badges.map((badge) => (
+            <li class="reader-badge">{badge}</li>
+          ))}
+        </ul>
+      )}
+
+      {parsed.pillars.length > 0 && (
+        <section class="reader-pillars" aria-labelledby="takeaways-heading">
+          <h2 id="takeaways-heading" class="pillars-heading">Core Takeaways</h2>
+          <div class="pillars-grid">
+            {parsed.pillars.map((pillar) => (
+              <div class="pillar-card">
+                <h3 class="pillar-title">{pillar.title}</h3>
+                <p class="pillar-desc">{pillar.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+
+    <div class="reader-layout">
+      <ChapterNav
+        chapters={parsed.chapters}
+        pdfUrl={guide.pdfUrl}
+        pdfSizeLabel={guide.pdfSizeLabel}
+      />
+
+      <article class="guide-reader-body" aria-label={guide.title}>
+        {parsed.chapters.map((ch) => (
+          <section id={ch.id} class="chapter-section">
+            <h2 class="chapter-title">
+              <span class="chapter-num tabular">{ch.number}.</span> {ch.title}
+            </h2>
+            {ch.leadHtml && <p class="chapter-lead" set:html={ch.leadHtml} />}
+            <div class="chapter-prose" set:html={ch.bodyHtml} />
+          </section>
+        ))}
+      </article>
+    </div>
+
+    <section class="reader-bottom" aria-labelledby="pdf-callout-heading">
+      <aside class="ai-colophon-card" aria-labelledby="ai-colophon-heading">
+        <h2 id="ai-colophon-heading" class="ai-colophon-title">Edition Note &amp; Verification</h2>
+        <p class="ai-colophon-desc">
+          This {guide.pages}-page handbook&mdash;including its prose, topic structure, inline diagrams, and 16:9 illustrations&mdash;was generated with AI under human editorial direction and print-layout QA. Because software interfaces and plans change quickly, always verify commands, pricing, quotas, and security configurations against official vendor documentation before production use.
+          <a href="/editorial" class="ai-colophon-link">How Twelve Pages is made</a>.
+        </p>
+      </aside>
+
+      <div class="pdf-callout-card">
+        <div class="pdf-callout-copy">
+          <h2 id="pdf-callout-heading" class="pdf-callout-title">
+            Save the {guide.pages}-Page Magazine PDF
+          </h2>
+          <p class="pdf-callout-desc">
+            Keep a print-ready copy of {guide.title} for offline reading, desk reference, or sharing with teammates (<span class="tabular">{guide.pdfSizeLabel}</span>).
+          </p>
+        </div>
+        <div class="pdf-callout-actions">
+          <a href={guide.pdfUrl} download class="reader-btn-primary">
+            <svg
+              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download PDF <span class="tabular">({guide.pdfSizeLabel})</span></span>
+          </a>
+          <a
+            href={guide.pdfUrl}
+            target="_blank"
+            rel="noopener"
+            class="reader-btn-secondary"
+          >
+            View PDF
+          </a>
+        </div>
+      </div>
+
+      <div class="reader-share-bar" aria-label="Share and machine-readable formats">
+        <span class="share-label">Share or Read Raw Markdown:</span>
+        <div class="share-actions">
+          <button type="button" id="copy-guide-link-btn" class="share-btn">
+            Copy Link
+          </button>
+          <span id="copy-guide-link-status" class="share-status" role="status"></span>
+          <a
+            href={shareXUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="share-btn"
+          >
+            Share on X
+          </a>
+          <a
+            href={shareLinkedInUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="share-btn"
+          >
+            Share on LinkedIn
+          </a>
+          <a href={guide.markdownUrl} class="share-btn">
+            Markdown (.md)
+          </a>
+        </div>
+      </div>
+
+      {(prevGuide || nextGuide) && (
+        <nav class="reader-pager" aria-label="Adjacent handbooks">
+          {prevGuide ? (
+            <a href={prevGuide.url} class="pager-card pager-prev">
+              <span class="pager-dir">
+                <svg
+                  aria-hidden="true"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M19 12H5"></path>
+                  <path d="M12 19l-7-7 7-7"></path>
+                </svg>
+                <span>Previous Handbook</span>
+              </span>
+              <span class="pager-title">{prevGuide.title}</span>
+              <span class="pager-eco">{prevGuide.ecosystemShort}</span>
+            </a>
+          ) : (
+            <div></div>
+          )}
+
+          {nextGuide && (
+            <a href={nextGuide.url} class="pager-card pager-next">
+              <span class="pager-dir">
+                <span>Next Handbook</span>
+                <svg
+                  aria-hidden="true"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5l7 7-7 7"></path>
+                </svg>
+              </span>
+              <span class="pager-title">{nextGuide.title}</span>
+              <span class="pager-eco">{nextGuide.ecosystemShort}</span>
+            </a>
+          )}
+        </nav>
+      )}
+    </section>
+
+    <footer class="reader-footer">
+      <div class="reader-footer-top">
+        <a href="/" class="reader-footer-link">
+          Twelve Pages — All <span class="tabular">{totalGuides}</span> Handbooks
+        </a>
+        <nav class="reader-footer-nav" aria-label="Handbook footer links">
+          <a href="/topics">Topics</a>
+          <a href="/editorial">AI Disclosure</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <button type="button" class="reader-footer-btn" data-open-cookie-prefs>
+            Cookie Preferences
+          </button>
+        </nav>
+      </div>
+      <p class="reader-footer-note">
+        AI-authored under human editorial direction &bull; Independent library not affiliated with listed vendors &bull; twelve-pages.com
+      </p>
+    </footer>
+  </main>
+</BaseLayout>
+
+<script>
+  const timers = new WeakMap<Element, number>();
+  let lastMessage = '';
+
+  function report(button: HTMLButtonElement, ok: boolean) {
+    const tip = button.nextElementSibling;
+    if (!(tip instanceof HTMLElement)) return;
+
+    const activeTimer = timers.get(button);
+    if (activeTimer !== undefined) {
+      window.clearTimeout(activeTimer);
+    }
+
+    button.removeAttribute('data-copied');
+    button.removeAttribute('data-failed');
+
+    let message = ok ? 'Copied' : 'Copy failed';
+    if (message === lastMessage) {
+      message += '\u00A0';
+    }
+    lastMessage = message;
+
+    tip.textContent = '';
+    void button.offsetWidth;
+    button.setAttribute(ok ? 'data-copied' : 'data-failed', '');
+    requestAnimationFrame(() => {
+      tip.textContent = message;
+    });
+
+    timers.set(
+      button,
+      window.setTimeout(() => {
+        button.removeAttribute('data-copied');
+        button.removeAttribute('data-failed');
+        tip.textContent = '';
+      }, 2000),
+    );
+  }
+
+  async function copy(button: HTMLButtonElement, target: HTMLElement) {
+    const text =
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLTextAreaElement
+        ? target.value
+        : (target.innerText || target.textContent || '').trim();
+
+    if (!text) return;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      report(button, true);
+    } catch {
+      report(button, false);
+    }
+  }
+
+  if ('CommandEvent' in window) {
+    document.addEventListener(
+      'command',
+      (event) => {
+        const cmdEvent = event as Event & {
+          command?: string;
+          source?: Element | null;
+        };
+        if (
+          typeof cmdEvent.command === 'string' &&
+          cmdEvent.command.startsWith('--copy') &&
+          cmdEvent.source instanceof HTMLButtonElement &&
+          cmdEvent.target instanceof HTMLElement
+        ) {
+          void copy(cmdEvent.source, cmdEvent.target);
+        }
+      },
+      true,
+    );
+  } else {
+    document.addEventListener('click', (event) => {
+      const eventTarget = event.target;
+      if (!(eventTarget instanceof Element)) return;
+      const button = eventTarget.closest('button[command^="--copy"]');
+      if (!(button instanceof HTMLButtonElement)) return;
+      const forId = button.getAttribute('commandfor');
+      const target = forId ? document.getElementById(forId) : null;
+      if (target) {
+        void copy(button, target);
+      }
+    });
+  }
+
+  const copyLinkBtn = document.getElementById('copy-guide-link-btn') as HTMLButtonElement | null;
+  const copyLinkStatus = document.getElementById('copy-guide-link-status') as HTMLElement | null;
+  let copyLinkTimer = 0;
+
+  copyLinkBtn?.addEventListener('click', async () => {
+    window.clearTimeout(copyLinkTimer);
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      if (copyLinkStatus) copyLinkStatus.textContent = 'Link copied';
+    } catch {
+      if (copyLinkStatus) copyLinkStatus.textContent = 'Copy failed';
+    }
+    copyLinkTimer = window.setTimeout(() => {
+      if (copyLinkStatus) copyLinkStatus.textContent = '';
+    }, 2000);
+  });
+</script>
