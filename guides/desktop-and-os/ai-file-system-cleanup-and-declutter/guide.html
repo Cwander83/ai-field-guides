@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI File System Cleanup &amp; Digital Declutter: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI DESKTOP &amp; OS OPS &bull; FILE CLEANUP FIELD GUIDE</div>
+    <h1>AI File System Cleanup &amp; <span>Digital Declutter</span></h1>
+    <p class="cover-sub">
+      Reclaim chaotic <code>Downloads/</code> and Desktop folders without ever losing an irreplaceable file&mdash;combining dry-run manifests, SHA-256 duplicate sweeps, VLM/OCR receipt renaming, 30-day quarantine staging, and native Mac + Windows automation.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Dry-Run Manifests</span>
+      <span class="cover-badge">SHA-256 Dedup Sweeps</span>
+      <span class="cover-badge">VLM / OCR PDF Naming</span>
+      <span class="cover-badge">30-Day Quarantine Gate</span>
+      <span class="cover-badge">Mac Hazel vs. Windows</span>
+      <span class="cover-badge">Cowork &amp; Gemini CLI</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Warm cedar slate desk where scattered translucent glass documents pass through a golden amber prism beam into neatly stacked archival folder trays" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Plan Before Moving a Byte</div>
+      <div class="cover-stat-desc">Generate readable dry-run manifests (<code>manifest.csv</code> or <code>-WhatIf</code>) with strict <code>node_modules</code> and <code>.DS_Store</code> exclusions before touching live folders.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Verify Exact &amp; Visual Clones</div>
+      <div class="cover-stat-desc">Pair <code>rmlint</code>, <code>fdupes</code>, and Python <code>hashlib</code> SHA-256 checksums with VLM/OCR metadata to name scans cleanly by vendor and date.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">30-Day Quarantine Shield</div>
+      <div class="cover-stat-desc">Stage redundant installers and clutter in <code>_quarantine_30d/</code> with an undo ledger across macOS <code>Hazel</code>, Windows <code>PowerRename</code>, Cowork, and Gemini CLI.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Dry-Run Safety</span>
+    <span>AI File System Cleanup &amp; Digital Declutter</span>
+  </div>
+
+  <h2 class="page-title">Why Manifest-First Cleanup Beats Blind Auto-Delete</h2>
+  <p class="page-lead">
+    Pointing an over-eager script or AI assistant straight at a cluttered <code>Downloads/</code> or <code>Desktop/</code> folder is the fastest way to break local Git repositories, corrupt half-finished browser transfers, or erase tax receipts. The safest approach treats cleanup like a disciplined engineering deployment: scan read-only, exclude active code trees, verify SHA-256 digests, review a dry-run manifest, and stage removals inside a 30-day quarantine folder.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model: Dry-Run Pipeline</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Mac vs. Windows OS Automation</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Exclusions, Setup &amp; Tool Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Cleanup Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Cleanup Cockpit Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Quarantine, Privacy &amp; Rollback</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. SHA-256 Sweeps &amp; Dedup Engines</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Declutter Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. 5-Part Safe Cleanup Formula</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. VLM &amp; OCR Receipt Renaming</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Manifest First, Purge Last</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>The Golden Rule: Never Rename or Delete in One Hop</h3>
+  <p style="font-size:8.7pt;">
+    Humans create clutter incrementally, so your cleanup workflow should unwind it in reversible layers. Separate <strong>discovery</strong> (hashing bytes and reading PDFs) from <strong>decision</strong> (reviewing your proposed move table) and <strong>execution</strong> (routing keepers to clean buckets while parking discards inside <code>_quarantine_30d/</code>).
+  </p>
+
+  <h3>Architecture: Read-Only Discovery to Reversible Staging</h3>
+  <div class="figure-box" style="background:#1c1917; padding:9px 12px; border-color:#78350f;">
+    <svg viewBox="0 0 700 186" width="100%" height="186" xmlns="http://www.w3.org/2000/svg">
+      <!-- Column 1: Scope & Exclusions -->
+      <rect x="8" y="12" width="198" height="162" rx="9" fill="#26211e" stroke="#f59e0b" stroke-width="1.6"/>
+      <text x="18" y="30" fill="#fcd34d" font-size="7.9" font-weight="700">1. SCOPED SCAN</text>
+      <text x="18" y="46" fill="#ffffff" font-size="10" font-weight="800">Downloads &amp; Desktop</text>
+      <rect x="18" y="55" width="178" height="25" rx="5" fill="#322a25" stroke="#b45309" stroke-width="0.9"/>
+      <text x="26" y="71" fill="#fef3c7" font-size="7.5" font-weight="600">&bull; Skip .DS_Store &amp; Thumbs.db</text>
+      <rect x="18" y="85" width="178" height="26" rx="5" fill="#322a25" stroke="#d97706" stroke-width="0.9"/>
+      <text x="26" y="101" fill="#fef3c7" font-size="7.5" font-weight="600">&bull; Prune node_modules, .git, .venv</text>
+      <rect x="18" y="116" width="178" height="26" rx="5" fill="#322a25" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="26" y="132" fill="#e0f2fe" font-size="7.5" font-weight="600">&bull; Ignore active .crdownload / .part</text>
+      <rect x="18" y="147" width="178" height="20" rx="5" fill="#2c1d18" stroke="#fb7185" stroke-width="0.9"/>
+      <text x="26" y="160" fill="#ffe4e6" font-size="7.3" font-weight="600">&bull; Zero writes during discovery phase</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M206 93 L238 93" stroke="#fbbf24" stroke-width="2.2"/>
+      <polygon points="236,88 245,93 236,98" fill="#fbbf24"/>
+
+      <!-- Column 2: Hash & VLM Manifest -->
+      <rect x="246" y="8" width="212" height="170" rx="10" fill="#292524" stroke="#fbbf24" stroke-width="2"/>
+      <text x="352" y="27" text-anchor="middle" fill="#fde68a" font-size="8" font-weight="700">2. MANIFEST &amp; HASH ENGINE</text>
+      <text x="352" y="44" text-anchor="middle" fill="#ffffff" font-size="10.6" font-weight="800">SHA-256 + VLM / OCR Plan</text>
+      <rect x="258" y="53" width="188" height="33" rx="6" fill="#1c1917" stroke="#d97706" stroke-width="1"/>
+      <text x="352" y="67" text-anchor="middle" fill="#fef3c7" font-size="7.7" font-weight="700">Exact Cryptographic Grouping</text>
+      <text x="352" y="79" text-anchor="middle" fill="#d6d3d1" font-size="7.1">rmlint, fdupes &amp; Python hashlib digests</text>
+      <rect x="258" y="92" width="188" height="35" rx="6" fill="#1c1917" stroke="#fbbf24" stroke-width="1.2" stroke-dasharray="4 2"/>
+      <text x="352" y="106" text-anchor="middle" fill="#fcd34d" font-size="7.7" font-weight="700">OCR / Vision Metadata Extraction</text>
+      <text x="352" y="119" text-anchor="middle" fill="#d6d3d1" font-size="7.1">YYYY-MM-DD_Vendor_Category.pdf</text>
+      <rect x="258" y="133" width="188" height="35" rx="6" fill="#1c1917" stroke="#38bdf8" stroke-width="1"/>
+      <text x="352" y="147" text-anchor="middle" fill="#bae6fd" font-size="7.7" font-weight="700">Dry-Run Approval Manifest</text>
+      <text x="352" y="160" text-anchor="middle" fill="#d6d3d1" font-size="7.1">Human inspects CSV / plan before move</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M458 93 L490 93" stroke="#38bdf8" stroke-width="2.2"/>
+      <polygon points="488,88 497,93 488,98" fill="#38bdf8"/>
+
+      <!-- Column 3: Archive & Quarantine -->
+      <rect x="498" y="12" width="194" height="162" rx="9" fill="#1e242b" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="508" y="30" fill="#7dd3fc" font-size="7.9" font-weight="700">3. REVERSIBLE EXECUTION</text>
+      <text x="508" y="46" fill="#ffffff" font-size="10" font-weight="800">Sorted + Quarantined</text>
+      <rect x="508" y="55" width="174" height="32" rx="5" fill="#232c35" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="516" y="69" fill="#e0f2fe" font-size="7.6" font-weight="700">Clean 6-Bucket Folders</text>
+      <text x="516" y="81" fill="#d6d3d1" font-size="7.1">Finance, Projects, Media, Ref</text>
+      <rect x="508" y="93" width="174" height="33" rx="5" fill="#232c35" stroke="#fbbf24" stroke-width="0.9"/>
+      <text x="516" y="107" fill="#fde68a" font-size="7.6" font-weight="700">_quarantine_30d/ Staging</text>
+      <text x="516" y="119" fill="#d6d3d1" font-size="7.1">Dupes &amp; old .dmg/.exe wait 30 days</text>
+      <rect x="508" y="132" width="174" height="32" rx="5" fill="#232c35" stroke="#34d399" stroke-width="0.9"/>
+      <text x="516" y="146" fill="#a7f3d0" font-size="7.6" font-weight="700">1-Command Undo Ledger</text>
+      <text x="516" y="158" fill="#d6d3d1" font-size="7.1">rollback_manifest.csv restores all</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Exclude Dev &amp; OS Trees Before Measuring Anything</div>
+    Even a modest developer laptop hides 120,000+ identical tiny files inside <code>node_modules/</code>, <code>.venv/</code>, and <code>.DS_Store</code> caches. Always apply a hard ignore list on step zero so your cleanup manifest focuses strictly on real documents, installers, screenshots, and archives.
+  </div>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: EXCLUSIONS, SETUP & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Exclusions, Setup &amp; Tool Matrix</span>
+    <span>Ignore Rules, Deduplication Engines &amp; AI Assistants</span>
+  </div>
+
+  <h2 class="page-title">Safety Exclusions, Hash Tools &amp; Cleanup Matrix</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Before invoking a single rename rule or AI planner, lock down what must never be touched and choose the right blend of fast deterministic CLI engines and vision-capable AI helpers for your operating system.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px; gap:11px;">
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Mandatory Exclusion Rules (Never Touch)</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>OS Metadata Files:</strong> Ignore <code>.DS_Store</code>, <code>._*</code> AppleDouble forks, <code>Thumbs.db</code>, and <code>desktop.ini</code> so duplicate sweeps never choke on folder-view clutter.</li>
+        <li><strong>Code &amp; Build Trees:</strong> Prune <code>node_modules/</code>, <code>.git/</code>, <code>.venv/</code>, <code>__pycache__/</code>, <code>target/</code>, <code>dist/</code>, and <code>build/</code>&mdash;identical boilerplate files inside dependencies are structural, not waste.</li>
+        <li><strong>Active Transfers &amp; Stubs:</strong> Skip <code>*.crdownload</code>, <code>*.part</code>, <code>*.download</code>, and unhydrated <code>.icloud</code> placeholders unless age exceeds 24 hours.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #7c2d12;">
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge cedar">2</span> 60-Second Cross-Platform Workbench</div>
+      <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>macOS CLI Stack:</strong> Install <code>brew install rmlint fdupes ocrmypdf</code>; pair with built-in Spotlight <code>mdfind</code>, Finder Folder Actions, and optional <strong>Hazel 6</strong>.</li>
+        <li><strong>Windows 11 Stack:</strong> Install <code>winget install Microsoft.PowerToys</code> for <strong>PowerRename</strong> + built-in <strong>PowerShell 7</strong> (<code>Get-FileHash</code>, <code>-WhatIf</code>).</li>
+        <li><strong>AI Planners:</strong> Run <strong>Claude Cowork</strong> scoped strictly to <code>Downloads/</code>, or <strong>Gemini CLI</strong> with <code>--approval-mode plan --sandbox</code> for read-only manifests.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-dark" style="padding:8px 12px; margin-bottom:8px;">
+    <div class="card-title" style="font-size:8.9pt; color:#fbbf24; margin-bottom:3px;">Universal Exclude List (Paste Into Every CLI Flag, Script &amp; Agent Prompt)</div>
+    <div style="font-size:7.85pt; color:#e7e5e4; line-height:1.4;">
+      Exclude paths matching: <code>.git/**</code> &nbsp;<code>node_modules/**</code> &nbsp;<code>.venv/**</code> &nbsp;<code>dist/**</code> &nbsp;<code>target/**</code> &nbsp;<code>*.DS_Store</code> &nbsp;<code>Thumbs.db</code> &nbsp;<code>*.crdownload</code> &nbsp;<code>*.part</code> &nbsp;<code>_quarantine_30d/**</code>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.4pt;">Deduplication, Renaming &amp; AI Cleanup Tool Matrix</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Tool / Engine</th>
+        <th style="width:20%;">OS Support</th>
+        <th style="width:22%;">Verification &amp; Dry-Run Mode</th>
+        <th style="width:19%;">Primary Superpower</th>
+        <th style="width:20%;">Best-Fit Cleanup Task</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>rmlint</strong><br/><em>C CLI Linter</em></td>
+        <td>macOS, Linux, Win (WSL2)</td>
+        <td>Generates <code>rmlint.sh</code>; test safely via <code>./rmlint.sh -n</code>.</td>
+        <td><code>--algorithm=sha256</code> + <code>-p</code> byte check; ultra fast.</td>
+        <td>Sweeping large media, backup &amp; archive trees safely.</td>
+      </tr>
+      <tr>
+        <td><strong>fdupes / jdupes</strong><br/><em>Classic CLI</em></td>
+        <td>macOS, Linux, Win ports</td>
+        <td><strong>Dry-run by default:</strong> prints dupes; deletes only with <code>-d</code>.</td>
+        <td>Size + MD5 + byte-for-byte check; <code>-A</code> skips hidden files.</td>
+        <td>Quick scriptable text reports &amp; pipe-to-quarantine lists.</td>
+      </tr>
+      <tr>
+        <td><strong>Python <code>hashlib</code></strong><br/><em>Custom Script</em></td>
+        <td>macOS, Windows, Linux</td>
+        <td>Writes <code>manifest.csv</code> first; requires explicit <code>--apply</code>.</td>
+        <td><code>file_digest(..., "sha256")</code> + custom <code>_quarantine_30d/</code>.</td>
+        <td>Cross-OS reproducible sweeps with rollback CSV logs.</td>
+      </tr>
+      <tr>
+        <td><strong>Hazel 6 / PowerRename</strong><br/><em>OS Native GUI</em></td>
+        <td>Hazel (Mac) / PowerToys (Win)</td>
+        <td><code>Option+Cmd+P</code> Preview + Finder Revert / Live preview grid.</td>
+        <td>Hazel on-the-fly OCR / PowerRename Regex + EXIF/XMP.</td>
+        <td>Continuous background inbox rules &amp; visual bulk renames.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Cowork &amp; Gemini CLI</strong></td>
+        <td>macOS &amp; Windows Desktop / CLI</td>
+        <td>Approval-gated dry run / <code>--approval-mode plan --sandbox</code>.</td>
+        <td>Semantic PDF/screenshot reading &amp; smart categorization.</td>
+        <td>Taming messy <code>Downloads/</code> &amp; naming ambiguous docs.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.2pt;">
+    <div class="callout-title">Scope Boundary Rule: Never Grant Cleanup Access to Your Home Root</div>
+    Point Cowork, Gemini CLI, or custom scripts exclusively at leaf folders like <code>~/Downloads</code>, <code>~/Desktop</code>, or <code>C:\Users\You\Downloads</code>. Never aim automated sorters at <code>~/</code>, <code>~/Library</code>, <code>AppData</code>, or active project repositories.
+  </div>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Dry-Run Manifest Cockpit, Quarantine Queue &amp; Rule Inspector</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Inside a Safe Declutter Cockpit</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Whether you inspect a manifest in Claude Cowork, preview rules in Hazel 6, or review a Python/PowerShell dry-run table in your terminal, every trustworthy cleanup workflow exposes the exact same seven visual checkpoints before moving a single file.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#fef3c7; white-space:nowrap;">Declutter Cockpit &bull; ~/Downloads (1,428 files)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:5px; font-size:6.6pt; white-space:nowrap;">
+        <span class="fs-chip" style="background:#064e3b; border:1px solid #34d399; color:#a7f3d0;">DRY-RUN <span class="callout-pin">1</span></span>
+        <span class="fs-chip" style="background:#7f1d1d; border:1px solid #fb7185; color:#ffe4e6;">Skipped: 14.9k <span class="callout-pin">2</span></span>
+        <span class="fs-chip" style="background:#78350f; border:1px solid #fbbf24; color:#fef3c7;">_quarantine_30d/ <span class="callout-pin">7</span></span>
+      </div>
+    </div>
+
+    <!-- Main Split View -->
+    <div style="display:grid; grid-template-columns: 56% 44%; min-height:262px;">
+      <!-- Left: Dry-Run Manifest + SHA-256 Dupes + Approval Bar -->
+      <div style="border-right:1px solid #44403c; padding:8px 10px; display:flex; flex-direction:column; justify-content:space-between; background:#191614;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; font-size:6.6pt; color:#a8a29e;">
+            <span>Run: <code>2026-11-17_dl</code> &bull; 0 bytes changed</span>
+            <span style="color:#fbbf24; font-weight:700;">rollback_manifest.csv</span>
+          </div>
+
+          <!-- Proposed Move Manifest -->
+          <div class="fs-pane" style="border-top:2px solid #fbbf24; margin-bottom:5px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+              <strong style="color:#fef3c7;">Proposed Dry-Run Manifest <span class="callout-pin">3</span></strong>
+              <span style="color:#fcd34d; font-size:6.4pt;">6 Target Buckets</span>
+            </div>
+            <div style="color:#f5f5f4; line-height:1.42; font-family:Menlo, Consolas, monospace; font-size:6.35pt;">
+              [MOVE] Q4_Deck_Final.pptx &rarr; Archive/Decks/<br/>
+              [SKIP] app/node_modules/ &rarr; Excluded rule #2<br/>
+              [STAG] Chrome_v138.dmg (48d) &rarr; _quarantine_30d/
+            </div>
+          </div>
+
+          <!-- SHA-256 Duplicate Group -->
+          <div class="fs-pane" style="border-top:2px solid #38bdf8; background:#1c2329; margin-bottom:5px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+              <strong style="color:#bae6fd;">SHA-256 Exact Clone Cluster <span class="callout-pin">4</span></strong>
+              <span style="background:#0284c7; color:#fff; padding:1px 6px; border-radius:4px; font-size:6.3pt; font-weight:700;">sha256: 9f86d0...</span>
+            </div>
+            <div style="color:#e0f2fe; line-height:1.38;">
+              <strong>KEEP:</strong> <code>Archive/Tax_2025_W2.pdf</code> (2.4 MB)<br/>
+              <strong>STAGE:</strong> <code>Tax_2025_W2 (1).pdf</code> &rarr; <code>_quarantine_30d/dupes/</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent / CLI Plan Command Bar -->
+        <div style="background:#26211e; border:1px solid #78350f; border-radius:6px; padding:5px 8px; font-size:6.55pt; color:#fef3c7; display:flex; justify-content:space-between; align-items:center;">
+          <span><code>gemini -p "audit Downloads" --approval-mode plan --sandbox</code></span>
+          <span class="callout-pin">6</span>
+        </div>
+      </div>
+
+      <!-- Right: Exclusion Rules + VLM/OCR Receipt Preview -->
+      <div style="padding:8px 9px; background:#211d1a; display:flex; flex-direction:column; gap:6px;">
+        <!-- Exclusion Active Rules -->
+        <div style="background:#29231f; border:1px solid #d97706; border-radius:7px; padding:6px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="font-size:6.9pt; font-weight:800; color:#fbbf24;">ACTIVE EXCLUSION GUARD</span>
+            <span style="font-size:6.3pt; color:#d6d3d1;">Pruned pre-hash</span>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:4px; font-size:6.5pt;">
+            <span style="background:#451a03; color:#fde68a; padding:2px 6px; border-radius:4px; font-weight:700;">.DS_Store</span>
+            <span style="background:#44403c; color:#e7e5e4; padding:2px 6px; border-radius:4px;">node_modules/</span>
+            <span style="background:#44403c; color:#e7e5e4; padding:2px 6px; border-radius:4px;">.git/</span>
+            <span style="background:#44403c; color:#e7e5e4; padding:2px 6px; border-radius:4px;">*.crdownload</span>
+            <span style="background:#44403c; color:#e7e5e4; padding:2px 6px; border-radius:4px;">.venv/</span>
+          </div>
+        </div>
+
+        <!-- VLM/OCR Receipt Renamer Drawer -->
+        <div style="background:#1c1917; border:1px solid #059669; border-radius:7px; padding:6px 8px; flex-grow:1; display:flex; flex-direction:column; justify-content:space-between; gap:4px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:6.8pt; font-weight:800; color:#6ee7b7;">VLM / OCR RENAME PREVIEW <span class="callout-pin">5</span></span>
+            <span style="font-size:6.3pt; color:#6ee7b7;">Conf: 0.98</span>
+          </div>
+          <div style="background:#192620; border-radius:5px; padding:5px 6px; font-size:6.45pt; color:#e7e5e4; line-height:1.4;">
+            <strong style="color:#fca5a5;">Before:</strong> <code>Scan_20261018_0042.pdf</code><br/>
+            <strong style="color:#6ee7b7;">After:</strong> <code>2026-10-18_Cloudflare_Host.pdf</code><br/>
+            <span style="color:#cbd5e1;">Date=2026-10-18 &bull; Vendor=Cloudflare &bull; Cat=Host</span>
+          </div>
+          <div style="font-size:6.4pt; color:#a8a29e; display:flex; justify-content:space-between;">
+            <span>Awaiting human <code>--apply</code> approval</span>
+            <span style="color:#fbbf24; font-weight:700;">Hazel &bull; PowerRename</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Point Legend -->
+  <div class="grid-2" style="gap:6px 12px; font-size:7.95pt;">
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">1</span> <strong>Read-Only Dry-Run Mode:</strong> Confirms zero destructive actions occur during scanning&mdash;matching <code>rmlint.sh -n</code>, PowerShell <code>-WhatIf</code>, and Gemini <code>plan</code> mode.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">2</span> <strong>Pre-Hash Exclusion Counter:</strong> Shows dev builds, <code>.DS_Store</code>, and active browser downloads safely bypassed before hashing begins.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">3</span> <strong>Dry-Run Move Manifest:</strong> Displays every source path, proposed bucket, and target name so you catch surprises before committing changes.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">4</span> <strong>SHA-256 Clone Cluster:</strong> Groups byte-identical files regardless of filename, keeping one canonical original and staging duplicates safely.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">5</span> <strong>VLM / OCR Rename Preview:</strong> Extracts date, vendor, and category from image-only scans into clean <code>YYYY-MM-DD_Vendor_Category.pdf</code> names.
+    </div>
+    <div class="card" style="padding:6px 9px;">
+      <span class="callout-pin">6</span> <strong>Approval-Gated Agent Bar:</strong> Runs Claude Cowork or Gemini CLI inside strict folder sandboxes with explicit human sign-off required to execute moves.
+    </div>
+  </div>
+  <div class="card-amber" style="padding:6px 10px; margin-top:6px; font-size:7.95pt;">
+    <span class="callout-pin">7</span> <strong>30-Day Quarantine Staging &amp; Ledger:</strong> Routes every duplicate and stale installer into <code>_quarantine_30d/YYYY-MM-DD/</code> alongside <code>rollback_manifest.csv</code> so you can restore any file in seconds during a full month cooling-off window.
+  </div>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: SHA-256 DUPLICATE SWEEPS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Cryptographic Deduplication</span>
+    <span>SHA-256 Sweeps with rmlint, fdupes &amp; Python hashlib</span>
+  </div>
+
+  <h2 class="page-title">SHA-256 Duplicate Sweeps: Zero-Guesswork Cleanup</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Filename heuristics fail in both directions: two different monthly statements might both arrive as <code>statement.pdf</code>, while an identical 200 MB installer lurks under <code>Docker.dmg</code> and <code>Docker (1).dmg</code>. Size pre-filtering followed by SHA-256 hashing finds true clones with mathematical certainty.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_1.jpg" style="width:100%; height:238px; object-fit:cover; object-position:center; display:block;" alt="Editorial 3D still life where document cubes pass through a golden optical SHA-256 verification prism separating unique folders from duplicate glass cubes" />
+    <div class="figure-caption">
+      <strong>Size Bucket &rarr; SHA-256 Digest &rarr; Quarantine:</strong> Two files only reach full cryptographic hashing if their exact byte sizes match first, keeping scans blazingly fast across tens of gigabytes.
+    </div>
+  </div>
+
+  <h3>Three Proven Duplicate Sweep Engines</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> <code>rmlint</code> Script-First Sweep</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Rather than deleting live files, <code>rmlint</code> writes a clean executable script (<code>rmlint.sh</code>). Run <code>./rmlint.sh -n</code> first for a dry-run preview; pass <code>-p</code> if you want extra byte-by-byte verification alongside SHA-256.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge cedar">2</span> <code>fdupes</code> Default Dry Run</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Classic <code>fdupes</code> (or faster C fork <code>jdupes</code>) prints duplicate sets without touching disk unless you pass <code>-d</code>. Add <code>-r -n -A -S</code> to recurse while skipping empty 0-byte files and hidden <code>.DS_Store</code> metadata.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge sky">3</span> Python <code>hashlib.file_digest</code></div>
+      <p style="font-size:7.9pt; margin:0;">
+        Available natively on both Mac and Windows in Python 3.11+, <code>hashlib.file_digest(f, "sha256")</code> streams huge video or ISO files at C speed without loading gigabytes into RAM.
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge emerald">4</span> Keep Canonical, Stage Clones</div>
+      <p style="font-size:7.9pt; margin:0;">
+        Always sort each duplicate cluster to keep the shortest clean path outside <code>Downloads/</code> (or oldest original without <code>(1)</code>), routing remaining clones straight to <code>_quarantine_30d/dupes/</code>.
+      </p>
+    </div>
+  </div>
+
+  <pre class="code-block"><code># 1) rmlint SHA-256 sweep (macOS / Linux / WSL2) -- generates rmlint.sh without touching files, then dry-run:
+rmlint --algorithm=sha256 --types="duplicates" --output=sh -p ~/Downloads ~/Desktop &amp;&amp; ./rmlint.sh -n
+
+# 2) fdupes safe read-only report (skips 0-byte files -n and hidden dotfiles like .DS_Store -A):
+fdupes -r -n -A -S ~/Downloads &gt; ~/Desktop/dupes_preview.txt
+
+# 3) Cross-OS Python 3.11+ SHA-256 hash helper (streams chunks cleanly at C speed):
+python3 -c 'import hashlib, pathlib; print(hashlib.file_digest(open("invoice.pdf","rb"), "sha256").hexdigest())'</code></pre>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.15pt;">
+    <div class="callout-title">Smart Original Selection Rule: Never Let Random Order Pick the Survivor</div>
+    When deduplicating across <code>~/Documents</code> and <code>~/Downloads</code>, list your organized archive folder <em>before</em> <code>~/Downloads</code> on the CLI (or mark it as a tagged keeper with <code>rmlint ... // ~/Documents</code>) so copies in Downloads are staged instead of filed originals.
+  </div>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: 5-PART SAFE CLEANUP FORMULA ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Manifest &amp; Prompt Engineering</span>
+    <span>The 5-Part Safe Cleanup Formula &amp; Guarded Rules</span>
+  </div>
+
+  <h2 class="page-title">The 5-Part Safe Cleanup &amp; Manifest Formula</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Whether you write a Python cleanup script, configure a PowerShell audit, or prompt Claude Cowork and Gemini CLI, reliable file automation separates deterministic rules from AI judgment using five non-negotiable building blocks.
+  </p>
+
+  <div class="grid-2" style="gap:11px; margin-bottom:8px;">
+    <div class="card-amber" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9pt; color:#78350f;">Deterministic Layer (Scripts &amp; OS Tools)</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Exact Extensions &amp; Paths:</strong> Moving <code>.dmg</code>/<code>.exe</code> installers, filtering <code>node_modules/</code>, and checking file age (&gt;30 days).</li>
+        <li><strong>Cryptographic Checksums:</strong> Computing SHA-256 hashes and verifying post-move byte integrity.</li>
+        <li><strong>Quarantine &amp; Undo:</strong> Writing deterministic CSV rollback ledgers before moving any file.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8.5px 11px; border-top:3px solid #7c3aed;">
+      <div class="card-title" style="font-size:9pt; color:#5b21b6;">Semantic AI Layer (Cowork, Gemini, VLMs)</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Fuzzy Document Triage:</strong> Distinguishing a signed NDA from a draft slide deck or utility receipt.</li>
+        <li><strong>OCR &amp; Screenshot Naming:</strong> Reading vendor logos and dates inside flattened PDFs and PNG screenshots.</li>
+        <li><strong>Folder Proposal:</strong> Clustering 400 random downloads into 5–6 clean, domain-specific folders.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">The 5-Part Guarded Declutter Formula</h3>
+  <div class="card" style="padding:8.5px 12px; margin-bottom:7px; background:#ffffff; border:1.5px solid #fcd34d;">
+    <div style="font-size:8.3pt; line-height:1.85;">
+      <span class="p-tag p-scope">[1. Strict Scope]</span> Target only <code>~/Downloads</code> &amp; <code>~/Desktop</code>,
+      <span class="p-tag p-exclude">[2. Exclusion Guard]</span> skip <code>.DS_Store</code>, <code>node_modules</code>, <code>.git</code> &amp; <code>*.crdownload</code>,
+      <span class="p-tag p-hash">[3. Hash &amp; Schema]</span> compute SHA-256 + <code>YYYY-MM-DD_Vendor_Category</code> names,
+      <span class="p-tag p-dryrun">[4. Dry-Run Manifest]</span> write <code>manifest.csv</code> &amp; pause for approval,
+      <span class="p-tag p-stage">[5. Quarantine Stage]</span> and route discards to <code>_quarantine_30d/</code> instead of deleting.
+    </div>
+  </div>
+
+  <table class="clean-table" style="font-size:7.7pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Formula Component</th>
+        <th style="width:39%;">What It Enforces</th>
+        <th style="width:38%;">What Fails When Skipped</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="p-tag p-scope">Strict Scope</span></td>
+        <td>Confines AI and scripts to messy drop zones (Downloads/Desktop).</td>
+        <td>Agents wander into git repos, app libraries, or synced cloud roots.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-exclude">Exclusion Guard</span></td>
+        <td>Prunes dev artifacts, OS dotfiles, and active download partials upfront.</td>
+        <td>Scripts choke on 100k dependency files or corrupt live browser downloads.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-hash">Hash &amp; Schema</span></td>
+        <td>Proves identical files via SHA-256 and enforces ISO dates on renames.</td>
+        <td>Files get mislabeled duplicates or collide on generic vendor names.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-dryrun">Dry-Run Manifest</span></td>
+        <td>Outputs an inspectable CSV/Markdown move plan with zero disk writes.</td>
+        <td>A single bad regex or hallucinated category scrambles 500 files silently.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-stage">Quarantine Stage</span></td>
+        <td>Holds duplicates and old installers for 30 days with an undo log.</td>
+        <td>Realizing a week later that an archived installer or tax PDF vanished.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># Dry-run manifest generator pattern (safe by default; requires --apply to move files):
+SKIP_DIRS = {".git", "node_modules", ".venv", "__pycache__", "dist", "build", "target", "_quarantine_30d"}
+SKIP_EXTS = {".crdownload", ".part", ".download", ".tmp"}
+# Manifest columns: action | sha256_prefix | size_mb | source_path | proposed_target | reason
+# Example row: STAGE_DUPE | 9f86d081 | 2.41 | Downloads/W2 (1).pdf | _quarantine_30d/2026-11-17/W2 (1).pdf | Exact SHA-256 clone</code></pre>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: VLM & OCR RECEIPT RENAMING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Intelligent PDF Renaming</span>
+    <span>OCR Text Layers, VLMs &amp; Invoice Naming</span>
+  </div>
+
+  <h2 class="page-title">VLM &amp; OCR Receipt Renaming: End <code>Scan_042.pdf</code> Chaos</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Generic filenames like <code>document(3).pdf</code>, <code>IMG_4821.HEIC</code>, or <code>Screenshot 2026-11-04.png</code> bury tax deductions and receipts under unsearchable timestamps. Combining lightweight OCR with Vision-Language Models (VLMs) extracts clean metadata into universal <code>YYYY-MM-DD_Vendor_Category.pdf</code> sorting.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:8px; gap:9px;">
+    <div class="card" style="border-top:3px solid #d97706; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge">1</span> Text Layer vs. VLM</div>
+      <p style="font-size:7.75pt; margin:0;">
+        Digital invoices already contain selectable text. Scanned receipts lack text layers: run <code>ocrmypdf --deskew --skip-text</code> first, or inspect page 1 directly with a VLM (Claude, Gemini, or local <code>qwen-vl</code>).
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #0284c7; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge sky">2</span> Strict Filename Schema</div>
+      <p style="font-size:7.75pt; margin:0;">
+        Lock output to <code>YYYY-MM-DD_Vendor_Category.pdf</code>. Strip spaces, commas, slashes, and corporate suffixes (<code>Inc</code>, <code>LLC</code>) so filenames sort chronologically across Finder, Explorer, and terminal shells.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #059669; padding:8px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge emerald">3</span> Low-Confidence Fallback</div>
+      <p style="font-size:7.75pt; margin:0;">
+        If a blurry receipt returns missing dates or illegible totals, never guess: move it to <code>_needs_review/</code> or stamp file mtime with <code>_REVIEW</code> so your tax archive stays 100% trustworthy.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Real-World Before &amp; After Renaming Transformations</h3>
+  <table class="clean-table" style="font-size:7.75pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Raw Incoming File</th>
+        <th style="width:35%;">Extraction Pipeline</th>
+        <th style="width:38%;">Clean Standardized Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>Scan_0042.pdf</code><br/><em>Flat scanner image PDF</em></td>
+        <td><code>ocrmypdf --deskew --skip-text</code> + JSON prompt</td>
+        <td><code>2026-10-18_Cloudflare_Hosting.pdf</code></td>
+      </tr>
+      <tr>
+        <td><code>receipt_99182.pdf</code><br/><em>Airline e-ticket email PDF</em></td>
+        <td>Direct <code>pdfplumber</code> text extract + category enum</td>
+        <td><code>2026-09-30_Delta_Travel.pdf</code></td>
+      </tr>
+      <tr>
+        <td><code>Screenshot 2026-11-04.png</code><br/><em>Software SaaS checkout snap</em></td>
+        <td>VLM image read &rarr; PDF convert or PNG rename</td>
+        <td><code>2026-11-04_Figma_Software.pdf</code></td>
+      </tr>
+      <tr>
+        <td><code>statement(3).pdf</code><br/><em>Monthly utility bill</em></td>
+        <td>Hazel 6 on-the-fly OCR or local Ollama JSON parser</td>
+        <td><code>2026-10-01_ConEd_Utility.pdf</code></td>
+      </tr>
+      <tr>
+        <td><code>tax_locked_2025.pdf</code><br/><em>Encrypted brokerage PDF</em></td>
+        <td>Password prompt skipped &rarr; routed safely for review</td>
+        <td><code>_needs_ocr/tax_locked_2025.pdf</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># 1) Add searchable OCR text layer to scanned PDFs (skips PDFs that already have text, straightens crooked scans):
+ocrmypdf --deskew --skip-text raw_scan.pdf searchable_scan.pdf
+
+# 2) Structured VLM / LLM JSON prompt for deterministic YYYY-MM-DD_Vendor_Category.pdf dry-run renaming:
+"Inspect page 1 of this receipt. Return ONLY JSON:
+ {"date": "YYYY-MM-DD", "vendor": "PascalCase", "category": "Hosting|Software|Travel|Utility|Tax", "confidence": 0.95}
+ If date or vendor is unreadable, set confidence below 0.70 and return null for missing fields."</code></pre>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.1pt;">
+    <div class="callout-title">Collision-Proof Renaming Rule: Append <code>_02</code>, Never Overwrite</div>
+    Two legitimate receipts from the same vendor on the same day (like two Uber rides or separate AWS accounts) will collide on <code>2026-11-10_Uber_Travel.pdf</code>. Always check <code>if dest.exists()</code> and append <code>_02</code>, <code>_03</code> before renaming—never silently overwrite!
+  </div>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: MAC VS. WINDOWS AUTOMATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; macOS vs. Windows Automation</span>
+    <span>Finder, Hazel, mdfind vs. PowerToys PowerRename &amp; PowerShell</span>
+  </div>
+
+  <h2 class="page-title">Mac vs. Windows Automation: Side-by-Side Playbook</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Once a deep dry-run cleanup clears your backlog, wire native OS rules so incoming downloads sort themselves quietly every day. macOS pairs <strong>Hazel 6</strong>, <strong>Folder Actions</strong>, and Spotlight <code>mdfind</code>; Windows 11 pairs <strong>PowerToys PowerRename</strong>, File Explorer, and <strong>PowerShell</strong>.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_2.jpg" style="width:100%; height:238px; object-fit:cover; object-position:center; display:block;" alt="Two symmetrical obsidian and amber glass sorting lanes converging through a glowing inspection prism into organized archive drawers and a quarantine vault" />
+    <div class="figure-caption">
+      <strong>Cross-OS Parity:</strong> Whether running macOS rules in Hazel and <code>mdfind</code> or Windows regex batches in PowerToys PowerRename and PowerShell <code>-WhatIf</code>, both ecosystems converge on identical dry-run safety.
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Side-by-Side Mac vs. Windows Automation Architecture</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Automation Need</th>
+        <th style="width:41%;">macOS Stack (Finder, Hazel 6, Folder Actions, mdfind)</th>
+        <th style="width:40%;">Windows 11 Stack (Explorer, PowerRename, PowerShell)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Continuous Inbox Rules</strong></td>
+        <td><strong>Hazel 6:</strong> Watches <code>~/Downloads</code> &amp; <code>Filing Inbox</code>; supports on-the-fly OCR, encrypted Keychain PDFs, and cloud-stub guards.</td>
+        <td><strong>Task Scheduler + PowerShell:</strong> Runs scheduled sorting script cleanly on <code>$env:USERPROFILE\Downloads</code> using age &amp; extension filters.</td>
+      </tr>
+      <tr>
+        <td><strong>Instant Drop Triggers</strong></td>
+        <td><strong>Folder Actions / Shortcuts:</strong> Right-click folder &rarr; <em>Services &rarr; Folder Actions Setup</em> to run shell/AppleScript on new drops.</td>
+        <td><strong>Power Automate / FileSystemWatcher:</strong> Triggers script or Power Automate Desktop flow whenever PDFs land in <code>Receipts\Inbox</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Bulk Pattern &amp; Photo Rename</strong></td>
+        <td><strong>Finder Rename + Hazel Tokens:</strong> Select items &rarr; right-click <em>Rename</em>; Hazel extracts custom text/date tokens automatically.</td>
+        <td><strong>PowerToys PowerRename:</strong> Explorer right-click GUI (no native CLI); supports <code>$1</code> Regex capture groups, EXIF/XMP photo tags &amp; Copilot hints.</td>
+      </tr>
+      <tr>
+        <td><strong>Instant Metadata Search</strong></td>
+        <td><strong>Spotlight <code>mdfind</code>:</strong> Queries system index instantaneously (<code>mdfind "kind:pdf invoice"</code> or stale <code>.dmg</code> sweeps).</td>
+        <td><strong>PowerShell + Explorer Search:</strong> <code>Get-ChildItem -File -Recurse</code> with <code>Where-Object</code> filters and File Explorer <code>datemodified:</code> chips.</td>
+      </tr>
+      <tr>
+        <td><strong>Dry-Run &amp; Undo Safety</strong></td>
+        <td><strong>Hazel Preview (<code>Opt+Cmd+P</code>):</strong> Tests rules before enabling; Finder right-click <strong>Revert</strong> undoes misfiled Hazel moves.</td>
+        <td><strong><code>-WhatIf</code> &amp; PowerRename Grid:</strong> PowerRename shows live Before/After preview; PowerShell <code>Move-Item -WhatIf</code> logs moves safely.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># macOS Spotlight mdfind audit (lists .dmg/.pkg installers in Downloads untouched for 30+ days, zero changes):
+mdfind -onlyin ~/Downloads '(kMDItemFSName == "*.dmg" || kMDItemFSName == "*.pkg") &amp;&amp; kMDItemLastUsedDate &lt; $time.today(-30)'
+
+# Windows PowerShell dry-run staging + SHA-256 manifest (-WhatIf simulates moves without touching disk):
+$q = "$env:USERPROFILE\Downloads\_quarantine_30d\$(Get-Date -Format yyyy-MM-dd)"; New-Item $q -ItemType Directory -Force | Out-Null
+Get-ChildItem "$env:USERPROFILE\Downloads" -File | Where-Object { $_.Extension -in ".exe",".msi",".zip" -and $_.LastWriteTime -lt (Get-Date).AddDays(-30) } |
+  Move-Item -LiteralPath { $_.FullName } -Destination $q -WhatIf</code></pre>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Recipe Library</span>
+    <span>Downloads Triage, Desktop Reset, Receipts, Dev Cleanup &amp; Dedup</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Cleanup &amp; Dry-Run Recipes</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Paste these field-tested instructions straight into <strong>Claude Cowork</strong>, <strong>Gemini CLI</strong>, or your terminal scripts. Every single recipe enforces strict read-only dry runs and exclusion lists before a single byte moves.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Recipe &amp; Tool</th>
+        <th style="width:55%;">Copy-Paste Prompt / Command Instruction</th>
+        <th style="width:24%;">Output &amp; Safety Gate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Downloads/ Dry Run</strong><br/><em>Claude Cowork</em></td>
+        <td><code>Scope ONLY to ~/Downloads. Do NOT move or delete any files yet. Ignore .DS_Store, node_modules, .git, and *.crdownload. Analyze types, sizes, and duplicates; propose up to 6 clean buckets; write _cleanup_manifest.md and wait for my explicit approval.</code></td>
+        <td>Produces <code>_cleanup_manifest.md</code>; zero writes until Turn 2 approval.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Plan-Only Clutter Audit</strong><br/><em>Gemini CLI</em></td>
+        <td><code>gemini -p "Inspect ./Downloads and ./Desktop read-only. Skip dev build folders and hidden OS files. Group stale installers (&gt;30d), unfiled PDFs, and suspected clones into a JSON move table estimating reclaimed GB." --approval-mode plan --sandbox</code></td>
+        <td>Hard read-only <code>plan</code> mode inside sandbox container.</td>
+      </tr>
+      <tr>
+        <td><strong>3. VLM Receipt Renamer</strong><br/><em>OCR / Cowork / Local AI</em></td>
+        <td><code>Read page 1 of every PDF/PNG in ./Inbox_Receipts. Extract ISO date, VendorSlug, and Category (Hosting|Travel|Utility|Tax|Software). Output a dry-run table mapping current name -&gt; YYYY-MM-DD_Vendor_Category.pdf. Route unreadable scans to _needs_ocr/.</code></td>
+        <td>Dry-run rename preview; skips overwrite via <code>_02</code> suffix.</td>
+      </tr>
+      <tr>
+        <td><strong>4. SHA-256 Safe Dedup</strong><br/><em>rmlint / Python</em></td>
+        <td><code>Sweep ~/Downloads and ~/Desktop using SHA-256 digests excluding .git, node_modules, .venv, and .DS_Store. Keep the oldest clean path outside Downloads; stage all exact clones into _quarantine_30d/dupes/ and write rollback_manifest.csv.</code></td>
+        <td>Stages clones to <code>_quarantine_30d/</code> with full SHA-256 undo CSV.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Dev Cache &amp; Installer Trim</strong><br/><em>Mac &amp; Win CLI</em></td>
+        <td><code>Find stale node_modules/, target/, .venv/, and .dmg/.exe installers untouched for 60+ days. Verify no uncommitted Git changes exist in sibling repos, print total reclaimable GB, and wait for confirmation before staging to _quarantine_30d/.</code></td>
+        <td>Preserves dirty Git worktrees; frees 10–40 GB safely.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># Two-Turn Claude Cowork Approval Pattern (Turn 1 = Read-Only Dry Run; Turn 2 = Safe Quarantine Execution):
+# Turn 1: Run Recipe #1 above inside Cowork scoped to Downloads/ only (disable auto-delete in settings).
+# Turn 2 (after reviewing _cleanup_manifest.md):
+"Approved with edits: leave Tax_2025_Drafts/ untouched. Move all remaining approved files into the 6 buckets,
+stage duplicates and installers &gt;30 days old into _quarantine_30d/2026-11-17/, and append every move to rollback_manifest.csv."</code></pre>
+
+  <div class="grid-2" style="gap:10px; margin-top:4px;">
+    <div class="callout" style="margin:0; padding:8px 11px; font-size:8.1pt;">
+      <div class="callout-title">Two-Turn Rule: Never Combine Plan &amp; Move in One Prompt</div>
+      Always make the agent stop after writing the manifest. Reviewing a 30-line dry-run summary takes 20 seconds and catches 99% of wrong-folder assumptions before anything changes on disk.
+    </div>
+    <div class="callout amber" style="margin:0; padding:8px 11px; font-size:8.1pt;">
+      <div class="callout-title">Cap Top-Level Buckets at Five or Six Folders</div>
+      Tell Cowork or Gemini CLI never to create a subfolder with fewer than five files. Broad anchors like <code>01_Finance</code>, <code>02_Projects</code>, <code>03_Media</code>, <code>04_Installers</code>, and <code>_quarantine_30d</code> stay navigable for years.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: QUARANTINE STAGING, PRIVACY & ROLLBACK ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Quarantine &amp; Rollback Safety</span>
+    <span>_quarantine_30d/ Cooling-Off Vault, Undo Logs &amp; AI Privacy</span>
+  </div>
+
+  <h2 class="page-title">Quarantine Staging, Privacy &amp; Instant Rollback Safety</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    Real peace of mind comes from knowing every automated cleanup decision is completely reversible. By parking flagged items in a dated <code>_quarantine_30d/</code> holding bay with an undo ledger—and keeping sensitive tax or health PDFs local—you eliminate catastrophic mistakes.
+  </p>
+
+  <div class="grid-2" style="gap:11px; margin-bottom:8px;">
+    <div class="card" style="padding:9px 11px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:9pt; color:#78350f;"><span class="num-badge">1</span> The <code>_quarantine_30d/</code> Cooling-Off Protocol</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Dated Staging Batches:</strong> Move old installers, empty folders, and SHA-256 duplicates into <code>_quarantine_30d/YYYY-MM-DD/</code> instead of running <code>rm</code> or <code>Remove-Item</code>.</li>
+        <li><strong>Machine-Readable Undo Ledger:</strong> Log every moved item in <code>rollback_manifest.csv</code> with <code>timestamp</code>, <code>sha256</code>, <code>original_path</code>, and <code>quarantine_path</code>.</li>
+        <li><strong>30-Day Purge Gate:</strong> Only empty batches older than 30 days after verifying you still have a recent Time Machine, Windows File History, or cloud backup snapshot.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:9px 11px; border-top:3px solid #e11d48;">
+      <div class="card-title" style="font-size:9pt; color:#9f1239;"><span class="num-badge rose">2</span> Sensitive PDF &amp; Metadata Privacy</div>
+      <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Keep PII Local First:</strong> Never upload unredacted tax forms, bank statements, passports, or medical records to consumer AI chats with training enabled.</li>
+        <li><strong>Local OCR + Local Vision:</strong> Use offline <code>ocrmypdf</code>, Hazel 6, or a local Ollama model for sensitive receipts, reserving cloud prompts for zero-retention/enterprise plans.</li>
+        <li><strong>Strip GPS Before Sharing:</strong> Before archiving or sharing phone photos, strip EXIF location coordinates using macOS Preview/Shortcuts or PowerShell/ExifTool.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Five-Stage Safety Gate &amp; Recovery Matrix</h3>
+  <table class="clean-table" style="font-size:7.7pt; margin:3px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Safety Gate</th>
+        <th style="width:26%;">Required Guard / Condition</th>
+        <th style="width:28%;">Audit Artifact Created</th>
+        <th style="width:24%;">Recovery Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>0. Pre-Sweep Snapshot</strong></td>
+        <td>Verify Time Machine / VSS / Cloud sync</td>
+        <td>Point-in-time OS restore point</td>
+        <td>Minutes (OS backup)</td>
+      </tr>
+      <tr>
+        <td><strong>1. Read-Only Dry Run</strong></td>
+        <td><code>./rmlint.sh -n</code> / <code>-WhatIf</code> / <code>plan</code></td>
+        <td><code>_cleanup_manifest.md</code> or <code>.csv</code></td>
+        <td>0 sec (nothing moved)</td>
+      </tr>
+      <tr>
+        <td><strong>2. Quarantine Staging</strong></td>
+        <td>Explicit user <code>--apply</code> confirmation</td>
+        <td><code>_quarantine_30d/YYYY-MM-DD/</code> + undo CSV</td>
+        <td>&lt;5 sec (single script)</td>
+      </tr>
+      <tr>
+        <td><strong>3. Post-Move Verify</strong></td>
+        <td>Compare SHA-256 before deleting copies</td>
+        <td>Verified checksum match log</td>
+        <td>Instant integrity proof</td>
+      </tr>
+      <tr>
+        <td><strong>4. 30-Day Final Purge</strong></td>
+        <td>Folder age &gt;30 days + zero missing refs</td>
+        <td>Moves batch to OS Trash / Recycle Bin</td>
+        <td>Still in OS Trash briefly</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># One-command Python Rollback (reads rollback_manifest.csv, verifies SHA-256, restores every file):
+import csv, hashlib, shutil, pathlib
+for row in reversed(list(csv.DictReader(open("_quarantine_30d/rollback_manifest.csv")))):
+    q, orig = pathlib.Path(row["quarantine_path"]), pathlib.Path(row["original_path"])
+    if q.exists() and hashlib.file_digest(q.open("rb"), "sha256").hexdigest() == row["sha256"]:
+        orig.parent.mkdir(parents=True, exist_ok=True); shutil.move(str(q), str(orig))</code></pre>
+
+  <div class="callout rose" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.1pt;">
+    <div class="callout-title">Cloud-Sync Trap: Watch Out for iCloud Drive &amp; OneDrive Stubs</div>
+    Deleting or moving a synced folder inside iCloud Drive, Dropbox, or OneDrive deletes it across every linked laptop and phone instantly. Always pause or check cloud sync status before purging <code>_quarantine_30d/</code>, and exclude cloud-only placeholder files from blind hash sweeps.
+  </div>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy</span>
+    <span>Exclusions &rarr; Hash &amp; VLM &rarr; OS Rules &rarr; Quarantine</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From Messy Drop Zone to Calm Archive</h2>
+  <p class="page-lead" style="margin-bottom:8px;">
+    The calmest digital workspace pairs deterministic CLI and OS tools (<code>rmlint</code>, <code>ocrmypdf</code>, <code>Hazel 6</code>, <code>PowerRename</code>, PowerShell) for repeatable speed with AI planners (<strong>Claude Cowork</strong> and <strong>Gemini CLI</strong>) for messy, ambiguous documents—all flowing into one unified safety loop.
+  </p>
+
+  <div class="figure-box" style="background:#1c1917; padding:10px 12px; border-color:#78350f; margin-bottom:9px;">
+    <svg viewBox="0 0 700 206" width="100%" height="206" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Scoped Input & Exclusions -->
+      <rect x="8" y="22" width="146" height="162" rx="9" fill="#26211e" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="81" y="40" text-anchor="middle" fill="#fcd34d" font-size="7.5" font-weight="700">STAGE 1 &bull; SCOPE</text>
+      <text x="81" y="55" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Drop Zones &amp; Prune</text>
+      <rect x="17" y="65" width="128" height="48" rx="5" fill="#322a25" stroke="#b45309" stroke-width="0.9"/>
+      <text x="81" y="80" text-anchor="middle" fill="#fef3c7" font-size="7.4" font-weight="700">Downloads/ &amp; Desktop/</text>
+      <text x="81" y="92" text-anchor="middle" fill="#d6d3d1" font-size="6.8">Never scan Home root ~/</text>
+      <text x="81" y="103" text-anchor="middle" fill="#d6d3d1" font-size="6.8">Age &amp; size filters applied</text>
+      <rect x="17" y="121" width="128" height="52" rx="5" fill="#322a25" stroke="#fb7185" stroke-width="0.9"/>
+      <text x="81" y="136" text-anchor="middle" fill="#ffe4e6" font-size="7.4" font-weight="700">Hard Exclude Guard</text>
+      <text x="81" y="148" text-anchor="middle" fill="#d6d3d1" font-size="6.8">.DS_Store, Thumbs.db</text>
+      <text x="81" y="159" text-anchor="middle" fill="#d6d3d1" font-size="6.8">node_modules, .git, .part</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M154 103 L178 103" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="176,98 184,103 176,108" fill="#fbbf24"/>
+
+      <!-- Stage 2: Deterministic Hash + VLM/OCR -->
+      <rect x="185" y="14" width="166" height="178" rx="10" fill="#292524" stroke="#fbbf24" stroke-width="2"/>
+      <text x="268" y="32" text-anchor="middle" fill="#fde68a" font-size="7.6" font-weight="700">STAGE 2 &bull; ANALYZE</text>
+      <text x="268" y="48" text-anchor="middle" fill="#ffffff" font-size="10.1" font-weight="800">Hash &amp; VLM Engine</text>
+      <rect x="196" y="58" width="144" height="36" rx="5" fill="#1c1917" stroke="#d97706" stroke-width="0.9"/>
+      <text x="268" y="72" text-anchor="middle" fill="#fef3c7" font-size="7.3" font-weight="700">SHA-256 Deduplication</text>
+      <text x="268" y="84" text-anchor="middle" fill="#d6d3d1" font-size="6.7">rmlint, fdupes, hashlib</text>
+      <rect x="196" y="100" width="144" height="38" rx="5" fill="#1c1917" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="268" y="114" text-anchor="middle" fill="#fcd34d" font-size="7.3" font-weight="700">OCR + Vision Naming</text>
+      <text x="268" y="126" text-anchor="middle" fill="#d6d3d1" font-size="6.7">YYYY-MM-DD_Vendor_Cat.pdf</text>
+      <rect x="196" y="144" width="144" height="36" rx="5" fill="#1c1917" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="268" y="158" text-anchor="middle" fill="#bae6fd" font-size="7.3" font-weight="700">Dry-Run Plan Gate</text>
+      <text x="268" y="170" text-anchor="middle" fill="#d6d3d1" font-size="6.7">manifest.csv &amp; -WhatIf check</text>
+
+      <!-- Branching Arrows 2 -> 3 -->
+      <path d="M351 74 L382 62" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="379,58 388,60 382,67" fill="#38bdf8"/>
+      <path d="M351 134 L382 146" stroke="#34d399" stroke-width="2"/>
+      <polygon points="382,141 388,148 379,150" fill="#34d399"/>
+
+      <!-- Stage 3A: AI Agents -->
+      <rect x="389" y="18" width="146" height="82" rx="8" fill="#1e242b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="462" y="35" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">STAGE 3A &bull; AI TRIAGE</text>
+      <text x="462" y="50" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="800">Cowork &amp; Gemini CLI</text>
+      <text x="462" y="65" text-anchor="middle" fill="#d6d3d1" font-size="6.9">Read-only plan mode first</text>
+      <text x="462" y="77" text-anchor="middle" fill="#d6d3d1" font-size="6.9">Human approves manifest</text>
+      <text x="462" y="90" text-anchor="middle" fill="#bae6fd" font-size="6.8" font-weight="700">Handles messy edge files</text>
+
+      <!-- Stage 3B: OS Autopilot -->
+      <rect x="389" y="108" width="146" height="82" rx="8" fill="#172721" stroke="#34d399" stroke-width="1.5"/>
+      <text x="462" y="125" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">STAGE 3B &bull; OS RULES</text>
+      <text x="462" y="140" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="800">Mac &amp; Win Autopilot</text>
+      <text x="462" y="155" text-anchor="middle" fill="#d6d3d1" font-size="6.9">Mac: Hazel 6, mdfind, Actions</text>
+      <text x="462" y="167" text-anchor="middle" fill="#d6d3d1" font-size="6.9">Win: PowerRename, PowerShell</text>
+      <text x="462" y="180" text-anchor="middle" fill="#a7f3d0" font-size="6.8" font-weight="700">Daily silent hygiene</text>
+
+      <!-- Arrows 3 -> 4 -->
+      <path d="M535 60 L558 60" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="556,55 564,60 556,65" fill="#38bdf8"/>
+      <path d="M535 148 L558 148" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="556,143 564,148 556,153" fill="#fbbf24"/>
+
+      <!-- Stage 4A: Organized Archive -->
+      <rect x="565" y="18" width="127" height="82" rx="8" fill="#1e2230" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="628" y="35" text-anchor="middle" fill="#c7d2fe" font-size="7.3" font-weight="700">STAGE 4A &bull; ARCHIVE</text>
+      <text x="628" y="50" text-anchor="middle" fill="#ffffff" font-size="8.9" font-weight="800">Clean 6 Buckets</text>
+      <text x="628" y="65" text-anchor="middle" fill="#d6d3d1" font-size="6.9">Finance &amp; Tax PDFs</text>
+      <text x="628" y="77" text-anchor="middle" fill="#d6d3d1" font-size="6.9">Projects, Media &amp; Docs</text>
+      <text x="628" y="89" text-anchor="middle" fill="#d6d3d1" font-size="6.9">Spotlight / Search ready</text>
+
+      <!-- Stage 4B: 30-Day Quarantine -->
+      <rect x="565" y="108" width="127" height="82" rx="8" fill="#2c2119" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="628" y="125" text-anchor="middle" fill="#fde68a" font-size="7.3" font-weight="700">STAGE 4B &bull; VAULT</text>
+      <text x="628" y="140" text-anchor="middle" fill="#ffffff" font-size="8.9" font-weight="800">_quarantine_30d/</text>
+      <text x="628" y="155" text-anchor="middle" fill="#d6d3d1" font-size="6.9">Clones &amp; stale .dmg/.exe</text>
+      <text x="628" y="167" text-anchor="middle" fill="#d6d3d1" font-size="6.9">rollback_manifest.csv</text>
+      <text x="628" y="179" text-anchor="middle" fill="#d6d3d1" font-size="6.9">Safe purge at Day 30</text>
+    </svg>
+  </div>
+
+  <h3>Your 10-Minute Weekly Declutter Cadence</h3>
+  <div class="grid-2" style="gap:10px; margin-bottom:9px;">
+    <div class="card" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Let OS Rules Catch Routine Noise</div>
+      <p style="font-size:8pt; margin:0;">
+        Keep <strong>Hazel 6</strong> (Mac) or scheduled <strong>PowerShell</strong> tasks (Windows) clearing 14-day-old installers, zip archives, and screenshots automatically so clutter never piles past a week.
+      </p>
+    </div>
+    <div class="card" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge cedar">2</span> Run Friday Dry-Run AI Triage</div>
+      <p style="font-size:8pt; margin:0;">
+        Once a week, aim <strong>Claude Cowork</strong> or <strong>Gemini CLI</strong> (<code>--approval-mode plan</code>) at remaining mystery PDFs in <code>Downloads/</code>, approve the manifest, and rename receipts cleanly.
+      </p>
+    </div>
+    <div class="card" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge sky">3</span> Sweep Clones Monthly via SHA-256</div>
+      <p style="font-size:8pt; margin:0;">
+        Run <code>rmlint --algorithm=sha256</code> or Python <code>hashlib</code> once a month across media and docs, routing exact clones to <code>_quarantine_30d/</code> while preserving canonical archive paths.
+      </p>
+    </div>
+    <div class="card" style="padding:8.5px 11px;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge emerald">4</span> Empty Day-30 Quarantine Calmly</div>
+      <p style="font-size:8pt; margin:0;">
+        Glance at month-old folders inside <code>_quarantine_30d/</code> after confirming your backup ran; move expired batches to Trash with zero anxiety that you missed something vital.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:8px 12px; font-size:8.2pt;">
+    <div class="callout-title">Simplicity Scales: Stick to Shallow Folders &amp; ISO Filenames</div>
+    Deep 7-level folder trees collapse back into Desktop dumps because nobody remembers where files live. Pairing 5–6 broad root folders with descriptive <code>YYYY-MM-DD_Vendor_Category.pdf</code> names lets Spotlight <code>mdfind</code> and Windows Search find anything in 1 second.
+  </div>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Pre-Flight</span>
+    <span>Top 7 Cleanup Issues, 10-Second Fixes &amp; Pre-Flight Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Reach for this clinic whenever <code>.DS_Store</code> floods a duplicate report, scanned PDFs refuse to rename, active browser downloads get moved prematurely, or Hazel skips cloud placeholders&mdash;followed by our 6-point pre-flight checklist.
+  </p>
+
+  <table class="clean-table" style="font-size:7.6pt; margin:2px 0 8px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Issue</th>
+        <th style="width:27%;">Root Cause</th>
+        <th style="width:46%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Scanner choked on 180,000 tiny code files</strong></td>
+        <td>Cleanup script traversed <code>node_modules/</code>, <code>.git/</code>, <code>.venv/</code>, or <code>target/</code>.</td>
+        <td>Add an early directory prune guard skipping <code>SKIP_DIRS</code> before entering subdirectories or hashing any files.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Duplicate list full of <code>.DS_Store</code> &amp; <code>Thumbs.db</code></strong></td>
+        <td>Hidden OS folder-layout metadata files share identical default byte headers.</td>
+        <td>Pass <code>-A</code> (<code>--nohidden</code>) to <code>fdupes</code>, exclude dotfiles in <code>rmlint</code>, and filter <code>.DS_Store</code> / <code>desktop.ini</code> upfront.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Browser download corrupted mid-transfer</strong></td>
+        <td>Folder watcher moved a <code>.crdownload</code>, <code>.part</code>, or <code>.download</code> temp file too early.</td>
+        <td>Exclude active partial-download extensions and add a rule requiring <code>modified age &gt; 5 minutes</code> before sorting.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Scanned receipt stayed <code>Scan_042.pdf</code></strong></td>
+        <td>Image-only scan lacked an embedded text layer for regex or text tools to read.</td>
+        <td>Run <code>ocrmypdf --deskew --skip-text</code> first, enable Hazel 6 on-the-fly OCR, or pass page 1 to a Vision model.</td>
+      </tr>
+      <tr>
+        <td><strong>5. PowerToys PowerRename skipped subfolders</strong></td>
+        <td>Launched only on top-level selection, or regex didn&rsquo;t match target scope dropdown.</td>
+        <td>Expand subfolders inside Explorer search view, check <em>Use regular expressions</em>, or use PowerShell <code>Get-ChildItem -Recurse -WhatIf</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Hazel 6 rule ignored iCloud / Dropbox files</strong></td>
+        <td>Files were unhydrated cloud-only stubs rather than downloaded local bytes.</td>
+        <td>Enable Hazel 6&rsquo;s cloud-only placeholder policy on that folder or wait for local download before OCR inspection.</td>
+      </tr>
+      <tr>
+        <td><strong>7. AI agent invented 22 inconsistent folders</strong></td>
+        <td>Allowed live file edits on Turn 1 without locking bucket names in the prompt.</td>
+        <td>Enforce <code>--approval-mode plan</code> (Gemini) or Turn-1 dry-run manifest (Cowork) capped at 6 fixed bucket names.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0;">6-Point Safe File System Cleanup Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Verify Recent Snapshot:</strong> Confirm Time Machine, Windows File History, or cloud backup is up to date before bulk moves.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. Lock Scope &amp; Exclusions:</strong> Target only <code>Downloads/</code> or <code>Desktop/</code> and prune <code>.git</code>, <code>node_modules</code>, <code>.DS_Store</code>, and <code>*.crdownload</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. Run Read-Only Dry Run First:</strong> Inspect <code>manifest.csv</code>, <code>./rmlint.sh -n</code>, <code>-WhatIf</code>, or Gemini <code>plan</code> output line by line.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Verify SHA-256 &amp; Receipt Names:</strong> Confirm duplicate clusters keep canonical originals and PDFs follow <code>YYYY-MM-DD_Vendor_Category.pdf</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. Stage Discards in <code>_quarantine_30d/</code>:</strong> Never delete directly inside scripts; park clones and old installers for a 30-day review window.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. Keep Rollback CSV Intact:</strong> Store <code>rollback_manifest.csv</code> alongside staged files until Day-30 final purge clears safely.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:7px 0 0 0; padding:7px 11px; font-size:8.1pt;">
+    <div class="callout-title">Final Takeaway: Calm Automation Never Makes Irreversible Guesses</div>
+    Digital clutter builds up because deleting feels risky. When dry-run manifests, SHA-256 checksums, VLM/OCR naming, and a 30-day quarantine bay back every sweep, tidying thousands of files across Mac and Windows becomes effortless, safe, and repeatable.
+  </div>
+
+  <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

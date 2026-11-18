@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">OPEN HARNESSES SERIES &bull; OPENCODE TUI FIELD GUIDE</div>
+    <h1>OpenCode TUI, <span>Plan/Build Agents &amp; Routing</span></h1>
+    <p class="cover-sub">
+      Master the open-source, provider-agnostic terminal coding harness&mdash;switching cleanly between read-only Plan and full-access Build modes with <code>Tab</code>, routing 75+ cloud and local models in <code>opencode.json</code>, closing compiler loops via native LSP, and rewinding edits with Git-backed <code>/undo</code> snapshots.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge"><code>Tab</code> Plan vs. Build Modes</span>
+      <span class="cover-badge">75+ Provider Routing</span>
+      <span class="cover-badge">Native LSP Diagnostics</span>
+      <span class="cover-badge">Git Snapshot <code>/undo</code> &amp; <code>/redo</code></span>
+      <span class="cover-badge"><code>.opencode/agent/*.md</code></span>
+      <span class="cover-badge"><code>/init</code>, <code>/compact</code> &amp; <code>/share</code></span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="OpenCode Terminal User Interface and Multi-Provider Model Routing Illustration" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero Vendor Lock-In</div>
+      <div class="cover-stat-desc">Pair Claude, GPT, Gemini, DeepSeek, OpenCode Zen, and local Ollama models inside one unified keyboard-first TUI.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Compiler-Verified Edits</div>
+      <div class="cover-stat-desc">Built-in Language Server Protocol clients stream real type and syntax errors back to the agent automatically after every edit.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Fearless Git Time-Travel</div>
+      <div class="cover-stat-desc">Instant <code>/undo</code> and <code>/redo</code> revert both conversation turns and working-tree file changes together in milliseconds.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: NAVIGATION & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing</span>
+  </div>
+
+  <h2 class="page-title">Why OpenCode: One Terminal Harness, Every Frontier &amp; Local Model</h2>
+  <p class="page-lead">
+    Single-vendor coding CLIs tie your workflow, shortcuts, and team habits to one billing account. <strong>OpenCode</strong> decouples the <strong>developer harness</strong>&mdash;TUI ergonomics, file indexing, LSP diagnostics, session snapshots, and subagents&mdash;from the underlying model API so you can assign the sharpest brain to every task.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Agnostic Harness Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Native LSP &amp; Context Hygiene</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Install, Auth &amp; Provider Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Git Snapshots (<code>/undo</code>) &amp; Sessions</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated OpenCode TUI Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Copy-Paste Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Plan vs. Build Mode Mastery</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Sharing, Privacy &amp; Desktop Clients</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Routing &amp; Custom Markdown Agents</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>Architecture: Client-Server Core Driving TUI, LSP &amp; 75+ Model Endpoints</h3>
+  <div class="figure-box" style="background:#061410; padding:12px 14px;">
+    <svg viewBox="0 0 700 218" width="100%" height="218" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: Interactive Surfaces -->
+      <rect x="12" y="16" width="188" height="140" rx="10" fill="#0b261d" stroke="#6ee7b7" stroke-width="1.5"/>
+      <text x="24" y="35" fill="#a7f3d0" font-size="8.2" font-weight="700">DEVELOPER SURFACES</text>
+      <text x="24" y="53" fill="#ffffff" font-size="11" font-weight="800">TUI / Desktop / IDE</text>
+      <text x="24" y="73" fill="#d1fae5" font-size="8.2">&bull; Tab: Plan &harr; Build toggle</text>
+      <text x="24" y="88" fill="#d1fae5" font-size="8.2">&bull; @file fuzzy context refs</text>
+      <text x="24" y="103" fill="#d1fae5" font-size="8.2">&bull; !cmd inline shell capture</text>
+      <text x="24" y="118" fill="#d1fae5" font-size="8.2">&bull; Leader key: Ctrl+X chords</text>
+      <text x="24" y="138" fill="#fde68a" font-size="7.9" font-weight="700">/init &bull; /models &bull; /undo &bull; /compact</text>
+
+      <path d="M200 86 L226 86" stroke="#6ee7b7" stroke-width="2.2"/>
+      <polygon points="222,81 230,86 222,91" fill="#6ee7b7"/>
+
+      <!-- Center: OpenCode Engine -->
+      <rect x="230" y="16" width="236" height="140" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="244" y="35" fill="#7dd3fc" font-size="8.2" font-weight="700">OPENCODE CORE ENGINE</text>
+      <text x="244" y="53" fill="#ffffff" font-size="11" font-weight="800">Agent Loop + Snapshot Store</text>
+      <rect x="242" y="63" width="212" height="38" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.2"/>
+      <text x="348" y="80" text-anchor="middle" fill="#6ee7b7" font-size="8.5" font-weight="700">Primary (Plan/Build) + @Subagents</text>
+      <text x="348" y="93" text-anchor="middle" fill="#cbd5e1" font-size="7.5">Scoped tool access + custom system prompts</text>
+      <rect x="242" y="108" width="212" height="36" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1.2"/>
+      <text x="348" y="124" text-anchor="middle" fill="#fde68a" font-size="8.5" font-weight="700">Shadow Git Tree + SQLite Sessions</text>
+      <text x="348" y="137" text-anchor="middle" fill="#cbd5e1" font-size="7.5">Tracks per-turn file diffs cleanly off main index</text>
+
+      <path d="M466 86 L492 86" stroke="#fbbf24" stroke-width="2.2"/>
+      <polygon points="488,81 496,86 488,91" fill="#fbbf24"/>
+
+      <!-- Right: Model Router -->
+      <rect x="496" y="16" width="192" height="140" rx="10" fill="#0b261d" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="508" y="35" fill="#fde68a" font-size="8.2" font-weight="700">MODELS.DEV ROUTER (75+)</text>
+      <text x="508" y="53" fill="#ffffff" font-size="11" font-weight="800">Multi-Provider Pool</text>
+      <text x="508" y="73" fill="#f8fafc" font-size="8.2">&bull; Claude Opus / Sonnet (Plan)</text>
+      <text x="508" y="88" fill="#f8fafc" font-size="8.2">&bull; GPT / Gemini Pro (Build)</text>
+      <text x="508" y="103" fill="#f8fafc" font-size="8.2">&bull; Haiku / Flash (small_model)</text>
+      <text x="508" y="118" fill="#f8fafc" font-size="8.2">&bull; Local Ollama / vLLM (0$/tok)</text>
+      <text x="508" y="138" fill="#6ee7b7" font-size="7.9" font-weight="700">OpenCode Zen Curated Gateway</text>
+
+      <!-- Bottom LSP +AGENTS.md Feedback -->
+      <path d="M348 156 L348 174" stroke="#38bdf8" stroke-width="1.6" stroke-dasharray="3,3"/>
+      <rect x="12" y="174" width="676" height="36" rx="8" fill="#08291f" stroke="#10b981" stroke-width="1.4"/>
+      <text x="350" y="190" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">Workspace Grounding &bull; AGENTS.md Rules + Stdio LSP Diagnostics (tsserver, pyright, gopls, rust-analyzer)</text>
+      <text x="350" y="203" text-anchor="middle" fill="#a7f3d0" font-size="8">Every file edit triggers LSP textDocument/didChange checks so syntax and type errors self-heal in the same turn</text>
+    </svg>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Two-Tier Model Routing Cuts Spend by 50%+</div>
+    Set a frontier reasoning model as your <code>plan</code> agent brain, a fast coding flagship for <code>build</code>, and a lightweight <code>small_model</code> in <code>opencode.json</code> for background session titles, summaries, and subagent exploration.
+  </div>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: INSTALL, AUTH & PROVIDER MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup, Auth &amp; Providers</span>
+    <span>Installation, <code>/connect</code> Credentials &amp; Provider Matrix</span>
+  </div>
+
+  <h2 class="page-title">Installation, Credential Vault &amp; Provider Strategy Matrix</h2>
+  <p class="page-lead">
+    Install OpenCode via native binary, Homebrew, or npm, link your preferred cloud subscriptions or local Ollama server via <code>/connect</code>, and run <code>/init</code> inside your repository to generate a tailored <code>AGENTS.md</code>.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> 60-Second Install Across macOS, Linux &amp; WSL</div>
+      <pre class="code-block"><code># Official install script or Homebrew / Bun / npm
+curl -fsSL https://opencode.ai/install | bash
+brew install anomalyco/tap/opencode
+npm install -g opencode-ai@latest
+
+# Launch inside your repo &amp; bootstrap AGENTS.md
+cd ~/code/my-app &amp;&amp; opencode
+# Inside TUI: run /connect then /init</code></pre>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> Authenticate Providers (<code>opencode auth</code>)</div>
+      <p style="font-size:7.9pt;">Run <code>/connect</code> inside the TUI or <code>opencode auth login</code> in your shell. Credentials live outside Git at <code>~/.local/share/opencode/auth.json</code>:</p>
+      <pre class="code-block"><code>opencode auth login     # OAuth / API key wizard
+opencode auth list      # Verify connected providers
+opencode models         # List all resolved model IDs</code></pre>
+    </div>
+  </div>
+
+  <h3>Provider &amp; Model Strategy Matrix</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Provider Path</th>
+        <th style="width:25%;">Example <code>model</code> String</th>
+        <th style="width:29%;">Sweet Spot in OpenCode</th>
+        <th style="width:24%;">Billing / Privacy Model</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Anthropic / OpenAI</strong></td>
+        <td><code>anthropic/claude-sonnet-4-5</code><br/><code>openai/gpt-5</code></td>
+        <td>Complex multi-file refactors, architectural <code>Plan</code> blueprints, deep debugging</td>
+        <td>Direct API key or supported Pro/Max OAuth flows</td>
+      </tr>
+      <tr>
+        <td><strong>Google Gemini</strong></td>
+        <td><code>google/gemini-2.5-pro</code><br/><code>google/gemini-2.5-flash</code></td>
+        <td>1M-token monorepo sweeps, large log analysis, ultra-fast <code>small_model</code></td>
+        <td>AI Studio API key or Vertex AI enterprise IAM</td>
+      </tr>
+      <tr>
+        <td><strong>OpenCode Zen</strong></td>
+        <td><code>opencode/claude-sonnet-4-5</code></td>
+        <td>Zero-setup curated coding models benchmarked specifically for the OpenCode harness</td>
+        <td>Single unified pay-as-you-go balance via <code>/connect</code></td>
+      </tr>
+      <tr>
+        <td><strong>Local Ollama / vLLM</strong></td>
+        <td><code>ollama/qwen3-coder:30b</code></td>
+        <td>Air-gapped codebases, offline flights, unlimited zero-marginal-cost edits</td>
+        <td>100% local hardware (set <code>num_ctx</code> &ge; <code>32768</code>!)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <div class="callout-title">Config Precedence Order (Highest Wins)</div>
+    OpenCode merges settings cleanly from general to specific: <strong>1. Remote org defaults</strong> &rarr; <strong>2. Global <code>~/.config/opencode/opencode.json</code></strong> &rarr; <strong>3. Env var <code>OPENCODE_CONFIG</code></strong> &rarr; <strong>4. Project root <code>opencode.json</code></strong>. Commit project rules and model roles to Git while keeping API keys strictly in <code>auth.json</code> or <code>{env:VAR_NAME}</code> references.
+  </div>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED TUI WORKSPACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Visual Cockpit Tour</span>
+    <span>Annotated OpenCode Terminal User Interface (TUI)</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Navigating the OpenCode TUI Like a Pro</h2>
+  <p class="page-lead">
+    OpenCode&rsquo;s keyboard-driven TUI keeps diffs, compiler diagnostics, token budgets, and active agent modes visible in one glance&mdash;controlled via quick slash commands and the <code>Ctrl+X</code> leader key.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:9px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; color:#6ee7b7; font-weight:700;">opencode &bull; ~/code/checkout-api (branch: feat/idempotency)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px; color:#cbd5e1; font-size:7.1pt;">
+        <span>Session: <code>Add Stripe Retry Keys</code></span>
+        <span class="callout-pin">1</span>
+        <span style="margin-left:5px;">41.2k / 200k tok ($0.14)</span>
+        <span class="callout-pin">2</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1.68fr 1.02fr; gap:1px; background:#144534;">
+      <!-- Main Conversation & Diff Stream -->
+      <div style="background:#061410; padding:8.5px; display:flex; flex-direction:column; gap:6px;">
+        <div class="term-box">
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:#a7f3d0;"><strong>You:</strong> Audit <code>@src/payments/charge.ts</code> and <code>!pnpm test:unit</code></span>
+            <span class="callout-pin">3</span>
+          </div>
+        </div>
+        <div class="term-box" style="border-color:#059669;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+            <strong style="color:#6ee7b7;">Patch Applied &bull; src/payments/charge.ts (+14 -3)</strong>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="color:#fca5a5;">- const res = await stripe.paymentIntents.create(payload);</div>
+          <div style="color:#86efac;">+ const res = await stripe.paymentIntents.create(payload, { idempotencyKey });</div>
+          <div style="color:#7dd3fc; margin-top:3px;">LSP [tsserver]: 0 errors, 0 warnings verified in 68ms</div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#0b261d; border:1px solid #10b981; border-radius:6px; padding:5px 8px;">
+          <div>
+            <span style="background:#059669; color:#ffffff; padding:1.5px 6px; border-radius:4px; font-weight:800;">BUILD</span>
+            <span style="color:#e2e8f0; margin-left:6px;"><code>anthropic/claude-sonnet-4-5</code> &bull; Press <code>Tab</code> for PLAN</span>
+          </div>
+          <span class="callout-pin">5</span>
+        </div>
+      </div>
+
+      <!-- Right Sidebar: Context, LSP & Subagents -->
+      <div style="background:#040f0c; padding:8.5px; display:flex; flex-direction:column; gap:6px;">
+        <div class="term-box">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#7dd3fc;">Active LSP &amp; MCP Servers</strong>
+            <span class="callout-pin">6</span>
+          </div>
+          <div style="color:#cbd5e1; margin-top:2px;">
+            &bull; <code>typescript-language-server</code> (ready)<br/>
+            &bull; <code>postgres-mcp</code> (4 tools active)
+          </div>
+        </div>
+        <div class="term-box">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#fde68a;">Modified Files &amp; Snapshots</strong>
+            <span class="callout-pin">7</span>
+          </div>
+          <div style="color:#d1fae5; margin-top:2px;">
+            <code>M src/payments/charge.ts</code><br/>
+            <code>M test/charge.spec.ts</code><br/>
+            <span style="color:#94a3b8;">Snapshot #4 saved &bull; <code>/undo</code> ready</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control Legend: Essential Zones &amp; Leader Chords</h3>
+  <div class="grid-2" style="gap:7px 12px; font-size:8.15pt;">
+    <div class="card">
+      <strong><span class="callout-pin">1</span> Session Header (<code>/sessions</code> or <code>Ctrl+X l</code>):</strong> Jump between parallel task histories, rename threads, or fork a conversation cleanly.
+    </div>
+    <div class="card">
+      <strong><span class="callout-pin">2</span> Live Context &amp; Cost Meter:</strong> Tracks exact input/cached tokens and dollar spend; run <code>/compact</code> before hitting 75% capacity.
+    </div>
+    <div class="card">
+      <strong><span class="callout-pin">3</span> <code>@</code> File Fuzzy Search &amp; <code>!</code> Shell Bar:</strong> Type <code>@</code> to attach exact files/symbols or start a line with <code>!</code> to run a command and pipe stdout into context.
+    </div>
+    <div class="card">
+      <strong><span class="callout-pin">4</span> Inline Diff + Automatic LSP Check:</strong> Every edit renders unified color diffs and immediately reports compiler diagnostics from active language servers.
+    </div>
+    <div class="card">
+      <strong><span class="callout-pin">5</span> Mode Badge &amp; Model Selector (<code>Tab</code> / <code>Ctrl+X m</code>):</strong> Press <code>Tab</code> to toggle <strong>PLAN</strong> &harr; <strong>BUILD</strong>, or <code>/models</code> to swap providers mid-thread.
+    </div>
+    <div class="card">
+      <strong><span class="callout-pin">6</span> LSP/MCP Status &amp; <span class="callout-pin">7</span> Snapshot Tree:</strong> Confirm healthy language servers and track every file touched since turn 1 for instant <code>/undo</code> rollback.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: PLAN VS BUILD MODES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Dual-Mode Discipline</span>
+    <span>Mastering Read-Only Plan Mode vs. Full-Access Build Mode</span>
+  </div>
+
+  <h2 class="page-title">The <code>Tab</code> Key Habit: Separate Architecture From Mutation</h2>
+  <p class="page-lead">
+    The fastest way to wreck a codebase is letting an eager agent edit ten files before understanding how your auth middleware works. Pressing <code>Tab</code> switches OpenCode into <strong>Plan Mode</strong>&mdash;physically disabling file edits and destructive shell commands while the agent maps out a surgical blueprint.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_1.jpg" alt="Comparison of Read-Only Plan Prism Mode and Active Build Execution Mode" style="width:100%; height:228px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Two Modes, One Keystroke (<code>Tab</code>):</strong> Inspect, search, and crystallize edge cases safely inside the read-only Plan frame (left) before flipping to Build mode (right) to execute verified multi-file patches and tests.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-mint">
+      <div class="card-title"><span class="num-badge">1</span> <code>PLAN</code> Mode (Read-Only Architect)</div>
+      <ul style="font-size:8pt; margin:2px 0 0 0;">
+        <li><strong>Hard Write Lock:</strong> File creation, patch edits, and mutating bash tools are denied or gated by permission policy.</li>
+        <li><strong>Deep Exploration:</strong> Uses <code>grep</code>, <code>glob</code>, file reads, and <code>@explore</code> subagents to verify call sites before proposing changes.</li>
+        <li><strong>Best Model Choice:</strong> Route to high-reasoning models (<code>claude-opus-4-6</code>, <code>gpt-5</code>, or <code>gemini-2.5-pro</code>).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> <code>BUILD</code> Mode (Full-Access Implementer)</div>
+      <ul style="font-size:8pt; margin:2px 0 0 0;">
+        <li><strong>Full Execution Loop:</strong> Applies surgical patches, receives automatic LSP compiler feedback, and runs test suites.</li>
+        <li><strong>Follows the Approved Plan:</strong> Executes step by step against the blueprint already agreed upon in the same session context.</li>
+        <li><strong>Best Model Choice:</strong> Fast, high-throughput coding models (<code>claude-sonnet-4-5</code> or local <code>qwen3-coder</code>).</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The 4-Step Plan &rarr; Review &rarr; Build Rhythm</h3>
+  <pre class="code-block"><code>1. Press [Tab] -&gt; Confirm badge reads PLAN.
+2. Prompt: "Trace @src/auth/session.ts and propose a 3-step plan to rotate refresh tokens."
+3. Challenge assumptions ("Keep backward compatibility for mobile v2 tokens; skip DB migration").
+4. Press [Tab] -&gt; Badge flips to BUILD -&gt; Prompt: "Execute steps 1-3 and run !pnpm test auth"</code></pre>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: ROUTING, SUBAGENTS & PROMPT ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Multi-Model Routing &amp; Subagents</span>
+    <span><code>opencode.json</code> Routing &amp; Custom <code>.opencode/agent/*.md</code> Specialists</span>
+  </div>
+
+  <h2 class="page-title">Multi-Model Routing &amp; Markdown Specialist Subagents</h2>
+  <p class="page-lead">
+    Instead of paying flagship prices on every grep or code review, assign tailored models, temperatures, and tool boundaries per agent role in <code>opencode.json</code> or drop self-contained Markdown files into <code>.opencode/agents/</code>.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div>
+      <h3>1. Role-Based Routing in <code>opencode.json</code></h3>
+      <pre class="code-block"><code>{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "anthropic/claude-sonnet-4-5",
+  "small_model": "google/gemini-2.5-flash",
+  "agent": {
+    "plan": {
+      "model": "openai/gpt-5",
+      "temperature": 0.1
+    },
+    "build": {
+      "model": "anthropic/claude-sonnet-4-5"
+    }
+  }
+}</code></pre>
+    </div>
+
+    <div>
+      <h3>2. Custom Subagent (<code>.opencode/agents/sec.md</code>)</h3>
+      <pre class="code-block"><code>---
+description: Audits diffs for OWASP &amp; auth bugs
+mode: subagent
+model: google/gemini-2.5-pro
+temperature: 0.1
+tools:
+  write: false
+  edit: false
+  bash: false
+---
+Review changed files for SQLi, SSRF, IDOR, and
+leaked secrets. Cite file:line and minimal fix.</code></pre>
+    </div>
+  </div>
+
+  <p style="font-size:8.2pt; margin-bottom:6px;">
+    <strong>Invoking Subagents:</strong> Mention any subagent directly in chat (for example, <code>@sec audit my staged changes</code> or built-in <code>@explore find where webhook signatures are verified</code>), or let your primary agent delegate automatically based on its <code>description</code> frontmatter. Navigate between parent and child subagent threads anytime using <code>Ctrl+X Right</code> / <code>Left</code>.
+  </p>
+
+  <h3>Color-Coded Blueprint: High-Signal OpenCode TUI Prompt</h3>
+  <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:8.5px 11px;">
+    <div style="font-size:8.4pt; line-height:1.68; margin-bottom:6px;">
+      <span class="p-tag p-mode">[In PLAN mode] Ask @explore to map every caller of</span>
+      <span class="p-tag p-ctx">@src/billing/UsageMeter.ts and inspect recent test failures from !vitest run billing,</span>
+      <span class="p-tag p-route">draft a zero-downtime batching plan using our configured gpt-5 planner,</span>
+      <span class="p-tag p-lsp">then switch via Tab to BUILD, resolve any tsserver LSP diagnostics to zero,</span>
+      <span class="p-tag p-git">and run @sec before committing so we can /undo cleanly if edge cases fail.</span>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:6px; font-size:7.3pt; border-top:1px solid #e2e8f0; padding-top:5px;">
+      <span><span class="p-tag p-mode">Mode + Subagent</span></span>
+      <span><span class="p-tag p-ctx">@File &amp; !Shell Context</span></span>
+      <span><span class="p-tag p-route">Model Role Routing</span></span>
+      <span><span class="p-tag p-lsp">LSP Zero-Error Gate</span></span>
+      <span><span class="p-tag p-git">Review &amp; Snapshot Safety</span></span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: NATIVE LSP & CONTEXT HYGIENE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Compiler Grounding &amp; Context</span>
+    <span>Native LSP Integration, <code>AGENTS.md</code> &amp; Context Compaction</span>
+  </div>
+
+  <h2 class="page-title">Native LSP Loops, <code>AGENTS.md</code> &amp; Token Compaction</h2>
+  <p class="page-lead">
+    Most terminal agents waste three turns running full builds just to discover a missing import. OpenCode spawns language servers directly behind the scenes, streaming instant compiler diagnostics into the agent turn the moment a file is written.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Built-In &amp; Custom LSP Configuration</div>
+      <p style="font-size:8pt;">OpenCode auto-detects TypeScript, Python, Go, Rust, Elixir, Zig, C#, and Astro language servers. Customize or disable servers in <code>opencode.json</code>:</p>
+      <pre class="code-block"><code>{
+  "lsp": {
+    "pyright": {
+      "env": { "VIRTUAL_ENV": ".venv" }
+    },
+    "eslint": { "disabled": true }
+  }
+}</code></pre>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> High-Signal <code>AGENTS.md</code> via <code>/init</code></div>
+      <p style="font-size:8pt;">Running <code>/init</code> scans your build scripts, lint rules, and folder conventions to write <code>AGENTS.md</code> (also compatible with <code>CLAUDE.md</code> fallback):</p>
+      <ul style="font-size:7.8pt; margin:2px 0 0 0;">
+        <li>Pin exact single-file test commands (<code>pnpm vitest run path/to/file</code>).</li>
+        <li>List architectural boundaries and forbidden directories.</li>
+        <li>Load shared team docs via <code>"instructions": ["docs/arch.md"]</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Context Window Hygiene: Staying Fast Past Turn 30</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Command / Shortcut</th>
+        <th style="width:38%;">What It Does Under the Hood</th>
+        <th style="width:38%;">When to Trigger It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>/compact</code> (<code>Ctrl+X c</code>)</td>
+        <td>Summarizes prior turns, resolved tool logs, and key decisions into a tight handoff block</td>
+        <td>After finishing one feature slice or whenever token usage crosses ~65&ndash;75%</td>
+      </tr>
+      <tr>
+        <td><code>/new</code> (<code>Ctrl+X n</code>)</td>
+        <td>Starts a brand-new clean conversation while preserving <code>AGENTS.md</code> project rules</td>
+        <td>Switching to an unrelated bug or subsystem where prior files add noise</td>
+      </tr>
+      <tr>
+        <td><code>/editor</code> (<code>Ctrl+X e</code>)</td>
+        <td>Opens your <code>$EDITOR</code> (Neovim, VS Code, Zed) to compose multi-line specs comfortably</td>
+        <td>Drafting detailed acceptance criteria, pasted stack traces, or table schemas</td>
+      </tr>
+      <tr>
+        <td><strong>Clipboard Image Paste</strong></td>
+        <td>Drag-and-drop or paste UI screenshots straight into the TUI prompt box</td>
+        <td>Fixing CSS alignment bugs, mobile overflow, or matching a wireframe</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">Delegate Broad Searches to <code>@explore</code> to Protect Main Context</div>
+    Reading 20 candidate files directly inside your main Build thread bloats every subsequent turn&rsquo;s prompt cache. Ask <code>@explore</code> to locate exact symbols first; only its concise <code>file:line</code> summary enters your main session.
+  </div>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: GIT SNAPSHOTS (/UNDO & /REDO) ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Reversible Time-Travel</span>
+    <span>Shadow Git Snapshots, <code>/undo</code>, <code>/redo</code> &amp; Branching</span>
+  </div>
+
+  <h2 class="page-title">Fearless Experimentation with <code>/undo</code> &amp; <code>/redo</code> Snapshots</h2>
+  <p class="page-lead">
+    Traditional <code>git reset --hard</code> wipes your manual edits or pollutes commit history. OpenCode maintains a private shadow Git object store behind your repository so every turn is atomically reversible without touching your real Git staging index.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_2.jpg" alt="Reversible Session Snapshot Timeline With Undo and Redo Loops" style="width:100%; height:228px; object-fit:cover; object-position:center; display:block;" />
+    <div class="figure-caption">
+      <strong>Coupled Code + Context Rewind:</strong> Running <code>/undo</code> rolls back both the workspace files and the bad conversation turn simultaneously, letting you refine your prompt and replay cleanly from a known-good checkpoint.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:5px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> How <code>/undo</code> Beats Follow-Up Nagging</div>
+      <p style="font-size:8pt;">When an agent goes down the wrong architectural path, arguing with it in turn 6 leaves five turns of broken code polluting its context window. Instead:</p>
+      <ol style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li>Run <code>/undo</code> (<code>Ctrl+X u</code>) once or twice to restore exact pre-turn files; your original prompt pops right back into the input box.</li>
+        <li>Add the missing constraint or <code>@file</code> reference and hit <code>Enter</code>.</li>
+        <li>Changed your mind? Run <code>/redo</code> (<code>Ctrl+X r</code>) to restore the reverted turn and patches intact.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Comparing Two Models on One Bug</div>
+      <p style="font-size:8pt;">Benchmark two providers head-to-head on your real repo in under two minutes:</p>
+      <ol style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li>Let Model A attempt the fix and run <code>!pnpm test</code>.</li>
+        <li>Run <code>/undo</code> to rewind the working tree to its exact starting state.</li>
+        <li>Switch models with <code>/models</code> (<code>Ctrl+X m</code>) to Model B and submit the exact same pre-filled prompt.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">Git Repository Required for Snapshot Tracking</div>
+    OpenCode&rsquo;s <code>/undo</code> and <code>/redo</code> engine relies on your folder being initialized with <code>git init</code>. Always initialize Git in scratch prototypes before starting heavy multi-file Build loops.
+  </div>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Playbook</span>
+    <span>5 Real-World Copy-Paste Recipes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Recipes</h2>
+  <p class="page-lead">
+    Copy these five ready-to-use configurations and slash commands into your project to unlock hybrid cloud/local routing, custom slash commands, local Ollama 32K coding, and session continuation.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Recipe &amp; Goal</th>
+        <th style="width:54%;">Copy-Paste Snippet / Config</th>
+        <th style="width:24%;">Expected Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Cloud Planner + Local Ollama Coder</strong></td>
+        <td><code>{"agent":{"plan":{"model":"anthropic/claude-opus-4-6"},"build":{"model":"ollama/qwen3-coder:30b"}},"provider":{"ollama":{"npm":"@ai-sdk/openai-compatible","options":{"baseURL":"http://localhost:11434/v1"}}}}</code></td>
+        <td>Uses frontier reasoning in <code>PLAN</code> mode and zero-cost local GPU tokens in <code>BUILD</code> mode.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Custom <code>/test-fix</code> Slash Command</strong></td>
+        <td>Save <code>.opencode/commands/test-fix.md</code>:<br/><code>---</code><br/><code>description: Run suite and fix failures</code><br/><code>---</code><br/><code>Failure output: !&#96;pnpm test --run&#96; — fix root cause for $ARGUMENTS without weakening assertions.</code></td>
+        <td>Typing <code>/test-fix auth</code> executes tests first, injects stdout, and fixes the failing module.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Resume Latest Session From Shell</strong></td>
+        <td><code>opencode --continue</code> &nbsp;(or <code>opencode -s ses_01JXYZ...</code>)</td>
+        <td>Reopens your exact prior TUI thread, snapshot chain, and active model immediately.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Auto-Format Files After Every Edit</strong></td>
+        <td>In <code>opencode.json</code>:<br/><code>{"formatter":{"biome":{"command":["npx","@biomejs/biome","check","--write","$FILE"],"extensions":[".ts",".tsx",".json"]}}}</code></td>
+        <td>Runs Biome automatically on every touched file so agent diffs always match repo style.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Export Full Session JSON Audit Log</strong></td>
+        <td><code>opencode export ses_01JXYZ &gt; session-audit.json</code></td>
+        <td>Dumps complete prompts, tool calls, token counts, and diffs for team postmortems or evals.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky" style="margin-top:6px;">
+    <div class="callout-title">Dynamic Shell Injection Inside Custom Commands</div>
+    Inside <code>.opencode/commands/*.md</code> templates, wrapping a command in exclamation-backtick syntax runs that shell command locally (such as <code>git diff --staged</code> or test runners) and splices its fresh output straight into the prompt before sending it to the LLM.
+  </div>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: SHARING, PRIVACY & DESKTOP/IDE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Team Sharing &amp; Privacy</span>
+    <span>Session Sharing Policies, Themes &amp; IDE / Desktop Surfaces</span>
+  </div>
+
+  <h2 class="page-title">Session Sharing Controls, Privacy Locks &amp; IDE Companions</h2>
+  <p class="page-lead">
+    OpenCode makes code review walkthroughs effortless with one-command share links, while giving enterprise security teams a single config switch to lock sharing off completely across private repositories.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Three Session <code>share</code> Modes</div>
+      <p style="font-size:8pt;">Configure <code>"share"</code> in <code>opencode.json</code> to match your repo&rsquo;s confidentiality level:</p>
+      <ul style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li><strong><code>"manual"</code> (Default):</strong> Nothing leaves your machine unless you explicitly run <code>/share</code> (<code>Ctrl+X s</code>); revoke anytime with <code>/unshare</code>.</li>
+        <li><strong><code>"disabled"</code> (Enterprise Lock):</strong> Hard-blocks <code>/share</code> in proprietary repos so source snippets can never be published to a public URL.</li>
+        <li><strong><code>"auto"</code>:</strong> Automatically creates shareable links for open-source PR walkthroughs.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">2</span> Secret &amp; Env Variable Substitution</div>
+      <ul style="font-size:7.9pt; margin:2px 0 0 0;">
+        <li><strong>Never Hardcode Keys:</strong> Reference environment secrets in <code>opencode.json</code> with <code>"{env:LITELLM_API_KEY}"</code> or file contents via <code>"{file:~/.secrets/token}"</code>.</li>
+        <li><strong>Block Sensitive Reads:</strong> Add <code>.env*</code>, <code>*.pem</code>, and <code>secrets/</code> deny rules under <code>permission.read</code> so prompts never ingest raw credentials.</li>
+        <li><strong>Zero-Telemetry Local Stack:</strong> Pair <code>"share": "disabled"</code> with local Ollama or VPC Bedrock/Vertex endpoints for full data residency.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> VS Code, Cursor &amp; Neovim Companion</div>
+      <p style="font-size:8pt;">Run OpenCode inside your editor&rsquo;s integrated terminal pane: active file selections, line ranges, and diagnostic problems jump straight into your TUI prompt with a single shortcut while diffs update live in editor buffers.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">4</span> Themes &amp; TrueColor Terminal Tuning</div>
+      <p style="font-size:8pt;">Run <code>/themes</code> (<code>Ctrl+X t</code>) and pick <code>system</code> or built-in palettes (Catppuccin, Tokyonight, Gruvbox, Rose Pine). Use a TrueColor terminal (Ghostty, Kitty, WezTerm, iTerm2, or Alacritty) for crisp diff highlights.</p>
+    </div>
+  </div>
+
+  <div class="callout rose" style="margin-top:7px;">
+    <div class="callout-title">Commit <code>"share": "disabled"</code> on Day One in Private Client Repos</div>
+    Adding <code>{"share": "disabled"}</code> to your repository&rsquo;s checked-in <code>opencode.json</code> protects every developer on the team from accidentally running <code>Ctrl+X s</code> during a late-night debugging session.
+  </div>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; End-to-End Orchestration</span>
+    <span>Cross-Tool Synergy Pipeline</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Worktrees + Plan/Build + LSP + PR Review</h2>
+  <p class="page-lead">
+    Combine isolated Git worktrees, multi-provider Plan/Build routing, native LSP verification, and shareable PR walkthroughs into a repeatable high-velocity engineering loop.
+  </p>
+
+  <div class="figure-box" style="background:#061410; padding:13px;">
+    <svg viewBox="0 0 700 222" width="100%" height="222" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="8" y="16" width="154" height="154" rx="10" fill="#0b261d" stroke="#6ee7b7" stroke-width="1.5"/>
+      <rect x="18" y="26" width="58" height="18" rx="4" fill="#059669"/>
+      <text x="47" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 1</text>
+      <text x="18" y="61" fill="#ffffff" font-size="10.8" font-weight="800">Isolated Worktree</text>
+      <text x="18" y="76" fill="#6ee7b7" font-size="8.5" font-weight="700">Git + AGENTS.md</text>
+      <text x="18" y="95" fill="#d1fae5" font-size="8">&bull; git worktree add</text>
+      <text x="18" y="110" fill="#d1fae5" font-size="8">&bull; Load opencode.json</text>
+      <text x="18" y="125" fill="#d1fae5" font-size="8">&bull; /init project rules &amp;</text>
+      <text x="25" y="137" fill="#d1fae5" font-size="8">test commands</text>
+      <text x="18" y="153" fill="#fde68a" font-size="7.9" font-weight="700">Out: Clean Sandbox</text>
+
+      <path d="M162 93 L180 93" stroke="#6ee7b7" stroke-width="2.2"/>
+      <polygon points="178,88 186,93 178,98" fill="#6ee7b7"/>
+
+      <!-- Stage 2 -->
+      <rect x="186" y="16" width="154" height="154" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <rect x="196" y="26" width="58" height="18" rx="4" fill="#0284c7"/>
+      <text x="225" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 2</text>
+      <text x="196" y="61" fill="#ffffff" font-size="10.8" font-weight="800">PLAN Mode (Tab)</text>
+      <text x="196" y="76" fill="#7dd3fc" font-size="8.5" font-weight="700">Frontier Architect</text>
+      <text x="196" y="95" fill="#e2e8f0" font-size="8">&bull; @explore call graph</text>
+      <text x="196" y="110" fill="#e2e8f0" font-size="8">&bull; Read-only safety lock</text>
+      <text x="196" y="125" fill="#e2e8f0" font-size="8">&bull; Opus / GPT-5 / Pro</text>
+      <text x="203" y="137" fill="#e2e8f0" font-size="8">writes step spec</text>
+      <text x="196" y="153" fill="#fde68a" font-size="7.9" font-weight="700">Out: Approved Spec</text>
+
+      <path d="M340 93 L358 93" stroke="#38bdf8" stroke-width="2.2"/>
+      <polygon points="356,88 364,93 356,98" fill="#38bdf8"/>
+
+      <!-- Stage 3 -->
+      <rect x="364" y="16" width="154" height="154" rx="10" fill="#1e1b4b" stroke="#a78bfa" stroke-width="1.5"/>
+      <rect x="374" y="26" width="58" height="18" rx="4" fill="#7c3aed"/>
+      <text x="403" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 3</text>
+      <text x="374" y="61" fill="#ffffff" font-size="10.8" font-weight="800">BUILD + LSP Loop</text>
+      <text x="374" y="76" fill="#c4b5fd" font-size="8.5" font-weight="700">Fast Coder + Checks</text>
+      <text x="374" y="95" fill="#ede9fe" font-size="8">&bull; Sonnet / Local Ollama</text>
+      <text x="374" y="110" fill="#ede9fe" font-size="8">&bull; Auto LSP diagnostics</text>
+      <text x="374" y="125" fill="#ede9fe" font-size="8">&bull; Formatter + !vitest</text>
+      <text x="374" y="137" fill="#ede9fe" font-size="8">&bull; /undo if regression</text>
+      <text x="374" y="153" fill="#fde68a" font-size="7.9" font-weight="700">Out: Green Diff</text>
+
+      <path d="M518 93 L536 93" stroke="#fbbf24" stroke-width="2.2"/>
+      <polygon points="534,88 542,93 534,98" fill="#fbbf24"/>
+
+      <!-- Stage 4 -->
+      <rect x="542" y="16" width="150" height="154" rx="10" fill="#1c1406" stroke="#fbbf24" stroke-width="1.5"/>
+      <rect x="552" y="26" width="58" height="18" rx="4" fill="#d97706"/>
+      <text x="581" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 4</text>
+      <text x="552" y="61" fill="#ffffff" font-size="10.8" font-weight="800">@sec + PR Handoff</text>
+      <text x="552" y="76" fill="#fde68a" font-size="8.5" font-weight="700">Audit &amp; Merge</text>
+      <text x="552" y="95" fill="#fef3c7" font-size="8">&bull; Run @sec read-only</text>
+      <text x="552" y="110" fill="#fef3c7" font-size="8">&bull; /compact context</text>
+      <text x="552" y="125" fill="#fef3c7" font-size="8">&bull; gh pr create (+ OSS</text>
+      <text x="559" y="137" fill="#fef3c7" font-size="8">/share transcript)</text>
+      <text x="552" y="153" fill="#6ee7b7" font-size="7.9" font-weight="700">Out: Verified PR</text>
+
+      <!-- Feedback Arc -->
+      <path d="M374 170 L374 196 L225 196 L225 170" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+      <polygon points="220,174 225,166 230,174" fill="#f43f5e"/>
+      <rect x="236" y="184" width="132" height="22" rx="11" fill="#2c0b14" stroke="#f43f5e" stroke-width="1.1"/>
+      <text x="302" y="198" text-anchor="middle" fill="#fda4af" font-size="8.1" font-weight="700">/undo Rewinds to Stage 2</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-top:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> Parallel Sessions Across Git Worktrees</div>
+      <p style="font-size:8.1pt;">Run three independent <code>opencode</code> TUI instances inside three <code>git worktree</code> directories (for example inside tmux or Ghostty splits) so each agent gets isolated shadow snapshots, ports, and LSP caches.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">B</span> Pairing With Part 2: Plugins, Tools &amp; CI</div>
+      <p style="font-size:8.1pt;">Once your interactive TUI workflow is dialed in, turn to the companion handbook (<em>OpenCode Plugins, Custom Tools, Servers &amp; CI</em>) to wire TypeScript hooks, headless <code>opencode serve</code>, and GitHub Actions automation.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Clinic &amp; Pre-Flight</span>
+    <span>Troubleshooting Clinic &amp; 6-Point Daily Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Fix the seven most frequent TUI, local-model, LSP, and snapshot hiccups in ten seconds flat, then run the 6-point checklist when onboarding any new repository.
+  </p>
+
+  <table class="clean-table" style="font-size:7.85pt; margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:35%;">Symptom / Issue</th>
+        <th style="width:65%;">10-Second Root-Cause Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Local Ollama model forgets system tools or loops</strong></td>
+        <td>Ollama defaults to a tiny <code>4096</code> token context window! Build a Modelfile with <code>PARAMETER num_ctx 32768</code> (or <code>65536</code>) before selecting it in OpenCode.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Agent refuses to edit files even when asked</strong></td>
+        <td>Check the bottom-left mode badge&mdash;you are still in read-only <strong><code>PLAN</code></strong> mode! Press <code>Tab</code> once to flip the badge to <strong><code>BUILD</code></strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>/undo</code> reports snapshot unavailable</strong></td>
+        <td>The directory is not a Git repository. Run <code>git init</code> at the workspace root so OpenCode can initialize its shadow snapshot tree.</td>
+      </tr>
+      <tr>
+        <td><strong>4. LSP diagnostics missing for Python or TypeScript</strong></td>
+        <td>Language server binary isn&rsquo;t on <code>PATH</code> or wrong venv is active. Install <code>pyright</code> / <code>typescript-language-server</code> or pass <code>VIRTUAL_ENV</code> under <code>lsp</code> in <code>opencode.json</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Newly added API key doesn&rsquo;t show models in <code>/models</code></strong></td>
+        <td>Run <code>/connect</code> inside the TUI or verify the provider ID via <code>opencode auth list</code> and <code>opencode models --refresh</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Diff colors look washed out inside tmux</strong></td>
+        <td>Enable 24-bit TrueColor in <code>~/.tmux.conf</code> (<code>set -ga terminal-overrides ",xterm-256color:Tc"</code>) and select <code>/themes</code> &rarr; <code>system</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Responses slow down &amp; cost spikes after 40 turns</strong></td>
+        <td>Long raw tool outputs are re-sent each turn. Run <code>/compact</code> (<code>Ctrl+X c</code>) to distill history or start a fresh thread with <code>/new</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-dark">
+    <div class="card-title" style="color:#6ee7b7; font-size:9.6pt; margin-bottom:6px;">6-Point Pre-Flight Checklist for Every New Repo</div>
+    <div class="check-grid" style="margin-top:2px;">
+      <div class="check-item" style="background:#0b261d; border-color:#144534; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Bootstrap <code>AGENTS.md</code>:</strong> Ran <code>/init</code> and pinned fast single-file test and lint commands.</div>
+      </div>
+      <div class="check-item" style="background:#0b261d; border-color:#144534; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Split Model Roles:</strong> Configured frontier <code>plan</code>, fast <code>build</code>, and cheap <code>small_model</code> in <code>opencode.json</code>.</div>
+      </div>
+      <div class="check-item" style="background:#0b261d; border-color:#144534; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Lock Sharing Policy:</strong> Set <code>"share": "disabled"</code> in checked-in config for private or client repos.</div>
+      </div>
+      <div class="check-item" style="background:#0b261d; border-color:#144534; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Verify Active LSPs:</strong> Confirmed green language server status on first file touch for instant error loops.</div>
+      </div>
+      <div class="check-item" style="background:#0b261d; border-color:#144534; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Plan Before Build:</strong> Started complex tasks in <code>Tab</code> (<code>PLAN</code>) mode with <code>@explore</code> before mutating files.</div>
+      </div>
+      <div class="check-item" style="background:#0b261d; border-color:#144534; color:#e2e8f0;">
+        <span class="check-box">&#10003;</span>
+        <div><strong>Rewind, Don&rsquo;t Argue:</strong> Used <code>/undo</code> on off-track turns and <code>/compact</code> between feature milestones.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>OpenCode TUI, Plan/Build Agents &amp; Multi-Model Routing &bull; Complete Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

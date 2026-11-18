@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">OPEN HARNESSES SERIES &bull; OLLAMA CORE ENGINEERING</div>
+    <h1>Ollama Modelfiles, <span>Tool Calling, Vision &amp; Server Tuning</span></h1>
+    <p class="cover-sub">
+      Go far beyond basic <code>ollama run</code> prompts&mdash;author deterministic <code>Modelfile</code> blueprints with LoRA adapters, orchestrate native multi-turn <code>tools</code> loops, lock JSON Schema <code>format</code> outputs, extract structured data from images, and tune VRAM concurrency for production daemons.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge"><code>Modelfile</code> &amp; LoRA <code>ADAPTER</code></span>
+      <span class="cover-badge"><code>ollama create / show / ps / stop</code></span>
+      <span class="cover-badge">Native <code>tools</code> Function Loops</span>
+      <span class="cover-badge">JSON Schema <code>format</code> Outputs</span>
+      <span class="cover-badge">Multimodal Vision &amp; OCR</span>
+      <span class="cover-badge"><code>OLLAMA_*</code> Concurrency &amp; CORS</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Sculpted dark bronze and obsidian server core radiating warm tangerine optical circuits into a blueprint prism, interconnected tool spheres, and a glowing vision scanner lens" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Declarative Model Blueprints</div>
+      <div class="cover-stat-desc">Bake <code>FROM</code> weights, <code>SYSTEM</code> rules, <code>num_ctx</code>, <code>stop</code> sequences, <code>MESSAGE</code> few-shots, and LoRA <code>ADAPTER</code> files into zero-copy tags.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Deterministic Tools &amp; Vision</div>
+      <div class="cover-stat-desc">Wire native <code>/api/chat</code> function loops, grammar-constrained JSON schemas, and multimodal screenshot or receipt parsing in Python and JS.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Multi-Slot Server Tuning</div>
+      <div class="cover-stat-desc">Balance <code>OLLAMA_NUM_PARALLEL</code>, <code>OLLAMA_MAX_LOADED_MODELS</code>, Flash Attention, quantized KV caches, and strict CORS daemon policies.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS, DAEMON MODEL & TOC ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Daemon Architecture</span>
+    <span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning</span>
+  </div>
+
+  <h2 class="page-title">Inside Ollama: From CLI Wrapper to Local Inference Server</h2>
+  <p class="page-lead">
+    Where our companion <em>Local &amp; On-Device AI Stack</em> guide covers GGUF/MLX quantization math and OpenAI-compatible routing, this handbook dives straight into <strong>Ollama&rsquo;s native engine</strong>. Treating Ollama as an image-layered server daemon—rather than a single-turn chat toy—unlocks reproducible models, parallel GPU slots, reliable tool calling, and structured vision extraction.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Daemon Architecture &amp; Blob Store</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Vision: Screenshots &amp; Receipts</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. CLI Lifecycle &amp; <code>OLLAMA_*</code> Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Engineering Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated <code>/api/chat</code> &amp; Slot Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Concurrency, CORS &amp; Daemons</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. <code>Modelfile</code> Blueprints &amp; LoRAs</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Vision &amp; Tool Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Native <code>tools</code> &amp; Schema <code>format</code></strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Official Python &amp; JS SDK Patterns</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Rule: Bake Rules, Constrain Output</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Client-Daemon Architecture: Blobs, Scheduler Slots &amp; Native Endpoints</h3>
+  <p style="font-size:8.4pt;">
+    Every <code>ollama</code> CLI command and SDK call is an HTTP client speaking JSON to the persistent background server listening on <code>127.0.0.1:11434</code>. Weight tensors live once inside content-addressed SHA-256 blobs under <code>~/.ollama/models/blobs</code>, while custom <code>Modelfile</code> aliases store tiny manifest layers on top.
+  </p>
+
+  <div class="figure-box" style="background:#120d0a; padding:9px 12px; border-color:#431407;">
+    <svg viewBox="0 0 700 186" width="100%" height="186" xmlns="http://www.w3.org/2000/svg">
+      <!-- Column 1: Clients & Official SDKs -->
+      <rect x="8" y="10" width="194" height="166" rx="9" fill="#1c140f" stroke="#fb923c" stroke-width="1.6"/>
+      <text x="18" y="28" fill="#fdba74" font-size="7.8" font-weight="700">1. CLI &amp; OFFICIAL SDK CLIENTS</text>
+      <text x="18" y="44" fill="#ffffff" font-size="9.8" font-weight="800">HTTP / JSON Callers</text>
+      <rect x="18" y="54" width="174" height="25" rx="5" fill="#291b14" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="26" y="70" fill="#ffedd5" font-size="7.4" font-weight="600">&bull; ollama create / show / ps / stop</text>
+      <rect x="18" y="84" width="174" height="25" rx="5" fill="#291b14" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="26" y="100" fill="#ffedd5" font-size="7.4" font-weight="600">&bull; ollama-python (Client / Async)</text>
+      <rect x="18" y="114" width="174" height="25" rx="5" fill="#291b14" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="26" y="130" fill="#e0f2fe" font-size="7.4" font-weight="600">&bull; ollama-js (Node &amp; ollama/browser)</text>
+      <rect x="18" y="144" width="174" height="22" rx="5" fill="#16221b" stroke="#34d399" stroke-width="0.9"/>
+      <text x="26" y="159" fill="#a7f3d0" font-size="7.2" font-weight="600">&bull; POST /api/chat &bull; /api/generate</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M202 93 L232 93" stroke="#fb923c" stroke-width="2.2"/>
+      <polygon points="230,88 239,93 230,98" fill="#fb923c"/>
+
+      <!-- Column 2: Ollama Server Daemon -->
+      <rect x="240" y="6" width="222" height="174" rx="10" fill="#231812" stroke="#ea580c" stroke-width="2"/>
+      <text x="351" y="25" text-anchor="middle" fill="#fed7aa" font-size="7.8" font-weight="700">2. OLLAMA DAEMON (:11434)</text>
+      <text x="351" y="42" text-anchor="middle" fill="#ffffff" font-size="10.4" font-weight="800">Scheduler &amp; Runner Engine</text>
+      <rect x="252" y="51" width="198" height="34" rx="6" fill="#120d0a" stroke="#fb923c" stroke-width="1"/>
+      <text x="351" y="65" text-anchor="middle" fill="#ffedd5" font-size="7.5" font-weight="700">OCI Blob Store + Modelfile Manifest</text>
+      <text x="351" y="77" text-anchor="middle" fill="#cbd5e1" font-size="7">Shared base tensors + thin SYSTEM/PARAM deltas</text>
+      <rect x="252" y="91" width="198" height="36" rx="6" fill="#120d0a" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="4 2"/>
+      <text x="351" y="105" text-anchor="middle" fill="#fde68a" font-size="7.5" font-weight="700">Multi-Model &amp; Parallel Slot Queue</text>
+      <text x="351" y="118" text-anchor="middle" fill="#cbd5e1" font-size="6.4">MAX_LOADED &bull; NUM_PARALLEL &bull; KEEP_ALIVE</text>
+      <rect x="252" y="133" width="198" height="37" rx="6" fill="#120d0a" stroke="#38bdf8" stroke-width="1"/>
+      <text x="351" y="147" text-anchor="middle" fill="#bae6fd" font-size="7.5" font-weight="700">Flash Attention + Quantized KV + Grammar</text>
+      <text x="351" y="160" text-anchor="middle" fill="#cbd5e1" font-size="7">q8_0 KV cache &bull; token mask for JSON format</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M462 93 L492 93" stroke="#38bdf8" stroke-width="2.2"/>
+      <polygon points="490,88 499,93 490,98" fill="#38bdf8"/>
+
+      <!-- Column 3: Native Capabilities -->
+      <rect x="500" y="10" width="192" height="166" rx="9" fill="#111b22" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="510" y="28" fill="#7dd3fc" font-size="7.8" font-weight="700">3. NATIVE CAPABILITIES</text>
+      <text x="510" y="44" fill="#ffffff" font-size="9.8" font-weight="800">Structured &amp; Multimodal</text>
+      <rect x="510" y="54" width="172" height="33" rx="5" fill="#162834" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="518" y="68" fill="#e0f2fe" font-size="7.5" font-weight="700">Native tools Function Loops</text>
+      <text x="518" y="80" fill="#cbd5e1" font-size="6.9">tool_calls + role: &quot;tool&quot; + think trace</text>
+      <rect x="510" y="93" width="172" height="33" rx="5" fill="#162834" stroke="#a855f7" stroke-width="0.9"/>
+      <text x="518" y="107" fill="#f3e8ff" font-size="7.5" font-weight="700">JSON Schema format Mask</text>
+      <text x="518" y="119" fill="#cbd5e1" font-size="6.9">Zero markdown fences; Pydantic / Zod parity</text>
+      <rect x="510" y="132" width="172" height="34" rx="5" fill="#162834" stroke="#34d399" stroke-width="0.9"/>
+      <text x="518" y="146" fill="#a7f3d0" font-size="7.5" font-weight="700">Multimodal Vision + OCR</text>
+      <text x="518" y="158" fill="#cbd5e1" font-size="6.9">images[] base64 &rarr; validated JSON structs</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Zero-Copy Layering Means Instant Specialization</div>
+    Creating ten specialized aliases (<code>receipt-json</code>, <code>sql-triage</code>, <code>code-review-32k</code>) from one base model via <code>ollama create</code> does <strong>not</strong> copy multi-gigabyte weight files ten times. Ollama shares the identical underlying weight blob and writes only tiny configuration layers on disk.
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: CLI LIFECYCLE & SERVER ENV MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; CLI Lifecycle &amp; Server Env Tuning</span>
+    <span>create, show, ps, stop &amp; OLLAMA_* Environment Reference</span>
+  </div>
+
+  <h2 class="page-title">CLI Lifecycle Commands &amp; Server Env Tuning Matrix</h2>
+  <p class="page-lead" style="margin-bottom:5px; font-size:9.1pt;">
+    Reliable Ollama engineering rests on two habits: inspecting and managing model blueprints explicitly with the CLI lifecycle verbs, and configuring server-side <code>OLLAMA_*</code> flags on the background daemon rather than temporary terminal tabs.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px; gap:9px;">
+    <div class="card" style="padding:6.5px 9px; border-top:3px solid #ea580c;">
+      <div class="card-title" style="font-size:8.6pt; margin-bottom:2px;"><span class="num-badge">1</span> Core Model Lifecycle Verbs</div>
+      <ul style="font-size:7.35pt; line-height:1.34; margin:2px 0 0 0; padding-left:14px;">
+        <li><code>ollama create &lt;tag&gt; -f Modelfile</code>: Builds a zero-copy alias; pass <code>-q q4_K_M</code> when importing unquantized F16/Safetensors weights.</li>
+        <li><code>ollama show &lt;tag&gt;</code>: Inspects architecture, context limit, and <code>Capabilities</code> (<code>tools</code>, <code>vision</code>, <code>thinking</code>). Add <code>--modelfile</code> or <code>--template</code>.</li>
+        <li><code>ollama ps</code> &amp; <code>ollama stop &lt;tag&gt;</code>: Audits GPU/CPU split, context slot, and idle timer; <code>stop</code> frees VRAM immediately.</li>
+        <li><code>ollama cp</code> &amp; <code>ollama push</code>: Re-tags local blueprints or shares custom variants to a registry.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:6.5px 9px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:8.6pt; margin-bottom:2px;"><span class="num-badge sky">2</span> Server Daemon vs. Client Shell Rule</div>
+      <ul style="font-size:7.35pt; line-height:1.34; margin:2px 0 0 0; padding-left:14px;">
+        <li><strong>Daemon-Side Only:</strong> Flags like <code>OLLAMA_NUM_PARALLEL</code>, <code>OLLAMA_FLASH_ATTENTION</code>, and <code>OLLAMA_KV_CACHE_TYPE</code> are read strictly by <code>ollama serve</code> at startup—exporting them in <code>~/.zshrc</code> does not reach a running GUI/service daemon.</li>
+        <li><strong>Client Routing:</strong> Only <code>OLLAMA_HOST</code> is read by both the daemon (bind IP) and CLI/SDK clients (target URL).</li>
+        <li><strong>Per-Request Overrides:</strong> Pass <code>keep_alive</code> and <code>options.num_ctx</code> dynamically inside <code>/api/chat</code> JSON payloads.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:2px 0 3px 0; font-size:9.9pt;">Server Tuning &amp; Concurrency Environment Variable Matrix</h3>
+  <table class="clean-table" style="font-size:7.2pt; line-height:1.3; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:26%; padding:4px 7px;">Environment Variable</th>
+        <th style="width:13%; padding:4px 7px;">Default</th>
+        <th style="width:35%; padding:4px 7px;">Engineering Effect on Daemon</th>
+        <th style="width:26%; padding:4px 7px;">Recommended Tuning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:3.8px 7px;"><code>OLLAMA_NUM_PARALLEL</code></td>
+        <td style="padding:3.8px 7px;"><code>1</code> (or auto)</td>
+        <td style="padding:3.8px 7px;">Concurrent slots per loaded model. Shares weights once, but multiplies KV cache RAM per slot.</td>
+        <td style="padding:3.8px 7px;"><code>2&ndash;4</code> for async queues; <code>1</code> on 16 GB laptops.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><code>OLLAMA_MAX_LOADED_MODELS</code></td>
+        <td style="padding:3.8px 7px;"><code>3 &times; GPUs</code></td>
+        <td style="padding:3.8px 7px;">Max distinct models kept hot in VRAM/RAM concurrently before LRU eviction.</td>
+        <td style="padding:3.8px 7px;"><code>2&ndash;3</code> for Vision + Chat; <code>1</code> to guard VRAM.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><code>OLLAMA_FLASH_ATTENTION</code></td>
+        <td style="padding:3.8px 7px;">Auto / <code>0</code></td>
+        <td style="padding:3.8px 7px;">Enables Flash Attention kernels to cut attention memory and speed long prompt prefill.</td>
+        <td style="padding:3.8px 7px;">Set <code>1</code> on Apple Silicon and modern NVIDIA GPUs.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><code>OLLAMA_KV_CACHE_TYPE</code></td>
+        <td style="padding:3.8px 7px;"><code>f16</code></td>
+        <td style="padding:3.8px 7px;">KV cache precision (<code>f16</code>, <code>q8_0</code>, <code>q4_0</code>). Requires Flash Attention support.</td>
+        <td style="padding:3.8px 7px;"><code>q8_0</code> cuts KV RAM ~50%; avoid <code>q4_0</code> for code.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><code>OLLAMA_KEEP_ALIVE</code></td>
+        <td style="padding:3.8px 7px;"><code>5m</code></td>
+        <td style="padding:3.8px 7px;">Idle unload timeout after final request (duration, <code>-1</code> forever, <code>0</code> immediate).</td>
+        <td style="padding:3.8px 7px;"><code>30m</code> for dev work; <code>-1</code> for pinned servers.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><code>OLLAMA_CONTEXT_LENGTH</code></td>
+        <td style="padding:3.8px 7px;"><code>4096</code> (dep.)</td>
+        <td style="padding:3.8px 7px;">Global fallback context when neither <code>Modelfile</code> nor payload sets <code>num_ctx</code>.</td>
+        <td style="padding:3.8px 7px;"><code>8192</code> or <code>16384</code> paired with <code>q8_0</code> KV.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><code>OLLAMA_MAX_QUEUE</code></td>
+        <td style="padding:3.8px 7px;"><code>512</code></td>
+        <td style="padding:3.8px 7px;">Max queued requests waiting on busy slots before rejecting bursts with HTTP <code>503</code>.</td>
+        <td style="padding:3.8px 7px;">Keep <code>512</code> (<code>1024</code> for bursty workers).</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><code>OLLAMA_ORIGINS</code></td>
+        <td style="padding:3.8px 7px;">Loopback</td>
+        <td style="padding:3.8px 7px;">Comma-separated CORS origins allowed to call <code>:11434</code> directly from browsers.</td>
+        <td style="padding:3.8px 7px;">Whitelist exact app URLs; avoid open <code>*</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:6px 10px; font-size:7.8pt;">
+    <div class="callout-title">First Sanity Check Before Writing Any Code: Inspect Capabilities via <code>ollama show</code></div>
+    Never assume every tag supports tool calls or images. Run <code>ollama show qwen3:8b</code> and verify the <strong>Capabilities</strong> block lists <code>tools</code>, <code>vision</code>, or <code>thinking</code> alongside its context length before wiring production pipelines.
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE / API INSPECTOR TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Inspector Tour</span>
+    <span>Live /api/chat Payload, Modelfile Blueprint &amp; Parallel Slot Telemetry</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Inside an Ollama Inference Cycle</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    When an API request enters <code>localhost:11434/api/chat</code>, seven coordinated components fire together—from daemon memory tuning and parallel slot allocation down to image encoding, tool schemas, JSON grammar masking, and live telemetry.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#ffedd5; white-space:nowrap;">Ollama Daemon &amp; /api/chat Inspector &bull; 127.0.0.1:11434</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px; font-size:6.8pt; white-space:nowrap;">
+        <span class="ol-chip" style="background:#431407; border:1px solid #fb923c; color:#fed7aa;">FLASH_ATTN=1 &bull; KV=q8_0 <span class="callout-pin">1</span></span>
+        <span class="ol-chip" style="background:#0c4a6e; border:1px solid #38bdf8; color:#bae6fd;">PARALLEL=2 &bull; MODELS=2/2 <span class="callout-pin">2</span></span>
+      </div>
+    </div>
+
+    <!-- Main Split View -->
+    <div style="display:grid; grid-template-columns: 56% 44%; min-height:262px;">
+      <!-- Left: POST /api/chat + HTTP 200 Response -->
+      <div style="border-right:1px solid #382214; padding:8px 10px; display:flex; flex-direction:column; justify-content:space-between; background:#120d0a; gap:6px;">
+        <div class="ol-panel" style="border-top:2.5px solid #fb923c;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#fed7aa;">POST /api/chat &mdash; Request Payload</strong>
+            <span style="color:#fdba74; font-size:6.3pt;">application/json</span>
+          </div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.2pt; color:#ffedd5; line-height:1.42;">
+            {<br/>
+            &nbsp;&nbsp;&quot;model&quot;: &quot;receipt-audit:v1&quot;,<br/>
+            &nbsp;&nbsp;&quot;messages&quot;: [{ &quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Parse receipt&quot;,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&quot;images&quot;: [&quot;/9j/4AAQSkZJRgABAQ...&quot;] }], <span class="callout-pin">3</span><br/>
+            &nbsp;&nbsp;&quot;tools&quot;: [{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{&quot;name&quot;:&quot;get_tax&quot;}}], <span class="callout-pin">4</span><br/>
+            &nbsp;&nbsp;&quot;format&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;required&quot;: [&quot;vendor&quot;, &quot;total&quot;] },<br/>
+            &nbsp;&nbsp;&quot;think&quot;: false, &quot;keep_alive&quot;: &quot;15m&quot;, &quot;stream&quot;: false <span class="callout-pin">5</span><br/>
+            }
+          </div>
+        </div>
+
+        <div class="ol-panel" style="border-top:2.5px solid #34d399; background:#101a16;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#6ee7b7;">HTTP 200 OK &mdash; Native Tool / JSON Response <span class="callout-pin">6</span></strong>
+            <span style="background:#065f46; color:#a7f3d0; padding:1px 6px; border-radius:4px; font-size:6.2pt; font-weight:700;">42.8 tok/s</span>
+          </div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.45pt; color:#d1fae5; line-height:1.4;">
+            &quot;message&quot;: { &quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;&quot;,<br/>
+            &nbsp;&nbsp;&quot;tool_calls&quot;: [{ &quot;function&quot;: { &quot;name&quot;: &quot;get_tax&quot;, &quot;arguments&quot;: { &quot;state&quot;: &quot;WA&quot; }}}] },<br/>
+            &quot;prompt_eval_count&quot;: 1420, &quot;eval_count&quot;: 34, &quot;done_reason&quot;: &quot;stop&quot;
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Modelfile Inspector + ollama ps Telemetry -->
+      <div style="padding:8px 9px; background:#18110d; display:flex; flex-direction:column; gap:6px; justify-content:space-between;">
+        <div class="ol-panel" style="border-top:2.5px solid #a855f7;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#e9d5ff;">$ ollama show --modelfile receipt-audit:v1 <span class="callout-pin">7</span></strong>
+          </div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.45pt; color:#f3e8ff; line-height:1.42;">
+            <span style="color:#fb923c;">FROM</span> qwen2.5vl:7b<br/>
+            <span style="color:#38bdf8;">PARAMETER</span> num_ctx 16384<br/>
+            <span style="color:#38bdf8;">PARAMETER</span> temperature 0<br/>
+            <span style="color:#38bdf8;">PARAMETER</span> stop &quot;&lt;|im_end|&gt;&quot;<br/>
+            <span style="color:#34d399;">SYSTEM</span> &quot;Extract exact invoice lines only.&quot;
+          </div>
+        </div>
+
+        <div class="ol-panel" style="border-top:2.5px solid #38bdf8; background:#0f171d; flex-grow:1; display:flex; flex-direction:column; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <strong style="color:#7dd3fc;">$ ollama ps &mdash; Active Slot Residency</strong>
+            <span style="color:#34d399; font-size:6.2pt; font-weight:700;">100% GPU</span>
+          </div>
+          <div style="font-family:'SF Mono', Menlo, monospace; font-size:6.25pt; color:#e2e8f0; line-height:1.44;">
+            <span style="color:#94a3b8;">NAME &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIZE &nbsp;&nbsp;&nbsp;PROC &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTEXT &nbsp;UNTIL</span><br/>
+            receipt-audit:v1 &nbsp;7.4 GB &nbsp;100% GPU &nbsp;16384 &nbsp;&nbsp;&nbsp;14m<br/>
+            qwen3:8b &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.1 GB &nbsp;100% GPU &nbsp;8192 &nbsp;&nbsp;&nbsp;&nbsp;4m
+          </div>
+          <div style="margin-top:4px; font-size:6.3pt; color:#cbd5e1;">
+            <div style="height:6px; background:#1e293b; border-radius:4px; overflow:hidden; display:flex; margin-bottom:3px;">
+              <div style="width:48%; background:#fb923c;"></div>
+              <div style="width:36%; background:#38bdf8;"></div>
+              <div style="width:16%; background:#334155;"></div>
+            </div>
+            <span>Parallel Slots: [Slot 1: Busy] [Slot 2: Ready] &bull; Zero CPU Spill</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Point Legend -->
+  <div class="grid-2" style="gap:6px 11px; font-size:7.85pt;">
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">1</span> <strong>Flash Attention &amp; KV Quantization:</strong> Cuts KV cache memory roughly in half via <code>q8_0</code> so long 16K contexts fit cleanly in GPU VRAM.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">2</span> <strong>Concurrency &amp; Residency Slots:</strong> Tracks active <code>OLLAMA_NUM_PARALLEL</code> slots and <code>OLLAMA_MAX_LOADED_MODELS</code> hot models simultaneously.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">3</span> <strong>Base64 Multimodal Image Array:</strong> Sends resized PNG/JPEG bytes inside <code>messages[].images</code> (SDKs accept local file paths directly).
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">4</span> <strong>Native <code>tools</code> &amp; <code>format</code> Controls:</strong> Declares callable JSON function schemas or token-level JSON Schema grammar masks per request.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">5</span> <strong>Reasoning &amp; Residency Overrides:</strong> Toggles <code>think</code> output for reasoning models and overrides default <code>5m</code> unload via <code>keep_alive</code>.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">6</span> <strong>Structured <code>tool_calls</code> &amp; Counters:</strong> Returns parsed tool names/arguments plus exact <code>prompt_eval_count</code> and <code>eval_count</code> metrics.
+    </div>
+  </div>
+  <div class="card-amber" style="padding:5.5px 10px; margin-top:6px; font-size:7.85pt;">
+    <span class="callout-pin">7</span> <strong>Compiled <code>Modelfile</code> Inspection:</strong> Run <code>ollama show --modelfile &lt;tag&gt;</code> anytime to audit the exact base weights, <code>num_ctx</code>, stop sequences, and baked system prompt governing a custom tag.
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: MASTERING MODELFILES & LORA ADAPTERS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Modelfile Authoring &amp; LoRA Adapters</span>
+    <span>FROM, SYSTEM, PARAMETER, MESSAGE, ADAPTER &amp; TEMPLATE</span>
+  </div>
+
+  <h2 class="page-title">Mastering Custom <code>Modelfile</code> Blueprints &amp; LoRAs</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    A <code>Modelfile</code> is Ollama&rsquo;s declarative recipe—conceptually just like a <code>Dockerfile</code> for local weights. Instead of repeating long system prompts, context window sizes, and few-shot examples in every script, bake them once into an immutable local tag.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_1.jpg" style="width:100%; height:215px; object-fit:cover; object-position:center; display:block;" alt="Warm tangerine light passing through layered amber blueprint sheets and a dark obsidian optical prism into ordered golden crystal blocks and glowing tool spheres" />
+    <div class="figure-caption">
+      <strong>Blueprint Compilation:</strong> <code>ollama create</code> stacks your <code>SYSTEM</code> persona, <code>PARAMETER</code> limits, <code>MESSAGE</code> few-shots, and optional LoRA <code>ADAPTER</code> weights onto shared base tensors without duplicating gigabytes.
+    </div>
+  </div>
+
+  <table class="clean-table" style="font-size:7.5pt; margin:3px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Instruction</th>
+        <th style="width:33%;">Syntax Pattern</th>
+        <th style="width:48%;">Engineering Purpose &amp; Common Pitfall</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>FROM</code> <em>(Req.)</em></td>
+        <td><code>FROM qwen3:8b</code> or <code>./weights.gguf</code></td>
+        <td>Base model tag, GGUF file, or local Safetensors directory. Always first non-comment line.</td>
+      </tr>
+      <tr>
+        <td><code>ADAPTER</code></td>
+        <td><code>ADAPTER ./lora/adapter.safetensors</code></td>
+        <td>Applies a LoRA fine-tune (<code>.safetensors</code> or <code>.gguf</code>) cleanly over the base model in <code>FROM</code>.</td>
+      </tr>
+      <tr>
+        <td><code>PARAMETER</code></td>
+        <td><code>PARAMETER num_ctx 16384</code></td>
+        <td>Sets <code>num_ctx</code>, <code>temperature</code>, <code>min_p</code>, <code>top_p</code>, <code>repeat_penalty</code>, <code>seed</code>, <code>stop</code>. Must include keyword!</td>
+      </tr>
+      <tr>
+        <td><code>SYSTEM</code></td>
+        <td><code>SYSTEM """..."""</code></td>
+        <td>Bakes persistent persona, output rules, and refusal boundaries into every call automatically.</td>
+      </tr>
+      <tr>
+        <td><code>MESSAGE</code></td>
+        <td><code>MESSAGE user ...</code> / <code>assistant ...</code></td>
+        <td>Pre-loads deterministic few-shot conversation turns so small 4B&ndash;8B models lock onto exact style.</td>
+      </tr>
+      <tr>
+        <td><code>TEMPLATE</code></td>
+        <td><code>TEMPLATE """{{ .System }}..."""</code></td>
+        <td>Go template defining chat markers. Leave inherited from <code>FROM</code> unless fixing a broken raw GGUF.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block" style="font-size:6.9pt; line-height:1.34; margin:2px 0 5px 0;"><code># Save as triage.Modelfile &mdash; run: ollama create support-triage:v1 -f triage.Modelfile
+FROM qwen3:8b
+# ADAPTER ./adapters/support-lora.safetensors   # Optional: stack LoRA fine-tune onto base model
+PARAMETER num_ctx 16384                         # Prevent silent 4K prompt truncation
+PARAMETER temperature 0.1                       # Low variance for deterministic routing
+PARAMETER min_p 0.05                            # Prunes noisy tail tokens cleanly
+PARAMETER stop "&lt;|im_end|&gt;"                     # Multiple stop parameters are additive
+PARAMETER stop "END_TRIAGE"
+SYSTEM """Classify support tickets into billing, auth, or bug. Cite only verified facts."""
+MESSAGE user "SSO login returns HTTP 403 for EU users."
+MESSAGE assistant {"queue":"auth","severity":"high","needs_logs":true}</code></pre>
+
+  <div class="callout emerald" style="margin:2px 0 0 0; padding:6px 10px; font-size:7.9pt;">
+    <div class="callout-title">Always Audit Inherited Templates With <code>ollama show --modelfile</code></div>
+    Never guess how a base model formats tool tags or system blocks. Run <code>ollama show --modelfile qwen3:8b</code> first, copy only the sections you intend to customize, and leave the base <code>TEMPLATE</code> intact so native tool calling keeps working.
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: NATIVE TOOL CALLING & JSON SCHEMA FORMAT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Tools &amp; Structured Outputs</span>
+    <span>Native /api/chat Tools Loops, JSON Schema format &amp; think Control</span>
+  </div>
+
+  <h2 class="page-title">Native <code>tools</code> Loops &amp; JSON Schema <code>format</code></h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Ollama&rsquo;s native <code>/api/chat</code> endpoint supports both multi-turn function calling (<code>tools</code>) and token-level grammar-constrained JSON outputs (<code>format</code>). Understanding how the five request pieces fit together eliminates broken parsers and infinite agent loops.
+  </p>
+
+  <h3 style="margin:2px 0 4px 0;">5-Part Anatomy of a Reliable Tool &amp; Schema Pipeline</h3>
+  <div class="card" style="padding:7.5px 11px; margin-bottom:7px; background:#ffffff; border:1.5px solid #fdba74;">
+    <div style="font-size:8pt; line-height:1.78;">
+      <span class="p-tag p-model">[1. Capable Tag]</span> Select a <code>tools</code>-trained model (<code>qwen3</code>, <code>llama3.3</code>, <code>mistral-small3.1</code>) verified via <code>ollama show</code>,
+      <span class="p-tag p-tools">[2. Tool Schemas]</span> declare typed functions with clear parameter descriptions in <code>tools[]</code>,
+      <span class="p-tag p-history">[3. Tool-Role Turn]</span> append assistant <code>tool_calls</code> plus <code>{"role":"tool","tool_name":...,"content":...}</code> back into <code>messages</code>,
+      <span class="p-tag p-schema">[4. Format Grammar]</span> lock final extraction with a JSON Schema object in <code>format</code>,
+      <span class="p-tag p-think">[5. Sampler &amp; Think Gate]</span> and pin <code>temperature: 0</code> with explicit <code>think: true/false</code>.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:6px;">
+    <div>
+      <h3 style="margin:2px 0 3px 0; font-size:9.6pt;">1. Multi-Turn Native Tool Calling Loop</h3>
+      <pre class="code-block" style="font-size:6.75pt; line-height:1.35; margin:2px 0 0 0;"><code>from ollama import chat
+
+def check_inventory(sku: str) -&gt; str:
+    """Look up live warehouse count for a SKU."""
+    return {"SKU-42": "14 units in Seattle"}.get(sku, "0")
+
+funcs = {"check_inventory": check_inventory}
+msgs = [{"role": "user", "content": "How many SKU-42 left?"}]
+
+for _ in range(4):  # Cap loop turns for safety
+    res = chat(model="qwen3:8b", messages=msgs, tools=[check_inventory])
+    msgs.append(res.message)
+    if not res.message.tool_calls:
+        print(res.message.content)
+        break
+    for tc in res.message.tool_calls:
+        fn = funcs[tc.function.name]
+        out = fn(**tc.function.arguments)
+        msgs.append({
+            "role": "tool",
+            "tool_name": tc.function.name,
+            "content": str(out),
+        })</code></pre>
+    </div>
+
+    <div>
+      <h3 style="margin:2px 0 3px 0; font-size:9.6pt;">2. Strict JSON Schema <code>format</code> &amp; <code>think</code></h3>
+      <pre class="code-block" style="font-size:6.75pt; line-height:1.35; margin:2px 0 0 0;"><code>curl -s http://127.0.0.1:11434/api/chat -d '{
+  "model": "qwen3:8b",
+  "stream": false,
+  "think": false,
+  "options": { "temperature": 0 },
+  "messages": [{
+    "role": "user",
+    "content": "Order #881 shipped 2 items to Portland."
+  }],
+  "format": {
+    "type": "object",
+    "properties": {
+      "order_id": { "type": "integer" },
+      "city": { "type": "string" },
+      "qty": { "type": "integer" }
+    },
+    "required": ["order_id", "city", "qty"]
+  }
+}'
+# Note: When think=true on reasoning models, chain-of-thought
+# arrives in message.thinking separately from message.content!</code></pre>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-top:2px;">
+    <div class="callout amber" style="margin:0; padding:7px 10px; font-size:7.9pt;">
+      <div class="callout-title">Separate Tool Turns From Strict <code>format</code> Turns</div>
+      Passing <code>tools</code> and a strict JSON Schema <code>format</code> in the exact same call can confuse tool-call token emission on some models. Gather facts across tool turns first, then omit <code>tools</code> on the final turn with <code>format: schema</code> to serialize clean JSON.
+    </div>
+    <div class="callout sky" style="margin:0; padding:7px 10px; font-size:7.9pt;">
+      <div class="callout-title">Control Reasoning Traces With <code>think</code></div>
+      Models like <code>qwen3</code> and <code>deepseek-r1</code> separate private scratchpad tokens into <code>message.thinking</code> when <code>think: true</code>. Pass <code>think: false</code> on fast extraction endpoints to cut latency and output tokens dramatically.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: OFFICIAL PYTHON & JS SDK PATTERNS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Official Python &amp; JS SDKs</span>
+    <span>ollama-python (Client, AsyncClient, Pydantic) &amp; ollama-js (Node + Browser)</span>
+  </div>
+
+  <h2 class="page-title">Official Python &amp; JavaScript SDK Engineering Patterns</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    While OpenAI-compatible <code>/v1</code> wrappers make cloud swapping effortless, the official <code>ollama</code> Python and <code>ollama-js</code> SDKs expose Ollama-only superpowers: automatic Python function-to-tool introspection, Pydantic schema binding, separate <code>thinking</code> streams, <code>keep_alive</code> controls, and native <code>ps()</code> / <code>show()</code> management.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div>
+      <h3 style="margin:2px 0 3px 0; font-size:9.6pt;">Python: <code>AsyncClient</code> + Pydantic + Stream Thinking</h3>
+      <pre class="code-block" style="font-size:6.7pt; line-height:1.34; margin:2px 0 0 0;"><code># pip install ollama pydantic
+import asyncio
+from pydantic import BaseModel
+from ollama import AsyncClient
+
+class TicketAudit(BaseModel):
+    category: str
+    urgent: bool
+    summary: str
+
+async def analyze(text: str) -&gt; TicketAudit:
+    client = AsyncClient(host="http://127.0.0.1:11434")
+    res = await client.chat(
+        model="support-triage:v1",
+        messages=[{"role": "user", "content": text}],
+        format=TicketAudit.model_json_schema(),
+        options={"temperature": 0},
+        keep_alive="30m",  # Override daemon idle timer
+    )
+    return TicketAudit.model_validate_json(
+        res.message.content
+    )
+
+# Streaming think vs content chunks:
+# for c in client.chat("qwen3:8b", m, stream=True):
+#     if c.message.thinking: ...
+#     elif c.message.content: ...</code></pre>
+    </div>
+
+    <div>
+      <h3 style="margin:2px 0 3px 0; font-size:9.6pt;">JS / TS: Node <code>Ollama</code> &amp; <code>ollama/browser</code></h3>
+      <pre class="code-block" style="font-size:6.7pt; line-height:1.34; margin:2px 0 0 0;"><code>// npm install ollama  (use 'ollama/browser' in web apps!)
+import { Ollama } from "ollama";
+
+const client = new Ollama({ host: "http://127.0.0.1:11434" });
+
+const res = await client.chat({
+  model: "qwen3:8b",
+  messages: [{ role: "user", content: "Classify: API 502 spike" }],
+  format: {
+    type: "object",
+    properties: {
+      severity: { type: "string", enum: ["low", "high"] },
+      service: { type: "string" },
+    },
+    required: ["severity", "service"],
+  },
+  options: { temperature: 0 },
+  keep_alive: "10m",
+});
+
+const parsed = JSON.parse(res.message.content);
+// Programmatic residency check:
+const active = await client.ps();
+console.log(active.models.map((m) =&gt; m.name));</code></pre>
+    </div>
+  </div>
+
+  <div class="grid-3" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="border-top:3px solid #ea580c; padding:7.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">1</span> Auto Function Introspection</div>
+      <p style="font-size:7.65pt; margin:0;">
+        In Python, pass callables directly in <code>tools=[my_fn]</code>. The SDK converts type hints and Google-style docstrings into the exact JSON tool schema automatically—saving dozens of hand-written JSON lines.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #0284c7; padding:7.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge sky">2</span> Async Fan-Out With Parallel Slots</div>
+      <p style="font-size:7.65pt; margin:0;">
+        Pair Python <code>AsyncClient</code> + <code>asyncio.Semaphore(N)</code> (or JS <code>Promise.all</code>) with <code>OLLAMA_NUM_PARALLEL=N</code> to process batch document triage cleanly without overwhelming the server queue.
+      </p>
+    </div>
+    <div class="card" style="border-top:3px solid #7c3aed; padding:7.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge purple">3</span> Browser &amp; Extension Entrypoint</div>
+      <p style="font-size:7.65pt; margin:0;">
+        Frontend bundles must import <code>ollama/browser</code> instead of <code>ollama</code> to omit Node filesystem helpers, and the local server must whitelist your origin via <code>OLLAMA_ORIGINS</code>.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7px 11px; font-size:8pt;">
+    <div class="callout-title">Lifecycle Control From Code: Pin Interactive Sessions, Evict Cron Workers</div>
+    Pass <code>keep_alive="-1"</code> during startup warm-up scripts so primary models never unload mid-shift, and pass <code>keep_alive=0</code> on the final request of a scheduled batch job so Ollama releases GPU VRAM immediately afterward.
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: MULTIMODAL VISION & RECEIPT PARSING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Multimodal Vision &amp; OCR Pipelines</span>
+    <span>qwen2.5vl, gemma3, llama3.2-vision, llava &amp; Vision + JSON Schema</span>
+  </div>
+
+  <h2 class="page-title">Multimodal Vision: Screenshots, Diagrams &amp; Receipt Parsing</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Local vision models eliminate external OCR APIs for private receipts, UI bug screenshots, and architecture whiteboards. Combining Ollama&rsquo;s <code>images</code> input field with a strict JSON Schema <code>format</code> turns raw pixels directly into typed database records.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_2.jpg" style="width:100%; height:205px; object-fit:cover; object-position:center; display:block;" alt="Amber glass camera lens illuminating floating translucent photo sheets and faceted image cards, streaming glowing tangerine and cyan fibers through parallel glass memory lanes into warm copper GPU tensor blocks" />
+    <div class="figure-caption">
+      <strong>Vision-to-Schema Pipeline:</strong> Resized image tiles pass through a vision projector into the language backbone while <code>format</code> constrains decoded tokens into guaranteed JSON fields.
+    </div>
+  </div>
+
+  <table class="clean-table" style="font-size:7.5pt; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Vision Model Family</th>
+        <th style="width:15%;">Common Sizes</th>
+        <th style="width:62%;">Strengths, OCR Fidelity &amp; Selection Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>qwen2.5vl</code> / <code>qwen3-vl</code></td>
+        <td><code>3B / 7B / 32B</code></td>
+        <td><strong>Top pick for receipts, invoices &amp; UI screenshots.</strong> Exceptional dense text OCR, multi-column tables, and bounding accuracy.</td>
+      </tr>
+      <tr>
+        <td><code>gemma3</code></td>
+        <td><code>4B / 12B / 27B</code></td>
+        <td><strong>Best all-around lightweight multimodal.</strong> Crisp speed on 16&ndash;32 GB laptops with strong chart and diagram comprehension.</td>
+      </tr>
+      <tr>
+        <td><code>llama3.2-vision</code></td>
+        <td><code>11B / 90B</code></td>
+        <td>Strong general visual reasoning and chart Q&amp;A; verify recent Ollama runtime compatibility for legacy Mllama builds.</td>
+      </tr>
+      <tr>
+        <td><code>llava</code> / <code>minicpm-v</code></td>
+        <td><code>7B&ndash;13B / 8B</code></td>
+        <td>Compact baseline image captioning and low-VRAM edge OCR; pair with JSON Schema <code>format</code> for structured fields.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block" style="font-size:6.8pt; line-height:1.34; margin:2px 0 5px 0;"><code># CLI quick check:  ollama run qwen2.5vl:7b "Extract merchant, date, and total: ./receipt.jpg"
+from pydantic import BaseModel
+from ollama import chat
+
+class Receipt(BaseModel):
+    merchant: str
+    date_iso: str
+    total_usd: float
+    line_items: list[str]
+
+res = chat(
+    model="qwen2.5vl:7b",
+    messages=[{"role": "user", "content": "Extract receipt fields accurately.", "images": ["./receipt.jpg"]}],
+    format=Receipt.model_json_schema(),   # Vision + Grammar-enforced JSON in one native call!
+    options={"temperature": 0, "num_ctx": 8192},
+)
+receipt = Receipt.model_validate_json(res.message.content)</code></pre>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:6px 10px; font-size:7.9pt;">
+    <div class="callout-title">Downscale 4K Screenshots to 1280&ndash;1600 px Before Sending</div>
+    Modern vision encoders tile oversized images into thousands of extra visual tokens, spiking prefill latency and KV cache RAM. Resizing screenshots to <code>1280px&ndash;1600px</code> on the longest edge keeps small receipt digits razor-sharp while running 3&ndash;5x faster.
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Engineering Cookbook</span>
+    <span>Modelfiles, Quantized Imports, Vision OCR, Tool Loops &amp; Residency</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Ollama Engineering Recipes</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Drop these five battle-tested recipes straight into your terminal, build script, or microservice to lock down deterministic Modelfiles, quantize custom adapters, parse images into JSON, orchestrate tools, and warm-pin VRAM cleanly.
+  </p>
+
+  <table class="clean-table" style="font-size:7.55pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Recipe &amp; Use Case</th>
+        <th style="width:77%;">Copy-Paste Command or Production Snippet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Deterministic 16K <code>Modelfile</code> Tag</strong><br/><em>Zero-copy custom alias</em></td>
+        <td>
+          <code>printf 'FROM qwen3:8b\nPARAMETER num_ctx 16384\nPARAMETER temperature 0\nPARAMETER min_p 0.05\nSYSTEM "Reply concisely with verified facts only."\n' &gt; Dev.Modelfile</code><br/>
+          <code>ollama create dev-16k:v1 -f Dev.Modelfile &amp;&amp; ollama show --modelfile dev-16k:v1</code>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>2. LoRA Adapter + Quantize Import</strong><br/><em>Custom fine-tune build</em></td>
+        <td>
+          <code>printf 'FROM ./base-safetensors\nADAPTER ./my-lora.safetensors\nPARAMETER num_ctx 8192\n' &gt; Fine.Modelfile</code><br/>
+          <code>ollama create my-tuned:q4 -q q4_K_M -f Fine.Modelfile</code> <em>(Check <code>ollama create --help</code> for supported quant targets)</em>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>3. Ephemeral Vision JSON Extractor</strong><br/><em>Zero-footprint receipt batch</em></td>
+        <td>
+          <code>B64=$(base64 -i receipt.jpg | tr -d '\n')</code><br/>
+          <code>curl -s http://127.0.0.1:11434/api/chat -d "{\"model\":\"qwen2.5vl:7b\",\"stream\":false,\"keep_alive\":\"0\",\"options\":{\"temperature\":0},\"messages\":[{\"role\":\"user\",\"content\":\"Extract merchant and total\",\"images\":[\"$B64\"]}],\"format\":{\"type\":\"object\",\"properties\":{\"merchant\":{\"type\":\"string\"},\"total\":{\"type\":\"number\"}},\"required\":[\"merchant\",\"total\"]}}"</code>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>4. Safe Multi-Turn Tool Loop</strong><br/><em>Python SDK auto-schema</em></td>
+        <td>
+          <code>msgs = [{"role": "user", "content": prompt}]</code><br/>
+          <code>while (r := chat(model="qwen3:8b", messages=msgs, tools=[fn])).message.tool_calls:</code><br/>
+          <code>&nbsp;&nbsp;msgs += [r.message] + [{"role": "tool", "tool_name": t.function.name, "content": str(funcs[t.function.name](**t.function.arguments))} for t in r.message.tool_calls]</code>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>5. Warm-Pin &amp; Instant Evict Cycle</strong><br/><em>Eliminate cold-start lag</em></td>
+        <td>
+          <code>curl -s http://127.0.0.1:11434/api/generate -d '{"model":"dev-16k:v1","keep_alive":-1}'</code> <em>(Pre-load into GPU)</em><br/>
+          <code>ollama ps &amp;&amp; ollama stop dev-16k:v1</code> <em>(Audit live GPU split, then release VRAM instantly)</em>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:10px; margin-top:4px;">
+    <div class="callout emerald" style="margin:0; padding:7.5px 10px; font-size:8pt;">
+      <div class="callout-title">Empty-Prompt Pre-Warming Trick</div>
+      Sending a JSON request with only <code>{"model": "...", "keep_alive": -1}</code> and no prompt loads the tensors into VRAM immediately without generating a single token—perfect for container health checks or workstation boot hooks.
+    </div>
+    <div class="callout sky" style="margin:0; padding:7.5px 10px; font-size:8pt;">
+      <div class="callout-title">Inspect HTTP Traffic Directly via <code>OLLAMA_DEBUG=1</code></div>
+      When debugging tricky Jinja chat templates or unexpected tool formatting, temporarily launch <code>OLLAMA_DEBUG=1 ollama serve</code> in a staging terminal to inspect rendered prompt strings and KV allocation logs.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: CONCURRENCY, CORS SECURITY & PRODUCTION DAEMONIZING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Concurrency &amp; Production Daemons</span>
+    <span>VRAM Slot Math, OLLAMA_ORIGINS &amp; launchd / systemd</span>
+  </div>
+
+  <h2 class="page-title">VRAM Concurrency, CORS Security &amp; Daemonizing</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Scaling Ollama from a single chat session to concurrent background workers requires budgeting KV cache memory accurately, locking down unauthenticated endpoints, and persisting environment variables inside your OS service manager.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #ea580c;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Parallel Concurrency VRAM Math</div>
+      <p style="font-size:7.8pt; margin:0 0 4px 0;">
+        Raising <code>OLLAMA_NUM_PARALLEL=4</code> shares one copy of model weights in VRAM, but allocates <strong>four independent KV cache slots</strong>:
+      </p>
+      <p style="font-size:7.8pt; margin:0;">
+        <code>Total VRAM &approx; Weights + (Single_KV &times; NUM_PARALLEL) + Runtime</code><br/>
+        Pair <code>OLLAMA_FLASH_ATTENTION=1</code> and <code>OLLAMA_KV_CACHE_TYPE=q8_0</code> before increasing parallel slots so 4 concurrent 16K sessions do not push layers onto CPU RAM!
+      </p>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #e11d48;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge rose">2</span> Loopback &amp; <code>OLLAMA_ORIGINS</code> Hardening</div>
+      <p style="font-size:7.8pt; margin:0 0 4px 0;">
+        Ollama ships with <strong>zero built-in authentication</strong>. Always keep <code>OLLAMA_HOST=127.0.0.1:11434</code> unless fronted by a TLS + bearer-token reverse proxy (covered in our <em>Local Coding &amp; Private LAN</em> guide).
+      </p>
+      <p style="font-size:7.8pt; margin:0;">
+        For browser apps using <code>ollama/browser</code>, avoid leaving <code>OLLAMA_ORIGINS="*"</code> open permanently—whitelist exact origins like <code>https://tools.internal,http://localhost:5173</code>.
+      </p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div>
+      <h3 style="margin:2px 0 3px 0; font-size:9.5pt;">macOS Persistent Daemon (<code>LaunchAgents</code> Plist)</h3>
+      <pre class="code-block" style="font-size:6.55pt; line-height:1.33; margin:2px 0 0 0;"><code>&lt;!-- ~/Library/LaunchAgents/com.ollama.server.plist --&gt;
+&lt;plist version="1.0"&gt;&lt;dict&gt;
+  &lt;key&gt;Label&lt;/key&gt;&lt;string&gt;com.ollama.server&lt;/string&gt;
+  &lt;key&gt;ProgramArguments&lt;/key&gt;
+  &lt;array&gt;&lt;string&gt;/opt/homebrew/bin/ollama&lt;/string&gt;&lt;string&gt;serve&lt;/string&gt;&lt;/array&gt;
+  &lt;key&gt;RunAtLoad&lt;/key&gt;&lt;true/&gt;&lt;key&gt;KeepAlive&lt;/key&gt;&lt;true/&gt;
+  &lt;key&gt;EnvironmentVariables&lt;/key&gt;&lt;dict&gt;
+    &lt;key&gt;OLLAMA_NUM_PARALLEL&lt;/key&gt;&lt;string&gt;2&lt;/string&gt;
+    &lt;key&gt;OLLAMA_MAX_LOADED_MODELS&lt;/key&gt;&lt;string&gt;2&lt;/string&gt;
+    &lt;key&gt;OLLAMA_FLASH_ATTENTION&lt;/key&gt;&lt;string&gt;1&lt;/string&gt;
+    &lt;key&gt;OLLAMA_KV_CACHE_TYPE&lt;/key&gt;&lt;string&gt;q8_0&lt;/string&gt;
+    &lt;key&gt;OLLAMA_KEEP_ALIVE&lt;/key&gt;&lt;string&gt;30m&lt;/string&gt;
+    &lt;key&gt;OLLAMA_ORIGINS&lt;/key&gt;
+    &lt;string&gt;http://localhost:5173&lt;/string&gt;
+  &lt;/dict&gt;
+&lt;/dict&gt;&lt;/plist&gt;
+# Apply: launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.ollama.server.plist</code></pre>
+    </div>
+
+    <div>
+      <h3 style="margin:2px 0 3px 0; font-size:9.5pt;">Linux <code>systemd</code> Override &amp; Docker GPU</h3>
+      <pre class="code-block" style="font-size:6.55pt; line-height:1.33; margin:2px 0 0 0;"><code># 1. Linux systemd drop-in: sudo systemctl edit ollama
+[Service]
+Environment="OLLAMA_HOST=127.0.0.1:11434"
+Environment="OLLAMA_NUM_PARALLEL=4"
+Environment="OLLAMA_MAX_LOADED_MODELS=2"
+Environment="OLLAMA_FLASH_ATTENTION=1"
+Environment="OLLAMA_KV_CACHE_TYPE=q8_0"
+Environment="OLLAMA_KEEP_ALIVE=30m"
+Environment="OLLAMA_MAX_QUEUE=512"
+
+# Reload: sudo systemctl daemon-reload &amp;&amp; sudo systemctl restart ollama
+
+# 2. Containerized GPU Worker (Docker):
+docker run -d --gpus all -v ollama_data:/root/.ollama \
+  -p 127.0.0.1:11434:11434 \
+  -e OLLAMA_NUM_PARALLEL=4 -e OLLAMA_FLASH_ATTENTION=1 \
+  -e OLLAMA_KV_CACHE_TYPE=q8_0 --name ollama ollama/ollama</code></pre>
+    </div>
+  </div>
+
+  <div class="callout rose" style="margin:2px 0 0 0; padding:7px 11px; font-size:8pt;">
+    <div class="callout-title">Common Daemon Trap: <code>launchctl setenv</code> Resets on Reboot; <code>.zshrc</code> Never Reaches GUI Services</div>
+    On macOS, running <code>launchctl setenv</code> updates GUI apps for the current login only and clears after a reboot—and exporting <code>OLLAMA_*</code> inside <code>~/.zshrc</code> only affects manual foreground <code>ollama serve</code> runs. Put production settings inside a <code>LaunchAgents</code> plist (macOS) or <code>systemctl edit ollama</code> (Linux) and verify via server logs.
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Architecture</span>
+    <span>End-to-End Local Vision, Tool Calling &amp; Scheduled Worker Pipeline</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Multimodal &amp; Tool-Calling Pipeline</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Instead of forcing one massive general model to interpret images, call APIs, and format database rows simultaneously, Ollama&rsquo;s multi-model loader lets specialized lightweight models hand clean typed JSON down an automated local pipeline.
+  </p>
+
+  <div class="figure-box" style="background:#120d0a; padding:10px 12px; border-color:#431407; margin-bottom:8px;">
+    <svg viewBox="0 0 700 202" width="100%" height="202" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Media & Event Inputs -->
+      <rect x="8" y="20" width="144" height="162" rx="9" fill="#1c140f" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="80" y="38" text-anchor="middle" fill="#fdba74" font-size="7.4" font-weight="700">STAGE 1 &bull; INGEST</text>
+      <text x="80" y="53" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Visual &amp; Event Feed</text>
+      <rect x="17" y="63" width="126" height="48" rx="5" fill="#291b14" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="80" y="78" text-anchor="middle" fill="#ffedd5" font-size="7.3" font-weight="700">Receipts &amp; Screenshots</text>
+      <text x="80" y="90" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Downscaled &le;1600px</text>
+      <text x="80" y="101" text-anchor="middle" fill="#cbd5e1" font-size="6.7">JPEG / PNG / PDF pages</text>
+      <rect x="17" y="119" width="126" height="52" rx="5" fill="#291b14" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="80" y="134" text-anchor="middle" fill="#fde68a" font-size="7.3" font-weight="700">Async Worker Queue</text>
+      <text x="80" y="146" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Python AsyncClient / JS</text>
+      <text x="80" y="157" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Watches inbox / webhooks</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M152 101 L176 101" stroke="#fb923c" stroke-width="2"/>
+      <polygon points="174,96 182,101 174,106" fill="#fb923c"/>
+
+      <!-- Stage 2: Vision + JSON Schema Modelfile -->
+      <rect x="183" y="14" width="166" height="174" rx="10" fill="#231812" stroke="#fb923c" stroke-width="2"/>
+      <text x="266" y="32" text-anchor="middle" fill="#fed7aa" font-size="7.5" font-weight="700">STAGE 2 &bull; VISION EXTRACT</text>
+      <text x="266" y="48" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">qwen2.5vl + format</text>
+      <rect x="194" y="58" width="144" height="36" rx="5" fill="#120d0a" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="266" y="72" text-anchor="middle" fill="#ffedd5" font-size="7.2" font-weight="700">Custom Modelfile Tag</text>
+      <text x="266" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.6">num_ctx 8192 &bull; temp 0</text>
+      <rect x="194" y="100" width="144" height="38" rx="5" fill="#120d0a" stroke="#a855f7" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="266" y="114" text-anchor="middle" fill="#e9d5ff" font-size="7.2" font-weight="700">Pydantic JSON Schema</text>
+      <text x="266" y="126" text-anchor="middle" fill="#cbd5e1" font-size="6.6">Zero-fence structured lines</text>
+      <rect x="194" y="144" width="144" height="34" rx="5" fill="#120d0a" stroke="#34d399" stroke-width="0.9"/>
+      <text x="266" y="158" text-anchor="middle" fill="#a7f3d0" font-size="7.2" font-weight="700">Slot 1 Hot in VRAM</text>
+      <text x="266" y="170" text-anchor="middle" fill="#cbd5e1" font-size="6.6">FLASH_ATTN=1 &bull; KV q8_0</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M349 101 L377 101" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="375,96 383,101 375,106" fill="#38bdf8"/>
+
+      <!-- Stage 3: Native Tool-Calling Agent -->
+      <rect x="384" y="14" width="156" height="174" rx="10" fill="#111d27" stroke="#38bdf8" stroke-width="1.8"/>
+      <text x="462" y="32" text-anchor="middle" fill="#7dd3fc" font-size="7.5" font-weight="700">STAGE 3 &bull; TOOL LOOP</text>
+      <text x="462" y="48" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">qwen3 + tools[]</text>
+      <rect x="394" y="58" width="136" height="36" rx="5" fill="#0d151d" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="462" y="72" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">lookup_vendor() &amp; budget</text>
+      <text x="462" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.6">Native tool_calls execution</text>
+      <rect x="394" y="100" width="136" height="38" rx="5" fill="#0d151d" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="462" y="114" text-anchor="middle" fill="#bae6fd" font-size="7.2" font-weight="700">role: &quot;tool&quot; + tool_name</text>
+      <text x="462" y="126" text-anchor="middle" fill="#cbd5e1" font-size="6.6">Bounded max_turns loop</text>
+      <rect x="394" y="144" width="136" height="34" rx="5" fill="#0d151d" stroke="#fb923c" stroke-width="0.9"/>
+      <text x="462" y="158" text-anchor="middle" fill="#fed7aa" font-size="7.2" font-weight="700">Parallel Slot 2 / Swap</text>
+      <text x="462" y="170" text-anchor="middle" fill="#cbd5e1" font-size="6.6">MAX_LOADED=2 or keep_alive:0</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M540 101 L564 101" stroke="#34d399" stroke-width="2"/>
+      <polygon points="562,96 570,101 562,106" fill="#34d399"/>
+
+      <!-- Stage 4: Validated Shipped Actions -->
+      <rect x="571" y="20" width="121" height="162" rx="9" fill="#10221c" stroke="#34d399" stroke-width="1.5"/>
+      <text x="631" y="38" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">STAGE 4 &bull; SHIP</text>
+      <text x="631" y="53" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Verified Actions</text>
+      <rect x="580" y="63" width="103" height="34" rx="5" fill="#142d24" stroke="#10b981" stroke-width="0.9"/>
+      <text x="631" y="77" text-anchor="middle" fill="#d1fae5" font-size="7.1" font-weight="700">SQLite / Postgres</text>
+      <text x="631" y="89" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Validated JSON rows</text>
+      <rect x="580" y="103" width="103" height="34" rx="5" fill="#142d24" stroke="#10b981" stroke-width="0.9"/>
+      <text x="631" y="117" text-anchor="middle" fill="#d1fae5" font-size="7.1" font-weight="700">n8n / Slack Alert</text>
+      <text x="631" y="129" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Flagged anomalies</text>
+      <rect x="580" y="143" width="103" height="31" rx="5" fill="#142d24" stroke="#fb923c" stroke-width="0.9"/>
+      <text x="631" y="156" text-anchor="middle" fill="#fed7aa" font-size="7.1" font-weight="700">Audit Log Archive</text>
+      <text x="631" y="167" text-anchor="middle" fill="#cbd5e1" font-size="6.5">$0 API bill &bull; Private</text>
+    </svg>
+  </div>
+
+  <h3>End-to-End Engineering Execution Breakdown</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge">1</span> Pre-Size &amp; Extract Visuals First</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Python watchers downscale incoming receipt photos or UI captures to <code>1400px</code> max width and call <code>qwen2.5vl</code> with a strict Pydantic <code>format</code> schema so ambiguous pixels convert straight into clean JSON.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge sky">2</span> Run Tool Verification Loops</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Hand that clean JSON payload to <code>qwen3</code> with native <code>tools</code> (<code>lookup_vendor</code>, <code>check_duplicate_invoice</code>, <code>post_alert</code>) capped to 4 turns so the model grounds decisions in real local databases.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge purple">3</span> Match Residency to Hardware RAM</div>
+      <p style="font-size:7.85pt; margin:0;">
+        On 32&ndash;64 GB workstations, set <code>OLLAMA_MAX_LOADED_MODELS=2</code> to keep both models warm side-by-side. On 16 GB laptops, pass <code>keep_alive=0</code> on Stage 2 so Stage 3 claims full GPU memory cleanly.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge emerald">4</span> Feed Webhooks &amp; Open Harnesses</div>
+      <p style="font-size:7.85pt; margin:0;">
+        Persist validated rows into SQLite or fire Slack/n8n alerts, while exposing tuned <code>Modelfile</code> tags over <code>:11434</code> for coding harnesses covered in our companion <em>Ollama Local Coding &amp; Harnesses</em> guide.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7px 11px; font-size:8pt;">
+    <div class="callout-title">Two Small Specialist Models Beat One Overloaded Giant</div>
+    Chaining a dedicated <code>7B</code> vision extractor into an <code>8B</code> tool-calling tag typically finishes faster, consumes less peak VRAM (with <code>keep_alive=0</code> swaps), and hits higher schema reliability than cramming OCR and multi-tool planning into one giant prompt.
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Pre-Flight</span>
+    <span>Top 7 Ollama Engineering Issues &amp; 6-Point Production Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Keep this rapid diagnostic guide close whenever a <code>Modelfile</code> fails to compile, daemon flags silently vanish, tool calls leak into plain text, or parallel slots push VRAM into slow CPU spillover.
+  </p>
+
+  <table class="clean-table" style="font-size:7.5pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Failure</th>
+        <th style="width:27%;">Root Cause</th>
+        <th style="width:46%;">10-Second Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. <code>ollama create</code> rejects parameter line</strong></td>
+        <td>Wrote bare <code>num_ctx 16384</code> without <code>PARAMETER</code> keyword or unclosed quotes.</td>
+        <td>Prefix every parameter with <code>PARAMETER</code> (e.g., <code>PARAMETER num_ctx 16384</code>) and wrap multi-line prompts in triple quotes <code>"""..."""</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. <code>OLLAMA_*</code> vars in <code>.zshrc</code> do nothing</strong></td>
+        <td>Background menu-bar app or <code>systemd</code> daemon never reads shell rc files.</td>
+        <td>Move env vars into <code>~/Library/LaunchAgents/*.plist</code> (macOS) or <code>sudo systemctl edit ollama</code> (Linux) and restart the daemon.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Model outputs raw JSON text instead of <code>tool_calls</code></strong></td>
+        <td>Model lacks native <code>tools</code> capability, or <code>format</code> conflicted with tool tokens.</td>
+        <td>Run <code>ollama show &lt;tag&gt;</code> to confirm <code>tools</code> support, use <code>qwen3</code>/<code>llama3.3</code>, and run final <code>format</code> pass without <code>tools</code> attached.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Raising <code>OLLAMA_NUM_PARALLEL</code> drops GPU to CPU</strong></td>
+        <td>Each parallel slot duplicates the full KV cache buffer in VRAM.</td>
+        <td>Set <code>OLLAMA_FLASH_ATTENTION=1</code> and <code>OLLAMA_KV_CACHE_TYPE=q8_0</code>, trim <code>num_ctx</code>, and verify <code>100% GPU</code> in <code>ollama ps</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Browser <code>ollama-js</code> calls fail with CORS error</strong></td>
+        <td>Daemon blocks non-loopback browser origins by default.</td>
+        <td>Set <code>OLLAMA_ORIGINS="https://your-app.com,http://localhost:5173"</code> on the server daemon and import <code>ollama/browser</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Vision OCR crawls or misreads small digits</strong></td>
+        <td>Unresized 4K images bloat visual tokens and saturate prefill memory.</td>
+        <td>Resize longest edge to <code>1280&ndash;1600px</code>, switch to <code>qwen2.5vl</code>, set <code>temperature: 0</code>, and enforce a JSON Schema <code>format</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. HTTP <code>503 Server Busy</code> or lost early rules</strong></td>
+        <td>Request burst exceeded <code>OLLAMA_MAX_QUEUE</code> (512) or hit 4K default <code>num_ctx</code>.</td>
+        <td>Add exponential backoff in clients, bake explicit <code>PARAMETER num_ctx</code> into a <code>Modelfile</code>, or raise <code>OLLAMA_CONTEXT_LENGTH</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0;">6-Point Ollama Core Engineering Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Audit Capabilities First:</strong> Confirm <code>tools</code>, <code>vision</code>, or <code>thinking</code> support and context ceiling via <code>ollama show &lt;tag&gt;</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. Bake Custom Modelfiles:</strong> Pin <code>FROM</code>, <code>PARAMETER num_ctx</code>, <code>temperature</code>, <code>stop</code>, and <code>SYSTEM</code> cleanly with <code>ollama create</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. Enable Flash + <code>q8_0</code> KV:</strong> Persist <code>OLLAMA_FLASH_ATTENTION=1</code> and <code>OLLAMA_KV_CACHE_TYPE=q8_0</code> in your daemon service.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Verify <code>100% GPU</code> Under Load:</strong> Budget <code>Single_KV &times; NUM_PARALLEL</code> and inspect <code>ollama ps</code> while concurrent requests run.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. Guard Tool &amp; Schema Loops:</strong> Cap <code>max_turns</code>, return <code>role: "tool"</code> + <code>tool_name</code>, and validate <code>format</code> output with Pydantic/Zod.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. Lock Loopback &amp; Origins:</strong> Keep <code>OLLAMA_HOST=127.0.0.1:11434</code> (unless behind TLS + auth) and scope <code>OLLAMA_ORIGINS</code> tightly.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:6px 0 0 0; padding:6.5px 11px; font-size:7.95pt;">
+    <div class="callout-title">Final Takeaway: Treat Ollama Like Deterministic Infrastructure</div>
+    Once you move from ad-hoc chat commands to versioned <code>Modelfile</code> blueprints, bounded native tool loops, Pydantic-enforced Vision schemas, and daemon-persisted VRAM tuning, local AI stops behaving like a black box and runs like rock-solid local infrastructure.
+  </div>
+
+  <div class="page-footer"><span>Ollama Modelfiles, Tool Calling, Vision &amp; Server Tuning &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

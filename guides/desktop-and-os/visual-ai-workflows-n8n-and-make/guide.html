@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Visual AI Workflows with n8n &amp; Make: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI DESKTOP &amp; OPS &bull; N8N &amp; MAKE FIELD GUIDE</div>
+    <h1>Visual AI Workflows with <span>n8n &amp; Make</span></h1>
+    <p class="cover-sub">
+      Design reliable, production-grade AI automations on a visual node canvas&mdash;combining deterministic pre-LLM routers, stateful Postgres &amp; Data Store memory, MCP tool bridges, Slack/email approval pauses, and runaway spend circuit breakers.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">n8n AI Agent &amp; Sub-Nodes</span>
+      <span class="cover-badge">MCP Client &amp; Server Trigger</span>
+      <span class="cover-badge">Docker Queue Mode + Redis</span>
+      <span class="cover-badge">Make Agents, Routers &amp; Stores</span>
+      <span class="cover-badge">Slack &amp; Email Pause Approvals</span>
+      <span class="cover-badge">Error DLQs &amp; Spend Breakers</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Charcoal plum editorial illustration of glowing translucent workflow nodes connected by vermilion and amber optical light streams around a central reasoning crystal and verification gate" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Deterministic Before AI</div>
+      <div class="cover-stat-desc">Filter spam, check caches, and route structured records with Switch, Code, and Make Routers before spending a single LLM token.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Stateful &amp; MCP-Ready</div>
+      <div class="cover-stat-desc">Back agents with Postgres Chat Memory or Make Data Stores and connect tools cleanly via n8n and Make MCP bridges.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Built-In Safety Rails</div>
+      <div class="cover-stat-desc">Cap agent iterations, pause risky refunds for human Slack sign-off, and route failures into replayable Error Workflows.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & CORE MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Hybrid Canvas Model</span>
+    <span>Visual AI Workflows with n8n &amp; Make</span>
+  </div>
+
+  <h2 class="page-title">Visual Nodes First: When to Route, When to Reason</h2>
+  <p class="page-lead">
+    Many beginners wire a webhook straight into a large language model and ask one giant prompt to parse inputs, call APIs, handle edge cases, and format replies. In production, that pattern is slow, costly, and fragile. Reliable visual automation treats AI as a <strong>bounded specialist inside deterministic rails</strong>&mdash;letting free rule nodes do 80% of the sorting before an agent ever wakes up.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model: Visual Rails + AI Core</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Routers, Pause Gates &amp; Breakers</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Hosting, Credits &amp; Tool Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Production Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Agent Canvas Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Vaults, Injection &amp; Spend Caps</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. n8n AI Agent &amp; Postgres Memory</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Architecture</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. MCP Bridges &amp; Docker Queue Mode</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Make Agents, Routers &amp; Stores</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Route Free, Reason Narrow</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>The Three-Stage Visual AI Execution Loop</h3>
+  <p style="font-size:8.6pt;">
+    Whether you build inside self-hosted <strong>n8n</strong> or cloud-managed <strong>Make</strong>, every resilient AI workflow follows the same three-stage pattern: deterministic intake cleans and branches payloads at zero token cost; a constrained AI Agent resolves ambiguity using persistent memory and scoped tools; and downstream safety nodes verify human approval before mutating customer records.
+  </p>
+
+  <h3>Architecture: Deterministic Intake to Guarded Execution</h3>
+  <div class="figure-box" style="background:#180d14; padding:9px 12px; border-color:#581c3a;">
+    <svg viewBox="0 0 700 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Column 1: Deterministic Intake -->
+      <rect x="8" y="12" width="198" height="160" rx="9" fill="#24111c" stroke="#fb923c" stroke-width="1.6"/>
+      <text x="18" y="30" fill="#fdba74" font-size="7.9" font-weight="700">1. DETERMINISTIC INTAKE</text>
+      <text x="18" y="46" fill="#ffffff" font-size="10" font-weight="800">Gate &amp; Route (0 Tokens)</text>
+      <rect x="18" y="55" width="178" height="25" rx="5" fill="#2e1624" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="26" y="71" fill="#ffedd5" font-size="7.4" font-weight="600">&bull; Webhook, Schedule, Email Watch</text>
+      <rect x="18" y="85" width="178" height="26" rx="5" fill="#2e1624" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="26" y="101" fill="#fef3c7" font-size="7.4" font-weight="600">&bull; Dedupe Cache &amp; Schema Check</text>
+      <rect x="18" y="116" width="178" height="26" rx="5" fill="#2e1624" stroke="#c084fc" stroke-width="0.9"/>
+      <text x="26" y="132" fill="#f3e8ff" font-size="7.4" font-weight="600">&bull; Switch / Code / Make Router</text>
+      <rect x="18" y="147" width="178" height="20" rx="5" fill="#1c231c" stroke="#34d399" stroke-width="0.9"/>
+      <text x="26" y="160" fill="#a7f3d0" font-size="7.2" font-weight="600">&bull; Trivial cases skip LLM entirely</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M206 92 L238 92" stroke="#ff6d5a" stroke-width="2.2"/>
+      <polygon points="236,87 245,92 236,97" fill="#ff6d5a"/>
+
+      <!-- Column 2: Bounded AI Core -->
+      <rect x="246" y="8" width="212" height="168" rx="10" fill="#2e1022" stroke="#ff6d5a" stroke-width="2"/>
+      <text x="352" y="27" text-anchor="middle" fill="#ffd4ce" font-size="8" font-weight="700">2. BOUNDED AI CORE</text>
+      <text x="352" y="44" text-anchor="middle" fill="#ffffff" font-size="10.5" font-weight="800">Agent + Memory + Tools</text>
+      <rect x="258" y="53" width="188" height="33" rx="6" fill="#180d14" stroke="#ea580c" stroke-width="1"/>
+      <text x="352" y="67" text-anchor="middle" fill="#ffedd5" font-size="7.6" font-weight="700">n8n AI Agent / Make AI Agent</text>
+      <text x="352" y="79" text-anchor="middle" fill="#cbd5e1" font-size="7">maxIterations cap + streaming off for JSON</text>
+      <rect x="258" y="92" width="188" height="34" rx="6" fill="#180d14" stroke="#c084fc" stroke-width="1.2" stroke-dasharray="4 2"/>
+      <text x="352" y="106" text-anchor="middle" fill="#e9d5ff" font-size="7.6" font-weight="700">Postgres Memory / Data Store</text>
+      <text x="352" y="118" text-anchor="middle" fill="#cbd5e1" font-size="7">sessionId state across workers &amp; runs</text>
+      <rect x="258" y="132" width="188" height="34" rx="6" fill="#180d14" stroke="#38bdf8" stroke-width="1"/>
+      <text x="352" y="146" text-anchor="middle" fill="#bae6fd" font-size="7.6" font-weight="700">Sub-Node Tools &amp; MCP Client</text>
+      <text x="352" y="158" text-anchor="middle" fill="#cbd5e1" font-size="7">Read-only SQL, HTTP &amp; Scenario tools</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M458 92 L490 92" stroke="#38bdf8" stroke-width="2.2"/>
+      <polygon points="488,87 497,92 488,97" fill="#38bdf8"/>
+
+      <!-- Column 3: Guarded Execution -->
+      <rect x="498" y="12" width="194" height="160" rx="9" fill="#131f28" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="508" y="30" fill="#7dd3fc" font-size="7.9" font-weight="700">3. GUARDED EXECUTION</text>
+      <text x="508" y="46" fill="#ffffff" font-size="10" font-weight="800">Approve, Ship &amp; Recover</text>
+      <rect x="508" y="55" width="174" height="32" rx="5" fill="#1a2c38" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="516" y="69" fill="#e0f2fe" font-size="7.5" font-weight="700">Human Approval Pause</text>
+      <text x="516" y="81" fill="#cbd5e1" font-size="7">Slack sendAndWait / Email Wait URL</text>
+      <rect x="508" y="93" width="174" height="32" rx="5" fill="#1a2c38" stroke="#34d399" stroke-width="0.9"/>
+      <text x="516" y="107" fill="#a7f3d0" font-size="7.5" font-weight="700">Downstream Commit</text>
+      <text x="516" y="119" fill="#cbd5e1" font-size="7">CRM, Linear, Postgres, MCP Output</text>
+      <rect x="508" y="131" width="174" height="32" rx="5" fill="#2a1620" stroke="#ff6d5a" stroke-width="0.9"/>
+      <text x="516" y="145" fill="#ffd4ce" font-size="7.5" font-weight="700">Error Workflow &amp; DLQ</text>
+      <text x="516" y="157" fill="#cbd5e1" font-size="7">Error Trigger / Make Retry &amp; Rollback</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Golden Rule: Never Pay an LLM to Do a Switch Node&rsquo;s Job</div>
+    If a routing rule can be expressed as a regex, keyword check, numeric threshold, or database lookup&mdash;such as skipping automated out-of-office emails or checking whether an order exceeds <code>$100</code>&mdash;handle it in an n8n <code>Switch</code> node or Make <code>Router</code> first. Deterministic filters cost zero tokens and never hallucinate.
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, TIERS & PLATFORM MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Hosting, Pricing &amp; Platform Matrix</span>
+    <span>n8n Editions, Make Credits &amp; Architecture Decision Table</span>
+  </div>
+
+  <h2 class="page-title">n8n vs. Make: Hosting, Credits, Executions &amp; Fit</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Choosing between n8n and Make comes down to two practical realities: how each platform meters complex multi-step loops, and whether your compliance rules demand self-hosted Docker containers on your own infrastructure.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px; gap:11px;">
+    <div class="card" style="padding:8px 11px; border-top:3px solid #ff6d5a;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge coral">1</span> n8n Cloud vs. Self-Hosted Docker</div>
+      <ul style="font-size:7.8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Per-Execution Billing:</strong> n8n Cloud Starter (~&euro;20&ndash;&euro;24/mo, 2,500 runs) and Pro (~&euro;50&ndash;&euro;60/mo, 10,000 runs, 50 concurrent executions) bill per <em>whole workflow run</em>&mdash;a 35-node loop costs the same as a 3-node trigger.</li>
+        <li><strong>Community Self-Hosted ($0):</strong> Run unlimited workflows and executions on your own VPS or Docker host. Includes AI Agent, MCP nodes, and Postgres Memory without per-step fees.</li>
+        <li><strong>Queue Mode Scaling:</strong> Production Docker stacks pair <code>n8n</code> main with <code>Redis</code>, <code>PostgreSQL</code>, and scaled <code>worker</code> containers (note: enterprise SSO/LDAP, Git sync, and multi-env features require n8n Business/Enterprise).</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 11px; border-top:3px solid #7e22ce;">
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge plum">2</span> Make.com Credits, Stores &amp; Built-In AI</div>
+      <ul style="font-size:7.8pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Credit Metering:</strong> Make replaced the legacy &ldquo;Operations&rdquo; label with <strong>Credits</strong> (1 non-AI module action = 1 credit). Critically, <strong>Routers and Filters cost 0 credits</strong>&mdash;overage bundles carry a +25% surcharge.</li>
+        <li><strong>Plans &amp; Intervals:</strong> Free (1,000 credits/mo, 15-min polling), Core (~$9&ndash;$10.59/mo, 1-min intervals, API access), and Pro (priority execution, custom variables, full-text log search).</li>
+        <li><strong>Data Stores &amp; AI Keys:</strong> Storage scales at <strong>1 MB per 1,000 credits</strong> (15 MB max per record). Use Make&rsquo;s built-in AI Provider (credits scale by model size) or <strong>BYOK</strong> OpenAI/Anthropic keys at 1 credit per module.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-dark" style="padding:8px 12px; margin-bottom:7px;">
+    <div class="card-title" style="font-size:8.8pt; color:#ff6d5a; margin-bottom:3px;">60-Second Platform Decision Heuristic</div>
+    <div style="font-size:7.8pt; color:#e2e8f0; line-height:1.38;">
+      1. <strong>Pick n8n</strong> when workflows run heavy loops, custom JS/Python <code>Code</code> nodes, local Ollama models, MCP Server Triggers, or strict self-hosted PII pipelines. &nbsp;
+      2. <strong>Pick Make</strong> when non-engineers need rapid drag-and-drop scenarios across 3,500+ SaaS apps without managing servers. &nbsp;
+      3. <strong>Pair Both</strong> by triggering clean SaaS webhooks in Make and forwarding heavy AI reasoning to an n8n queue endpoint.
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0; font-size:10.2pt;">Visual AI Platform Architecture &amp; Economics Matrix</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:3px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:19%;">Platform Option</th>
+        <th style="width:20%;">Metering &amp; Scale Model</th>
+        <th style="width:21%;">Agent &amp; Memory Stack</th>
+        <th style="width:19%;">MCP &amp; Code Flexibility</th>
+        <th style="width:21%;">Primary Watchout</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>n8n Self-Hosted</strong><br/><em>Docker + Queue Mode</em></td>
+        <td><strong>Unlimited Executions:</strong> Pay only VPS + LLM API costs; scale Redis workers.</td>
+        <td>AI Agent node + Window Buffer or durable <strong>Postgres Chat Memory</strong>.</td>
+        <td>Native <strong>MCP Client Tool</strong>, <strong>MCP Server Trigger</strong> &amp; JS/Python Code.</td>
+        <td>You own TLS proxy, <code>WEBHOOK_URL</code>, backups &amp; <code>N8N_ENCRYPTION_KEY</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>n8n Cloud</strong><br/><em>Starter / Pro</em></td>
+        <td><strong>Per Execution:</strong> 2.5k&ndash;10k runs/mo; multi-step loops do not multiply bill.</td>
+        <td>Managed Postgres, built-in Chat Trigger &amp; workflow sub-node tools.</td>
+        <td>Full Code nodes, HTTP tools &amp; cloud-hosted MCP endpoints.</td>
+        <td>Localhost/LAN tools require tunnels; heavy polling eats execution quota.</td>
+      </tr>
+      <tr>
+        <td><strong>Make.com</strong><br/><em>Core / Pro / Teams</em></td>
+        <td><strong>Per Credit (Step):</strong> Every active bundle processed costs credits; 0 for Filters.</td>
+        <td><strong>Make AI Agents</strong> + Scenarios-as-Tools + <strong>Data Stores</strong> (1 MB/1k credits).</td>
+        <td>Built-in <strong>Make MCP Server</strong> toolboxes; custom JS requires add-ons/apps.</td>
+        <td>Unfiltered Iterators &amp; large reasoning models burn monthly credits fast.</td>
+      </tr>
+      <tr>
+        <td><strong>Hybrid Stack</strong><br/><em>Make Edge + n8n Core</em></td>
+        <td><strong>Best of Both:</strong> Low credit intake in Make; zero step tax inside n8n loops.</td>
+        <td>Make triggers SaaS OAuth apps; n8n hosts Postgres memory &amp; long waits.</td>
+        <td>Make calls n8n Webhooks or shares tools via MCP HTTP endpoints.</td>
+        <td>Requires unified correlation IDs across both execution logs for debugging.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout plum" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.1pt;">
+    <div class="callout-title">Loop-Tax Rule: Move High-Iteration Pipelines to n8n</div>
+    Processing a 500-line invoice CSV in Make consumes at least 500 credits per downstream module; the identical <code>Split Out</code> loop inside one n8n execution counts as <strong>1 execution</strong> (or $0 self-hosted). Save Make credits for lightweight webhook triggers and SaaS OAuth bridges.
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED WORKSPACE UI TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Canvas Tour</span>
+    <span>Production AI Agent Workflow, Sub-Node Docks &amp; Approval Gates</span>
+  </div>
+
+  <h2 class="page-title">Annotated Tour: Inside a Guarded AI Agent Canvas</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    A production visual workflow separates fast rule-based routing from slow LLM reasoning, anchors memory and tools underneath the agent node, and pauses high-stakes actions for human sign-off while linking an Error Workflow overhead.
+  </p>
+
+  <div class="ui-window" style="margin-bottom:8px;">
+    <!-- Top Window Bar -->
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:7px; font-weight:700; color:#ffedd5; white-space:nowrap;">n8n / Make Canvas &bull; Support Triage &amp; Refund Guard</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px; font-size:6.6pt; white-space:nowrap;">
+        <span class="wf-chip" style="background:#3b1125; border:1px solid #ff6d5a; color:#ffd4ce;">Queue Mode: 3 Workers</span>
+        <span class="wf-chip" style="background:#7c2d12; border:1px solid #fb923c; color:#ffedd5;">Error Workflow: DLQ <span class="callout-pin">7</span></span>
+      </div>
+    </div>
+
+    <!-- Main Canvas Grid -->
+    <div style="padding:9px 10px; background:#140a10; display:flex; flex-direction:column; gap:8px;">
+      <!-- Row 1: Primary Left-to-Right Node Pipeline -->
+      <div style="display:grid; grid-template-columns: 1.05fr 1.15fr 1.32fr 1.24fr; gap:7px; align-items:stretch;">
+        <!-- Node 1: Trigger -->
+        <div class="wf-node" style="border-top:3px solid #fb923c;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#fdba74;">Webhook Intake</strong>
+            <span class="callout-pin">1</span>
+          </div>
+          <div style="color:#e2e8f0;">
+            <code>POST /v1/triage</code><br/>
+            Extracts <code>sessionId</code>, customer tier &amp; HMAC signature.
+          </div>
+        </div>
+
+        <!-- Node 2: Switch / Router -->
+        <div class="wf-node" style="border-top:3px solid #c084fc;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#e9d5ff;">Switch / Router</strong>
+            <span class="callout-pin">2</span>
+          </div>
+          <div style="color:#e2e8f0;">
+            &bull; Spam / Bot &rarr; <em>Drop (0 AI)</em><br/>
+            &bull; Order FAQ &rarr; <em>Canned Reply</em><br/>
+            &bull; Complex &rarr; <em>AI Agent</em>
+          </div>
+        </div>
+
+        <!-- Node 3: AI Agent Core -->
+        <div class="wf-node" style="border-top:3px solid #ff6d5a; background:#2b1220;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#ffd4ce;">AI Agent Node</strong>
+            <span class="callout-pin">3</span>
+          </div>
+          <div style="color:#ffffff;">
+            <code>maxIterations: 6</code> &bull; Stream <code>OFF</code><br/>
+            System Guard: <em>Draft reply; pause refunds &gt;$100.</em>
+          </div>
+        </div>
+
+        <!-- Node 4: Human-in-the-Loop Wait -->
+        <div class="wf-node" style="border-top:3px solid #34d399;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#a7f3d0;">Slack Wait Gate</strong>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="color:#e2e8f0;">
+            <code>sendAndWait</code> pauses run via <code>resumeUrl</code> until Lead clicks Approve.
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Bottom Sub-Node Docks & Guardrail Telemetry -->
+      <div style="display:grid; grid-template-columns: 2.15fr 1fr; gap:8px;">
+        <!-- Sub-Node Dock Panel -->
+        <div style="background:#1c0f17; border:1px dashed #9d174d; border-radius:7px; padding:6px 8px;">
+          <div style="font-size:6.4pt; font-weight:800; color:#f9a8d4; margin-bottom:4px; letter-spacing:0.04em;">SUB-NODE DOCKS &amp; MAKE SCENARIO TOOLS (WIRED TO AI AGENT)</div>
+          <div style="display:grid; grid-template-columns: 1fr 1.15fr 1.2fr; gap:6px;">
+            <div style="background:#24111c; border:1px solid #4a1228; border-radius:5px; padding:4px 6px;">
+              <strong style="color:#fde68a; font-size:6.6pt;">Chat Model</strong><br/>
+              <span style="color:#cbd5e1; font-size:6.3pt;">Claude / GPT-5 mini<br/>Temp: 0.1 &bull; Cap: 1,500 tok</span>
+            </div>
+            <div style="background:#24111c; border:1px solid #7e22ce; border-radius:5px; padding:4px 6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#e9d5ff; font-size:6.6pt;">Postgres Memory</strong>
+                <span class="callout-pin">5</span>
+              </div>
+              <span style="color:#cbd5e1; font-size:6.3pt;"><code>sessionId</code> &bull; Window 10<br/>Survives worker restarts</span>
+            </div>
+            <div style="background:#24111c; border:1px solid #0284c7; border-radius:5px; padding:4px 6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#7dd3fc; font-size:6.6pt;">Tools &amp; MCP Client</strong>
+                <span class="callout-pin">6</span>
+              </div>
+              <span style="color:#cbd5e1; font-size:6.3pt;">Order SQL (Read-Only)<br/>+ MCP Server Tool Call</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Guardrail & Spend Monitor -->
+        <div style="background:#131f28; border:1px solid #0284c7; border-radius:7px; padding:6px 8px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div style="font-size:6.5pt; font-weight:800; color:#7dd3fc;">GUARDRAIL TELEMETRY</div>
+          <div style="font-size:6.45pt; color:#e2e8f0; line-height:1.38;">
+            &bull; Daily Cap: <code>$2.14 / $10.00</code><br/>
+            &bull; Parser: Downstream Basic LLM Chain<br/>
+            &bull; Fallback: Incomplete Executions / DLQ
+          </div>
+          <div style="font-size:6.2pt; color:#a7f3d0; font-weight:700;">STATUS: AWAITING SLACK CLICK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Point Legend -->
+  <div class="grid-2" style="gap:6px 11px; font-size:7.85pt;">
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">1</span> <strong>Verified Trigger Intake:</strong> Validates webhook signatures and builds a stable <code>sessionId</code> before entering the graph.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">2</span> <strong>Deterministic Pre-Router:</strong> Uses n8n <code>Switch</code> or Make <code>Router</code> (0 credits) to bypass AI for spam and routine lookups.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">3</span> <strong>Bounded AI Agent Node:</strong> Enforces <code>maxIterations</code>, disables streaming during JSON extraction, and follows strict tool rules.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">4</span> <strong>Human-in-the-Loop Wait Gate:</strong> Suspends execution via Slack <code>sendAndWait</code> or email resume URLs without tying up worker RAM.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">5</span> <strong>Postgres Chat Memory / Data Store:</strong> Stores multi-turn state externally so scaled Redis queue workers share identical context.
+    </div>
+    <div class="card" style="padding:5.5px 9px;">
+      <span class="callout-pin">6</span> <strong>Scoped Tools &amp; MCP Client:</strong> Lets agents query external MCP servers or read-only sub-workflows with strict schema contracts.
+    </div>
+  </div>
+  <div class="card-tint" style="padding:5.5px 10px; margin-top:6px; font-size:7.85pt;">
+    <span class="callout-pin">7</span> <strong>Linked Error Workflow &amp; DLQ:</strong> Any crash, API timeout, or <code>maxIterations</code> overrun routes straight to an <strong>Error Trigger</strong> workflow (or Make <strong>Retry / Incomplete Executions</strong> queue) so zero failed payloads disappear silently.
+  </div>
+
+  <div class="callout" style="margin:7px 0 0 0; padding:7px 11px; font-size:8pt;">
+    <div class="callout-title">Canvas Readability Tip: Keep Horizontal Logic Separate From Vertical Sub-Nodes</div>
+    Follow n8n&rsquo;s natural flow: data travels left-to-right across triggers, routers, and action outputs, while AI Agent dependencies (Chat Model, Postgres Memory, MCP Tools) hang vertically underneath. In Make, arrange main routes cleanly from left to right and tuck error handlers beneath fragile HTTP or Data Store modules.
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: N8N AI AGENT, SUB-NODES & MEMORY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; n8n AI Agent &amp; Stateful Memory</span>
+    <span>Chat Model Sub-Nodes, Postgres Memory &amp; Two-Step Parsing</span>
+  </div>
+
+  <h2 class="page-title">n8n AI Agent: Sub-Nodes, Memory &amp; Clean JSON Output</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Inside n8n, the <strong>AI Agent</strong> node acts as an orchestrator wired downward to modular sub-nodes for its Chat Model, Memory, and Tools. Understanding two crucial design choices&mdash;durable Postgres memory and two-step JSON formatting&mdash;eliminates 90% of production agent bugs.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_1.jpg" style="width:100%; height:235px; object-fit:cover; object-position:center; display:block;" alt="Charcoal plum 3D studio illustration of luminous payload droplets passing through an obsidian prism into a faceted coral-vermilion reasoning crystal connected to stacked glass memory rings and a parallel bypass lane" />
+    <div class="figure-caption">
+      <strong>Modular Agent Sub-Nodes:</strong> An n8n AI Agent coordinates reasoning at the center while delegating language generation, persistent <code>sessionId</code> memory layers, and MCP or sub-workflow actions to swappable sub-nodes below.
+    </div>
+  </div>
+
+  <div class="grid-3" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:7.5px 9.5px; border-top:3px solid #7e22ce;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge plum">1</span> Simple vs. Postgres Memory</div>
+      <p style="font-size:7.65pt; margin:0;">
+        <strong>Window Buffer Memory</strong> (Simple Memory) lives inside one worker&rsquo;s RAM&mdash;wiping on restarts and failing across Docker queue workers. Always swap to <strong>Postgres Chat Memory</strong> (or Supabase) keyed by <code>sessionId</code> in production.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px; border-top:3px solid #ff6d5a;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge coral">2</span> Two-Step JSON Formatting</div>
+      <p style="font-size:7.65pt; margin:0;">
+        Attaching a <strong>Structured Output Parser</strong> straight onto an AI Agent with Streaming ON frequently triggers endless retry loops. Disable Streaming on the Model node, or pipe the agent&rsquo;s plain text into a downstream <strong>Basic LLM Chain</strong> + parser.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge sky">3</span> Clear Sub-Node Tool Specs</div>
+      <p style="font-size:7.65pt; margin:0;">
+        The LLM chooses tools solely from each sub-node&rsquo;s <strong>Description</strong> and schema. Write sharp rules like <em>&ldquo;Lookup shipping status by order_id; never call for billing disputes&rdquo;</em> and keep <code>maxIterations</code> capped at <code>6</code>&ndash;<code>8</code>.
+      </p>
+    </div>
+  </div>
+
+  <pre class="code-block"><code>// n8n Postgres Chat Memory Session Key Expression (set Key Type = "Define below"):
+{{ $json.headers['x-session-id'] || $json.body.customer_email + ':' + $json.body.thread_id }}
+
+// n8n AI Agent System Message (paired with downstream Basic LLM Chain for strict JSON):
+You are a cautious support triage assistant. Use "lookup_order_sql" for shipment status only.
+Never invent tracking numbers or issue refunds above $100. Cap tool lookups to 3 calls max.
+Output a concise plain-text decision summary; downstream formatting handles JSON conversion.</code></pre>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8pt;">
+    <div class="callout-title">Watchout: Triple-Backtick Poisoning in JSON Parsers</div>
+    If an upstream model wraps its response in markdown code fences or includes triple backticks inside a text field, naive JSON extractors break prematurely. Insert a quick JavaScript <code>Code</code> node to strip outer fences before calling <code>JSON.parse()</code>.
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: MCP BRIDGES & DOCKER QUEUE MODE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; MCP &amp; Docker Queue Mode</span>
+    <span>MCP Client/Server Nodes &amp; Redis Worker Scaling</span>
+  </div>
+
+  <h2 class="page-title">MCP Client &amp; Server Nodes + Docker Queue Scaling</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    The Model Context Protocol (MCP) turns visual workflows into a two-way bridge: your n8n agents can call external MCP tools dynamically, and your entire n8n or Make workspace can act as a secure MCP server for Claude Desktop or Cursor.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:6px;">
+    <div class="card-tint" style="padding:7.5px 10px; border-top:3px solid #ea580c;">
+      <div class="card-title" style="font-size:8.7pt; color:#9a3412;">MCP Client Tool vs. MCP Server Trigger</div>
+      <ul style="font-size:7.55pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>MCP Client Tool (Outbound):</strong> Plugs into the AI Agent&rsquo;s Tool dock via <strong>Streamable HTTP</strong> or <strong>SSE</strong>, letting workflows discover external tools behind allowlists.</li>
+        <li><strong>MCP Server Trigger (Inbound):</strong> Turns n8n into an MCP server endpoint so Claude or Cursor invokes vetted Postgres, Jira, or Slack sub-tools safely.</li>
+        <li><strong>Make MCP Server:</strong> Exposes active Make scenarios set to <em>on demand</em> with <code>Return Output</code> as standardized MCP toolboxes over stateless HTTP.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-top:3px solid #7e22ce;">
+      <div class="card-title" style="font-size:8.7pt; color:#5b21b6;">5-Part Visual AI Workflow Formula</div>
+      <div style="font-size:7.65pt; line-height:1.75;">
+        <span class="p-tag p-trigger">[1. Trigger &amp; Schema]</span> Webhook + HMAC check,
+        <span class="p-tag p-router">[2. Deterministic Gate]</span> Switch / Make Router (0 AI cost),
+        <span class="p-tag p-agent">[3. Bounded Agent]</span> <code>maxIterations &lt;= 8</code> + Postgres Memory,
+        <span class="p-tag p-tool">[4. Scoped Tools / MCP]</span> Read-only SQL + MCP Client allowlist,
+        <span class="p-tag p-guard">[5. Approval &amp; DLQ]</span> Slack <code>sendAndWait</code> + Error Trigger.
+      </div>
+    </div>
+  </div>
+
+  <table class="clean-table" style="font-size:7.45pt; margin:2px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:23%;">Pipeline Element</th>
+        <th style="width:39%;">What It Controls</th>
+        <th style="width:38%;">What Fails When Skipped</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="p-tag p-trigger">Trigger &amp; Schema</span></td>
+        <td>Verifies webhook signatures, normalizes fields, and assigns a <code>sessionId</code>.</td>
+        <td>Spoofed webhook traffic or missing thread IDs break downstream memory.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-router">Deterministic Gate</span></td>
+        <td>Filters spam, dedupes hashes, and routes simple tasks before AI runs.</td>
+        <td>Out-of-office auto-replies and duplicates drain monthly token budgets.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-agent">Bounded Agent</span></td>
+        <td>Caps reasoning steps, persists state in Postgres, and isolates JSON formatting.</td>
+        <td>Infinite tool loops hit <code>maxIterations</code> or lose context on worker restarts.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-tool">Scoped Tools / MCP</span></td>
+        <td>Restricts agent queries to read-only SQL views and allowlisted MCP tools.</td>
+        <td>Prompt injection can trick over-privileged agents into modifying records.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-guard">Approval &amp; DLQ</span></td>
+        <td>Pauses risky mutations for human clicks and captures crashes for replay.</td>
+        <td>Unverified refunds ship live or timed-out payloads vanish without alerts.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code># Production n8n Docker Queue Mode (.env + docker-compose.yml excerpt)
+# .env: EXECUTIONS_MODE=queue | DB_TYPE=postgresdb | QUEUE_BULL_REDIS_HOST=redis
+#       N8N_ENCRYPTION_KEY=&lt;32-byte-hex&gt; | WEBHOOK_URL=https://n8n.yourdomain.com/
+#       EXECUTIONS_DATA_PRUNE=true | EXECUTIONS_DATA_MAX_AGE=168 | EXECUTIONS_DATA_PRUNE_MAX_COUNT=25000
+services:
+  postgres: { image: postgres:16-alpine, volumes: [pg_data:/var/lib/postgresql/data] }
+  redis:    { image: redis:7-alpine, command: redis-server --appendonly yes }
+  n8n:      { image: n8nio/n8n:latest, env_file: .env, ports: ["5678:5678"], depends_on: [postgres, redis] }
+  n8n-worker: { image: n8nio/n8n:latest, command: worker, env_file: .env, depends_on: [postgres, redis] }
+# Scale horizontally: docker compose up -d --scale n8n-worker=3</code></pre>
+
+  <div class="callout plum" style="margin:2px 0 0 0; padding:6px 10px; font-size:7.85pt;">
+    <div class="callout-title">Self-Hosting Non-Negotiables: Identical Encryption Key &amp; Task Runners</div>
+    Never run Queue Mode on SQLite&mdash;concurrent worker writes will lock the database. Keep <code>N8N_ENCRYPTION_KEY</code> identical across <code>n8n</code> and every <code>n8n-worker</code> container so workers decrypt credentials cleanly, and note that n8n 2.x enables isolated Code task runners by default (making legacy <code>N8N_RUNNERS_ENABLED</code> optional).
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: MAKE.COM ORCHESTRATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Make.com AI Agents &amp; Flow Control</span>
+    <span>Scenarios-as-Tools, Zero-Credit Routers, Iterators &amp; Data Stores</span>
+  </div>
+
+  <h2 class="page-title">Make.com Mastery: Agents, Routers, Iterators &amp; Stores</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Make excels at fast visual SaaS orchestration. By placing zero-credit Routers and Filters ahead of LLM modules, isolating arrays with Iterators, and backing agents with ACID-capable Data Stores, you keep scenarios lean and predictable.
+  </p>
+
+  <div class="grid-3" style="gap:9px; margin-bottom:7px;">
+    <div class="card" style="padding:7.5px 9.5px; border-top:3px solid #7e22ce;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge plum">1</span> Scenarios as Agent Tools</div>
+      <p style="font-size:7.65pt; margin:0;">
+        Bundle multi-app scenarios as tools inside <strong>Make AI Agents</strong>. Define strict input schemas (Name, Type, Description), set schedule to <em>on demand</em>, and finish with a <code>Return Output</code> module.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px; border-top:3px solid #ea580c;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">2</span> Zero-Credit Routing &amp; Loops</div>
+      <p style="font-size:7.65pt; margin:0;">
+        <strong>Routers</strong> and <strong>Filters</strong> consume <strong>0 credits</strong>&mdash;drop invalid rows before an <strong>Iterator</strong> splits arrays into bundles, then use an <strong>Aggregator</strong> to recombine results before one single LLM call.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px; border-top:3px solid #0d9488;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge teal">3</span> Data Stores &amp; Transactions</div>
+      <p style="font-size:7.65pt; margin:0;">
+        Use <strong>Data Stores</strong> (1 MB per 1,000 credits; 15 MB max per record) for agent memory, dedupe keys, or mini RAG catalogs. Data Stores carry <strong>ACID</strong> tags supporting explicit <code>Commit</code> and <code>Rollback</code> handlers.
+      </p>
+    </div>
+  </div>
+
+  <table class="clean-table" style="font-size:7.55pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Make Module / Directive</th>
+        <th style="width:17%;">Credit Impact</th>
+        <th style="width:29%;">Role in AI Workflows</th>
+        <th style="width:32%;">Key Watchout / Best Practice</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Router + Filter</strong></td>
+        <td><strong>0 Credits</strong></td>
+        <td>Splits VIP vs. standard traffic or drops empty payloads pre-LLM.</td>
+        <td>Always attach a fallback route so unmatched items do not vanish quietly.</td>
+      </tr>
+      <tr>
+        <td><strong>Iterator + Aggregator</strong></td>
+        <td>1 Credit / bundle</td>
+        <td>Unpacks invoice lines or email attachments for per-item checks.</td>
+        <td>Aggregate summaries back into one bundle before calling expensive frontier LLMs.</td>
+      </tr>
+      <tr>
+        <td><strong>Make AI Agent + Return</strong></td>
+        <td>Token-tiered or BYOK</td>
+        <td>Reasons across scenario tools and Data Store context dynamically.</td>
+        <td><code>Return Output</code> halts its route immediately; keep prompts narrow and bounded.</td>
+      </tr>
+      <tr>
+        <td><strong>Retry</strong> <em>(formerly Break)</em></td>
+        <td>Retries failed step</td>
+        <td>Queues rate-limited <code>429</code>/<code>503</code> runs into <strong>Incomplete Executions</strong>.</td>
+        <td>Enable Incomplete Executions in Scenario Settings; space 3 retries by 15 min.</td>
+      </tr>
+      <tr>
+        <td><strong>Skip / Resume / Rollback</strong></td>
+        <td>Varies by route</td>
+        <td><code>Skip</code> <em>(Ignore)</em> drops bad rows; <code>Resume</code> injects defaults; <code>Rollback</code> reverts DBs.</td>
+        <td>Use <code>Rollback</code> on ACID Data Stores when partial writes would corrupt balances.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code>// Make Scenario-as-Tool Input Schema &amp; Return Output JSON Contract (for Make AI Agent / MCP):
+{
+  "tool_name": "issue_credit_or_escalate",
+  "inputs": { "customer_id": "text (required)", "amount_usd": "number (required)", "reason": "text" },
+  "return_output": { "status": "queued_for_approval", "credit_limit_exceeded": true, "ticket_url": "https://..." }
+}</code></pre>
+
+  <div class="grid-2" style="gap:10px; margin:5px 0 5px 0;">
+    <div class="card" style="padding:7.5px 10px; border-top:3px solid #ea580c;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">4</span> Built-In Make AI Provider vs. BYOK</div>
+      <p style="font-size:7.65pt; margin:0;">
+        Make&rsquo;s built-in AI Provider bills credits dynamically by model tier and separate input/output token rates&mdash;heavy reasoning models drain pools quickly. On paid tiers, connect your own OpenAI or Anthropic key (<strong>BYOK</strong>) so Make charges a flat base credit while tokens bill directly at provider rates.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-top:3px solid #7e22ce;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge plum">5</span> Make MCP Toolbox Best Practices</div>
+      <p style="font-size:7.65pt; margin:0;">
+        When publishing scenarios to external clients through <strong>Make MCP Server</strong>, expose focused single-purpose tools with strict parameter descriptions, disable open-ended catch-all inputs, and turn on Scenario <em>Incomplete Executions</em> so transient downstream API failures recover safely.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:7.95pt;">
+    <div class="callout-title">Data Store Auto-Commit Watchout</div>
+    Check <strong>Auto-commit</strong> in Scenario Settings when wiring Data Stores into multi-step financial or inventory flows. Leaving Auto-commit on saves earlier rows even if a later module fails; turning it off lets <code>Rollback</code> revert partial edits cleanly.
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: ROUTING, WAIT APPROVALS & CIRCUIT BREAKERS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Routing, Approvals &amp; Breakers</span>
+    <span>Wait Webhooks, Error Workflows &amp; Token Caps</span>
+  </div>
+
+  <h2 class="page-title">Deterministic Gates, Wait Approvals &amp; Spend Breakers</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Production automations pair speed with restraint: routine items take a fast deterministic rail, high-impact writes pause gracefully for human confirmation, and automated circuit breakers stop runaway token loops before a bill spikes.
+  </p>
+
+  <div class="figure-box">
+    <img src="assets/showcase_2.jpg" style="width:100%; height:235px; object-fit:cover; object-position:center; display:block;" alt="Charcoal plum 3D editorial illustration of glass data spheres branching at a geometric splitter prism into a fast lower bypass rail, an illuminated coral-orange human approval checkpoint gate, and a copper recovery vault" />
+    <div class="figure-caption">
+      <strong>Traffic Splitting &amp; Checkpoint Guards:</strong> Deterministic routers divert trivial events down zero-token rails, route sensitive actions through human approval gates, and safely park failures inside dead-letter queues.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:7.5px 10px; border-top:3px solid #0284c7;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge sky">1</span> Human Approval Pauses (<code>sendAndWait</code>)</div>
+      <ul style="font-size:7.6pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Zero-RAM Pause:</strong> n8n&rsquo;s Slack/Gmail <strong>Send and Wait for Response</strong> and <code>Wait</code> node serialize state to PostgreSQL and sleep until someone clicks <code>$execution.resumeUrl</code>.</li>
+        <li><strong>Self-Hosted URL Rule:</strong> Always set <code>WEBHOOK_URL=https://your-domain.com/</code> in <code>.env</code> and set Slack App <strong>Interactivity Request URL</strong> to <code>https://your-domain.com/rest/waiting-webhook/</code> so buttons do not 404 or loop.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:7.5px 10px; border-top:3px solid #e11d48;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge rose">2</span> Error DLQs &amp; 3-Layer Spend Breakers</div>
+      <ul style="font-size:7.6pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Error Workflow DLQ:</strong> Link a dedicated workflow starting with <strong>Error Trigger</strong> inside Workflow Settings to capture <code>execution.id</code>, URL, and payload into Postgres + Slack alerts.</li>
+        <li><strong>Spend Circuit Breakers:</strong> Enforce (1) Switch/Router pre-filtering, (2) <code>maxIterations &lt;= 6</code> &amp; <code>maxTokens</code> caps, and (3) a daily Redis/Data Store spend counter that trips an instant bypass above threshold.</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre class="code-block"><code>// Deterministic Pre-LLM Code Guard (n8n Code Node): Strip fences, enforce payload cap &amp; check daily budget
+const text = ($input.first().json.body?.message || "").slice(0, 4000).trim();
+const dailyCalls = Number($getWorkflowStaticData('global').todayCalls || 0);
+if (dailyCalls &gt;= 500) return [{ json: { route: "circuit_open", reason: "Daily AI cap reached" } }];
+if (/^(unsubscribe|out of office|auto-reply)/i.test(text)) return [{ json: { route: "skip_zero_cost" } }];
+return [{ json: { route: "ai_agent", cleanText: text.replace(/\x60{3}[\s\S]*?\x60{3}/g, "[code]") } }];</code></pre>
+
+  <div class="callout sky" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:7.95pt;">
+    <div class="callout-title">Testing Pause Webhooks Locally: Always Bind a Real HTTPS Tunnel</div>
+    Approval buttons generated by <code>sendAndWait</code> or the <code>Wait</code> node embed <code>WEBHOOK_URL</code> inside <code>$execution.resumeUrl</code>. If you test locally with <code>http://localhost:5678</code>, Slack and email clients cannot reach your callback&mdash;point <code>WEBHOOK_URL</code> at a Cloudflare Tunnel or ngrok HTTPS domain before running approval tests.
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Recipe Library</span>
+    <span>5 End-to-End n8n &amp; Make Workflow Blueprints</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste AI Workflow Blueprints</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Use these five battle-tested workflow patterns as starting templates for your team&mdash;every recipe pairs deterministic pre-filtering with bounded AI reasoning, persistent state, and clear failure recovery.
+  </p>
+
+  <table class="clean-table" style="font-size:7.55pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:21%;">Blueprint &amp; Engine</th>
+        <th style="width:45%;">Node Sequence &amp; Deterministic Gate</th>
+        <th style="width:34%;">Memory, Guardrail &amp; Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Support Triage &amp; Refund Guard</strong><br/><em>n8n Queue Mode</em></td>
+        <td><code>Webhook</code> &rarr; <code>Switch</code> (drops spam &amp; FAQ) &rarr; <code>AI Agent</code> (<code>Order SQL</code> tool) &rarr; <code>If amount &gt; 100</code> &rarr; <code>Slack sendAndWait</code>.</td>
+        <td><strong>Postgres Chat Memory</strong> by ticket ID; <code>maxIterations: 6</code>; refunds wait for human Slack button click.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Invoice PDF OCR &amp; Ledger Sync</strong><br/><em>Make.com</em></td>
+        <td><code>Watch Email</code> &rarr; <strong>0-Credit Filter</strong> (PDF only) &rarr; <code>Iterator</code> &rarr; <code>Data Store</code> dedupe &rarr; <code>AI Extract</code> &rarr; <code>Ledger Upsert</code>.</td>
+        <td><strong>Data Store</strong> blocks duplicate invoice IDs; <code>Rollback</code> handler prevents partial accounting rows on error.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Internal Ops MCP Bridge</strong><br/><em>n8n MCP Server</em></td>
+        <td><code>MCP Server Trigger</code> (Bearer Auth) &rarr; <code>Switch</code> (tool allowlist) &rarr; Read-Only <code>Postgres</code> / <code>Linear</code> sub-workflows.</td>
+        <td>Exposes vetted internal lookups straight to Claude Desktop &amp; Cursor without sharing DB credentials.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Lead Enrichment &amp; Scoring</strong><br/><em>Make.com BYOK</em></td>
+        <td><code>Form Webhook</code> &rarr; <code>Data Store</code> cache check &rarr; <strong>Router</strong> (skip free email domains) &rarr; <code>BYOK Mini LLM</code> &rarr; <code>HubSpot</code>.</td>
+        <td>Cached domains cost <strong>0 AI tokens</strong>; <code>Retry (Break)</code> queues CRM <code>429</code> limits into Incomplete Executions.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Central DLQ &amp; Spend Watchdog</strong><br/><em>n8n Error Workflow</em></td>
+        <td><code>Error Trigger</code> &rarr; <code>Code</code> (sanitize PII &amp; classify error) &rarr; <code>Postgres DLQ</code> insert &rarr; <code>Slack #ops-alerts</code>.</td>
+        <td>Links across all workflows; catches <code>maxIterations</code>, webhook <code>404</code>s, and daily spend threshold breaches.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code>// Copy-Paste Error Workflow Slack Alert Expression (attach to n8n Error Trigger -&gt; Slack Node):
+{
+  "workflow": "{{ $json.workflow.name }}",
+  "failed_node": "{{ $json.execution.lastNodeExecuted }}",
+  "error": "{{ $json.execution.error.message }}",
+  "execution_url": "{{ $json.execution.url }}",
+  "action": "Inspect DLQ table row {{ $json.execution.id }} and replay after resolving upstream dependency."
+}</code></pre>
+
+  <div class="grid-2" style="gap:10px; margin-top:4px;">
+    <div class="callout" style="margin:0; padding:7.5px 10px; font-size:7.95pt;">
+      <div class="callout-title">Cache-First Deduplication Rule</div>
+      Before calling an enrichment or classification LLM, hash the input payload (or email domain / invoice ID) against Redis, Postgres, or a Make Data Store. Returning cached hits slashes AI costs by 30&ndash;60%.
+    </div>
+    <div class="callout plum" style="margin:0; padding:7.5px 10px; font-size:7.95pt;">
+      <div class="callout-title">Separate Reasoning From Formatting</div>
+      Run cheap nano/mini models for extraction and classification; reserve frontier models strictly for ambiguous synthesis&mdash;and always hand strict JSON schemas to a dedicated formatting step with streaming disabled.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, VAULTS & SPEND GOVERNANCE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security, Vaults &amp; Spend Governance</span>
+    <span>Credential Encryption, Prompt-Injection Limits &amp; Log Hygiene</span>
+  </div>
+
+  <h2 class="page-title">Self-Hosted Security, Vaults &amp; Spend Governance</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    Automation canvases sit at the crossroads of your inbox, CRM, billing, and production databases. Hardening your credential vault, shrinking tool blast radius, and pruning sensitive execution logs keeps speed from turning into risk.
+  </p>
+
+  <div class="grid-2" style="gap:10px; margin-bottom:7px;">
+    <div class="card" style="padding:8px 10px; border-top:3px solid #ea580c;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge">1</span> Credential Vaults &amp; TLS Ingress</div>
+      <ul style="font-size:7.65pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Pin &amp; Back Up Encryption Keys:</strong> Generate <code>N8N_ENCRYPTION_KEY</code> with <code>openssl rand -hex 32</code> and store it in your secrets vault&mdash;losing it renders Postgres credentials unreadable.</li>
+        <li><strong>Reverse Proxy &amp; Auth:</strong> Terminate HTTPS via Caddy, Nginx, or Cloudflare Tunnel matching <code>WEBHOOK_URL</code>. Require HMAC or Bearer headers on every Webhook and MCP Server Trigger.</li>
+        <li><strong>Least-Privilege Tokens:</strong> Scope Make Connections and n8n credentials to read-only SQL views or single folders rather than org-wide admin keys.</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:8px 10px; border-top:3px solid #e11d48;">
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge rose">2</span> Prompt-Injection &amp; Spend Guardrails</div>
+      <ul style="font-size:7.65pt; margin:3px 0 0 0; padding-left:16px;">
+        <li><strong>Untrusted Input Isolation:</strong> Emails, scraped web pages, and support chats may carry hidden instructions. Strip HTML scripts, cap character length, and separate data fields in prompts.</li>
+        <li><strong>No Direct Destructive Tools:</strong> Never attach unguarded <code>DELETE</code>, <code>DROP</code>, or wire-transfer tools to an AI Agent&mdash;require a deterministic check plus Slack <code>sendAndWait</code> approval.</li>
+        <li><strong>Budget Circuit Breakers:</strong> Set hard provider monthly spend caps in OpenAI/Anthropic consoles alongside per-workflow Redis/Data Store daily execution ceilings.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:3px 0 4px 0;">Security, Retention &amp; Governance Comparison</h3>
+  <table class="clean-table" style="font-size:7.6pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Control Domain</th>
+        <th style="width:39%;">n8n Self-Hosted &amp; Cloud</th>
+        <th style="width:39%;">Make.com Managed Platform</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Secret Storage</strong></td>
+        <td>Encrypted in Postgres via <code>N8N_ENCRYPTION_KEY</code>; separate dev/prod vars.</td>
+        <td>Managed Make Connections vault; team RBAC &amp; EU/US data zones.</td>
+      </tr>
+      <tr>
+        <td><strong>Webhook &amp; MCP Auth</strong></td>
+        <td>Enforce Header Auth / HMAC validation + IP allowlists at reverse proxy.</td>
+        <td>Custom Webhook URL secret tokens, IP restrictions &amp; MCP token auth.</td>
+      </tr>
+      <tr>
+        <td><strong>Blast-Radius Limits</strong></td>
+        <td>Read-only DB users + isolated task runners + explicit <code>sendAndWait</code> gates.</td>
+        <td>Scoped OAuth apps + strict <code>Make AI Agent</code> scenario input schemas.</td>
+      </tr>
+      <tr>
+        <td><strong>Execution Log Privacy</strong></td>
+        <td>Disable saving successful payload data on PII flows; set <code>EXECUTIONS_DATA_PRUNE=true</code>.</td>
+        <td>Toggle <em>Don&rsquo;t store data in incomplete/execution logs</em> for regulated runs.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code-block"><code>// Webhook Signature Verification Snippet (n8n Code Node right after Webhook Trigger):
+const crypto = require('crypto');
+const sig = $input.first().json.headers['x-hub-signature-256'] || '';
+const expected = 'sha256=' + crypto.createHmac('sha256', $env.WEBHOOK_SECRET).update($input.first().json.rawBody).digest('hex');
+if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) throw new Error('Unauthorized webhook');
+return $input.all();</code></pre>
+
+  <div class="callout rose" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8pt;">
+    <div class="callout-title">Database Bloat Watchout: Prune High-Volume Execution Logs</div>
+    Verbose AI payloads swell Postgres rapidly in Queue Mode. Enable <code>EXECUTIONS_DATA_PRUNE=true</code> with <code>EXECUTIONS_DATA_MAX_AGE=168</code> (7 days) and turn off <em>Save Execution Progress</em> on stable high-throughput workflows.
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Architecture</span>
+    <span>Make Edge Triggers, n8n Worker Queues, MCP &amp; Human Recovery</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Unifying Make, n8n &amp; MCP</h2>
+  <p class="page-lead" style="margin-bottom:7px;">
+    You never have to lock every workflow inside one vendor. High-leverage teams pair Make&rsquo;s instant SaaS connectors at the edge with n8n&rsquo;s zero-step-tax Queue Mode engine and expose vetted tools over MCP to local coding agents.
+  </p>
+
+  <div class="figure-box" style="background:#180d14; padding:9px 11px; border-color:#581c3a; margin-bottom:8px;">
+    <svg viewBox="0 0 700 202" width="100%" height="202" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Make SaaS Edge -->
+      <rect x="8" y="18" width="148" height="166" rx="9" fill="#24111c" stroke="#c084fc" stroke-width="1.5"/>
+      <text x="82" y="36" text-anchor="middle" fill="#e9d5ff" font-size="7.4" font-weight="700">STAGE 1 &bull; SAAS EDGE</text>
+      <text x="82" y="51" text-anchor="middle" fill="#ffffff" font-size="9.3" font-weight="800">Make.com Intake</text>
+      <rect x="17" y="61" width="130" height="50" rx="5" fill="#2e1624" stroke="#9333ea" stroke-width="0.9"/>
+      <text x="82" y="76" text-anchor="middle" fill="#f3e8ff" font-size="7.3" font-weight="700">3,500+ SaaS Triggers</text>
+      <text x="82" y="88" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Gmail, Typeform, Stripe</text>
+      <text x="82" y="99" text-anchor="middle" fill="#cbd5e1" font-size="6.7">0-Credit Router &amp; Filter</text>
+      <rect x="17" y="119" width="130" height="54" rx="5" fill="#2e1624" stroke="#fb923c" stroke-width="0.9"/>
+      <text x="82" y="134" text-anchor="middle" fill="#fed7aa" font-size="7.3" font-weight="700">Data Store Dedupe</text>
+      <text x="82" y="146" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Drops cached duplicates</text>
+      <text x="82" y="157" text-anchor="middle" fill="#cbd5e1" font-size="6.7">HTTP -&gt; n8n Webhook</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M156 101 L180 101" stroke="#ff6d5a" stroke-width="2"/>
+      <polygon points="178,96 186,101 178,106" fill="#ff6d5a"/>
+
+      <!-- Stage 2: n8n Queue & AI Core -->
+      <rect x="187" y="12" width="166" height="178" rx="10" fill="#2e1022" stroke="#ff6d5a" stroke-width="2"/>
+      <text x="270" y="30" text-anchor="middle" fill="#ffd4ce" font-size="7.5" font-weight="700">STAGE 2 &bull; QUEUE ENGINE</text>
+      <text x="270" y="46" text-anchor="middle" fill="#ffffff" font-size="9.8" font-weight="800">n8n Workers + Redis</text>
+      <rect x="197" y="56" width="146" height="36" rx="5" fill="#180d14" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="270" y="70" text-anchor="middle" fill="#ffedd5" font-size="7.2" font-weight="700">Switch &amp; Budget Guard</text>
+      <text x="270" y="82" text-anchor="middle" fill="#cbd5e1" font-size="6.6">HMAC check + daily cap</text>
+      <rect x="197" y="98" width="146" height="38" rx="5" fill="#180d14" stroke="#ff6d5a" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="270" y="112" text-anchor="middle" fill="#ffd4ce" font-size="7.2" font-weight="700">AI Agent (No Stream)</text>
+      <text x="270" y="124" text-anchor="middle" fill="#cbd5e1" font-size="6.6">maxIterations: 6 + LLM Chain</text>
+      <rect x="197" y="142" width="146" height="36" rx="5" fill="#180d14" stroke="#c084fc" stroke-width="0.9"/>
+      <text x="270" y="156" text-anchor="middle" fill="#e9d5ff" font-size="7.2" font-weight="700">Postgres Chat Memory</text>
+      <text x="270" y="168" text-anchor="middle" fill="#cbd5e1" font-size="6.6">Persistent sessionId history</text>
+
+      <!-- Branching Arrows 2 -> 3 -->
+      <path d="M353 72 L383 60" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="380,56 389,58 383,65" fill="#38bdf8"/>
+      <path d="M353 132 L383 144" stroke="#34d399" stroke-width="2"/>
+      <polygon points="383,139 389,146 380,148" fill="#34d399"/>
+
+      <!-- Stage 3A: MCP Ecosystem -->
+      <rect x="390" y="16" width="146" height="82" rx="8" fill="#131f28" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="463" y="33" text-anchor="middle" fill="#7dd3fc" font-size="7.3" font-weight="700">STAGE 3A &bull; MCP BRIDGE</text>
+      <text x="463" y="48" text-anchor="middle" fill="#ffffff" font-size="8.9" font-weight="800">MCP Client &amp; Server</text>
+      <text x="463" y="63" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Streamable HTTP / SSE tools</text>
+      <text x="463" y="75" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Shared to Claude &amp; Cursor</text>
+      <text x="463" y="88" text-anchor="middle" fill="#bae6fd" font-size="6.7" font-weight="700">Read-only SQL &amp; CRM tools</text>
+
+      <!-- Stage 3B: Approval Pause -->
+      <rect x="390" y="106" width="146" height="82" rx="8" fill="#10251e" stroke="#34d399" stroke-width="1.5"/>
+      <text x="463" y="123" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">STAGE 3B &bull; HUMAN GATE</text>
+      <text x="463" y="138" text-anchor="middle" fill="#ffffff" font-size="8.9" font-weight="800">Slack / Email Wait</text>
+      <text x="463" y="153" text-anchor="middle" fill="#cbd5e1" font-size="6.8">sendAndWait resumeUrl</text>
+      <text x="463" y="165" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Zero worker RAM while paused</text>
+      <text x="463" y="178" text-anchor="middle" fill="#a7f3d0" font-size="6.7" font-weight="700">Approve / Edit / Decline</text>
+
+      <!-- Arrows 3 -> 4 -->
+      <path d="M536 58 L559 58" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="557,53 565,58 557,63" fill="#38bdf8"/>
+      <path d="M536 146 L559 146" stroke="#ff6d5a" stroke-width="2"/>
+      <polygon points="557,141 565,146 557,151" fill="#ff6d5a"/>
+
+      <!-- Stage 4A: Production Systems -->
+      <rect x="566" y="16" width="126" height="82" rx="8" fill="#1b1c30" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="629" y="33" text-anchor="middle" fill="#c7d2fe" font-size="7.2" font-weight="700">STAGE 4A &bull; SYSTEMS</text>
+      <text x="629" y="48" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">Shipped Actions</text>
+      <text x="629" y="63" text-anchor="middle" fill="#cbd5e1" font-size="6.8">HubSpot deals, Linear</text>
+      <text x="629" y="75" text-anchor="middle" fill="#cbd5e1" font-size="6.8">issues, Postgres &amp; Notion</text>
+      <text x="629" y="88" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Stripe / Email replies</text>
+
+      <!-- Stage 4B: Audit & DLQ -->
+      <rect x="566" y="106" width="126" height="82" rx="8" fill="#2a1620" stroke="#ff6d5a" stroke-width="1.5"/>
+      <text x="629" y="123" text-anchor="middle" fill="#ffd4ce" font-size="7.2" font-weight="700">STAGE 4B &bull; RECOVERY</text>
+      <text x="629" y="138" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">DLQ &amp; Pruning</text>
+      <text x="629" y="153" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Error Trigger Postgres DLQ</text>
+      <text x="629" y="165" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Make Incomplete Queues</text>
+      <text x="629" y="178" text-anchor="middle" fill="#cbd5e1" font-size="6.8">7-day auto-pruned logs</text>
+    </svg>
+  </div>
+
+  <h3>Four-Step Daily Operations Pattern</h3>
+  <div class="grid-2" style="gap:9px; margin-bottom:8px;">
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge coral">1</span> Filter &amp; Dedupe at the Edge</div>
+      <p style="font-size:7.8pt; margin:0;">
+        Let Make watch customer SaaS inboxes with 0-credit Routers and Data Stores, forwarding only unique, qualified payloads via signed webhooks to n8n.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge plum">2</span> Reason in Scaled Queue Mode</div>
+      <p style="font-size:7.8pt; margin:0;">
+        Redis queues distribute bursts across parallel n8n workers while Postgres Chat Memory keeps multi-turn context consistent across every container.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge sky">3</span> Share Tools via MCP &amp; Pause Gates</div>
+      <p style="font-size:7.8pt; margin:0;">
+        Expose read-only lookups over MCP Server Triggers to Claude Desktop or Cursor, while routing high-value mutations through Slack <code>sendAndWait</code> approvals.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;"><span class="num-badge teal">4</span> Recover &amp; Prune Automatically</div>
+      <p style="font-size:7.8pt; margin:0;">
+        Every crash lands in an Error Workflow DLQ or Make Incomplete Executions queue with full replay links, while automated 7-day pruning keeps Postgres fast.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:2px 0 0 0; padding:7.5px 11px; font-size:8.1pt;">
+    <div class="callout-title">Split by Gravity: SaaS Connectors in Make, Heavy AI Loops in n8n</div>
+    Whenever an automation loops over hundreds of items, embeds local Ollama models, or hosts MCP endpoints, run it inside self-hosted n8n Queue Mode. Keep Make where its 3,500+ turnkey app triggers shine brightest.
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Diagnostics &amp; Pre-Flight</span>
+    <span>Top 7 Production Fixes &amp; 6-Point Launch Checklist</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Use this diagnostic clinic whenever an n8n agent loops until <code>maxIterations</code>, Slack approval buttons loop or 404, Queue Mode forgets chat history, or Make burns credits&mdash;then run the 6-point checklist before enabling any scenario.
+  </p>
+
+  <table class="clean-table" style="font-size:7.45pt; margin:2px 0 7px 0;">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Failure Mode</th>
+        <th style="width:28%;">Root Cause</th>
+        <th style="width:45%;">10-Second Production Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Agent hits <code>Max iterations (10) reached</code> with JSON parser</strong></td>
+        <td>Streaming is ON in the Chat Model node, or Structured Output Parser fights tool-calling turns.</td>
+        <td>Turn <strong>Streaming OFF</strong> on the Chat Model node and move the Structured Output Parser to a downstream <strong>Basic LLM Chain</strong> node.</td>
+      </tr>
+      <tr>
+        <td><strong>2. <code>Invalid JSON in model output</code> syntax crash</strong></td>
+        <td>Model emitted markdown triple backticks inside text fields, breaking naive fence splits.</td>
+        <td>Insert a <code>Code</code> node before parsing to strip outer fences, and instruct raw JSON only inside the System Message.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Agent loses memory between messages in Queue Mode</strong></td>
+        <td>Using in-memory <code>Window Buffer Memory</code> across multiple Redis worker containers.</td>
+        <td>Replace with <strong>Postgres Chat Memory</strong> keyed by a deterministic <code>sessionId</code> expression so every worker shares history.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Slack <code>sendAndWait</code> loops infinitely or throws 404</strong></td>
+        <td>Self-hosted <code>WEBHOOK_URL</code> missing HTTPS domain or Slack Interactivity URL misconfigured.</td>
+        <td>Set <code>WEBHOOK_URL=https://your-domain/</code> in <code>.env</code> and point Slack App Interactivity URL to <code>https://your-domain/rest/waiting-webhook/</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Workers fail to decrypt credentials after redeploy</strong></td>
+        <td><code>N8N_ENCRYPTION_KEY</code> rotated, omitted from worker <code>.env</code>, or mismatched across replicas.</td>
+        <td>Restore the exact original <code>N8N_ENCRYPTION_KEY</code> across main and all <code>n8n-worker</code> containers and restart the Compose stack.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Make burns credits fast or stalls mid-Iterator</strong></td>
+        <td>Unfiltered Iterators feeding individual bundles straight to large built-in AI models.</td>
+        <td>Place <strong>0-credit Filters</strong> before Iterators, aggregate outputs into one bundle pre-LLM, or switch to BYOK mini/nano models.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Half-written Data Store or SQL rows after mid-run error</strong></td>
+        <td>Auto-commit enabled without an explicit transaction rollback route.</td>
+        <td>Attach Make&rsquo;s <strong>Rollback</strong> error handler on ACID Data Stores (or <strong>Retry</strong> + Incomplete Executions for transient <code>429</code> errors).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:3px 0 4px 0;">6-Point Visual AI Workflow Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Gate Before Prompting:</strong> Verify <code>Switch</code> / Make <code>Router</code> &amp; cache checks handle trivial or duplicate payloads at 0 LLM cost.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. Cap Loops &amp; Disable Stream:</strong> Set <code>maxIterations &lt;= 8</code>, turn Streaming OFF for JSON schemas, and check daily budget counters.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. Persist Memory &amp; Keys:</strong> Confirm <strong>Postgres Chat Memory</strong> (or Make Data Store) and identical <code>N8N_ENCRYPTION_KEY</code> across workers.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Test Resume &amp; Approval URLs:</strong> Click through Slack <code>sendAndWait</code> or email resume buttons against live HTTPS <code>WEBHOOK_URL</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. Link Error DLQ &amp; Retries:</strong> Attach an n8n <strong>Error Workflow</strong> or enable Make <strong>Incomplete Executions</strong> + <code>Retry</code> on every active flow.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. Prune Logs &amp; Lock Auth:</strong> Enable <code>EXECUTIONS_DATA_PRUNE=true</code>, verify HMAC/Bearer tokens, and restrict SQL tools to read-only views.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin:6px 0 0 0; padding:6.5px 11px; font-size:8pt;">
+    <div class="callout-title">Final Takeaway: Visual Clarity Plus Guardrails Equals Reliable AI Operations</div>
+    The best n8n and Make workflows never rely on model magic alone. Combine zero-cost deterministic routing, durable database state, clean MCP contracts, human approval pauses, and replayable error queues so your automations stay fast, affordable, and trustworthy at scale.
+  </div>
+
+  <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>
