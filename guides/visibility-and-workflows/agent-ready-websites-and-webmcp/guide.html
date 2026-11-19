@@ -230,7 +230,7 @@ npx skills add vercel-labs/is-agentic
       </tr>
       <tr>
         <td><strong>Imperative WebMCP</strong></td>
-        <td><code>navigator.modelContext.registerTool</code></td>
+        <td><code>document.modelContext.registerTool</code></td>
         <td>Dynamic SPA state &amp; async handlers</td>
         <td>Complex configurators, live carts, multi-step dashboards, user gates.</td>
       </tr>
@@ -532,7 +532,7 @@ export function middleware(req: NextRequest) {
     <div class="card">
       <div class="card-title"><span class="num-badge teal">2</span> Imperative <code>modelContext</code> API</div>
       <p style="font-size:8pt; margin:0;">
-        Register dynamic JavaScript tools with <code>navigator.modelContext.registerTool()</code> (note: newer W3C drafts also align on <code>document.modelContext</code>). Manage SPA view changes cleanly with <code>unregisterTool()</code>, <code>provideContext()</code>, and <code>clearContext()</code>, and label safe reads with <code>readOnlyHint: true</code>.
+        Register dynamic JavaScript tools with <code>document.modelContext.registerTool()</code> (Chrome 146 early previews used <code>navigator.modelContext</code>). Manage SPA view changes cleanly with <code>unregisterTool()</code>, <code>provideContext()</code>, and <code>clearContext()</code>, and label safe reads via <code>annotations: { readOnlyHint: true }</code>.
       </p>
     </div>
   </div>
@@ -562,9 +562,10 @@ export function middleware(req: NextRequest) {
   });
 &lt;/script&gt;</code></pre>
 
-  <h3>Pattern B: Imperative Read-Only Lookup via <code>navigator.modelContext.registerTool</code></h3>
-  <pre><code>if ('modelContext' in navigator) {
-  navigator.modelContext.registerTool({
+  <h3>Pattern B: Imperative Read-Only Lookup via <code>document.modelContext.registerTool</code></h3>
+  <pre><code>const mc = document.modelContext ?? navigator.modelContext;
+if (mc) {
+  mc.registerTool({
     name: 'search_docs',
     description: 'Search product documentation pages by keyword and return matching snippets.',
     inputSchema: {
@@ -572,7 +573,7 @@ export function middleware(req: NextRequest) {
       properties: { query: { type: 'string', description: 'Search keyword or error code' } },
       required: ['query']
     },
-    readOnlyHint: true,
+    annotations: { readOnlyHint: true },
     execute: async ({ query }) =&gt; ({
       content: [{ type: 'text', text: JSON.stringify(await runLocalDocSearch(query)) }]
     })
@@ -766,7 +767,7 @@ node -e "const r=JSON.parse(process.argv[1]); if (r.score !== null &amp;&amp; r.
   </div>
 
   <h3>Human-in-the-Loop Checkout Gate Using <code>client.requestUserInteraction()</code></h3>
-  <pre><code>navigator.modelContext.registerTool({
+  <pre><code>(document.modelContext ?? navigator.modelContext).registerTool({
   name: 'place_order',
   description: 'Submit the active shopping cart for final checkout after user confirmation.',
   inputSchema: {
@@ -774,7 +775,7 @@ node -e "const r=JSON.parse(process.argv[1]); if (r.score !== null &amp;&amp; r.
     properties: { shippingMethod: { type: 'string', enum: ['standard', 'express'] } },
     required: ['shippingMethod']
   },
-  consequentialHint: true,
+  annotations: { readOnlyHint: false, consequentialHint: true },
   execute: async ({ shippingMethod }, client) =&gt; {
     const approved = await client.requestUserInteraction(async () =&gt; {
       return window.confirm('Confirm checkout using ' + shippingMethod + ' shipping?');
@@ -966,7 +967,7 @@ node -e "const r=JSON.parse(process.argv[1]); if (r.score !== null &amp;&amp; r.
       <tr>
         <td><strong><code>modelContext</code> is undefined</strong></td>
         <td>Missing Chrome flag or HTTPS</td>
-        <td>Enable <code>#enable-webmcp-testing</code>, serve over HTTPS, and guard with <code>'modelContext' in navigator</code>.</td>
+        <td>Enable <code>#enable-webmcp-testing</code>, serve over HTTPS, and check <code>document.modelContext ?? navigator.modelContext</code>.</td>
       </tr>
       <tr>
         <td><strong><code>429 rate_limit_exceeded</code></strong></td>
