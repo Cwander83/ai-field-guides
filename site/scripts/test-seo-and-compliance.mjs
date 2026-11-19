@@ -406,10 +406,6 @@ function main() {
     }
 
     // Security check on every target="_blank" link across built HTML.
-    // TODO(Stage-2 / release-integrator): Once site-reader-a11y merges (updating
-    // ReaderBar.astro and [slug].astro View PDF links to rel="noopener noreferrer"),
-    // drop the (isExternal || legalGraphPages.has(rel)) gate and require BOTH
-    // "noopener" and "noreferrer" unconditionally on every [target="_blank"].
     for (const el of doc.querySelectorAll('[target="_blank"]')) {
       const rawHref = el.getAttribute('href') ?? '';
       const relTokens = (el.getAttribute('rel') ?? '')
@@ -420,13 +416,10 @@ function main() {
         relTokens.includes('noopener'),
         `target="_blank" missing rel="noopener" (${rawHref}) on ${rel}`,
       );
-      const isExternal = /^https?:\/\//i.test(rawHref);
-      if (isExternal || legalGraphPages.has(rel)) {
-        assert.ok(
-          relTokens.includes('noreferrer'),
-          `target="_blank" missing rel="noreferrer" (${rawHref}) on ${rel}`,
-        );
-      }
+      assert.ok(
+        relTokens.includes('noreferrer'),
+        `target="_blank" missing rel="noreferrer" (${rawHref}) on ${rel}`,
+      );
     }
   }
 

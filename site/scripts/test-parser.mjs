@@ -162,6 +162,10 @@ async function main() {
         !/backdrop-filter|-webkit-background-clip\s*:\s*text/i.test(parsed.scopedCss),
         `Forbidden DESIGN.md §5 style in scopedCss for ${guide.id}`,
       );
+      assert.ok(
+        !/\.(?:num-badge|callout-pin|toc-pg|check-box)\b/i.test(parsed.scopedCss),
+        `Unexcluded .num-badge/.callout-pin/.toc-pg/.check-box selector in scopedCss for ${guide.id}`,
+      );
 
       for (const ch of parsed.chapters) {
         totalChapters += 1;
@@ -216,15 +220,25 @@ async function main() {
             relTokens.includes('noopener'),
             `target="_blank" missing rel="noopener" in ${guide.id} chapter ${ch.number}`,
           );
+          assert.ok(
+            relTokens.includes('noreferrer'),
+            `target="_blank" missing rel="noreferrer" in ${guide.id} chapter ${ch.number}`,
+          );
         }
 
-        // TODO(Stage-2 / release-integrator): Enable these strict post-merge checks
-        // once Stage 1 branches (wave2-vault-media & site-reader-a11y) are merged:
-        // 1. Zero emoji in parsed chapter prose after wave2-vault-media cleans
-        //    obsidian-bases-and-json-canvas-agents & claude-meetings:
-        //    assert.ok(!/[\u{1F300}-\u{1FAFF}]/u.test(ch.bodyHtml), `Emoji in ${guide.id} ch ${ch.number}`);
-        // 2. Mobile stacked table data-label attributes after site-reader-a11y updates parseGuide.ts:
-        //    for (const td of chDoc.querySelectorAll('.table-scroll-wrap tbody td')) { ... }
+        assert.ok(
+          !/[\u{1F300}-\u{1FAFF}]/u.test(ch.bodyHtml) &&
+            !/[\u{1F300}-\u{1FAFF}]/u.test(ch.title) &&
+            !/[\u{1F300}-\u{1FAFF}]/u.test(ch.leadHtml),
+          `Emoji in ${guide.id} chapter ${ch.number}`,
+        );
+        for (const td of chDoc.querySelectorAll('.table-scroll-wrap tbody td')) {
+          const dataLabel = td.getAttribute('data-label')?.trim() ?? '';
+          assert.ok(
+            dataLabel.length > 0,
+            `Missing data-label on table cell in ${guide.id} chapter ${ch.number}`,
+          );
+        }
 
         const blockMatches = ch.bodyHtml.match(/class="copyable-block"/g);
         if (blockMatches) copyableBlocks += blockMatches.length;
