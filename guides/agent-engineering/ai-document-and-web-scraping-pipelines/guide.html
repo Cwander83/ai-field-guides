@@ -421,12 +421,14 @@ from docling.datamodel.pipeline_options import PdfPipelineOptions, RapidOcrOptio
 from docling.document_converter import DocumentConverter, PdfFormatOption
 
 opts = PdfPipelineOptions(do_ocr=True, do_table_structure=True)
-opts.ocr_options = RapidOcrOptions(force_full_page_ocr=False) # Run OCR only on scanned regions
-opts.table_structure_options.mode = TableFormerMode.ACCURATE  # Best fidelity for merged headers
+# Run OCR only on scanned regions; use ACCURATE mode for merged headers
+opts.ocr_options = RapidOcrOptions(force_full_page_ocr=False)
+opts.table_structure_options.mode = TableFormerMode.ACCURATE
 
 converter = DocumentConverter(format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=opts)})
 doc = converter.convert("quarterly_report.pdf").document
-print(doc.export_to_markdown()) # CLI VLM option: docling --pipeline vlm --vlm-model granite_docling file.pdf</code></pre>
+# CLI VLM option: docling --pipeline vlm --vlm-model granite_docling file.pdf
+print(doc.export_to_markdown())</code></pre>
 
   <div class="figure-box" style="margin-bottom: 4px;">
     <img src="assets/showcase_1.jpg" alt="Visual anatomy of multi-column document layout decomposition into structural blocks and clean table matrices" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
@@ -553,7 +555,8 @@ class PricingTier(BaseModel):
     plan_name: str
     monthly_usd: float
 
-fc = Firecrawl(api_key="fc-YOUR_API_KEY") # Or run keyless sandbox / self-hosted endpoint
+# Or run a keyless sandbox / self-hosted endpoint
+fc = Firecrawl(api_key="fc-YOUR_API_KEY")
 urls = fc.map(url="https://docs.example.com", limit=100, sitemap="include")
 
 doc = fc.scrape(
@@ -562,7 +565,8 @@ doc = fc.scrape(
     formats=["markdown", {"type": "json", "schema": PricingTier.model_json_schema()},
              {"type": "changeTracking", "modes": ["git-diff", "json"]}],
 )
-print(doc.change_tracking.get("changeStatus"), doc.json) # Webhooks fire on started, page, completed</code></pre>
+# Webhooks emit started, page, completed events; Python SDK uses snake_case fields
+print(doc.change_tracking.change_status, doc.json)</code></pre>
 
   <div class="page-footer">
     <span>AI Document &amp; Web Scraping Pipelines &bull; Complete Field Guide</span>
@@ -704,7 +708,7 @@ for idx, chunk in enumerate(chunker.chunk(doc)):
       <tr>
         <td><strong>4. Live Pricing Diff Monitor</strong><br/><span style="font-size:6.9pt; color:#64748b;">Alert only when tiers change</span></td>
         <td>Firecrawl v2 + <code>changeTracking</code></td>
-        <td><code>formats=["markdown", {"type": "changeTracking", "modes": ["git-diff"]}]</code>; check <code>changeStatus</code>.</td>
+        <td><code>formats=["markdown", {"type": "changeTracking", "modes": ["git-diff"]}]</code>; check <code>change_status</code>.</td>
         <td>Pass <code>max_age=0</code> to bypass 2-day cache on live monitors.</td>
       </tr>
       <tr>
