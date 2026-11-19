@@ -20,7 +20,7 @@
       <span class="cover-badge">75+ Provider Routing</span>
       <span class="cover-badge">Native LSP Diagnostics</span>
       <span class="cover-badge">Git Snapshot <code>/undo</code> &amp; <code>/redo</code></span>
-      <span class="cover-badge"><code>.opencode/agent/*.md</code></span>
+      <span class="cover-badge"><code>.opencode/agents/*.md</code></span>
       <span class="cover-badge"><code>/init</code>, <code>/compact</code> &amp; <code>/share</code></span>
     </div>
   </div>
@@ -146,10 +146,10 @@
   <div class="grid-2" style="margin-bottom:6px;">
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> 60-Second Install Across macOS, Linux &amp; WSL</div>
-      <pre class="code-block"><code># Official install script or Homebrew / Bun / npm
-curl -fsSL https://opencode.ai/install | bash
-brew install anomalyco/tap/opencode
-npm install -g opencode-ai@latest
+      <pre class="code-block"><code># Official V2 install script or Homebrew / npm
+curl -fsSL https://opencode.ai/v2/install | bash
+brew install anomalyco/tap/opencode-v2
+npm install -g @opencode/cli@latest
 
 # Launch inside your repo &amp; bootstrap AGENTS.md
 cd ~/code/my-app &amp;&amp; opencode
@@ -377,7 +377,7 @@ opencode models         # List all resolved model IDs</code></pre>
 <section class="page">
   <div class="page-header">
     <span class="section-tag">05 &bull; Multi-Model Routing &amp; Subagents</span>
-    <span><code>opencode.json</code> Routing &amp; Custom <code>.opencode/agent/*.md</code> Specialists</span>
+    <span><code>opencode.json</code> Routing &amp; Custom <code>.opencode/agents/*.md</code> Specialists</span>
   </div>
 
   <h2 class="page-title">Multi-Model Routing &amp; Markdown Specialist Subagents</h2>
@@ -625,7 +625,7 @@ leaked secrets. Cite file:line and minimal fix.</code></pre>
       </tr>
       <tr>
         <td><strong>5. Export Full Session JSON Audit Log</strong></td>
-        <td><code>opencode export ses_01JXYZ &gt; session-audit.json</code></td>
+        <td><code>opencode session export ses_01JXYZ &gt; session-audit.json</code></td>
         <td>Dumps complete prompts, tool calls, token counts, and diffs for team postmortems or evals.</td>
       </tr>
     </tbody>
@@ -832,7 +832,7 @@ leaked secrets. Cite file:line and minimal fix.</code></pre>
       </tr>
       <tr>
         <td><strong>5. Newly added API key doesn&rsquo;t show models in <code>/models</code></strong></td>
-        <td>Run <code>/connect</code> inside the TUI or verify the provider ID via <code>opencode auth list</code> and <code>opencode models --refresh</code>.</td>
+        <td>Run <code>/connect</code> inside the TUI, check <code>opencode auth list</code>, or run <code>opencode reload</code> before <code>opencode models</code>.</td>
       </tr>
       <tr>
         <td><strong>6. Diff colors look washed out inside tmux</strong></td>

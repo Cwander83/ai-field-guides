@@ -715,7 +715,7 @@ sub_recipes:
     <tbody>
       <tr>
         <td><strong>1. Dual-Model Feature</strong><br/><em>Aider Cost + Quality</em></td>
-        <td><code>aider --architect --model anthropic/claude-sonnet-4-5 --editor-model ollama_chat/qwen2.5-coder:32b --edit-format editor-diff --read CONVENTIONS.md</code></td>
+        <td><code>aider --architect --model anthropic/claude-sonnet-4-5 --editor-model ollama_chat/qwen2.5-coder:32b --editor-edit-format editor-diff --read CONVENTIONS.md</code></td>
         <td>Frontier design + $0 local diffs + clean atomic Git commit.</td>
       </tr>
       <tr>
@@ -735,7 +735,7 @@ sub_recipes:
       </tr>
       <tr>
         <td><strong>5. Goose &rarr; Aider Fix</strong><br/><em>Issue to Verified PR</em></td>
-        <td>Step 1: Goose pulls CI traceback via MCP and writes repro test.<br/>Step 2: <code>aider --yes --auto-test --message "Fix failing test_auth_refresh" src/auth.py tests/test_auth.py</code></td>
+        <td>Step 1: Goose pulls CI traceback via MCP and writes repro test.<br/>Step 2: <code>aider --yes-always --auto-test --message "Fix failing test_auth_refresh" src/auth.py tests/test_auth.py</code></td>
         <td>Combines cross-tool discovery with reversible Git commit.</td>
       </tr>
     </tbody>
@@ -757,8 +757,8 @@ export GOOSE_LEAD_TURNS=3 GOOSE_LEAD_FAILURE_THRESHOLD=2 GOOSE_LEAD_FALLBACK_TUR
       Check non-secret <code>.aider.conf.yml</code>, <code>CONVENTIONS.md</code>, <code>.goosehints</code>, and <code>.goose/recipes/*.yaml</code> straight into your repository so new engineers inherit your best workflows on clone.
     </div>
     <div class="callout amber" style="margin:0; padding:8px 11px; font-size:8.05pt;">
-      <div class="callout-title">Earn Headless <code>--yes</code> After Dry Runs</div>
-      Never wire <code>aider --yes</code> or <code>GOOSE_MODE=auto</code> into scripts on day one. Run every new workflow interactively first to tune file scopes, ignore rules, and test assertions.
+      <div class="callout-title">Earn Headless <code>--yes-always</code> After Dry Runs</div>
+      Never wire <code>aider --yes-always</code> or <code>GOOSE_MODE=auto</code> into scripts on day one. Run every new workflow interactively first to tune file scopes, ignore rules, and test assertions.
     </div>
   </div>
 
@@ -790,7 +790,7 @@ export GOOSE_LEAD_TURNS=3 GOOSE_LEAD_FAILURE_THRESHOLD=2 GOOSE_LEAD_FALLBACK_TUR
       <div class="card-title" style="font-size:9pt; color:#115e59;"><span class="num-badge">2</span> Goose <code>GOOSE_MODE</code> &amp; Tool Tiers</div>
       <ul style="font-size:7.8pt; margin:3px 0 0 0; padding-left:16px;">
         <li><strong>Four Macro Modes:</strong> Choose <code>chat</code> (zero tools), <code>approve</code> (ask before every write/shell), <code>smart_approve</code> (auto-allow safe reads, prompt on risky writes), or <code>auto</code> (unattended&mdash;sandbox only!).</li>
-        <li><strong><code>permission.yaml</code> Rules:</strong> Pin individual MCP tools under <code>always_allow</code>, <code>ask_before</code>, or <code>never_allow</code> inside <code>~/.config/goose/config/permission.yaml</code>.</li>
+        <li><strong><code>permission.yaml</code> Rules:</strong> Pin individual MCP tools under <code>always_allow</code>, <code>ask_before</code>, or <code>never_allow</code> inside <code>~/.config/goose/permission.yaml</code>.</li>
         <li><strong><code>.gooseignore</code> Shield:</strong> Uses gitignore syntax to block Goose from reading <code>.env</code> secrets, credentials, or sensitive customer exports.</li>
       </ul>
     </div>
@@ -834,7 +834,7 @@ export GOOSE_LEAD_TURNS=3 GOOSE_LEAD_FAILURE_THRESHOLD=2 GOOSE_LEAD_FALLBACK_TUR
     </tbody>
   </table>
 
-  <pre class="code-block"><code># ~/.config/goose/config/permission.yaml &mdash; Safe team workstation defaults (paired with GOOSE_MODE=smart_approve):
+  <pre class="code-block"><code># ~/.config/goose/permission.yaml &mdash; Safe team workstation defaults (paired with GOOSE_MODE=smart_approve):
 user:
   always_allow:
     - memory__remember

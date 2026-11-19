@@ -12,6 +12,8 @@ import {
 import '../styles/legal.css';
 
 const { totalGuides, totalPages, totalEcosystems } = catalogData.stats;
+const sampleGuide =
+  catalogData.guides.find((g) => g.id === 'claude/claude-meetings') ?? catalogData.guides[0];
 
 const title = 'How Twelve Pages Is Made — AI & Editorial Disclosure | Twelve Pages';
 const description =
@@ -72,7 +74,7 @@ const jsonLd = {
         Full transparency into how our handbooks, topic guides, illustrations, and website pages are generated using artificial intelligence under human direction and print-layout verification.
       </p>
       <p class="legal-meta tabular">
-        Library Scope: {totalGuides} Handbooks &middot; {totalPages} Illustrated Pages &middot; {totalEcosystems} Topics &middot; Last updated: November 17, 2026
+        Library Scope: {totalGuides} Handbooks &middot; {totalPages} Illustrated Pages &middot; {totalEcosystems} Topics &middot; Last updated: November 18, 2026
       </p>
     </header>
 
@@ -141,6 +143,30 @@ const jsonLd = {
         <p>
           If you spot an inaccurate command, broken step, or outdated product limit, please report it in the public <a href="https://github.com/Cwander83/ai-field-guides/issues" rel="noopener noreferrer" target="_blank">Twelve Pages GitHub issue tracker</a> so the edition can be regenerated and updated.
         </p>
+      </section>
+
+      <section class="legal-card" aria-labelledby="sec-feeds">
+        <h2 id="sec-feeds">5. Plain-Text Editions &amp; Machine-Readable Feeds</h2>
+        <p>
+          Alongside the web reader and downloadable 12-page PDFs, every handbook is published in clean plain-text and feed formats so researchers, note-takers, feed readers, and automated agents can access the library without page navigation chrome:
+        </p>
+        <ul>
+          <li>
+            <strong>Concise Library Directory (<a href="/llms.txt"><code>/llms.txt</code></a>):</strong> A compact plain-text catalog listing all {totalGuides} handbooks by topic, with direct links to each web page, Markdown twin, and PDF.
+          </li>
+          <li>
+            <strong>Full Corpus Outline (<a href="/llms-full.txt"><code>/llms-full.txt</code></a>):</strong> An expanded single-file directory containing core takeaways, topic tags, and all 11 chapter titles for every handbook.
+          </li>
+          <li>
+            <strong>Per-Guide Markdown Twins (<code>.md</code>):</strong> Every handbook has a clean plain-text Markdown edition ready to save in research notes or paste into AI assistants&mdash;append <code>.md</code> to any handbook URL (for example, <a href={sampleGuide.markdownUrl}><code>{sampleGuide.markdownUrl}</code></a>) or send an <code>Accept: text/markdown</code> header.
+          </li>
+          <li>
+            <strong>RSS 2.0 Feed (<a href="/rss.xml"><code>/rss.xml</code></a>):</strong> Subscribe in any standard feed reader to follow handbook updates with direct PDF enclosures.
+          </li>
+          <li>
+            <strong>JSON Feed 1.1 (<a href="/feed.json"><code>/feed.json</code></a>):</strong> A structured JSON feed pairing every handbook entry with its cover art, PDF download, and Markdown edition.
+          </li>
+        </ul>
       </section>
     </div>
 

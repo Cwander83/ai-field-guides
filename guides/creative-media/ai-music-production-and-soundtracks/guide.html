@@ -424,7 +424,7 @@ gemini-api music <span class="str">"Lo-fi Rhodes beat, 86 BPM, instrumental"</sp
     <div class="card" style="padding: 8px 11px;">
       <div class="card-title"><span class="num-badge">1</span> Millisecond Scores &amp; Composition Plans</div>
       <p style="font-size: 8.2pt; margin-bottom: 0;">
-        Call <code>client.music.compose()</code> with <code>model_id="music_v2_5"</code>. Set <code>force_instrumental=True</code> to guarantee zero stray vocals under dialogue, pass <code>music_length_ms</code> (3,000&ndash;600,000 ms) to match an exact ad spot, or supply a structured <code>composition_plan</code> dictionary with timed chunks for intros, drops, and finales.
+        Call <code>client.music.compose()</code> with <code>model_id="music_v2_5"</code>. Set <code>force_instrumental=True</code> with a text prompt to guarantee zero stray vocals, pass <code>music_length_ms</code> (3,000&ndash;600,000 ms) for an exact spot, or supply a structured <code>composition_plan</code> with timed sections for intros, drops, and finales.
       </p>
     </div>
     <div class="card" style="padding: 8px 11px;">
@@ -440,11 +440,16 @@ client = ElevenLabs()  <span class="cm"># reads ELEVENLABS_API_KEY</span>
 
 <span class="cm"># 1. Timed instrumental underscore using composition_plan (60 seconds total)</span>
 score = client.music.compose(
-    model_id=<span class="str">"music_v2_5"</span>, force_instrumental=<span class="kw">True</span>,
-    composition_plan={<span class="str">"chunks"</span>: [
-        {<span class="str">"style"</span>: <span class="str">"Minimalist felt piano &amp; soft pulse, 92 BPM"</span>, <span class="str">"duration_ms"</span>: 20000, <span class="str">"lyrics"</span>: <span class="str">""</span>},
-        {<span class="str">"style"</span>: <span class="str">"Warm cello swell &amp; crisp electronic percussion lift"</span>, <span class="str">"duration_ms"</span>: 40000, <span class="str">"lyrics"</span>: <span class="str">""</span>},
-    ]},
+    model_id=<span class="str">"music_v2_5"</span>,
+    composition_plan={
+        <span class="str">"positive_global_styles"</span>: [<span class="str">"instrumental"</span>, <span class="str">"felt piano"</span>], <span class="str">"negative_global_styles"</span>: [<span class="str">"vocals"</span>],
+        <span class="str">"sections"</span>: [
+            {<span class="str">"section_name"</span>: <span class="str">"Intro"</span>, <span class="str">"duration_ms"</span>: 20000, <span class="str">"positive_local_styles"</span>: [<span class="str">"92 BPM pulse"</span>],
+             <span class="str">"negative_local_styles"</span>: [], <span class="str">"lines"</span>: []},
+            {<span class="str">"section_name"</span>: <span class="str">"Lift"</span>, <span class="str">"duration_ms"</span>: 40000, <span class="str">"positive_local_styles"</span>: [<span class="str">"warm cello swell"</span>],
+             <span class="str">"negative_local_styles"</span>: [], <span class="str">"lines"</span>: []},
+        ],
+    },
 )
 <span class="kw">with</span> open(<span class="str">"brand_score.mp3"</span>, <span class="str">"wb"</span>) <span class="kw">as</span> f:
     <span class="kw">for</span> chunk <span class="kw">in</span> score: f.write(chunk)

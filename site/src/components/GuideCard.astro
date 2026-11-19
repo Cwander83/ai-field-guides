@@ -41,8 +41,8 @@ const searchText = `${guide.title} ${guide.subtitle} ${guide.ecosystemShort} ${g
         {guide.isFeaturedNew && <span class="badge-new">New</span>}
         <div class="guide-meta-items meta-flow">
           <span class="meta-topic">{guide.ecosystemShort}</span>
-          <span class="meta-detail tabular">{guide.readingMinutes} min read</span>
-          <span class="meta-detail tabular">v{guide.version}</span>
+          <span class="meta-detail tabular">{guide.pages} pages</span>
+          <span class="meta-detail tabular">PDF {guide.pdfSizeLabel}</span>
         </div>
       </div>
     </div>
@@ -83,7 +83,7 @@ const searchText = `${guide.title} ${guide.subtitle} ${guide.ecosystemShort} ${g
         <polyline points="7 10 12 15 17 10"></polyline>
         <line x1="12" y1="15" x2="12" y2="3"></line>
       </svg>
-      <span>PDF <span class="tabular">({guide.pdfSizeLabel})</span></span>
+      <span>Download PDF</span>
     </a>
   </div>
 </article>

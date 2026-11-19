@@ -18,8 +18,48 @@ export function getStaticPaths() {
   const guides = catalogData.guides as EnrichedGuide[];
 
   return guides.map((guide, index) => {
-    const prevGuide = index > 0 ? guides[index - 1] : null;
-    const nextGuide = index < guides.length - 1 ? guides[index + 1] : null;
+    const sameEco = guides.filter((g) => g.ecosystem === guide.ecosystem);
+    const ecoIndex = sameEco.findIndex((g) => g.id === guide.id);
+
+    const primaryGoal = guide.goals[0];
+    const sameGoal = primaryGoal
+      ? guides.filter((g) => g.goals.includes(primaryGoal))
+      : guides;
+    const goalIndex = sameGoal.findIndex((g) => g.id === guide.id);
+
+    let prevGuide: EnrichedGuide | null =
+      ecoIndex > 0 ? sameEco[ecoIndex - 1] : null;
+    if (!prevGuide && sameGoal.length > 1) {
+      const idx = goalIndex >= 0 ? goalIndex : 0;
+      const candidate = sameGoal[(idx - 1 + sameGoal.length) % sameGoal.length];
+      if (candidate.id !== guide.id) prevGuide = candidate;
+    }
+    if (!prevGuide && guides.length > 1) {
+      const candidate = guides[(index - 1 + guides.length) % guides.length];
+      if (candidate.id !== guide.id) prevGuide = candidate;
+    }
+
+    let nextGuide: EnrichedGuide | null =
+      ecoIndex >= 0 && ecoIndex < sameEco.length - 1 ? sameEco[ecoIndex + 1] : null;
+    if (!nextGuide && sameGoal.length > 1) {
+      const idx = goalIndex >= 0 ? goalIndex : 0;
+      for (let offset = 1; offset < sameGoal.length; offset++) {
+        const candidate = sameGoal[(idx + offset) % sameGoal.length];
+        if (candidate.id !== guide.id && candidate.id !== prevGuide?.id) {
+          nextGuide = candidate;
+          break;
+        }
+      }
+    }
+    if (!nextGuide && guides.length > 1) {
+      for (let offset = 1; offset < guides.length; offset++) {
+        const candidate = guides[(index + offset) % guides.length];
+        if (candidate.id !== guide.id && candidate.id !== prevGuide?.id) {
+          nextGuide = candidate;
+          break;
+        }
+      }
+    }
 
     return {
       params: {
@@ -59,11 +99,6 @@ const articleImages = [
   ...(parsed.heroImageUrl ? [`${siteOrigin}${parsed.heroImageUrl}`] : []),
   `${siteOrigin}${guide.coverPngUrl}`,
 ];
-
-const encodedShareUrl = encodeURIComponent(canonicalGuideUrl);
-const encodedShareText = encodeURIComponent(`${guide.title} — ${guide.subtitle}`);
-const shareXUrl = `https://x.com/intent/tweet?text=${encodedShareText}&url=${encodedShareUrl}`;
-const shareLinkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`;
 
 const guideJsonLd = {
   '@context': 'https://schema.org',
@@ -164,7 +199,35 @@ const guideJsonLd = {
           <span>v{guide.version}</span>
           <span>{guide.readingMinutes} min read</span>
           <span>{guide.pages}-Page Illustrated Edition</span>
-          <a href="/editorial" class="reader-meta-link">AI-Authored &amp; Human-Directed</a>
+          <a href="/editorial" class="reader-meta-link">How it&rsquo;s made</a>
+        </div>
+        <div class="reader-intro-actions">
+          <a
+            href={guide.pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="reader-btn-secondary"
+          >
+            View PDF
+          </a>
+          <a href={guide.pdfUrl} download class="reader-btn-primary">
+            <svg
+              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download PDF <span class="tabular">({guide.pdfSizeLabel})</span></span>
+          </a>
         </div>
       </header>
 
@@ -229,8 +292,10 @@ const guideJsonLd = {
       <aside class="ai-colophon-card" aria-labelledby="ai-colophon-heading">
         <h2 id="ai-colophon-heading" class="ai-colophon-title">Edition Note &amp; Verification</h2>
         <p class="ai-colophon-desc">
-          This {guide.pages}-page handbook&mdash;including its prose, topic structure, inline diagrams, and 16:9 illustrations&mdash;was generated with AI under human editorial direction and print-layout QA. Because software interfaces and plans change quickly, always verify commands, pricing, quotas, and security configurations against official vendor documentation before production use.
-          <a href="/editorial" class="ai-colophon-link">How Twelve Pages is made</a>.
+          This {guide.pages}-page handbook was authored with AI under human editorial direction and print-layout QA. Always verify commands, pricing, quotas, and security settings against official vendor documentation before production use.
+          <a href="/editorial" class="ai-colophon-link">Editorial &amp; AI disclosure</a>
+          <span class="ai-colophon-sep" aria-hidden="true">&middot;</span>
+          <a href={guide.markdownUrl} class="ai-colophon-link">Plain-text edition (.md)</a>
         </p>
       </aside>
 
@@ -265,7 +330,7 @@ const guideJsonLd = {
           <a
             href={guide.pdfUrl}
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             class="reader-btn-secondary"
           >
             View PDF
@@ -273,31 +338,15 @@ const guideJsonLd = {
         </div>
       </div>
 
-      <div class="reader-share-bar" aria-label="Share and machine-readable formats">
-        <span class="share-label">Share or Read Raw Markdown:</span>
+      <div class="reader-share-bar" aria-label="Share this handbook">
+        <span class="share-label">Share this handbook</span>
         <div class="share-actions">
           <button type="button" id="copy-guide-link-btn" class="share-btn">
-            Copy Link
+            Copy link
           </button>
           <span id="copy-guide-link-status" class="share-status" role="status"></span>
-          <a
-            href={shareXUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="share-btn"
-          >
-            Share on X
-          </a>
-          <a
-            href={shareLinkedInUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="share-btn"
-          >
-            Share on LinkedIn
-          </a>
-          <a href={guide.markdownUrl} class="share-btn">
-            Markdown (.md)
+          <a href={guide.pdfUrl} download class="share-btn">
+            <span>Download PDF <span class="tabular">({guide.pdfSizeLabel})</span></span>
           </a>
         </div>
       </div>
@@ -364,16 +413,17 @@ const guideJsonLd = {
         </a>
         <nav class="reader-footer-nav" aria-label="Handbook footer links">
           <a href="/topics">Topics</a>
-          <a href="/editorial">AI Disclosure</a>
+          <a href="/editorial">How It&rsquo;s Made</a>
           <a href="/terms">Terms</a>
           <a href="/privacy">Privacy</a>
           <button type="button" class="reader-footer-btn" data-open-cookie-prefs>
             Cookie Preferences
           </button>
+          <a href="#main-content">Back to top</a>
         </nav>
       </div>
       <p class="reader-footer-note">
-        AI-authored under human editorial direction &bull; Independent library not affiliated with listed vendors &bull; twelve-pages.com
+        Independent library, not affiliated with listed software vendors &bull; twelve-pages.com
       </p>
     </footer>
   </main>

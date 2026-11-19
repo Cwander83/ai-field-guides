@@ -10,13 +10,13 @@
 <!-- ==================== PAGE 1: COVER ==================== -->
 <section class="page cover">
   <div class="cover-top">
-    <div class="brand-pill">Agent Engineering Series &bull; Version 1.0 &bull; November 2026</div>
+    <div class="brand-pill">Agent Engineering Series &bull; Version 1.1 &bull; November 2026</div>
     <h1>Jev &amp; <span>System One Decisions</span></h1>
     <p class="cover-sub">
       Stop asking a chat LLM for JSON and praying the parser holds. Send lean structured state and parallel typed questions, get calibrated probabilities in ~100ms, and let deterministic code make the call.
     </p>
     <div class="cover-badges">
-      <span class="cover-badge"><code>Choice</code> &bull; <code>Score</code> &bull; <code>Noul</code></span>
+      <span class="cover-badge"><code>Choice</code> &bull; <code>Score</code> &bull; <code>Noul</code> &bull; <code>Box</code></span>
       <span class="cover-badge">RLCD Calibrated Probabilities</span>
       <span class="cover-badge">Parallel Speculative Fan-Out</span>
       <span class="cover-badge">Confidence-Gated Routing</span>
@@ -151,12 +151,12 @@
   </div>
 
   <h2 class="page-title">Four Paths to First Decision &amp; Architecture Matrix</h2>
-  <p class="page-lead">
+  <p class="page-lead" style="margin-bottom:7px;">
     Every client speaks the exact same JSON contract over <code>POST https://api.typesafe.ai/v1/systemone</code>. Start in the browser Playground in 60 seconds, then drop the Python or TypeScript SDK into your server routes.
   </p>
 
-  <h3>1. Install Official SDKs, Coding-Agent Skill &amp; Gateways</h3>
-  <pre class="code-block"><code># 1. Server-side API key from https://console.typesafe.ai/keys (NEVER expose in browser/NEXT_PUBLIC_)
+  <h3 style="margin:5px 0 3px 0;">1. Install Official SDKs, Coding-Agent Skill &amp; Gateways</h3>
+  <pre class="code-block" style="padding:7px 10px; margin:2px 0 6px 0;"><code># 1. Server-side API key from https://console.typesafe.ai/keys (NEVER expose in browser/NEXT_PUBLIC_)
 export TYPESAFE_API_KEY="ts_..."
 
 # 2. Official Python (3.10+) &amp; TypeScript/Node (20+) SDKs
@@ -171,24 +171,24 @@ npx skills add typesafe-ai/skills --skill typesafe-ai
 # Vercel AI Gateway: baseURL "https://ai-gateway.vercel.sh/typesafe", model "typesafe-ai/jev"
 # OpenRouter:        base_url "https://openrouter.ai/api",            model "~typesafe/jev-latest"</code></pre>
 
-  <h3>2. Economics &amp; Specs at a Glance (<code>jev-1.13.0</code> / <code>jev-latest</code>)</h3>
-  <div class="grid-3" style="margin-bottom:8px;">
-    <div class="card">
+  <h3 style="margin:5px 0 3px 0;">2. Economics &amp; Specs at a Glance (<code>jev-1.14.0</code> / <code>jev-latest</code>)</h3>
+  <div class="grid-3" style="margin-bottom:6px;">
+    <div class="card" style="padding:8px 10px;">
       <div class="card-title"><span class="num-badge">$</span> $42 / Billion Input Toks</div>
-      <p style="font-size:8.2pt; margin:0;">Equals <strong>$0.042 per 1M input tokens</strong> (~$0.00002 for a 500-token ticket + 6 questions). <strong>Output tokens are $0.00 (free).</strong></p>
+      <p style="font-size:8pt; margin:0;">Equals <strong>$0.042 per 1M input tokens</strong> (~$0.00002 for a 500-token ticket + 6 questions). <strong>Output tokens are $0.00 (free).</strong></p>
     </div>
-    <div class="card">
-      <div class="card-title"><span class="num-badge teal">64k</span> Context &amp; Throughput</div>
-      <p style="font-size:8.2pt; margin:0;"><code>64k</code> tokens per request (<code>32k</code> budget for <code>state</code> + longest question). Dynamic rate limits around 250k tok/s &amp; 1,200 RPM.</p>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge teal">2</span> 64K Context &amp; 262K Opt-In</div>
+      <p style="font-size:8pt; margin:0;"><code>64k</code> default per request (<code>32k</code> for <code>state</code> + longest question); <code>TypeSafe-Danger-Zone-Long-Context: true</code> scales up to ~262K.</p>
     </div>
-    <div class="card">
-      <div class="card-title"><span class="num-badge purple">0</span> Zero Training on Data</div>
-      <p style="font-size:8.2pt; margin:0;">Text/JSON/arrays only (pre-OCR images first). Requests never train base weights; Enterprise plans add Zero Data Retention (ZDR).</p>
+    <div class="card" style="padding:8px 10px;">
+      <div class="card-title"><span class="num-badge purple">0</span> Multimodal &amp; Zero Training</div>
+      <p style="font-size:8pt; margin:0;">Text/JSON default; <code>jev-1.14.0</code> adds PNG/JPEG images &amp; <code>Box</code> via <code>TypeSafe-Danger-Zone-Images: true</code>. Zero training on API data; ZDR on Enterprise.</p>
     </div>
   </div>
 
-  <h3>3. Decision Matrix: Rules vs. Generative LLM vs. System One (Jev)</h3>
-  <table class="clean-table">
+  <h3 style="margin:5px 0 3px 0;">3. Decision Matrix: Rules vs. Generative LLM vs. System One (Jev)</h3>
+  <table class="clean-table" style="font-size:8pt; margin:3px 0 6px 0;">
     <thead>
       <tr>
         <th style="width:18%;">Dimension</th>
@@ -261,7 +261,7 @@ npx skills add typesafe-ai/skills --skill typesafe-ai
         <strong style="margin-left:6px; color:#f8fafc;">TypeSafe System One Inspector &middot; POST /v1/systemone</strong>
       </div>
       <div>
-        <span style="color:#bef264; font-family:monospace;">model: jev-1.13.0 (pinned)</span> <span class="callout-pin">1</span>
+        <span style="color:#bef264; font-family:monospace;">model: jev-1.14.0 (pinned)</span> <span class="callout-pin">1</span>
         &nbsp;<span style="color:#94a3b8;">118 ms &middot; in: 342 tok &middot; out: 29 tok ($0)</span> <span class="callout-pin">6</span>
       </div>
     </div>
@@ -331,7 +331,7 @@ npx skills add typesafe-ai/skills --skill typesafe-ai
 
   <h3>Numbered Inspector Legend</h3>
   <div class="grid-2" style="font-size:8.35pt; gap:8px 14px; margin-bottom:6px;">
-    <div><span class="callout-pin">1</span> <strong>Pinned Version ID:</strong> Exploring with <code>jev-latest</code> is fine, but production pins <code>jev-1.13.0</code> so tuned thresholds never drift on release day.</div>
+    <div><span class="callout-pin">1</span> <strong>Pinned Version ID:</strong> Exploring with <code>jev-latest</code> is fine, but production pins <code>jev-1.14.0</code> so tuned thresholds never drift on release day.</div>
     <div><span class="callout-pin">2</span> <strong>Filtered Named State:</strong> Passes only the exact fields questions read&mdash;keeping policy facts in <code>state</code> and out of hardcoded prompts.</div>
     <div><span class="callout-pin">3</span> <strong>Choice Distribution:</strong> Picks <code>"engineering"</code> across unordered options (up to 255) with an <code>other</code> safety valve and <code>0.96</code> peakedness.</div>
     <div><span class="callout-pin">4</span> <strong>Probability-Weighted Score:</strong> Lands between rubric levels (<code>1.43</code>) and exposes honest ambiguity (<code>confidence: 0.35</code>) when Chrome vs. Safari split.</div>
@@ -368,7 +368,7 @@ npx skills add typesafe-ai/skills --skill typesafe-ai
   <div class="figure-box" style="margin:3px 0 7px 0;">
     <img src="assets/three_primitives_manifold.jpg" alt="Three Precision Optical Instruments Representing Choice, Score, and Noul" style="width:100%; height:180px; object-fit:cover; object-position:center; display:block;" />
     <div class="figure-caption" style="padding:5px 10px;">
-      <strong>Pick by Output Geometry:</strong> Use <code>Choice</code> for unordered sets (up to 255 keys), <code>Score</code> for ordered situational rubrics (2&ndash;10 levels), and <code>Noul</code> for atomic yes/no probabilities (<code>0.0&ndash;1.0</code>).
+      <strong>Pick by Output Geometry:</strong> Use <code>Choice</code> for unordered sets (up to 255 keys), <code>Score</code> for ordered situational rubrics (2&ndash;10 levels), <code>Noul</code> for atomic yes/no probabilities (<code>0.0&ndash;1.0</code>), and experimental <code>Box</code> (<code>jev-1.14</code>) for image localization.
     </div>
   </div>
 
@@ -402,7 +402,7 @@ npx skills add typesafe-ai/skills --skill typesafe-ai
   <h3 style="margin:5px 0 3px 0;">Upgrading Confused Options With Structured Criteria (Python SDK)</h3>
   <pre class="code-block" style="font-size:7.05pt; line-height:1.34; padding:7px 9px; margin:2px 0 4px 0;"><code>from typesafe_sdk import Choice, Noul, TypeSafeClient
 
-with TypeSafeClient(model="jev-1.13.0") as client:  # reads TYPESAFE_API_KEY
+with TypeSafeClient(model="jev-1.14.0") as client:  # reads TYPESAFE_API_KEY
     res = client.system_one(
         state="Has my returned pair of size-10 trail runners reached your warehouse yet?",
         questions={
@@ -442,7 +442,7 @@ with TypeSafeClient(model="jev-1.13.0") as client:  # reads TYPESAFE_API_KEY
 
   <h3>Color-Coded Anatomy of a High-Signal System One Request</h3>
   <div class="card" style="background:#ffffff; border-color:#cbd5e1; margin-bottom:8px; font-size:8.45pt; line-height:1.68;">
-    <div><span class="p-tag p-light">[1. PINNED MODEL]</span> <code>"model": "jev-1.13.0"</code> &mdash; Locks exact weights so calibrated thresholds never shift unexpectedly.</div>
+    <div><span class="p-tag p-light">[1. PINNED MODEL]</span> <code>"model": "jev-1.14.0"</code> &mdash; Locks exact weights so calibrated thresholds never shift unexpectedly.</div>
     <div><span class="p-tag p-style">[2. NAMED STATE OBJECT]</span> <code>"state": {"ticket": {"msg": "..."}, "order": {"charges": [...]}, "refund_policy": "..."}</code> &mdash; Separates facts &amp; policy from judgment logic.</div>
     <div><span class="p-tag p-subj">[3. DOT-PATH POINTER]</span> <code>"instructions": "Does refund_policy support the request in ticket.msg given order.charges?"</code> &mdash; Directs attention to exact fields.</div>
     <div><span class="p-tag p-act">[4. SITUATIONAL CRITERIA]</span> <code>"criteria": {"true": "Explicit duplicate captured charge covered by policy", "false": "Single valid charge or outside policy"}</code></div>
@@ -475,7 +475,7 @@ def build_dedupe_questions(candidates: list[dict]) -> dict[str, Noul]:
         for c in candidates
     }
 
-with TypeSafeClient(model="jev-1.13.0") as client:
+with TypeSafeClient(model="jev-1.14.0") as client:
     res = client.system_one(state={"resume": parsed_resume_text}, questions=build_dedupe_questions(top_25_rows))
 matches = [cid for cid, ans in res.nouls.items() if ans.noul > 0.85]  # Zero prose, 1 round trip!</code></pre>
 
@@ -502,8 +502,8 @@ matches = [cid for cid, ans in res.nouls.items() if ans.noul > 0.85]  # Zero pro
     <strong>Rank with probabilities; gate automation with confidence.</strong> Calibration applies across populations, not single calls&mdash;so risk-sensitive actions always pair answer values with explicit confidence floors.
   </p>
 
-  <div class="figure-box">
-    <img src="assets/confidence_routing_gate.jpg" alt="Calibrated Fiber-Optic Threshold Gate Separating Express Automation From Human Escalation" style="width:100%; height:224px; object-fit:cover; object-position:center; display:block;" />
+  <div class="figure-box" style="margin:3px 0 7px 0;">
+    <img src="assets/confidence_routing_gate.jpg" alt="Calibrated Fiber-Optic Threshold Gate Separating Express Automation From Human Escalation" style="width:100%; height:200px; object-fit:cover; object-position:center; display:block;" />
     <div class="figure-caption">
       <strong>Three-Band Risk Control:</strong> Never apply one global threshold. Showing an account balance tolerates <code>confidence &ge; 0.60</code>; moving money demands <code>&gt; 0.90</code> plus confirmation; <code>&lt; 0.50</code> routes straight to a human.
     </div>
@@ -605,7 +605,7 @@ export const THRESHOLDS = {
   <pre class="code-block" style="font-size:6.95pt; line-height:1.33; padding:6.5px 9px; margin:2px 0 6px 0;"><code>import { TypeSafeClient } from "@typesafe-ai/sdk";
 import { QUALITY_QUESTIONS, THRESHOLDS } from "@/lib/decisions";
 
-const client = new TypeSafeClient({ model: "jev-1.13.0" }); // Server-only TYPESAFE_API_KEY
+const client = new TypeSafeClient({ model: "jev-1.14.0" }); // Server-only TYPESAFE_API_KEY
 
 export async function gatePaidDeliverable(report: string, sources: string[]) {
   const { answers } = await client.systemOne({ state: { report, sources }, questions: QUALITY_QUESTIONS });
@@ -699,9 +699,9 @@ export async function gatePaidDeliverable(report: string, sources: string[]) {
     <span>Where System One Breaks &amp; How Code Compensates Cleanly</span>
   </div>
 
-  <h2 class="page-title">Know the Edges: <code>jev-1.13</code> Jaggedness &amp; Hard Rules</h2>
+  <h2 class="page-title">Know the Edges: <code>jev-1.14</code> Jaggedness &amp; Hard Rules</h2>
   <p class="page-lead">
-    TypeSafe publishes explicit failure modes (&ldquo;jaggedness&rdquo;) for <code>jev-1.13</code>. Respecting what Jev <em>cannot</em> do is what separates rock-solid production pipelines from mysterious accuracy drops.
+    TypeSafe publishes explicit failure modes (&ldquo;jaggedness&rdquo;) for <code>jev-1.14</code>. Respecting what Jev <em>cannot</em> do is what separates rock-solid production pipelines from mysterious accuracy drops.
   </p>
 
   <h3>The 7 Documented Jaggedness Traps (And Exact Code Fixes)</h3>
@@ -747,7 +747,7 @@ export async function gatePaidDeliverable(report: string, sources: string[]) {
       <tr>
         <td><strong>7. Alias Drift (<code>jev-latest</code>)</strong></td>
         <td>New model releases move probabilities slightly against tuned thresholds.</td>
-        <td>Pin <code>model="jev-1.13.0"</code> in production and log <code>response.model</code> on every decision trace.</td>
+        <td>Pin <code>model="jev-1.14.0"</code> in production and log <code>response.model</code> on every decision trace.</td>
       </tr>
     </tbody>
   </table>
@@ -915,7 +915,7 @@ damaged_count = sum(1 for ans in resp.nouls.values() if ans.noul >= 0.75)</code>
       </tr>
       <tr>
         <td><strong>5. Threshold pass rates shifted without code edits</strong></td>
-        <td>Using floating alias <code>jev-latest</code> across a model update. Pin exact version <code>jev-1.13.0</code> in production and re-calibrate on your golden JSONL set before bumping.</td>
+        <td>Using floating alias <code>jev-latest</code> across a model update. Pin exact version <code>jev-1.14.0</code> in production and re-calibrate on your golden JSONL set before bumping.</td>
       </tr>
       <tr>
         <td><strong>6. HTTP <code>401</code>, <code>422</code>, or <code>429 / 529</code></strong></td>
@@ -935,7 +935,7 @@ damaged_count = sum(1 for ans in resp.nouls.values() if ans.noul >= 0.75)</code>
     <div class="grid-2" style="font-size:8.25pt; gap:8px 16px; color:#e2e8f0;">
       <div>
         <strong>&#9744; 1. Server-Only Key &amp; Verified Domain:</strong> <code>TYPESAFE_API_KEY</code> lives strictly on the server talking to <code>api.typesafe.ai</code> (never browser code or lookalike URLs).<br/><br/>
-        <strong>&#9744; 2. One-File Policy &amp; Pinned Model:</strong> All questions and risk-tiered <code>THRESHOLDS</code> live side-by-side in one file with <code>model</code> pinned to <code>jev-1.13.0</code>.<br/><br/>
+        <strong>&#9744; 2. One-File Policy &amp; Pinned Model:</strong> All questions and risk-tiered <code>THRESHOLDS</code> live side-by-side in one file with <code>model</code> pinned to <code>jev-1.14.0</code>.<br/><br/>
         <strong>&#9744; 3. Atomic &amp; Escape-Hatched Primitives:</strong> Every question tests one condition, <code>Noul</code>s read positively (<code>1 = yes</code>), and every <code>Choice</code> includes <code>other: null</code>.
       </div>
       <div>

@@ -225,14 +225,28 @@ function main() {
   const expiresMs = Date.parse(expiresValue);
   const nowMs = Date.now();
   assert.ok(
-    !Number.isNaN(expiresMs) && expiresMs > nowMs && expiresMs - nowMs <= 366 * 24 * 60 * 60 * 1000,
-    `security.txt Expires must be in the future and < 1 year out: ${expiresValue}`,
+    !Number.isNaN(expiresMs) && expiresMs > nowMs && expiresMs - nowMs <= 185 * 24 * 60 * 60 * 1000,
+    `security.txt Expires must be a rolling ~180-day future timestamp: ${expiresValue}`,
   );
+
+  // Verify /editorial documents all machine-readable feeds and plain-text editions
+  const editorialHtml = assertDistFile('editorial/index.html');
+  for (const feedToken of ['/llms.txt', '/llms-full.txt', '/rss.xml', '/feed.json', '.md']) {
+    assert.ok(
+      editorialHtml.includes(feedToken),
+      `Missing machine-readable feed documentation (${feedToken}) on /editorial`,
+    );
+  }
 
   // 5. Security headers, CORP, & CSP hash sync in vercel.json
   const vercelConfig = JSON.parse(fs.readFileSync(path.join(SITE_DIR, 'vercel.json'), 'utf8'));
   const globalRule = vercelConfig.headers.find((h) => h.source === '/(.*)');
   assert.ok(globalRule, 'Missing global header rule in vercel.json');
+  const hstsValue = getHeaderValue(globalRule, 'Strict-Transport-Security') ?? '';
+  assert.ok(
+    /max-age=\d+/.test(hstsValue) && hstsValue.includes('includeSubDomains'),
+    `Expected Strict-Transport-Security with max-age and includeSubDomains, got: ${hstsValue}`,
+  );
   assert.equal(getHeaderValue(globalRule, 'X-Frame-Options'), 'DENY', 'Expected X-Frame-Options: DENY');
   assert.equal(
     getHeaderValue(globalRule, 'Cross-Origin-Resource-Policy'),
@@ -240,6 +254,25 @@ function main() {
     'Expected Cross-Origin-Resource-Policy: same-origin on /(.*)',
   );
   assert.equal(getHeaderValue(globalRule, 'X-Content-Type-Options'), 'nosniff');
+  assert.equal(
+    getHeaderValue(globalRule, 'Referrer-Policy'),
+    'strict-origin-when-cross-origin',
+    'Expected Referrer-Policy: strict-origin-when-cross-origin',
+  );
+  const coopValue = getHeaderValue(globalRule, 'Cross-Origin-Opener-Policy');
+  assert.ok(
+    coopValue === 'same-origin' || coopValue === 'same-origin-allow-popups',
+    `Expected strict COOP policy, got: ${coopValue}`,
+  );
+  const permissionsValue = getHeaderValue(globalRule, 'Permissions-Policy') ?? '';
+  for (const directive of ['camera=()', 'microphone=()', 'geolocation=()', 'browsing-topics=()']) {
+    assert.ok(permissionsValue.includes(directive), `Missing ${directive} in Permissions-Policy`);
+  }
+  assert.equal(
+    getHeaderValue(globalRule, 'X-Permitted-Cross-Domain-Policies'),
+    'none',
+    'Expected X-Permitted-Cross-Domain-Policies: none',
+  );
 
   const cspHeader = getHeaderValue(globalRule, 'Content-Security-Policy') ?? '';
   assert.ok(cspHeader.includes("'strict-dynamic'"), 'CSP missing strict-dynamic');
@@ -249,10 +282,24 @@ function main() {
   assert.ok(cspHeader.includes('https://*.google-analytics.com'), 'CSP missing GA4 allowance');
   assert.ok(cspHeader.includes('https://*.g.doubleclick.net'), 'CSP missing doubleclick allowance');
 
+  const securityTxtRule = vercelConfig.headers.find((h) => h.source === '/.well-known/security.txt');
+  assert.ok(securityTxtRule, 'Missing vercel.json header rule for /.well-known/security.txt');
+  assert.equal(
+    getHeaderValue(securityTxtRule, 'Content-Type'),
+    'text/plain; charset=utf-8',
+    'Expected Content-Type: text/plain; charset=utf-8 on /.well-known/security.txt',
+  );
+
   const expectedCrossOriginRoutes = [
+    '/.well-known/security.txt',
+    '/robots.txt',
+    '/sitemap.xml',
     '/og-default.png',
     '/favicon.svg',
     '/favicon.ico',
+    '/favicon-32x32.png',
+    '/icon-192.png',
+    '/icon-512.png',
     '/apple-touch-icon.png',
     '/guides/(.*)/og\\.png',
     '/guides/(.*)/cover\\.png',
@@ -308,7 +355,12 @@ function main() {
     const ldMatches = Array.from(html.matchAll(ldRegex));
     const graphNodes = [];
     for (const m of ldMatches) {
-      const parsedJson = JSON.parse(m[1]);
+      const rawLd = m[1];
+      assert.ok(
+        !/<\/script/i.test(rawLd) && !rawLd.includes('<!--') && !rawLd.includes('<'),
+        `Unescaped '<' or potential script-breakout sequence in JSON-LD on ${rel}`,
+      );
+      const parsedJson = JSON.parse(rawLd);
       const serialized = JSON.stringify(parsedJson);
       assert.ok(!serialized.includes('?eco='), `Leftover ?eco= in JSON-LD on ${rel}`);
       if (Array.isArray(parsedJson['@graph'])) {
@@ -351,6 +403,23 @@ function main() {
       if (rawHref && assertInternalHrefResolves(rel, rawHref)) {
         internalLinksChecked += 1;
       }
+    }
+
+    // Security check on every target="_blank" link across built HTML.
+    for (const el of doc.querySelectorAll('[target="_blank"]')) {
+      const rawHref = el.getAttribute('href') ?? '';
+      const relTokens = (el.getAttribute('rel') ?? '')
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(Boolean);
+      assert.ok(
+        relTokens.includes('noopener'),
+        `target="_blank" missing rel="noopener" (${rawHref}) on ${rel}`,
+      );
+      assert.ok(
+        relTokens.includes('noreferrer'),
+        `target="_blank" missing rel="noreferrer" (${rawHref}) on ${rel}`,
+      );
     }
   }
 

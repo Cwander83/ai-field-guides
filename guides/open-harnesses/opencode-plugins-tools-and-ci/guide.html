@@ -13,15 +13,15 @@
     <div class="brand-pill">OPEN HARNESSES SERIES &bull; EXTENSIONS &amp; AUTOMATION GUIDE</div>
     <h1>OpenCode Plugins, <span>Custom Tools, Servers &amp; CI</span></h1>
     <p class="cover-sub">
-      Extend OpenCode from an interactive terminal into a programmable engineering platform&mdash;authoring Zod-typed <code>.opencode/tools/</code> modules, intercepting tool calls via <code>@opencode-ai/plugin</code> hooks, enforcing <code>permission</code> firewalls, running headless <code>opencode serve</code> daemons, and automating PRs in GitHub Actions.
+      Extend OpenCode v2 from an interactive terminal into a programmable engineering platform&mdash;registering typed custom tools via <code>ctx.tool.transform()</code>, intercepting calls with <code>@opencode/plugin</code> hooks, enforcing ordered <code>permissions</code> firewalls, running headless <code>opencode serve</code> daemons, and automating PRs in GitHub Actions.
     </p>
     <div class="cover-badges">
-      <span class="cover-badge">Typed <code>.opencode/tools/</code></span>
-      <span class="cover-badge"><code>@opencode-ai/plugin</code> Hooks</span>
+      <span class="cover-badge">Typed <code>ctx.tool.transform()</code></span>
+      <span class="cover-badge"><code>@opencode/plugin</code> Hooks</span>
       <span class="cover-badge"><code>allow / ask / deny</code> Policy</span>
-      <span class="cover-badge">Local &amp; Remote MCP</span>
+      <span class="cover-badge">Code Mode &amp; Remote MCP</span>
       <span class="cover-badge"><code>opencode serve</code> &amp; SDK</span>
-      <span class="cover-badge">GitHub Actions <code>/oc</code> CI</span>
+      <span class="cover-badge">GitHub Actions <code>run --auto</code></span>
     </div>
   </div>
 
@@ -32,15 +32,15 @@
   <div class="cover-bottom">
     <div class="cover-stat">
       <div class="cover-stat-title">In-Process Plugins &amp; Tools</div>
-      <div class="cover-stat-desc">Drop TypeScript files into <code>.opencode/tools/</code> and <code>.opencode/plugins/</code> to add domain tools and lifecycle guards instantly.</div>
+      <div class="cover-stat-desc">Drop TypeScript plugins using <code>Plugin.define()</code> into <code>.opencode/plugins/</code> to add domain tools and lifecycle guards instantly.</div>
     </div>
     <div class="cover-stat">
       <div class="cover-stat-title">Deterministic Safety Gates</div>
-      <div class="cover-stat-desc">Combine glob-matched <code>permission</code> rules in <code>opencode.json</code> with <code>tool.execute.before</code> secret and shell shields.</div>
+      <div class="cover-stat-desc">Combine ordered <code>permissions</code> rules in <code>opencode.json</code> with <code>ctx.tool.hook("execute.before")</code> secret and shell shields.</div>
     </div>
     <div class="cover-stat">
       <div class="cover-stat-title">Headless Daemons &amp; CI</div>
-      <div class="cover-stat-desc">Drive remote sessions over HTTP via <code>opencode serve</code>, <code>opencode attach</code>, <code>@opencode-ai/sdk</code>, and <code>/opencode</code> PR triggers.</div>
+      <div class="cover-stat-desc">Drive remote sessions over HTTP via <code>opencode serve</code>, <code>opencode --server</code>, <code>opencode pair</code>, <code>@opencode/client</code>, and CI runs.</div>
     </div>
   </div>
 </section>
@@ -77,7 +77,7 @@
     <svg viewBox="0 0 700 218" width="100%" height="218" xmlns="http://www.w3.org/2000/svg">
       <!-- Top Clients -->
       <rect x="14" y="12" width="672" height="40" rx="8" fill="#092530" stroke="#22d3ee" stroke-width="1.5"/>
-      <text x="350" y="29" text-anchor="middle" fill="#ffffff" font-size="10.5" font-weight="800">Clients &amp; Triggers &bull; Local TUI  |  opencode attach (Remote TUI)  |  opencode web  |  @opencode-ai/sdk  |  GitHub /oc CI</text>
+      <text x="350" y="29" text-anchor="middle" fill="#ffffff" font-size="10.2" font-weight="800">Clients &amp; Triggers &bull; Local TUI  |  opencode --server  |  opencode pair (Web)  |  @opencode/client  |  GitHub CI</text>
       <text x="350" y="43" text-anchor="middle" fill="#a5f3fc" font-size="8">All speak OpenAPI 3.1 REST + Server-Sent Events (SSE) against opencode serve (:4096)</text>
 
       <path d="M350 52 L350 70" stroke="#22d3ee" stroke-width="2"/>
@@ -86,19 +86,19 @@
       <rect x="14" y="70" width="208" height="90" rx="9" fill="#08202a" stroke="#f59e0b" stroke-width="1.5"/>
       <text x="26" y="88" fill="#fde68a" font-size="8.2" font-weight="700">1. PERMISSION ENGINE</text>
       <text x="26" y="104" fill="#ffffff" font-size="10.2" font-weight="800">opencode.json Policy</text>
-      <text x="26" y="121" fill="#e2e8f0" font-size="8">&bull; Singular "permission" key</text>
-      <text x="26" y="135" fill="#e2e8f0" font-size="8">&bull; Glob rules: allow / ask / deny</text>
-      <text x="26" y="149" fill="#fda4af" font-size="7.8">Headless CI: "ask" auto-rejects!</text>
+      <text x="26" y="121" fill="#e2e8f0" font-size="8">&bull; Ordered "permissions" array</text>
+      <text x="26" y="135" fill="#e2e8f0" font-size="8">&bull; Globs: allow / ask / deny</text>
+      <text x="26" y="149" fill="#fda4af" font-size="7.8">Headless CI: pass --auto flag</text>
 
       <path d="M222 115 L246 115" stroke="#f59e0b" stroke-width="2"/>
       <polygon points="242,110 250,115 242,120" fill="#f59e0b"/>
 
       <rect x="250" y="70" width="200" height="90" rx="9" fill="#08202a" stroke="#f43f5e" stroke-width="1.5"/>
       <text x="262" y="88" fill="#fda4af" font-size="8.2" font-weight="700">2. PLUGIN LIFECYCLE HOOKS</text>
-      <text x="262" y="104" fill="#ffffff" font-size="10.2" font-weight="800">@opencode-ai/plugin</text>
-      <text x="262" y="121" fill="#e2e8f0" font-size="8">&bull; tool.execute.before / after</text>
-      <text x="262" y="135" fill="#e2e8f0" font-size="8">&bull; session.idle &amp; compaction</text>
-      <text x="262" y="149" fill="#67e8f9" font-size="7.8">Mutate args, block .env, notify</text>
+      <text x="262" y="104" fill="#ffffff" font-size="10.2" font-weight="800">@opencode/plugin (V2)</text>
+      <text x="262" y="121" fill="#e2e8f0" font-size="8">&bull; execute.before / create.before</text>
+      <text x="262" y="135" fill="#e2e8f0" font-size="8">&bull; compaction &amp; experimental.idle</text>
+      <text x="262" y="149" fill="#67e8f9" font-size="7.8">Block .env, inject env, notify</text>
 
       <path d="M450 115 L474 115" stroke="#34d399" stroke-width="2"/>
       <polygon points="470,110 478,115 470,120" fill="#34d399"/>
@@ -106,19 +106,19 @@
       <rect x="478" y="70" width="208" height="90" rx="9" fill="#08202a" stroke="#34d399" stroke-width="1.5"/>
       <text x="490" y="88" fill="#6ee7b7" font-size="8.2" font-weight="700">3. TOOL EXECUTION POOL</text>
       <text x="490" y="104" fill="#ffffff" font-size="10.2" font-weight="800">Custom + Built-in + MCP</text>
-      <text x="490" y="121" fill="#e2e8f0" font-size="8">&bull; .opencode/tools/*.ts (Bun/Zod)</text>
+      <text x="490" y="121" fill="#e2e8f0" font-size="8">&bull; ctx.tool.transform() (Schema)</text>
       <text x="490" y="135" fill="#e2e8f0" font-size="8">&bull; Python / Bash polyglot wrappers</text>
       <text x="490" y="149" fill="#a7f3d0" font-size="7.8">&bull; Local stdio &amp; Remote OAuth MCP</text>
 
       <!-- Bottom Bar -->
       <rect x="14" y="174" width="672" height="34" rx="8" fill="#082834" stroke="#06b6d4" stroke-width="1.3"/>
-      <text x="350" y="195" text-anchor="middle" fill="#cffafe" font-size="8.8" font-weight="700">Auto-Installed Workspace Dependencies &bull; OpenCode runs Bun on startup to install .opencode/package.json automatically</text>
+      <text x="350" y="195" text-anchor="middle" fill="#cffafe" font-size="8.8" font-weight="700">Auto-Loaded Workspace Plugins &bull; Place Plugin.define() modules in .opencode/plugins/ or list npm packages in opencode.json</text>
     </svg>
   </div>
 
   <div class="callout">
     <div class="callout-title">Zero-Build Extension Ergonomics</div>
-    Drop any TypeScript file into <code>.opencode/tools/</code> or <code>.opencode/plugins/</code> (or global <code>~/.config/opencode/</code>). OpenCode&rsquo;s embedded Bun runtime compiles TypeScript on the fly and installs any npm packages declared in <code>.opencode/package.json</code> automatically at startup.
+    Drop any V2 <code>Plugin.define()</code> directory or file into <code>.opencode/plugins/</code> (or global <code>~/.config/opencode/plugins/</code>). OpenCode loads TypeScript server, TUI, and RPC exports directly and resolves host <code>@opencode/plugin</code> and Effect dependencies cleanly at startup.
   </div>
 
   <div class="page-footer">
@@ -143,26 +143,25 @@
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> Standard <code>.opencode/</code> Project Layout</div>
       <pre class="code-block"><code>my-repo/
-├── opencode.json              # Models, permission, mcp, plugin[]
+├── opencode.json              # Models, permissions[], mcp, plugins[]
 ├── AGENTS.md                  # Repo architecture &amp; test rules
 └── .opencode/
-    ├── package.json           # Shared npm deps for tools/plugins
-    ├── tools/                 # Custom LLM-callable Zod tools
-    │   └── query-metrics.ts
-    ├── plugins/               # Lifecycle &amp; security hook modules
-    │   └── env-shield.ts
+    ├── package.json           # Shared npm deps for plugins
+    ├── plugins/               # V2 tools, hooks &amp; TUI/GUI mods
+    │   ├── metrics/index.ts   # Custom tools via ctx.tool.transform
+    │   └── guard/index.ts     # execute.before &amp; shell guards
     ├── agents/                # Specialist Markdown subagents
     └── commands/              # Reusable /slash prompt templates</code></pre>
     </div>
 
     <div class="card">
       <div class="card-title"><span class="num-badge emerald">2</span> Loading npm Plugins vs. Local Files</div>
-      <p style="font-size:8pt;">Local <code>.ts</code>/<code>.js</code> files in <code>.opencode/plugins/</code> auto-load without config. Published npm plugins are listed in <code>opencode.json</code> and cached automatically:</p>
+      <p style="font-size:8pt;">Modules in <code>.opencode/plugins/</code> auto-load cleanly via <code>Plugin.define</code>. Published or local directories with options go in <code>opencode.json</code> under plural <code>"plugins"</code>:</p>
       <pre class="code-block"><code>{
   "$schema": "https://opencode.ai/config.json",
-  "plugin": [
+  "plugins": [
     "opencode-devcontainers",
-    "@my-org/opencode-audit-plugin@1.2.0"
+    { "package": "@my-org/audit-plugin@2.0.0", "options": { "strict": true } }
   ]
 }</code></pre>
     </div>
@@ -187,21 +186,21 @@
       </tr>
       <tr>
         <td><strong>Custom Tool</strong></td>
-        <td><code>.opencode/tools/*.ts</code></td>
-        <td>Give the LLM a repo-specific typed action (query staging DB, run Python script)</td>
+        <td><code>.opencode/plugins/*/index.ts</code></td>
+        <td>Register typed domain actions via <code>ctx.tool.transform()</code> (SQL checks, Python wrappers)</td>
         <td>Cross-app SaaS integrations that already ship an official MCP server</td>
       </tr>
       <tr>
         <td><strong>Plugin Hook</strong></td>
-        <td><code>.opencode/plugins/*.ts</code></td>
-        <td>Enforce security blocks, send idle notifications, inject env vars, or customize compaction</td>
+        <td><code>.opencode/plugins/*/index.ts</code></td>
+        <td>Enforce security blocks (<code>execute.before</code>), shell env (<code>create.before</code>), or compaction</td>
         <td>Simple static prompt rules that belong in <code>AGENTS.md</code></td>
       </tr>
       <tr>
         <td><strong>MCP Server</strong></td>
-        <td><code>opencode.json</code> &rarr; <code>"mcp"</code></td>
+        <td><code>opencode.json</code> &rarr; <code>mcp.servers</code></td>
         <td>Connect multi-tool ecosystems (Sentry, Linear, GitHub, Playwright, Postgres)</td>
-        <td>Enabling 40+ unused tools globally that bloat every turn&rsquo;s token budget</td>
+        <td>Disabling Code Mode on 40+ tools globally (bloats every turn)</td>
       </tr>
     </tbody>
   </table>
@@ -221,7 +220,7 @@
 
   <h2 class="page-title">Annotated Tour: Inspecting Plugins, Permissions &amp; <code>opencode serve</code></h2>
   <p class="page-lead">
-    When running OpenCode as a persistent daemon (<code>opencode serve</code> or <code>opencode web</code>) with attached TUI/SDK clients, every plugin interception, MCP OAuth status, and permission gate surfaces deterministically.
+    When running OpenCode as a persistent daemon (<code>opencode serve</code> paired via <code>opencode pair</code>) with remote TUI/HTTP clients, every plugin interception, MCP OAuth status, and permission gate surfaces deterministically.
   </p>
 
   <div class="ui-window" style="margin-bottom:9px;">
@@ -231,9 +230,9 @@
         <span style="margin-left:8px; color:#67e8f9; font-weight:700;">opencode serve --port 4096 &bull; Attached Control View</span>
       </div>
       <div style="display:flex; align-items:center; gap:6px; color:#cbd5e1; font-size:7.1pt;">
-        <span>Auth: <code>Basic (OPENCODE_SERVER_PASSWORD)</code></span>
+        <span>Auth: <code>Basic (OPENCODE_PASSWORD)</code></span>
         <span class="callout-pin">1</span>
-        <span style="margin-left:5px;">OpenAPI: <code>/doc</code></span>
+        <span style="margin-left:5px;">Web UI: <code>opencode pair</code></span>
         <span class="callout-pin">2</span>
       </div>
     </div>
@@ -246,8 +245,8 @@
           <span class="callout-pin">3</span>
         </div>
         <div class="term-box">
-          <div style="color:#6ee7b7; font-weight:700;">.opencode/tools/</div>
-          <div style="color:#e2e8f0;">&bull; <code>deploy_preview</code> (Zod: 2 args)</div>
+          <div style="color:#6ee7b7; font-weight:700;">ctx.tool.transform()</div>
+          <div style="color:#e2e8f0;">&bull; <code>deploy_preview</code> (Schema: 2 args)</div>
           <div style="color:#e2e8f0;">&bull; <code>explain_migration</code> (Python)</div>
         </div>
         <div class="term-box">
@@ -257,7 +256,7 @@
           </div>
           <div style="color:#cbd5e1; margin-top:2px;">
             &bull; <code>sentry</code> (remote OAuth &#10003;)<br/>
-            &bull; <code>playwright</code> (disabled for plan)
+            &bull; <code>playwright</code> (Code Mode &#10003;)
           </div>
         </div>
       </div>
@@ -269,13 +268,13 @@
           <span class="callout-pin">5</span>
         </div>
         <div class="term-box" style="border-color:#e11d48; background:#230912;">
-          <div style="color:#fda4af; font-weight:700;">BLOCKED &bull; tool.execute.before</div>
-          <div style="color:#fecdd3;">Plugin <code>env-shield.ts</code> rejected <code>read(".env.production")</code></div>
+          <div style="color:#fda4af; font-weight:700;">BLOCKED &bull; execute.before</div>
+          <div style="color:#fecdd3;">Plugin <code>security-guard</code> rejected <code>read(".env.production")</code></div>
         </div>
         <div class="term-box">
-          <div style="color:#fde68a; font-weight:700;">PERMISSION MATCH &bull; bash</div>
-          <div style="color:#e2e8f0;"><code>"git status*"</code> &rarr; <strong>allow</strong></div>
-          <div style="color:#fda4af;"><code>"git push --force*"</code> &rarr; <strong>deny</strong></div>
+          <div style="color:#fde68a; font-weight:700;">PERMISSION MATCH &bull; shell</div>
+          <div style="color:#e2e8f0;"><code>"git status *"</code> &rarr; <strong>allow</strong></div>
+          <div style="color:#fda4af;"><code>"git push --force *"</code> &rarr; <strong>deny</strong></div>
         </div>
       </div>
 
@@ -287,12 +286,12 @@
         </div>
         <div class="term-box">
           <div style="color:#a5f3fc; font-weight:700;">Connected Clients (2)</div>
-          <div style="color:#cbd5e1;">1. <code>opencode attach</code> (Laptop TUI)</div>
-          <div style="color:#cbd5e1;">2. <code>@opencode-ai/sdk</code> (Slack Bot)</div>
+          <div style="color:#cbd5e1;">1. <code>opencode --server</code> (Laptop TUI)</div>
+          <div style="color:#cbd5e1;">2. <code>@opencode/client</code> (Slack Bot)</div>
         </div>
         <div class="term-box" style="border-color:#059669;">
           <div style="display:flex; justify-content:space-between;">
-            <span style="color:#6ee7b7; font-weight:700;">Event: session.idle</span>
+            <span style="color:#6ee7b7; font-weight:700;">Hook: experimental.idle</span>
             <span class="callout-pin">7</span>
           </div>
           <div style="color:#d1fae5; margin-top:2px;">
@@ -306,22 +305,22 @@
   <h3>Control Legend: Seven Critical Automation Surfaces</h3>
   <div class="grid-2" style="gap:7px 12px; font-size:8.15pt;">
     <div class="card">
-      <strong><span class="callout-pin">1</span> HTTP Basic Auth Guard:</strong> Setting <code>OPENCODE_SERVER_PASSWORD</code> protects headless <code>opencode serve</code> and <code>opencode web</code> ports from unauthorized LAN callers.
+      <strong><span class="callout-pin">1</span> HTTP Basic Auth Guard:</strong> Setting <code>OPENCODE_PASSWORD</code> protects headless <code>opencode serve</code> HTTP/web ports (fixed username: <code>opencode</code>).
     </div>
     <div class="card">
-      <strong><span class="callout-pin">2</span> Live OpenAPI 3.1 Spec (<code>/doc</code>):</strong> Serves machine-readable schemas for sessions, messages, files, and SSE streams at <code>http://127.0.0.1:4096/doc</code>.
+      <strong><span class="callout-pin">2</span> One-Time Browser Pairing:</strong> Run <code>opencode pair</code> to mint a single-use 5-minute pairing URL instead of leaving unauthenticated web sessions open.
     </div>
     <div class="card">
-      <strong><span class="callout-pin">3</span> Custom Tool Discovery:</strong> Each export in <code>.opencode/tools/*.ts</code> becomes a typed tool (<code>&lt;file&gt;_&lt;export&gt;</code>) automatically validated via Zod.
+      <strong><span class="callout-pin">3</span> Custom Tool Transform:</strong> Plugins register typed tools with JSON Schema or Zod/Standard Schema inside <code>ctx.tool.transform((ed) =&gt; ed.add(...))</code>.
     </div>
     <div class="card">
-      <strong><span class="callout-pin">4</span> Per-Agent MCP Toggles:</strong> Manage remote OAuth via <code>opencode mcp auth &lt;name&gt;</code> and enable heavy MCP suites only on specialist subagents.
+      <strong><span class="callout-pin">4</span> Code Mode &amp; Scoped MCP:</strong> Manage remote OAuth via <code>opencode mcp auth &lt;name&gt;</code>; Code Mode keeps MCP tool schemas compact on subagents.
     </div>
     <div class="card">
-      <strong><span class="callout-pin">5</span> Dual-Layer Security Gate:</strong> Declarative <code>permission</code> globs handle 90% of rules; imperative <code>tool.execute.before</code> hooks inspect dynamic arguments.
+      <strong><span class="callout-pin">5</span> Dual-Layer Security Gate:</strong> Ordered <code>permissions</code> globs handle 90% of rules; imperative <code>ctx.tool.hook("execute.before")</code> inspects dynamic arguments.
     </div>
     <div class="card">
-      <strong><span class="callout-pin">6</span> Multi-Client Attach &amp; <span class="callout-pin">7</span> <code>session.idle</code>:</strong> Drive one remote devbox from TUI, browser, or SDK simultaneously and fire completion hooks when work finishes.
+      <strong><span class="callout-pin">6</span> Remote Attach &amp; <span class="callout-pin">7</span> Idle Hook:</strong> Drive one remote devbox via <code>opencode --server</code>, browser pairing, or <code>@opencode/client</code> and fire <code>experimental.idle</code> hooks on completion.
     </div>
   </div>
 
@@ -335,49 +334,72 @@
 <section class="page">
   <div class="page-header">
     <span class="section-tag">04 &bull; Authoring Custom Tools</span>
-    <span>Typed <code>.opencode/tools/</code> Modules &amp; Polyglot Script Wrappers</span>
+    <span>Typed <code>ctx.tool.transform()</code> Tools &amp; Polyglot Script Wrappers</span>
   </div>
 
-  <h2 class="page-title">Authoring Custom Tools with <code>@opencode-ai/plugin</code> &amp; Bun</h2>
+  <h2 class="page-title">Authoring Custom Tools with <code>@opencode/plugin</code> V2</h2>
   <p class="page-lead">
-    Custom tools turn tribal shell scripts into first-class typed capabilities the LLM can discover and invoke safely. Use the <code>tool()</code> helper with built-in <code>tool.schema</code> (Zod) so you never have to manage duplicate Zod versions.
+    Custom tools turn tribal shell scripts into typed, schema-validated capabilities inside a V2 plugin&rsquo;s <code>ctx.tool.transform()</code> editor&mdash;supporting JSON Schema, Standard Schema (Zod), cooperative cancellation, and namespacing.
   </p>
 
   <div class="grid-2" style="margin-bottom:6px;">
     <div>
-      <h3>1. Single-File Tool (<code>.opencode/tools/db.ts</code>)</h3>
-      <pre class="code-block"><code>import { tool } from "@opencode-ai/plugin"
+      <h3>1. Read-Only SQL Tool (<code>.opencode/plugins/db/index.ts</code>)</h3>
+      <pre class="code-block"><code>import { Plugin } from "@opencode/plugin"
 
-export default tool({
-  description: "Run read-only EXPLAIN on staging Postgres",
-  args: {
-    sql: tool.schema.string().describe("SELECT query"),
-  },
-  async execute(args, context) {
-    if (!args.sql.trim().toUpperCase().startsWith("SELECT")) {
-      return "Rejected: only SELECT queries allowed."
-    }
-    const out = await Bun.$&#96;psql "$STAGING_RO_URL" -c "EXPLAIN ${args.sql}"&#96;.text()
-    return &#96;Directory: ${context.directory}\n${out}&#96;
+export default Plugin.define({
+  id: "db-tools",
+  async setup(ctx) {
+    await ctx.tool.transform((ed) =&gt; {
+      ed.add({
+        name: "db",
+        description: "Run read-only EXPLAIN on Postgres",
+        input: {
+          type: "object",
+          properties: { sql: { type: "string" } },
+          required: ["sql"],
+        },
+        execute: async ({ sql }, toolCtx) =&gt; {
+          if (!/^SELECT\b/i.test(sql.trim())) {
+            return { content: "Only SELECT queries allowed." }
+          }
+          const out = await Bun.$&#96;psql "$STAGING_RO_URL" -c "EXPLAIN ${sql}"&#96;.text()
+          return { content: &#96;Dir: ${ctx.location.directory}\n${out}&#96; }
+        },
+      })
+    })
   },
 })</code></pre>
     </div>
 
     <div>
-      <h3>2. Wrapping Python or Go CLI Scripts</h3>
-      <pre class="code-block"><code>// .opencode/tools/forecast.ts -&gt; tool name: "forecast"
-import { tool } from "@opencode-ai/plugin"
+      <h3>2. Polyglot Python Script + Signal &amp; Namespace</h3>
+      <pre class="code-block"><code>// .opencode/plugins/analytics/index.ts
+import { Plugin } from "@opencode/plugin"
 import path from "path"
 
-export default tool({
-  description: "Score latency CSV with Python statsmodels",
-  args: {
-    csvPath: tool.schema.string(),
-    horizon: tool.schema.number().default(24),
-  },
-  async execute(args, ctx) {
-    const script = path.join(ctx.worktree, "scripts/score.py")
-    return await Bun.$&#96;python3 ${script} ${args.csvPath} --h ${args.horizon}&#96;.text()
+export default Plugin.define({
+  id: "analytics-tools",
+  async setup(ctx) {
+    await ctx.tool.transform((ed) =&gt; {
+      ed.namespace({ name: "ops", description: "Ops scripts" })
+      ed.add({
+        name: "forecast",
+        description: "Score latency CSV via Python",
+        input: {
+          type: "object",
+          properties: { csvPath: { type: "string" } },
+          required: ["csvPath"],
+        },
+        options: { namespace: "ops", codemode: true },
+        execute: async ({ csvPath }, toolCtx) =&gt; {
+          await toolCtx.progress({ status: "scoring" })
+          const s = path.join(ctx.location.directory, "scripts/score.py")
+          const p = Bun.spawn(["python3", s, csvPath], { signal: toolCtx.signal })
+          return { content: await new Response(p.stdout).text() }
+        },
+      })
+    })
   },
 })</code></pre>
     </div>
@@ -386,16 +408,16 @@ export default tool({
   <h3>Key Tool Naming, Override &amp; Context Rules</h3>
   <div class="grid-3" style="font-size:8pt;">
     <div class="card">
-      <div class="card-title"><span class="num-badge">1</span> Naming Convention</div>
-      <code>default</code> export in <code>db.ts</code> registers as tool <code>db</code>. Named exports <code>export const seed</code> and <code>export const check</code> register as <code>db_seed</code> and <code>db_check</code>.
+      <div class="card-title"><span class="num-badge">1</span> Namespaces &amp; Code Mode</div>
+      Call <code>ed.namespace(...)</code> and set <code>options: { namespace, codemode: true }</code> so large internal toolkits collapse cleanly under OpenCode v2&rsquo;s Code Mode.
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge amber">2</span> Rich <code>context</code> Object</div>
-      Every <code>execute(args, context)</code> call receives <code>context.directory</code>, <code>context.worktree</code>, <code>context.agent</code>, <code>context.sessionID</code>, and <code>context.abort</code>.
+      <div class="card-title"><span class="num-badge amber">2</span> Rich V2 Context</div>
+      <code>setup(ctx)</code> exposes <code>ctx.location.directory</code>; each <code>execute(input, toolCtx)</code> receives <code>toolCtx.sessionID</code>, <code>toolCtx.progress()</code>, and cooperative <code>toolCtx.signal</code>.
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge rose">3</span> Built-In Overrides</div>
-      Naming a custom tool <code>grep</code> or <code>bash</code> overrides OpenCode&rsquo;s built-in tool of the same name&mdash;handy when enforcing custom sandboxed runners.
+      <div class="card-title"><span class="num-badge rose">3</span> Transform Built-Ins</div>
+      Use <code>ed.update("bash", ...)</code> or <code>ed.remove(...)</code> inside <code>ctx.tool.transform()</code> to wrap or replace OpenCode&rsquo;s built-in tools with custom sandboxed runners.
     </div>
   </div>
 
@@ -414,54 +436,52 @@ export default tool({
 <section class="page">
   <div class="page-header">
     <span class="section-tag">05 &bull; Plugins &amp; Safety Firewalls</span>
-    <span>Lifecycle Hooks (<code>tool.execute.before</code>) &amp; <code>permission</code> Policies</span>
+    <span>V2 Hooks (<code>execute.before</code>) &amp; Ordered <code>permissions</code> Policies</span>
   </div>
 
-  <h2 class="page-title">Defense in Depth: Plugin Interceptors &amp; <code>permission</code> Firewalls</h2>
+  <h2 class="page-title">Defense in Depth: Plugin Interceptors &amp; <code>permissions</code> Firewalls</h2>
   <p class="page-lead">
-    Prompt instructions alone cannot stop a confused or prompt-injected model from reading <code>.env</code> secrets or running destructive shell flags. Combine OpenCode&rsquo;s declarative <code>permission</code> globs with hard TypeScript plugin hooks.
+    Prompt instructions alone cannot stop a confused or prompt-injected model from reading <code>.env</code> secrets or running destructive shell flags. Combine OpenCode v2&rsquo;s ordered <code>permissions</code> array with hard <code>Plugin.define</code> runtime hooks.
   </p>
 
   <div class="figure-box">
-    <img src="assets/showcase_1.jpg" alt="Cyan Security Gates Filtering Safe Tool Calls and Blocking Destructive Commands" style="width:100%; height:212px; object-fit:cover; object-position:center; display:block;" />
+    <img src="assets/showcase_1.jpg" alt="Cyan Security Gates Filtering Safe Tool Calls and Blocking Destructive Commands" style="width:100%; height:200px; object-fit:cover; object-position:center; display:block;" />
     <div class="figure-caption">
-      <strong>Deterministic Gatekeeping:</strong> Safe read/test commands glide straight through <code>"allow"</code> gates while destructive shell patterns and secret-file reads shatter at the <code>permission</code> and <code>tool.execute.before</code> barrier.
+      <strong>Deterministic Gatekeeping:</strong> Safe read/test commands glide through <code>"allow"</code> gates while destructive shell patterns and secret-file reads shatter at the <code>permissions</code> and <code>execute.before</code> barrier.
     </div>
   </div>
 
   <div class="grid-2" style="margin-bottom:6px;">
     <div>
-      <h3>1. Singular <code>permission</code> Key in <code>opencode.json</code></h3>
+      <h3>1. Ordered <code>permissions</code> Array in <code>opencode.json</code></h3>
       <pre class="code-block"><code>{
-  "permission": {
-    "edit": "allow",
-    "bash": {
-      "*": "ask",
-      "pnpm test*": "allow",
-      "git status*": "allow",
-      "git diff*": "allow",
-      "rm -rf *": "deny",
-      "git push --force*": "deny"
-    },
-    "read": { "*": "allow", "*.env*": "deny" }
-  }
+  "permissions": [
+    { "action": "edit",  "resource": "*",            "effect": "allow" },
+    { "action": "shell", "resource": "*",            "effect": "ask" },
+    { "action": "shell", "resource": "pnpm test *",  "effect": "allow" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "rm -rf *",     "effect": "deny" },
+    { "action": "read",  "resource": "*",            "effect": "allow" },
+    { "action": "read",  "resource": "*.env*",       "effect": "deny" }
+  ]
 }</code></pre>
     </div>
 
     <div>
-      <h3>2. Plugin Shield (<code>.opencode/plugins/guard.ts</code>)</h3>
-      <pre class="code-block"><code>import type { Plugin } from "@opencode-ai/plugin"
+      <h3>2. Plugin Shield (<code>.opencode/plugins/guard/index.ts</code>)</h3>
+      <pre class="code-block"><code>import { Plugin } from "@opencode/plugin"
 
-export const SecurityGuard: Plugin = async ({ $ }) =&gt; ({
-  "tool.execute.before": async (input, output) =&gt; {
-    if (input.tool === "read" &amp;&amp; /\.pem$|id_rsa/.test(output.args.filePath)) {
-      throw new Error("Blocked private key read by SecurityGuard")
-    }
-  },
-  event: async ({ event }) =&gt; {
-    if (event.type === "session.idle") {
-      await $&#96;osascript -e 'display notification "Done!" with title "OpenCode"'&#96;
-    }
+export default Plugin.define({
+  id: "security-guard",
+  async setup(ctx) {
+    await ctx.tool.hook("execute.before", (ev) =&gt; {
+      if (ev.tool === "read" &amp;&amp; /\.pem|id_rsa/.test(JSON.stringify(ev.input))) {
+        throw new Error("Blocked private key read by guard")
+      }
+    })
+    await ctx.session.hook("experimental.idle", async () =&gt; {
+      await Bun.$&#96;osascript -e 'display notification "Done!"'&#96;
+    })
   },
 })</code></pre>
     </div>
@@ -470,11 +490,11 @@ export const SecurityGuard: Plugin = async ({ $ }) =&gt; ({
   <h3>Color-Coded Blueprint: Anatomy of a Hardened Automation Config</h3>
   <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:8px 11px;">
     <div style="font-size:8.3pt; line-height:1.66; margin-bottom:5px;">
-      <span class="p-tag p-tool">Expose read-only domain scripts via .opencode/tools/*.ts,</span>
-      <span class="p-tag p-perm">declare singular permission rules allowing pnpm test* and denying *.env* or git push --force*,</span>
-      <span class="p-tag p-hook">enforce key-file blocks and compaction context injection in .opencode/plugins/guard.ts,</span>
-      <span class="p-tag p-serv">protect opencode serve behind OPENCODE_SERVER_PASSWORD on Tailscale,</span>
-      <span class="p-tag p-ci">and set non-interactive CI runs to explicit allow/deny so opencode run never stalls on ask.</span>
+      <span class="p-tag p-tool">Expose read-only domain tools via ctx.tool.transform(),</span>
+      <span class="p-tag p-perm">declare ordered permissions rules allowing pnpm test * and denying *.env* or rm -rf *,</span>
+      <span class="p-tag p-hook">enforce execute.before key shields and compaction hooks in .opencode/plugins/guard/,</span>
+      <span class="p-tag p-serv">protect opencode serve behind OPENCODE_PASSWORD on Tailscale,</span>
+      <span class="p-tag p-ci">and pass --auto (with explicit deny rules) so headless CI runs never stall on ask.</span>
     </div>
     <div style="display:flex; flex-wrap:wrap; gap:6px; font-size:7.25pt; border-top:1px solid #e2e8f0; padding-top:4px;">
       <span><span class="p-tag p-tool">Typed Custom Tools</span></span>
@@ -505,49 +525,53 @@ export const SecurityGuard: Plugin = async ({ $ }) =&gt; ({
 
   <div class="grid-2" style="margin-bottom:6px;">
     <div>
-      <h3>1. Local + Remote MCP in <code>opencode.json</code></h3>
+      <h3>1. Local + Remote MCP under <code>mcp.servers</code></h3>
       <pre class="code-block"><code>{
   "mcp": {
-    "playwright": {
-      "type": "local",
-      "command": ["npx", "-y", "@playwright/mcp@latest"],
-      "enabled": true
-    },
-    "sentry": {
-      "type": "remote",
-      "url": "https://mcp.sentry.dev/mcp",
-      "oauth": {}
+    "servers": {
+      "playwright": {
+        "type": "local",
+        "command": ["npx", "-y", "@playwright/mcp@latest"]
+      },
+      "sentry": {
+        "type": "remote",
+        "url": "https://mcp.sentry.dev/mcp"
+      }
     }
   },
-  "tools": { "playwright_*": false },
-  "agent": {
-    "qa-browser": { "tools": { "playwright_*": true } }
+  "permissions": [
+    { "action": "playwright_*", "resource": "*", "effect": "deny" }
+  ],
+  "agents": {
+    "qa-browser": {
+      "permissions": [{ "action": "playwright_*", "resource": "*", "effect": "allow" }]
+    }
   }
 }</code></pre>
     </div>
 
     <div>
       <h3>2. Managing MCP Auth &amp; Health via CLI</h3>
-      <pre class="code-block"><code># Interactive wizard to register a new MCP server
-opencode mcp add
+      <pre class="code-block"><code># Add a remote MCP endpoint interactively or via CLI
+opencode mcp add sentry --url https://mcp.sentry.dev/mcp
 
-# Check connection health &amp; discovered tool counts
+# Check connection health &amp; status across servers
 opencode mcp list
 
 # Complete OAuth browser login for remote servers
 opencode mcp auth sentry
 
-# Diagnose OAuth token / transport failures
-opencode mcp debug sentry</code></pre>
+# Inspect verbose transport / OAuth logs on failure
+opencode --log-level debug --print-logs mcp list</code></pre>
       <p style="font-size:7.9pt; color:#475569; margin:3px 0 0 0;">
-        <strong>Token-Saving Pattern:</strong> Notice how <code>"playwright_*": false</code> disables 25+ browser tool schemas globally while re-enabling them solely inside the <code>qa-browser</code> subagent!
+        <strong>Token-Saving Pattern:</strong> V2 enables <code>codemode: true</code> on MCP servers by default to keep schemas lean, while per-agent <code>permissions</code> expose <code>playwright_*</code> tools solely to <code>qa-browser</code>!
       </p>
     </div>
   </div>
 
   <div class="callout emerald">
     <div class="callout-title">Custom Compaction Hook Keeps Critical Context Alive</div>
-    Long MCP debugging sessions eventually trigger compaction. Implement <code>"experimental.session.compacting"</code> inside a plugin to push must-keep invariants (active ticket ID, staging URL, test command) into <code>output.context</code> so compacted summaries never drop operational state.
+    Long MCP debugging sessions eventually trigger compaction. Implement <code>await ctx.session.hook("compaction", (ev) =&gt; ...)</code> inside a plugin to append must-keep invariants to <code>ev.system</code> or supply <code>ev.result</code> so compacted summaries retain operational state.
   </div>
 
   <div class="page-footer">
@@ -565,11 +589,11 @@ opencode mcp debug sentry</code></pre>
 
   <h2 class="page-title">Headless Execution: <code>opencode serve</code>, <code>run</code> &amp; GitHub Actions</h2>
   <p class="page-lead">
-    Decouple your local laptop from heavy builds by running <code>opencode serve</code> on a cloud devbox, scripting one-shot pipelines via <code>opencode run</code>, and triggering autonomous PR fixes from <code>/oc</code> comments in GitHub Actions.
+    Decouple your local laptop from heavy builds by running <code>opencode serve</code> on a cloud devbox, scripting one-shot pipelines via <code>opencode run --auto</code>, and triggering autonomous fixes in GitHub Actions.
   </p>
 
   <div class="figure-box">
-    <img src="assets/showcase_2.jpg" alt="Headless OpenCode CI Pipeline Ring Feeding Tasks Into Server Engine" style="width:100%; height:214px; object-fit:cover; object-position:center; display:block;" />
+    <img src="assets/showcase_2.jpg" alt="Headless OpenCode CI Pipeline Ring Feeding Tasks Into Server Engine" style="width:100%; height:205px; object-fit:cover; object-position:center; display:block;" />
     <div class="figure-caption">
       <strong>Always-On Automation Loop:</strong> Issue comments, cron triggers, and remote TUI clients dispatch tasks into headless OpenCode workers that run tests in clean containers and push verified commits back to the PR branch.
     </div>
@@ -579,37 +603,34 @@ opencode mcp debug sentry</code></pre>
     <div>
       <h3>1. Remote Devbox Daemon + Local Attach</h3>
       <pre class="code-block"><code># On cloud VM / GPU box (protected over Tailscale)
-export OPENCODE_SERVER_PASSWORD="strong-random-secret"
+export OPENCODE_PASSWORD="strong-random-secret"
 opencode serve --hostname 0.0.0.0 --port 4096
 
-# From lightweight laptop: attach full native TUI
-opencode attach http://devbox.tailnet:4096
+# From lightweight laptop: attach remote TUI (or run opencode pair)
+opencode --server http://devbox.tailnet:4096
 
 # One-shot non-interactive CLI / shell pipe
-git diff | opencode run "Summarize breaking API changes" \
-  --format json</code></pre>
+git diff | opencode run --auto --format json \
+  "Summarize breaking API changes"</code></pre>
     </div>
 
     <div>
-      <h3>2. GitHub Actions Bot (<code>opencode github install</code>)</h3>
+      <h3>2. Headless GitHub Actions Bot (<code>opencode run</code>)</h3>
       <pre class="code-block"><code># .github/workflows/opencode.yml
 on:
   issue_comment: { types: [created] }
-  pull_request_review_comment: { types: [created] }
 jobs:
   opencode:
-    if: startsWith(github.event.comment.body, '/oc')
+    if: contains(github.event.comment.body, '/oc')
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-      issues: write
-      id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: anomalyco/opencode/github@latest
-        env: { ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }} }
-        with: { model: anthropic/claude-sonnet-4-5 }</code></pre>
+      - run: npm install -g @opencode/cli
+      - env: { ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }} }
+        run: opencode run --auto --archived --format json -m anthropic/claude-sonnet-4-6 "Fix failing tests"</code></pre>
     </div>
   </div>
 
@@ -642,35 +663,35 @@ jobs:
     <tbody>
       <tr>
         <td><strong>1. Inject Env Vars Into Every Agent Shell</strong></td>
-        <td>Save <code>.opencode/plugins/shell-env.ts</code>:<br/><code>export const CiEnv = async () =&gt; ({ "shell.env": async (_in, out) =&gt; { out.env.CI = "1"; out.env.PAGER = "cat"; } })</code></td>
+        <td>In <code>Plugin.define</code> <code>setup(ctx)</code>:<br/><code>await ctx.shell.hook("create.before", (ev) =&gt; { ev.env.CI = "1"; ev.env.PAGER = "cat"; })</code></td>
         <td>Prevents interactive pagers (<code>less</code>, Watch-mode Vitest) from hanging agent bash calls.</td>
       </tr>
       <tr>
-        <td><strong>2. Programmatic Session Control via TypeScript SDK</strong></td>
-        <td><code>import { createOpencodeClient } from "@opencode-ai/sdk"</code><br/><code>const client = createOpencodeClient({ baseUrl: "http://127.0.0.1:4096" })</code><br/><code>const s = await client.session.create({ body: { title: "Auto Triage" } })</code></td>
-        <td>Lets Slack bots, internal dashboards, or orchestrators spawn and stream OpenCode sessions.</td>
+        <td><strong>2. Programmatic Session Control via V2 Client</strong></td>
+        <td><code>import { OpenCode } from "@opencode/client"</code><br/><code>const c = OpenCode.make({ baseUrl: "http://127.0.0.1:4096" })</code><br/><code>const s = await c.session.create({ location: { directory: "/repo" } })</code></td>
+        <td>Lets bots and dashboards drive remote servers (or use <code>@opencode/sdk</code> in-process).</td>
       </tr>
       <tr>
         <td><strong>3. One-Shot Prompt Against Running Daemon</strong></td>
-        <td><code>opencode run --attach http://127.0.0.1:4096 "Run unit tests for billing and report failures"</code></td>
+        <td><code>opencode run --server http://127.0.0.1:4096 "Run unit tests for billing and report failures"</code></td>
         <td>Skips MCP/LSP cold-start boot times by reusing the warm <code>opencode serve</code> process.</td>
       </tr>
       <tr>
-        <td><strong>4. Install Official GitHub App &amp; Workflow</strong></td>
-        <td><code>opencode github install</code><br/>Then comment on any Issue or PR:<br/><code>/oc fix the race condition on line 84 and add a regression test</code></td>
-        <td>Configures GitHub App OIDC + workflow YAML so <code>/oc</code> or <code>/opencode</code> comments open or update PRs.</td>
+        <td><strong>4. Headless Non-Interactive CI Run (<code>--auto</code>)</strong></td>
+        <td><code>opencode run --auto --archived --format json -m anthropic/claude-sonnet-4-6 "Fix failing test and summarize"</code></td>
+        <td>Auto-approves non-denied permissions, hides run from session history, and emits structured JSON.</td>
       </tr>
       <tr>
-        <td><strong>5. Browser Web UI Over SSH / Tailscale</strong></td>
-        <td><code>OPENCODE_SERVER_PASSWORD=secret opencode web --hostname 0.0.0.0 --port 4096</code></td>
-        <td>Serves OpenCode&rsquo;s full browser interface so you can steer sessions from a tablet or browser.</td>
+        <td><strong>5. Browser &amp; Mobile Access via <code>opencode pair</code></strong></td>
+        <td><code>OPENCODE_PASSWORD=secret opencode serve --hostname 0.0.0.0 --port 4096</code><br/><code>opencode pair --url https://devbox.tailnet:4096</code></td>
+        <td>Generates a short-lived single-use pairing URL so you can steer sessions safely from a browser.</td>
       </tr>
     </tbody>
   </table>
 
   <div class="callout amber" style="margin-top:6px;">
     <div class="callout-title">Always Set <code>CI=1</code> and <code>PAGER=cat</code> for Agent Subshells</div>
-    Interactive CLI tools like <code>git log</code>, <code>gh</code>, or <code>vitest</code> wait forever for human keypresses unless <code>CI=1</code> and <code>PAGER=cat</code> are present. Recipe #1&rsquo;s five-line <code>shell.env</code> plugin eliminates hung terminal tools permanently.
+    Interactive CLI tools like <code>git log</code>, <code>gh</code>, or <code>vitest</code> wait forever for human keypresses unless <code>CI=1</code> and <code>PAGER=cat</code> are present. Recipe #1&rsquo;s <code>ctx.shell.hook("create.before")</code> plugin eliminates hung terminal tools permanently.
   </div>
 
   <div class="page-footer">
@@ -696,7 +717,7 @@ jobs:
       <div class="card-title"><span class="num-badge">1</span> Never Expose Unauthenticated <code>0.0.0.0</code></div>
       <ul style="font-size:8pt; margin:2px 0 0 0;">
         <li><strong>Loopback by Default:</strong> Keep <code>opencode serve</code> bound to <code>127.0.0.1</code> locally and forward via SSH or Tailscale Serve.</li>
-        <li><strong>Mandatory Basic Auth:</strong> Always export <code>OPENCODE_SERVER_PASSWORD</code> (and optional <code>OPENCODE_SERVER_USERNAME</code>) whenever binding to a LAN or Tailnet interface.</li>
+        <li><strong>Mandatory Basic Auth:</strong> Always export <code>OPENCODE_PASSWORD</code> (in V2 the Basic Auth username is always <code>opencode</code>; <code>OPENCODE_SERVER_PASSWORD</code> remains supported) on LAN/Tailnet sockets.</li>
         <li><strong>Restrict CORS:</strong> Pass explicit allowed origins via <code>--cors https://ops.internal</code> rather than wildcard origins.</li>
       </ul>
     </div>
@@ -714,18 +735,18 @@ jobs:
   <div class="grid-2">
     <div class="card">
       <div class="card-title"><span class="num-badge amber">3</span> Audit Third-Party Plugins Like Root Code</div>
-      <p style="font-size:8pt;">Plugins listed in <code>opencode.json</code> execute inside your host user&rsquo;s Bun process with full filesystem and env access. Pin exact semver versions (never floating <code>latest</code>) and vendor critical internal plugins under <code>.opencode/plugins/</code>.</p>
+      <p style="font-size:8pt;">Plugins listed in <code>opencode.json</code> execute inside your host user&rsquo;s runtime process with full filesystem and env access. Pin exact semver versions (never floating <code>latest</code>) and vendor critical internal plugins under <code>.opencode/plugins/</code>.</p>
     </div>
 
     <div class="card">
       <div class="card-title"><span class="num-badge emerald">4</span> Containerize Autonomous <code>opencode run</code> Loops</div>
-      <p style="font-size:8pt;">When running broad unattended migrations with <code>"bash": "allow"</code>, run <code>opencode serve</code> inside a rootless Docker devcontainer or ephemeral microVM so accidental destructive commands stay isolated from your host laptop.</p>
+      <p style="font-size:8pt;">When running broad unattended migrations with <code>--auto</code> or <code>"effect": "allow"</code> on <code>shell</code> (note: V2 allows <code>external_directory</code> unless explicitly gated), run inside a rootless devcontainer or ephemeral microVM.</p>
     </div>
   </div>
 
   <div class="callout rose" style="margin-top:7px;">
-    <div class="callout-title">Watch Out for the Plural <code>"permissions"</code> Typo!</div>
-    In <code>opencode.json</code>, the schema key is singular <strong><code>"permission"</code></strong>. Writing plural <code>"permissions"</code> fails schema validation or leaves defaults active&mdash;always keep <code>"$schema": "https://opencode.ai/config.json"</code> at line 1 so your editor catches typos immediately.
+    <div class="callout-title">Use V2 Ordered <code>"permissions"</code> &amp; <code>"shell"</code> Action Names!</div>
+    In OpenCode v2, permissions use an ordered <strong><code>"permissions"</code></strong> array with V2 action names (<code>"shell"</code> instead of V1 <code>"bash"</code>, <code>"subagent"</code> instead of <code>"task"</code>). Last matching rule wins&mdash;keep <code>"$schema": "https://opencode.ai/config.json"</code> at line 1 and never mix V1 and V2 shapes.
   </div>
 
   <div class="page-footer">
@@ -753,9 +774,9 @@ jobs:
       <rect x="18" y="26" width="58" height="18" rx="4" fill="#0891b2"/>
       <text x="47" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 1</text>
       <text x="18" y="61" fill="#ffffff" font-size="10.8" font-weight="800">Alert + SDK Trigger</text>
-      <text x="18" y="76" fill="#67e8f9" font-size="8.5" font-weight="700">@opencode-ai/sdk</text>
+      <text x="18" y="76" fill="#67e8f9" font-size="8.5" font-weight="700">@opencode/client &amp; SDK</text>
       <text x="18" y="95" fill="#cffafe" font-size="8">&bull; Webhook hits bot</text>
-      <text x="18" y="110" fill="#cffafe" font-size="8">&bull; SDK spawns session</text>
+      <text x="18" y="110" fill="#cffafe" font-size="8">&bull; Client spawns session</text>
       <text x="25" y="122" fill="#cffafe" font-size="8">on opencode serve</text>
       <text x="18" y="137" fill="#cffafe" font-size="8">&bull; Pulls Sentry MCP trace</text>
       <text x="18" y="153" fill="#fde68a" font-size="7.9" font-weight="700">Out: Root-Cause Issue</text>
@@ -768,10 +789,10 @@ jobs:
       <rect x="196" y="26" width="58" height="18" rx="4" fill="#e11d48"/>
       <text x="225" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 2</text>
       <text x="196" y="61" fill="#ffffff" font-size="10.8" font-weight="800">Guarded Execution</text>
-      <text x="196" y="76" fill="#fda4af" font-size="8.5" font-weight="700">Plugins + Custom Tools</text>
-      <text x="196" y="95" fill="#ffe4e6" font-size="8">&bull; .opencode/tools/db.ts</text>
-      <text x="196" y="110" fill="#ffe4e6" font-size="8">&bull; permission allowlist</text>
-      <text x="196" y="125" fill="#ffe4e6" font-size="8">&bull; tool.execute.before</text>
+      <text x="196" y="76" fill="#fda4af" font-size="8.5" font-weight="700">V2 Plugins &amp; Tools</text>
+      <text x="196" y="95" fill="#ffe4e6" font-size="8">&bull; ctx.tool.transform()</text>
+      <text x="196" y="110" fill="#ffe4e6" font-size="8">&bull; permissions[] ruleset</text>
+      <text x="196" y="125" fill="#ffe4e6" font-size="8">&bull; execute.before hook</text>
       <text x="203" y="137" fill="#ffe4e6" font-size="8">blocks secret reads</text>
       <text x="196" y="153" fill="#fde68a" font-size="7.9" font-weight="700">Out: Verified Patch</text>
 
@@ -782,11 +803,11 @@ jobs:
       <rect x="364" y="16" width="154" height="154" rx="10" fill="#08281e" stroke="#34d399" stroke-width="1.5"/>
       <rect x="374" y="26" width="58" height="18" rx="4" fill="#059669"/>
       <text x="403" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 3</text>
-      <text x="374" y="61" fill="#ffffff" font-size="10.8" font-weight="800">GitHub /oc Bot</text>
-      <text x="374" y="76" fill="#6ee7b7" font-size="8.5" font-weight="700">Actions Runner</text>
-      <text x="374" y="95" fill="#d1fae5" font-size="8">&bull; Opens draft PR</text>
-      <text x="374" y="110" fill="#d1fae5" font-size="8">&bull; Reviewer comments /oc</text>
-      <text x="381" y="122" fill="#d1fae5" font-size="8">for follow-up tweaks</text>
+      <text x="374" y="61" fill="#ffffff" font-size="10.8" font-weight="800">GitHub Actions CI</text>
+      <text x="374" y="76" fill="#6ee7b7" font-size="8.5" font-weight="700">opencode run --auto</text>
+      <text x="374" y="95" fill="#d1fae5" font-size="8">&bull; Opens draft PR (gh)</text>
+      <text x="374" y="110" fill="#d1fae5" font-size="8">&bull; Collaborator trigger</text>
+      <text x="381" y="122" fill="#d1fae5" font-size="8">re-runs follow-up fix</text>
       <text x="374" y="137" fill="#d1fae5" font-size="8">&bull; Runs full test matrix</text>
       <text x="374" y="153" fill="#fde68a" font-size="7.9" font-weight="700">Out: Green Draft PR</text>
 
@@ -799,28 +820,28 @@ jobs:
       <text x="581" y="38" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="800">STAGE 4</text>
       <text x="552" y="61" fill="#ffffff" font-size="10.8" font-weight="800">Human Attach &amp; Ship</text>
       <text x="552" y="76" fill="#fde68a" font-size="8.5" font-weight="700">Final Sign-Off</text>
-      <text x="552" y="95" fill="#fef3c7" font-size="8">&bull; opencode attach for</text>
-      <text x="559" y="107" fill="#fef3c7" font-size="8">live TUI inspection</text>
-      <text x="552" y="122" fill="#fef3c7" font-size="8">&bull; session.idle posts</text>
-      <text x="559" y="134" fill="#fef3c7" font-size="8">Slack release card</text>
+      <text x="552" y="95" fill="#fef3c7" font-size="8">&bull; opencode --server</text>
+      <text x="559" y="107" fill="#fef3c7" font-size="8">for live TUI review</text>
+      <text x="552" y="122" fill="#fef3c7" font-size="8">&bull; experimental.idle</text>
+      <text x="559" y="134" fill="#fef3c7" font-size="8">posts Slack release</text>
       <text x="552" y="153" fill="#6ee7b7" font-size="7.9" font-weight="700">Out: Merged Fix</text>
 
       <!-- Bottom Loop -->
       <path d="M617 170 L617 196 L85 196 L85 170" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
       <polygon points="80,174 85,166 90,174" fill="#22d3ee"/>
-      <rect x="195" y="184" width="310" height="22" rx="11" fill="#092530" stroke="#22d3ee" stroke-width="1.1"/>
-      <text x="350" y="198" text-anchor="middle" fill="#a5f3fc" font-size="8.3" font-weight="700">opencode export Archives JSON Traces Into Regression Eval Datasets</text>
+      <rect x="175" y="184" width="350" height="22" rx="11" fill="#092530" stroke="#22d3ee" stroke-width="1.1"/>
+      <text x="350" y="198" text-anchor="middle" fill="#a5f3fc" font-size="8.1" font-weight="700">opencode session export Archives JSON Traces Into Regression Eval Datasets</text>
     </svg>
   </div>
 
   <div class="grid-2" style="margin-top:6px;">
     <div class="card">
       <div class="card-title"><span class="num-badge">A</span> Warm Daemon Reuse Cuts Script Latency</div>
-      <p style="font-size:8.1pt;">Starting MCP servers and language servers from scratch on every shell command adds 3&ndash;8 seconds of overhead. Keep one background <code>opencode serve</code> daemon alive and pass <code>--attach http://127.0.0.1:4096</code> to every <code>opencode run</code> script.</p>
+      <p style="font-size:8.1pt;">Starting MCP servers and language servers from scratch on every shell command adds 3&ndash;8 seconds of overhead. Keep one background <code>opencode serve</code> daemon alive and pass <code>--server http://127.0.0.1:4096</code> to every <code>opencode run</code> script.</p>
     </div>
     <div class="card">
       <div class="card-title"><span class="num-badge emerald">B</span> Shared Team Repo Harness</div>
-      <p style="font-size:8.1pt;">Checking <code>.opencode/tools/</code>, <code>.opencode/plugins/</code>, and <code>opencode.json</code> into Git gives every new engineer&mdash;and your GitHub Actions bot&mdash;identical domain tools and safety guardrails on first clone.</p>
+      <p style="font-size:8.1pt;">Checking <code>.opencode/plugins/</code>, <code>.opencode/agents/</code>, and <code>opencode.json</code> into Git gives every new engineer&mdash;and your GitHub Actions runner&mdash;identical domain tools and safety guardrails on first clone.</p>
     </div>
   </div>
 
@@ -852,31 +873,31 @@ jobs:
     <tbody>
       <tr>
         <td><strong>1. <code>opencode run</code> fails immediately with permission denied</strong></td>
-        <td>Headless runs have no interactive prompt, so any rule resolving to <code>"ask"</code> auto-rejects! Explicitly set needed commands/paths (including <code>external_directory</code> if applicable) to <code>"allow"</code> for CI configs.</td>
+        <td>Headless runs have no interactive prompt, so any <code>"ask"</code> rule auto-rejects! Pass <code>--auto</code> or explicitly set needed rules to <code>"allow"</code> for CI.</td>
       </tr>
       <tr>
-        <td><strong>2. Permission rules in <code>opencode.json</code> are ignored</strong></td>
-        <td>You wrote plural <code>"permissions"</code> instead of singular <strong><code>"permission"</code></strong>, or put a broad <code>"*": "allow"</code> rule <em>after</em> specific rules (last matching glob wins!).</td>
+        <td><strong>2. V2 rules in <code>opencode.json</code> are ignored or misordered</strong></td>
+        <td>Use the V2 ordered <code>"permissions"</code> array with <code>"shell"</code> (last match wins), and check <code>opencode debug config</code> for V1/V2 field warnings.</td>
       </tr>
       <tr>
-        <td><strong>3. Custom tool throws Zod schema type mismatch</strong></td>
-        <td>You imported an incompatible standalone <code>zod</code> version. Import <code>{ tool } from "@opencode-ai/plugin"</code> and define args with <code>tool.schema.string()</code>.</td>
+        <td><strong>3. V1 plugin throws <code>PluginModule.LoadError</code></strong></td>
+        <td>V1 function exports no longer load in V2. Export <code>default Plugin.define({ id, setup })</code> from <code>@opencode/plugin</code> and register tools with <code>ctx.tool.transform()</code>.</td>
       </tr>
       <tr>
         <td><strong>4. Agent hangs forever running <code>vitest</code> or <code>git diff</code></strong></td>
-        <td>Interactive watch mode or <code>less</code> pager is waiting on stdin. Add a <code>shell.env</code> plugin setting <code>CI="1"</code> and <code>PAGER="cat"</code>, and pass <code>--run</code> to Vitest.</td>
+        <td>Interactive watch mode or <code>less</code> pager is waiting on stdin. Add a <code>ctx.shell.hook("create.before")</code> hook setting <code>CI="1"</code> and <code>PAGER="cat"</code>, and pass <code>--run</code>.</td>
       </tr>
       <tr>
         <td><strong>5. Remote MCP server returns <code>401 Unauthorized</code></strong></td>
-        <td>OAuth token expired or wasn&rsquo;t completed. Run <code>opencode mcp auth &lt;name&gt;</code> and verify status via <code>opencode mcp debug &lt;name&gt;</code>.</td>
+        <td>OAuth token expired or wasn&rsquo;t completed. Run <code>opencode mcp auth &lt;name&gt;</code> and verify via <code>opencode --log-level debug --print-logs mcp list</code>.</td>
       </tr>
       <tr>
-        <td><strong>6. GitHub Actions <code>/oc</code> comment does not trigger job</strong></td>
-        <td>Confirm the OpenCode GitHub App is installed (<code>opencode github install</code>), the commenter has repo write/triage access, and workflow YAML exists on the default branch.</td>
+        <td><strong>6. GitHub Actions CI run silently exits or skips push</strong></td>
+        <td>Confirm <code>opencode run --auto</code> has workflow <code>contents: write</code> and <code>pull-requests: write</code> permissions and valid provider API secrets.</td>
       </tr>
       <tr>
         <td><strong>7. Context tokens spike by 25k before first prompt</strong></td>
-        <td>Too many MCP servers are enabled globally. Disable bulky MCP tool globs under top-level <code>"tools"</code> and enable them only on specialist subagents.</td>
+        <td>Too many MCP servers disabled Code Mode. Keep default <code>"codemode": true</code> under <code>mcp.servers</code> or deny unused server globs globally.</td>
       </tr>
     </tbody>
   </table>
@@ -886,27 +907,27 @@ jobs:
     <div class="check-grid" style="margin-top:2px;">
       <div class="check-item" style="background:#092530; border-color:#154556; color:#e2e8f0;">
         <span class="check-box">&#10003;</span>
-        <div><strong>Schema Validated:</strong> Declared <code>"$schema": "https://opencode.ai/config.json"</code> and verified singular <code>"permission"</code> key.</div>
+        <div><strong>Schema Validated:</strong> Declared <code>"$schema": "https://opencode.ai/config.json"</code> and verified ordered <code>"permissions"</code> rules.</div>
       </div>
       <div class="check-item" style="background:#092530; border-color:#154556; color:#e2e8f0;">
         <span class="check-box">&#10003;</span>
-        <div><strong>Dual Secret Shield:</strong> Blocked <code>*.env*</code>/<code>*.pem</code> in both <code>permission.read</code> and <code>tool.execute.before</code>.</div>
+        <div><strong>Dual Secret Shield:</strong> Blocked <code>*.env*</code>/<code>*.pem</code> in both <code>permissions</code> (<code>read</code>) and <code>execute.before</code>.</div>
       </div>
       <div class="check-item" style="background:#092530; border-color:#154556; color:#e2e8f0;">
         <span class="check-box">&#10003;</span>
-        <div><strong>Non-Interactive Env:</strong> Injected <code>CI=1</code> and <code>PAGER=cat</code> via <code>shell.env</code> hook so subshells never hang.</div>
+        <div><strong>Non-Interactive Env:</strong> Injected <code>CI=1</code> and <code>PAGER=cat</code> via <code>ctx.shell.hook("create.before")</code> so shells never hang.</div>
       </div>
       <div class="check-item" style="background:#092530; border-color:#154556; color:#e2e8f0;">
         <span class="check-box">&#10003;</span>
-        <div><strong>Scoped MCP Schemas:</strong> Disabled heavy MCP tool globs globally and enabled per specialist subagent.</div>
+        <div><strong>Scoped MCP Schemas:</strong> Used <code>mcp.servers</code> with Code Mode enabled and per-agent <code>permissions</code> globs.</div>
       </div>
       <div class="check-item" style="background:#092530; border-color:#154556; color:#e2e8f0;">
         <span class="check-box">&#10003;</span>
-        <div><strong>Authenticated Daemon:</strong> Set <code>OPENCODE_SERVER_PASSWORD</code> and loopback/Tailscale binding for <code>opencode serve</code>.</div>
+        <div><strong>Authenticated Daemon:</strong> Set <code>OPENCODE_PASSWORD</code> and loopback/Tailscale binding for <code>opencode serve</code>.</div>
       </div>
       <div class="check-item" style="background:#092530; border-color:#154556; color:#e2e8f0;">
         <span class="check-box">&#10003;</span>
-        <div><strong>Least-Privilege CI:</strong> Restricted <code>/oc</code> GitHub workflow to trusted collaborators and minimal token scopes.</div>
+        <div><strong>Least-Privilege CI:</strong> Restricted GitHub Actions <code>run --auto</code> jobs to collaborators and minimal token scopes.</div>
       </div>
     </div>
   </div>

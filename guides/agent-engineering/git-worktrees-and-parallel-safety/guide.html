@@ -10,7 +10,7 @@
 <!-- ==================== PAGE 1: COVER ==================== -->
 <section class="page cover">
   <div class="cover-top">
-    <div class="brand-pill">AI Agent Engineering Series &bull; v1.0 Edition</div>
+    <div class="brand-pill">AI Agent Engineering Series &bull; v1.1 Edition</div>
     <h1>Mastering <span>Git Worktrees &amp; Agent Safety</span></h1>
     <p class="cover-sub">
       The practical visual field guide to running parallel AI coding agents at full speed without file overwrites, port clashes, corrupted lockfiles, or rogue Git commands.
@@ -60,16 +60,17 @@
   <h3>Quick Navigation</h3>
   <div class="toc-list">
     <div class="toc-item"><span><strong>1. The 5 Agent Collision Patterns</strong></span><span class="toc-pg">p. 2</span></div>
-    <div class="toc-item"><span><strong>7. Safety Hook &amp; Bootstrap Blueprint</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>7. Serial Merge Gate &amp; Clean Teardown</strong></span><span class="toc-pg">p. 8</span></div>
     <div class="toc-item"><span><strong>2. Worktrees vs. Clones vs. Containers</strong></span><span class="toc-pg">p. 3</span></div>
-    <div class="toc-item"><span><strong>8. Serial Merge Gate &amp; Clean Teardown</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Fleet Recipes</strong></span><span class="toc-pg">p. 9</span></div>
     <div class="toc-item"><span><strong>3. Annotated Fleet Workspace Tour</strong></span><span class="toc-pg">p. 4</span></div>
-    <div class="toc-item"><span><strong>9. 5 Copy-Paste Fleet Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>9. Native Support</strong> (Claude, AGY, Orca)</span><span class="toc-pg">p. 10</span></div>
     <div class="toc-item"><span><strong>4. Git Worktrees End-to-End Lifecycle</strong></span><span class="toc-pg">p. 5</span></div>
-    <div class="toc-item"><span><strong>10. Native Support</strong> (Claude, AGY, Orca)</span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>10. 6-Stage End-to-End Fleet Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
     <div class="toc-item"><span><strong>5. Isolation Beyond Git</strong> (Env, Ports, DB)</span><span class="toc-pg">p. 6</span></div>
-    <div class="toc-item"><span><strong>11. 6-Stage End-to-End Fleet Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
-    <div class="toc-item"><span><strong>6. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Safety Hook &amp; Bootstrap Blueprint</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Law: One Agent, One Branch</strong></span><span class="toc-pg">All</span></div>
   </div>
 
   <h3>The 5 Real-World Parallel Collision Patterns</h3>
@@ -144,12 +145,12 @@
   </div>
 
   <h2 class="page-title">Choosing the Right Isolation Layer for Your Fleet</h2>
-  <p class="page-lead">
-    Not every parallel task needs a full virtual machine—and "just clone the repo five times" creates silent fetch drift and gigabytes of wasted history. Use this matrix to match isolation weight to task risk.
+  <p class="page-lead" style="margin-bottom:8px;">
+    Not every parallel task needs a full virtual machine, and "just clone the repo five times" creates silent fetch drift and gigabytes of wasted history. Use this matrix to match isolation weight to task risk.
   </p>
 
-  <h3>Isolation Strategy Decision Matrix</h3>
-  <table class="clean-table" style="font-size:8.35pt;">
+  <h3 style="margin:6px 0 4px 0;">Isolation Strategy Decision Matrix</h3>
+  <table class="clean-table" style="font-size:8.25pt; margin-bottom:7px;">
     <thead>
       <tr>
         <th style="width:19%;">Mechanism</th>
@@ -747,8 +748,8 @@
       <tr>
         <td><strong>Google Antigravity</strong><br/><span style="color:#64748b;font-size:7.5pt;">App, IDE &amp; <code>agy</code> CLI</span></td>
         <td>
-          Subagents: <code>Workspace: "share"</code> (worktree)<br/>
-          Swarms (<code>/teamwork</code>): <code>workspace: "share"</code><br/>
+          Swarms (<code>/teamwork</code> / <code>swarm</code>):<br/>
+          <code>workspace: "share"</code> (own copy)<br/>
           Full clone mode: <code>workspace: "branch"</code>
         </td>
         <td><code>"share"</code> gives each parallel author its own working copy sharing <code>.git</code>; read-only researchers keep <code>"inherit"</code>. <code>proceed-in-sandbox</code> + Non-Workspace File Access <code>deny</code> fences paths.</td>

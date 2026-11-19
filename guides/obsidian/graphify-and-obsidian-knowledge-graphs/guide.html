@@ -10,7 +10,7 @@
 <!-- ==================== PAGE 1: COVER ==================== -->
 <section class="page cover">
   <div class="cover-top">
-    <div class="brand-pill">AGENT ENGINEERING SERIES &bull; VERSION 1.0 &bull; NOVEMBER 2026</div>
+    <div class="brand-pill">AGENT ENGINEERING SERIES &bull; VERSION 1.1 &bull; NOVEMBER 2026</div>
     <h1>AI Agents + Graphify <span>+ Obsidian</span></h1>
     <p class="cover-sub">
       The complete visual handbook to building a persistent, confidence-tagged knowledge graph across code, docs, papers, and diagrams&mdash;queried in milliseconds by AI agents via MCP and explored visually in Obsidian.
@@ -271,11 +271,11 @@ mkdir -p ~/.claude/skills/graphify &amp;&amp; curl -fsSL \
       <!-- Left File Explorer -->
       <div style="background:#120822; padding:8px; display:flex; flex-direction:column; gap:4px; font-family:'SF Mono', Menlo, monospace; font-size:6.9pt;">
         <div style="font-family:sans-serif; font-size:6.7pt; font-weight:700; color:#a78bfa; letter-spacing:0.05em; margin-bottom:2px;">VAULT EXPLORER</div>
-        <div style="color:#cbd5e1; padding:2px 5px;">&#128193; 00-Architecture/ (Human)</div>
+        <div style="color:#cbd5e1; padding:2px 5px;"><span style="background:#2e1065; color:#d8b4fe; padding:0.5px 3.5px; border-radius:3px; font-size:5.6pt; font-weight:800; margin-right:3px;">DIR</span>00-Architecture/ (Human)</div>
         <div style="color:#94a3b8; padding:1px 12px;">&#9492; ADR-014-Idempotency.md</div>
-        <div style="color:#6ee7b7; padding:2px 5px;">&#128193; _inbox/ (Agent Writes)</div>
+        <div style="color:#6ee7b7; padding:2px 5px;"><span style="background:#064e3b; color:#6ee7b7; padding:0.5px 3.5px; border-radius:3px; font-size:5.6pt; font-weight:800; margin-right:3px;">DIR</span>_inbox/ (Agent Writes)</div>
         <div style="background:#2b0f4c; border:1px solid #c026d3; color:#f5d0fe; padding:3px 6px; border-radius:4px; display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
-          <span>&#128274; _graphify/</span><span class="callout-pin">1</span>
+          <span><span style="background:#4c1d95; color:#f5d0fe; padding:0.5px 3.5px; border-radius:3px; font-size:5.6pt; font-weight:800; margin-right:4px;">LOCK</span>_graphify/</span><span class="callout-pin">1</span>
         </div>
         <div style="color:#fde68a; padding:2px 8px; display:flex; justify-content:space-between; align-items:center;">
           <span>&#9500; GRAPH_REPORT.md</span><span class="callout-pin">2</span>
@@ -483,7 +483,7 @@ mkdir -p ~/.claude/skills/graphify &amp;&amp; curl -fsSL \
         <td style="padding:5px 8px;"><strong>Safest 60-second start</strong> for codebase exploration; zero contact with personal notes.</td>
       </tr>
       <tr>
-        <td style="padding:5px 8px;"><strong>2. Quarantine Subfolder</strong><br/><span style="color:#9333ea;font-size:7.4pt;font-weight:700;">&#9733; Recommended Default</span></td>
+        <td style="padding:5px 8px;"><strong>2. Quarantine Subfolder</strong><br/><span style="color:#9333ea;font-size:7.4pt;font-weight:700;">Recommended Default</span></td>
         <td style="padding:5px 8px;">Sync <code>graphify-out/obsidian/</code> into <code>&lt;MainVault&gt;/_graphify/</code>. Filter Graph View with <code>path:_graphify</code>.</td>
         <td style="padding:5px 8px;">Unifies code/research graph with your daily Second Brain in one cleanly deletable folder.</td>
       </tr>
@@ -612,7 +612,7 @@ SORT degree DESC LIMIT 15</code></pre>
 
   <h3 style="margin:5px 0 4px 0;">1. Connecting Claude Code, Cursor &amp; Codex Directly to Your Obsidian Vault</h3>
   <p style="font-size:8.6pt; margin-bottom:5px;">
-    Install the <strong>Local REST API</strong> community plugin in Obsidian (<code>Settings &rarr; Community plugins &rarr; Browse</code>), enable it, and copy its Bearer key. It hosts a localhost-only MCP server at <code>https://127.0.0.1:27124/mcp/</code> scoped strictly to the currently open vault (or pair with Obsidian's 1.8+ CLI / filesystem MCP when headless):
+    Install the <strong>Local REST API</strong> community plugin in Obsidian (<code>Settings &rarr; Community plugins &rarr; Browse</code>), enable it, and copy its Bearer key. It hosts a localhost-only MCP server at <code>https://127.0.0.1:27124/mcp/</code> scoped strictly to the currently open vault (or pair with Obsidian's 1.12+ CLI / filesystem MCP when headless):
   </p>
   <pre class="code-block" style="padding:6.5px 9px; margin:3px 0 7px 0;"><code># Register Obsidian's built-in Local REST API MCP server + verify active connections
 claude mcp add --transport http obsidian https://127.0.0.1:27124/mcp/ \

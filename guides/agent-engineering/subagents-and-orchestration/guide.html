@@ -10,10 +10,10 @@
 <!-- ==================== PAGE 1: COVER ==================== -->
 <section class="page cover">
   <div class="cover-top">
-    <div class="brand-pill">AI Agent Engineering Series &bull; v1.0 Edition</div>
+    <div class="brand-pill">AI Agent Engineering Series &bull; v1.1 Edition</div>
     <h1>Mastering <span>Subagents &amp; Orchestration</span></h1>
     <p class="cover-sub">
-      The practical visual field guide to designing, permission-scoping, and orchestrating specialized AI coding teams—from single context windows to parallel worktree fleets and adversarial review loops.
+      The practical visual field guide to designing, permission-scoping, and orchestrating specialized AI coding teams, from single context windows to parallel worktree fleets and adversarial review loops.
     </p>
     <div class="cover-badges">
       <span class="cover-badge">Context Isolation Architecture</span>
@@ -60,16 +60,17 @@
   <h3>Quick Navigation</h3>
   <div class="toc-list">
     <div class="toc-item"><span><strong>1. Context Isolation Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
-    <div class="toc-item"><span><strong>7. Invocation, Forks &amp; Concurrency</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>7. Least-Privilege &amp; Security Hooks</strong></span><span class="toc-pg">p. 8</span></div>
     <div class="toc-item"><span><strong>2. Four Architectures &amp; Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
-    <div class="toc-item"><span><strong>8. Least-Privilege &amp; Security Hooks</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>8. Five Copy-Paste Orchestration Recipes</strong></span><span class="toc-pg">p. 9</span></div>
     <div class="toc-item"><span><strong>3. Live Dispatch &amp; Config UI Tour</strong></span><span class="toc-pg">p. 4</span></div>
-    <div class="toc-item"><span><strong>9. Five Copy-Paste Orchestration Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>9. Cross-Vendor Ecosystem Mapping</strong></span><span class="toc-pg">p. 10</span></div>
     <div class="toc-item"><span><strong>4. Visual Topologies &amp; YAML Reference</strong></span><span class="toc-pg">p. 5</span></div>
-    <div class="toc-item"><span><strong>10. Cross-Vendor Ecosystem Mapping</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>10. End-to-End Pipeline &amp; Cost Math</strong></span><span class="toc-pg">p. 11</span></div>
     <div class="toc-item"><span><strong>5. Three Production Agent Blueprints</strong></span><span class="toc-pg">p. 6</span></div>
-    <div class="toc-item"><span><strong>11. End-to-End Pipeline &amp; Cost Math</strong></span><span class="toc-pg">p. 11</span></div>
-    <div class="toc-item"><span><strong>6. Pre-Flight Checklist &amp; Clinic</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Clinic</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Invocation, Forks &amp; Concurrency</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Law: Isolate Context, Scope Tools</strong></span><span class="toc-pg">All</span></div>
   </div>
 
   <h3>The Context Economy: Expensive Exploration Dies Locally, Cheap Truth Flows Up</h3>
@@ -807,7 +808,7 @@ exit 0</code></pre>
       <tr>
         <td><strong>Parallel Git Isolation</strong></td>
         <td><code>isolation: worktree</code> in frontmatter</td>
-        <td><code>Workspace: "share"</code> or <code>"branch"</code> clone</td>
+        <td><code>workspace: "share"</code> or <code>"branch"</code> clone</td>
         <td>Worktree env on request or <code>/in-cloud</code> VM</td>
         <td>Copilot: cloud PR branch<br/>Codex: session worktrees</td>
       </tr>
@@ -996,7 +997,7 @@ exit 0</code></pre>
       </tr>
       <tr>
         <td><strong>Two parallel builders overwrote each other's edits</strong></td>
-        <td>Shared git checkout with overlapping files. Add <code>isolation: worktree</code> (or Antigravity <code>Workspace: "share"</code>) per builder, or partition strict non-overlapping directory ownership.</td>
+        <td>Shared git checkout with overlapping files. Add <code>isolation: worktree</code> (or Antigravity <code>workspace: "share"</code>) per builder, or partition strict non-overlapping directory ownership.</td>
       </tr>
       <tr>
         <td><strong>Critic review loop burns tokens forever on tiny nits</strong></td>

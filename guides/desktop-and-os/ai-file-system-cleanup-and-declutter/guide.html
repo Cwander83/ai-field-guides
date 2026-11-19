@@ -672,7 +672,7 @@ mdfind -onlyin ~/Downloads '(kMDItemFSName == "*.dmg" || kMDItemFSName == "*.pkg
 # Windows PowerShell dry-run staging + SHA-256 manifest (-WhatIf simulates moves without touching disk):
 $q = "$env:USERPROFILE\Downloads\_quarantine_30d\$(Get-Date -Format yyyy-MM-dd)"; New-Item $q -ItemType Directory -Force | Out-Null
 Get-ChildItem "$env:USERPROFILE\Downloads" -File | Where-Object { $_.Extension -in ".exe",".msi",".zip" -and $_.LastWriteTime -lt (Get-Date).AddDays(-30) } |
-  Move-Item -LiteralPath { $_.FullName } -Destination $q -WhatIf</code></pre>
+  ForEach-Object { Move-Item -LiteralPath $_.FullName -Destination $q -WhatIf }</code></pre>
 
   <div class="page-footer"><span>AI File System Cleanup &amp; Digital Declutter &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
 </section>

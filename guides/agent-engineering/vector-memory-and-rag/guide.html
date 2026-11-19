@@ -10,7 +10,7 @@
 <!-- ==================== PAGE 1: COVER ==================== -->
 <section class="page cover">
   <div class="cover-top">
-    <div class="brand-pill">AI Agent Engineering Series &bull; v1.0 Edition</div>
+    <div class="brand-pill">AI Agent Engineering Series &bull; v1.1 Edition</div>
     <h1>Mastering <span>Vector Memory &amp; RAG</span></h1>
     <p class="cover-sub">
       The complete practical handbook to building semantic recall for AI agents—covering structure-aware chunking, local Ollama vs. cloud embeddings, Chroma &amp; <code>pgvector</code>, hybrid BM25 search, and on-demand MCP servers.
@@ -171,12 +171,17 @@
   </div>
 
   <h2 class="page-title">Choosing Your Vector Stack &amp; Embedding Model</h2>
-  <p class="page-lead" style="margin-bottom:8px;">
+  <p class="page-lead" style="margin-bottom:6px; font-size:9.8pt;">
     Don't over-engineer Day 1. Start local with zero servers to babysit; graduate to Postgres or dedicated cluster engines only when multi-user concurrency, transactional joins, or million-chunk scale demand it.
   </p>
+  <style>
+    .p3-tight { font-size: 7.75pt !important; line-height: 1.28 !important; margin: 2px 0 5px 0 !important; }
+    .p3-tight th { padding: 4.5px 7px !important; font-size: 7.75pt !important; }
+    .p3-tight td { padding: 3.4px 7px !important; }
+  </style>
 
-  <h3 style="margin:5px 0 3px 0;">1. Vector Store Decision Matrix</h3>
-  <table class="clean-table compact-table">
+  <h3 style="margin:4px 0 2px 0; font-size:10.8pt;">1. Vector Store Decision Matrix</h3>
+  <table class="clean-table compact-table p3-tight">
     <thead>
       <tr>
         <th style="width:18%;">Vector Store</th>
@@ -219,8 +224,8 @@
     </tbody>
   </table>
 
-  <h3 style="margin:6px 0 3px 0;">2. Cloud API vs. 100% Local Ollama Embedding Models</h3>
-  <table class="clean-table compact-table">
+  <h3 style="margin:4px 0 2px 0; font-size:10.8pt;">2. Cloud API vs. 100% Local Ollama Embedding Models</h3>
+  <table class="clean-table compact-table p3-tight">
     <thead>
       <tr>
         <th style="width:24%;">Model Name</th>
@@ -702,8 +707,8 @@ rows = conn.execute(
     Pure embeddings smooth away character-level precision—to a vector model, <code>ERR_CONN_RESET_9</code>, <code>SKU-4810B</code>, or <code>useAuthSession()</code> look nearly identical to close neighbors. Pairing dense vectors with classic <strong>BM25 lexical search</strong> gives you the best of both worlds.
   </p>
 
-  <div class="figure-box" style="background:#041019;">
-    <img src="assets/hybrid_rag_retrieval_funnel.jpg" alt="Geometric coral-amber laser grid and flowing electric cyan harmonic wave converging through a crystalline prism to spotlight three glowing gems" style="width:100%; height:216px; object-fit:cover; object-position:center; display:block;" />
+  <div class="figure-box" style="background:#041019; margin:3px 0 6px 0;">
+    <img src="assets/hybrid_rag_retrieval_funnel.jpg" alt="Geometric coral-amber laser grid and flowing electric cyan harmonic wave converging through a crystalline prism to spotlight three glowing gems" style="width:100%; height:200px; object-fit:cover; object-position:center; display:block;" />
     <div style="display:grid; grid-template-columns:1fr 1fr 1fr; background:#0f172a; color:#f8fafc; padding:6px 11px; font-size:7.6pt; border-top:1px solid #334155;">
       <div><strong style="color:#fb923c;">LEFT &bull; BM25 LEXICAL GRID:</strong> Nails exact SKUs, error codes, function names &amp; rare acronyms.</div>
       <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#22d3ee;">RIGHT &bull; SEMANTIC WAVE FIELD:</strong> Captures fuzzy intent, paraphrases &amp; conceptual themes.</div>

@@ -13,7 +13,7 @@
     <div class="brand-pill">AI Agent Engineering Series &bull; v1.1 Edition</div>
     <h1>Mastering <span>Spec-Driven Dev &amp; Context Engineering</span></h1>
     <p class="cover-sub">
-      The complete visual handbook to ending agent thrash&mdash;architecting lean cross-vendor context files, progressive disclosure layers, executable <code>Spec &rarr; Plan &rarr; Tasks</code> workflows, and rock-solid session hygiene.
+      The complete visual handbook to ending agent thrash: architecting lean cross-vendor context files, progressive disclosure layers, executable <code>Spec &rarr; Plan &rarr; Tasks</code> workflows, and rock-solid session hygiene.
     </p>
     <div class="cover-badges">
       <span class="cover-badge">One Canon (<code>AGENTS.md</code>)</span>
@@ -75,7 +75,7 @@
 
   <h3>Why Longer Prompts Lose (And Durable Files Compound)</h3>
   <p style="font-size:9pt;">
-    A chat prompt is ephemeral: it lives in one window, for one agent session, invisible to teammates, and evaporates on compaction. Durable repository files&mdash;<strong>Context Files</strong> (the employee handbook) and <strong>Specs</strong> (the work order)&mdash;compound across every future session, subagent, and engineer on your team.
+    A chat prompt is ephemeral: it lives in one window, for one agent session, invisible to teammates, and evaporates on compaction. Durable repository files (<strong>Context Files</strong> as the employee handbook, and <strong>Specs</strong> as the work order) compound across every future session, subagent, and engineer on your team.
   </p>
 
   <h3>Architecture: &ldquo;One Canon, Thin Adapters&rdquo; + Executable Work Orders</h3>
@@ -153,7 +153,7 @@
 
   <h2 class="page-title">5-Minute Repo Audit &amp; Cross-Vendor Context Matrix</h2>
   <p class="page-lead" style="margin-bottom:9px;">
-    Every major AI coding tool reads persistent Markdown context from your repository&mdash;yet each uses different filenames, glob frontmatter, and load mechanics. Run this 5-minute audit before writing a single new rule.
+    Every major AI coding tool reads persistent Markdown context from your repository, yet each uses different filenames, glob frontmatter, and load mechanics. Run this 5-minute audit before writing a single new rule.
   </p>
 
   <h3 style="margin:6px 0 4px 0;">Prerequisites &amp; The 5-Minute Readiness Audit</h3>
@@ -164,7 +164,7 @@
     </div>
     <div class="card" style="padding:8px 10px;">
       <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">2</span> Line &amp; Fossil Audit</div>
-      <p style="font-size:7.9pt; margin:0;">Run <code>wc -l AGENTS.md CLAUDE.md</code>. Any root file over <code>300</code> lines&mdash;or citing renamed scripts&mdash;actively degrades accuracy.</p>
+      <p style="font-size:7.9pt; margin:0;">Run <code>wc -l AGENTS.md CLAUDE.md</code>. Any root file over <code>300</code> lines (or citing renamed scripts) actively degrades accuracy.</p>
     </div>
     <div class="card" style="padding:8px 10px;">
       <div class="card-title" style="font-size:9.1pt;"><span class="num-badge teal">3</span> Behavioral Probe</div>
@@ -217,7 +217,7 @@
   </table>
 
   <div class="callout emerald" style="margin:4px 0 0 0; padding:8px 11px; font-size:8.45pt;">
-    <div class="callout-title">Crucial Honesty Rule: Prose Concatenates&mdash;Permissions Enforce!</div>
+    <div class="callout-title">Crucial Honesty Rule: Prose Concatenates, Permissions Enforce!</div>
     Across tools, Markdown instruction files accumulate in context rather than deterministically overriding one another. If two files say <em>&ldquo;use 2 spaces&rdquo;</em> and <em>&ldquo;use tabs,&rdquo;</em> the model flips a coin. De-duplicate prose to a single home, and enforce hard bans (like blocking <code>rm -rf</code> or <code>git push</code>) via <code>settings.json</code> permissions, OS sandboxes, or hooks.
   </div>
 
@@ -429,13 +429,13 @@
   </div>
 
   <h2 class="page-title">Anatomy of a High-Signal <code>AGENTS.md</code> &amp; JIT Triggers</h2>
-  <p class="page-lead">
-    Frontier coding models do not need flattery or restatements of standard ESLint rules&mdash;they can read your linter config directly. What they cannot guess are your repo's architectural boundaries, command quirks, and where hidden bodies are buried.
+  <p class="page-lead" style="margin-bottom:8px;">
+    Frontier coding models do not need flattery or restatements of standard ESLint rules; they can read your linter config directly. What they cannot guess are your repo's architectural boundaries, command quirks, and where hidden bodies are buried.
   </p>
 
-  <h3>The 6-Part High-Signal Context Blueprint (Color-Coded Anatomy)</h3>
-  <div class="card" style="margin-bottom:10px; background:#ffffff; border:1.5px solid #cbd5e1;">
-    <div style="font-size:8.45pt; line-height:1.78;">
+  <h3 style="margin:6px 0 4px 0;">The 6-Part High-Signal Context Blueprint (Color-Coded Anatomy)</h3>
+  <div class="card" style="margin-bottom:7px; padding:8px 11px; background:#ffffff; border:1.5px solid #cbd5e1;">
+    <div style="font-size:8.35pt; line-height:1.7;">
       <span class="p-tag p-style">[1. AUDIT HEADER &amp; MAP] &lt;!-- Verified: 2026-11 &bull; Owner: @platform --&gt; TS monorepo: apps/web, apps/api, packages/core (pure domain, zero I/O).</span><br/>
       <span class="p-tag p-subj">[2. EXACT COMMANDS + TIMING] Build: pnpm build (root only) &bull; Check: pnpm check &bull; Unit: pnpm test (~40s; do not abort early).</span><br/>
       <span class="p-tag p-act">[3. RANKED NON-NEGOTIABLES] 1) DB queries ONLY in packages/core/src/repos/*. 2) Routes MUST call requireRole(). 3) Money = Decimal, never number.</span><br/>
@@ -445,48 +445,48 @@
     </div>
   </div>
 
-  <h3>Scoping Rules: From Global User Defaults Down to Subtrees</h3>
-  <table class="clean-table" style="font-size:8.25pt;">
+  <h3 style="margin:6px 0 4px 0;">Scoping Rules: From Global User Defaults Down to Subtrees</h3>
+  <table class="clean-table" style="font-size:8.15pt; margin-bottom:7px;">
     <thead>
       <tr>
-        <th style="width:22%;">Scope Tier</th>
-        <th style="width:30%;">Example Paths</th>
-        <th style="width:48%;">What Belongs Here (And What Never Does)</th>
+        <th style="width:22%; padding:5px 8px;">Scope Tier</th>
+        <th style="width:30%; padding:5px 8px;">Example Paths</th>
+        <th style="width:48%; padding:5px 8px;">What Belongs Here (And What Never Does)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Global User Scope</strong></td>
-        <td><code>~/.claude/CLAUDE.md</code><br/><code>~/.gemini/GEMINI.md</code></td>
-        <td>Your personal communication style, OS shell preferences, and cross-project git habits. <strong>Never</strong> put repo-specific rules here where teammates lack them.</td>
+        <td style="padding:4.5px 8px;"><strong>Global User Scope</strong></td>
+        <td style="padding:4.5px 8px;"><code>~/.claude/CLAUDE.md</code><br/><code>~/.gemini/GEMINI.md</code></td>
+        <td style="padding:4.5px 8px;">Your personal communication style, OS shell preferences, and cross-project git habits. <strong>Never</strong> put repo-specific rules here where teammates lack them.</td>
       </tr>
       <tr>
-        <td><strong>Project Root Canon</strong></td>
-        <td><code>./AGENTS.md</code> + thin <code>./CLAUDE.md</code></td>
-        <td>Repo-wide build/test commands, architectural boundaries, security invariants, and the Layer-2 trigger index. Checked into Git.</td>
+        <td style="padding:4.5px 8px;"><strong>Project Root Canon</strong></td>
+        <td style="padding:4.5px 8px;"><code>./AGENTS.md</code> + thin <code>./CLAUDE.md</code></td>
+        <td style="padding:4.5px 8px;">Repo-wide build/test commands, architectural boundaries, security invariants, and the Layer-2 trigger index. Checked into Git.</td>
       </tr>
       <tr>
-        <td><strong>Personal Local</strong></td>
-        <td><code>./CLAUDE.local.md</code></td>
-        <td>Your local sandbox URLs, test user credentials pointers, or WIP experiments for this repo. Always add to <code>.gitignore</code>.</td>
+        <td style="padding:4.5px 8px;"><strong>Personal Local</strong></td>
+        <td style="padding:4.5px 8px;"><code>./CLAUDE.local.md</code></td>
+        <td style="padding:4.5px 8px;">Your local sandbox URLs, test user credentials pointers, or WIP experiments for this repo. Always add to <code>.gitignore</code>.</td>
       </tr>
       <tr>
-        <td><strong>Subtree / Glob</strong></td>
-        <td><code>apps/web/AGENTS.md</code><br/><code>.cursor/rules/*.mdc</code> (<code>globs:</code>)</td>
-        <td><em>&ldquo;Extra law for this neighborhood only&rdquo;</em> (e.g., TanStack Query + colocated <code>.test.tsx</code> inside <code>apps/web</code>). Never re-state root policy.</td>
+        <td style="padding:4.5px 8px;"><strong>Subtree / Glob</strong></td>
+        <td style="padding:4.5px 8px;"><code>apps/web/AGENTS.md</code><br/><code>.cursor/rules/*.mdc</code> (<code>globs:</code>)</td>
+        <td style="padding:4.5px 8px;"><em>&ldquo;Extra law for this neighborhood only&rdquo;</em> (e.g., TanStack Query + colocated <code>.test.tsx</code> inside <code>apps/web</code>). Never re-state root policy.</td>
       </tr>
     </tbody>
   </table>
 
-  <h3>Making Just-in-Time Pointers &amp; Skills Fire Reliably</h3>
+  <h3 style="margin:6px 0 4px 0;">Making Just-in-Time Pointers &amp; Skills Fire Reliably</h3>
   <div class="grid-2">
-    <div class="card">
+    <div class="card" style="padding:8px 10px;">
       <div class="card-title"><span class="num-badge amber">A</span> Write Triggers, Not Bibliographies</div>
-      <p style="font-size:8.3pt; margin:0;">Agents skip passive lists like <em>&ldquo;See docs/agent/ for helpful guides.&rdquo;</em> Write explicit <strong>IF &rarr; THEN</strong> conditions: <code>If your task touches billing or webhooks &rarr; read docs/agent/stripe-webhooks.md before planning.</code></p>
+      <p style="font-size:8.1pt; margin:0;">Agents skip passive lists like <em>&ldquo;See docs/agent/ for helpful guides.&rdquo;</em> Write explicit <strong>IF &rarr; THEN</strong> conditions: <code>If your task touches billing or webhooks &rarr; read docs/agent/stripe-webhooks.md before planning.</code></p>
     </div>
-    <div class="card">
+    <div class="card" style="padding:8px 10px;">
       <div class="card-title"><span class="num-badge purple">B</span> Graduate Workflows to <code>SKILL.md</code></div>
-      <p style="font-size:8.3pt; margin:0;">Now an LF AAIF open standard (<code>agentskills.io</code>) across Antigravity, Claude, Cursor, Codex &amp; Copilot: unlike inline <code>@file</code> imports, only YAML <code>description</code> loads at boot&mdash;full SOPs load strictly on match!</p>
+      <p style="font-size:8.1pt; margin:0;">Now an LF AAIF open standard (<code>agentskills.io</code>) across Antigravity, Claude, Cursor, Codex &amp; Copilot: unlike inline <code>@file</code> imports, only YAML <code>description</code> loads at boot; full SOPs load strictly on match!</p>
     </div>
   </div>
 
@@ -584,23 +584,23 @@
     <tbody>
       <tr>
         <td><em>&ldquo;Export should be fast &amp; scale well&rdquo;</em></td>
-        <td><strong>AC-1:</strong> GIVEN <code>10,000</code> seeded rows WHEN <code>GET /export</code> runs THEN completes in <code>&lt;5s</code> with RSS delta <code>&lt;150MB</code> &mdash; <code>Verified by: pnpm test -- export.perf</code></td>
+        <td><strong>AC-1:</strong> GIVEN <code>10,000</code> seeded rows WHEN <code>GET /export</code> runs THEN completes in <code>&lt;5s</code> with RSS delta <code>&lt;150MB</code> &bull; <code>Verified by: pnpm test -- export.perf</code></td>
       </tr>
       <tr>
         <td><em>&ldquo;Only team admins can export&rdquo;</em></td>
-        <td><strong>AC-2:</strong> GIVEN role <code>member</code> WHEN <code>GET /export</code> THEN HTTP <code>403</code>; GIVEN <code>admin</code> THEN <code>200</code> + DOM button visible only to admin &mdash; <code>Verified by: export.auth.test.ts</code></td>
+        <td><strong>AC-2:</strong> GIVEN role <code>member</code> WHEN <code>GET /export</code> THEN HTTP <code>403</code>; GIVEN <code>admin</code> THEN <code>200</code> + DOM button visible only to admin &bull; <code>Verified by: export.auth.test.ts</code></td>
       </tr>
       <tr>
         <td><em>&ldquo;Format the CSV cleanly&rdquo;</em></td>
-        <td><strong>AC-3:</strong> UTF-8, RFC-4180 escaped, header <code>Date,Merchant,Amount,Category,Owner</code>, ISO-8601 dates, 2-decimal <code>Decimal</code> &mdash; <code>Verified by: export.format.test.ts</code></td>
+        <td><strong>AC-3:</strong> UTF-8, RFC-4180 escaped, header <code>Date,Merchant,Amount,Category,Owner</code>, ISO-8601 dates, 2-decimal <code>Decimal</code> &bull; <code>Verified by: export.format.test.ts</code></td>
       </tr>
       <tr>
         <td><em>&ldquo;Handle errors &amp; edge cases&rdquo;</em></td>
-        <td><strong>AC-4:</strong> Zero-row month returns <code>200</code> header-only CSV; malformed <code>month=05/2026</code> returns <code>400 {&quot;error&quot;:&quot;invalid_month&quot;}</code> &mdash; <code>Verified by: export.edge.test.ts</code></td>
+        <td><strong>AC-4:</strong> Zero-row month returns <code>200</code> header-only CSV; malformed <code>month=05/2026</code> returns <code>400 {&quot;error&quot;:&quot;invalid_month&quot;}</code> &bull; <code>Verified by: export.edge.test.ts</code></td>
       </tr>
       <tr>
         <td><em>&ldquo;Don't break existing features&rdquo;</em></td>
-        <td><strong>AC-5:</strong> <code>pnpm check &amp;&amp; pnpm test</code> both exit <code>0</code> with zero previously passing tests deleted or skipped &mdash; <code>Verified by: paste command output tail</code></td>
+        <td><strong>AC-5:</strong> <code>pnpm check &amp;&amp; pnpm test</code> both exit <code>0</code> with zero previously passing tests deleted or skipped &bull; <code>Verified by: paste command output tail</code></td>
       </tr>
     </tbody>
   </table>
@@ -707,7 +707,7 @@
 
   <h2 class="page-title">Team Conventions, Monorepo Scopes &amp; Git Hygiene</h2>
   <p class="page-lead">
-    Context files are executable code&mdash;they run on a probabilistic LLM interpreter on every developer's laptop. Treating them with real software engineering discipline prevents three teammates' agents from pulling your codebase in three incompatible directions.
+    Context files are executable code: they run on a probabilistic LLM interpreter on every developer's laptop. Treating them with real software engineering discipline prevents three teammates' agents from pulling your codebase in three incompatible directions.
   </p>
 
   <h3>1. Git Hygiene: What to Commit vs. What to Gitignore</h3>
@@ -901,7 +901,7 @@ If loaded instructions conflict: (1) direct human prompt in this session wins;
 
   <h2 class="page-title">Troubleshooting Clinic &amp; Pre-Flight Checklist</h2>
   <p class="page-lead">
-    Keep this final page beside your editor. Almost every case of &ldquo;the model got dumber today&rdquo; traces back to one of seven structural context or specification bugs&mdash;each with a 10-second fix.
+    Keep this final page beside your editor. Almost every case of &ldquo;the model got dumber today&rdquo; traces back to one of seven structural context or specification bugs, each with a 10-second fix.
   </p>
 
   <h3>Top 7 Context &amp; Spec Failure Modes (And 10-Second Structural Fixes)</h3>

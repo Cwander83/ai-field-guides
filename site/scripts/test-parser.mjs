@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { parse as parseHtml } from 'node-html-parser';
 import ts from 'typescript';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -27,6 +28,18 @@ async function main() {
   fs.mkdirSync(cacheDir, { recursive: true });
 
   try {
+    // Guard standalone TypeScript transpilation safety (prepare-assets.mjs / test-parser.mjs)
+    for (const tsRel of ['src/lib/goals.ts', 'src/lib/parseGuide.ts']) {
+      const tsSource = fs.readFileSync(path.join(SITE_DIR, tsRel), 'utf8');
+      const nonTypeLocalImport = tsSource.match(
+        /^\s*import\s+(?!type\b)[^;]+from\s+['"](\.[^'"]+)['"]/m,
+      );
+      assert.ok(
+        !nonTypeLocalImport,
+        `${tsRel} must only use \`import type\` for local modules so standalone transpilation stays self-contained`,
+      );
+    }
+
     const goalsOut = path.join(cacheDir, 'goals.mjs');
     const parseOut = path.join(cacheDir, 'parseGuide.mjs');
 
@@ -133,13 +146,25 @@ async function main() {
       assert.ok(parsed.badges.length > 0, `No cover badges parsed in ${guide.id}`);
       assert.equal(parsed.pillars.length, 3, `Expected 3 pillars in ${guide.id}`);
 
-      // Scoped CSS hygiene
+      // Scoped CSS hygiene & security
       assert.ok(!/@page\b/i.test(parsed.scopedCss), `Leftover @page in ${guide.id}`);
       assert.ok(!/8\.5in|11in/i.test(parsed.scopedCss), `Leftover print inch size in ${guide.id}`);
       assert.ok(!/\d\s*pt\b/i.test(parsed.scopedCss), `Leftover pt font-size in scopedCss for ${guide.id}`);
       assert.ok(
         !/border-left\s*:\s*[2-9]/i.test(parsed.scopedCss),
         `Leftover >1px border-left in scopedCss for ${guide.id}`,
+      );
+      assert.ok(
+        !/expression\s*\(|javascript\s*:|@import\b/i.test(parsed.scopedCss),
+        `Unsafe CSS construct in scopedCss for ${guide.id}`,
+      );
+      assert.ok(
+        !/backdrop-filter|-webkit-background-clip\s*:\s*text/i.test(parsed.scopedCss),
+        `Forbidden DESIGN.md §5 style in scopedCss for ${guide.id}`,
+      );
+      assert.ok(
+        !/\.(?:num-badge|callout-pin|toc-pg|check-box)\b/i.test(parsed.scopedCss),
+        `Unexcluded .num-badge/.callout-pin/.toc-pg/.check-box selector in scopedCss for ${guide.id}`,
       );
 
       for (const ch of parsed.chapters) {
@@ -163,6 +188,57 @@ async function main() {
             ch.bodyHtml.replace(/<div class="ui-tour-wrap">[\s\S]*?<\/div>\s*<\/div>/g, ''),
           ) || true,
         );
+
+        // DOM-level HTML injection & link-safety verification
+        const chDoc = parseHtml(ch.bodyHtml);
+        assert.equal(
+          chDoc.querySelectorAll('script, iframe, object, embed').length,
+          0,
+          `Forbidden embedded active element in ${guide.id} chapter ${ch.number}`,
+        );
+        for (const el of chDoc.querySelectorAll('*')) {
+          for (const attr of Object.keys(el.attributes)) {
+            assert.ok(
+              !/^on[a-z]+$/i.test(attr),
+              `Forbidden inline event attribute ${attr} in ${guide.id} chapter ${ch.number}`,
+            );
+          }
+        }
+        for (const el of chDoc.querySelectorAll('[href], [src]')) {
+          const uri = (el.getAttribute('href') ?? el.getAttribute('src') ?? '').trim();
+          assert.ok(
+            !/^(?:javascript|vbscript):/i.test(uri),
+            `Unsafe script URI (${uri}) in ${guide.id} chapter ${ch.number}`,
+          );
+        }
+        for (const el of chDoc.querySelectorAll('[target="_blank"]')) {
+          const relTokens = (el.getAttribute('rel') ?? '')
+            .toLowerCase()
+            .split(/\s+/)
+            .filter(Boolean);
+          assert.ok(
+            relTokens.includes('noopener'),
+            `target="_blank" missing rel="noopener" in ${guide.id} chapter ${ch.number}`,
+          );
+          assert.ok(
+            relTokens.includes('noreferrer'),
+            `target="_blank" missing rel="noreferrer" in ${guide.id} chapter ${ch.number}`,
+          );
+        }
+
+        assert.ok(
+          !/[\u{1F300}-\u{1FAFF}]/u.test(ch.bodyHtml) &&
+            !/[\u{1F300}-\u{1FAFF}]/u.test(ch.title) &&
+            !/[\u{1F300}-\u{1FAFF}]/u.test(ch.leadHtml),
+          `Emoji in ${guide.id} chapter ${ch.number}`,
+        );
+        for (const td of chDoc.querySelectorAll('.table-scroll-wrap tbody td')) {
+          const dataLabel = td.getAttribute('data-label')?.trim() ?? '';
+          assert.ok(
+            dataLabel.length > 0,
+            `Missing data-label on table cell in ${guide.id} chapter ${ch.number}`,
+          );
+        }
 
         const blockMatches = ch.bodyHtml.match(/class="copyable-block"/g);
         if (blockMatches) copyableBlocks += blockMatches.length;
