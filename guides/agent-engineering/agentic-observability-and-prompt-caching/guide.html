@@ -387,12 +387,14 @@
   <pre><code>// TypeScript: Register Vercel AI SDK Telemetry + Subagent MCP Trace Propagation
 import { registerTelemetry } from "ai";
 import { context, propagation } from "@opentelemetry/api";
+import { NodeSDK } from "@opentelemetry/sdk-node";
 import { LangfuseSpanProcessor } from "@langfuse/otel";
 import { LangfuseVercelAiSdkIntegration } from "@langfuse/vercel-ai-sdk";
 
-// 1. Export standardized gen_ai.* spans to Langfuse or any OTLP backend
+// 1. Export standardized gen_ai.* spans to Langfuse via NodeSDK + AI SDK
 export function register() {
-  registerTelemetry({ integrations: [new LangfuseVercelAiSdkIntegration()] });
+  new NodeSDK({ spanProcessors: [new LangfuseSpanProcessor()] }).start();
+  registerTelemetry(new LangfuseVercelAiSdkIntegration());
 }
 
 // 2. Inject W3C traceparent into MCP _meta before handing off to a subagent
@@ -626,7 +628,7 @@ const cache = await ai.caches.create({
       <tr>
         <td><strong>1. Next.js AI SDK Tracing</strong><br/><span style="font-size:7.5pt; color:#64748b;">Stream spans + evals</span></td>
         <td>Vercel AI SDK + Langfuse OTel</td>
-        <td><code>registerTelemetry({ integrations: [new LangfuseVercelAiSdkIntegration()] })</code></td>
+        <td><code>NodeSDK</code> + <code>LangfuseSpanProcessor</code> + <code>registerTelemetry(new LangfuseVercelAiSdkIntegration())</code></td>
         <td>Captures TTFT, finish reasons, and nested tool spans out of the box.</td>
       </tr>
       <tr>

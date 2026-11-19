@@ -614,7 +614,7 @@
       <tr>
         <td><strong>1. Disposable Data Analyst</strong><br/><span style="font-size:7.6pt; color:#94a3b8;">Execute agent Python scripts &amp; extract charts</span></td>
         <td>E2B Cloud or Firecracker microVM</td>
-        <td><code>const box = await Sandbox.create();</code><br/><code>const out = await box.runCode(code);</code><br/><code>await out.results[0].png()</code></td>
+        <td><code>const box = await Sandbox.create();</code><br/><code>const out = await box.runCode(code);</code><br/><code>Buffer.from(out.results[0].png, "base64")</code></td>
         <td>Zero internet access; 30s timeout; automatic session destroy after chart extraction.</td>
       </tr>
       <tr>
@@ -646,15 +646,14 @@
 
   <h3>Integration Snippet: TypeScript Sandbox Execution Wrapper</h3>
   <div class="card-dark" style="font-family:'SF Mono',Menlo,monospace; font-size:7.3pt; padding:8px 12px; margin-top:4px;">
-    <div style="color:#67e8f9; font-weight:700; margin-bottom:3px;">// Production Safe Execution Pattern with Timeout &amp; Diff Gate</div>
-    <div><span style="color:#38bdf8;">export async function</span> <span style="color:#34d399;">executeInSandbox</span>(sbx: <span style="color:#e0f2fe;">SandboxSession</span>, cmd: <span style="color:#e0f2fe;">string</span>) {</div>
-    <div>&nbsp;&nbsp;<span style="color:#38bdf8;">const</span> proc = <span style="color:#38bdf8;">await</span> sbx.process.start({ cmd, timeout: <span style="color:#f59e0b;">45_000</span>, pty: <span style="color:#38bdf8;">true</span> });</div>
-    <div>&nbsp;&nbsp;<span style="color:#38bdf8;">const</span> output = <span style="color:#38bdf8;">await</span> proc.wait();</div>
+    <div style="color:#67e8f9; font-weight:700; margin-bottom:3px;">// Production Safe Execution Pattern with Timeout &amp; Git Diff Gate (E2B SDK)</div>
+    <div><span style="color:#38bdf8;">export async function</span> <span style="color:#34d399;">executeInSandbox</span>(sbx: <span style="color:#e0f2fe;">Sandbox</span>, cmd: <span style="color:#e0f2fe;">string</span>) {</div>
+    <div>&nbsp;&nbsp;<span style="color:#38bdf8;">const</span> output = <span style="color:#38bdf8;">await</span> sbx.commands.run(cmd, { timeoutMs: <span style="color:#f59e0b;">45_000</span> });</div>
     <div>&nbsp;&nbsp;<span style="color:#38bdf8;">if</span> (output.exitCode !== <span style="color:#f59e0b;">0</span>) {</div>
     <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#38bdf8;">throw new</span> <span style="color:#e0f2fe;">SandboxExecutionError</span>(output.stderr || output.stdout, output.exitCode);</div>
     <div>&nbsp;&nbsp;}</div>
-    <div>&nbsp;&nbsp;<span style="color:#38bdf8;">const</span> diff = <span style="color:#38bdf8;">await</span> sbx.filesystem.getDiff(<span style="color:#34d399;">"/workspace"</span>);</div>
-    <div>&nbsp;&nbsp;<span style="color:#38bdf8;">return</span> { stdout: output.stdout, diff };</div>
+    <div>&nbsp;&nbsp;<span style="color:#38bdf8;">const</span> diff = <span style="color:#38bdf8;">await</span> sbx.commands.run(<span style="color:#34d399;">"git -C /workspace diff --patch"</span>);</div>
+    <div>&nbsp;&nbsp;<span style="color:#38bdf8;">return</span> { stdout: output.stdout, diff: diff.stdout };</div>
     <div>}</div>
   </div>
 
@@ -680,7 +679,7 @@
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> Managed Cloud vs. Self-Hosted KVM</div>
       <p style="font-size:8.3pt; margin:0 0 4px 0;">
-        <strong>Managed Sandboxes (E2B, Vercel Sandboxes, Modal):</strong> Zero cluster maintenance, built-in snapshot APIs, instant global scaling. Best for product engineering teams shipping agent applications quickly.
+        <strong>Managed Sandboxes (E2B, Vercel Sandbox, Modal):</strong> Zero cluster maintenance, built-in snapshot/fork APIs, L7 credential brokering, and global scaling. Best for product engineering teams shipping agent applications quickly.
       </p>
       <p style="font-size:8.3pt; margin:0;">
         <strong>Self-Hosted Firecracker (AWS bare-metal / Hetzner):</strong> Requires Linux hosts with nested KVM support (e.g. AWS <code>c6i.metal</code>). Delivers lowest per-hour unit costs for high-volume benchmark runs.

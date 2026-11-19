@@ -603,10 +603,14 @@ _http = httpx.<span class="tok-fn">AsyncClient</span>(base_url=API_BASE_URL, tim
     <div>
       <h3>Resources, Prompts &amp; Lifespan State</h3>
       <pre class="code-block"><code>@<span class="tok-fn">asynccontextmanager</span>
-<span class="tok-kw">async def</span> <span class="tok-fn">app_lifespan</span>():
+<span class="tok-kw">async def</span> <span class="tok-fn">app_lifespan</span>(server: FastMCP):
     pool = <span class="tok-kw">await</span> <span class="tok-fn">create_db_pool</span>()
-    <span class="tok-kw">yield</span> {<span class="tok-str">"db"</span>: pool}
-    <span class="tok-kw">await</span> pool.<span class="tok-fn">close</span>()
+    <span class="tok-kw">try</span>:
+        <span class="tok-kw">yield</span> {<span class="tok-str">"db"</span>: pool}
+    <span class="tok-kw">finally</span>:
+        <span class="tok-kw">await</span> pool.<span class="tok-fn">close</span>()
+
+<span class="tok-cmt"># Wire via FastMCP(..., lifespan=app_lifespan)</span>
 
 @mcp.<span class="tok-fn">resource</span>(<span class="tok-str">"config://settings/{key}"</span>)
 <span class="tok-kw">async def</span> <span class="tok-fn">get_setting</span>(key: str) -&gt; str:
@@ -624,8 +628,8 @@ _http = httpx.<span class="tok-fn">AsyncClient</span>(base_url=API_BASE_URL, tim
           <li><strong>Never block the event loop:</strong> Always use <code>httpx.AsyncClient</code> inside <code>async def</code> tools—never call synchronous <code>requests.get()</code>.</li>
           <li><strong>Use Pydantic v2 idioms:</strong> Use <code>model_config = ConfigDict(...)</code>, <code>@field_validator</code> with <code>@classmethod</code>, and <code>model_dump()</code> (never deprecated v1 <code>Config</code> or <code>.dict()</code>).</li>
           <li><strong>Markdown vs. JSON formatting:</strong> Format Markdown with human-readable UTC timestamps and <code>Name (ID)</code> headers; strip bulky avatar arrays.</li>
-          <li><strong>Context superpowers:</strong> Inject <code>ctx: Context</code> for <code>ctx.report_progress()</code>, <code>ctx.log_info()</code>, <code>ctx.elicit()</code>, and lifespan connections.</li>
-          <li><strong>Dual run modes:</strong> Default to <code>mcp.run()</code> for local <code>stdio</code>, or pass <code>mcp.run(transport="streamable_http", port=8000)</code> for HTTP.</li>
+          <li><strong>Context superpowers:</strong> Inject <code>ctx: Context</code> for <code>ctx.report_progress()</code>, <code>ctx.info()</code>, <code>ctx.elicit()</code>, and <code>ctx.request_context.lifespan_context</code>.</li>
+          <li><strong>Dual run modes:</strong> Default to <code>mcp.run()</code> for local <code>stdio</code>, or configure <code>FastMCP(..., port=8000)</code> and call <code>mcp.run(transport="streamable-http")</code>.</li>
         </ul>
       </div>
     </div>
@@ -682,8 +686,9 @@ _http = httpx.<span class="tok-fn">AsyncClient</span>(base_url=API_BASE_URL, tim
     <span class="tok-kw">if</span> (!claims) <span class="tok-kw">throw new</span> <span class="tok-fn">OAuthError</span>(OAuthErrorCode.InvalidToken, <span class="tok-str">"Bad token"</span>);
     <span class="tok-kw">return</span> {
       token, clientId: claims.clientId, scopes: claims.scopes,
-      expiresAt: claims.exp, <span class="tok-cmt">// Required: tokens without exp are rejected</span>
-      resource: <span class="tok-kw">new</span> URL(claims.aud) <span class="tok-cmt">// Must match expectedResource</span>
+      <span class="tok-cmt">// Reject missing exp; match expectedResource</span>
+      expiresAt: claims.exp,
+      resource: <span class="tok-kw">new</span> URL(claims.aud)
     };
   }
 };
