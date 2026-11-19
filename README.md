@@ -30,7 +30,7 @@ Publication-grade 12-page visual handbooks covering Google AI Ultra's creative s
     <td width="50%" valign="top">
       <a href="guides/google/google-flow/Google_Flow_Complete_How_To_Guide.pdf"><img src="guides/google/google-flow/cover.png" alt="Google Flow Cover" width="100%" /></a>
       <h3><a href="guides/google/google-flow/Google_Flow_Complete_How_To_Guide.pdf">Google Flow</a></h3>
-      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p><sub><strong>v1.1</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
       <p>Cinematic AI filmmaking studio powered by Veo 3.1, Ingredients consistency, Frames-to-Video transitions, and Scenebuilder.</p>
       <p><code>Filmmaking</code> &middot; <code>Veo 3.1</code> &middot; <code>Creative Studio</code></p>
       <p><a href="guides/google/google-flow/Google_Flow_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/google/google-flow">&#128736; Editable Source</a></p>
@@ -784,7 +784,7 @@ Publication-grade 12-page visual handbooks for cross-platform desktop AI, inbox 
 ### Quick-Reference Index
 | Guide | Ecosystem | Version | Updated | Pages | Direct Links |
 | :--- | :--- | :---: | :---: | :---: | :--- |
-| **Google Flow** — Cinematic AI filmmaking studio powered by Veo 3.1, Ingredients consistency, Frames-to-Video transitions, and Scenebuilder. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-flow/Google_Flow_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-flow) |
+| **Google Flow** — Cinematic AI filmmaking studio powered by Veo 3.1, Ingredients consistency, Frames-to-Video transitions, and Scenebuilder. | Google AI & Creative Studios | `v1.1` | `2026-11` | 12 | [PDF](guides/google/google-flow/Google_Flow_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-flow) |
 | **Google Antigravity & Jules** — Agent-first desktop IDE, parallel subagents, skills/MCP customization, and asynchronous GitHub PR automation with Jules. | Google AI & Creative Studios | `v1.0` | `2026-11` | 12 | [PDF](guides/google/google-antigravity-and-jules/Google_Antigravity_and_Jules_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-antigravity-and-jules) |
 | **Google Whisk** — Image-first visual remixing studio blending Subject, Scene & Style cards, hidden Gemini captions, Seed locking, and Whisk Animate. | Google AI & Creative Studios | `v1.1` | `2026-11` | 12 | [PDF](guides/google/google-whisk/Google_Whisk_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-whisk) |
 | **Google Vids** — Workspace AI video presentation studio turning Docs & Slides into narrated storyboards with AI voiceovers, avatars, teleprompter, and Veo B-roll. | Google AI & Creative Studios | `v1.1` | `2026-11` | 12 | [PDF](guides/google/google-vids/Google_Vids_Complete_How_To_Guide.pdf) &middot; [Source](guides/google/google-vids) |
