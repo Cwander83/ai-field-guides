@@ -31,12 +31,11 @@ const isEditorial = pathname === '/editorial' || pathname.startsWith('/editorial
 
     <nav class="site-nav" aria-label="Primary navigation">
       <a href="/#library" class="nav-link">
-        All <span class="tabular">{totalGuides}</span> Handbooks
+        <span class="nav-word-all">All </span><span class="tabular">{totalGuides}</span> Handbooks
       </a>
-      <a href="/#start-here" class="nav-link">Start Here</a>
       <a href="/topics" class="nav-link" aria-current={isTopics ? 'page' : undefined}>Topics</a>
       <a href="/editorial" class="nav-link" aria-current={isEditorial ? 'page' : undefined}>How It&rsquo;s Made</a>
-      <a href="/guides/claude/claude-meetings" class="nav-cta">Claude Meetings</a>
+      <a href="/#start-here" class="nav-cta">Start Here</a>
     </nav>
   </div>
 </header>
@@ -139,23 +138,41 @@ const isEditorial = pathname === '/editorial' || pathname.startsWith('/editorial
 
   @media (max-width: 780px) {
     .site-header-inner {
-      padding: 0.75rem 1rem;
-      gap: 0.5rem;
+      padding: 0.625rem 1rem 0.5rem;
+      gap: 0.375rem;
     }
 
     .site-nav {
       width: 100%;
-      justify-content: flex-start;
-      gap: 0.25rem 0.875rem;
-      padding-top: 0.375rem;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding-top: 0.25rem;
       border-top: 1px solid var(--border-hair);
     }
 
     .nav-link {
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
+      padding: 0.25rem 0.125rem;
     }
 
     .nav-cta {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.8125rem;
+      border-radius: 6px;
+    }
+  }
+
+  @media (max-width: 720px), (pointer: coarse) {
+    .brand-link,
+    .nav-link,
+    .nav-cta {
+      min-height: 44px;
+    }
+  }
+
+  @media (max-width: 374px) {
+    .nav-word-all {
       display: none;
     }
   }

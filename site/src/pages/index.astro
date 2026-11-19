@@ -5,7 +5,12 @@ import SiteFooter from '../components/SiteFooter.astro';
 import GuideCard from '../components/GuideCard.astro';
 import '../styles/home.css';
 import catalogData from '../generated/catalog-enriched.json';
-import { GOAL_CATEGORIES, START_HERE_PATHS, ECOSYSTEM_SHORT_NAMES } from '../lib/goals';
+import {
+  GOAL_CATEGORIES,
+  START_HERE_PATHS,
+  ECOSYSTEM_SHORT_NAMES,
+  getApproachabilityRank,
+} from '../lib/goals';
 import {
   buildOrganizationSchema,
   buildWebSiteSchema,
@@ -28,7 +33,15 @@ interface CatalogPayload {
 const catalog = catalogData as CatalogPayload;
 const { categories, guides, stats } = catalog;
 
-const guidesById = new Map<string, EnrichedGuide>(guides.map((g) => [g.id, g]));
+const sortedGuides = [...guides].sort(
+  (a, b) => getApproachabilityRank(a) - getApproachabilityRank(b),
+);
+const ecoCounts = new Map<string, number>();
+for (const g of sortedGuides) {
+  ecoCounts.set(g.ecosystem, (ecoCounts.get(g.ecosystem) ?? 0) + 1);
+}
+
+const guidesById = new Map<string, EnrichedGuide>(sortedGuides.map((g) => [g.id, g]));
 const featuredGuide = guidesById.get('claude/claude-meetings') ?? guides[0];
 
 const startHereItems = START_HERE_PATHS.map((entry) => ({
@@ -84,6 +97,10 @@ const homeJsonLd = {
             workflows. Read right in your browser on a phone, tablet, or laptop, or save any
             <span class="nowrap">12-page</span> magazine PDF in one click.
           </p>
+          <div class="hero-actions">
+            <a href="#start-here" class="btn-primary">Start Here</a>
+            <a href="#library" class="btn-secondary">Browse All Handbooks</a>
+          </div>
           <ul class="hero-facts meta-flow" aria-label="Library overview">
             <li class="tabular">{stats.totalGuides} Handbooks</li>
             <li class="tabular">{stats.totalPages} Illustrated Pages</li>
@@ -194,7 +211,7 @@ const homeJsonLd = {
         <div class="start-grid">
           {
             startHereItems.map((item) => (
-              <article class="start-card">
+              <article class="start-card pathway-card">
                 <div class="start-card-head">
                   <a href={item.guide.url} tabindex="-1" aria-hidden="true">
                     <img
@@ -218,13 +235,35 @@ const homeJsonLd = {
 
                 <p class="start-card-rationale">{item.rationale}</p>
 
-                <div class="start-card-footer">
-                  <span class="start-card-meta meta-flow">
-                    <span>{item.guide.ecosystemShort}</span>
-                    <span class="tabular">{item.guide.readingMinutes} min read</span>
-                  </span>
-                  <a href={item.guide.url} class="start-card-link">
-                    <span>Open guide</span>
+                <div class="start-card-meta meta-flow">
+                  <span>{item.guide.ecosystemShort}</span>
+                  <span class="tabular">{item.guide.pages} pages</span>
+                  <span class="tabular">PDF {item.guide.pdfSizeLabel}</span>
+                </div>
+
+                <div class="start-card-footer pathway-card-footer">
+                  <a href={item.guide.url} class="guide-read-link">
+                    <span>Read Online</span>
+                    <svg
+                      aria-hidden="true"
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </a>
+                  <a
+                    href={item.guide.pdfUrl}
+                    download={item.guide.pdfFilename}
+                    class="guide-pdf-btn"
+                  >
                     <svg
                       aria-hidden="true"
                       width="14"
@@ -236,9 +275,11 @@ const homeJsonLd = {
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     >
-                      <path d="M5 12h14" />
-                      <path d="m12 5 7 7-7 7" />
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
+                    <span>Download PDF</span>
                   </a>
                 </div>
               </article>
@@ -281,9 +322,11 @@ const homeJsonLd = {
               type="search"
               autocomplete="off"
               spellcheck="false"
-              placeholder="Search by what you want to do (e.g. meetings, notes, video)..."
+              aria-describedby="search-shortcut-hint"
+              placeholder="Search handbooks (meetings, slides, notes)..."
             />
-            <kbd id="search-kbd" class="search-kbd" aria-hidden="true">/</kbd>
+            <span id="search-shortcut-hint" class="sr-only">Press / to search.</span>
+            <span id="search-kbd" class="search-kbd" aria-hidden="true">Press <kbd>/</kbd> to search</span>
             <button id="search-clear" type="button" class="search-clear" aria-label="Clear search" hidden>
               <svg
                 aria-hidden="true"
@@ -302,56 +345,75 @@ const homeJsonLd = {
             </button>
           </div>
 
-          <div class="filter-group" role="group" aria-labelledby="goal-filter-label">
+          <div class="filter-group filter-group--goals" role="group" aria-labelledby="goal-filter-label">
             <span id="goal-filter-label" class="filter-label">By goal</span>
-            <div class="filter-pills">
-              <button
-                type="button"
-                class="filter-pill"
-                data-filter-goal="all"
-                aria-pressed="true"
-              >
-                All <span class="tabular">{stats.totalGuides}</span> Handbooks
-              </button>
-              {
-                GOAL_CATEGORIES.map((goal) => (
-                  <button
-                    type="button"
-                    class="filter-pill"
-                    data-filter-goal={goal.id}
-                    aria-pressed="false"
-                    title={goal.description}
-                  >
-                    {goal.label}
-                  </button>
-                ))
-              }
+            <div class="filter-pills-col">
+              <div class="filter-pills">
+                <button
+                  type="button"
+                  class="filter-pill"
+                  data-filter-goal="all"
+                  data-goal-desc="Showing handbooks for every goal — pick one above to narrow the shelf."
+                  aria-pressed="true"
+                >
+                  All goals
+                </button>
+                {
+                  GOAL_CATEGORIES.map((goal) => (
+                    <button
+                      type="button"
+                      class="filter-pill"
+                      data-filter-goal={goal.id}
+                      data-goal-desc={goal.description}
+                      aria-pressed="false"
+                    >
+                      {goal.label}
+                    </button>
+                  ))
+                }
+              </div>
+              <p id="goal-helper" class="goal-helper">
+                Showing handbooks for every goal — pick one above to narrow the shelf.
+              </p>
             </div>
           </div>
 
-          <div id="ecosystems" class="filter-group" role="group" aria-labelledby="topic-filter-label">
-            <span id="topic-filter-label" class="filter-label">By topic</span>
-            <div class="filter-pills">
-              <button
-                type="button"
-                class="filter-pill filter-pill--topic"
-                data-filter-eco="all"
-                aria-pressed="true"
-              >
-                All Topics
-              </button>
-              {
-                categories.map((cat) => (
-                  <button
-                    type="button"
-                    class="filter-pill filter-pill--topic"
-                    data-filter-eco={cat.id}
-                    aria-pressed="false"
-                  >
-                    {ECOSYSTEM_SHORT_NAMES[cat.id] || cat.shortTitle || cat.title}
-                  </button>
-                ))
-              }
+          <div id="ecosystems" class="filter-group filter-group--topic">
+            <label for="topic-select" class="filter-label">By topic</label>
+            <div class="topic-select-row">
+              <div class="select-wrap">
+                <select id="topic-select" class="topic-select">
+                  <option value="all" data-base-label={`All ${categories.length} topics`}>
+                    All {categories.length} topics ({stats.totalGuides})
+                  </option>
+                  {
+                    categories.map((cat) => {
+                      const shortName = ECOSYSTEM_SHORT_NAMES[cat.id] || cat.shortTitle || cat.title;
+                      const count = ecoCounts.get(cat.id) ?? 0;
+                      return (
+                        <option value={cat.id} data-base-label={shortName}>
+                          {shortName} ({count})
+                        </option>
+                      );
+                    })
+                  }
+                </select>
+                <svg
+                  class="select-chevron"
+                  aria-hidden="true"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+              <a href="/topics" class="topic-hub-link">All topic hubs</a>
             </div>
           </div>
         </search>
@@ -364,7 +426,13 @@ const homeJsonLd = {
         </div>
 
         <div id="bookshelf-grid" class="bookshelf-grid">
-          {guides.map((guide, idx) => <GuideCard guide={guide} eager={idx < 4} />)}
+          {sortedGuides.map((guide, idx) => <GuideCard guide={guide} eager={idx < 4} />)}
+        </div>
+
+        <div id="show-all-wrap" class="show-all-wrap" hidden>
+          <button id="show-all-guides" type="button" class="btn-secondary">
+            <span>Show all <span class="tabular">{stats.totalGuides}</span> handbooks</span>
+          </button>
         </div>
 
         <div id="empty-state" class="empty-state" hidden>
@@ -384,6 +452,7 @@ const homeJsonLd = {
             </svg>
           </div>
           <h3 class="empty-title">No handbooks match those filters</h3>
+          <p id="empty-state-detail" class="empty-detail" hidden></p>
           <p class="empty-desc">
             Try switching back to all topics or searching with a simpler word like meetings, notes,
             or video.
@@ -398,25 +467,33 @@ const homeJsonLd = {
 </BaseLayout>
 
 <script>
+  const INITIAL_CAP = 16;
+
   const searchInput = document.getElementById('guide-search') as HTMLInputElement | null;
   const searchClear = document.getElementById('search-clear') as HTMLButtonElement | null;
   const searchKbd = document.getElementById('search-kbd') as HTMLElement | null;
+  const goalHelper = document.getElementById('goal-helper') as HTMLParagraphElement | null;
+  const topicSelect = document.getElementById('topic-select') as HTMLSelectElement | null;
   const resultsCount = document.getElementById('results-count') as HTMLParagraphElement | null;
   const activeReset = document.getElementById('active-reset') as HTMLButtonElement | null;
   const emptyReset = document.getElementById('empty-reset') as HTMLButtonElement | null;
+  const showAllWrap = document.getElementById('show-all-wrap') as HTMLElement | null;
+  const showAllBtn = document.getElementById('show-all-guides') as HTMLButtonElement | null;
   const grid = document.getElementById('bookshelf-grid') as HTMLElement | null;
   const emptyState = document.getElementById('empty-state') as HTMLElement | null;
+  const emptyStateDetail = document.getElementById('empty-state-detail') as HTMLParagraphElement | null;
 
   const goalButtons = Array.from(
     document.querySelectorAll<HTMLButtonElement>('[data-filter-goal]'),
   );
-  const ecoButtons = Array.from(
-    document.querySelectorAll<HTMLButtonElement>('[data-filter-eco]'),
-  );
   const cards = Array.from(document.querySelectorAll<HTMLElement>('.guide-card'));
 
   const validGoals = new Set(goalButtons.map((btn) => btn.dataset.filterGoal || 'all'));
-  const validEcos = new Set(ecoButtons.map((btn) => btn.dataset.filterEco || 'all'));
+  const validEcos = new Set(
+    topicSelect ? Array.from(topicSelect.options).map((opt) => opt.value) : ['all'],
+  );
+
+  let showAllExpanded = false;
 
   const state = {
     goal: 'all',
@@ -433,6 +510,9 @@ const homeJsonLd = {
     if (goal && validGoals.has(goal)) state.goal = goal;
     if (eco && validEcos.has(eco)) state.eco = eco;
     if (q) state.q = q.trim();
+
+    if (searchInput) searchInput.value = state.q;
+    if (topicSelect) topicSelect.value = state.eco;
   }
 
   function syncUrl() {
@@ -452,7 +532,12 @@ const homeJsonLd = {
       .split(/\s+/)
       .filter(Boolean);
 
-    let visibleCount = 0;
+    const hasQuery = state.q.length > 0;
+    const isFiltered = state.goal !== 'all' || state.eco !== 'all' || hasQuery;
+
+    const ecoMatchCounts = new Map<string, number>();
+    let totalGoalSearchMatches = 0;
+    const matchingCards: HTMLElement[] = [];
 
     for (const card of cards) {
       const cardGoals = (card.dataset.goals || '').split(',').filter(Boolean);
@@ -464,27 +549,64 @@ const homeJsonLd = {
       const matchesSearch =
         tokens.length === 0 || tokens.every((token) => cardSearch.includes(token));
 
-      const isVisible = matchesGoal && matchesEco && matchesSearch;
-      card.hidden = !isVisible;
-      if (isVisible) visibleCount += 1;
+      if (matchesGoal && matchesSearch) {
+        totalGoalSearchMatches += 1;
+        ecoMatchCounts.set(cardEco, (ecoMatchCounts.get(cardEco) ?? 0) + 1);
+      }
+
+      if (matchesGoal && matchesEco && matchesSearch) {
+        matchingCards.push(card);
+      }
     }
 
+    const shouldCap = !isFiltered && !showAllExpanded && matchingCards.length > INITIAL_CAP;
+    const visibleCards = shouldCap ? matchingCards.slice(0, INITIAL_CAP) : matchingCards;
+    const visibleSet = new Set(visibleCards);
+
+    for (const card of cards) {
+      card.hidden = !visibleSet.has(card);
+    }
+
+    const visibleCount = visibleSet.size;
+
+    let activeGoalDesc = '';
     for (const btn of goalButtons) {
-      btn.setAttribute('aria-pressed', String((btn.dataset.filterGoal || 'all') === state.goal));
+      const btnGoal = btn.dataset.filterGoal || 'all';
+      const isActive = btnGoal === state.goal;
+      btn.setAttribute('aria-pressed', String(isActive));
+      if (isActive) {
+        activeGoalDesc = btn.dataset.goalDesc || '';
+      }
     }
-    for (const btn of ecoButtons) {
-      btn.setAttribute('aria-pressed', String((btn.dataset.filterEco || 'all') === state.eco));
+    if (goalHelper && activeGoalDesc) {
+      goalHelper.textContent = activeGoalDesc;
     }
 
-    if (searchInput && searchInput.value !== state.q) {
-      searchInput.value = state.q;
+    if (topicSelect) {
+      for (const option of Array.from(topicSelect.options)) {
+        const val = option.value;
+        const baseLabel = option.dataset.baseLabel || val;
+        if (val === 'all') {
+          option.textContent = `${baseLabel} (${totalGoalSearchMatches})`;
+          option.disabled = false;
+        } else {
+          const count = ecoMatchCounts.get(val) ?? 0;
+          option.textContent = `${baseLabel} (${count})`;
+          option.disabled = count === 0 && val !== state.eco;
+        }
+      }
+      if (topicSelect.value !== state.eco) {
+        topicSelect.value = state.eco;
+      }
     }
-    const hasQuery = state.q.length > 0;
+
     if (searchClear) searchClear.hidden = !hasQuery;
     if (searchKbd) searchKbd.hidden = hasQuery;
 
-    const isFiltered = state.goal !== 'all' || state.eco !== 'all' || hasQuery;
-    if (activeReset) activeReset.hidden = !isFiltered;
+    if (showAllWrap) showAllWrap.hidden = !shouldCap;
+    if (showAllBtn) showAllBtn.hidden = !shouldCap;
+
+    if (activeReset) activeReset.hidden = !isFiltered || visibleCount === 0;
 
     if (resultsCount) {
       const total = cards.length;
@@ -494,6 +616,33 @@ const homeJsonLd = {
     if (grid) grid.hidden = visibleCount === 0;
     if (emptyState) emptyState.hidden = visibleCount > 0;
 
+    if (emptyStateDetail) {
+      if (visibleCount === 0) {
+        const parts: string[] = [];
+        if (state.goal !== 'all') {
+          const activeGoalBtn = goalButtons.find((b) => b.dataset.filterGoal === state.goal);
+          const goalLabel = activeGoalBtn?.textContent?.trim() || state.goal;
+          parts.push(`goal "${goalLabel}"`);
+        }
+        if (state.eco !== 'all' && topicSelect) {
+          const activeOpt = Array.from(topicSelect.options).find((o) => o.value === state.eco);
+          const ecoLabel = activeOpt?.dataset.baseLabel || state.eco;
+          parts.push(`topic "${ecoLabel}"`);
+        }
+        if (hasQuery) {
+          parts.push(`search "${state.q}"`);
+        }
+        emptyStateDetail.textContent =
+          parts.length > 0
+            ? `Active filters (${parts.join(' + ')}) returned 0 handbooks.`
+            : '0 handbooks matched your selection.';
+        emptyStateDetail.hidden = false;
+      } else {
+        emptyStateDetail.textContent = '';
+        emptyStateDetail.hidden = true;
+      }
+    }
+
     if (updateUrl) syncUrl();
   }
 
@@ -502,6 +651,7 @@ const homeJsonLd = {
     state.eco = 'all';
     state.q = '';
     if (searchInput) searchInput.value = '';
+    if (topicSelect) topicSelect.value = 'all';
     applyFilters(true);
   }
 
@@ -512,12 +662,10 @@ const homeJsonLd = {
     });
   }
 
-  for (const btn of ecoButtons) {
-    btn.addEventListener('click', () => {
-      state.eco = btn.dataset.filterEco || 'all';
-      applyFilters(true);
-    });
-  }
+  topicSelect?.addEventListener('change', () => {
+    state.eco = topicSelect.value || 'all';
+    applyFilters(true);
+  });
 
   searchInput?.addEventListener('input', () => {
     state.q = searchInput.value.trim();
@@ -540,6 +688,14 @@ const homeJsonLd = {
       searchInput.focus();
     }
     applyFilters(true);
+  });
+
+  showAllBtn?.addEventListener('click', (event) => {
+    showAllExpanded = true;
+    applyFilters(false);
+    if (event.detail === 0) {
+      cards[INITIAL_CAP]?.querySelector<HTMLAnchorElement>('.guide-card-title a')?.focus();
+    }
   });
 
   activeReset?.addEventListener('click', resetAllFilters);

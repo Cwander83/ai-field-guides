@@ -38,6 +38,19 @@ import catalogData from '../generated/catalog-enriched.json';
 
       <p class="error-meta tabular">Error 404 — Page not found</p>
 
+      <form action="/" method="get" class="error-search-form" role="search" aria-label="Search handbooks">
+        <label for="error-search-input" class="sr-only">Search handbooks</label>
+        <input
+          id="error-search-input"
+          class="error-search-input"
+          type="search"
+          name="q"
+          placeholder="Search handbooks..."
+          required
+        />
+        <button type="submit" class="btn-primary">Search</button>
+      </form>
+
       <div class="error-actions">
         <a href="/" class="error-btn-primary">
           <span>Browse All Handbooks</span>
@@ -117,9 +130,62 @@ import catalogData from '../generated/catalog-enriched.json';
   }
 
   .error-meta {
-    margin: 0 0 1.75rem;
+    margin: 0 0 1.25rem;
     font-size: 0.875rem;
     color: var(--ink-muted);
+  }
+
+  .error-search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin: 0 0 1.25rem;
+  }
+
+  .error-search-input {
+    flex: 1 1 220px;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0.5625rem 0.875rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-hair);
+    background: var(--bg-page);
+    color: var(--ink-main);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .error-search-input::placeholder {
+    color: var(--ink-muted);
+  }
+
+  .error-search-input:focus {
+    background: var(--bg-surface);
+    border-color: var(--accent);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.625rem 1.125rem;
+    border-radius: 8px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
   }
 
   .error-actions {
@@ -135,6 +201,7 @@ import catalogData from '../generated/catalog-enriched.json';
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    min-height: 44px;
     padding: 0.6875rem 1.125rem;
     border-radius: 8px;
     font-size: 0.9375rem;
@@ -177,6 +244,7 @@ import catalogData from '../generated/catalog-enriched.json';
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .btn-primary,
     .error-btn-primary,
     .error-btn-secondary {
       transition: opacity 0.1s linear;

@@ -4,7 +4,11 @@ import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import GuideCard from '../../components/GuideCard.astro';
 import catalogData from '../../generated/catalog-enriched.json';
-import { ECOSYSTEM_SHORT_NAMES } from '../../lib/goals';
+import {
+  ECOSYSTEM_PLAIN_SUMMARIES,
+  ECOSYSTEM_SHORT_NAMES,
+  getApproachabilityRank,
+} from '../../lib/goals';
 import { buildOrganizationSchema, SITE_ORIGIN, WEBSITE_ID } from '../../lib/schema';
 import type { EcosystemCategory, EnrichedGuide } from '../../types/guide';
 import '../../styles/home.css';
@@ -14,7 +18,9 @@ export function getStaticPaths() {
   const guides = catalogData.guides as EnrichedGuide[];
 
   return categories.map((category) => {
-    const ecoGuides = guides.filter((g) => g.ecosystem === category.id);
+    const ecoGuides = guides
+      .filter((g) => g.ecosystem === category.id)
+      .sort((a, b) => getApproachabilityRank(a) - getApproachabilityRank(b));
     const otherCategories = categories.filter((c) => c.id !== category.id);
     return {
       params: { ecosystem: category.id },
@@ -39,13 +45,15 @@ interface Props {
 
 const { category, ecoGuides, otherCategories, totalGuides, totalEcosystems } = Astro.props;
 const shortName = ECOSYSTEM_SHORT_NAMES[category.id] || category.shortTitle || category.title;
+const displayTitle = category.id === 'open-harnesses' ? shortName : category.title;
+const plainSummary = ECOSYSTEM_PLAIN_SUMMARIES[category.id] || category.description;
 const ecoPages = ecoGuides.reduce((sum, g) => sum + g.pages, 0);
 const topicUrl = `${SITE_ORIGIN}/topics/${category.id}`;
 const ogImage = ecoGuides[0]?.ogImageUrl ?? '/og-default.png';
 
-const title = `${category.title} — ${ecoGuides.length} Visual 12-Page Handbooks | Twelve Pages`;
-const description = category.description
-  ? `${category.description} Explore ${ecoGuides.length} free visual 12-page handbooks (${ecoPages} illustrated pages).`
+const title = `${displayTitle} — ${ecoGuides.length} Visual 12-Page Handbooks | Twelve Pages`;
+const description = plainSummary
+  ? `${plainSummary} Explore ${ecoGuides.length} free visual 12-page handbooks (${ecoPages} illustrated pages).`
   : `Explore ${ecoGuides.length} illustrated 12-page handbooks in ${shortName} on Twelve Pages.`;
 
 const topicJsonLd = {
@@ -54,7 +62,7 @@ const topicJsonLd = {
     buildOrganizationSchema(),
     {
       '@type': 'CollectionPage',
-      name: category.title,
+      name: displayTitle,
       url: topicUrl,
       description,
       inLanguage: 'en-US',
@@ -121,8 +129,8 @@ const topicJsonLd = {
           <span>{shortName}</span>
         </nav>
 
-        <h1 id="topic-heading" class="topic-title">{category.title}</h1>
-        <p class="topic-lead">{category.description}</p>
+        <h1 id="topic-heading" class="topic-title">{displayTitle}</h1>
+        <p class="topic-lead">{plainSummary}</p>
 
         <div class="topic-meta-row meta-flow tabular">
           <span>{ecoGuides.length} {ecoGuides.length === 1 ? 'Handbook' : 'Handbooks'}</span>
@@ -259,6 +267,12 @@ const topicJsonLd = {
     background: var(--bg-subtle);
     border-color: var(--accent);
     color: var(--accent-hover);
+  }
+
+  @media (max-width: 720px), (pointer: coarse) {
+    .other-topic-pill {
+      min-height: 44px;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

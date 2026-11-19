@@ -3,7 +3,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import catalogData from '../../generated/catalog-enriched.json';
-import { ECOSYSTEM_SHORT_NAMES } from '../../lib/goals';
+import {
+  ECOSYSTEM_PLAIN_SUMMARIES,
+  ECOSYSTEM_SHORT_NAMES,
+  getApproachabilityRank,
+} from '../../lib/goals';
 import { buildOrganizationSchema, SITE_ORIGIN, WEBSITE_ID } from '../../lib/schema';
 import type { EcosystemCategory, EnrichedGuide } from '../../types/guide';
 import '../../styles/home.css';
@@ -20,6 +24,10 @@ for (const g of guides) {
   const list = guidesByEco.get(g.ecosystem) ?? [];
   list.push(g);
   guidesByEco.set(g.ecosystem, list);
+}
+for (const [eco, list] of guidesByEco.entries()) {
+  list.sort((a, b) => getApproachabilityRank(a) - getApproachabilityRank(b));
+  guidesByEco.set(eco, list);
 }
 
 const title = `All ${totalEcosystems} Handbook Topics — Twelve Pages`;
@@ -107,6 +115,7 @@ const topicsJsonLd = {
               const ecoGuides = guidesByEco.get(cat.id) ?? [];
               const ecoPages = ecoGuides.reduce((acc, g) => acc + g.pages, 0);
               const shortName = ECOSYSTEM_SHORT_NAMES[cat.id] || cat.shortTitle || cat.title;
+              const plainSummary = ECOSYSTEM_PLAIN_SUMMARIES[cat.id] || cat.description;
               return (
                 <article class="topic-hub-card">
                   <div class="topic-hub-head">
@@ -118,7 +127,7 @@ const topicsJsonLd = {
                     </span>
                   </div>
 
-                  <p class="topic-hub-desc">{cat.description}</p>
+                  <p class="topic-hub-desc">{plainSummary}</p>
 
                   {ecoGuides.length > 0 && (
                     <ul class="topic-hub-samples" aria-label={`Sample ${shortName} handbooks`}>
