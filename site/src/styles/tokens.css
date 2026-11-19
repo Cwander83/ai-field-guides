@@ -77,13 +77,12 @@ body {
 }
 
 body:has(#cookie-consent-bar:not([hidden])) {
-  --cookie-bar-clearance: 4.75rem;
-  padding-bottom: var(--cookie-bar-clearance);
+  padding-bottom: max(var(--cookie-bar-clearance), 4.75rem);
 }
 
 @media (max-width: 640px) {
   body:has(#cookie-consent-bar:not([hidden])) {
-    --cookie-bar-clearance: 6.5rem;
+    padding-bottom: max(var(--cookie-bar-clearance), 6.5rem);
   }
 }
 

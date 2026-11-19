@@ -40,8 +40,31 @@ export const ECOSYSTEM_SHORT_NAMES: Record<string, string> = {
   obsidian: 'Obsidian',
   'creative-media': 'Music, Video & Decks',
   'visibility-and-workflows': 'AI Visibility & Work',
-  'open-harnesses': 'Open Harnesses',
+  'open-harnesses': 'Terminal & Local AI',
   'desktop-and-os': 'Desktop & Personal Ops',
+};
+
+export const ECOSYSTEM_PLAIN_SUMMARIES: Record<string, string> = {
+  google:
+    'Create videos, visual remixes, and research notebooks with Gemini, Flow, Vids, and NotebookLM, alongside step-by-step developer guides for Firebase, Android, and agent apps.',
+  claude:
+    'Run livelier meetings, build interactive spreadsheets and prototypes, and automate daily desk work with Claude, plus clear guides for Claude Code, skills, and connected tools.',
+  openai:
+    'Organize ongoing research with ChatGPT Projects, Deep Research, and Canvas, or build voice-first assistants and coding workflows with OpenAI\u2019s Agents SDK and Codex.',
+  vercel:
+    'Build and ship modern AI web apps, background workflows, and multi-platform team bots using Next.js, the Vercel AI SDK, and durable cloud tools.',
+  'agent-engineering':
+    'Practical blueprints for designing reliable AI assistants, covering clear instructions, memory and search, safety checks, browser automation, and running local models.',
+  obsidian:
+    'Turn your personal Obsidian notes into a searchable, connected second brain with AI daily briefings, web and voice capture, visual canvases, and private syncing.',
+  'creative-media':
+    'Produce original soundtracks, natural voiceovers and dubbing, AI cinema, and polished presentation decks using tools like Suno, ElevenLabs, Runway, and Gamma.',
+  'visibility-and-workflows':
+    'Help people and AI search tools find your website cleanly, prepare pages for helpful web agents, and capture bot-free meeting notes that turn into action items.',
+  'open-harnesses':
+    'Run AI assistants directly in your terminal or privately on your own computer using vendor-free tools like OpenCode, Aider, Block Goose, Warp, and Ollama.',
+  'desktop-and-os':
+    'Tame overflowing email inboxes, protect calendar focus time, tidy cluttered folders, and connect everyday desktop apps with visual AI workflows on Mac or Windows.',
 };
 
 export const START_HERE_PATHS: Array<{
@@ -69,12 +92,14 @@ export const START_HERE_PATHS: Array<{
   },
 ];
 
-interface GuideGoalInput {
+export interface GuideGoalInput {
   id: string;
-  category: string;
+  category?: string;
+  ecosystem?: string;
   title: string;
   subtitle: string;
   tags: string[];
+  goals?: GoalId[];
 }
 
 const GOAL_ORDER: GoalId[] = [
@@ -83,6 +108,10 @@ const GOAL_ORDER: GoalId[] = [
   'notes-knowledge',
   'apps-coding',
 ];
+
+const START_HERE_INDEX = new Map<string, number>(
+  START_HERE_PATHS.map((entry, idx) => [entry.id, idx]),
+);
 
 function addGoal(set: Set<GoalId>, goal: GoalId): void {
   if (set.size < 2) {
@@ -95,7 +124,7 @@ function addGoal(set: Set<GoalId>, goal: GoalId): void {
  */
 export function classifyGoals(guide: GuideGoalInput): GoalId[] {
   const id = guide.id.toLowerCase();
-  const cat = guide.category.toLowerCase();
+  const cat = (guide.category ?? guide.ecosystem ?? '').toLowerCase();
   const text = `${guide.id} ${guide.title} ${guide.subtitle} ${guide.tags.join(' ')}`.toLowerCase();
 
   const matches = new Set<GoalId>();
@@ -187,4 +216,37 @@ export function classifyGoals(guide: GuideGoalInput): GoalId[] {
   }
 
   return GOAL_ORDER.filter((g) => matches.has(g)).slice(0, 2);
+}
+
+/**
+ * Deterministically ranks handbooks so Start Here pathways and everyday
+ * non-coding guides appear ahead of developer-focused apps-coding shelves.
+ */
+export function getApproachabilityRank(guide: GuideGoalInput): number {
+  const startIdx = START_HERE_INDEX.get(guide.id);
+  if (startIdx !== undefined) {
+    return startIdx;
+  }
+
+  const goals =
+    guide.goals && guide.goals.length > 0 ? guide.goals : classifyGoals(guide);
+  const hasCoding = goals.includes('apps-coding');
+  const hasEveryday =
+    goals.includes('meetings-work') ||
+    goals.includes('design-video') ||
+    goals.includes('notes-knowledge');
+
+  if (!hasCoding && hasEveryday) {
+    if (goals.includes('meetings-work')) return 10;
+    if (goals.includes('design-video')) return 20;
+    return 30;
+  }
+
+  if (hasEveryday && hasCoding) {
+    if (goals.includes('meetings-work')) return 40;
+    if (goals.includes('design-video')) return 50;
+    return 60;
+  }
+
+  return 100;
 }
