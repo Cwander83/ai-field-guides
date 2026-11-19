@@ -10,7 +10,7 @@
 <!-- ==================== PAGE 1: COVER ==================== -->
 <section class="page cover">
   <div class="cover-top">
-    <div class="brand-pill">AI Agent Engineering Series &bull; v1.0 Edition</div>
+    <div class="brand-pill">AI Agent Engineering Series &bull; v1.1 Edition</div>
     <h1>Mastering <span>Spec-Driven Dev &amp; Context Engineering</span></h1>
     <p class="cover-sub">
       The complete visual handbook to ending agent thrash&mdash;architecting lean cross-vendor context files, progressive disclosure layers, executable <code>Spec &rarr; Plan &rarr; Tasks</code> workflows, and rock-solid session hygiene.
@@ -184,16 +184,16 @@
     </thead>
     <tbody>
       <tr>
-        <td style="padding:5px 8px;"><strong>Open Canon</strong><br/><span style="color:#64748b;font-size:7.3pt;"><code>AGENTS.md</code> (LF AAIF)</span></td>
+        <td style="padding:5px 8px;"><strong>Open Canon</strong><br/><span style="color:#64748b;font-size:7.3pt;"><code>AGENTS.md</code> + <code>SKILL.md</code> (LF AAIF)</span></td>
         <td style="padding:5px 8px;"><code>./AGENTS.md</code> at repo root (plain Markdown, &le;300 lines)</td>
-        <td style="padding:5px 8px;">Nested <code>apps/*/AGENTS.md</code> in monorepo subtrees</td>
-        <td style="padding:5px 8px;">Read natively by <strong>20+ tools</strong>. Nearest file wins for subtree; Codex caps at <code>32 KiB</code>.</td>
+        <td style="padding:5px 8px;">Nested <code>apps/*/AGENTS.md</code> + portable <code>SKILL.md</code></td>
+        <td style="padding:5px 8px;">Read natively by <strong>20+ tools</strong>. Nearest file wins; Codex caps <code>32 KiB</code> &amp; skips untrusted repos.</td>
       </tr>
       <tr>
         <td style="padding:5px 8px;"><strong>Claude Code</strong><br/><span style="color:#64748b;font-size:7.3pt;">Anthropic CLI &amp; IDE</span></td>
-        <td style="padding:5px 8px;"><code>~/.claude/CLAUDE.md</code> (user), <code>./CLAUDE.md</code> (git), <code>./CLAUDE.local.md</code> (local)</td>
-        <td style="padding:5px 8px;"><code>.claude/rules/*.md</code> (<code>paths:</code> globs) + <code>@path/file</code> imports</td>
-        <td style="padding:5px 8px;">Files <strong>concatenate</strong> root-down. Inspect via <code>/context</code> &amp; <code>/memory</code>; HTML comments hidden.</td>
+        <td style="padding:5px 8px;"><code>~/.claude/CLAUDE.md</code>, <code>./CLAUDE.md</code> (or native <code>AGENTS.md</code> fallback), <code>CLAUDE.local.md</code></td>
+        <td style="padding:5px 8px;"><code>.claude/rules/*.md</code> (<code>paths:</code> globs) + <code>MEMORY.md</code> (200-ln cap)</td>
+        <td style="padding:5px 8px;">Concatenates root-down (<code>@file</code> expands inline). Audit via <code>/context</code> &amp; <code>/memory</code>.</td>
       </tr>
       <tr>
         <td style="padding:5px 8px;"><strong>Cursor</strong><br/><span style="color:#64748b;font-size:7.3pt;">AI Code Editor</span></td>
@@ -486,7 +486,7 @@
     </div>
     <div class="card">
       <div class="card-title"><span class="num-badge purple">B</span> Graduate Workflows to <code>SKILL.md</code></div>
-      <p style="font-size:8.3pt; margin:0;">In Antigravity, Claude Code, and Cursor 2.4+ (<code>.agents/skills/&lt;name&gt;/SKILL.md</code>), only the short YAML <code>description</code> loads at startup&mdash;the full 200-line SOP + helper scripts load <em>only</em> when the task matches!</p>
+      <p style="font-size:8.3pt; margin:0;">Now an LF AAIF open standard (<code>agentskills.io</code>) across Antigravity, Claude, Cursor, Codex &amp; Copilot: unlike inline <code>@file</code> imports, only YAML <code>description</code> loads at boot&mdash;full SOPs load strictly on match!</p>
     </div>
   </div>
 
@@ -533,14 +533,14 @@
         <td><strong>Start here!</strong> Zero dependencies, zero lock-in, works identically across every CLI, IDE, and cloud agent today.</td>
       </tr>
       <tr>
-        <td><strong>GitHub Spec Kit</strong><br/><span style="color:#64748b;font-size:7.6pt;"><code>uv tool install specify-cli</code></span></td>
+        <td><strong>GitHub Spec Kit</strong><br/><span style="color:#64748b;font-size:7.6pt;"><code>specify init</code> / <code>self upgrade</code></span></td>
         <td><code>/speckit.constitution &rarr; .specify &rarr; .clarify &rarr; .plan &rarr; .tasks &rarr; .implement &rarr; .converge</code></td>
-        <td>Enforced phase gates across ~30 agent integrations. Shines on greenfield builds and strict cross-artifact audits.</td>
+        <td>Install with <code>uv tool install specify-cli</code> from <code>github/spec-kit</code>; enforces phase gates across ~30 agents.</td>
       </tr>
       <tr>
-        <td><strong>OpenSpec (OPSX)</strong><br/><span style="color:#64748b;font-size:7.6pt;"><code>Fission-AI/OpenSpec</code></span></td>
+        <td><strong>OpenSpec (OPSX)</strong><br/><span style="color:#64748b;font-size:7.6pt;"><code>@fission-ai/openspec</code> v2.1+</span></td>
         <td><code>/opsx:explore &rarr; /opsx:propose &rarr; /opsx:apply &rarr; /opsx:verify &rarr; /opsx:archive</code></td>
-        <td>Lightweight, brownfield-first delta specs (<code>ADDED / MODIFIED / REMOVED</code>) that merge cleanly into living system specs.</td>
+        <td><code>openspec init --scope global|project</code> &amp; <code>openspec update</code>; brownfield delta specs (<code>ADDED / MODIFIED / REMOVED</code>).</td>
       </tr>
       <tr>
         <td><strong>Native Agent Modes</strong><br/><span style="color:#64748b;font-size:7.6pt;">Antigravity &bull; Claude &bull; Gemini</span></td>
