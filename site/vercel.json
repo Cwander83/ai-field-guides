@@ -43,7 +43,7 @@
         },
         {
           "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), browsing-topics=(), focus-without-user-activation=()"
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=(), browsing-topics=(), focus-without-user-activation=()"
         },
         {
           "key": "Cross-Origin-Opener-Policy",
@@ -58,8 +58,55 @@
           "value": "DENY"
         },
         {
+          "key": "X-Permitted-Cross-Domain-Policies",
+          "value": "none"
+        },
+        {
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self' 'sha256-K+wQ+3BH7tDkveO5Ilfqi+6m+J+Ji9pyKdGxLVCGc9I=' 'sha256-QGT3bDOTbNbG9SBbNg0gCdGQ6nEr2zg7ac/fgPElMto=' 'sha256-QdLa+mOkVunFvfMLZvoXAHSBHFDHMaI2I14jmWEOgQI=' 'sha256-bqG+muafp6lRnd8S5/nDH2DUfVCmhoCCuUvZEtzIvXs=' 'sha256-dp5xyBPqM+Lpnb7GatUHNyc//YTCls0ivJ6EJi9PUHA=' 'sha256-muRw9snH9BskPXD46gSdTTDW/OwtPeZP6oaQh8Y58vc=' 'sha256-n7fMwTPLUkPnKApptgyXvLepXZEgnjM8Gsuopu6Im88=' 'strict-dynamic' https: 'unsafe-inline' 'report-sample'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://region1.google-analytics.com https://*.g.doubleclick.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://region1.google-analytics.com https://*.g.doubleclick.net; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests"
+        }
+      ]
+    },
+    {
+      "source": "/.well-known/security.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "cross-origin"
         }
       ]
     },
@@ -242,6 +289,45 @@
     },
     {
       "source": "/favicon.ico",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/favicon-32x32.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/icon-192.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/icon-512.png",
       "headers": [
         {
           "key": "Cache-Control",
