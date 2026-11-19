@@ -74,16 +74,44 @@ const {
         </button>
       </div>
 
+      <button
+        type="button"
+        class="paper-cycle-btn"
+        data-paper-cycle
+        aria-label="Paper tone: Warm. Switch to Crisp"
+      >
+        <svg
+          aria-hidden="true"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 3a9 9 0 0 0 0 18Z" fill="currentColor" stroke="none"></path>
+        </svg>
+        <span class="paper-cycle-label" data-paper-cycle-label>Warm</span>
+      </button>
+
       <a
         href={pdfUrl}
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
         class="reader-view-pdf"
       >
         View PDF
       </a>
 
-      <a href={pdfUrl} download class="reader-download-pdf">
+      <a
+        href={pdfUrl}
+        download
+        class="reader-download-pdf"
+        aria-label={`Download PDF (${pdfSizeLabel})`}
+      >
         <svg
           aria-hidden="true"
           width="15"
@@ -99,7 +127,8 @@ const {
           <polyline points="7 10 12 15 17 10"></polyline>
           <line x1="12" y1="15" x2="12" y2="3"></line>
         </svg>
-        <span>Download PDF <span class="tabular">({pdfSizeLabel})</span></span>
+        <span class="download-label-full">Download PDF <span class="tabular">({pdfSizeLabel})</span></span>
+        <span class="download-label-compact">PDF</span>
       </a>
     </div>
   </div>
@@ -110,7 +139,15 @@ const {
 </header>
 
 <script>
-  const THEME_COLORS: Record<string, string> = {
+  type PaperTone = 'warm' | 'white' | 'sepia';
+
+  const PAPER_ORDER: PaperTone[] = ['warm', 'white', 'sepia'];
+  const PAPER_LABELS: Record<PaperTone, string> = {
+    warm: 'Warm',
+    white: 'Crisp',
+    sepia: 'Sepia',
+  };
+  const THEME_COLORS: Record<PaperTone, string> = {
     warm: '#FAF8F4',
     white: '#FFFFFF',
     sepia: '#F4ECD8',
@@ -119,13 +156,21 @@ const {
   const paperButtons = Array.from(
     document.querySelectorAll<HTMLButtonElement>('[data-paper-choice]'),
   );
+  const paperCycleBtn = document.querySelector<HTMLButtonElement>('[data-paper-cycle]');
+  const paperCycleLabel = document.querySelector<HTMLElement>('[data-paper-cycle-label]');
   const themeMeta = document.querySelector<HTMLMetaElement>(
     'meta[name="theme-color"]',
   );
 
+  function normalizePaperTone(tone: string | undefined): PaperTone {
+    if (tone === 'warm' || tone === 'white' || tone === 'sepia') {
+      return tone;
+    }
+    return 'warm';
+  }
+
   function syncPaperTone(tone: string, persist: boolean) {
-    const validTone =
-      tone === 'warm' || tone === 'white' || tone === 'sepia' ? tone : 'warm';
+    const validTone = normalizePaperTone(tone);
     document.documentElement.dataset.paper = validTone;
     if (themeMeta) {
       themeMeta.content = THEME_COLORS[validTone];
@@ -133,6 +178,18 @@ const {
     for (const btn of paperButtons) {
       const isSelected = btn.dataset.paperChoice === validTone;
       btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+    }
+    const currentLabel = PAPER_LABELS[validTone];
+    const nextTone = PAPER_ORDER[(PAPER_ORDER.indexOf(validTone) + 1) % PAPER_ORDER.length];
+    const nextLabel = PAPER_LABELS[nextTone];
+    if (paperCycleLabel) {
+      paperCycleLabel.textContent = currentLabel;
+    }
+    if (paperCycleBtn) {
+      paperCycleBtn.setAttribute(
+        'aria-label',
+        `Paper tone: ${currentLabel}. Switch to ${nextLabel}`,
+      );
     }
     if (persist) {
       try {
@@ -150,6 +207,29 @@ const {
       const choice = btn.dataset.paperChoice || 'warm';
       syncPaperTone(choice, true);
     });
+  }
+
+  paperCycleBtn?.addEventListener('click', () => {
+    const current = normalizePaperTone(document.documentElement.dataset.paper);
+    const nextTone = PAPER_ORDER[(PAPER_ORDER.indexOf(current) + 1) % PAPER_ORDER.length];
+    syncPaperTone(nextTone, true);
+  });
+
+  const readerBar = document.querySelector<HTMLElement>('.reader-bar');
+  if (readerBar) {
+    const updateReaderBarHeight = () => {
+      const height = Math.ceil(readerBar.getBoundingClientRect().height);
+      if (height > 0) {
+        document.documentElement.style.setProperty('--reader-bar-h', `${height}px`);
+      }
+    };
+    updateReaderBarHeight();
+    if ('ResizeObserver' in window) {
+      const barObserver = new ResizeObserver(updateReaderBarHeight);
+      barObserver.observe(readerBar);
+    } else {
+      window.addEventListener('resize', updateReaderBarHeight, { passive: true });
+    }
   }
 
   const progressFill = document.getElementById('reader-progress-fill');

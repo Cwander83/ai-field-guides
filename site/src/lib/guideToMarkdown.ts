@@ -52,7 +52,8 @@ function shouldSkipElement(el: HTMLElement): boolean {
     hasClass(el, 'copy-tip') ||
     hasClass(el, 'callout-pin') ||
     hasClass(el, 'ui-pin') ||
-    hasClass(el, 'pin-badge')
+    hasClass(el, 'pin-badge') ||
+    hasClass(el, 'ui-tour-scroll-hint')
   ) {
     return true;
   }

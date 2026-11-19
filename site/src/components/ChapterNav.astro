@@ -39,6 +39,25 @@ const { chapters, pdfUrl, pdfSizeLabel } = Astro.props;
         </li>
       ))}
     </ol>
+    <div class="mobile-toc-footer">
+      <a href="/topics" class="mobile-toc-topics-link">
+        <span>Browse Topics</span>
+        <svg
+          aria-hidden="true"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14"></path>
+          <path d="M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
   </details>
 
   <nav class="chapter-rail" aria-label="Chapter navigation">
@@ -57,6 +76,24 @@ const { chapters, pdfUrl, pdfSizeLabel } = Astro.props;
         </li>
       ))}
     </ol>
+
+    <a href="/topics" class="rail-topics-link">
+      <span>Browse Topics</span>
+      <svg
+        aria-hidden="true"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 12h14"></path>
+        <path d="M12 5l7 7-7 7"></path>
+      </svg>
+    </a>
 
     <div class="rail-pdf-card">
       <p class="rail-pdf-title">Read Offline or Print</p>
@@ -146,9 +183,12 @@ const { chapters, pdfUrl, pdfSizeLabel } = Astro.props;
         }
 
         // Fall back to the last chapter whose top has scrolled past the bar
+        const barH = Number.parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue('--reader-bar-h'),
+        ) || 64;
         let current = chapterSections[0].id;
         for (const sec of chapterSections) {
-          if (sec.getBoundingClientRect().top <= 120) {
+          if (sec.getBoundingClientRect().top <= barH + 56) {
             current = sec.id;
           }
         }

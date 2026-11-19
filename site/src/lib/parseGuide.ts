@@ -76,6 +76,95 @@ function resolveRepoRoot(fs: NodeFsLike, path: NodePathLike, proc: NodeProcessLi
   return parent;
 }
 
+const COLOR_EMOJI_RE = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu;
+
+const LOW_CONTRAST_HEX_MAP: Record<string, string> = {
+  '#10b981': '#065F46',
+  '#059669': '#065F46',
+  '#047857': '#065F46',
+  '#0d9488': '#115E59',
+  '#14b8a6': '#115E59',
+  '#0f766e': '#115E59',
+  '#0284c7': '#0369A1',
+  '#0ea5e9': '#0369A1',
+  '#d97706': '#92400E',
+  '#f59e0b': '#92400E',
+  '#ea580c': '#92400E',
+  '#e11d48': '#9F1239',
+  '#f43f5e': '#9F1239',
+};
+
+const LOW_CONTRAST_HEX_RE =
+  /#(?:10b981|059669|047857|0d9488|14b8a6|0f766e|0284c7|0ea5e9|d97706|f59e0b|ea580c|e11d48|f43f5e)\b/gi;
+
+function normalizeLowContrastHex(value: string): string {
+  return value.replace(
+    LOW_CONTRAST_HEX_RE,
+    (match) => LOW_CONTRAST_HEX_MAP[match.toLowerCase()] ?? match,
+  );
+}
+
+function stripColorEmojiText(value: string): string {
+  return value
+    .replace(COLOR_EMOJI_RE, '')
+    .replace(/ {2,}/g, ' ')
+    .trim();
+}
+
+function cleanColorEmojiEntities(html: string): string {
+  return html
+    .replace(/&#(?:9989|x2705);/gi, 'PASS')
+    .replace(/&#(?:10060|x274c);/gi, 'FAIL')
+    .replace(/&#(?:9888|x26a0);/gi, '!')
+    .replace(/&#(?:9889|10024|9995|x26a1|x2728|x270b);/gi, '')
+    .replace(/&#(\d+);/g, (full, dec) => {
+      const cp = Number.parseInt(dec, 10);
+      return cp >= 0x1f300 && cp <= 0x1faff ? '' : full;
+    })
+    .replace(/&#x([0-9a-f]+);/gi, (full, hex) => {
+      const cp = Number.parseInt(hex, 16);
+      return cp >= 0x1f300 && cp <= 0x1faff ? '' : full;
+    });
+}
+
+function stripColorEmojisFromNode(root: HTMLElement): void {
+  const walk = (node: {
+    nodeType: number;
+    rawText?: string;
+    tagName?: string;
+    childNodes?: unknown[];
+  }) => {
+    if (node.nodeType === 3 && typeof node.rawText === 'string') {
+      let updated = cleanColorEmojiEntities(node.rawText);
+      const changedByEntity = updated !== node.rawText;
+      if (COLOR_EMOJI_RE.test(updated) || changedByEntity) {
+        COLOR_EMOJI_RE.lastIndex = 0;
+        const hadLeadingSpace = /^\s/.test(node.rawText);
+        const hadTrailingSpace = /\s$/.test(node.rawText);
+        updated = updated.replace(COLOR_EMOJI_RE, '').replace(/ {2,}/g, ' ');
+        if (!hadLeadingSpace) updated = updated.replace(/^\s+/, '');
+        if (!hadTrailingSpace) updated = updated.replace(/\s+$/, '');
+      }
+      COLOR_EMOJI_RE.lastIndex = 0;
+      if (updated !== node.rawText) {
+        node.rawText = updated;
+      }
+      return;
+    }
+
+    if (node.nodeType !== 1) return;
+    const tag = node.tagName?.toUpperCase();
+    if (tag === 'SCRIPT' || tag === 'STYLE') return;
+    if (Array.isArray(node.childNodes)) {
+      for (const child of node.childNodes) {
+        walk(child as typeof node);
+      }
+    }
+  };
+
+  walk(root as unknown as Parameters<typeof walk>[0]);
+}
+
 function normalizeWhitespace(value: string): string {
   return value.replace(/\s+/g, ' ').trim();
 }
@@ -252,6 +341,38 @@ function isDarkColorValue(value: string): boolean {
   return false;
 }
 
+function isLightColorValue(value: string): boolean {
+  const v = value.trim().toLowerCase();
+  if (/^#(?:[c-f][0-9a-f]{2}|[c-f][0-9a-f]{5})\b/i.test(v)) return true;
+  if (/^white\b/i.test(v)) return true;
+  if (/^rgba?\(\s*(?:2[0-5]\d|1[89]\d)\s*,/.test(v)) return true;
+  return false;
+}
+
+function isOnDarkBackground(el: HTMLElement): boolean {
+  let cur: HTMLElement | null = el;
+  while (cur && cur.tagName) {
+    const rawStyle = cur.getAttribute?.('style') ?? '';
+    const bgMatch = rawStyle.match(/(?:^|;)\s*background(?:-color)?\s*:\s*([^;]+)/i);
+    if (bgMatch) {
+      const bgVal = bgMatch[1].trim();
+      if (bgVal.toLowerCase() !== 'transparent' && bgVal.toLowerCase() !== 'none') {
+        if (isDarkColorValue(bgVal)) return true;
+        if (isLightColorValue(bgVal)) return false;
+      }
+    }
+    const cls = cur.getAttribute?.('class') ?? '';
+    if (/\b(?:ui-window|card-dark|meet-msg|copyable-block)\b/.test(cls)) {
+      return true;
+    }
+    if (/\b(?:card-[a-z]+|callout|chapter-section)\b/.test(cls)) {
+      return false;
+    }
+    cur = cur.parentNode as HTMLElement | null;
+  }
+  return false;
+}
+
 function elementHasOwnBg(decls: CssDeclaration[]): boolean {
   return decls.some(
     (d) =>
@@ -363,8 +484,53 @@ function rewriteImages(
   }
 }
 
+function stripChapterOnePrintToc(page: HTMLElement): void {
+  const tocLists = page.querySelectorAll('.toc-list');
+  for (const tocList of tocLists) {
+    const callouts: string[] = [];
+    for (const note of tocList.querySelectorAll('.toc-note')) {
+      const pgSpan = note.querySelector('.toc-pg');
+      let scopeSuffix = '';
+      if (pgSpan) {
+        const pgText = normalizeWhitespace(pgSpan.text);
+        pgSpan.remove();
+        if (pgText && !/^all$/i.test(pgText)) {
+          scopeSuffix = ` (${pgText})`;
+        }
+      }
+      const noteHtml = note.innerHTML.trim();
+      if (noteHtml) {
+        callouts.push(`<div class="callout amber">${noteHtml}${scopeSuffix}</div>`);
+      }
+    }
+
+    const prev = tocList.previousElementSibling;
+    if (
+      prev &&
+      prev.tagName?.toUpperCase() === 'H3' &&
+      /quick navigation|in this (?:guide|handbook)|table of contents|^contents$/i.test(
+        normalizeWhitespace(prev.text),
+      )
+    ) {
+      prev.remove();
+    }
+
+    tocList.replaceWith(callouts.join('\n'));
+  }
+}
+
 function normalizeSvgs(page: HTMLElement): void {
   for (const svg of page.querySelectorAll('svg')) {
+    for (const textEl of svg.querySelectorAll('text, tspan')) {
+      const fsAttr = textEl.getAttribute('font-size');
+      if (fsAttr && /^\s*[0-9]+(?:\.[0-9]+)?\s*$/.test(fsAttr)) {
+        const fsNum = Number.parseFloat(fsAttr);
+        if (Number.isFinite(fsNum) && fsNum < 11) {
+          textEl.setAttribute('font-size', '11');
+        }
+      }
+    }
+
     if (!svg.getAttribute('viewBox')) {
       const wAttr = svg.getAttribute('width');
       const hAttr = svg.getAttribute('height');
@@ -416,6 +582,40 @@ function upscaleUiWindows(page: HTMLElement): void {
         return d;
       });
       el.setAttribute('style', serializeDeclarations(decls));
+    }
+  }
+}
+
+function normalizeGuideColors(page: HTMLElement): void {
+  for (const el of page.querySelectorAll('[style]')) {
+    if (el.tagName === 'SVG' || el.closest('svg')) continue;
+    const rawStyle = el.getAttribute('style');
+    if (!rawStyle) continue;
+    const decls = parseDeclarations(rawStyle);
+    const colorDecl = decls.find((d) => d.prop === 'color');
+    const hasExplicitDarkText = colorDecl ? isDarkColorValue(colorDecl.value) : false;
+    const onDarkBg = isOnDarkBackground(el);
+    let changed = false;
+
+    const updated = decls.map((d) => {
+      if ((d.prop === 'background' || d.prop === 'background-color') && !hasExplicitDarkText) {
+        const nextVal = normalizeLowContrastHex(d.value);
+        if (nextVal !== d.value) {
+          changed = true;
+          return { prop: d.prop, value: nextVal };
+        }
+      } else if (d.prop === 'color' && !onDarkBg) {
+        const nextVal = normalizeLowContrastHex(d.value);
+        if (nextVal !== d.value) {
+          changed = true;
+          return { prop: d.prop, value: nextVal };
+        }
+      }
+      return d;
+    });
+
+    if (changed) {
+      el.setAttribute('style', serializeDeclarations(updated));
     }
   }
 }
@@ -580,6 +780,25 @@ function enhanceRecipeTables(
 function wrapTables(page: HTMLElement): void {
   for (const table of page.querySelectorAll('table')) {
     if (table.closest('.ui-window')) continue;
+    const headerRow = table.querySelector('thead tr') ?? table.querySelector('tr');
+    const headers = headerRow
+      ? headerRow.querySelectorAll('th').map((th) => normalizeWhitespace(th.text))
+      : [];
+    if (headers.length > 0) {
+      const bodyRows = table.querySelectorAll('tbody tr');
+      const rows =
+        bodyRows.length > 0
+          ? bodyRows
+          : table.querySelectorAll('tr').filter((tr) => tr !== headerRow);
+      for (const tr of rows) {
+        tr.querySelectorAll('td').forEach((td, idx) => {
+          const headerLabel = headers[idx];
+          if (headerLabel) {
+            td.setAttribute('data-label', headerLabel);
+          }
+        });
+      }
+    }
     table.replaceWith(
       `<div class="table-scroll-wrap" tabindex="0" role="region" aria-label="Reference table">${table.outerHTML}</div>`,
     );
@@ -632,7 +851,8 @@ function wrapPreCopyables(
 function wrapUiWindows(page: HTMLElement): void {
   for (const win of page.querySelectorAll('.ui-window')) {
     win.replaceWith(
-      `<div class="ui-tour-wrap" tabindex="0" role="region" aria-label="Annotated interface tour">${win.outerHTML}</div>`,
+      `<p class="ui-tour-scroll-hint">Swipe horizontally to view the full interactive workspace mockup</p>` +
+        `<div class="ui-tour-wrap" tabindex="0" role="region" aria-label="Annotated interface tour">${win.outerHTML}</div>`,
     );
   }
 }
@@ -665,6 +885,7 @@ function shouldKeepSelector(rawSelector: string): boolean {
   if (/^\.page-header\b|^\.page-footer\b|^\.page-num\b/.test(s)) return false;
   if (/^h2\.page-title\b|^\.page-lead\b|^(h3|p|ul|ol|li)\b/.test(s)) return false;
   if (/^\.grid-[23]\b|^\.toc-list\b|^\.toc-item\b/.test(s)) return false;
+  if (/^\.(?:num-badge|callout-pin|toc-pg|check-box)\b/i.test(s)) return false;
   if (/^\.check-grid$|^\.checklist-grid$/.test(s)) return false;
   if (/^table\.clean-table$|^table\.clean-table td$|^table\.clean-table tr/.test(s)) {
     return false;
@@ -718,8 +939,19 @@ function buildScopedCss(rawCss: string): string {
       /\.code-block|\.code-snippet/.test(s),
     );
     const isDarkCard = keptSelectors.some((s) => /\.card-dark\b/.test(s));
+    const isUiDotRule = keptSelectors.some((s) => /\.ui-dot\b/.test(s));
+    const isDarkBgContextRule = keptSelectors.some((s) =>
+      /\.(?:card-dark|ui-window|sev-|status-chip|ds-pill|meet-msg)\b/.test(s),
+    );
 
     const decls = parseDeclarations(rawBody);
+    const ruleColorDecl = decls.find((d) => d.prop === 'color');
+    const ruleBgDecl = decls.find(
+      (d) => d.prop === 'background' || d.prop === 'background-color',
+    );
+    const ruleHasDarkText = ruleColorDecl ? isDarkColorValue(ruleColorDecl.value) : false;
+    const ruleHasDarkBg =
+      isDarkBgContextRule || (ruleBgDecl ? isDarkColorValue(ruleBgDecl.value) : false);
     const cleanedDecls: CssDeclaration[] = [];
 
     for (const d of decls) {
@@ -780,6 +1012,12 @@ function buildScopedCss(rawCss: string): string {
         continue;
       }
 
+      if ((prop === 'background' || prop === 'background-color') && !ruleHasDarkText && !isUiDotRule) {
+        val = normalizeLowContrastHex(val);
+      } else if (prop === 'color' && !ruleHasDarkBg && !isUiDotRule) {
+        val = normalizeLowContrastHex(val);
+      }
+
       cleanedDecls.push({ prop, value: val });
     }
 
@@ -822,7 +1060,7 @@ export function parseGuide(guide: EnrichedGuide): ParsedGuide {
   const badges = coverPage
     ? coverPage
         .querySelectorAll('.cover-badge')
-        .map((b) => normalizeWhitespace(b.text))
+        .map((b) => stripColorEmojiText(normalizeWhitespace(b.text)))
         .filter(Boolean)
     : [];
 
@@ -839,18 +1077,18 @@ export function parseGuide(guide: EnrichedGuide): ParsedGuide {
       })
     : null;
   const heroImageAlt = heroImg
-    ? normalizeWhitespace(heroImg.getAttribute('alt') || guide.title)
+    ? stripColorEmojiText(normalizeWhitespace(heroImg.getAttribute('alt') || guide.title))
     : guide.title;
 
   const pillars: CoverPillar[] = coverPage
     ? coverPage
         .querySelectorAll('.cover-stat')
         .map((stat) => ({
-          title: normalizeWhitespace(
-            stat.querySelector('.cover-stat-title')?.text ?? '',
+          title: stripColorEmojiText(
+            normalizeWhitespace(stat.querySelector('.cover-stat-title')?.text ?? ''),
           ),
-          description: normalizeWhitespace(
-            stat.querySelector('.cover-stat-desc')?.text ?? '',
+          description: stripColorEmojiText(
+            normalizeWhitespace(stat.querySelector('.cover-stat-desc')?.text ?? ''),
           ),
         }))
         .filter((p) => p.title.length > 0 || p.description.length > 0)
@@ -863,8 +1101,8 @@ export function parseGuide(guide: EnrichedGuide): ParsedGuide {
     const page = pages[i];
     const chapterNum = i;
 
-    const rawTag = normalizeWhitespace(
-      page.querySelector('.page-header .section-tag')?.text ?? '',
+    const rawTag = stripColorEmojiText(
+      normalizeWhitespace(page.querySelector('.page-header .section-tag')?.text ?? ''),
     );
     const sectionTag = rawTag.replace(/^\d+\s*[•·\-–—]\s*/, '').trim();
 
@@ -873,19 +1111,29 @@ export function parseGuide(guide: EnrichedGuide): ParsedGuide {
     }
 
     const titleEl = page.querySelector('h2.page-title');
-    const title = titleEl ? normalizeWhitespace(titleEl.text) : `Section ${chapterNum}`;
+    const title = titleEl
+      ? stripColorEmojiText(normalizeWhitespace(titleEl.text))
+      : `Section ${chapterNum}`;
     titleEl?.remove();
 
     const leadEl = page.querySelector('p.page-lead');
+    if (leadEl) {
+      stripColorEmojisFromNode(leadEl);
+    }
     const leadHtml = leadEl ? leadEl.innerHTML.trim() : '';
     leadEl?.remove();
 
+    stripColorEmojisFromNode(page);
     transformTocItems(page);
+    if (chapterNum === 1) {
+      stripChapterOnePrintToc(page);
+    }
     rewriteImages(page, guide.ecosystem, guide.slug, fs, path, guideDir, repoRoot);
     normalizeSvgs(page);
     upscaleUiWindows(page);
     normalizeDivCodeBlocks(page);
     stripPrintStylesOutsideUi(page);
+    normalizeGuideColors(page);
     enhanceRecipeTables(page, guide.slug, snippetCounter, chapterNum === 8);
     wrapTables(page);
     wrapPreCopyables(page, guide.slug, snippetCounter);
