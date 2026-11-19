@@ -54,7 +54,7 @@
 
   <h2 class="page-title">The Native Tri-Format Stack: <code>.md</code> + <code>.base</code> + <code>.canvas</code></h2>
   <p class="page-lead">
-    Plain Markdown notes excel at linear prose, yet stumble when you need a sortable project tracker or a big-picture system diagram. Obsidian solves both natively—without proprietary cloud databases or fragile community plugins—using two plain-text companion formats that AI agents read and write fluently.
+    Plain Markdown notes excel at linear prose, yet stumble when you need a sortable project tracker or a big-picture system diagram. Obsidian solves both natively, without proprietary cloud databases or fragile community plugins, using two plain-text companion formats that AI agents read and write fluently.
   </p>
 
   <h3>Quick Navigation</h3>
@@ -135,7 +135,7 @@
 
   <div class="callout amber" style="margin-top:5px;">
     <div class="callout-title">Zero Duplication: Edit Once in Any View, Sync Everywhere Instantly</div>
-    Neither a <code>.base</code> file nor a <code>.canvas</code> file copies your note contents into a separate database. Editing a <code>status</code> cell inside a <code>.base</code> Table—or typing inside an embedded <code>file</code> card on a <code>.canvas</code> board—mutates the original <code>.md</code> file directly on disk.
+    Neither a <code>.base</code> file nor a <code>.canvas</code> file copies your note contents into a separate database. Editing a <code>status</code> cell inside a <code>.base</code> Table, or typing inside an embedded <code>file</code> card on a <code>.canvas</code> board, mutates the original <code>.md</code> file directly on disk.
   </div>
 
   <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 2 of 12</span></div>
@@ -150,7 +150,7 @@
 
   <h2 class="page-title">Core Plugin Setup &amp; Format Decision Matrix</h2>
   <p class="page-lead" style="margin-bottom:7px; font-size:9.4pt;">
-    Everything in this handbook runs on 100% official, built-in Obsidian features—meaning zero community plugin security audits, instant startup on macOS/Windows/Linux/iOS/Android, and guaranteed long-term format stability.
+    Everything in this handbook runs on 100% official, built-in Obsidian features: zero community plugin security audits, instant startup on macOS/Windows/Linux/iOS/Android, and guaranteed long-term format stability.
   </p>
 
   <h3 style="margin:3px 0 4px 0; font-size:10.5pt;">1. Enable the Three Native Core Engines (60-Second Setup)</h3>
@@ -349,11 +349,11 @@
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
             <div style="background:#1e1508; border:1.5px solid #fbbf24; border-radius:6px; padding:6px;">
-              <div style="color:#93c5fd; font-weight:700; font-size:7pt;">📄 auth-gateway.md <span class="callout-pin" style="width:15px; height:15px; font-size:6.8pt;">6</span></div>
+              <div style="color:#93c5fd; font-weight:700; font-size:7pt;"><span style="background:#1e3a8a; color:#bfdbfe; padding:0.5px 3.5px; border-radius:3px; font-size:5.6pt; font-weight:800; margin-right:3px;">MD</span>auth-gateway.md <span class="callout-pin" style="width:15px; height:15px; font-size:6.8pt;">6</span></div>
               <div style="color:#cbd5e1; font-size:6.6pt; margin-top:2px;">JWT verify • Rate limit<br/><code>x:0, y:0, w:260</code></div>
             </div>
             <div style="background:#1e1508; border:1.5px solid #38bdf8; border-radius:6px; padding:6px;">
-              <div style="color:#7dd3fc; font-weight:700; font-size:7pt;">📄 edge-cache-v2.md</div>
+              <div style="color:#7dd3fc; font-weight:700; font-size:7pt;"><span style="background:#164e63; color:#a5f3fc; padding:0.5px 3.5px; border-radius:3px; font-size:5.6pt; font-weight:800; margin-right:3px;">MD</span>edge-cache-v2.md</div>
               <div style="color:#cbd5e1; font-size:6.6pt; margin-top:2px;">Stale-while-revalidate<br/><code>x:320, y:0, w:260</code></div>
             </div>
           </div>
@@ -371,11 +371,11 @@
           <div style="color:#fca5a5; font-weight:700; font-size:7.1pt; margin-bottom:5px;">GROUP: Payment &amp; Compliance Pipeline (<code>color: "1"</code>)</div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
             <div style="background:#241010; border:1.5px solid #f87171; border-radius:6px; padding:6px;">
-              <div style="color:#fecaca; font-weight:700; font-size:7pt;">📄 billing-webhook.md</div>
+              <div style="color:#fecaca; font-weight:700; font-size:7pt;"><span style="background:#7f1d1d; color:#fecaca; padding:0.5px 3.5px; border-radius:3px; font-size:5.6pt; font-weight:800; margin-right:3px;">MD</span>billing-webhook.md</div>
               <div style="color:#cbd5e1; font-size:6.6pt; margin-top:2px;">Stripe idempotency key<br/><code>x:0, y:220, w:260</code></div>
             </div>
             <div style="background:#14221b; border:1.5px solid #34d399; border-radius:6px; padding:6px;">
-              <div style="color:#a7f3d0; font-weight:700; font-size:7pt;">📝 SLA Warning (<code>text</code>)</div>
+              <div style="color:#a7f3d0; font-weight:700; font-size:7pt;"><span style="background:#064e3b; color:#6ee7b7; padding:0.5px 3.5px; border-radius:3px; font-size:5.6pt; font-weight:800; margin-right:3px;">TXT</span>SLA Warning (<code>text</code>)</div>
               <div style="color:#cbd5e1; font-size:6.6pt; margin-top:2px;">Unblock webhook retry<br/>before Dec 1 freeze!</div>
             </div>
           </div>
@@ -422,7 +422,7 @@
 
   <h2 class="page-title">Designing Agent-Safe YAML Property Schemas</h2>
   <p class="page-lead" style="margin-bottom:5px; font-size:9.3pt;">
-    A <code>.base</code> database is only as sharp as the YAML frontmatter underneath it. Without an explicit schema contract, AI agents drift across synonyms—writing <code>dueDate</code> on Monday and <code>due_date</code> on Tuesday—silently splitting one column into sparse fragments.
+    A <code>.base</code> database is only as sharp as the YAML frontmatter underneath it. Without an explicit schema contract, AI agents drift across synonyms, writing <code>dueDate</code> on Monday and <code>due_date</code> on Tuesday and silently splitting one column into sparse fragments.
   </p>
 
   <div class="figure-box" style="margin:2px 0 6px 0;">
@@ -505,7 +505,7 @@
 
   <h2 class="page-title">Authoring Native <code>.base</code> Files &amp; Formulas With AI</h2>
   <p class="page-lead" style="margin-bottom:5px; font-size:9.35pt;">
-    Every Obsidian <code>.base</code> file is a declarative YAML document with four top-level blocks: global <code>filters</code>, calculated <code>formulas</code>, column <code>properties</code> labels, and a <code>views</code> array defining Table and Cards tabs.
+    Every Obsidian <code>.base</code> file is a declarative YAML document with four top-level blocks: global <code>filters</code>, calculated <code>formulas</code>, column <code>properties</code> labels, and a <code>views</code> array defining Table, Cards, List, and Map tabs (1.10+).
   </p>
 
   <h3 style="margin:2px 0 3px 0; font-size:10.4pt;">1. Production <code>roadmap.base</code> Anatomy (Copy-Paste Reference)</h3>
@@ -669,7 +669,7 @@ views:
 
   <div class="callout amber" style="margin:2px 0 0 0; padding:6px 10px; font-size:8.1pt;">
     <div class="callout-title">Strict JSON Hygiene: Zero Comments &amp; Zero Trailing Commas</div>
-    Obsidian's <code>.canvas</code> parser enforces strict RFC 8259 JSON. A single <code>// comment</code> or trailing comma renders an empty canvas—always validate with <code>python3 -m json.tool</code> before saving.
+    Obsidian's <code>.canvas</code> parser enforces strict RFC 8259 JSON. A single <code>// comment</code> or trailing comma renders an empty canvas, so always validate with <code>python3 -m json.tool</code> before saving.
   </div>
 
   <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 7 of 12</span></div>
@@ -724,7 +724,7 @@ views:
 
   <div class="callout sky" style="margin:2px 0 0 0;">
     <div class="callout-title">Pro Technique: Non-Destructive Canvas Upgrades With Backup Snapshots</div>
-    Before letting an agent rewrite an existing hand-arranged <code>.canvas</code> file (such as converting <code>text</code> cards to <code>file</code> cards), instruct it to preserve your exact <code>x</code>, <code>y</code>, <code>width</code>, <code>height</code>, and <code>color</code> attributes verbatim—modifying only <code>"type": "file"</code> and <code>"file": "Specs/..."</code> so your spatial muscle memory stays untouched.
+    Before letting an agent rewrite an existing hand-arranged <code>.canvas</code> file (such as converting <code>text</code> cards to <code>file</code> cards), instruct it to preserve your exact <code>x</code>, <code>y</code>, <code>width</code>, <code>height</code>, and <code>color</code> attributes verbatim, modifying only <code>"type": "file"</code> and <code>"file": "Specs/..."</code> so your spatial muscle memory stays untouched.
   </div>
 
   <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 8 of 12</span></div>
@@ -781,7 +781,7 @@ views:
 
   <div class="callout emerald" style="margin:0;">
     <div class="callout-title">Embed Multiple Views Inside One Executive Summary Note</div>
-    Once your agent creates <code>Launch/launch.base</code> and <code>Launch/deps.canvas</code>, create a single <code>Launch/README.md</code> hub note containing <code>![[launch.base#Blocked &amp; Urgent Cards]]</code> right above <code>![[deps.canvas]]</code>—giving stakeholders a live relational table and spatial map on one scrollable page.
+    Once your agent creates <code>Launch/launch.base</code> and <code>Launch/deps.canvas</code>, create a single <code>Launch/README.md</code> hub note containing <code>![[launch.base#Blocked &amp; Urgent Cards]]</code> right above <code>![[deps.canvas]]</code>, giving stakeholders a live relational table and spatial map on one scrollable page.
   </div>
 
   <div class="page-footer"><span>Obsidian Bases &amp; JSON Canvas with AI • Complete How-To Guide</span><span>Page 9 of 12</span></div>
@@ -873,7 +873,7 @@ print(f"OK: {len(nodes)} nodes, {len(edges)} edges, 0 broken paths, 0 card overl
 
   <h2 class="page-title">Cross-Tool Synergy Pipeline: Raw Inputs to Visual Vault</h2>
   <p class="page-lead" style="margin-bottom:8px;">
-    Native <code>.base</code> views and <code>.canvas</code> boards shine brightest as the visual presentation layer at the end of an automated AI research and engineering pipeline—turning messy transcripts, repositories, and PDFs into a living operating system.
+    Native <code>.base</code> views and <code>.canvas</code> boards shine brightest as the visual presentation layer at the end of an automated AI research and engineering pipeline, turning messy transcripts, repositories, and PDFs into a living operating system.
   </p>
 
   <!-- Pipeline SVG Diagram -->

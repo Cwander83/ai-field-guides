@@ -54,7 +54,7 @@
 
   <h2 class="page-title">Compiled Knowledge vs. Stateless RAG</h2>
   <p class="page-lead">
-    Why having desktop AI agents maintain an interlinked Markdown wiki beats re-chunking raw PDFs on every question&mdash;turning passive reading folders into compounding institutional memory.
+    Why having desktop AI agents maintain an interlinked Markdown wiki beats re-chunking raw PDFs on every question, turning passive reading folders into compounding institutional memory.
   </p>
 
   <h3>Quick Navigation</h3>
@@ -73,9 +73,9 @@
     <div class="toc-item"><span><strong>Core Law: Humans Curate, Agents Compile</strong></span><span class="toc-pg">All</span></div>
   </div>
 
-  <h3>Why Personal Wikis Die&mdash;and Why Stateless RAG Forgets</h3>
+  <h3>Why Personal Wikis Die, and Why Stateless RAG Forgets</h3>
   <p style="font-size:8.85pt;">
-    Traditional personal knowledge bases fail for a predictable human reason: <strong>maintenance entropy</strong>. Filing one research paper properly means writing a summary, updating six concept notes, linking four authors, and revising old claims that the new data just overturned. Humans abandon that bookkeeping within weeks. Standard <strong>Vector RAG</strong> (<em>Retrieval-Augmented Generation</em>, like NotebookLM or PDF chat) avoids manual upkeep by slicing raw files into isolated 500-word chunks at query time&mdash;but because it starts from scratch on every prompt, it never builds a persistent synthesis, easily misses multi-document contradictions, and leaves nothing browsable behind when the chat ends.
+    Traditional personal knowledge bases fail for a predictable human reason: <strong>maintenance entropy</strong>. Filing one research paper properly means writing a summary, updating six concept notes, linking four authors, and revising old claims that the new data just overturned. Humans abandon that bookkeeping within weeks. Standard <strong>Vector RAG</strong> (<em>Retrieval-Augmented Generation</em>, like NotebookLM or PDF chat) avoids manual upkeep by slicing raw files into isolated 500-word chunks at query time. Because it starts from scratch on every prompt, it never builds a persistent synthesis, easily misses multi-document contradictions, and leaves nothing browsable behind when the chat ends.
   </p>
   <p style="font-size:8.85pt;">
     Popularized by Andrej Karpathy&rsquo;s <strong>LLM Wiki pattern</strong>, the breakthrough is treating your LLM not as a search engine over raw chunks, but as a <strong>tireless wiki compiler</strong>. You drop raw sources into an immutable folder; Claude Desktop or Antigravity reads each source once and weaves its evidence across a living Obsidian vault of Markdown encyclopedia pages.
@@ -159,7 +159,7 @@
 
   <h2 class="page-title">Vault Blueprint &amp; Knowledge Architecture Matrix</h2>
   <p class="page-lead" style="margin-bottom:8px;">
-    An autonomous Obsidian wiki needs zero plugins or external databases to start&mdash;only a clean numbered folder hierarchy and a constitution file (<code>AGENTS.md</code>) that defines how agents read, compile, and log changes.
+    An autonomous Obsidian wiki needs zero plugins or external databases to start: only a clean numbered folder hierarchy and a constitution file (<code>AGENTS.md</code>) that defines how agents read, compile, and log changes.
   </p>
 
   <div class="grid-2" style="align-items: stretch; margin-bottom: 6px;">
@@ -211,20 +211,20 @@
     <tbody>
       <tr>
         <td style="padding:5px 8px;"><strong>Cross-Document Synthesis</strong></td>
-        <td style="padding:5px 8px;">Weak&mdash;re-assembles top-<em>k</em> chunks per prompt; forgets immediately after.</td>
-        <td style="padding:5px 8px;"><strong>Exceptional</strong>&mdash;every ingest updates shared concept notes cumulatively.</td>
+        <td style="padding:5px 8px;">Weak: re-assembles top-<em>k</em> chunks per prompt; forgets immediately after.</td>
+        <td style="padding:5px 8px;"><strong>Exceptional:</strong> every ingest updates shared concept notes cumulatively.</td>
         <td style="padding:5px 8px;">Strong structural pathfinding (<code>find_path</code>) across code + docs.</td>
       </tr>
       <tr>
         <td style="padding:5px 8px;"><strong>Contradiction Detection</strong></td>
         <td style="padding:5px 8px;">Rarely catches conflicts unless both chunks land in top-<em>k</em> window.</td>
-        <td style="padding:5px 8px;"><strong>Native</strong>&mdash;compiler spots when a 2026 paper refutes a 2024 claim on the same page.</td>
+        <td style="padding:5px 8px;"><strong>Native:</strong> compiler spots when a 2026 paper refutes a 2024 claim on the same page.</td>
         <td style="padding:5px 8px;">Surfaces <code>AMBIGUOUS</code> edges across conflicting structural references.</td>
       </tr>
       <tr>
         <td style="padding:5px 8px;"><strong>Human Readability in Obsidian</strong></td>
         <td style="padding:5px 8px;">Opaque binary vector store; nothing meaningful for humans to browse.</td>
-        <td style="padding:5px 8px;"><strong>100% Human-First</strong>&mdash;reads like a curated personal Wikipedia with MOCs.</td>
+        <td style="padding:5px 8px;"><strong>100% Human-First:</strong> reads like a curated personal Wikipedia with MOCs.</td>
         <td style="padding:5px 8px;">Great visual node/cluster map; notes prioritize concise topological stubs.</td>
       </tr>
       <tr>
@@ -267,7 +267,7 @@
     <div class="ui-topbar">
       <div class="ui-dots">
         <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
-        <span style="margin-left:8px; font-weight:700; color:#a7f3d0; font-size:7.8pt;">Obsidian v1.8 &mdash; Vault: ai-systems-wiki</span>
+        <span style="margin-left:8px; font-weight:700; color:#a7f3d0; font-size:7.8pt;">Obsidian 1.12 &bull; Vault: ai-systems-wiki</span>
       </div>
       <div style="display:flex; align-items:center; gap:10px; font-size:7.3pt; color:#94a3b8;">
         <span>Reading View &bull; Properties: Visible</span>
@@ -281,11 +281,11 @@
         <div style="display:flex; justify-content:space-between; align-items:center; color:#6ee7b7; font-weight:700; margin-bottom:4px; text-transform:uppercase; font-size:6.8pt; letter-spacing:0.05em;">
           <span>Vault Explorer</span> <span class="callout-pin">1</span>
         </div>
-        <div style="color:#cbd5e1;">&#128196; <code>AGENTS.md</code></div>
+        <div style="color:#cbd5e1;"><span style="background:#064e3b; color:#6ee7b7; padding:0.5px 3px; border-radius:3px; font-size:5.4pt; font-weight:800; margin-right:3px;">DOC</span><code>AGENTS.md</code></div>
         <div style="color:#fde68a; font-weight:700; display:flex; align-items:center; justify-content:space-between;">
-          <span>&#128209; <code>index.md</code></span> <span class="callout-pin">2</span>
+          <span><span style="background:#78350f; color:#fde68a; padding:0.5px 3px; border-radius:3px; font-size:5.4pt; font-weight:800; margin-right:3px;">IDX</span><code>index.md</code></span> <span class="callout-pin">2</span>
         </div>
-        <div style="color:#94a3b8;">&#128221; <code>_log.md</code></div>
+        <div style="color:#94a3b8;"><span style="background:#1e293b; color:#94a3b8; padding:0.5px 3px; border-radius:3px; font-size:5.4pt; font-weight:800; margin-right:3px;">LOG</span><code>_log.md</code></div>
         <div style="margin-top:4px; color:#fca5a5; font-weight:700;">&#9662; 00-raw/ <span style="font-weight:400; color:#94a3b8;">(read-only)</span></div>
         <div style="padding-left:9px; color:#94a3b8;">&#9500; 2026-chen-kv-quant.pdf</div>
         <div style="padding-left:9px; color:#94a3b8;">&#9492; 2026-patel-spec.md</div>
@@ -320,7 +320,7 @@
         <!-- Contradiction / Evolution Callout inside Obsidian -->
         <div style="background:rgba(217,119,6,0.14); border-left:3px solid #f59e0b; border-radius:5px; padding:5px 8px; margin-bottom:5px; font-size:7.05pt; color:#fef3c7; line-height:1.38;">
           <div style="font-weight:700; color:#fbbf24; display:flex; justify-content:space-between; align-items:center;">
-            <span>&#9888; Evidence Shift Flagged on 2026-11-11 Ingest</span> <span class="callout-pin">5</span>
+            <span><span style="background:#78350f; color:#fde68a; padding:0.5px 3.5px; border-radius:3px; font-size:5.5pt; font-weight:800; margin-right:4px;">SHIFT</span>Evidence Shift Flagged on 2026-11-11 Ingest</span> <span class="callout-pin">5</span>
           </div>
           Earlier 2024 benchmarks claimed sub-3-bit KV caches suffered &gt;4% perplexity loss on code tasks <span class="wikilink">[[2024-hooper-kvquant#Table 3]]</span>. New rotated-Hadamard results in <span class="wikilink">[[2026-chen-kv-compression#Sec 4.1]]</span> hold 2-bit accuracy within 0.3% up to 256K tokens on <span class="wikilink">[[llama-4-scout]]</span>.
         </div>
@@ -410,7 +410,7 @@
 
   <h2 class="page-title">Operation 1: The Ingest &amp; Multi-Page Compile Loop</h2>
   <p class="page-lead">
-    Dropping a file into <code>00-raw/</code> is not &ldquo;saving a bookmark&rdquo;&mdash;it triggers a five-step compilation pass where one new document ripples across your entire knowledge graph.
+    Dropping a file into <code>00-raw/</code> is not &ldquo;saving a bookmark&rdquo;: it triggers a five-step compilation pass where one new document ripples across your entire knowledge graph.
   </p>
 
   <div class="figure-box">
@@ -541,12 +541,12 @@ last_compiled: 2026-11-11
 
   <h2 class="page-title">Operation 2: Index-First Querying &amp; Filing Answers Back</h2>
   <p class="page-lead">
-    Once your knowledge is pre-compiled into clean concept notes and indexed in <code>index.md</code>, answering complex multi-hop research questions requires zero vector database infrastructure&mdash;and every great answer makes the vault smarter.
+    Once your knowledge is pre-compiled into clean concept notes and indexed in <code>index.md</code>, answering complex multi-hop research questions requires zero vector database infrastructure, and every great answer makes the vault smarter.
   </p>
 
   <h3>1. How Index-First Traversal Beats Blind Chunk Retrieval</h3>
   <p style="font-size:8.7pt;">
-    When you ask a synthesis question&mdash;such as <em>&ldquo;Where do our last 14 inference papers disagree on batching vs. KV-cache quantization below 50ms TTFT?&rdquo;</em>&mdash;a stateless vector search grabs isolated paragraphs that mention &ldquo;50ms&rdquo; and misses papers that used different terminology. In an LLM Wiki, Claude Desktop or Antigravity follows a deterministic three-hop research loop:
+    When you ask a synthesis question, such as <em>&ldquo;Where do our last 14 inference papers disagree on batching vs. KV-cache quantization below 50ms TTFT?&rdquo;</em>, a stateless vector search grabs isolated paragraphs that mention &ldquo;50ms&rdquo; and misses papers that used different terminology. In an LLM Wiki, Claude Desktop or Antigravity follows a deterministic three-hop research loop:
   </p>
 
   <div class="grid-3" style="margin-bottom:9px;">
@@ -587,7 +587,7 @@ qmd query "TTFT latency tradeoffs between disaggregated prefill and INT2 KV cach
     </div>
     <div class="card" style="padding:8.5px 11px; font-size:8.15pt;">
       <div class="card-title"><span class="num-badge sky">B</span> Back-Patch <code>10-wiki/</code> &amp; <code>index.md</code></div>
-      It simultaneously links the new synthesis from affected concept pages, updates the parent MOC, registers the brief in <code>index.md</code>, and logs <code>QUERY-FILED</code> in <code>_log.md</code>&mdash;so next month&rsquo;s questions start on top of today&rsquo;s insight.
+      It simultaneously links the new synthesis from affected concept pages, updates the parent MOC, registers the brief in <code>index.md</code>, and logs <code>QUERY-FILED</code> in <code>_log.md</code> so next month&rsquo;s questions start on top of today&rsquo;s insight.
     </div>
   </div>
 
@@ -609,7 +609,7 @@ qmd query "TTFT latency tradeoffs between disaggregated prefill and INT2 KV cach
   <div class="figure-box">
     <img class="showcase-img" src="assets/wiki_lint_gardener.jpg" alt="Luminous Jade Lantern Scanning Suspended Crystal Note Prisms in a Dark Conservatory, Mending a Golden Link Thread and Highlighting Two Amber Contradiction Prisms" />
     <div class="figure-caption">
-      <strong>The Sunday Evening Gardener:</strong> A scheduled lint pass sweeps across your compiled crystal constellation&mdash;repairing frayed <code>[[Wikilinks]]</code>, connecting orphan stubs into Maps of Content, and illuminating amber contradiction pairs for human editorial review.
+      <strong>The Sunday Evening Gardener:</strong> A scheduled lint pass sweeps across your compiled crystal constellation, repairing frayed <code>[[Wikilinks]]</code>, connecting orphan stubs into Maps of Content, and illuminating amber contradiction pairs for human editorial review.
     </div>
   </div>
 
@@ -625,7 +625,7 @@ qmd query "TTFT latency tradeoffs between disaggregated prefill and INT2 KV cach
       <strong>3. Bloated Concept Splitting &amp; Stub Promotion:</strong> Flags 2,500-word mega-notes ready to factor into clean sub-concepts, and identifies concepts mentioned 5+ times as plain text that deserve dedicated pages.
     </div>
     <div class="card" style="padding:7px 10px;">
-      <strong>4. Cross-Source Contradiction Sweep:</strong> Compares claims across notes sharing the same MOC&mdash;catching when a 2026 benchmark quietly invalidates an assumption still stated as fact inside an older 2024 concept page.
+      <strong>4. Cross-Source Contradiction Sweep:</strong> Compares claims across notes sharing the same MOC, catching when a 2026 benchmark quietly invalidates an assumption still stated as fact inside an older 2024 concept page.
     </div>
   </div>
   <div class="card-emerald" style="padding:6.5px 10px; margin-bottom:7px; font-size:8.15pt;">
@@ -732,7 +732,7 @@ Read AGENTS.md, index.md, and the last 7 days of _log.md. Run a non-destructive 
 
   <h2 class="page-title">Provenance Gates, Anti-Hallucination &amp; Co-Authorship</h2>
   <p class="page-lead">
-    A self-maintaining wiki is only valuable if you can trust every sentence inside it&mdash;and if your own hard-won intuition is never flattened or overwritten by an eager compiler pass.
+    A self-maintaining wiki is only valuable if you can trust every sentence inside it, and if your own hard-won intuition is never flattened or overwritten by an eager compiler pass.
   </p>
 
   <h3>1. Three Non-Negotiable Provenance Gates Against Hallucination</h3>
@@ -870,10 +870,10 @@ git diff --stat HEAD~1 10-wiki/ index.md _log.md</code></pre>
       <strong>1. Frictionless Intake with Obsidian Web Clipper:</strong> Configure the official free <strong>Obsidian Web Clipper</strong> browser extension to save directly into <code>00-raw/clips/</code> with filename template <code>{{date}}-{{title|safe_name}}</code> and frontmatter keys <code>source_url</code>, <code>author</code>, and <code>published</code>. Enable Markdown image downloading into <code>00-raw/assets/</code> so benchmark charts never break when external blogs go offline.
     </div>
     <div class="card" style="padding:7.5px 11px;">
-      <strong>2. Pairing Gemini Deep Research &amp; NotebookLM Without Losing Depth:</strong> Use <strong>Gemini Deep Research</strong> to scout unfamiliar territory and export its cited report into <code>00-raw/clips/</code>&mdash;then pull the top 3 primary papers it discovered into <code>00-raw/papers/</code> so your wiki cites primary data rather than secondary summaries. Conversely, export any Obsidian MOC bundle into <strong>NotebookLM</strong> when you want a commuter audio overview before a big meeting.
+      <strong>2. Pairing Gemini Deep Research &amp; NotebookLM Without Losing Depth:</strong> Use <strong>Gemini Deep Research</strong> to scout unfamiliar territory and export its cited report into <code>00-raw/clips/</code>, then pull the top 3 primary papers it discovered into <code>00-raw/papers/</code> so your wiki cites primary data rather than secondary summaries. Conversely, export any Obsidian MOC bundle into <strong>NotebookLM</strong> when you want a commuter audio overview before a big meeting.
     </div>
     <div class="card" style="padding:7.5px 11px;">
-      <strong>3. Combining LLM Wiki + Graphify for Code-Plus-Research Projects:</strong> Building software backed by academic papers? Keep your curated conceptual encyclopedia in <code>10-wiki/</code> using this guide&rsquo;s pattern, and mount <code>graphify</code> into a sibling <code>_graphify/</code> folder to map live <code>tree-sitter</code> code call graphs&mdash;giving your coding agent both deep literature synthesis and millisecond AST dependency paths.
+      <strong>3. Combining LLM Wiki + Graphify for Code-Plus-Research Projects:</strong> Building software backed by academic papers? Keep your curated conceptual encyclopedia in <code>10-wiki/</code> using this guide&rsquo;s pattern, and mount <code>graphify</code> into a sibling <code>_graphify/</code> folder to map live <code>tree-sitter</code> code call graphs, giving your coding agent both deep literature synthesis and millisecond AST dependency paths.
     </div>
     <div class="card-emerald" style="padding:7.5px 11px;">
       <strong>4. One-Prompt Deliverable Generation (Memos, PRDs &amp; Marp Decks):</strong> Because every claim in <code>10-wiki/</code> is already distilled and cited, asking Antigravity or Claude Desktop to draft an executive memo, RFC spec, or <strong>Marp</strong> Markdown slide deck into <code>20-outputs/</code> takes seconds and produces zero invented citations.

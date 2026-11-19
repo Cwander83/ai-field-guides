@@ -13,7 +13,7 @@
     <div class="brand-pill">GOOGLE AI &amp; CREATIVE STUDIOS &bull; FIELD GUIDE</div>
     <h1>Agentic <span>Firebase &amp; Android CLI</span> Workflows</h1>
     <p class="cover-sub">
-      The complete 12-page visual handbook to full-stack AI mobile engineering—uniting scoped Firebase MCP backends, App Check-protected Firebase AI Logic Kotlin apps, headless Compose Preview rendering, and automated Android Device Hub journeys.
+      The complete 12-page visual handbook to full-stack AI mobile engineering, uniting scoped Firebase MCP backends, App Check-protected Firebase AI Logic Kotlin apps, headless Compose Preview rendering, and automated Android Device Hub journeys.
     </p>
     <div class="cover-badges">
       <span class="cover-badge">Firebase MCP &amp; Agent Skills</span>
@@ -322,7 +322,7 @@ claude mcp add firebase npx -- -y firebase-tools@latest mcp \
 
   <h2 class="page-title">Firebase MCP: Inspecting Live Cloud State &amp; Rules</h2>
   <p class="page-lead">
-    Running <code>firebase-tools@latest mcp</code> gives your coding agent a live, least-privilege window into your Firebase backend—so database schemas, Security Rules, GraphQL operations, and deploy logs stay aligned with your Android client.
+    Running <code>firebase-tools@latest mcp</code> gives your coding agent a live, least-privilege window into your Firebase backend, keeping database schemas, Security Rules, GraphQL operations, and deploy logs aligned with your Android client.
   </p>
 
   <div class="figure-box">
@@ -390,7 +390,7 @@ claude mcp add firebase npx -- -y firebase-tools@latest mcp \
 
   <h2 class="page-title">Firebase AI Logic + App Check: Kotlin &amp; Prompt Anatomy</h2>
   <p class="page-lead">
-    Firebase AI Logic lets your Android app invoke Gemini directly from Kotlin without standing up a custom proxy server—while <strong>Firebase App Check</strong> proves every request originates from your genuine app binary.
+    Firebase AI Logic lets your Android app invoke Gemini directly from Kotlin without standing up a custom proxy server, while <strong>Firebase App Check</strong> proves every request originates from your genuine app binary.
   </p>
 
   <div class="grid-2" style="margin-bottom:6px;">
@@ -542,7 +542,7 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
       <ul style="font-size:7.9pt; margin:2px 0 0 0;">
         <li><strong>Tap Resolved Boxes:</strong><br/><code>adb -s &lt;serial&gt; shell $(android screen resolve --screenshot /tmp/screen.png --string "input tap #7")</code></li>
         <li><strong>Safe Text &amp; Slow Scrolls:</strong> Confirm <code>"focused"</code> in element <code>state</code>, encode spaces as <code>%s</code> (<code>"Hello%sworld"</code>), and scroll slowly over 500ms (<code>adb shell input swipe 250 400 250 200 500</code>).</li>
-        <li><strong>Sequential XML Journeys:</strong> Execute each <code>&lt;action&gt;</code> strictly as written in order; stop immediately on failure or crash and emit a Markdown report marking steps <code>&#9989;</code> or <code>&#10060;</code>.</li>
+        <li><strong>Sequential XML Journeys:</strong> Execute each <code>&lt;action&gt;</code> strictly as written in order; stop immediately on failure or crash and emit a Markdown report marking steps <code>PASS</code> or <code>FAIL</code>.</li>
       </ul>
     </div>
   </div>
@@ -604,7 +604,7 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
 
   <div class="callout amber" style="margin-top:6px;">
     <div class="callout-title">Always Wait for Edits Before Calling <code>POST /api/render</code></div>
-    Never issue a file edit tool call and a <code>POST /api/render</code> request in the same parallel batch—Wait until all Kotlin file writes finish on disk so Gradle does not compile stale code.
+    Never issue a file edit tool call and a <code>POST /api/render</code> request in the same parallel batch: wait until all Kotlin file writes finish on disk so Gradle does not compile stale code.
   </div>
 
   <footer class="page-footer">
@@ -622,7 +622,7 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
 
   <h2 class="page-title">App Check Enforcements, Least-Privilege MCP &amp; Fleet Ops</h2>
   <p class="page-lead">
-    Production AI mobile apps require tight boundaries at every hop—limiting what your coding agent can mutate in Firebase, proving app identity at runtime, and testing safely across remote hardware.
+    Production AI mobile apps require tight boundaries at every hop: limiting what your coding agent can mutate in Firebase, proving app identity at runtime, and testing safely across remote hardware.
   </p>
 
   <div class="grid-2" style="margin-bottom:8px;">
@@ -640,7 +640,7 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
       <ul style="font-size:8.1pt; margin:3px 0 0 0;">
         <li><strong>Local Debug Tokens:</strong> Register the Logcat token printed by <code>firebase-appcheck-debug</code> in Firebase Console for emulator tests.</li>
         <li><strong>Release Attestation:</strong> Swap to <code>firebase-appcheck-playintegrity</code> and add your Play App Signing <strong>SHA-256</strong> fingerprint in Console.</li>
-        <li><strong>Enforced by Default (Nov 2, 2026):</strong> Firebase enforces App Check automatically for AI Logic—verify debug &amp; Play Integrity tokens before testing.</li>
+        <li><strong>Enforced by Default (Nov 2, 2026):</strong> Firebase enforces App Check automatically for AI Logic, so verify debug &amp; Play Integrity tokens before testing.</li>
       </ul>
     </div>
   </div>
@@ -650,9 +650,9 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
       <div class="card-title"><span class="num-badge amber">3</span> Android Studio Live Bridge</div>
       <p style="font-size:8.1pt;">When Android Studio is open, let the agent tap directly into its live PSI index rather than grepping blindly:</p>
       <ul style="font-size:8pt; margin:3px 0 0 0;">
-        <li><code>android studio check</code> &mdash; verify running IDE instances.</li>
-        <li><code>android studio find-declaration</code> &amp; <code>find-usages</code> &mdash; trace Compose callbacks and ViewModels accurately.</li>
-        <li><code>android studio version-lookup</code> &mdash; fetch latest Maven artifacts like <code>firebase-bom:35.2.0</code> and SDK tools.</li>
+        <li><code>android studio check</code>: verify running IDE instances.</li>
+        <li><code>android studio find-declaration</code> &amp; <code>find-usages</code>: trace Compose callbacks and ViewModels accurately.</li>
+        <li><code>android studio version-lookup</code>: fetch latest Maven artifacts like <code>firebase-bom:35.2.0</code> and SDK tools.</li>
       </ul>
     </div>
 
@@ -687,7 +687,7 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
 
   <h2 class="page-title">Cross-Tool Synergy: From Cloud Schema to Verified APK</h2>
   <p class="page-lead">
-    Watch how all four toolchains interlock in a single sprint—passing validated schemas, protected AI Logic clients, accessibility-checked Compose trees, and sequential XML journey reports cleanly from stage to stage.
+    Watch how all four toolchains interlock in a single sprint, passing validated schemas, protected AI Logic clients, accessibility-checked Compose trees, and sequential XML journey reports cleanly from stage to stage.
   </p>
 
   <div class="figure-box" style="background:#0f172a; padding:14px;">
@@ -839,7 +839,7 @@ curl -s -X POST http://127.0.0.1:$PORT/api/render \
       <div>&#9744; <strong>2. Current Models Only:</strong> Kotlin calls target <code>gemini-3.8-flash</code> / <code>3.1-flash-live-preview</code> via BoM <code>35.2.0</code>.</div>
       <div>&#9744; <strong>5. Delta Deploy Ready:</strong> <code>android run --use-delta-install</code> boots cleanly on AVD with <code>sys.boot_completed</code>.</div>
       <div>&#9744; <strong>3. App Check Parity:</strong> Debug provider locally; Play Integrity + Console SHA-256 verified for release.</div>
-      <div>&#9744; <strong>6. Sequential Journey Pass:</strong> All XML <code>&lt;actions&gt;</code> pass in order with a signed-off <code>&#9989;</code> Markdown audit.</div>
+      <div>&#9744; <strong>6. Sequential Journey Pass:</strong> All XML <code>&lt;actions&gt;</code> pass in order with a signed-off <code>PASS</code> Markdown audit.</div>
     </div>
   </div>
 

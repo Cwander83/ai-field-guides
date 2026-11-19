@@ -32,7 +32,7 @@
   <div class="cover-bottom">
     <div class="cover-stat">
       <div class="cover-stat-title">Playable World Sketching</div>
-      <div class="cover-stat-desc">Turn prompts, sketches, or Street View pins into navigable 720p/24fps 3D worlds inside Google Project Genie.</div>
+      <div class="cover-stat-desc">Turn prompts, sketches, or Street View pins into audio-live 720p/24fps 3D worlds inside Google Project Genie.</div>
     </div>
     <div class="cover-stat">
       <div class="cover-stat-title">Director-Level Control</div>
@@ -89,9 +89,9 @@
 
       <rect x="10" y="10" width="205" height="98" rx="10" fill="url(#wgAmber)" />
       <text x="24" y="32" fill="#fef3c7" font-size="9" font-weight="700" letter-spacing="0.6">STAGE 1 &bull; WORLD SCOUTING</text>
-      <text x="24" y="51" fill="#ffffff" font-size="13.5" font-weight="800">Project Genie (Genie 3)</text>
-      <text x="24" y="69" fill="#fef3c7" font-size="9.5">Walk through interactive 3D</text>
-      <text x="24" y="82" fill="#fef3c7" font-size="9.5">sets at 720p/24fps (60s runs)</text>
+      <text x="24" y="51" fill="#ffffff" font-size="13.5" font-weight="800">Project Genie (Genie 4 / 3)</text>
+      <text x="24" y="69" fill="#fef3c7" font-size="9.5">Walk through audio-live 3D</text>
+      <text x="24" y="82" fill="#fef3c7" font-size="9.5">sets at 720p/24fps (up to 3m)</text>
       <text x="24" y="95" fill="#fef3c7" font-size="9.5">and export location plates.</text>
 
       <path d="M220 59 L243 59" stroke="#fbbf24" stroke-width="2.2" stroke-dasharray="4 3"/>
@@ -131,7 +131,7 @@
       <div class="card-title"><span class="num-badge">W</span> Interactive World Models (Project Genie)</div>
       <ul>
         <li><strong>Live Camera Ownership:</strong> Steer with <code>WASD</code>, jump with Spacebar, and pan with Arrow keys in real time.</li>
-        <li><strong>Spatial Memory (~60s):</strong> Walk around a corner, turn back, and see rooms and props hold geometry.</li>
+        <li><strong>Spatial Memory &amp; Audio:</strong> Genie 4 adds native audio &amp; live text steering; Genie 3 stretches runs up to 3m.</li>
         <li><strong>Best Use:</strong> Level blockouts, architectural walkthroughs, and harvesting exact angle stills for downstream shots.</li>
       </ul>
     </div>
@@ -175,10 +175,10 @@
     </thead>
     <tbody>
       <tr>
-        <td><strong>Google Project Genie</strong><br/><span style="color:#64748b;font-size:7.6pt;">Genie 3 World Model</span></td>
-        <td>Google Labs web portal (<code>labs.google/fx/projectgenie</code>); Google AI Ultra tier (18+).</td>
-        <td><strong>720p at 24fps</strong> live stream; strict <strong>60-second</strong> interactive session limit; MP4 walkthrough export.</td>
-        <td>Best for interactive scouting, Street View world remixing, and angle discovery. Not a full game engine; physics drift past 60s.</td>
+        <td><strong>Google Project Genie</strong><br/><span style="color:#64748b;font-size:7.6pt;">Genie 4 &amp; Genie 3 World Models</span></td>
+        <td>Google Labs web portal (<code>labs.google/fx/projectgenie</code>); Google AI Ultra tier immediate (Pro waitlist).</td>
+        <td><strong>720p at 24fps</strong> live stream; Genie 4 native audio + mid-session steering; Genie 3 up to 3m + chaining.</td>
+        <td>Best for interactive scouting, Street View world remixing, and angle discovery; physics can drift in extended runs.</td>
       </tr>
       <tr>
         <td><strong>Runway Gen-4.5 &amp; Turbo</strong><br/><span style="color:#64748b;font-size:7.6pt;">Cinema Physics Engine</span></td>
@@ -224,7 +224,7 @@
     </div>
     <div class="callout sky" style="margin:0;">
       <div class="callout-title">Safety Note: Official Web Portals Only</div>
-      Project Genie runs strictly inside Google Labs in your browser. There is no offline desktop installer or open-weight Genie 3 binary—avoid third-party sites offering downloadable Genie executables.
+      Project Genie runs strictly inside Google Labs in your browser. There is no offline desktop installer or open-weight Genie 3/4 binary; avoid third-party sites offering downloadable Genie executables.
     </div>
   </div>
 
@@ -255,7 +255,7 @@
         <span style="color:#d6d3d1;">Scene 04: Rainy Harbor Crossing</span>
       </div>
       <div style="display:flex; gap:8px; align-items:center;">
-        <span style="background:#291c0c; padding:3px 8px; border-radius:99px; color:#fbbf24; font-weight:700;">Genie 00:44 / 01:00</span>
+        <span style="background:#291c0c; padding:3px 8px; border-radius:99px; color:#fbbf24; font-weight:700;">Genie 4 &bull; 00:44</span>
         <span style="background:#1e293b; padding:3px 8px; border-radius:99px; color:#38bdf8; font-weight:700;">Seed #4291</span>
         <span style="background:#d97706; padding:3px 10px; border-radius:6px; color:#fff; font-weight:700;">Render 1080p</span>
       </div>
@@ -375,9 +375,9 @@
     <span>World-Sketching, Navigation &amp; Remixing</span>
   </div>
 
-  <h2 class="page-title">Playable 3D Worlds in Project Genie (Genie 3)</h2>
+  <h2 class="page-title">Playable 3D Worlds in Project Genie (Genie 4 &amp; 3)</h2>
   <p class="page-lead">
-    Powered by Google DeepMind's <strong>Genie 3</strong> spatiotemporal world model, Project Genie generates navigable 3D spaces that react dynamically to your controls at <strong>720p / 24fps</strong> with roughly one minute of spatial object memory.
+    Powered by Google DeepMind's <strong>Genie 4</strong> (native audio + mid-session text steering) and <strong>Genie 3</strong> (extended 3-minute runs &amp; world chaining), Project Genie renders navigable <strong>720p / 24fps</strong> spaces with persistent spatial memory.
   </p>
 
   <div class="grid-3" style="margin-bottom: 8px;">
@@ -386,8 +386,8 @@
       <p>Describe your terrain, upload a photo/sketch, or pick a <strong>Google Street View</strong> map pin. Preview the opening frame with Nano Banana Pro and refine elements before compiling.</p>
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge">2</span> Live 60s Exploration</div>
-      <p>Pick <strong>First-Person</strong> or <strong>Third-Person</strong> perspective, then move with <code>WASD</code>, jump with <code>Spacebar</code>, and pan the camera with <code>Arrow</code> keys as the path renders live.</p>
+      <div class="card-title"><span class="num-badge">2</span> Live Exploration &amp; Steering</div>
+      <p>Pick <strong>First-Person</strong> or <strong>Third-Person</strong> perspective, move with <code>WASD</code>, jump with <code>Spacebar</code>, pan with <code>Arrow</code> keys, or inject live Genie 4 text events mid-run.</p>
     </div>
     <div class="card">
       <div class="card-title"><span class="num-badge">3</span> Remix &amp; Export Plates</div>
@@ -398,7 +398,7 @@
   <div class="figure-box">
     <img src="assets/showcase_1.jpg" alt="Interactive 3D AI World Environment for Project Genie Scouting" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
     <div class="figure-caption">
-      <strong>Figure 4.1 &bull; Project Genie World Scouting:</strong> Use a single World Sketch to test camera angles dynamically inside a 60-second playable run, then grab crisp frames for Runway and Kling.
+      <strong>Figure 4.1 &bull; Project Genie World Scouting:</strong> Use a single World Sketch to test camera angles dynamically inside an interactive run, then grab crisp frames for Runway and Kling.
     </div>
   </div>
 
@@ -701,7 +701,7 @@ done</code></pre>
   <div class="grid-2" style="margin-bottom: 8px;">
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> Portable Team Pre-Viz Packets</div>
-      <p>Share lightweight creative packets before rendering expensive masters: bundle your <strong>Project Genie 60s MP4 scout</strong>, seed prompt text, 3-angle Element sheets, and a rough 24fps animatic cut so directors approve blocking upfront.</p>
+      <p>Share lightweight creative packets before rendering expensive masters: bundle your <strong>Project Genie MP4 scout</strong>, seed prompt text, 3-angle Element sheets, and a rough 24fps animatic cut so directors approve blocking upfront.</p>
     </div>
     <div class="card">
       <div class="card-title"><span class="num-badge">2</span> Commercial IP Hygiene</div>
@@ -762,7 +762,7 @@ done</code></pre>
       <circle cx="30" cy="30" r="10" fill="#d97706"/><text x="30" y="34" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">1</text>
       <text x="48" y="34" fill="#fef3c7" font-size="10.8" font-weight="800">Project Genie Scout</text>
       <text x="22" y="53" fill="#e7e5e4" font-size="9">Sketch 3D world or Street View;</text>
-      <text x="22" y="66" fill="#e7e5e4" font-size="9">walk 60s with WASD; export</text>
+      <text x="22" y="66" fill="#e7e5e4" font-size="9">steer live with WASD; export</text>
       <text x="22" y="79" fill="#fbbf24" font-size="9" font-weight="700">Output: 720p Angle Plates</text>
 
       <path d="M218 51 L243 51" stroke="#fbbf24" stroke-width="2.2"/><polygon points="242,46 249,51 242,56" fill="#fbbf24"/>
@@ -805,7 +805,7 @@ done</code></pre>
       <text x="395" y="199" fill="#fbbf24" font-size="9" font-weight="700">Deliver 4K HDR / Rec.709 Master MP4</text>
     </svg>
     <div class="figure-caption">
-      <strong>Figure 10.1:</strong> Each stage passes deterministic visual anchors forward—Genie sets spatial layout, Kling handles wide physical motion, Runway nails close-up acting, and Resolve unifies the finished film.
+      <strong>Figure 10.1:</strong> Each stage passes deterministic visual anchors forward: Genie sets spatial layout, Kling handles wide physical motion, Runway nails close-up acting, and Resolve unifies the finished film.
     </div>
   </div>
 
@@ -859,7 +859,7 @@ done</code></pre>
     <tbody>
       <tr>
         <td><strong>Project Genie forgets geometry after turning around</strong></td>
-        <td>Exceeded the ~60-second spatial memory window or walked too far afield. Keep scouting loops tight inside the core set, grab angle stills early, or Remix a fresh seed.</td>
+        <td>Exceeded the world model's spatial memory window or walked too far afield. Keep scouting loops tight inside the core set, grab angle stills early, or chain/Remix a fresh seed.</td>
       </tr>
       <tr>
         <td><strong>Runway Motion Brush moves walls or bleeds silhouettes</strong></td>
@@ -904,7 +904,7 @@ done</code></pre>
 
   <div class="callout emerald" style="margin-top:9px;">
     <div class="callout-title">Ready to Direct Your First World-to-Cinema Scene?</div>
-    Open <strong><code>labs.google/fx/projectgenie</code></strong> to scout a 60-second location plate, bring your best frame into <strong>Runway Gen-4.5</strong> or <strong>Kling 3.0 Omni</strong> with a locked character reference, and cut your first 24fps sequence in DaVinci Resolve today.
+    Open <strong><code>labs.google/fx/projectgenie</code></strong> to scout an interactive location plate, bring your best frame into <strong>Runway Gen-4.5</strong> or <strong>Kling 3.0 Omni</strong> with a locked character reference, and cut your first 24fps sequence in DaVinci Resolve today.
   </div>
 
   <div class="page-footer">
