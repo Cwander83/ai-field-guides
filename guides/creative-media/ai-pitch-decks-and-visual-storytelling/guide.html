@@ -75,7 +75,7 @@
 
   <h3>Why Fluid Cards &amp; Smart Themes Outpace Static Slide Decks</h3>
   <p style="font-size:8.7pt;">
-    In <strong>Gamma 3.0</strong>, each slide behaves like a responsive web container called a <strong>card</strong>. Instead of clipping text at arbitrary slide margins, cards breathe vertically on screen, re-flow instantly into timelines or comparison columns through <strong>Smart Layouts</strong>, and inherit global colors, fonts, and logos from a centralized <strong>Theme Builder</strong>&mdash;while still exporting to <code>.pptx</code> or Google Slides whenever stakeholders require classic files.
+    In <strong>Gamma 5</strong>, each slide behaves like a responsive web container called a <strong>card</strong>. Instead of clipping text at arbitrary slide margins, cards breathe vertically on screen, re-flow instantly into timelines or comparison columns through <strong>Smart Layouts</strong>, and inherit global colors, fonts, and logos from a centralized <strong>Theme Builder</strong>&mdash;while still exporting to <code>.pptx</code> or Google Slides whenever stakeholders require classic files.
   </p>
 
   <h3>Architecture: From Raw Memo to Tracked Web Link or Exported Slides</h3>
@@ -125,7 +125,7 @@
       <text x="516" y="79" fill="#cbd5e1" font-size="7">Focus dimming (S) + speaker notes</text>
       <rect x="508" y="91" width="174" height="33" rx="5" fill="#162840" stroke="#34d399" stroke-width="0.9"/>
       <text x="516" y="105" fill="#a7f3d0" font-size="7.6" font-weight="700">Analytics, Passwords &amp; API</text>
-      <text x="516" y="117" fill="#cbd5e1" font-size="7">Per-card dwell time + /v1.0/generations</text>
+      <text x="516" y="117" fill="#cbd5e1" font-size="7">Per-card dwell time + /v1.0/agent/*</text>
       <rect x="508" y="130" width="174" height="32" rx="5" fill="#162840" stroke="#a855f7" stroke-width="0.9"/>
       <text x="516" y="144" fill="#e9d5ff" font-size="7.6" font-weight="700">.pptx &amp; Gemini in Slides</text>
       <text x="516" y="156" fill="#cbd5e1" font-size="7">Zoom-to-fit export &amp; Drive polish</text>
@@ -157,8 +157,8 @@
       <div class="card-title" style="font-size:9pt;"><span class="num-badge">1</span> Gamma Plans &amp; Rollover Quotas</div>
       <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
         <li><strong>Free ($0):</strong> <strong>400 one-time credits</strong> at signup (no monthly refresh); includes &ldquo;Made with Gamma&rdquo; badge plus PDF and <code>.pptx</code> export.</li>
-        <li><strong>Plus (~$9/mo annual, $12 monthly):</strong> <strong>1,000 credits/mo</strong>, removes Gamma branding, and unlocks 30-day version history.</li>
-        <li><strong>Pro (~$18/mo annual, $25 monthly):</strong> <strong>4,000 credits/mo</strong>, custom uploaded fonts/themes, viewer analytics, custom domains, and Public API access.</li>
+        <li><strong>Plus (~$9/mo annual, $12 monthly):</strong> <strong>1,500 credits/mo</strong>, removes Gamma branding, and unlocks 30-day version history.</li>
+        <li><strong>Pro (~$18/mo annual, $25 monthly):</strong> <strong>4,000 credits/mo</strong>, custom uploaded fonts/themes, viewer analytics, and custom domains (API works across plans).</li>
         <li><strong>Ultra &amp; Team ($90/mo or $20&ndash;$40/seat):</strong> 20,000 credits/mo (Ultra) or pooled team credits with SSO and workspace locks. Unused monthly credits roll over up to <strong>2&times; your monthly allowance</strong>.</li>
       </ul>
     </div>
@@ -241,7 +241,7 @@
 <section class="page">
   <div class="page-header">
     <span class="section-tag">03 &bull; Annotated Interface Tour</span>
-    <span>Gamma 3.0 Card Editor, Theme Studio &amp; Agent Sidebar</span>
+    <span>Gamma 5 Card Editor, Theme Studio &amp; Agent Sidebar</span>
   </div>
 
   <h2 class="page-title">Annotated Tour: Inside the Gamma Card &amp; Theme Studio</h2>
@@ -764,8 +764,8 @@ Evidence: Q3 Activation Funnel (14,200 Trial Signups)
       </tr>
       <tr>
         <td><strong>Public REST API (<code>v1.0</code>)</strong></td>
-        <td>Pro+ (<code>X-API-KEY</code> / OAuth)</td>
-        <td>Trigger async deck generation via <code>POST /v1.0/generations</code>, poll <code>GET /v1.0/generations/{id}</code> every ~5s, and pull <code>gammaUrl</code> or <code>exportUrl</code>.</td>
+        <td>All Plans (<code>X-API-KEY</code> / OAuth)</td>
+        <td>Trigger Gamma 5 runs via <code>POST /v1.0/agent/generations</code> (or classic <code>/v1.0/generations</code>), poll every ~5s, and pull <code>gammaUrl</code> or <code>exportUrl</code>.</td>
       </tr>
       <tr>
         <td><strong>Gamma MCP &amp; Zapier</strong></td>
@@ -775,11 +775,10 @@ Evidence: Q3 Activation Funnel (14,200 Trial Signups)
     </tbody>
   </table>
 
-  <pre class="code-block" style="margin:2px 0 6px 0;"><code>curl -X POST "https://public-api.gamma.app/v1.0/generations" \
+  <pre class="code-block" style="margin:2px 0 6px 0;"><code>curl -X POST "https://public-api.gamma.app/v1.0/agent/generations" \
   -H "Content-Type: application/json" -H "X-API-KEY: $GAMMA_API_KEY" \
-  -d '{"inputText":"Q4 Revenue Review\n---\nARR grew 42% YoY to $4.2M","textMode":"condense",
-       "themeId":"thm_acme_locked","exportAs":"pptx","cardOptions":{"dimensions":"16x9"},
-       "imageOptions":{"source":"aiGenerated","model":"flux-1-pro"}}'</code></pre>
+  -d '{"prompt":"Q4 Revenue Review: ARR grew 42% YoY to $4.2M","format":"presentation",
+       "numCards":8,"themeId":"thm_acme_locked","exportAs":"pptx"}'</code></pre>
 
   <div class="callout" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.1pt;">
     <div class="callout-title">Optimize Decks Using Viewer Telemetry Instead of Guesswork</div>
@@ -823,7 +822,7 @@ Evidence: Q3 Activation Funnel (14,200 Trial Signups)
       <!-- Stage 2: Gamma Creation & Brand Lock -->
       <rect x="185" y="14" width="166" height="178" rx="10" fill="#2e154f" stroke="#f472b6" stroke-width="2"/>
       <text x="268" y="32" text-anchor="middle" fill="#fbcfe8" font-size="7.5" font-weight="700">STAGE 2 &bull; DESIGN CORE</text>
-      <text x="268" y="48" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">Gamma 3.0 Studio</text>
+      <text x="268" y="48" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">Gamma 5 Studio</text>
       <rect x="196" y="58" width="144" height="36" rx="5" fill="#150a26" stroke="#a855f7" stroke-width="0.9"/>
       <text x="268" y="72" text-anchor="middle" fill="#f5d0fe" font-size="7.3" font-weight="700">Condense or Preserve</text>
       <text x="268" y="84" text-anchor="middle" fill="#d8b4fe" font-size="6.8">Fluid Cards or Studio Mode</text>
@@ -874,7 +873,7 @@ Evidence: Q3 Activation Funnel (14,200 Trial Signups)
       <rect x="565" y="108" width="127" height="82" rx="8" fill="#1e1538" stroke="#a855f7" stroke-width="1.5"/>
       <text x="628" y="125" text-anchor="middle" fill="#e9d5ff" font-size="7.2" font-weight="700">STAGE 4B &bull; API SCALE</text>
       <text x="628" y="140" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">REST API &amp; MCP</text>
-      <text x="628" y="155" text-anchor="middle" fill="#e9d5ff" font-size="6.8">/v1.0/generations pipelines</text>
+      <text x="628" y="155" text-anchor="middle" fill="#e9d5ff" font-size="6.8">/v1.0/agent/* pipelines</text>
       <text x="628" y="167" text-anchor="middle" fill="#e9d5ff" font-size="6.8">Auto-build QBRs &amp; weekly</text>
       <text x="628" y="179" text-anchor="middle" fill="#e9d5ff" font-size="6.8">executive PDF/PPTX</text>
     </svg>
@@ -903,7 +902,7 @@ Evidence: Q3 Activation Funnel (14,200 Trial Signups)
     <div class="card" style="padding:9px 11px;">
       <div class="card-title" style="font-size:9pt;"><span class="num-badge teal">4</span> Close With Telemetry &amp; API</div>
       <p style="font-size:8pt; margin:0;">
-        Review per-card dwell times after every send to tighten high-bounce slides, and automate recurring QBR or pipeline decks through <code>POST /v1.0/generations</code>.
+        Review per-card dwell times after every send to tighten high-bounce slides, and automate recurring QBR or pipeline decks through <code>POST /v1.0/agent/generations</code>.
       </p>
     </div>
   </div>

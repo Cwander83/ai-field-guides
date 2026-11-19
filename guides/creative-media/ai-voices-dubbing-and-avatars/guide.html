@@ -649,7 +649,7 @@ export async function POST() {
 
   <h3 style="margin:4px 0 4px 0;">6. Client SDK: Connect WebRTC Audio &amp; Video Tracks</h3>
   <pre class="code-block"><code>// Install: npm install @heygen/liveavatar-web-sdk
-import { LiveAvatarSession } from "@heygen/liveavatar-web-sdk";
+import { LiveAvatarSession, SessionEvent } from "@heygen/liveavatar-web-sdk";
 
 async function startConcierge(videoEl: HTMLVideoElement) {
   const { sessionToken } = await fetch("/api/liveavatar-token", { method: "POST" }).then((r) =&gt; r.json());
@@ -659,7 +659,7 @@ async function startConcierge(videoEl: HTMLVideoElement) {
     voiceChat: { defaultMuted: false }
   });
 
-  session.on("streamReady", (mediaStream) =&gt; { videoEl.srcObject = mediaStream; });
+  session.on(SessionEvent.SESSION_STREAM_READY, () =&gt; { session.attach(videoEl); });
   await session.start();
   return session;                     // Call await session.stop() on unmount
 }</code></pre>
