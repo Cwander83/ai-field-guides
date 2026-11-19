@@ -10,7 +10,7 @@
 <!-- ==================== PAGE 1: COVER ==================== -->
 <section class="page cover">
   <div class="cover-top">
-    <div class="brand-pill">AGENT ENGINEERING SERIES &bull; VERSION 1.0 &bull; NOVEMBER 2026</div>
+    <div class="brand-pill">AGENT ENGINEERING SERIES &bull; VERSION 1.1 &bull; NOVEMBER 2026</div>
     <h1>Local &amp; On-Device <span>AI Stack</span></h1>
     <p class="cover-sub">
       The complete visual handbook to running open weights on your own silicon&mdash;mastering <code>GGUF</code> &amp; <code>MLX</code> runtimes, quantization math, Apple Silicon unified memory, zero-cost local embeddings, and hybrid cloud routing.
@@ -75,12 +75,12 @@
 
   <h3>Honest Division of Labor: Where Local Wins vs. Where Cloud Still Leads</h3>
   <div class="grid-2" style="margin-bottom:9px; gap:11px;">
-    <div class="card" style="padding:9px 11px; border-left:3.5px solid #059669;">
-      <div class="card-title" style="font-size:9.3pt;">&#10003; Local Silicon Wins Decisively</div>
+    <div class="card" style="padding:9px 11px; border-top:3.5px solid #059669;">
+      <div class="card-title" style="font-size:9.3pt;"><span class="num-badge teal">1</span> Local Silicon Wins Decisively</div>
       <p style="font-size:8.15pt; margin:0;"><strong>Strict data residency</strong> (zero third-party logs), <strong>bulk embeddings</strong> (millions of docs for $0), <strong>air-gapped travel/field work</strong>, bounded extraction/summarization, and custom <strong>LoRA fine-tuning</strong> with pinned weights that never silently deprecate.</p>
     </div>
-    <div class="card" style="padding:9px 11px; border-left:3.5px solid #ea580c;">
-      <div class="card-title" style="font-size:9.3pt;">&#9889; Hosted Frontier Still Leads</div>
+    <div class="card" style="padding:9px 11px; border-top:3.5px solid #ea580c;">
+      <div class="card-title" style="font-size:9.3pt;"><span class="num-badge amber">2</span> Hosted Frontier Still Leads</div>
       <p style="font-size:8.15pt; margin:0;"><strong>Hard multi-step architectural reasoning</strong>, <strong>massive 100K&ndash;1M+ context windows</strong> (where local KV caches blow past laptop RAM), and <strong>complex 15-tool agent loops</strong> where quantized 8B&ndash;14B models occasionally drop JSON arguments.</p>
     </div>
   </div>
@@ -382,13 +382,13 @@
   </div>
 
   <h2 class="page-title">Quantization Demystified: <code>FP16</code> Down to <code>IQ3_M</code></h2>
-  <p class="page-lead">
+  <p class="page-lead" style="margin-bottom:7px;">
     A 32-billion-parameter model occupies <code>64 GB</code> in raw 16-bit floats&mdash;impossible on a 32 GB laptop. Quantization compresses those weights down toward 4&ndash;5 bits per parameter, shrinking the file to <code>~19.5 GB</code> while retaining roughly 95&ndash;97% of reference capability.
   </p>
 
-  <div class="figure-box" style="background:#140904;">
-    <img src="assets/quantization_compression.jpg" alt="Heavy Golden-Amber Blocks Compressing Through Crystalline Lens Into Compact Copper-Cyan Super-Block Prisms" style="width:100%; height:250px; object-fit:cover; object-position:center; display:block;" />
-    <div style="display:grid; grid-template-columns:repeat(4, 1fr); background:#0f172a; color:#f8fafc; padding:6px 10px; font-size:7.35pt; border-top:1px solid #334155; gap:8px;">
+  <div class="figure-box" style="background:#140904; margin:4px 0 7px 0;">
+    <img src="assets/quantization_compression.jpg" alt="Heavy Golden-Amber Blocks Compressing Through Crystalline Lens Into Compact Copper-Cyan Super-Block Prisms" style="width:100%; height:222px; object-fit:cover; object-position:center; display:block;" />
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); background:#0f172a; color:#f8fafc; padding:5px 10px; font-size:7.3pt; border-top:1px solid #334155; gap:8px;">
       <div><strong style="color:#fde68a;">FP16 &bull; 16.0 bpw:</strong><br/>Uncompressed training baseline; 2 bytes/param.</div>
       <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#38bdf8;">Q8_0 &bull; ~8.5 bpw:</strong><br/>Near-lossless 8-bit blocks; ~50% smaller than FP16.</div>
       <div style="padding-left:8px; border-left:1px solid #334155;"><strong style="color:#fb923c;">Q4_K_M / Q5_K_M:</strong><br/>Mixed K-quant super-blocks (~4.8&ndash;5.7 bpw sweet spot).</div>
@@ -396,68 +396,68 @@
     </div>
   </div>
 
-  <h3>Why &ldquo;4-Bit&rdquo; Actually Averages ~4.8 Bits Per Weight</h3>
-  <p style="font-size:8.65pt; margin-bottom:6px;">
+  <h3 style="margin:5px 0 3px 0;">Why &ldquo;4-Bit&rdquo; Actually Averages ~4.8 Bits Per Weight</h3>
+  <p style="font-size:8.45pt; margin-bottom:5px;">
     Modern <strong>K-quants</strong> (<code>Q4_K_S</code>, <code>Q4_K_M</code>, <code>Q4_K_L</code>) do not crush every tensor uniformly. They group weights into <strong>super-blocks</strong> with shared floating-point scales and keep sensitive attention/output layers at 6-bit or 8-bit precision (controlled by <code>_S</code>/<code>_M</code>/<code>_L</code>). Below 4 bits, <strong><code>IQ</code> quants</strong> (e.g., <code>IQ4_XS</code>, <code>IQ3_M</code>) run a calibration corpus through an <strong>importance matrix (<code>imatrix</code>)</strong> during quantization to protect the specific weights that spike activations most.
   </p>
 
-  <table class="clean-table" style="font-size:7.9pt; margin:4px 0 8px 0;">
+  <table class="clean-table" style="font-size:7.8pt; margin:3px 0 6px 0;">
     <thead>
       <tr>
-        <th style="width:15%; padding:5px 8px;">Quant Tag</th>
-        <th style="width:13%; padding:5px 8px;">Avg. bpw</th>
-        <th style="width:19%; padding:5px 8px;">8B / 32B Size</th>
-        <th style="width:17%; padding:5px 8px;">Quality Rule*</th>
-        <th style="width:36%; padding:5px 8px;">When to Pick It</th>
+        <th style="width:15%; padding:4.5px 8px;">Quant Tag</th>
+        <th style="width:13%; padding:4.5px 8px;">Avg. bpw</th>
+        <th style="width:19%; padding:4.5px 8px;">8B / 32B Size</th>
+        <th style="width:17%; padding:4.5px 8px;">Quality Rule*</th>
+        <th style="width:36%; padding:4.5px 8px;">When to Pick It</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td style="padding:4.5px 8px;"><code>FP16 / BF16</code></td>
-        <td style="padding:4.5px 8px;"><code>16.0</code></td>
-        <td style="padding:4.5px 8px;"><code>16 GB / 64 GB</code></td>
-        <td style="padding:4.5px 8px;"><code>100%</code> (Ref)</td>
-        <td style="padding:4.5px 8px;">Reference yardstick &amp; source input for <code>llama-quantize</code>; rarely served locally.</td>
+        <td style="padding:3.8px 8px;"><code>FP16 / BF16</code></td>
+        <td style="padding:3.8px 8px;"><code>16.0</code></td>
+        <td style="padding:3.8px 8px;"><code>16 GB / 64 GB</code></td>
+        <td style="padding:3.8px 8px;"><code>100%</code> (Ref)</td>
+        <td style="padding:3.8px 8px;">Reference yardstick &amp; source input for <code>llama-quantize</code>; rarely served locally.</td>
       </tr>
       <tr>
-        <td style="padding:4.5px 8px;"><code>Q8_0</code></td>
-        <td style="padding:4.5px 8px;"><code>~8.5</code></td>
-        <td style="padding:4.5px 8px;"><code>8.5 GB / 34 GB</code></td>
-        <td style="padding:4.5px 8px;"><code>~99%+</code></td>
-        <td style="padding:4.5px 8px;">Near-lossless ceiling when you have abundant RAM and want exact reference parity.</td>
+        <td style="padding:3.8px 8px;"><code>Q8_0</code></td>
+        <td style="padding:3.8px 8px;"><code>~8.5</code></td>
+        <td style="padding:3.8px 8px;"><code>8.5 GB / 34 GB</code></td>
+        <td style="padding:3.8px 8px;"><code>~99%+</code></td>
+        <td style="padding:3.8px 8px;">Near-lossless ceiling when you have abundant RAM and want exact reference parity.</td>
       </tr>
       <tr>
-        <td style="padding:4.5px 8px;"><code>Q6_K / Q5_K_M</code></td>
-        <td style="padding:4.5px 8px;"><code>~6.6 / 5.7</code></td>
-        <td style="padding:4.5px 8px;"><code>5.8&ndash;6.6 / 23&ndash;26 GB</code></td>
-        <td style="padding:4.5px 8px;"><code>~97&ndash;99%</code></td>
-        <td style="padding:4.5px 8px;"><strong>Upgrade pick</strong> for coding, strict JSON schemas, and digit-accurate extraction.</td>
+        <td style="padding:3.8px 8px;"><code>Q6_K / Q5_K_M</code></td>
+        <td style="padding:3.8px 8px;"><code>~6.6 / 5.7</code></td>
+        <td style="padding:3.8px 8px;"><code>5.8&ndash;6.6 / 23&ndash;26 GB</code></td>
+        <td style="padding:3.8px 8px;"><code>~97&ndash;99%</code></td>
+        <td style="padding:3.8px 8px;"><strong>Upgrade pick</strong> for coding, strict JSON schemas, and digit-accurate extraction.</td>
       </tr>
       <tr>
-        <td style="padding:4.5px 8px;"><strong><code>Q4_K_M</code></strong></td>
-        <td style="padding:4.5px 8px;"><strong><code>~4.8</code></strong></td>
-        <td style="padding:4.5px 8px;"><strong><code>4.9 GB / 19.5 GB</code></strong></td>
-        <td style="padding:4.5px 8px;"><strong><code>~95&ndash;97%</code></strong></td>
-        <td style="padding:4.5px 8px;"><strong>Universal default</strong> (and Ollama's registry default). Best size, speed &amp; quality trade.</td>
+        <td style="padding:3.8px 8px;"><strong><code>Q4_K_M</code></strong></td>
+        <td style="padding:3.8px 8px;"><strong><code>~4.8</code></strong></td>
+        <td style="padding:3.8px 8px;"><strong><code>4.9 GB / 19.5 GB</code></strong></td>
+        <td style="padding:3.8px 8px;"><strong><code>~95&ndash;97%</code></strong></td>
+        <td style="padding:3.8px 8px;"><strong>Universal default</strong> (and Ollama's registry default). Best size, speed &amp; quality trade.</td>
       </tr>
       <tr>
-        <td style="padding:4.5px 8px;"><code>IQ3_M / Q3_K_M</code></td>
-        <td style="padding:4.5px 8px;"><code>~3.5</code></td>
-        <td style="padding:4.5px 8px;"><code>3.6 GB / 14.2 GB</code></td>
-        <td style="padding:4.5px 8px;"><code>~89&ndash;92%</code></td>
-        <td style="padding:4.5px 8px;">Squeezing a larger parameter class (e.g., 70B onto 36&ndash;48 GB); always prefer <code>imatrix</code> <code>IQ</code>.</td>
+        <td style="padding:3.8px 8px;"><code>IQ3_M / Q3_K_M</code></td>
+        <td style="padding:3.8px 8px;"><code>~3.5</code></td>
+        <td style="padding:3.8px 8px;"><code>3.6 GB / 14.2 GB</code></td>
+        <td style="padding:3.8px 8px;"><code>~89&ndash;92%</code></td>
+        <td style="padding:3.8px 8px;">Squeezing a larger parameter class (e.g., 70B onto 36&ndash;48 GB); always prefer <code>imatrix</code> <code>IQ</code>.</td>
       </tr>
       <tr>
-        <td style="padding:4.5px 8px;"><code>Q2_K</code></td>
-        <td style="padding:4.5px 8px;"><code>~2.6</code></td>
-        <td style="padding:4.5px 8px;"><code>2.8 GB / 11 GB</code></td>
-        <td style="padding:4.5px 8px;"><code>~80&ndash;85%</code></td>
-        <td style="padding:4.5px 8px;">Emergency curiosity only; drop down to a smaller model at <code>Q4_K_M</code> instead!</td>
+        <td style="padding:3.8px 8px;"><code>Q2_K</code></td>
+        <td style="padding:3.8px 8px;"><code>~2.6</code></td>
+        <td style="padding:3.8px 8px;"><code>2.8 GB / 11 GB</code></td>
+        <td style="padding:3.8px 8px;"><code>~80&ndash;85%</code></td>
+        <td style="padding:3.8px 8px;">Emergency curiosity only; drop down to a smaller model at <code>Q4_K_M</code> instead!</td>
       </tr>
     </tbody>
   </table>
 
-  <div class="callout amber" style="margin:0; padding:8px 12px; font-size:8.45pt;">
+  <div class="callout amber" style="margin:0; padding:7px 11px; font-size:8.3pt;">
     <div class="callout-title">Task Sensitivity Rule: Coding &amp; Tool-Calling Feel Quantization First</div>
     <em>*Quality percentages are community rules of thumb, not universal benchmarks.</em> Conversational prose hides quantization noise effortlessly, whereas <strong>code syntax, multi-argument tool calls, and exact numerical extraction</strong> degrade noticeably below <code>Q4_K_M</code>. A crisp <code>14B @ Q5_K_M</code> almost always beats a lobotomized <code>32B @ Q2_K</code>!
   </div>
@@ -780,7 +780,7 @@ print(ans.choices[0].message.content)</code></pre>
         <td style="padding:5.5px 8px;"><strong>5. Production <code>llama-server</code> Launch</strong><br/><span style="color:#64748b;font-size:7.2pt;">Direct C++ engine w/ Jinja, Flash-Attn &amp; quantized KV</span></td>
         <td style="padding:5.5px 8px;">
           <code>llama-server -hf ggml-org/Qwen2.5-Coder-14B-Instruct-Q4_K_M-GGUF</code><br/>
-          <code>&nbsp;&nbsp;-ngl 999 -c 16384 -b 1024 --flash-attn -ctk q8_0 -ctv q8_0 --jinja</code><br/>
+          <code>&nbsp;&nbsp;-ngl 999 -c 16384 -b 1024 --flash-attn on -ctk q8_0 -ctv q8_0 --jinja</code><br/>
           <code>&nbsp;&nbsp;--host 127.0.0.1 --port 8080 # confirm flags on your build via llama-server --help</code>
         </td>
       </tr>

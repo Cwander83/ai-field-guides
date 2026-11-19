@@ -10,7 +10,7 @@
 <!-- ==================== PAGE 1: COVER ==================== -->
 <section class="page cover">
   <div class="cover-top">
-    <div class="brand-pill">Agent Engineering Series &bull; Version 1.0 &bull; November 2026</div>
+    <div class="brand-pill">Agent Engineering Series &bull; Version 1.1 &bull; November 2026</div>
     <h1>Prompt Injection &amp; <span>Agent Security</span></h1>
     <p class="cover-sub">
       The complete visual handbook to defending tool-calling AI agents&mdash;breaking the Lethal Trifecta, enforcing least-privilege tool gates, isolating execution in sandboxes, locking down MCP supply chains, and automating CI red-teaming.
@@ -309,7 +309,7 @@
 
         <div style="background:#111827; border:1px solid #38bdf8; border-radius:6px; padding:6px 8px;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-            <span style="color:#7dd3fc; font-weight:700; font-size:7.3pt;">&#9208; Pending Call #3: <code>git.push("origin", "fix-412")</code></span>
+            <span style="color:#7dd3fc; font-weight:700; font-size:7.3pt;">[HOLD] Pending Call #3: <code>git.push("origin", "fix-412")</code></span>
             <span class="callout-pin">5</span>
           </div>
           <div style="font-size:6.8pt; color:#cbd5e1; line-height:1.38;">
@@ -680,7 +680,7 @@ def propose_email(to_addr: str, subject: str, body: str) -&gt; dict:
         <td style="padding:5.5px 8px;"><strong>4. <code>MCP</code> Pin &amp; Allowlist</strong><br/><span style="color:#64748b;font-size:7.3pt;">Blocks Rug Pulls (<code>LLM03</code>)</span></td>
         <td style="padding:5.5px 8px;">
           Pin immutable package version + verify schema hash before boot:<br/>
-          <code>{"mcpServers": {"gitRead": {"command": "npx", "args": ["--no-install", "@modelcontextprotocol/server-git@0.6.2"], "allowedTools": ["git_status", "git_diff", "git_log"]}}}</code> &mdash; omit write/push tools entirely.
+          <code>{"mcpServers": {"gitRead": {"command": "uvx", "args": ["mcp-server-git==2026.11.11", "--repository", "/workspace/repo"], "allowedTools": ["git_status", "git_diff", "git_log"]}}}</code> &mdash; omit write/push tools entirely.
         </td>
       </tr>
       <tr>
@@ -717,18 +717,18 @@ def propose_email(to_addr: str, subject: str, body: str) -&gt; dict:
   </div>
 
   <h2 class="page-title">Automated Red-Teaming &amp; CI Gates with <code>promptfoo</code></h2>
-  <p class="page-lead">
+  <p class="page-lead" style="margin-bottom:7px;">
     You never truly know your agent's failure modes until you attack them systematically. Open-source <code>promptfoo</code> generates dynamic multi-turn jailbreaks, indirect injections, cross-tenant <code>BOLA</code> probes, and sink exploits on every pull request.
   </p>
 
-  <h3>1. Bootstrapping a Local &amp; CI Red-Team Suite in 3 Commands</h3>
-  <pre class="code-block"><code># Initialize non-interactively, execute adversarial probes against your staging agent, and inspect failures
+  <h3 style="margin:5px 0 3px 0;">1. Bootstrapping a Local &amp; CI Red-Team Suite in 3 Commands</h3>
+  <pre class="code-block" style="padding:6px 10px; margin:2px 0 6px 0; font-size:7.2pt; line-height:1.35;"><code># Initialize non-interactively, execute adversarial probes against your staging agent, and inspect failures
 npx promptfoo@latest redteam init --no-gui
 npx promptfoo@latest redteam run
 npx promptfoo@latest redteam report</code></pre>
 
-  <h3>2. Illustrative <code>promptfooconfig.yaml</code> for a Tool-Calling Agent</h3>
-  <pre class="code-block"><code># Verify current plugin &amp; strategy identifiers at https://www.promptfoo.dev/docs/red-team
+  <h3 style="margin:5px 0 3px 0;">2. Illustrative <code>promptfooconfig.yaml</code> for a Tool-Calling Agent</h3>
+  <pre class="code-block" style="padding:6px 10px; margin:2px 0 6px 0; font-size:7.1pt; line-height:1.33;"><code># Verify current plugin &amp; strategy identifiers at https://www.promptfoo.dev/docs/red-team
 targets:
   - id: http
     config:
@@ -753,8 +753,8 @@ redteam:
     - prompt-injection
     - jailbreak</code></pre>
 
-  <h3>3. Four Manual Adversarial Drills Every Builder Should Run Quarterly</h3>
-  <table class="clean-table" style="font-size:8pt;">
+  <h3 style="margin:5px 0 3px 0;">3. Four Manual Adversarial Drills Every Builder Should Run Quarterly</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:3px 0 0 0;">
     <thead>
       <tr>
         <th style="width:28%;">Adversarial Drill</th>
