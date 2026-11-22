@@ -196,8 +196,8 @@
       </tr>
       <tr>
         <td><strong>Workflow 5</strong><br/><span style="color:#6d28d9; font-weight:600;"><code>WorkflowAgent</code></span></td>
-        <td>Adding multi-step orchestration, human approvals, or durable AI loops directly inside Next.js, Hono, or Express.</td>
-        <td><code>&quot;use workflow&quot;</code> + <code>&quot;use step&quot;</code> + <code>WorkflowAgent</code> (<code>@ai-sdk/workflow</code> 2.x).</td>
+        <td>Adding multi-step orchestration, human approvals, or durable AI loops directly inside Next.js, Hono, Express, or Python (beta).</td>
+        <td><code>&quot;use workflow&quot;</code> + <code>&quot;use step&quot;</code> + <code>WorkflowAgent</code> (<code>@ai-sdk/workflow</code> 2.x), AES-256-GCM encryption &amp; multi-region runs.</td>
         <td>You only need single-hop fire-and-forget job buffering.</td>
       </tr>
       <tr>
@@ -256,8 +256,8 @@ vercel agent-runs list --limit 10</code></pre>
   </div>
 
   <div class="callout sky" style="margin:2px 0 0 0;">
-    <div class="callout-title">Version Check Before Writing Agents: Workflow 5 vs. Legacy Workflow 4</div>
-    In Workflow 5 (<code>workflow@latest</code>), always import <code>WorkflowAgent</code> from <code>@ai-sdk/workflow</code> (2.x) instead of the deprecated <code>DurableAgent</code> from <code>@workflow/ai</code>. Plain <code>&quot;provider/model&quot;</code> strings (such as <code>&quot;openai/gpt-5.4&quot;</code> or <code>&quot;spacexai/grok-4.6&quot;</code>) route automatically through Vercel AI Gateway using OIDC authentication&mdash;no manual provider keys required.
+    <div class="callout-title">Version Check: Workflow 5 GA &amp; Shared Worlds Ecosystem</div>
+    In Workflow 5 (<code>workflow@latest</code>), import <code>WorkflowAgent</code> from <code>@ai-sdk/workflow</code> (2.x) instead of deprecated <code>DurableAgent</code> (<code>@workflow/ai</code>). The shared <strong>Worlds</strong> layer now also backs <code>fx</code> (<code>libfx</code> coding agents) and <code>durable-harness</code> (Pi, OpenCode, experimental Claude Code/Codex in Sandbox), while plain <code>&quot;provider/model&quot;</code> strings route via AI Gateway OIDC.
   </div>
 
   <div class="page-footer"><span>Vercel Durable Agents, Workflows &amp; Queues &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
@@ -379,7 +379,7 @@ vercel agent-runs list --limit 10</code></pre>
       <strong><span class="callout-pin">6</span> <code>vercel agent-runs</code> Trace View:</strong> Inspects production <code>eve</code> sessions, tool traces, and token spend from the CLI or Vercel MCP server.
     </div>
     <div class="card-violet" style="padding:6px 9px; grid-column: span 2;">
-      <strong><span class="callout-pin">7</span> Deep-Link Run URLs:</strong> Append <code>--url</code> to <code>npx workflow inspect run &lt;run_id&gt; --backend vercel --url</code> to print a shareable dashboard URL straight to Slack or PR comments without launching a local browser.
+      <strong><span class="callout-pin">7</span> Trace Viewer, Run Attributes &amp; <code>--decrypt</code>:</strong> Attach searchable plaintext <strong>Run Attributes</strong> (e.g., <code>orderId</code>), inspect spans in the redesigned trace viewer, or run <code>npx workflow inspect run &lt;id&gt; --decrypt</code> / <code>--url</code> to decrypt AES-256-GCM payloads locally or share deep links.
     </div>
   </div>
 
@@ -404,7 +404,7 @@ vercel agent-runs list --limit 10</code></pre>
       <ul style="font-size:7.8pt; margin:2px 0 0 0;">
         <li><strong>Deterministic VM:</strong> Replays the exact control-flow path across restarts; non-deterministic side effects are forbidden here.</li>
         <li><strong>Blocked APIs:</strong> Never use <code>setTimeout</code>, <code>setInterval</code>, raw <code>require()</code>, Node <code>fs</code>/<code>crypto</code>, or bare global <code>fetch()</code>.</li>
-        <li><strong>Approved Primitives:</strong> Use <code>sleep(&quot;48h&quot;)</code>, <code>createHook()</code>, <code>createWebhook()</code>, <code>fetch</code> imported from <code>&quot;workflow&quot;</code>, and <code>start()</code> for child runs.</li>
+        <li><strong>Approved Primitives:</strong> Use <code>sleep(&quot;48h&quot;)</code>, <code>createHook()</code>, <code>createWebhook()</code>, <code>AbortController</code> cancellation, and <code>start()</code> for child runs.</li>
       </ul>
     </div>
 
@@ -412,8 +412,8 @@ vercel agent-runs list --limit 10</code></pre>
       <div class="card-title"><span class="num-badge emerald">2</span> <code>&quot;use step&quot;</code> Full-Access Workers</div>
       <ul style="font-size:7.8pt; margin:2px 0 0 0;">
         <li><strong>Full Node.js &amp; npm:</strong> Run database clients, Stripe SDKs, AI SDK calls, and native <code>fetch</code> with zero sandbox restrictions.</li>
-        <li><strong>Automatic Checkpointing:</strong> Inputs and return values serialize across boundaries via <code>devalue</code> (or <code>@workflow/serde</code> for classes).</li>
-        <li><strong>Launch Properly:</strong> Always invoke workflows via <code>start(myWorkflow, [args])</code> from <code>&quot;workflow/api&quot;</code> with <code>withWorkflow</code> configured.</li>
+        <li><strong>Encrypted Checkpoints:</strong> Inputs/outputs serialize via <code>devalue</code> and encrypt end-to-end with per-run <strong>AES-256-GCM</strong> automatically.</li>
+        <li><strong>Multi-Region Launch:</strong> Start via <code>start(myWorkflow, [args], { region: &quot;fra1&quot; })</code> to pin state to the caller's or customer's home region.</li>
       </ul>
     </div>
   </div>
@@ -437,15 +437,15 @@ export async function onboardWorkflow(orgId: string) {
   await sleep("24h"); // Suspends cleanly on Vercel Queues with zero compute held
   return { status: "ready", workspaceId: workspace.id };
 }
-// Launch from route: const run = await start(onboardWorkflow, [orgId]);</code></pre>
+// Launch in home region (or pin): await start(onboardWorkflow, [orgId], { region: "fra1" });</code></pre>
 
   <div class="callout emerald" style="margin:2px 0 6px 0;">
-    <div class="callout-title">Always Read Version-Matched Docs in <code>node_modules/workflow/docs/</code></div>
-    Workflow 5 ships complete, version-locked documentation right inside <code>node_modules/workflow/docs/</code> (covering <code>foundations/</code>, <code>api-reference/</code>, <code>worlds/</code>, and <code>errors/</code>). Also batch or bundle loops over thousands of items so each run stays well below event-log ceilings.
+    <div class="callout-title">Workflow 5.2+ Engine &amp; Version-Matched Docs (<code>node_modules/workflow/docs/</code>)</div>
+    Workflow 5 executes sequential/parallel steps inline (fewer queue hops), uses incremental replay (25&times; lower late-run overhead), and streams over WebSockets by default. Always check <code>node_modules/workflow/docs/</code> and batch 1,000+ item loops to keep runs lean.
   </div>
 
   <div class="figure-box" style="margin:2px 0 0 0;">
-    <img src="assets/workflow_step_checkpoint_vault.jpg" alt="Isometric architectural glass illustration contrasting a sealed violet sandboxed orchestrator chamber above three interconnected full-access worker vaults holding glowing replay checkpoints" style="width:100%; height:245px; object-fit:cover; object-position:center; display:block;" />
+    <img src="assets/workflow_step_checkpoint_vault.jpg" alt="Isometric architectural glass illustration contrasting a sealed violet sandboxed orchestrator chamber above three interconnected full-access worker vaults holding glowing replay checkpoints" style="width:100%; height:230px; object-fit:cover; object-position:center; display:block;" />
     <div class="figure-caption">
       <strong>Orchestrator Chamber vs. Worker Vaults:</strong> The sealed upper <code>&quot;use workflow&quot;</code> VM coordinates timing, hooks, and child runs deterministically, while lower <code>&quot;use step&quot;</code> worker vaults execute full Node.js I/O and lock state into glowing replay checkpoints.
     </div>
@@ -759,15 +759,15 @@ export const POST = handleCallback(processOrder, {
   </p>
 
   <div class="callout rose" style="margin:2px 0 7px 0;">
-    <div class="callout-title">Zero Long-Lived Secrets in Prompts, Repos, or Sandbox Memory</div>
-    Never paste Slack bot tokens, GitHub private keys, or provider API keys into instructions or <code>.env</code> commits. Rely on <code>VERCEL_OIDC_TOKEN</code> for AI Gateway, Queues, and Schedules; use <code>@vercel/connect</code> for short-lived third-party OAuth tokens; and use <strong>Vercel KMS</strong> for OIDC-authenticated JWT/message signing.
+    <div class="callout-title">End-to-End AES-256-GCM Encryption &amp; Zero Long-Lived Secrets</div>
+    Workflow 5 encrypts every run's inputs, outputs, hooks, and streams with per-run <strong>AES-256-GCM</strong> (zero config on Vercel; <code>getEncryptionKeyForRun()</code> on self-hosted Worlds; <code>experimental_retention: 0</code> deletes payloads on completion). Pair with <code>VERCEL_OIDC_TOKEN</code>, <code>@vercel/connect</code>, and <strong>Vercel KMS</strong>.
   </div>
 
   <div class="grid-2" style="margin-bottom:7px;">
     <div class="card-dark">
       <div class="card-title">Programmatic Observability (<code>World</code> &amp; CLI)</div>
       <ul style="font-size:7.75pt; color:#cbd5e1; margin:3px 0 0 0;">
-        <li><strong><code>vercel agent-runs</code>:</strong> Inspect production <code>eve</code> agent runs, step latencies, tool payloads, and token usage via CLI or the Vercel MCP server.</li>
+        <li><strong><code>vercel agent-runs</code> &amp; <code>--decrypt</code>:</strong> Inspect <code>eve</code> sessions via CLI/MCP, or run <code>npx workflow inspect run &lt;id&gt; --decrypt</code> for audit-logged local decryption.</li>
         <li><strong>World SDK Status Polling:</strong> Use <code>world.runs.get(runId, { resolveData: &quot;none&quot; })</code> for fast dashboards without loading serialized I/O blobs.</li>
         <li><strong>Mandatory <code>devalue</code> Hydration:</strong> Step I/O arrives prefixed with <code>devl</code> bytes&mdash;always call <code>hydrateResourceIO(step, observabilityRevivers)</code> from <code>workflow/observability</code> before reading <code>step.input</code> or <code>step.output</code>.</li>
       </ul>

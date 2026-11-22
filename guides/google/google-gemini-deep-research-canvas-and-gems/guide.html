@@ -157,9 +157,9 @@
         <td>Quick translations, rapid brainstorming lists, summarizing short emails, and fast everyday mobile voice checks.</td>
       </tr>
       <tr>
-        <td><strong>Pro (Workhorse)</strong></td>
+        <td><strong>Pro / Gemini 4 (Workhorse)</strong></td>
         <td>Fast (3–8s)</td>
-        <td>Your daily driver for <strong>Canvas</strong> writing, vibe-coding interactive dashboards, analyzing spreadsheets, and stacking <strong>Skills</strong> / Gems.</td>
+        <td>Your daily driver (powered by Gemini 4 Hydrogen / Neon on Pro &amp; Ultra) for <strong>Canvas</strong> apps, spreadsheets, and stacking <strong>Skills</strong>.</td>
       </tr>
       <tr>
         <td><strong>Deep Think</strong><br/><span style="font-size:7.6pt; color:#4f46e5; font-weight:700;">AI ULTRA EXCLUSIVE</span></td>
@@ -185,8 +185,8 @@
       <p style="font-size:8.5pt;">Open the Gemini phone app, invoke any <strong>Skill</strong> (<code>/</code>) or Workspace Gem, tap <strong>Live</strong>, and turn on camera or screen share to brainstorm out loud while pointing at slides or objects.</p>
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge teal">3</span> Scheduled Actions</div>
-      <p style="font-size:8.5pt;">Put prompts on autopilot! Say: <em>"Every weekday at 7:30 AM, check @Calendar and unread @Gmail VIP threads and send me a 5-bullet prep brief."</em> Manage anytime in <strong>Settings &rarr; Scheduled actions</strong>.</p>
+      <div class="card-title"><span class="num-badge teal">3</span> Scheduled Actions &amp; Tasks</div>
+      <p style="font-size:8.5pt;">Put prompts on autopilot (also rolling out as <strong>Tasks / Gemini Spark</strong>)! Say: <em>"Every weekday at 7:30 AM, check @Calendar and unread @Gmail VIP threads for a 5-bullet brief."</em> Manage in <strong>Settings &rarr; Scheduled actions</strong>.</p>
     </div>
   </div>
 
@@ -607,7 +607,7 @@
 
   <h2 class="page-title">Building Gemini Skills (<code>/skill-name</code>) &amp; Workspace Gems</h2>
   <p class="page-lead">
-    On <strong>November 17, 2026</strong>, personal (18+) Gems went read-only (removed Dec 17, auto-migrated to draft Skills) as Google launched inline, stackable <strong>Gemini Skills</strong> (<code>SKILL.md</code> via <code>/skill-name</code> or <code>@skill-name</code>). Google Workspace accounts keep Gems under <strong>Settings</strong> until March 2027 (Education: June 2027).
+    On <strong>November 17, 2026</strong>, personal (18+) Gems went read-only (removed <strong>Dec 17</strong>, auto-migrated to draft Skills) as Google launched inline, stackable <strong>Gemini Skills</strong> (<code>SKILL.md</code> via <code>/skill-name</code> or <code>@skill-name</code>). Workspace accounts keep Gems under <strong>Settings</strong> until March 2027 (Education: June 2027).
   </p>
 
   <h3>The 4-Pillar Instruction Formula (<code>SKILL.md</code> &amp; Gem Blueprint)</h3>
@@ -629,11 +629,11 @@
   <div class="grid-2" style="margin-bottom:8px;">
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> Open <code>SKILL.md</code> &amp; Stackability</div>
-      <p style="font-size:8.3pt;">Unlike isolated chatbots, modular <strong>Skills</strong> use the portable open <code>SKILL.md</code> standard. Stack multiple playbooks—like <code>/brand-voice</code> + <code>/clarity-editor</code>—inside one active chat or trigger them automatically by context (and expand rough drafts with the prompt-rewrite wand)!</p>
+      <p style="font-size:8.3pt;">Modular <strong>Skills</strong> use the portable <code>SKILL.md</code> format (up to <strong>100 active Skills</strong>; requires <strong>Keep Activity</strong>). Stack playbooks—like <code>/brand-voice</code> + <code>/clarity-editor</code>—inside one chat or let Gemini trigger them automatically by description.</p>
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge teal">2</span> Live Google Drive Sync!</div>
-      <p style="font-size:8.3pt;">Attach static PDFs/CSVs or link native <strong>Google Docs &amp; Sheets</strong> from Drive so your Skill or Workspace Gem always reads current numbers. When you update your Google Doc next month, every <code>/skill-name</code> run uses the live truth automatically!</p>
+      <div class="card-title"><span class="num-badge teal">2</span> Drive Sync &amp; 100 MB Migration Cap</div>
+      <p style="font-size:8.3pt;">Link live <strong>Google Docs &amp; Sheets</strong> or upload up to <strong>100 MB total</strong> per Skill. Before Dec 17, download any Gem files over 100 MB (largest auto-dropped) or unsupported types: audio, video, GitHub files, legacy <code>.doc/.xls/.ppt</code>, and <code>.zip</code> archives.</p>
     </div>
   </div>
 
@@ -644,7 +644,7 @@
 
   <div class="callout amber">
     <div class="callout-title">Golden Rule of Skill Design: Build 5 Narrow Specialists You Can Stack</div>
-    A monolithic prompt told to be <em>"coder, therapist, lawyer, and copywriter"</em> dilutes accuracy. Keep each Skill laser-focused on <strong>one job + its exact reference docs</strong>, then stack two narrow <code>/skill-name</code> commands together whenever a task spans domains!
+    A monolithic prompt told to be <em>"coder, therapist, lawyer, and copywriter"</em> dilutes accuracy. Keep each Skill laser-focused on <strong>one job + its exact reference docs</strong>, start its description with <em>"Use when..."</em> for auto-triggering, and stack two narrow <code>/skill-name</code> commands when tasks span domains!
   </div>
 
   <div class="page-footer">
@@ -707,9 +707,9 @@
     </tbody>
   </table>
 
-  <div class="callout emerald" style="margin-top:7px;">
-    <div class="callout-title">Power Combo: Stack Inline <code>/skill-name</code> Skills WITH Split-Screen Canvas!</div>
-    You don't have to switch contexts between reusable rules and Canvas. Type <code>/clarity-editor</code> directly in the prompt bar, toggle <strong>Canvas</strong>, and stack live editing rules onto any draft in the same unified chat (or open Workspace Gems from Settings until 2027)!
+  <div class="callout amber" style="margin-top:7px;">
+    <div class="callout-title">Tool Compatibility Rule: Run Skills &amp; Canvas / Deep Research in Sequence</div>
+    Gemini <strong>Skills</strong> currently work with Connected Workspace apps, but <strong>do not yet work inside Canvas, Deep Research, Create video, Create music, or Guided Learning</strong>. Run Deep Research first, or apply <code>/clarity-editor</code> in standard chat and then move the draft into Canvas!
   </div>
 
   <div class="page-footer">
@@ -870,8 +870,8 @@
         <td>Minor JS/React state bug. Click <strong>Fix error</strong> if prompted, or toggle to <strong>Code</strong>, highlight the broken handler, and ask: <code>"Fix this click state bug without altering the layout."</code></td>
       </tr>
       <tr>
-        <td><strong>Personal Gem locked read-only or <code>SKILL.md</code> ignores a file</strong></td>
-        <td>Personal 18+ Gems went read-only Nov 17, 2026 (removed Dec 17)—convert/open your draft <strong>Skill</strong>, invoke it inline with <code>/skill-name</code>, and name attached files explicitly inside <code>SKILL.md</code>!</td>
+        <td><strong>Personal Gem read-only, missing files, or Skill won't run in Canvas</strong></td>
+        <td>Personal 18+ Gems went read-only Nov 17 (removed Dec 17); download &gt;100 MB or unsupported files (audio/video/GitHub/<code>.zip</code>) first. Skills don't yet work inside Canvas/Deep Research—run <code>/skill-name</code> in standard chat!</td>
       </tr>
       <tr>
         <td><strong>Skill or Workspace Gem can't read my latest Gmail or Calendar</strong></td>

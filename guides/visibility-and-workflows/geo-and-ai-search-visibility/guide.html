@@ -208,7 +208,7 @@
         <td>Search: <code>Googlebot</code><br/>Gemini Train: <code>Google-Extended</code></td>
         <td>Core Google ranking index, E-E-A-T authority, Knowledge Graph, Reddit &amp; YouTube consensus.</td>
         <td>Evergreen Chromium renderer (queues JS, but SSR indexes much faster).</td>
-        <td>Organic top-10 foundation + schema entity clarity; shares Search Console surfaces.</td>
+        <td>Organic top-10 foundation + schema clarity; track combined impressions in <strong>Search Console Gen AI Reports</strong> (+ AI Control toggle).</td>
       </tr>
       <tr>
         <td><strong>Claude Web Search</strong><br/><em>Anthropic</em></td>
@@ -763,9 +763,9 @@ Sitemap: https://acmecloud.io/sitemap.xml</code></pre>
       </p>
     </div>
     <div class="card" style="padding:8px 10px; border-top:3px solid #0284c7;">
-      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge sky">2</span> Solving the Zero-Click Dark Funnel</div>
+      <div class="card-title" style="font-size:8.9pt;"><span class="num-badge sky">2</span> Dark Funnel &amp; Search Console Gen AI Reports</div>
       <p style="font-size:7.8pt; margin:0;">
-        Mobile AI apps often strip HTTP referrers, routing clicks into GA4 <code>(direct) / (none)</code>, while zero-click answers never click at all. Pair <code>utm_source=chatgpt.com</code> and custom regex tracking with a mandatory CRM &ldquo;How did you hear about us?&rdquo; field.
+        Mobile AI apps strip referrers into GA4 <code>(direct)</code>. Pair <code>utm_source=chatgpt.com</code>, CRM self-attribution, and <strong>Google Search Console's Generative AI Performance Reports</strong> (global since Aug 2026; tracks combined AI Overviews + AI Mode impressions by page, country &amp; device).
       </p>
     </div>
   </div>
@@ -788,10 +788,10 @@ Sitemap: https://acmecloud.io/sitemap.xml</code></pre>
         <td>Testing only branded queries instead of unbranded category discovery prompts.</td>
       </tr>
       <tr>
-        <td><strong>Citation Link Rate</strong></td>
-        <td>% of tested prompts returning a clickable footnote URL to your owned domain across 4 engines.</td>
+        <td><strong>Citation Link Rate &amp; GSC AI</strong></td>
+        <td>% of tested prompts returning your URL + <strong>Search Console Gen AI</strong> impressions (AIO + AI Mode combined).</td>
         <td>Bi-Weekly</td>
-        <td>Assuming ChatGPT and Perplexity share identical retrieval indices.</td>
+        <td>GSC Gen AI reports impressions only (no clicks or AIO vs. AI Mode split yet).</td>
       </tr>
       <tr>
         <td><strong>Sentiment &amp; Accuracy</strong></td>
@@ -809,8 +809,8 @@ Sitemap: https://acmecloud.io/sitemap.xml</code></pre>
   </table>
 
   <div class="callout rose" style="margin:2px 0 0 0; padding:6.5px 10px; font-size:8pt;">
-    <div class="callout-title">Critical Warning: Never Confuse Google-Extended With Googlebot</div>
-    Blocking <code>Google-Extended</code> opts your content out of Gemini training and model grounding while keeping standard Search intact. Blocking <code>Googlebot</code> wipes your site from both organic Google Search and Google AI Overviews at once.
+    <div class="callout-title">Critical Warning: Google-Extended vs. Search Console AI Control vs. Googlebot</div>
+    Blocking <code>Google-Extended</code> opts out of Gemini training; use the <strong>Search Console AI Control</strong> toggle to opt out of AI Overviews, AI Mode, or Discover without losing organic Search. Blocking <code>Googlebot</code> wipes you from everything at once.
   </div>
 
   <div class="page-footer"><span>GEO &amp; AI Search Visibility &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>

@@ -178,14 +178,14 @@ gemini-api music <span class="str">"Lo-fi Rhodes beat, 86 BPM, instrumental"</sp
       <tr>
         <td><strong>Suno v6 / v6-wild</strong><br/><code>Suno Studio</code></td>
         <td>Full vocal tracks, anthems, hooks, multi-part songs</td>
-        <td>Custom meta-tags, Personas, Replace Section, 12-stem WAV + MIDI</td>
-        <td>Trained post-WMG/BMG/Believe deals; Pro (2,500 cr) &amp; Premier (10,000 cr) clear commercial use.</td>
+        <td>Custom meta-tags, Personas, Replace Section, 12-stem WAV + MIDI (no official API)</td>
+        <td>Post-WMG/BMG/Believe deals; Free = 0 downloads, Pro = 20/mo, Premier = 60/mo (uncapped in Studio).</td>
       </tr>
       <tr>
         <td><strong>ElevenLabs Music</strong><br/><code>music_v2_5</code></td>
         <td>Brand ads, explainer beds, timed video scores</td>
-        <td>3s&ndash;10m (<code>music_length_ms</code>), <code>composition_plan</code>, stems</td>
-        <td>Backed by Merlin &amp; Kobalt; paid clears digital/ads; Film/TV &amp; AAA games require Enterprise.</td>
+        <td>3s&ndash;10m (<code>music_length_ms</code>), <code>composition_plan</code>, stems, SoundCloud publish</td>
+        <td>Merlin &amp; Kobalt cleared; Music v1 API sunsets Jan 31, 2027; Film/TV &amp; AAA need Enterprise.</td>
       </tr>
       <tr>
         <td><strong>ElevenLabs SFX</strong><br/><code>eleven_text_to_sound_v2</code></td>
@@ -196,7 +196,7 @@ gemini-api music <span class="str">"Lo-fi Rhodes beat, 86 BPM, instrumental"</sp
       <tr>
         <td><strong>Google Lyria 3.5</strong><br/><code>lyria-3.5</code> / <code>clip</code></td>
         <td>CLI pipelines, AI Studio prototypes, RealTime DJ</td>
-        <td>Up to ~3m 44.1 kHz stereo, BPM control, image-to-music</td>
+        <td>Up to ~3m 44.1 kHz stereo, BPM control, image-to-music ($0.08/song API)</td>
         <td>Embeds <strong>SynthID</strong> watermark &amp; C2PA provenance automatically; artist voice clones blocked.</td>
       </tr>
       <tr>
@@ -210,9 +210,9 @@ gemini-api music <span class="str">"Lo-fi Rhodes beat, 86 BPM, instrumental"</sp
 
   <div class="grid-2">
     <div class="card">
-      <div class="card-title"><span class="num-badge">1</span> Suno Pro vs. Premier Tiers</div>
+      <div class="card-title"><span class="num-badge">1</span> Suno Pro vs. Premier Tiers &amp; Download Caps</div>
       <p style="font-size: 8.3pt; margin-bottom: 0;">
-        <strong>Pro</strong> delivers 2,500 monthly credits and full commercial rights for solo creators. <strong>Premier</strong> scales to 10,000 monthly credits, maximum concurrent jobs, and full <strong>Suno Studio</strong> access for 12-stem WAV extraction and MIDI downloads.
+        <strong>Free</strong> allows zero downloads (removed Nov 2026). <strong>Pro</strong> ($10/mo, 2,500 cr) caps exports at <strong>20 songs/mo</strong>. <strong>Premier</strong> ($30/mo, 10,000 cr) gives <strong>60 standard downloads/mo</strong> plus <strong>uncapped Suno Studio</strong> 12-stem WAV &amp; MIDI exports.
       </p>
     </div>
     <div class="card">
@@ -708,8 +708,8 @@ ffmpeg -y -i <span class="str">"$RAW_MP3"</span> -ar 48000 -ac 2 -c:a pcm_s24le 
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> Label Settlements &amp; Platform Rules</div>
       <ul style="font-size: 8.2pt; margin-bottom: 0; padding-left: 16px;">
-        <li><strong>Suno v6 Ecosystem:</strong> Following Warner Music Group, BMG, and Believe deals, Suno retired legacy models and built v6 on licensed/opt-in catalogs. <strong>Pro &amp; Premier</strong> grant forward commercial rights; Free tracks never gain retroactive clearance.</li>
-        <li><strong>ElevenLabs Merlin + Kobalt:</strong> Cleared at both master (Merlin) and publishing (Kobalt) layers. Paid tiers clear ads, social, and indie apps with zero credit; Free SFX require <code>elevenlabs.io</code> attribution; Film, TV, and AAA games require Enterprise agreements.</li>
+        <li><strong>Suno v6 Ecosystem:</strong> Built on licensed WMG/BMG/Believe catalogs. <strong>Pro</strong> (20 downloads/mo) &amp; <strong>Premier</strong> (60/mo; uncapped in Suno Studio) grant commercial rights; Free tracks get zero downloads and never gain retroactive clearance.</li>
+        <li><strong>ElevenLabs Merlin + Kobalt:</strong> Cleared at master (Merlin) &amp; publishing (Kobalt) layers. Paid tiers clear ads/social/indie apps (+ SoundCloud publish); Music v1 API sunsets <strong>Jan 31, 2027</strong>; Film/TV &amp; AAA need Enterprise.</li>
         <li><strong>Udio Walled Garden:</strong> UMG/WMG settlements shifted Udio into a controlled fan sandbox with tight download limits.</li>
       </ul>
     </div>
