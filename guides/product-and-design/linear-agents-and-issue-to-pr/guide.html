@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Linear Agents &amp; Issue-to-PR Loops: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">PRODUCT &amp; ENGINEERING WORKFLOWS &bull; FIELD GUIDE</div>
+    <h1>Linear Agents &amp; <span>Issue-to-PR</span> Loops</h1>
+    <p class="cover-sub">
+      Automate issue triage, Figma-to-spec drafting, and scoped issue-to-PR delegation using Linear Agent, Triage Intelligence, the Linear Remote MCP server, and connected coding agents (Claude Code, Codex, Cursor, and Devin).
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Linear Agent &amp; Coding Sessions</span>
+      <span class="cover-badge">Triage Intelligence</span>
+      <span class="cover-badge">Linear Remote MCP</span>
+      <span class="cover-badge">Agent-Ready Specs</span>
+      <span class="cover-badge">Figma &amp; Customer Requests</span>
+      <span class="cover-badge">Guardrails &amp; Diff Reviews</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Isometric glowing glass issue cards flowing through a geometric prism into branching code pipelines and merged pull-request nodes" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Friction Triage</div>
+      <div class="cover-stat-desc">Auto-deduplicate, label, and route incoming Slack, Zendesk, and Gong signals with Triage Intelligence and recurring Loops.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Delegated PR Execution</div>
+      <div class="cover-stat-desc">Assign scoped issues to Linear Coding Sessions, Claude Code, Codex, Cursor, or Devin while humans retain issue ownership.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Governed Review Loops</div>
+      <div class="cover-stat-desc">Enforce 5-part agent-ready specs, <code>agent-safe</code> blast-radius labels, CI verification gates, and Linear Diffs reviews.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">The Tracker Is Now the Agent&rsquo;s Runtime Context</h2>
+  <p class="page-lead">
+    In traditional software teams, issue trackers were passive filing cabinets for humans. With <strong>Linear Agent</strong>, <strong>Triage Intelligence</strong>, and third-party coding agents acting as first-class workspace app users, every Linear issue becomes an executable prompt&mdash;turning clean product specs directly into tested, review-ready pull requests.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model: Issue-to-PR Loop</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Linear MCP &amp; Coding Delegation</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Setup &amp; Delegation Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Figma &amp; Customer Requests to Spec</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated 7-Control Issue HUD</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Copy-Paste Agent Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Triage Intelligence &amp; Deduplication</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Guardrails &amp; Human Review Gates</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. 5-Part Agent-Ready Issue Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Golden Rule: Review Is the Bottleneck</strong></span><span class="toc-pg">All</span></div>
+    <div class="toc-item"><span><strong>12. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>The 4-Stage Autonomous Issue-to-PR Loop</h3>
+  <p style="font-size:8.6pt;">
+    High-velocity teams separate <strong>signal intake</strong>, <strong>spec scoping</strong>, <strong>sandboxed implementation</strong>, and <strong>human verification</strong> into one closed loop. Every stage leaves an auditable trace inside the same Linear issue:
+  </p>
+
+  <div class="figure-box" style="background:#0b0e1c; padding:9px 12px; border-color:#4338ca;">
+    <svg viewBox="0 0 700 184" width="100%" height="184" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="6" y="14" width="154" height="156" rx="9" fill="#12162b" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="83" y="32" text-anchor="middle" fill="#a5b4fc" font-size="7.6" font-weight="700">1. TRIAGE INTAKE</text>
+      <text x="83" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Capture &amp; Dedupe</text>
+      <rect x="16" y="59" width="134" height="44" rx="5" fill="#1a1f3c" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="83" y="75" text-anchor="middle" fill="#e0e7ff" font-size="7.3" font-weight="700">Multi-Channel Signal</text>
+      <text x="83" y="88" text-anchor="middle" fill="#94a3b8" font-size="6.8">Slack, Zendesk, Gong, Sentry</text>
+      <rect x="16" y="111" width="134" height="47" rx="5" fill="#1a1f3c" stroke="#818cf8" stroke-width="0.9"/>
+      <text x="83" y="128" text-anchor="middle" fill="#e0e7ff" font-size="7.3" font-weight="700">Triage Intelligence</text>
+      <text x="83" y="141" text-anchor="middle" fill="#94a3b8" font-size="6.8">Semantic dedupe + routing</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M160 92 L178 92" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="176,87 184,92 176,97" fill="#818cf8"/>
+
+      <!-- Stage 2 -->
+      <rect x="185" y="14" width="156" height="156" rx="9" fill="#12162b" stroke="#22d3ee" stroke-width="1.5"/>
+      <text x="263" y="32" text-anchor="middle" fill="#67e8f9" font-size="7.6" font-weight="700">2. SPEC SCOPING</text>
+      <text x="263" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Agent-Ready Brief</text>
+      <rect x="195" y="59" width="136" height="44" rx="5" fill="#0f2537" stroke="#0891b2" stroke-width="0.9"/>
+      <text x="263" y="75" text-anchor="middle" fill="#cffafe" font-size="7.3" font-weight="700">5-Part Issue Anatomy</text>
+      <text x="263" y="88" text-anchor="middle" fill="#94a3b8" font-size="6.8">Context, criteria &amp; test cmd</text>
+      <rect x="195" y="111" width="136" height="47" rx="5" fill="#0f2537" stroke="#22d3ee" stroke-width="0.9"/>
+      <text x="263" y="128" text-anchor="middle" fill="#cffafe" font-size="7.3" font-weight="700">Visual &amp; Code Context</text>
+      <text x="263" y="141" text-anchor="middle" fill="#94a3b8" font-size="6.8">Figma frames + Code Intel</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M341 92 L359 92" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="357,87 365,92 357,97" fill="#22d3ee"/>
+
+      <!-- Stage 3 -->
+      <rect x="366" y="14" width="156" height="156" rx="9" fill="#18132e" stroke="#a78bfa" stroke-width="1.6"/>
+      <text x="444" y="32" text-anchor="middle" fill="#ddd6fe" font-size="7.6" font-weight="700">3. AGENT PR RUN</text>
+      <text x="444" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Sandboxed Build</text>
+      <rect x="376" y="59" width="136" height="44" rx="5" fill="#241b47" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="444" y="75" text-anchor="middle" fill="#ede9fe" font-size="7.3" font-weight="700">Delegate via Assignee</text>
+      <text x="444" y="88" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Claude Code, Codex, Cursor</text>
+      <rect x="376" y="111" width="136" height="47" rx="5" fill="#241b47" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="444" y="128" text-anchor="middle" fill="#ede9fe" font-size="7.3" font-weight="700">Test &amp; Draft PR</text>
+      <text x="444" y="141" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Branch ID auto-links issue</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M522 92 L540 92" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="538,87 546,92 538,97" fill="#a78bfa"/>
+
+      <!-- Stage 4 -->
+      <rect x="547" y="14" width="147" height="156" rx="9" fill="#0b2321" stroke="#34d399" stroke-width="1.6"/>
+      <text x="620" y="32" text-anchor="middle" fill="#6ee7b7" font-size="7.6" font-weight="700">4. HUMAN REVIEW</text>
+      <text x="620" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Diffs &amp; Ship</text>
+      <rect x="557" y="59" width="127" height="44" rx="5" fill="#0f332e" stroke="#10b981" stroke-width="0.9"/>
+      <text x="620" y="75" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">Linear Diffs &amp; CI</text>
+      <text x="620" y="88" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Line comments + green CI</text>
+      <rect x="557" y="111" width="127" height="47" rx="5" fill="#0f332e" stroke="#34d399" stroke-width="0.9"/>
+      <text x="620" y="128" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">Auto-Close &amp; Notify</text>
+      <text x="620" y="141" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Updates Slack &amp; Zendesk</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">2026 Production Reality: Why Bottlenecks Move from Coding to Review</div>
+    Teams running Linear-backed background agents at scale (such as Ramp&rsquo;s <em>Inspect</em>, credited with ~75% of merged PRs from six years of Linear specs, and Coinbase&rsquo;s <em>Forge</em> workflow) report the same shift: <strong>writing code stops being the constraint</strong>. Your speed now depends on ticket clarity, automated test harnesses, and reviewer throughput.
+  </div>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, INTEGRATIONS & DELEGATION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Architecture &amp; Delegation Matrix</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">Choosing the Right Linear Automation Surface</h2>
+  <p class="page-lead">
+    Linear&rsquo;s 2026 agent ecosystem spans five distinct capabilities. Mixing them up wastes AI credits and causes noisy webhooks. Use this matrix to match each engineering workflow to the exact right primitive.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Capability</th>
+        <th style="width:24%;">What It Does Best</th>
+        <th style="width:20%;">Trigger Mechanism</th>
+        <th style="width:18%;">Auth &amp; Plan Tier</th>
+        <th style="width:20%;">Best Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Triage Intelligence</strong></td>
+        <td>Semantic duplicate detection, team/project routing, assignee &amp; label suggestions with reasoning.</td>
+        <td>Automatic on every new issue entering a Team Triage queue.</td>
+        <td>Business (\$16/user/mo) &amp; Enterprise; toggle in <code>Settings &gt; AI</code>.</td>
+        <td>High-volume bug intake, goalie rotations, backlog hygiene.</td>
+      </tr>
+      <tr>
+        <td><strong>Linear Agent &amp; Coding Sessions</strong></td>
+        <td>Built-in workspace agent (<code>Cmd/Ctrl+J</code>), reusable Skills, Loops, and cloud sandboxes running Claude Code or Codex.</td>
+        <td><code>@Linear</code> mention, assignee delegation, or scheduled/event Loop.</td>
+        <td>Chat &amp; Skills on all plans; Loops &amp; Coding Sessions use prepaid AI credits.</td>
+        <td>End-to-end issue-to-PR inside Linear with Linear Diffs review.</td>
+      </tr>
+      <tr>
+        <td><strong>Linear Remote MCP Server</strong></td>
+        <td>Authenticated Streamable HTTP tool server (<code>mcp.linear.app/mcp</code>) for reading/writing issues, projects, and docs.</td>
+        <td>Tool calls initiated from IDE, CLI, or external AI client.</td>
+        <td>All plans; OAuth 2.1 (or Okta Enterprise) / Bearer API key.</td>
+        <td>Interactive dev loops in Claude Code, Cursor, Codex CLI, Figma Make.</td>
+      </tr>
+      <tr>
+        <td><strong>Assigned Coding Agents</strong></td>
+        <td>Third-party agents installed as non-billable App Users (Cursor, Codex, Devin, Sentry, Factory, Warp, Cyrus).</td>
+        <td>Delegate from Assignee menu or <code>@agent</code> comment mention.</td>
+        <td>Free app-user slots in Linear; billed by the agent vendor.</td>
+        <td>Parallel background PRs using your team&rsquo;s preferred external agent.</td>
+      </tr>
+      <tr>
+        <td><strong>Customer Requests &amp; Asks</strong></td>
+        <td>Turns Zendesk, Intercom, Gong calls, and Slack threads into attributed issues linked to customer ARR.</td>
+        <td>1-click support button, auto Gong transcript, or Slack <code>@Linear</code>.</td>
+        <td>Slack/Asks on paid plans; Intercom/Zendesk/Gong on Business+.</td>
+        <td>Prioritizing bugs by customer impact and closing support loops.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>3-Step Workspace Readiness Setup (Do This Before Delegating Code)</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Write AI Guidance</div>
+      <p style="font-size:8.1pt; margin-bottom:0;">
+        Open <code>Settings &gt; AI</code> and add workspace + team guidance: specify your monorepo paths, branch prefix rules, commit style, and which team owns each service. Both Linear Agent and Triage Intelligence read this file on every run.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge cyan">2</span> Scope App Users &amp; Repos</div>
+      <p style="font-size:8.1pt; margin-bottom:0;">
+        Under <code>Settings &gt; Integrations &gt; Agents</code>, grant each third-party agent access only to specific teams. For Coding Sessions, grant GitHub repo access and define a build/test environment per repo.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge violet">3</span> Set Spend &amp; Credit Caps</div>
+      <p style="font-size:8.1pt; margin-bottom:0;">
+        In <code>Settings &gt; Usage &amp; limits</code>, configure monthly AI credit caps before enabling Loops or Coding Sessions (tokens at cost + \$0.25 per 20-min sandbox). Review the usage explorer weekly.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout cyan" style="margin-top:8px;">
+    <div class="callout-title">Key Ownership Rule: Delegation Never Removes Human Accountability</div>
+    When you delegate a Linear issue to an App User (such as Linear Agent, Cursor, or Devin), <strong>the human engineer remains the issue owner</strong>. App Users cannot log in to Linear UI, modify workspace admin settings, or merge protected branches without human approval.
+  </div>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INTERFACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">Anatomy of an Agent-Driven Linear Issue HUD</h2>
+  <p class="page-lead">
+    Modern Linear issues unify specification, live agent execution telemetry, and code review in one view. Below is the 7-control interface map for running an autonomous issue-to-PR loop without losing visibility.
+  </p>
+
+  <!-- 7-Control Mock Linear HUD -->
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; color:#cbd5e1; font-weight:700;">Linear &rsaquo; Platform Core &rsaquo; <span style="color:#a5b4fc;">ENG-418</span></span>
+        <span class="callout-pin" style="margin-left:4px;">1</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="hud-chip" style="background:rgba(34,211,238,0.18); color:#67e8f9; border:1px solid #0891b2;">In Review</span>
+        <span class="hud-chip" style="background:rgba(16,185,129,0.2); color:#6ee7b7; border:1px solid #059669;">agent-safe</span>
+        <span class="callout-pin">7</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.55fr 1fr; gap:10px; padding:10px 12px;">
+      <!-- Left Column: Spec & Agent Activity -->
+      <div style="display:flex; flex-direction:column; gap:7px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:9.6pt; font-weight:800; color:#ffffff;">Fix timezone drift in recurring invoice export CSV</div>
+        </div>
+
+        <div class="hud-card" style="border-color:#4338ca; background:#141833;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#a5b4fc; font-weight:700;">Triage Intelligence &bull; Verified Match</span>
+            <span class="callout-pin">2</span>
+          </div>
+          <div style="color:#cbd5e1;">Linked <strong>3 Customer Requests</strong> (\$142k ARR) &bull; Deduplicated against <code>ENG-402</code> &bull; Auto-applied <code>billing</code>, <code>bug</code>, <code>P2</code>.</div>
+        </div>
+
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#67e8f9; font-weight:700;">Agent-Ready Spec + Embedded Figma Frame</span>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="color:#e2e8f0;">
+            <strong>Context:</strong> <code>packages/billing/src/csvExport.ts</code> formats dates in local server TZ.<br/>
+            <strong>Acceptance:</strong> Emit ISO-8601 UTC + workspace TZ column; preserve existing headers.<br/>
+            <strong>Verify:</strong> <code>pnpm --filter billing test csvExport.spec.ts</code> &bull; <em>Figma: Billing Export Modal v2.4 (Live)</em>
+          </div>
+        </div>
+
+        <div class="hud-card" style="border-color:#7c3aed; background:#17122b;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#ddd6fe; font-weight:700;">Agent Activity Stream &bull; Coding Session (Claude Code)</span>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="color:#cbd5e1; font-family:monospace; font-size:6.5pt;">
+            &bull; 14:02 Read <code>csvExport.ts</code> + <code>dateFormat.ts</code> via Code Intelligence<br/>
+            &bull; 14:04 Added regression test for DST boundary &rarr; reproduced failure<br/>
+            &bull; 14:06 Patched serializer &rarr; ran <code>pnpm test</code> (42/42 passed, 0 lint warnings)<br/>
+            &bull; 14:07 Opened PR #1894 &amp; requested review from <code>@maya</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Metadata & Linked PR -->
+      <div style="display:flex; flex-direction:column; gap:7px;">
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="color:#94a3b8; font-weight:700; text-transform:uppercase; font-size:6.4pt;">Properties &amp; Delegation</span>
+            <span class="callout-pin">3</span>
+          </div>
+          <div style="display:grid; grid-template-columns: 74px 1fr; gap:3px 6px; color:#e2e8f0;">
+            <span style="color:#94a3b8;">Owner:</span><span><strong>Maya Chen</strong> (Staff Eng)</span>
+            <span style="color:#94a3b8;">Delegated:</span><span style="color:#a5b4fc;"><strong>Linear Agent</strong> (Claude Code)</span>
+            <span style="color:#94a3b8;">Branch:</span><span><code>eng-418-fix-csv-tz</code></span>
+            <span style="color:#94a3b8;">Cycle:</span><span>Cycle 44 &bull; High Priority</span>
+            <span style="color:#94a3b8;">Est. Cost:</span><span>\$0.42 (12m sandbox)</span>
+          </div>
+        </div>
+
+        <div class="hud-card" style="border-color:#059669; background:#0d211e;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="color:#6ee7b7; font-weight:700;">Linked GitHub PR &amp; Linear Diffs</span>
+            <span class="callout-pin">6</span>
+          </div>
+          <div style="color:#d1fae5; margin-bottom:4px;">
+            <strong>PR #1894:</strong> fix(billing): normalize CSV export timestamps to UTC
+          </div>
+          <div style="display:flex; gap:5px; flex-wrap:wrap; margin-bottom:4px;">
+            <span class="hud-chip" style="background:rgba(16,185,129,0.22); color:#6ee7b7;">CI: 42/42 Passed</span>
+            <span class="hud-chip" style="background:rgba(99,102,241,0.25); color:#c7d2fe;">+68 / &minus;14 lines</span>
+          </div>
+          <div style="color:#a7f3d0; font-size:6.5pt;">
+            Open in <strong>Linear Diffs</strong> to comment on line 47 or click <em>Approve &amp; Merge</em>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control-by-Control Breakdown</h3>
+  <div class="grid-2" style="gap:7px 11px;">
+    <div class="card" style="padding:6.5px 9.5px;">
+      <p style="font-size:8pt; margin-bottom:3px;"><span class="num-badge">1</span> <strong>Issue ID &amp; Branch Binding:</strong> Including <code>ENG-418</code> in the branch name or PR title auto-syncs GitHub PR status to Linear (<code>In Progress</code> &rarr; <code>In Review</code> &rarr; <code>Done</code>).</p>
+      <p style="font-size:8pt; margin-bottom:3px;"><span class="num-badge cyan">2</span> <strong>Triage Intelligence Card:</strong> Displays semantic duplicate matches, customer ARR rollups, and AI-inferred labels before an engineer touches the ticket.</p>
+      <p style="font-size:8pt; margin-bottom:3px;"><span class="num-badge violet">3</span> <strong>Dual Owner + Delegated Agent:</strong> Separates human accountability (Maya) from agent execution (Linear Agent, Cursor, Codex, or Devin) with live sandbox cost tracking.</p>
+      <p style="font-size:8pt; margin-bottom:0;"><span class="num-badge amber">4</span> <strong>Structured Spec + Live Embeds:</strong> Combines the 5-part issue contract with live Figma frames so the agent sees both code constraints and visual intent.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9.5px;">
+      <p style="font-size:8pt; margin-bottom:3px;"><span class="num-badge">5</span> <strong>Agent Activity Stream:</strong> Streams real-time steps&mdash;files read, failing test reproduction, patch verification, and PR creation&mdash;so you can interrupt early if the agent drifts.</p>
+      <p style="font-size:8pt; margin-bottom:3px;"><span class="num-badge emerald">6</span> <strong>Linked PR &amp; Linear Diffs:</strong> Review diffs, inspect stacked PRs, and leave inline line comments directly inside Linear (desktop or mobile) to trigger an automatic agent follow-up commit.</p>
+      <p style="font-size:8pt; margin-bottom:0;"><span class="num-badge rose">7</span> <strong>Guardrail Labels &amp; Policy Gate:</strong> Labels like <code>agent-safe</code> whitelist autonomous execution while <code>human-only</code> or <code>security-critical</code> block auto-delegation loops.</p>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: TRIAGE INTELLIGENCE & DEDUPLICATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Triage Intelligence &amp; Deduplication</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">Automating Triage Routing &amp; Semantic Deduplication</h2>
+  <p class="page-lead">
+    Unfiltered bug queues destroy engineering focus. <strong>Triage Intelligence</strong> evaluates every incoming ticket against your workspace&rsquo;s entire issue history, proactively proposing teams, projects, assignees, labels, and semantic duplicates before your triage goalie opens the inbox.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_1.jpg" alt="Geometric fragments entering a crystalline diamond filter and emerging as neatly sorted glowing parallel lanes" />
+    <div class="figure-caption"><strong>Signal-to-Lane Pipeline:</strong> Triage Intelligence clusters noisy multi-channel reports via semantic similarity, deduplicates redundant bugs, and routes clean tickets into team-owned lanes.</div>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Semantic Deduplication with Reasoning</div>
+      <p style="font-size:8.1pt;">
+        Keyword search misses duplicates when customers write <em>&ldquo;export hangs on Safari&rdquo;</em> while engineers log <em>&ldquo;CSV worker deadlock in WebKit.&rdquo;</em> Triage Intelligence compares semantic meaning across open and recent issues, surfaces likely duplicates with an inline explanation, and lets you merge customer links in one click so ARR impact is preserved.
+      </p>
+      <p style="font-size:8.1pt; margin-bottom:0;">
+        <strong>Scope Tip:</strong> In team triage settings, use <em>Include suggestions from</em> to limit cross-team matching to your team and sub-teams so unrelated squads don&rsquo;t pollute duplicate hits.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge cyan">2</span> Confidence-Threshold Hybrid Routing</div>
+      <p style="font-size:8.1pt;">
+        Avoid turning on 100% blind auto-assignment on day one. Follow the proven <strong>two-tier rollout</strong>:
+      </p>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Auto-Apply Safe Metadata:</strong> Enable auto-apply for low-risk properties&mdash;<code>labels</code>, <code>team routing</code>, and <code>project</code>&mdash;once two weeks of suggestions hit &ge;85% acceptance.</li>
+        <li><strong>Human-Approve High-Impact Calls:</strong> Keep <code>priority (Urgent/High)</code>, <code>duplicate closure</code>, and <code>security/billing assignee</code> in suggest-only mode for your weekly rotating Triage Goalie.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Pairing Triage Intelligence with a Background Investigation Loop</h3>
+  <div class="callout violet" style="margin:3px 0 0 0;">
+    <div class="callout-title">Pro Pattern: First-Responder Bug Loop (~\$0.07&ndash;\$0.20 per run)</div>
+    Configure a <strong>Linear Loop</strong> triggered when a new issue receives the <code>bug</code> label in Triage. The Loop uses <strong>Code Intelligence</strong> to locate the probable offending file, check recent merged PRs that touched that path, and post a 5-bullet root-cause brief as an internal comment. By the time the goalie reviews Triage, 60% of the investigation is already finished&mdash;and simple bugs can be delegated straight to a Coding Session.
+  </div>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: WRITING AGENT-READY LINEAR ISSUES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Agent-Ready Issue Engineering</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">The 5-Part Anatomy of an Agent-Ready Linear Issue</h2>
+  <p class="page-lead">
+    A coding agent is only as reliable as the ticket you hand it. Vague one-liners produce sprawling, unreviewable diffs. Structure every delegatable issue with these five color-coded sections so Claude Code, Codex, Cursor, or Devin hits a clean PR on the first pass.
+  </p>
+
+  <!-- Worked Color-Coded Example -->
+  <div class="card" style="background:#ffffff; border:1.5px solid #c7d2fe; padding:9px 12px; margin-bottom:7px;">
+    <div style="font-size:8.8pt; font-weight:800; color:#0f172a; margin-bottom:5px;">
+      Worked Example &mdash; <code>ENG-512</code>: Add idempotency key header to webhook retry worker
+    </div>
+    <p style="font-size:8.1pt; line-height:1.68; margin-bottom:4px;">
+      <span class="p-tag p-ctx"><strong>1. Context:</strong> Retried Stripe/Slack webhooks in <code>apps/api/src/workers/webhookRetry.ts</code> currently resend without an <code>Idempotency-Key</code> header, causing duplicate downstream events when partners time out after 5s.</span>
+    </p>
+    <p style="font-size:8.1pt; line-height:1.68; margin-bottom:4px;">
+      <span class="p-tag p-con"><strong>2. Constraints:</strong> Reuse existing <code>crypto.createHash('sha256')</code> helper in <code>lib/hash.ts</code>; do not add new npm packages or alter database schema migrations; maintain backwards compatibility for payloads missing <code>eventId</code>.</span>
+    </p>
+    <p style="font-size:8.1pt; line-height:1.68; margin-bottom:4px;">
+      <span class="p-tag p-acc"><strong>3. Acceptance Criteria:</strong> (a) Outbound retries include <code>Idempotency-Key: wh_&lt;sha256(eventId+attemptBucket)&gt;</code>; (b) Identical retries within 24h emit the exact same key; (c) Structured logs record the key without logging payload PII.</span>
+    </p>
+    <p style="font-size:8.1pt; line-height:1.68; margin-bottom:4px;">
+      <span class="p-tag p-ver"><strong>4. Verification Command:</strong> Run <code>pnpm --filter api test webhookRetry.spec.ts &amp;&amp; pnpm --filter api typecheck</code>. Add unit tests covering duplicate retry stability and missing <code>eventId</code> fallback.</span>
+    </p>
+    <p style="font-size:8.1pt; line-height:1.68; margin-bottom:0;">
+      <span class="p-tag p-oos"><strong>5. Out-of-Scope:</strong> Do not refactor exponential backoff intervals, dead-letter queue UI, or inbound webhook signature verification.</span>
+    </p>
+  </div>
+
+  <!-- 5-Part Legend -->
+  <div class="grid-3" style="gap:7px; margin-bottom:7px;">
+    <div class="card" style="padding:6px 8.5px; border-top:3px solid #6366f1;">
+      <div class="card-title" style="font-size:8.4pt;">1. Context (Where &amp; Why)</div>
+      <p style="font-size:7.6pt; margin:0;">Name exact file paths, symbols, or Sentry stack traces. Cuts agent exploration tokens by 50%+.</p>
+    </div>
+    <div class="card" style="padding:6px 8.5px; border-top:3px solid #d97706;">
+      <div class="card-title" style="font-size:8.4pt;">2. Constraints (Guardrails)</div>
+      <p style="font-size:7.6pt; margin:0;">State library, schema, and API boundaries up front so agents don&rsquo;t install rogue dependencies.</p>
+    </div>
+    <div class="card" style="padding:6px 8.5px; border-top:3px solid #0891b2;">
+      <div class="card-title" style="font-size:8.4pt;">3. Acceptance Criteria</div>
+      <p style="font-size:7.6pt; margin:0;">Write 2&ndash;4 binary, observable behaviors. Avoid subjective adjectives like &ldquo;clean&rdquo; or &ldquo;fast.&rdquo;</p>
+    </div>
+  </div>
+  <div class="grid-2" style="gap:7px; margin-bottom:7px;">
+    <div class="card" style="padding:6px 8.5px; border-top:3px solid #059669;">
+      <div class="card-title" style="font-size:8.4pt;">4. Verification Command (The Self-Check)</div>
+      <p style="font-size:7.6pt; margin:0;">Give the exact test, lint, and typecheck command. Agents iterate until the command exits <code>0</code>.</p>
+    </div>
+    <div class="card" style="padding:6px 8.5px; border-top:3px solid #e11d48;">
+      <div class="card-title" style="font-size:8.4pt;">5. Out-of-Scope (Blast-Radius Fence)</div>
+      <p style="font-size:7.6pt; margin:0;">Explicitly forbid adjacent refactors. Keeps diffs small (&lt;250 lines) and fast for humans to review.</p>
+    </div>
+  </div>
+
+  <table class="clean-table" style="margin-bottom:0;">
+    <thead>
+      <tr>
+        <th style="width:48%;">Anti-Pattern (Causes Agent Drift)</th>
+        <th style="width:52%;">Agent-Ready Rewrite (First-Pass Mergeable)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>&ldquo;Fix slow dashboard loading for big orgs.&rdquo;</td>
+        <td>&ldquo;Add pagination (<code>limit=50</code>) to <code>GET /v2/org/events</code> in <code>events.controller.ts</code>; keep response envelope identical; verify with <code>pytest tests/test_events_page.py</code>.&rdquo;</td>
+      </tr>
+      <tr>
+        <td>&ldquo;Update settings page to match new Figma.&rdquo;</td>
+        <td>&ldquo;Replace <code>BillingToggle.tsx</code> spacing/colors per linked Figma frame <code>#node-412</code> using existing Tailwind tokens; do not touch Stripe API hooks; pass <code>pnpm test:ui</code>.&rdquo;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: LINEAR MCP & CODING AGENT DELEGATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Linear MCP &amp; Coding Agent Delegation</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">Connecting Linear MCP &amp; External Coding Agents</h2>
+  <p class="page-lead">
+    Linear&rsquo;s official hosted MCP server at <code>https://mcp.linear.app/mcp</code> runs over <strong>Streamable HTTP</strong> (the legacy <code>/sse</code> transport is deprecated) with <strong>OAuth 2.1 Dynamic Client Registration</strong>. Connect it to pull rich issue context into local IDEs or delegate directly from Linear&rsquo;s assignee menu.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-dark">
+      <div class="card-title">1. Claude Code CLI (One-Command MCP)</div>
+      <pre class="code-block" style="margin:3px 0 4px 0; border-color:#6366f1;"><code># Add official Linear Remote MCP (Streamable HTTP)
+claude mcp add --transport http linear-server \
+  https://mcp.linear.app/mcp
+
+# Authenticate via OAuth 2.1 in session
+/mcp</code></pre>
+      <p style="font-size:7.6pt; color:#cbd5e1; margin:0;">
+        Every issue lookup, status move, and comment is attributed to your personal Linear user&mdash;never a shared bot token.
+      </p>
+    </div>
+
+    <div class="card-dark">
+      <div class="card-title">2. Cursor &amp; Codex CLI MCP Config</div>
+      <pre class="code-block" style="margin:3px 0 4px 0; border-color:#0891b2;"><code>// .cursor/mcp.json (or Codex MCP config)
+{
+  "mcpServers": {
+    "linear": {
+      "url": "https://mcp.linear.app/mcp"
+    }
+  }
+}</code></pre>
+      <p style="font-size:7.6pt; color:#cbd5e1; margin:0;">
+        For headless CI or read-only agent runs, pass <code>Authorization: Bearer &lt;LINEAR_API_KEY&gt;</code> instead of interactive OAuth.
+      </p>
+    </div>
+  </div>
+
+  <h3>Delegation Playbook: Matching the Coding Agent to the Task</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Agent / Runner</th>
+        <th style="width:24%;">How to Trigger from Linear</th>
+        <th style="width:30%;">Execution Environment</th>
+        <th style="width:26%;">Ideal Ticket Profile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Linear Coding Sessions</strong></td>
+        <td>Assign issue to <strong>Linear Agent</strong> (uses Claude Code or Codex under the hood).</td>
+        <td>Managed Linear cloud sandbox with configurable repo env, secrets &amp; browser use.</td>
+        <td>Fast bug fixes, UI tweaks, &amp; test coverage reviewed via Linear Diffs.</td>
+      </tr>
+      <tr>
+        <td><strong>Cursor Cloud Agents</strong></td>
+        <td>Assign to <code>@Cursor</code> app user or mention in issue comment.</td>
+        <td>Cursor background VM synced to GitHub repo &amp; <code>.cursor/rules</code>.</td>
+        <td>Multi-file TypeScript/React refactors following existing Cursor rules.</td>
+      </tr>
+      <tr>
+        <td><strong>OpenAI Codex</strong></td>
+        <td>Assign via Codex Linear integration or pull via Codex CLI + Linear MCP.</td>
+        <td>Sandboxed cloud container or local CLI with repository tests.</td>
+        <td>Backend API endpoints, migrations, and parallel unit-test generation.</td>
+      </tr>
+      <tr>
+        <td><strong>Devin / Self-Hosted Runners</strong></td>
+        <td>Assign to <code>@Devin</code> (or Claude Code runners like Cyrus/Merlin) via Agent API.</td>
+        <td>Dedicated autonomous VM or your team&rsquo;s own private VPC runners.</td>
+        <td>Longer-running migrations, private-network services, or compliance repos.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>GitHub PR Auto-Linking &amp; Zero-Touch Status Transitions</h3>
+  <div class="grid-2">
+    <div class="callout" style="margin:0;">
+      <div class="callout-title">Enforce Branch &amp; PR Magic Words</div>
+      Configure your workspace AI guidance and <code>CLAUDE.md</code> / <code>AGENTS.md</code> so every coding agent names branches <code>&lt;team&gt;-&lt;id&gt;-short-slug</code> (e.g., <code>eng-418-fix-csv-tz</code>) and includes <code>Fixes ENG-418</code> in the PR body. Linear automatically moves the issue to <strong>In Progress</strong> on draft PR, <strong>In Review</strong> when ready, and <strong>Done</strong> on merge.
+    </div>
+    <div class="callout emerald" style="margin:0;">
+      <div class="callout-title">Stacked PRs in Linear Diffs</div>
+      When an agent splits a large feature into dependent PRs (e.g., schema PR &rarr; API PR &rarr; UI PR), Linear Diffs displays them as a <strong>stacked review chain</strong>. Commenting on any line inside Linear Diffs feeds directly back into the active Coding Session for an immediate fix-up commit.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: FIGMA + CUSTOMER REQUESTS TO SPECS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Figma &amp; Customer Requests to Specs</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">Turning Figma Frames &amp; Support Threads into Specs</h2>
+  <p class="page-lead">
+    The fastest way to break an issue-to-PR loop is hand-copying requirements across Figma, Zendesk, Intercom, and Slack. Connect design and customer signals directly into Linear so agents synthesize complete, revenue-prioritized engineering tickets automatically.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="UI wireframe frames and glowing signal orbs converging through an optical lens into modular engineering blueprint blocks" />
+    <div class="figure-caption"><strong>Design &amp; Voice-of-Customer Synthesis:</strong> Live Figma frames, Figma Make prototypes, and Zendesk/Intercom/Gong signals converge into structured, agent-executable Linear specs.</div>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge violet">1</span> Figma Live Embeds + Figma Make Connector</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Live Frame Sync:</strong> Paste any Figma frame URL into a Linear issue to embed a live, always-current preview&mdash;eliminating stale screenshots when designers iterate.</li>
+        <li><strong>Figma Make Connector:</strong> Powered by Linear&rsquo;s MCP tools, designers inside Figma Make can read existing Linear issues/projects for context and spin up tracked engineering issues directly from interactive prototypes.</li>
+        <li><strong>Design-Token Handoff:</strong> Prompt <code>@Linear</code> on a Figma-linked issue to extract component states (default, hover, empty, error) into numbered Acceptance Criteria before delegating to a coding agent.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge cyan">2</span> Customer Requests: Zendesk, Intercom &amp; Gong</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>1-Click Support Filing:</strong> From Zendesk or Intercom, support reps click once to invoke Linear Agent, which parses the full thread, strips fluff, and files a structured triage issue attributed to the customer.</li>
+        <li><strong>Self-Driving Gong Intake:</strong> Linear&rsquo;s Gong integration scans sales/CS call transcripts automatically, extracting feature requests and routing them to the right team&rsquo;s triage queue with zero manual clicks.</li>
+        <li><strong>ARR-Weighted Prioritization:</strong> Linking multiple customer requests to one parent issue surfaces total revenue at stake, letting PMs prioritize high-ARR fixes for immediate agent delegation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:6px; margin-bottom:0;">
+    <div class="callout-title">Spec-Drafting Shortcut: Turn a Messy Project into Scoped Sub-Issues</div>
+    Open Linear Agent (<code>Cmd/Ctrl + J</code>) on a Project Overview containing raw customer requests and Figma links, and run: <em>&ldquo;Group these 14 customer requests by root cause, cross-check our codebase via Code Intelligence, and draft 4 agent-ready sub-issues with Context, Constraints, Acceptance Criteria, Verification Commands, and Out-of-Scope.&rdquo;</em>
+  </div>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; 5 Copy-Paste Linear Agent Recipes</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">5 Battle-Tested Recipes to Deploy This Week</h2>
+  <p class="page-lead">
+    Save each recipe below as a reusable <strong>Linear Skill</strong>, <strong>Loop</strong>, or <strong>MCP prompt</strong> so your entire engineering and product org gets repeatable, high-signal outputs.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Recipe Name</th>
+        <th style="width:22%;">Surface &amp; Trigger</th>
+        <th style="width:36%;">Exact Automation Behavior</th>
+        <th style="width:20%;">Target Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Bug Root-Cause Loop</strong></td>
+        <td>Linear Loop on <code>bug</code> label in Triage</td>
+        <td>Uses Code Intelligence to find suspect commits/files, checks duplicates, and posts a 5-line triage brief.</td>
+        <td>Cuts manual goalie triage time by 60%.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Figma Frame-to-PR</strong></td>
+        <td>Linear Coding Session or <code>@Cursor</code></td>
+        <td>Reads embedded Figma frame + Tailwind token map, implements component states, and runs Playwright visual tests.</td>
+        <td>Pixel-accurate UI PR in &lt;15 minutes.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Customer Signal Digest</strong></td>
+        <td>Linear Skill (<code>Cmd/Ctrl+J</code> weekly)</td>
+        <td>Aggregates all Zendesk/Intercom/Gong Customer Requests from the last 7 days, ranked by linked ARR.</td>
+        <td>Data-backed sprint planning in 2 mins.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Parallel Test Hardening</strong></td>
+        <td>Claude Code / Codex via Linear MCP</td>
+        <td>Pulls all <code>needs-tests</code> issues in current Cycle, spawns isolated git worktrees, and opens 1 PR per ticket.</td>
+        <td>Clears flaky/missing test debt overnight.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Auto Release Notes</strong></td>
+        <td>Linear Agent + Slack Workflow</td>
+        <td>Summarizes all <code>Done</code> issues in a completed Cycle into customer-facing changelog + internal Slack digest.</td>
+        <td>Zero-effort release comms &amp; CS loop close.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Copy-Paste Templates &amp; Snippets</h3>
+  <div class="grid-2" style="gap:9px;">
+    <div>
+      <div style="font-size:8.2pt; font-weight:700; color:#0f172a; margin-bottom:2px;">A. Workspace AI Guidance (<code>Settings &gt; AI</code>)</div>
+      <pre class="code-block"><code>## Engineering &amp; Agent Conventions
+- Branch format: &lt;team&gt;-&lt;id&gt;-kebab-slug
+- PR title: &lt;type&gt;(&lt;scope&gt;): &lt;summary&gt; [ENG-XXX]
+- Always include a failing regression test before fixing.
+- Never modify auth/, billing/webhooks/, or db/migrations/
+  without explicit human-approved label `migration-ok`.
+- Keep PR diffs under 250 lines; split larger specs.</code></pre>
+
+      <div style="font-size:8.2pt; font-weight:700; color:#0f172a; margin-bottom:2px;">B. Claude Code + Linear MCP Issue-to-PR Prompt</div>
+      <pre class="code-block" style="margin-bottom:0;"><code>Fetch Linear issue ENG-418 via linear-server MCP.
+Read all linked comments and Figma notes. Create branch
+eng-418-fix-csv-tz, implement strictly within Scope &amp;
+Constraints, run the Verification Command until green,
+open a draft PR with "Fixes ENG-418", and post a concise
+test summary back to the Linear issue.</code></pre>
+    </div>
+
+    <div>
+      <div style="font-size:8.2pt; font-weight:700; color:#0f172a; margin-bottom:2px;">C. Linear Issue Template: <code>Agent-Ready Bug / Task</code></div>
+      <pre class="code-block" style="margin-bottom:0;"><code>## 1. Context
+- Affected file(s) / URL / Sentry link:
+- Customer Request(s) linked:
+
+## 2. Constraints
+- Reuse helpers in:
+- Do NOT add dependencies or alter DB schema.
+
+## 3. Acceptance Criteria
+- [ ] Behavior 1 (observable &amp; binary)
+- [ ] Behavior 2 (edge case handled)
+
+## 4. Verification Command
+```bash
+pnpm --filter &lt;pkg&gt; test &lt;spec&gt; &amp;&amp; pnpm typecheck
+```
+
+## 5. Out-of-Scope
+- Explicitly excluded modules or refactors:</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: GUARDRAILS, BLAST-RADIUS & REVIEW GATES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Guardrails &amp; Human Review Gates</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">Blast-Radius Limits &amp; Human-in-the-Loop Governance</h2>
+  <p class="page-lead">
+    Autonomous coding agents multiply throughput&mdash;and can multiply mistakes just as fast if left ungoverned. Use strict delegation tiers, label-based permissions, CI verification gates, and spend caps to keep every agent PR safe to merge.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card" style="border-top:3.5px solid #059669;">
+      <div class="card-title"><span class="num-badge emerald">&check;</span> Delegate Freely (<code>agent-safe</code>)</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Scoped Bug Fixes:</strong> Deterministic reproduction with an existing or easily written unit test.</li>
+        <li><strong>UI &amp; Design Token Tweaks:</strong> Component layout, copy, empty states, and accessibility attributes from Figma.</li>
+        <li><strong>Test Coverage &amp; Docs:</strong> Adding regression suites, Playwright specs, Storybook stories, and API docs.</li>
+        <li><strong>Mechanical Refactors:</strong> Migrating deprecated internal hooks, lint rule rollouts, and type narrowing.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3.5px solid #e11d48;">
+      <div class="card-title"><span class="num-badge rose">&times;</span> Keep Human-Led (<code>human-only</code>)</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Auth, Crypto &amp; Permissions:</strong> RBAC, OAuth flows, session tokens, and tenant isolation logic.</li>
+        <li><strong>Destructive DB Migrations:</strong> Column drops, lock-heavy index builds, and billing ledger mutations.</li>
+        <li><strong>Ambiguous Product Architecture:</strong> Unvalidated 0&rarr;1 system designs or cross-service contracts.</li>
+        <li><strong>Production Incident Mitigation:</strong> Live rollback decisions and customer-impacting hotfixes.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>4 Mandatory Governance Gates Before Merging Any Agent PR</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Gate Layer</th>
+        <th style="width:44%;">Enforced Policy</th>
+        <th style="width:34%;">Where to Configure</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Label &amp; Team Scoping</strong></td>
+        <td>Restrict third-party App Users to approved teams; trigger automated Loops only when <code>agent-safe</code> is present and <code>human-only</code> is absent.</td>
+        <td><code>Settings &gt; Integrations &gt; Agents</code> + Loop filter conditions.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Sandbox &amp; Secret Isolation</strong></td>
+        <td>Run Coding Sessions in ephemeral cloud sandboxes with test-only env vars; never expose production DB keys or live Stripe secrets to agent runners.</td>
+        <td>Linear Coding Session repo environment settings + secret store.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Required CI &amp; Diff Size</strong></td>
+        <td>GitHub branch protection requires green unit tests, typecheck, SAST/secret scan, and a warning flag if an agent PR exceeds 350 changed lines.</td>
+        <td>GitHub Branch Protection Rules + CI workflow checks.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Human Owner Sign-Off</strong></td>
+        <td>The human Linear issue owner (or CODEOWNER) must review in <strong>Linear Diffs</strong> or GitHub and click Merge; agents never hold merge permissions.</td>
+        <td>GitHub <code>CODEOWNERS</code> + Linear Guided Reviews.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout rose" style="margin-top:4px; margin-bottom:0;">
+    <div class="callout-title">Budget Guardrail: Cap AI Credits &amp; Sandbox Loops</div>
+    Set hard monthly AI credit limits and disable silent auto-reload on experimental workspaces in <code>Settings &gt; Usage &amp; limits</code>. A runaway Loop triggered on every comment update can burn hundreds of runs overnight&mdash;always trigger Loops on explicit state transitions (e.g., <em>Status &rarr; Triage</em> or <em>Label added</em>), never on generic comment edits.
+  </div>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Pipeline</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Synergy: Support Signal to Shipped Release</h2>
+  <p class="page-lead">
+    Linear reaches peak leverage when it acts as the central nervous system connecting customer-facing channels, design tools, coding agents, and release communications into a single automated relay.
+  </p>
+
+  <!-- Inline SVG Synergy Pipeline -->
+  <div class="figure-box" style="background:#0b0e1c; padding:10px 12px; border-color:#4338ca; margin-bottom:8px;">
+    <svg viewBox="0 0 700 170" width="100%" height="170" xmlns="http://www.w3.org/2000/svg">
+      <!-- Column 1: Intake -->
+      <rect x="6" y="10" width="146" height="150" rx="8" fill="#12162b" stroke="#6366f1" stroke-width="1.4"/>
+      <text x="79" y="27" text-anchor="middle" fill="#a5b4fc" font-size="7.4" font-weight="700">SIGNAL INTAKE</text>
+      <rect x="16" y="36" width="126" height="25" rx="4" fill="#1b2142" stroke="#818cf8" stroke-width="0.8"/>
+      <text x="79" y="52" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">Slack @Linear / Asks</text>
+      <rect x="16" y="67" width="126" height="25" rx="4" fill="#1b2142" stroke="#818cf8" stroke-width="0.8"/>
+      <text x="79" y="83" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">Zendesk / Intercom 1-Click</text>
+      <rect x="16" y="98" width="126" height="25" rx="4" fill="#1b2142" stroke="#818cf8" stroke-width="0.8"/>
+      <text x="79" y="114" text-anchor="middle" fill="#ffffff" font-size="7.2" font-weight="600">Gong Transcripts + Sentry</text>
+      <rect x="16" y="129" width="126" height="23" rx="4" fill="#1b2142" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="79" y="144" text-anchor="middle" fill="#ddd6fe" font-size="7.2" font-weight="600">Figma Make Connector</text>
+
+      <path d="M152 85 L172 85" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="170,80 178,85 170,90" fill="#818cf8"/>
+
+      <!-- Column 2: Linear Triage & Spec -->
+      <rect x="179" y="10" width="156" height="150" rx="8" fill="#131936" stroke="#22d3ee" stroke-width="1.5"/>
+      <text x="257" y="27" text-anchor="middle" fill="#67e8f9" font-size="7.4" font-weight="700">LINEAR TRIAGE HUB</text>
+      <rect x="189" y="38" width="136" height="34" rx="5" fill="#0f273a" stroke="#0891b2" stroke-width="0.9"/>
+      <text x="257" y="53" text-anchor="middle" fill="#cffafe" font-size="7.3" font-weight="700">Triage Intelligence</text>
+      <text x="257" y="65" text-anchor="middle" fill="#94a3b8" font-size="6.6">Dedupe + ARR + auto-label</text>
+      <rect x="189" y="79" width="136" height="34" rx="5" fill="#0f273a" stroke="#22d3ee" stroke-width="0.9"/>
+      <text x="257" y="94" text-anchor="middle" fill="#cffafe" font-size="7.3" font-weight="700">Investigation Loop</text>
+      <text x="257" y="106" text-anchor="middle" fill="#94a3b8" font-size="6.6">Code Intel root-cause brief</text>
+      <rect x="189" y="120" width="136" height="30" rx="5" fill="#1b2142" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="257" y="138" text-anchor="middle" fill="#e0e7ff" font-size="7.2" font-weight="700">5-Part Spec + agent-safe</text>
+
+      <path d="M335 85 L355 85" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="353,80 361,85 353,90" fill="#22d3ee"/>
+
+      <!-- Column 3: Coding Agents -->
+      <rect x="362" y="10" width="154" height="150" rx="8" fill="#191330" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="439" y="27" text-anchor="middle" fill="#ddd6fe" font-size="7.4" font-weight="700">CODING AGENT PR</text>
+      <rect x="372" y="38" width="134" height="34" rx="5" fill="#261c4a" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="439" y="53" text-anchor="middle" fill="#ede9fe" font-size="7.3" font-weight="700">Delegated Execution</text>
+      <text x="439" y="65" text-anchor="middle" fill="#cbd5e1" font-size="6.6">Claude Code / Codex / Cursor</text>
+      <rect x="372" y="79" width="134" height="34" rx="5" fill="#261c4a" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="439" y="94" text-anchor="middle" fill="#ede9fe" font-size="7.3" font-weight="700">Sandbox Verification</text>
+      <text x="439" y="106" text-anchor="middle" fill="#cbd5e1" font-size="6.6">Tests + typecheck + lint = 0</text>
+      <rect x="372" y="120" width="134" height="30" rx="5" fill="#1b2142" stroke="#818cf8" stroke-width="0.9"/>
+      <text x="439" y="138" text-anchor="middle" fill="#e0e7ff" font-size="7.2" font-weight="700">Auto-Linked GitHub PR</text>
+
+      <path d="M516 85 L536 85" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="534,80 542,85 534,90" fill="#a78bfa"/>
+
+      <!-- Column 4: Review & Release -->
+      <rect x="543" y="10" width="151" height="150" rx="8" fill="#0b2321" stroke="#34d399" stroke-width="1.5"/>
+      <text x="618" y="27" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">REVIEW &amp; CLOSE LOOP</text>
+      <rect x="553" y="38" width="131" height="34" rx="5" fill="#103630" stroke="#10b981" stroke-width="0.9"/>
+      <text x="618" y="53" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">Linear Diffs + CI Gate</text>
+      <text x="618" y="65" text-anchor="middle" fill="#a7f3d0" font-size="6.6">Human approve &amp; merge</text>
+      <rect x="553" y="79" width="131" height="34" rx="5" fill="#103630" stroke="#34d399" stroke-width="0.9"/>
+      <text x="618" y="94" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">Auto-Notify CS &amp; Slack</text>
+      <text x="618" y="106" text-anchor="middle" fill="#a7f3d0" font-size="6.6">Zendesk / Intercom alert</text>
+      <rect x="553" y="120" width="131" height="30" rx="5" fill="#103630" stroke="#6ee7b7" stroke-width="0.9"/>
+      <text x="618" y="138" text-anchor="middle" fill="#d1fae5" font-size="7.2" font-weight="700">AI Release Notes Skill</text>
+    </svg>
+  </div>
+
+  <h3>Closing the Loop: 4 Operational Handoffs That Eliminate Manual Chasing</h3>
+  <div class="grid-2" style="gap:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Support-to-Engineering Attribution</div>
+      <p style="font-size:8pt; margin-bottom:0;">
+        When Zendesk or Intercom creates a Linear issue via Linear Agent, the customer record stays attached. When the coding agent&rsquo;s PR merges and moves the issue to <code>Done</code>, Linear posts an automated resolution alert back to the support thread&mdash;closing the feedback loop without engineers ever opening Zendesk.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge cyan">2</span> Slack Workflow Builder + <code>@Linear</code></div>
+      <p style="font-size:8pt; margin-bottom:0;">
+        Wire incident channels (<code>#eng-bugs</code>, <code>#cx-escalations</code>) so reacting with a bug emoji triggers a Slack Workflow that invokes <code>@Linear</code>. Linear Agent summarizes the messy 40-message thread into a single clean Triage ticket and links the thread back for status updates.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge violet">3</span> Weekly Speedrun / Batch Delegation</div>
+      <p style="font-size:8pt; margin-bottom:0;">
+        Run a 60-minute weekly paper-cut session: engineers spend 15 minutes refining 5&ndash;8 <code>agent-safe</code> issues with verification commands, delegate them in parallel to Coding Sessions or Cursor/Codex, and spend the remaining 45 minutes reviewing diffs and merging green PRs.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">4</span> Automated Cycle Release Notes</div>
+      <p style="font-size:8pt; margin-bottom:0;">
+        At Cycle close, invoke a saved Linear Skill to read all merged PRs and linked Customer Requests, generating two outputs: a concise customer-facing changelog and an internal executive summary with cycle velocity metrics from Linear Insights.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Pre-Flight</span>
+    <span>Linear Agents &amp; Issue-to-PR Loops</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight</h2>
+  <p class="page-lead">
+    When an autonomous issue-to-PR loop stalls, drifts, or goes silent, diagnose it in under two minutes with this clinic&mdash;then run the 6-point pre-flight check before scaling delegation across your org.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:27%;">Symptom / Failure Mode</th>
+        <th style="width:33%;">Root Cause</th>
+        <th style="width:40%;">Exact Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Agent ignores delegated issue</strong></td>
+        <td>App User lacks access to a private team, or team visibility changed after install.</td>
+        <td>Open <code>Settings &gt; Integrations &gt; Agents</code>, re-grant team access to the App User, and re-assign the issue to re-fire the webhook.</td>
+      </tr>
+      <tr>
+        <td><strong>2. MCP connection drops / 404</strong></td>
+        <td>Client config still points to deprecated <code>/sse</code> transport instead of Streamable HTTP.</td>
+        <td>Update endpoint to <code>https://mcp.linear.app/mcp</code>, run <code>/mcp</code> to refresh OAuth 2.1 tokens, or verify Okta enterprise authorization.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Agent PR touches 15+ unrelated files</strong></td>
+        <td>Ticket lacked an explicit <em>Out-of-Scope</em> fence and target file paths.</td>
+        <td>Close the noisy PR, add exact file paths + <em>Out-of-Scope</em> section + Workspace AI Guidance max-diff rule, and re-run.</td>
+      </tr>
+      <tr>
+        <td><strong>4. AI credits spike unexpectedly</strong></td>
+        <td>A Loop triggers on generic comment updates or retries infinitely on failing tests.</td>
+        <td>Restrict Loop triggers to explicit state/label changes, add a spend cap in <code>Settings &gt; Usage &amp; limits</code>, and inspect the credit explorer.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Duplicate tickets flood Triage</strong></td>
+        <td>Triage Intelligence disabled or cross-team suggestion scope misconfigured.</td>
+        <td>Enable Triage Intelligence in <code>Settings &gt; AI</code> and set <em>Include suggestions from</em> to cover all product teams sharing customer intake.</td>
+      </tr>
+      <tr>
+        <td><strong>6. PR merges but issue stays Open</strong></td>
+        <td>Agent omitted the Linear issue ID from branch name and PR description.</td>
+        <td>Add branch format (<code>eng-XXX-slug</code>) and <code>Fixes ENG-XXX</code> requirement to both <code>Settings &gt; AI</code> guidance and repo <code>AGENTS.md</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. UI PR misses Figma spacing/states</strong></td>
+        <td>Static screenshot attached instead of live Figma frame + token constraints.</td>
+        <td>Embed the live Figma URL (or create via Figma Make connector) and list exact design-system tokens in the issue&rsquo;s <em>Constraints</em> block.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Enabling Team-Wide Delegation</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>Workspace AI Guidance Published:</strong> Branch naming, PR title format, forbidden directories, and max diff size documented in <code>Settings &gt; AI</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>5-Part Issue Template Active:</strong> Default bug/task template enforces Context, Constraints, Acceptance Criteria, Verification Command, and Out-of-Scope.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>Remote MCP Verified:</strong> Engineers connected to <code>https://mcp.linear.app/mcp</code> via OAuth 2.1 (per-user attribution, no shared API keys).</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>Guardrail Labels &amp; CI Gates Live:</strong> <code>agent-safe</code> and <code>human-only</code> labels created; GitHub branch protection requires green tests + human review.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>Sandbox &amp; Spend Caps Set:</strong> Test-only env secrets configured for Coding Sessions and monthly AI credit limits enabled in <code>Usage &amp; limits</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>Goalie Rotation &amp; Review SLA:</strong> Weekly Triage Goalie assigned to calibrate Triage Intelligence and keep PR review queues under 24 hours.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Linear Agents &amp; Issue-to-PR Loops &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

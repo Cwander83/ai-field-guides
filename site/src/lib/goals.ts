@@ -42,6 +42,7 @@ export const ECOSYSTEM_SHORT_NAMES: Record<string, string> = {
   'visibility-and-workflows': 'AI Visibility & Work',
   'open-harnesses': 'Terminal & Local AI',
   'desktop-and-os': 'Desktop & Personal Ops',
+  'product-and-design': 'Product & Design Teams',
 };
 
 export const ECOSYSTEM_PLAIN_SUMMARIES: Record<string, string> = {
@@ -65,6 +66,8 @@ export const ECOSYSTEM_PLAIN_SUMMARIES: Record<string, string> = {
     'Run AI assistants directly in your terminal or privately on your own computer using vendor-free tools like OpenCode, Aider, Block Goose, Warp, and Ollama.',
   'desktop-and-os':
     'Tame overflowing email inboxes, protect calendar focus time, tidy cluttered folders, and connect everyday desktop apps with visual AI workflows on Mac or Windows.',
+  'product-and-design':
+    'Connect design systems, team wikis, issue trackers, user research, and code review into one AI-powered loop using Figma Make & MCP, Notion Custom Agents, Linear Agents, and GitHub Copilot.',
 };
 
 export const START_HERE_PATHS: Array<{

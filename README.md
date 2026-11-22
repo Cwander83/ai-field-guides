@@ -4,12 +4,12 @@
 
 Every handbook in this repository is authored as a self-contained **12-page visual handbook**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
-> **Read Online at [twelve-pages.com](https://twelve-pages.com)** — Browse all 77 handbooks in a clean, mobile-friendly web reader or download any 12-page magazine PDF in one click.
+> **Read Online at [twelve-pages.com](https://twelve-pages.com)** — Browse all 82 handbooks in a clean, mobile-friendly web reader or download any 12-page magazine PDF in one click.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-77%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-924%20Pages-059669?style=for-the-badge)
-![Ecosystems](https://img.shields.io/badge/Scope-10%20Ecosystems-7c3aed?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-82%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-984%20Pages-059669?style=for-the-badge)
+![Ecosystems](https://img.shields.io/badge/Scope-11%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
 
@@ -20,7 +20,7 @@ Every handbook in this repository is authored as a self-contained **12-page visu
 Click any cover card or **Read / Download PDF** link below to view the full handbook directly in GitHub or download a local copy.
 
 <!-- CATALOG:START -->
-**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems) &bull; [AI Music, Cinema & Presentation Studios](#ai-music-cinema--presentation-studios) &bull; [AI Search Visibility, Agentic Web & Workflows](#ai-search-visibility-agentic-web--workflows) &bull; [Open Harnesses, AI Terminals & Local Models](#open-harnesses-ai-terminals--local-models) &bull; [AI Desktop, OS Power Workflows & Personal Ops](#ai-desktop-os-power-workflows--personal-ops)
+**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems) &bull; [AI Music, Cinema & Presentation Studios](#ai-music-cinema--presentation-studios) &bull; [AI Search Visibility, Agentic Web & Workflows](#ai-search-visibility-agentic-web--workflows) &bull; [Open Harnesses, AI Terminals & Local Models](#open-harnesses-ai-terminals--local-models) &bull; [AI Desktop, OS Power Workflows & Personal Ops](#ai-desktop-os-power-workflows--personal-ops) &bull; [AI Product, Design & Team Workspaces](#ai-product-design--team-workspaces)
 
 ### Google AI & Creative Studios
 Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, Google ADK & Agent2Agent (A2A) protocol, Antigravity 2.0 customizations & swarms, Gemini 3.8 Live & Omni 1.2 Flash voice/video pipelines, agentic Firebase & Android CLI workflows, and autonomous browser agents.
@@ -781,6 +781,59 @@ Publication-grade 12-page visual handbooks for cross-platform desktop AI, inbox 
   </tr>
 </table>
 
+### AI Product, Design & Team Workspaces
+Publication-grade 12-page visual handbooks for AI-native product, design, and engineering teams—covering Figma Make & Figma MCP design-to-code, Notion 3.3+ Custom Agents & 160+ MCP connectors, Linear Agents & issue-to-PR loops, evidence-backed AI user research & PRD prototyping, and GitHub Copilot Agent Mode & GitHub MCP.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/product-and-design/figma-make-and-mcp-design-to-code/Figma_Make_and_MCP_Design_to_Code_Complete_How_To_Guide.pdf"><img src="guides/product-and-design/figma-make-and-mcp-design-to-code/cover.png" alt="Figma Make, Figma MCP &amp; Design-to-Code Cover" width="100%" /></a>
+      <h3><a href="guides/product-and-design/figma-make-and-mcp-design-to-code/Figma_Make_and_MCP_Design_to_Code_Complete_How_To_Guide.pdf">Figma Make, Figma MCP &amp; Design-to-Code</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turn Figma frames, design tokens, and component libraries into production React/Tailwind code using Figma Make, the official Figma MCP server, Code Connect, and coding agents.</p>
+      <p><code>Figma Make</code> &middot; <code>Figma MCP</code> &middot; <code>Design Systems</code></p>
+      <p><a href="guides/product-and-design/figma-make-and-mcp-design-to-code/Figma_Make_and_MCP_Design_to_Code_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/product-and-design/figma-make-and-mcp-design-to-code">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/product-and-design/notion-custom-agents-and-mcp-hubs/Notion_Custom_Agents_and_MCP_Team_Hubs_Complete_How_To_Guide.pdf"><img src="guides/product-and-design/notion-custom-agents-and-mcp-hubs/cover.png" alt="Notion Custom Agents &amp; MCP Team Hubs Cover" width="100%" /></a>
+      <h3><a href="guides/product-and-design/notion-custom-agents-and-mcp-hubs/Notion_Custom_Agents_and_MCP_Team_Hubs_Complete_How_To_Guide.pdf">Notion Custom Agents &amp; MCP Team Hubs</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Build autonomous team workspaces in Notion 3.3+ using Custom Agents, 160+ MCP connectors (Slack, Linear, Figma, HubSpot), Notion Calendar &amp; mail connectors, structured databases, and permission guardrails.</p>
+      <p><code>Notion 3.3+</code> &middot; <code>Custom Agents</code> &middot; <code>MCP Hubs</code></p>
+      <p><a href="guides/product-and-design/notion-custom-agents-and-mcp-hubs/Notion_Custom_Agents_and_MCP_Team_Hubs_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/product-and-design/notion-custom-agents-and-mcp-hubs">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/product-and-design/linear-agents-and-issue-to-pr/Linear_Agents_and_Issue_to_PR_Complete_How_To_Guide.pdf"><img src="guides/product-and-design/linear-agents-and-issue-to-pr/cover.png" alt="Linear Agents &amp; Issue-to-PR Loops Cover" width="100%" /></a>
+      <h3><a href="guides/product-and-design/linear-agents-and-issue-to-pr/Linear_Agents_and_Issue_to_PR_Complete_How_To_Guide.pdf">Linear Agents &amp; Issue-to-PR Loops</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Automate issue triage, Figma-to-spec drafting, and scoped issue-to-PR delegation using Linear Agents, Linear MCP, Triage Intelligence, and connected coding agents (Claude Code, Codex, Cursor, Devin).</p>
+      <p><code>Linear Agents</code> &middot; <code>Triage &amp; Specs</code> &middot; <code>Issue-to-PR</code></p>
+      <p><a href="guides/product-and-design/linear-agents-and-issue-to-pr/Linear_Agents_and_Issue_to_PR_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/product-and-design/linear-agents-and-issue-to-pr">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/product-and-design/ai-user-research-and-prd-prototyping/AI_User_Research_and_PRD_Prototyping_Complete_How_To_Guide.pdf"><img src="guides/product-and-design/ai-user-research-and-prd-prototyping/cover.png" alt="AI User Research &amp; PRD Prototyping Cover" width="100%" /></a>
+      <h3><a href="guides/product-and-design/ai-user-research-and-prd-prototyping/AI_User_Research_and_PRD_Prototyping_Complete_How_To_Guide.pdf">AI User Research &amp; PRD Prototyping</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turn raw customer interviews, support tickets, and session telemetry into evidence-backed PRDs, assumption maps, and clickable prototypes in hours—without hallucinated insights or AI slop.</p>
+      <p><code>User Research</code> &middot; <code>PRD Specs</code> &middot; <code>Rapid Prototypes</code></p>
+      <p><a href="guides/product-and-design/ai-user-research-and-prd-prototyping/AI_User_Research_and_PRD_Prototyping_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/product-and-design/ai-user-research-and-prd-prototyping">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/product-and-design/github-copilot-agent-mode-and-mcp/GitHub_Copilot_Agent_Mode_and_MCP_Complete_How_To_Guide.pdf"><img src="guides/product-and-design/github-copilot-agent-mode-and-mcp/cover.png" alt="GitHub Copilot Agent Mode &amp; GitHub MCP Cover" width="100%" /></a>
+      <h3><a href="guides/product-and-design/github-copilot-agent-mode-and-mcp/GitHub_Copilot_Agent_Mode_and_MCP_Complete_How_To_Guide.pdf">GitHub Copilot Agent Mode &amp; GitHub MCP</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Orchestrate autonomous coding inside VS Code, delegate GitHub Issues to Copilot Coding Agent, automate PR code reviews, and wire the official GitHub MCP Server with repo-wide custom instructions.</p>
+      <p><code>Copilot Agent</code> &middot; <code>GitHub MCP</code> &middot; <code>PR Reviews</code></p>
+      <p><a href="guides/product-and-design/github-copilot-agent-mode-and-mcp/GitHub_Copilot_Agent_Mode_and_MCP_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/product-and-design/github-copilot-agent-mode-and-mcp">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top"></td>
+  </tr>
+</table>
+
 ### Quick-Reference Index
 | Guide | Ecosystem | Version | Updated | Pages | Direct Links |
 | :--- | :--- | :---: | :---: | :---: | :--- |
@@ -861,6 +914,11 @@ Publication-grade 12-page visual handbooks for cross-platform desktop AI, inbox 
 | **AI Inbox Zero & Calendar Defense** — Turn a flooded mailbox and fragmented schedule into a calm, draft-only operating system—combining 5-bucket triage, Gmail Gemini, Shortwave, Superhuman, Workspace CLI & MCP pipelines, prompt-injection shields, and automated focus-block protection. | AI Desktop, OS Power Workflows & Personal Ops | `v1.1` | `2026-11` | 12 | [PDF](guides/desktop-and-os/ai-inbox-zero-and-calendar-defense/AI_Inbox_Zero_and_Calendar_Defense_Complete_How_To_Guide.pdf) &middot; [Source](guides/desktop-and-os/ai-inbox-zero-and-calendar-defense) |
 | **AI File System Cleanup & Digital Declutter** — Reclaim chaotic Downloads/ and Desktop folders without losing irreplaceable files—combining dry-run manifests, SHA-256 duplicate sweeps, VLM/OCR receipt renaming, 30-day quarantine staging, and native macOS + Windows automation. | AI Desktop, OS Power Workflows & Personal Ops | `v1.1` | `2026-11` | 12 | [PDF](guides/desktop-and-os/ai-file-system-cleanup-and-declutter/AI_File_System_Cleanup_and_Declutter_Complete_How_To_Guide.pdf) &middot; [Source](guides/desktop-and-os/ai-file-system-cleanup-and-declutter) |
 | **Visual AI Workflows with n8n & Make** — Design reliable, production-grade AI automations on a visual node canvas—combining deterministic pre-LLM routers, stateful Postgres & Data Store memory, MCP tool bridges, Slack/email approval pauses, and runaway spend circuit breakers. | AI Desktop, OS Power Workflows & Personal Ops | `v1.0` | `2026-11` | 12 | [PDF](guides/desktop-and-os/visual-ai-workflows-n8n-and-make/Visual_AI_Workflows_with_n8n_and_Make_Complete_How_To_Guide.pdf) &middot; [Source](guides/desktop-and-os/visual-ai-workflows-n8n-and-make) |
+| **Figma Make, Figma MCP & Design-to-Code** — Turn Figma frames, design tokens, and component libraries into production React/Tailwind code using Figma Make, the official Figma MCP server, Code Connect, and coding agents. | AI Product, Design & Team Workspaces | `v1.0` | `2026-11` | 12 | [PDF](guides/product-and-design/figma-make-and-mcp-design-to-code/Figma_Make_and_MCP_Design_to_Code_Complete_How_To_Guide.pdf) &middot; [Source](guides/product-and-design/figma-make-and-mcp-design-to-code) |
+| **Notion Custom Agents & MCP Team Hubs** — Build autonomous team workspaces in Notion 3.3+ using Custom Agents, 160+ MCP connectors (Slack, Linear, Figma, HubSpot), Notion Calendar & mail connectors, structured databases, and permission guardrails. | AI Product, Design & Team Workspaces | `v1.0` | `2026-11` | 12 | [PDF](guides/product-and-design/notion-custom-agents-and-mcp-hubs/Notion_Custom_Agents_and_MCP_Team_Hubs_Complete_How_To_Guide.pdf) &middot; [Source](guides/product-and-design/notion-custom-agents-and-mcp-hubs) |
+| **Linear Agents & Issue-to-PR Loops** — Automate issue triage, Figma-to-spec drafting, and scoped issue-to-PR delegation using Linear Agents, Linear MCP, Triage Intelligence, and connected coding agents (Claude Code, Codex, Cursor, Devin). | AI Product, Design & Team Workspaces | `v1.0` | `2026-11` | 12 | [PDF](guides/product-and-design/linear-agents-and-issue-to-pr/Linear_Agents_and_Issue_to_PR_Complete_How_To_Guide.pdf) &middot; [Source](guides/product-and-design/linear-agents-and-issue-to-pr) |
+| **AI User Research & PRD Prototyping** — Turn raw customer interviews, support tickets, and session telemetry into evidence-backed PRDs, assumption maps, and clickable prototypes in hours—without hallucinated insights or AI slop. | AI Product, Design & Team Workspaces | `v1.0` | `2026-11` | 12 | [PDF](guides/product-and-design/ai-user-research-and-prd-prototyping/AI_User_Research_and_PRD_Prototyping_Complete_How_To_Guide.pdf) &middot; [Source](guides/product-and-design/ai-user-research-and-prd-prototyping) |
+| **GitHub Copilot Agent Mode & GitHub MCP** — Orchestrate autonomous coding inside VS Code, delegate GitHub Issues to Copilot Coding Agent, automate PR code reviews, and wire the official GitHub MCP Server with repo-wide custom instructions. | AI Product, Design & Team Workspaces | `v1.0` | `2026-11` | 12 | [PDF](guides/product-and-design/github-copilot-agent-mode-and-mcp/GitHub_Copilot_Agent_Mode_and_MCP_Complete_How_To_Guide.pdf) &middot; [Source](guides/product-and-design/github-copilot-agent-mode-and-mcp) |
 <!-- CATALOG:END -->
 
 ---

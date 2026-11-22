@@ -10,6 +10,11 @@ const SITE_DIR = path.resolve(__dirname, '..');
 const REPO_ROOT = path.resolve(SITE_DIR, '..');
 
 const FEATURED_NEW_IDS = new Set([
+  'product-and-design/figma-make-and-mcp-design-to-code',
+  'product-and-design/notion-custom-agents-and-mcp-hubs',
+  'product-and-design/linear-agents-and-issue-to-pr',
+  'product-and-design/ai-user-research-and-prd-prototyping',
+  'product-and-design/github-copilot-agent-mode-and-mcp',
   'google/google-adk-and-a2a',
   'open-harnesses/opencode-tui-agents-and-routing',
   'open-harnesses/opencode-plugins-tools-and-ci',

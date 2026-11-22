@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GitHub Copilot Agent Mode &amp; GitHub MCP: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">GITHUB ENGINEERING &amp; AGENTIC WORKFLOWS &bull; FIELD GUIDE</div>
+    <h1>GitHub Copilot <span>Agent Mode &amp; MCP</span></h1>
+    <p class="cover-sub">
+      Orchestrate autonomous coding inside VS Code, delegate GitHub Issues to Copilot Coding Agent, automate PR code reviews, and wire the official GitHub MCP Server with repo-wide custom instructions.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">VS Code Agent Mode</span>
+      <span class="cover-badge">Cloud Coding Agent</span>
+      <span class="cover-badge">GitHub MCP Server</span>
+      <span class="cover-badge">Custom Instructions</span>
+      <span class="cover-badge">Copilot Code Review</span>
+      <span class="cover-badge">Enterprise Governance</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Isometric autonomous engineering hub on midnight slate with glowing sky blue and emerald optical pathways connecting code cores, pull requests, terminals, and cloud containers" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Autonomous IDE Loops</div>
+      <div class="cover-stat-desc">Plan multi-file edits, run tests, inspect diagnostics, and self-heal failures synchronously inside VS Code Agent Mode.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Async Issue-to-PR</div>
+      <div class="cover-stat-desc">Assign scoped GitHub Issues to <code>@copilot</code> to spin up ephemeral Actions sandboxes, run CI, and open review-ready PRs.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-PAT GitHub MCP</div>
+      <div class="cover-stat-desc">Connect <code>api.githubcopilot.com/mcp/</code> over OAuth 2.1 + PKCE with scoped <code>X-MCP-Toolsets</code> and read-only guardrails.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">Three Surfaces, One Agentic Graph: How Copilot Executes</h2>
+  <p class="page-lead">
+    Modern GitHub Copilot is no longer just inline autocomplete. It is a coordinated engineering fabric combining <strong>synchronous IDE execution</strong> (VS Code Agent Mode), <strong>asynchronous cloud delegation</strong> (Copilot Coding Agent on GitHub Actions), and <strong>standardized tool connectivity</strong> via the official GitHub MCP Server.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model: Local vs. Cloud vs. MCP</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Multi-Model Routing &amp; Credit Budgets</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Plans, AI Credits &amp; Mode Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Copilot &amp; MCP Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated VS Code Agent Mode HUD</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Security, Firewall &amp; Audit Controls</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Repo Instructions &amp; Context Hierarchy</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Delivery Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Official GitHub MCP Server Setup</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Async Coding Agent &amp; PR Reviews</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Scope, Guard, Verify</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>Architecture: Local Agent Mode vs. Cloud Coding Agent vs. GitHub MCP</h3>
+  <p style="font-size:8.6pt;">
+    All three execution surfaces read the same repository instruction files (<code>.github/copilot-instructions.md</code> and <code>AGENTS.md</code>), ensuring consistent architecture, lint rules, and test verification whether an engineer is pair-programming live or delegating backlog tickets overnight.
+  </p>
+
+  <div class="figure-box" style="background:#0d1117; padding:9px 11px; border-color:#1e293b;">
+    <svg viewBox="0 0 700 188" width="100%" height="188" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Shared Memory Bar -->
+      <rect x="8" y="6" width="684" height="28" rx="6" fill="#162032" stroke="#38bdf8" stroke-width="1.2"/>
+      <text x="350" y="24" text-anchor="middle" fill="#e0f2fe" font-size="8.2" font-weight="700">SHARED REPO CONTEXT: .github/copilot-instructions.md &bull; .instructions.md Globs &bull; AGENTS.md &bull; .prompt.md</text>
+
+      <!-- Connectors down -->
+      <path d="M116 34 L116 48 M350 34 L350 48 M584 34 L584 48" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="3,2"/>
+
+      <!-- Pillar 1: Local VS Code Agent Mode -->
+      <rect x="8" y="48" width="212" height="132" rx="8" fill="#111827" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="114" y="65" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">SYNCHRONOUS &bull; IDE LOCAL</text>
+      <text x="114" y="80" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">VS Code Agent Mode</text>
+      <rect x="18" y="90" width="192" height="36" rx="5" fill="#162032" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="114" y="105" text-anchor="middle" fill="#e0f2fe" font-size="7.4" font-weight="700">Multi-File Edits &amp; Terminal</text>
+      <text x="114" y="118" text-anchor="middle" fill="#94a3b8" font-size="6.8">Reads diagnostics, runs tests live</text>
+      <rect x="18" y="133" width="192" height="37" rx="5" fill="#162032" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="114" y="148" text-anchor="middle" fill="#e0f2fe" font-size="7.4" font-weight="700">Real-Time Steering</text>
+      <text x="114" y="161" text-anchor="middle" fill="#94a3b8" font-size="6.8">Checkpoints, diff hunks, Plan Mode</text>
+
+      <!-- Bidirectional Arrow 1 <-> 2 -->
+      <path d="M220 114 L242 114" stroke="#10b981" stroke-width="2"/>
+      <polygon points="239,109 247,114 239,119" fill="#10b981"/>
+      <polygon points="223,109 215,114 223,119" fill="#10b981"/>
+
+      <!-- Pillar 2: Official GitHub MCP Server -->
+      <rect x="247" y="48" width="206" height="132" rx="8" fill="#0f1f1c" stroke="#10b981" stroke-width="1.6"/>
+      <text x="350" y="65" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">PROTOCOL BRIDGE &bull; OAUTH 2.1</text>
+      <text x="350" y="80" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">GitHub MCP Server</text>
+      <rect x="257" y="90" width="186" height="36" rx="5" fill="#132a24" stroke="#059669" stroke-width="0.9"/>
+      <text x="350" y="105" text-anchor="middle" fill="#d1fae5" font-size="7.4" font-weight="700">api.githubcopilot.com/mcp/</text>
+      <text x="350" y="118" text-anchor="middle" fill="#94a3b8" font-size="6.8">Zero static PATs + Docker fallback</text>
+      <rect x="257" y="133" width="186" height="37" rx="5" fill="#132a24" stroke="#10b981" stroke-width="0.9"/>
+      <text x="350" y="148" text-anchor="middle" fill="#d1fae5" font-size="7.4" font-weight="700">Scoped X-MCP-Toolsets</text>
+      <text x="350" y="161" text-anchor="middle" fill="#94a3b8" font-size="6.8">issues, pull_requests, actions, security</text>
+
+      <!-- Bidirectional Arrow 2 <-> 3 -->
+      <path d="M453 114 L475 114" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="472,109 480,114 472,119" fill="#f59e0b"/>
+      <polygon points="456,109 448,114 456,119" fill="#f59e0b"/>
+
+      <!-- Pillar 3: Cloud Coding Agent -->
+      <rect x="480" y="48" width="212" height="132" rx="8" fill="#1a1726" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="586" y="65" text-anchor="middle" fill="#fcd34d" font-size="7.4" font-weight="700">ASYNCHRONOUS &bull; ACTIONS SANDBOX</text>
+      <text x="586" y="80" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Copilot Coding Agent</text>
+      <rect x="490" y="90" width="192" height="36" rx="5" fill="#231f33" stroke="#d97706" stroke-width="0.9"/>
+      <text x="586" y="105" text-anchor="middle" fill="#fef3c7" font-size="7.4" font-weight="700">Assign Issue &rarr; @copilot</text>
+      <text x="586" y="118" text-anchor="middle" fill="#94a3b8" font-size="6.8">Runs copilot-setup-steps.yml + CI</text>
+      <rect x="490" y="133" width="192" height="37" rx="5" fill="#231f33" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="586" y="148" text-anchor="middle" fill="#fef3c7" font-size="7.4" font-weight="700">Draft PR &amp; Code Review</text>
+      <text x="586" y="161" text-anchor="middle" fill="#94a3b8" font-size="6.8">Self-review + comment iteration loop</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">L</span> When to Stay Local (VS Code Agent Mode)</div>
+      <p style="font-size:8.2pt; margin:0;">
+        Use Agent Mode when requirements are exploratory, you need rapid visual feedback on a local dev server, or you want interactive diff review across complex cross-cutting refactors. Think of it as a <strong>senior pair programmer</strong> sharing your keyboard and terminal.
+      </p>
+    </div>
+    <div class="card-emerald">
+      <div class="card-title"><span class="num-badge emerald">C</span> When to Delegate Async (Cloud Coding Agent)</div>
+      <p style="font-size:8.2pt; margin:0;">
+        Assign issues to <code>@copilot</code> for well-scoped backlog work: unit test coverage, bug fixes with repro steps, dependency migrations, or docs updates. It runs in an isolated GitHub Actions sandbox and opens a Draft PR while you stay in flow.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: PLANS, MODELS & MODE DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Plans, Models &amp; Execution Modes</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">Choosing the Right Copilot Plan &amp; Execution Mode</h2>
+  <p class="page-lead">
+    Matching the task to the right execution mode preserves both developer focus and monthly <strong>GitHub AI Credits</strong> (which replaced legacy premium request counting across plans in June 2026). Avoid launching heavy cloud sandboxes for quick inline edits, and avoid manual Ask chat for multi-file refactors.
+  </p>
+
+  <h3 style="margin-top:5px;">Copilot Execution Mode Decision Matrix</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:3px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:17%; padding:4px 7px;">Execution Mode</th>
+        <th style="width:17%; padding:4px 7px;">Surface</th>
+        <th style="width:33%; padding:4px 7px;">Autonomy &amp; Capabilities</th>
+        <th style="width:33%; padding:4px 7px;">Ideal Use Cases</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Ask Mode</strong></td>
+        <td style="padding:3.8px 7px;">VS Code, JetBrains, Web</td>
+        <td style="padding:3.8px 7px;">Read-only Q&amp;A; explains code and searches <code>#codebase</code>. Zero file writes.</td>
+        <td style="padding:3.8px 7px;">Onboarding to modules, debugging stack traces, reviewing SQL queries.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Edit Mode</strong></td>
+        <td style="padding:3.8px 7px;">VS Code, JetBrains</td>
+        <td style="padding:3.8px 7px;">Scoped diffs on user-selected files only; no shell execution or autonomous loops.</td>
+        <td style="padding:3.8px 7px;">Deterministic edits across 2&ndash;5 known files (props, TypeScript types, JSDoc).</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Agent Mode</strong></td>
+        <td style="padding:3.8px 7px;">VS Code (GA), JetBrains, CLI</td>
+        <td style="padding:3.8px 7px;">Autonomous synchronous loop: edits files, runs shell commands, calls MCP tools, self-fixes.</td>
+        <td style="padding:3.8px 7px;">End-to-end features, complex refactors, failing test triage, live API wiring.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Coding Agent</strong></td>
+        <td style="padding:3.8px 7px;">GitHub Actions Cloud</td>
+        <td style="padding:3.8px 7px;">Async issue-to-PR sandbox with ephemeral runner, firewall allowlist, self-review, security scan.</td>
+        <td style="padding:3.8px 7px;">Well-scoped backlog tickets, flaky tests, CRUD endpoints, dependency upgrades.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Code Review</strong></td>
+        <td style="padding:3.8px 7px;">GitHub PRs &amp; Rulesets</td>
+        <td style="padding:3.8px 7px;">Agentic diff analysis (Lite / Balanced / Max) on Actions; leaves inline suggestions.</td>
+        <td style="padding:3.8px 7px;">Automated first-pass PR screening via branch rulesets before human review.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:5px;">Late-2026 Plans, Pricing &amp; AI Credit Tiers</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin:3px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:15%; padding:4px 7px;">Plan Tier</th>
+        <th style="width:15%; padding:4px 7px;">Price (USD)</th>
+        <th style="width:36%; padding:4px 7px;">Included Usage &amp; Model Access</th>
+        <th style="width:34%; padding:4px 7px;">Key Governance &amp; Agent Features</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Copilot Free</strong></td>
+        <td style="padding:3.8px 7px;">$0 / mo</td>
+        <td style="padding:3.8px 7px;">Entry completions &amp; limited monthly AI credits for chat and Agent Mode trials.</td>
+        <td style="padding:3.8px 7px;">Personal repos only; standard public code filter.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Copilot Pro</strong></td>
+        <td style="padding:3.8px 7px;">$10 / mo <span style="color:#059669; font-size:6.8pt;">(Free Edu)</span></td>
+        <td style="padding:3.8px 7px;">Core monthly AI credit pool; base completions; Claude Sonnet, GPT, &amp; Gemini access.</td>
+        <td style="padding:3.8px 7px;">Full Agent Mode, Coding Agent, Code Review, Remote GitHub MCP.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Copilot Pro+</strong></td>
+        <td style="padding:3.8px 7px;">$39 / mo</td>
+        <td style="padding:3.8px 7px;">4x&ndash;5x Pro usage (~$70 credits); frontier models (Claude Opus, GPT-5.x High, Fusion).</td>
+        <td style="padding:3.8px 7px;">High-throughput autonomous sessions &amp; Max-depth PR reviews.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Copilot Max</strong></td>
+        <td style="padding:3.8px 7px;">$100 / mo</td>
+        <td style="padding:3.8px 7px;">Highest individual AI credit allowance for full-time multi-agent IDE/CLI workflows.</td>
+        <td style="padding:3.8px 7px;">Priority capacity without mid-sprint credit ceilings.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Business</strong></td>
+        <td style="padding:3.8px 7px;">$19 / seat / mo</td>
+        <td style="padding:3.8px 7px;">Per-seat AI credits + org overage budgets; policy-governed multi-model picker.</td>
+        <td style="padding:3.8px 7px;">Content exclusions, IP indemnity, audit logs, MCP toggles.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Enterprise</strong></td>
+        <td style="padding:3.8px 7px;">$39 / seat / mo <span style="color:#64748b; font-size:6.8pt;">(GHE)</span></td>
+        <td style="padding:3.8px 7px;">Expanded per-seat AI credit pool &amp; custom org knowledge bases.</td>
+        <td style="padding:3.8px 7px;">Enterprise MCP Registry, network routing, SIEM streaming.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="padding:6.5px 10px; font-size:8.1pt; margin:4px 0;">
+    <div class="callout-title" style="font-size:8.4pt;">Billing Note (June 2026+): AI Credits + Actions Minutes</div>
+    Since June 1, 2026, GitHub transitioned from legacy premium requests to unified <strong>GitHub AI Credits</strong> (existing annual plans remain grandfathered until renewal). On <strong>private repositories</strong>, Coding Agent and Code Review consume AI Credits <em>plus</em> standard Actions runner minutes; public repositories remain free of Actions billing.
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INTERFACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated VS Code Agent Mode HUD</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">Inside VS Code Copilot Chat: 7-Control Agent Mode Tour</h2>
+  <p class="page-lead">
+    VS Code Copilot Chat transforms into an autonomous workbench the moment you switch the mode selector to <strong>Agent</strong>. Mastering these seven HUD controls prevents runaway edits, keeps token overhead lean, and makes terminal execution safe.
+  </p>
+
+  <!-- Mock VS Code Copilot Chat HUD -->
+  <div class="ui-window">
+    <div class="ui-topbar">
+      <div class="ui-dots"><span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span></div>
+      <div style="font-weight:700; color:#e2e8f0; font-size:7.6pt;">VS Code &mdash; Copilot Chat (Agent Mode) &bull; repo: acme/billing-api</div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="hud-chip" style="background:#064e3b; color:#6ee7b7; border:1px solid #059669;">MCP: 2 Connected</span>
+        <span class="hud-chip" style="background:#1e3a8a; color:#93c5fd; border:1px solid #2563eb;">Branch: feat/idempotency</span>
+      </div>
+    </div>
+
+    <div style="padding:9px 11px; display:grid; grid-template-columns: 1.35fr 1fr; gap:9px;">
+      <!-- Left: Chat Stream & Execution Trace -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card" style="border-color:#0284c7;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#7dd3fc; font-weight:700;">PROMPT + CONTEXT ATTACHMENTS <span class="callout-pin">4</span></span>
+            <span style="color:#94a3b8; font-size:6.4pt;">copilot-instructions.md (auto)</span>
+          </div>
+          <div style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:4px;">
+            <span class="hud-chip" style="background:#0f172a; color:#bae6fd; border:1px solid #0284c7;">#file:webhooks.ts</span>
+            <span class="hud-chip" style="background:#0f172a; color:#6ee7b7; border:1px solid #059669;">#github/get_issue</span>
+            <span class="hud-chip" style="background:#0f172a; color:#fcd34d; border:1px solid #d97706;">/add-idempotency</span>
+          </div>
+          <div style="color:#e2e8f0;">"Implement Stripe webhook idempotency keys from Issue #418, add Vitest unit tests, and verify CI passes."</div>
+        </div>
+
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#6ee7b7; font-weight:700;">AGENT WORKING SET &amp; DIFF CHECKPOINT <span class="callout-pin">5</span></span>
+            <span style="color:#94a3b8; font-size:6.4pt;">3 files edited &bull; +114 / -12</span>
+          </div>
+          <div style="color:#cbd5e1; font-family:monospace; font-size:6.5pt;">
+            &bull; src/api/webhooks.ts &nbsp;<span style="color:#34d399;">+62 -8</span> &nbsp;[Keep | Undo]<br/>
+            &bull; src/db/idempotency.ts <span style="color:#34d399;">+28 -0</span> &nbsp;[Keep | Undo]<br/>
+            &bull; tests/webhooks.test.ts <span style="color:#34d399;">+24 -4</span> &nbsp;[Keep | Undo]
+          </div>
+        </div>
+
+        <div class="hud-card" style="border-color:#d97706;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#fcd34d; font-weight:700;">TERMINAL TOOL APPROVAL <span class="callout-pin">6</span></span>
+            <span class="hud-chip" style="background:#451a03; color:#fcd34d;">Awaiting Confirmation</span>
+          </div>
+          <div style="background:#090d14; padding:4px 6px; border-radius:4px; font-family:monospace; color:#a7f3d0; margin-bottom:4px;">
+            $ pnpm vitest run tests/webhooks.test.ts
+          </div>
+          <div style="display:flex; gap:5px;">
+            <span class="hud-chip" style="background:#0284c7; color:#ffffff;">Allow Once</span>
+            <span class="hud-chip" style="background:#059669; color:#ffffff;">Allow in Workspace</span>
+            <span class="hud-chip" style="background:#334155; color:#cbd5e1;">Skip</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Controls Bar & Cloud Handoff -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card">
+          <div style="color:#7dd3fc; font-weight:700; margin-bottom:4px;">MODE &amp; MODEL CONTROLS</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:5px;">
+            <span>Mode Selector <span class="callout-pin">1</span></span>
+            <span class="hud-chip" style="background:#0284c7; color:#ffffff;">Agent &#9662;</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:5px;">
+            <span>Model Picker <span class="callout-pin">2</span></span>
+            <span class="hud-chip" style="background:#1e293b; color:#e0f2fe; border:1px solid #38bdf8;">Claude Sonnet 4.5 &#9662;</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span>MCP Toolsets <span class="callout-pin">3</span></span>
+            <span class="hud-chip" style="background:#064e3b; color:#a7f3d0; border:1px solid #10b981;">&#128295; 14 Tools Active</span>
+          </div>
+        </div>
+
+        <div class="hud-card" style="border-color:#7c3aed;">
+          <div style="color:#c4b5fd; font-weight:700; margin-bottom:3px;">CLOUD HANDOFF &amp; DELEGATION <span class="callout-pin">7</span></div>
+          <div style="color:#cbd5e1; margin-bottom:5px;">
+            Escalate long-running test matrices or follow-up refactors directly to Copilot Coding Agent on GitHub Actions.
+          </div>
+          <div style="display:flex; gap:5px;">
+            <span class="hud-chip" style="background:#6d28d9; color:#ffffff;">Delegate to Cloud Agent</span>
+            <span class="hud-chip" style="background:#1e293b; color:#cbd5e1; border:1px solid #475569;">Open Draft PR</span>
+          </div>
+        </div>
+
+        <div class="hud-card" style="background:#090d14; border-color:#1e293b;">
+          <div style="color:#94a3b8; font-size:6.5pt;">
+            <strong style="color:#38bdf8;">Live Telemetry:</strong> 4/25 tool iterations &bull; 0 TS diagnostics &bull; Checkpoint #2 saved
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:7px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge coral">1</span> Mode Switcher (Agent / Plan / Edit / Ask)</div>
+      <p style="font-size:8pt; margin:0 0 5px 0;">Start ambiguous features in <strong>Plan Mode</strong> to generate an editable Markdown execution plan, then switch to <strong>Agent Mode</strong> to execute file writes and tests.</p>
+      <div class="card-title"><span class="num-badge coral">2</span> Unified Model Picker</div>
+      <p style="font-size:8pt; margin:0 0 5px 0;">Hot-swap between Claude Sonnet/Opus, GPT-5.x, and Gemini Pro mid-thread without losing workspace context or MCP tool state.</p>
+      <div class="card-title"><span class="num-badge coral">3</span> MCP Tools Drawer (&#128295;)</div>
+      <p style="font-size:8pt; margin:0 0 5px 0;">Toggle individual MCP servers and toolsets on/off per session. Keeping active tools under <strong>35</strong> maximizes tool-calling accuracy.</p>
+      <div class="card-title"><span class="num-badge coral">4</span> Context Chips &amp; Slash Prompts</div>
+      <p style="font-size:8pt; margin:0;">Attach exact files (<code>#file</code>), terminal output (<code>#terminalSelection</code>), or repo prompt files (<code>/add-endpoint</code>) to ground the first turn.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge coral">5</span> Working Set &amp; Checkpoint Rollback</div>
+      <p style="font-size:8pt; margin:0 0 5px 0;">Every Agent turn creates a restore checkpoint. Review inline hunks with <strong>Keep / Undo</strong> before staging commits so no silent regressions slip in.</p>
+      <div class="card-title"><span class="num-badge coral">6</span> Terminal Auto-Approval Rules</div>
+      <p style="font-size:8pt; margin:0 0 5px 0;">Configure <code>chat.tools.terminal.autoApprove</code> in <code>settings.json</code> to allow read-only commands (<code>git status</code>, <code>vitest</code>, <code>pytest</code>) while blocking destructive shells (<code>rm</code>, <code>git push -f</code>).</p>
+      <div class="card-title"><span class="num-badge coral">7</span> Cloud Agent Handoff</div>
+      <p style="font-size:8pt; margin:0 0 5px 0;">Click <strong>Delegate to Cloud Agent</strong> to package your current thread, branch context, and acceptance criteria into an async GitHub Actions session.</p>
+      <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; padding:4.5px 7px; font-size:7.6pt; margin-top:4px;">
+        <strong>Pro Tip:</strong> Cap runaway loops by setting <code>"chat.agent.maxRequests": 25</code> in VS Code User Settings.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: REPO INSTRUCTIONS & CONTEXT ENGINEERING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Repo Instructions &amp; Context Engineering</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">Persistent Repo Memory: Instructions, Globs &amp; Prompt Files</h2>
+  <p class="page-lead">
+    Repeating coding conventions in every chat prompt wastes time and AI credits. Version-controlled instruction files turn your repository into a self-documenting contract automatically injected into VS Code Agent Mode, Cloud Coding Agent, Copilot CLI, and Code Review.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" style="height:168px;" src="assets/showcase_1.jpg" alt="Isometric translucent blueprint layers illuminated by sky blue and emerald circuit pathways converging into a central geometric core" />
+    <div class="figure-caption">
+      <strong>Layered Context Architecture:</strong> Combine one concise repo-wide baseline (<code>.github/copilot-instructions.md</code> or <code>AGENTS.md</code>) with path-scoped <code>.instructions.md</code> glob files and reusable <code>.prompt.md</code> workflows so agents load only relevant rules.
+    </div>
+  </div>
+
+  <h3>The 4-Tier GitHub Copilot Instruction Hierarchy</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:27%;">File Path Pattern</th>
+        <th style="width:17%;">Scope &amp; Trigger</th>
+        <th style="width:24%;">Honored By</th>
+        <th style="width:32%;">Best Content to Put Inside</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>.github/copilot-instructions.md</code></td>
+        <td>Always-on (Repo-wide)</td>
+        <td>VS Code, JetBrains, Coding Agent, Code Review</td>
+        <td>Tech stack, exact build/lint/test commands, directory layout, non-negotiable conventions (&lt;150 lines).</td>
+      </tr>
+      <tr>
+        <td><code>.github/instructions/*.instructions.md</code></td>
+        <td>Path-scoped via YAML <code>applyTo</code></td>
+        <td>VS Code Agent Mode, Coding Agent, Code Review</td>
+        <td>Domain-specific rules: React component patterns, SQL migration safety, Terraform module guards.</td>
+      </tr>
+      <tr>
+        <td><code>AGENTS.md</code> (root or subdir)</td>
+        <td>Cross-agent standard</td>
+        <td>Coding Agent, Code Review, Copilot CLI, Codex</td>
+        <td>Portable engineering handbook shared across Copilot and third-party agents; nearest file wins in monorepos.</td>
+      </tr>
+      <tr>
+        <td><code>.github/prompts/*.prompt.md</code></td>
+        <td>On-demand <code>/slash</code> command</td>
+        <td>VS Code Copilot Chat &amp; Agent Mode</td>
+        <td>Repeatable multi-step SOPs: scaffolding an API route, writing E2E specs, auditing PR accessibility.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:3px;">
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#0d1117; margin-bottom:2px;">Path-Scoped Rule: <code>.github/instructions/api.instructions.md</code></div>
+      <pre class="code-block"><code><span class="ck-hdr">---</span>
+<span class="ck-key">applyTo:</span> <span class="ck-str">"src/api/**/*.ts,src/routes/**/*.ts"</span>
+<span class="ck-hdr">---</span>
+<span class="ck-cmt"># API Route Engineering Standards</span>
+- Validate all inputs with Zod schemas in `src/schemas/`.
+- Return typed `Result&lt;T, ApiError&gt;`; never throw raw strings.
+- Every POST/PUT mutation MUST enforce `Idempotency-Key`.
+- Run `pnpm vitest run src/api` before completing any edit.</code></pre>
+    </div>
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#0d1117; margin-bottom:2px;">Reusable Workflow: <code>.github/prompts/new-endpoint.prompt.md</code></div>
+      <pre class="code-block"><code><span class="ck-hdr">---</span>
+<span class="ck-key">mode:</span> <span class="ck-str">"agent"</span>
+<span class="ck-key">tools:</span> [<span class="ck-str">"codebase"</span>, <span class="ck-str">"terminal"</span>, <span class="ck-str">"github/get_issue"</span>]
+<span class="ck-hdr">---</span>
+1. Read the linked GitHub Issue acceptance criteria.
+2. Scaffold route, Zod schema, and Vitest integration test.
+3. Run `pnpm typecheck &amp;&amp; pnpm test:api` and fix errors.
+4. Summarize changed files and curl verification example.</code></pre>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:2px;">
+    <div class="callout-title">Context Hygiene Rule: Keep Always-On Files Under 150 Lines</div>
+    Although GitHub removed the legacy 4,000-character cap on Code Review custom instructions in June 2026, bloated 700-line instruction files dilute attention and inflate token burn on every turn. Move framework-specific rules into path-scoped <code>.instructions.md</code> globs so they load only when matching files are touched.
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: OFFICIAL GITHUB MCP SERVER DEEP DIVE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Official GitHub MCP Server</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">Wiring <code>github/github-mcp-server</code>: Remote OAuth &amp; Toolsets</h2>
+  <p class="page-lead">
+    The official Go-based <strong>GitHub MCP Server</strong> exposes GitHub Issues, Pull Requests, Actions logs, and Code Security alerts directly to Copilot Agent Mode. Its GA remote endpoint (<code>https://api.githubcopilot.com/mcp/</code>) authenticates via <strong>OAuth 2.1 + PKCE</strong>&mdash;eliminating static Personal Access Tokens on developer laptops.
+  </p>
+
+  <div class="grid-2">
+    <div>
+      <div style="font-size:8.2pt; font-weight:700; color:#0d1117; margin-bottom:2px;">Recommended: Remote OAuth (<code>.vscode/mcp.json</code>)</div>
+      <pre class="code-block"><code>{
+  <span class="ck-key">"servers"</span>: {
+    <span class="ck-key">"github"</span>: {
+      <span class="ck-key">"type"</span>: <span class="ck-str">"http"</span>,
+      <span class="ck-key">"url"</span>: <span class="ck-str">"https://api.githubcopilot.com/mcp/"</span>,
+      <span class="ck-key">"headers"</span>: {
+        <span class="ck-hdr">"X-MCP-Toolsets"</span>: <span class="ck-str">"repos,issues,pull_requests,actions"</span>,
+        <span class="ck-hdr">"X-MCP-Readonly"</span>: <span class="ck-str">"false"</span>,
+        <span class="ck-sec">"X-MCP-Lockdown"</span>: <span class="ck-str">"true"</span>
+      }
+    }
+  }
+}</code></pre>
+      <div style="display:flex; gap:5px; flex-wrap:wrap; margin-top:2px;">
+        <span class="p-tag p-sky">Streamable HTTP</span>
+        <span class="p-tag p-em">OAuth 2.1 Auto-Login</span>
+        <span class="p-tag p-amb">Header Toolset Filter</span>
+        <span class="p-tag p-ros">Lockdown Guard</span>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:8.2pt; font-weight:700; color:#0d1117; margin-bottom:2px;">Air-Gapped / GHES Fallback: Local Docker</div>
+      <pre class="code-block"><code>{
+  <span class="ck-key">"inputs"</span>: [{
+    <span class="ck-key">"id"</span>: <span class="ck-str">"gh_pat"</span>, <span class="ck-key">"type"</span>: <span class="ck-str">"promptString"</span>, <span class="ck-key">"password"</span>: <span class="ck-hdr">true</span>
+  }],
+  <span class="ck-key">"servers"</span>: {
+    <span class="ck-key">"github-local"</span>: {
+      <span class="ck-key">"command"</span>: <span class="ck-str">"docker"</span>,
+      <span class="ck-key">"args"</span>: [<span class="ck-str">"run"</span>, <span class="ck-str">"-i"</span>, <span class="ck-str">"--rm"</span>, <span class="ck-str">"-e"</span>, <span class="ck-str">"GITHUB_PERSONAL_ACCESS_TOKEN"</span>,
+        <span class="ck-str">"ghcr.io/github/github-mcp-server"</span>, <span class="ck-str">"--toolsets=repos,issues"</span>],
+      <span class="ck-key">"env"</span>: { <span class="ck-key">"GITHUB_PERSONAL_ACCESS_TOKEN"</span>: <span class="ck-str">"${input:gh_pat}"</span> }
+    }
+  }
+}</code></pre>
+    </div>
+  </div>
+
+  <h3>Official GitHub MCP Toolsets &amp; Remote Scoping Reference</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:16%;">Toolset Name</th>
+        <th style="width:20%;">Single-Toolset URL</th>
+        <th style="width:36%;">High-Value Tools Exposed</th>
+        <th style="width:28%;">Recommended Access Policy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>repos</code></td>
+        <td><code>/mcp/x/repos</code></td>
+        <td><code>get_file_contents</code>, <code>search_code</code>, <code>list_commits</code>, <code>create_branch</code>, <code>push_files</code></td>
+        <td>Enable by default; pair with branch protection on <code>main</code>.</td>
+      </tr>
+      <tr>
+        <td><code>issues</code></td>
+        <td><code>/mcp/x/issues</code></td>
+        <td><code>get_issue</code>, <code>list_issues</code>, <code>create_issue</code>, <code>add_issue_comment</code>, <code>search_issues</code></td>
+        <td>Enable for sprint triage, bug repro lookup, and ticket updates.</td>
+      </tr>
+      <tr>
+        <td><code>pull_requests</code></td>
+        <td><code>/mcp/x/pull_requests</code></td>
+        <td><code>get_pull_request</code>, <code>get_pull_request_diff</code>, <code>create_pull_request</code>, <code>list_review_comments</code></td>
+        <td>Enable for local PR prep, review-comment fixes, and diff audits.</td>
+      </tr>
+      <tr>
+        <td><code>actions</code></td>
+        <td><code>/mcp/x/actions</code></td>
+        <td><code>list_workflow_runs</code>, <code>get_job_logs</code>, <code>rerun_failed_jobs</code>, <code>list_artifacts</code></td>
+        <td>Essential for CI auto-healing loops inside VS Code Agent Mode.</td>
+      </tr>
+      <tr>
+        <td><code>code_security</code></td>
+        <td><code>/mcp/x/code_security</code></td>
+        <td><code>list_code_scanning_alerts</code>, <code>get_code_scanning_alert</code>, <code>list_dependabot_alerts</code></td>
+        <td>Enable for security sprints; pair with <code>X-MCP-Readonly: true</code>.</td>
+      </tr>
+      <tr>
+        <td><code>users</code> / <code>orgs</code></td>
+        <td><code>/mcp/x/users</code></td>
+        <td><code>get_me</code>, <code>search_users</code>, <code>list_org_teams</code></td>
+        <td>Optional; exclude unless automating CODEOWNERS or team routing.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="callout emerald" style="margin:0;">
+      <div class="callout-title">Context-Window Hygiene: Scope Your Toolsets</div>
+      Never load every GitHub MCP tool at once. Filtering via <code>X-MCP-Toolsets</code> or <code>X-MCP-Exclude-Tools</code> trims thousands of JSON schema tokens per turn and sharpens agent tool selection.
+    </div>
+    <div class="callout amber" style="margin:0;">
+      <div class="callout-title">Read-Only &amp; Lockdown Modes</div>
+      Append <code>/readonly</code> to the URL (or set <code>X-MCP-Readonly: true</code>) for zero-write audit sessions. Enable <code>X-MCP-Lockdown: true</code> on public repos to hide untrusted external issue/PR comments from prompt injection.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: ASYNC COPILOT CODING AGENT & PR REVIEW AUTOMATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Async Coding Agent &amp; PR Review Automation</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">Delegate Issues to <code>@copilot</code> &amp; Automate PR Code Reviews</h2>
+  <p class="page-lead">
+    When you assign a GitHub Issue to <strong>Copilot Coding Agent</strong>, GitHub spins up an ephemeral Actions runner, executes your custom setup workflow, writes and tests the implementation, runs built-in security &amp; self-review checks, and opens a Draft PR ready for human and AI review.
+  </p>
+
+  <div class="grid-4" style="margin-bottom:7px;">
+    <div class="card-tint" style="padding:7px 8px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="num-badge">1</span> Scope Issue</div>
+      <p style="font-size:7.6pt; margin:0;">Include target file paths, clear acceptance criteria, and the exact test command.</p>
+    </div>
+    <div class="card-tint" style="padding:7px 8px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="num-badge emerald">2</span> Assign @copilot</div>
+      <p style="font-size:7.6pt; margin:0;">Select <strong>Copilot</strong> in Issue Assignees, pick a model, or delegate directly from VS Code / CLI.</p>
+    </div>
+    <div class="card-tint" style="padding:7px 8px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="num-badge amber">3</span> Actions Sandbox</div>
+      <p style="font-size:7.6pt; margin:0;">Runs <code>copilot-setup-steps.yml</code>, edits code, runs linters/tests, and self-reviews diffs.</p>
+    </div>
+    <div class="card-tint" style="padding:7px 8px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="num-badge purple">4</span> Draft PR Loop</div>
+      <p style="font-size:7.6pt; margin:0;">Leave PR review comments tagging <code>@copilot</code> to trigger automated follow-up commits.</p>
+    </div>
+  </div>
+
+  <h3>Pre-Warming the Sandbox: <code>.github/workflows/copilot-setup-steps.yml</code></h3>
+  <p style="font-size:8.4pt;">
+    The Coding Agent executes inside a firewalled Actions environment. Pre-installing runtimes, package caches, and database binaries in <code>copilot-setup-steps.yml</code> prevents firewall blocks during <code>npm install</code> or <code>pip install</code> and cuts task latency by 40&ndash;60%. Copilot Code Review also reuses this file by default.
+  </p>
+
+  <pre class="code-block"><code><span class="ck-key">name:</span> <span class="ck-str">"Copilot Setup Steps"</span>
+<span class="ck-key">on:</span>
+  <span class="ck-key">workflow_dispatch:</span>
+  <span class="ck-key">push:</span>
+    <span class="ck-key">paths:</span> [<span class="ck-str">".github/workflows/copilot-setup-steps.yml"</span>]
+
+<span class="ck-key">jobs:</span>
+  <span class="ck-key">copilot-setup-steps:</span>          <span class="ck-cmt"># Exact job name required by GitHub Copilot</span>
+    <span class="ck-key">runs-on:</span> <span class="ck-str">ubuntu-latest</span>       <span class="ck-cmt"># Ephemeral runner — NEVER a deploy runner</span>
+    <span class="ck-key">permissions:</span>
+      <span class="ck-key">contents:</span> <span class="ck-str">read</span>
+    <span class="ck-key">steps:</span>
+      - <span class="ck-key">uses:</span> <span class="ck-str">actions/checkout@v4</span>
+      - <span class="ck-key">uses:</span> <span class="ck-str">actions/setup-node@v4</span>
+        <span class="ck-key">with:</span> { <span class="ck-key">node-version:</span> <span class="ck-str">"22"</span>, <span class="ck-key">cache:</span> <span class="ck-str">"pnpm"</span> }
+      - <span class="ck-key">run:</span> <span class="ck-str">corepack enable &amp;&amp; pnpm install --frozen-lockfile</span>
+      - <span class="ck-key">run:</span> <span class="ck-str">pnpm build:types</span>      <span class="ck-cmt"># Pre-generate types so agent typecheck runs fast</span></code></pre>
+
+  <div class="grid-2" style="margin-top:5px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">R</span> Automated PR Reviews via Branch Rulesets</div>
+      <ul style="font-size:8pt; margin:0; padding-left:15px;">
+        <li><strong>Scale with Rulesets:</strong> Enable <em>Automatically request Copilot code review</em> in Repo or Org Branch Rulesets rather than relying on individual user toggles.</li>
+        <li><strong>Choose Review Depth:</strong> Select <strong>Lite</strong> (fast syntax/bug pass), <strong>Balanced</strong> (default agentic diff check), or <strong>Max</strong> (deep cross-file reasoning for critical services).</li>
+        <li><strong>Comment-Only Safety:</strong> Copilot Code Review leaves inline suggestions and comments&mdash;it <em>never</em> counts toward required human approvals or auto-merges code.</li>
+      </ul>
+    </div>
+
+    <div class="card-emerald">
+      <div class="card-title"><span class="num-badge emerald">I</span> Steering Coding Agent PRs Like a Teammate</div>
+      <ul style="font-size:8pt; margin:0; padding-left:15px;">
+        <li><strong>Batch Your Feedback:</strong> Use GitHub's <em>Start a review</em> workflow to submit 3&ndash;5 inline comments in one review round so <code>@copilot</code> addresses everything in a single Actions run.</li>
+        <li><strong>Inspect Session Logs:</strong> Click <em>View session</em> on the PR timeline to audit every shell command, file read, and test output the agent executed.</li>
+        <li><strong>CLI / IDE Takeover:</strong> For the last 10% polish, check out the agent's <code>copilot/*</code> branch locally or hand off to Copilot CLI.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:6px;">
+    <div class="callout-title">Security Gate: Manual Actions Approval on Agent PRs</div>
+    By design, GitHub Actions CI workflows on a Copilot Coding Agent PR do <strong>not</strong> run automatically until a repository maintainer with write access clicks <em>Approve and run workflows</em>. Keep this gate enabled to review diffs before CI executes untrusted test code.
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: MULTI-MODEL ROUTING & TEAM GOVERNANCE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Multi-Model Routing &amp; Team Governance</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">Routing Claude, GPT &amp; Gemini Inside GitHub Copilot</h2>
+  <p class="page-lead">
+    One of Copilot's strongest enterprise advantages is its unified multi-model fabric: developers can route tasks across Anthropic Claude, OpenAI GPT, and Google Gemini under a single GitHub seat, zero-retention agreement, and centralized AI credit budget.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="Dark metallic prism router splitting light into sky blue, emerald, and violet streams toward modular server racks and governance shields" />
+    <div class="figure-caption">
+      <strong>Intentional Model Routing:</strong> Match model weight to task complexity&mdash;reserving frontier reasoning tiers (Claude Opus, GPT-5.x High) for architecture and gnarly bugs while using fast, high-efficiency models for boilerplate and routine edits.
+    </div>
+  </div>
+
+  <h3>Task-to-Model Routing Playbook</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:23%;">Engineering Workload</th>
+        <th style="width:24%;">Recommended Model Tier</th>
+        <th style="width:15%;">Credit Burn</th>
+        <th style="width:38%;">Why It Wins Here</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Inline Completions &amp; Quick Edits</strong></td>
+        <td>Copilot Base / Fast Mini Models</td>
+        <td>0x &ndash; Low</td>
+        <td>Sub-200ms latency for tab autocomplete, docstrings, and single-file renames without draining credits.</td>
+      </tr>
+      <tr>
+        <td><strong>Everyday Agent Mode Builds</strong></td>
+        <td>Claude Sonnet 4.5 / GPT-5.x Standard</td>
+        <td>Medium</td>
+        <td>Best balance of multi-file precision, clean React/TypeScript output, and reliable MCP tool-calling.</td>
+      </tr>
+      <tr>
+        <td><strong>Complex Architecture &amp; Root-Cause Debugging</strong></td>
+        <td>Claude Opus / GPT-5.x Reasoning</td>
+        <td>High</td>
+        <td>Excels at multi-service race conditions, schema migrations, and writing Plan Mode blueprints.</td>
+      </tr>
+      <tr>
+        <td><strong>Large-Context Repo Audits &amp; Multimodal UI</strong></td>
+        <td>Gemini Pro (Long Context)</td>
+        <td>Medium</td>
+        <td>Handles sprawling monorepo traces, lengthy CI logs, and screenshot-to-UI fidelity checks cleanly.</td>
+      </tr>
+      <tr>
+        <td><strong>Automated PR Reviews &amp; Backlog Tickets</strong></td>
+        <td>Auto / Balanced Coding Agent</td>
+        <td>Low &ndash; Med</td>
+        <td>Predictable cost per PR across high-volume repositories; escalate to Max depth only on core services.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">B</span> Controlling AI Credit Budgets</div>
+      <ul style="font-size:7.95pt; margin:0; padding-left:15px;">
+        <li><strong>Set Soft &amp; Hard Caps:</strong> Org admins can configure monthly AI credit budgets per team or cost center with 75% / 90% webhook alerts.</li>
+        <li><strong>Start with Plan Mode:</strong> Spend one reasoning turn drafting a crisp plan, then execute the edits with a faster standard model.</li>
+        <li><strong>Prune Stale Threads:</strong> Long 40-turn Agent chats re-send massive histories; open a fresh thread per ticket or subtask.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge slate">G</span> Enterprise Model Policy Controls</div>
+      <ul style="font-size:7.95pt; margin:0; padding-left:15px;">
+        <li><strong>Allowlist by Compliance Tier:</strong> Enable or disable specific third-party model families (Anthropic, Google, OpenAI) at the Enterprise or Org level.</li>
+        <li><strong>Preview Feature Gating:</strong> Restrict experimental models and insiders MCP endpoints to a pilot engineering group before org-wide rollout.</li>
+        <li><strong>Usage Telemetry:</strong> Export per-model adoption and credit consumption via the GitHub Copilot Metrics API for quarterly ROI reviews.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Copy-Paste Production Recipes</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">5 Copy-Paste Copilot Agent Mode &amp; GitHub MCP Recipes</h2>
+  <p class="page-lead">
+    Drop these five battle-tested configurations directly into your repository to unlock read-only triage, monorepo guardrails, automated CI log healing, security-focused PR reviews, and high-success Coding Agent tickets.
+  </p>
+
+  <table class="clean-table" style="margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:7%;">#</th>
+        <th style="width:27%;">Recipe</th>
+        <th style="width:28%;">Target File</th>
+        <th style="width:38%;">Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>Read-Only Triage MCP</td><td><code>.vscode/mcp.json</code></td><td>Safe issue/PR/Actions inspection with zero write risk.</td></tr>
+      <tr><td><strong>2</strong></td><td>Monorepo <code>AGENTS.md</code></td><td><code>AGENTS.md</code></td><td>Portable build/test/forbidden-path rules for all agents.</td></tr>
+      <tr><td><strong>3</strong></td><td>CI Failure Auto-Healer</td><td><code>.github/prompts/fix-ci.prompt.md</code></td><td>Pulls failing Actions logs via MCP and patches locally.</td></tr>
+      <tr><td><strong>4</strong></td><td>Security Review Rules</td><td><code>.github/instructions/sec.instructions.md</code></td><td>Tunes Copilot Code Review to catch OWASP &amp; auth flaws.</td></tr>
+      <tr><td><strong>5</strong></td><td><code>@copilot</code> Issue Template</td><td><code>.github/ISSUE_TEMPLATE/agent.yml</code></td><td>Structures tickets for 90%+ first-pass Coding Agent PRs.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:9px;">
+    <div>
+      <div style="font-size:7.9pt; font-weight:700; color:#0d1117; margin-bottom:1.5px;">Recipe 1 &bull; Read-Only Triage MCP (<code>.vscode/mcp.json</code>)</div>
+      <pre class="code-block"><code>{
+  <span class="ck-key">"servers"</span>: {
+    <span class="ck-key">"github-triage"</span>: {
+      <span class="ck-key">"type"</span>: <span class="ck-str">"http"</span>,
+      <span class="ck-key">"url"</span>: <span class="ck-str">"https://api.githubcopilot.com/mcp/readonly"</span>,
+      <span class="ck-key">"headers"</span>: {
+        <span class="ck-hdr">"X-MCP-Toolsets"</span>: <span class="ck-str">"issues,pull_requests,actions"</span>,
+        <span class="ck-sec">"X-MCP-Lockdown"</span>: <span class="ck-str">"true"</span>
+      }
+    }
+  }
+}</code></pre>
+
+      <div style="font-size:7.9pt; font-weight:700; color:#0d1117; margin-bottom:1.5px;">Recipe 2 &bull; Monorepo Guardrail Header (<code>AGENTS.md</code>)</div>
+      <pre class="code-block"><code><span class="ck-hdr"># Repository Agent Contract</span>
+- <span class="ck-key">Install:</span> `pnpm install --frozen-lockfile`
+- <span class="ck-key">Verify:</span> `pnpm turbo run typecheck lint test`
+- <span class="ck-sec">Forbidden:</span> Never edit `infra/prod/**`, `.env*`, or lockfiles
+  unless explicitly requested in the issue body.
+- <span class="ck-key">PR Style:</span> Small diffs (&lt;400 LOC), include unit tests.</code></pre>
+
+      <div style="font-size:7.9pt; font-weight:700; color:#0d1117; margin-bottom:1.5px;">Recipe 3 &bull; CI Auto-Healer (<code>.github/prompts/fix-ci.prompt.md</code>)</div>
+      <pre class="code-block"><code><span class="ck-hdr">---</span>
+<span class="ck-key">mode:</span> <span class="ck-str">"agent"</span>
+<span class="ck-key">tools:</span> [<span class="ck-str">"github/list_workflow_runs"</span>, <span class="ck-str">"github/get_job_logs"</span>, <span class="ck-str">"terminal"</span>]
+<span class="ck-hdr">---</span>
+Fetch the latest failed GitHub Actions run for my current branch,
+extract the root-cause stack trace, apply the minimal fix locally,
+and re-run the failing test command until green.</code></pre>
+    </div>
+
+    <div>
+      <div style="font-size:7.9pt; font-weight:700; color:#0d1117; margin-bottom:1.5px;">Recipe 4 &bull; Security PR Review (<code>.github/instructions/sec.instructions.md</code>)</div>
+      <pre class="code-block"><code><span class="ck-hdr">---</span>
+<span class="ck-key">applyTo:</span> <span class="ck-str">"**"</span>
+<span class="ck-hdr">---</span>
+<span class="ck-cmt"># Code Review Focus (High Signal Only)</span>
+Flag ONLY high-impact defects; skip formatting nitpicks:
+1. Unparameterized SQL, XSS sinks, or SSRF in fetch calls.
+2. Missing auth/tenant-ID checks on new API handlers.
+3. Hardcoded secrets, tokens, or verbose PII in logs.
+4. Unbounded loops, missing timeouts, or N+1 DB queries.</code></pre>
+
+      <div style="font-size:7.9pt; font-weight:700; color:#0d1117; margin-bottom:1.5px;">Recipe 5 &bull; Agent-Ready Issue Template (<code>.github/ISSUE_TEMPLATE/agent.yml</code>)</div>
+      <pre class="code-block"><code><span class="ck-key">name:</span> <span class="ck-str">Copilot Coding Agent Task</span>
+<span class="ck-key">description:</span> <span class="ck-str">Well-scoped ticket optimized for @copilot</span>
+<span class="ck-key">labels:</span> [<span class="ck-str">"copilot-ready"</span>]
+<span class="ck-key">body:</span>
+  - <span class="ck-key">type:</span> <span class="ck-str">textarea</span>
+    <span class="ck-key">id:</span> <span class="ck-str">scope</span>
+    <span class="ck-key">attributes:</span>
+      <span class="ck-key">label:</span> <span class="ck-str">Target Files &amp; Acceptance Criteria</span>
+      <span class="ck-key">placeholder:</span> <span class="ck-str">"Files: src/auth/*.ts\n- Add rate limit..."</span>
+  - <span class="ck-key">type:</span> <span class="ck-str">input</span>
+    <span class="ck-key">id:</span> <span class="ck-str">verify</span>
+    <span class="ck-key">attributes:</span>
+      <span class="ck-key">label:</span> <span class="ck-str">Verification Command</span>
+      <span class="ck-key">value:</span> <span class="ck-str">"pnpm vitest run"</span></code></pre>
+
+      <div class="callout" style="margin-top:4px; padding:6.5px 9px; font-size:7.8pt;">
+        <div class="callout-title" style="font-size:8.1pt;">Quick Test for Recipe 5</div>
+        Issues that specify <strong>exact file paths + one runnable test command</strong> achieve dramatically higher first-pass merge rates from <code>@copilot</code> than open-ended feature requests.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, ENTERPRISE POLICIES & AUDIT CONTROLS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security, Enterprise Policies &amp; Audit Controls</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">Hardening Autonomous Agents: Firewall, Exclusions &amp; Audit</h2>
+  <p class="page-lead">
+    Autonomous agents execute shell commands, call external APIs through MCP, and open pull requests at machine speed. Enterprise security teams must pair developer autonomy with <strong>four non-negotiable guardrails</strong> across egress networking, file exclusions, secret protection, and audit telemetry.
+  </p>
+
+  <h3>Enterprise 4-Pillar Security Matrix</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Security Pillar</th>
+        <th style="width:25%;">Risk Mitigated</th>
+        <th style="width:32%;">Recommended Control</th>
+        <th style="width:23%;">Verification Check</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Coding Agent Firewall</strong></td>
+        <td>Prompt-injected data exfiltration or unauthorized package downloads from Actions sandboxes.</td>
+        <td>Keep the default egress firewall ON with GitHub's recommended allowlist; review every custom domain entry.</td>
+        <td>Test blocked <code>curl</code> in a scratch Coding Agent session; verify firewall logs.</td>
+      </tr>
+      <tr>
+        <td><strong>Content Exclusions</strong></td>
+        <td>Sensitive credentials, customer PII, or proprietary algorithms leaking into prompts or reviews.</td>
+        <td>Configure org-wide glob exclusions for <code>.env*</code>, <code>**/secrets/**</code>, <code>*.pem</code>, and <code>*.key</code>.</td>
+        <td>Confirm excluded files show the blocked icon in VS Code &amp; are skipped by Code Review.</td>
+      </tr>
+      <tr>
+        <td><strong>Secret Scanning &amp; Push Protection</strong></td>
+        <td>Agents accidentally committing hardcoded test tokens or leaking env vars into PR diffs.</td>
+        <td>Enable GitHub Push Protection + Branch Protection + manual Actions workflow approval on agent PRs.</td>
+        <td>Require 1+ human CODEOWNERS approval &amp; green CodeQL check before merge.</td>
+      </tr>
+      <tr>
+        <td><strong>MCP Governance &amp; SIEM Audit</strong></td>
+        <td>Over-privileged third-party MCP servers or unmonitored agent mutations across org repos.</td>
+        <td>Enforce Enterprise MCP Registry allowlists, OAuth 2.1 scopes, <code>X-MCP-Lockdown</code>, and SIEM audit streaming.</td>
+        <td>Query SIEM for <code>copilot.mcp_*</code> and <code>copilot.agent_*</code> events weekly.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:5px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge rose">Z</span> Zero-Trust MCP Hardening Checklist</div>
+      <ul style="font-size:8pt; margin:0; padding-left:15px;">
+        <li><strong>Prefer Remote OAuth:</strong> Retire static PATs; OAuth 2.1 enforces per-user RBAC and instant revocation.</li>
+        <li><strong>Default Read-Only:</strong> Start new MCP connections on <code>/readonly</code> and opt into write toolsets only per repo.</li>
+        <li><strong>Block Untrusted Inputs:</strong> Enable <code>X-MCP-Lockdown: true</code> on public or open-source repositories to stop indirect prompt injection from external comments.</li>
+        <li><strong>Pin Enterprise Registry:</strong> Restrict VS Code &amp; Coding Agent to admin-approved MCP servers via Enterprise Policy.</li>
+      </ul>
+    </div>
+
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">E</span> Phased Enterprise Rollout (4 Weeks)</div>
+      <ul style="font-size:8pt; margin:0; padding-left:15px;">
+        <li><strong>Week 1 (Policies):</strong> Set Content Exclusions, Public Code Matching, and Enterprise MCP Registry allowlists.</li>
+        <li><strong>Week 2 (Pilot):</strong> Enable VS Code Agent Mode + Remote GitHub MCP on 2 non-production repos with <code>AGENTS.md</code>.</li>
+        <li><strong>Week 3 (Cloud Sandbox):</strong> Add <code>copilot-setup-steps.yml</code> + Branch Ruleset Copilot Code Review (Balanced).</li>
+        <li><strong>Week 4 (Telemetry):</strong> Stream audit logs to Splunk/Sentinel, review AI credit burn, and publish internal templates.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout rose" style="margin-top:6px;">
+    <div class="callout-title">Critical Rule: Never Run Copilot Coding Agent on Deployment Runners</div>
+    Always run <code>copilot-setup-steps.yml</code> on <strong>ephemeral GitHub-hosted runners</strong> (or dedicated, network-isolated ephemeral self-hosted runners) with <code>permissions: contents: read</code>. Never assign Coding Agent to a runner pool that holds cloud deployment credentials, production kubeconfigs, or persistent disk state.
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Pipeline</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Autonomous Delivery: Design to Merged PR</h2>
+  <p class="page-lead">
+    Maximum velocity happens when GitHub Copilot and MCP connect your entire product toolchain&mdash;turning Figma frames and Linear/Jira tickets into structured GitHub Issues, autonomous Coding Agent PRs, green Actions CI builds, and pre-screened human merges.
+  </p>
+
+  <h3>5-Stage Connected Engineering Pipeline</h3>
+  <div class="figure-box" style="background:#0d1117; padding:9px 10px; border-color:#1e293b;">
+    <svg viewBox="0 0 700 168" width="100%" height="168" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="4" y="14" width="124" height="140" rx="8" fill="#161b22" stroke="#a78bfa" stroke-width="1.4"/>
+      <text x="66" y="31" text-anchor="middle" fill="#c4b5fd" font-size="7.1" font-weight="700">1. SPEC &amp; DESIGN</text>
+      <text x="66" y="46" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">Figma / Linear</text>
+      <rect x="12" y="56" width="108" height="40" rx="5" fill="#1e1b2e" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="66" y="72" text-anchor="middle" fill="#ede9fe" font-size="7" font-weight="700">Design MCP Context</text>
+      <text x="66" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.4">Tokens, frames, specs</text>
+      <rect x="12" y="103" width="108" height="40" rx="5" fill="#1e1b2e" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="66" y="119" text-anchor="middle" fill="#ede9fe" font-size="7" font-weight="700">Ticket Sync</text>
+      <text x="66" y="132" text-anchor="middle" fill="#94a3b8" font-size="6.4">Acceptance criteria</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M128 84 L142 84" stroke="#38bdf8" stroke-width="1.8"/>
+      <polygon points="139,80 146,84 139,88" fill="#38bdf8"/>
+
+      <!-- Stage 2 -->
+      <rect x="146" y="14" width="124" height="140" rx="8" fill="#161b22" stroke="#38bdf8" stroke-width="1.4"/>
+      <text x="208" y="31" text-anchor="middle" fill="#7dd3fc" font-size="7.1" font-weight="700">2. DELEGATION</text>
+      <text x="208" y="46" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">GitHub Issue</text>
+      <rect x="154" y="56" width="108" height="40" rx="5" fill="#0f2336" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="208" y="72" text-anchor="middle" fill="#e0f2fe" font-size="7" font-weight="700">Agent Template</text>
+      <text x="208" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.4">Files + test command</text>
+      <rect x="154" y="103" width="108" height="40" rx="5" fill="#0f2336" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="208" y="119" text-anchor="middle" fill="#e0f2fe" font-size="7" font-weight="700">Assign @copilot</text>
+      <text x="208" y="132" text-anchor="middle" fill="#94a3b8" font-size="6.4">Or prototype in IDE</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M270 84 L284 84" stroke="#10b981" stroke-width="1.8"/>
+      <polygon points="281,80 288,84 281,88" fill="#10b981"/>
+
+      <!-- Stage 3 -->
+      <rect x="288" y="14" width="124" height="140" rx="8" fill="#0f1f1c" stroke="#10b981" stroke-width="1.5"/>
+      <text x="350" y="31" text-anchor="middle" fill="#6ee7b7" font-size="7.1" font-weight="700">3. AUTONOMOUS BUILD</text>
+      <text x="350" y="46" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">Coding Agent</text>
+      <rect x="296" y="56" width="108" height="40" rx="5" fill="#132a24" stroke="#059669" stroke-width="0.9"/>
+      <text x="350" y="72" text-anchor="middle" fill="#d1fae5" font-size="7" font-weight="700">AGENTS.md Rules</text>
+      <text x="350" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.4">Setup steps + edits</text>
+      <rect x="296" y="103" width="108" height="40" rx="5" fill="#132a24" stroke="#10b981" stroke-width="0.9"/>
+      <text x="350" y="119" text-anchor="middle" fill="#d1fae5" font-size="7" font-weight="700">Local Sandbox Test</text>
+      <text x="350" y="132" text-anchor="middle" fill="#94a3b8" font-size="6.4">Self-review + Draft PR</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M412 84 L426 84" stroke="#f59e0b" stroke-width="1.8"/>
+      <polygon points="423,80 430,84 423,88" fill="#f59e0b"/>
+
+      <!-- Stage 4 -->
+      <rect x="430" y="14" width="124" height="140" rx="8" fill="#161b22" stroke="#f59e0b" stroke-width="1.4"/>
+      <text x="492" y="31" text-anchor="middle" fill="#fcd34d" font-size="7.1" font-weight="700">4. VERIFICATION</text>
+      <text x="492" y="46" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">Actions CI</text>
+      <rect x="438" y="56" width="108" height="40" rx="5" fill="#291d0e" stroke="#d97706" stroke-width="0.9"/>
+      <text x="492" y="72" text-anchor="middle" fill="#fef3c7" font-size="7" font-weight="700">Build &amp; E2E Suite</text>
+      <text x="492" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.4">Typecheck + Playwright</text>
+      <rect x="438" y="103" width="108" height="40" rx="5" fill="#291d0e" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="492" y="119" text-anchor="middle" fill="#fef3c7" font-size="7" font-weight="700">CodeQL &amp; Secrets</text>
+      <text x="492" y="132" text-anchor="middle" fill="#94a3b8" font-size="6.4">Security &amp; lint gates</text>
+
+      <!-- Arrow 4->5 -->
+      <path d="M554 84 L568 84" stroke="#38bdf8" stroke-width="1.8"/>
+      <polygon points="565,80 572,84 565,88" fill="#38bdf8"/>
+
+      <!-- Stage 5 -->
+      <rect x="572" y="14" width="124" height="140" rx="8" fill="#161b22" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="634" y="31" text-anchor="middle" fill="#7dd3fc" font-size="7.1" font-weight="700">5. REVIEW &amp; SHIP</text>
+      <text x="634" y="46" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">AI + Human</text>
+      <rect x="580" y="56" width="108" height="40" rx="5" fill="#0f2336" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="634" y="72" text-anchor="middle" fill="#e0f2fe" font-size="7" font-weight="700">Copilot Review</text>
+      <text x="634" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.4">Ruleset inline comments</text>
+      <rect x="580" y="103" width="108" height="40" rx="5" fill="#0f2336" stroke="#10b981" stroke-width="0.9"/>
+      <text x="634" y="119" text-anchor="middle" fill="#d1fae5" font-size="7" font-weight="700">Human Approval</text>
+      <text x="634" y="132" text-anchor="middle" fill="#94a3b8" font-size="6.4">CODEOWNERS merge</text>
+    </svg>
+  </div>
+
+  <div class="grid-3" style="margin-top:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge purple">1</span> Design &amp; Issue Handoff</div>
+      <p style="font-size:8pt; margin:0;">
+        Connect Figma MCP and Linear/Jira MCP alongside GitHub MCP inside VS Code. Use a <code>/spec-to-issue</code> prompt to read Figma design tokens and create a crisp, file-anchored GitHub Issue in seconds.
+      </p>
+    </div>
+    <div class="card-emerald">
+      <div class="card-title"><span class="num-badge emerald">2</span> Parallel Autonomous Build</div>
+      <p style="font-size:8pt; margin:0;">
+        Assign 3&ndash;5 independent backlog tickets to <code>@copilot</code> at once. Each runs in its own firewalled Actions sandbox using <code>copilot-setup-steps.yml</code> and opens a clean Draft PR with passing unit tests.
+      </p>
+    </div>
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">3</span> High-Leverage Review Gate</div>
+      <p style="font-size:8pt; margin:0;">
+        Branch rulesets trigger Copilot Code Review automatically on every PR. Humans review architecture, edge cases, and business logic&mdash;never formatting or missing null checks&mdash;and tag <code>@copilot</code> for quick revisions.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:7px;">
+    <div class="callout-title">The 80/20 Handoff Pattern: Pair Local + Cloud Together</div>
+    Don't treat VS Code Agent Mode and Cloud Coding Agent as competing choices. <strong>Prototype novel architecture synchronously in VS Code Agent Mode</strong> where visual iteration is fastest; once the pattern is merged, <strong>delegate the remaining 80% of repetitive rollout tickets</strong> (migrating 12 routes, backfilling tests, updating SDK docs) to Cloud Coding Agent in parallel.
+  </div>
+
+  <div class="card-dark" style="margin-top:5px;">
+    <div class="card-title">Sample Cross-MCP Orchestration Prompt (VS Code Agent Mode)</div>
+    <div style="font-family:monospace; font-size:7.4pt; color:#cbd5e1; line-height:1.4;">
+      "Using <code style="font-size:7.2pt;">figma/get_design_context</code> on frame <em>Billing-Banner</em> and <code style="font-size:7.2pt;">github/get_issue</code> #512, scaffold the responsive banner in <code style="font-size:7.2pt;">src/components/BillingBanner.tsx</code>, run <code style="font-size:7.2pt;">pnpm test:ui</code>, and open a Draft PR referencing #512 via <code style="font-size:7.2pt;">github/create_pull_request</code>."
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Pre-Flight</span>
+    <span>GitHub Copilot Agent Mode &amp; MCP</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    When an autonomous workflow stalls, the cause is almost always a misconfigured toolset header, a firewalled Actions install, or bloated context. Use this clinic to diagnose issues in under two minutes, then run the 6-point pre-flight check before team rollout.
+  </p>
+
+  <h3>Top 7 Copilot Agent Mode &amp; GitHub MCP Fixes</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Symptom</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:45%;">Immediate Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Agent ignores custom instructions</strong></td>
+        <td>Wrong filename, invalid <code>applyTo</code> glob, or bloated 500+ line file diluted in context.</td>
+        <td>Verify exact paths (<code>.github/copilot-instructions.md</code> or <code>.github/instructions/*.instructions.md</code>); check References drawer in Chat to confirm injection.</td>
+      </tr>
+      <tr>
+        <td><strong>2. GitHub MCP OAuth fails or tools missing</strong></td>
+        <td>Enterprise MCP policy disabled, typo in <code>X-MCP-Toolsets</code>, or stale OAuth token.</td>
+        <td>Sign out/in of GitHub in VS Code Accounts; verify exact toolset names (<code>repos,issues,pull_requests,actions</code>) and org MCP policy status.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Coding Agent fails <code>npm</code>/<code>pip</code> install</strong></td>
+        <td>Egress firewall blocks private registry or uncached downloads during agent execution.</td>
+        <td>Move dependency installs into <code>.github/workflows/copilot-setup-steps.yml</code> and add private registries to the Coding Agent firewall allowlist.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Agent Mode loops &amp; burns AI credits</strong></td>
+        <td>Unclear acceptance criteria, huge thread history, or missing test command in instructions.</td>
+        <td>Stop the loop, revert to the last Checkpoint, start a fresh thread in <strong>Plan Mode</strong>, and set <code>chat.agent.maxRequests</code> to <code>25</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Code Review leaves noisy style nitpicks</strong></td>
+        <td>No review-specific instructions; reviewer defaults to generic style checks.</td>
+        <td>Add a focused <code>.instructions.md</code> rule telling Copilot to flag only logic, auth, and security defects while ignoring formatting covered by Prettier/ESLint.</td>
+      </tr>
+      <tr>
+        <td><strong>6. MCP write calls rejected (403)</strong></td>
+        <td>Connected to <code>/readonly</code> URL, <code>X-MCP-Readonly: true</code> set, or user lacks repo write role.</td>
+        <td>Remove <code>/readonly</code> or set <code>X-MCP-Readonly: false</code> in <code>.vscode/mcp.json</code> and confirm your GitHub account has write access to the target repo.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Content exclusions not blocking files</strong></td>
+        <td>Glob pattern syntax mismatch or surface hasn't refreshed org policy cache.</td>
+        <td>Use explicit repo-relative globs (<code>**/.env*</code>, <code>**/secrets/**</code>) in Org Copilot settings and reload VS Code window to pull updated policies.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Production Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Repo Contract Committed:</strong> Concise <code>.github/copilot-instructions.md</code> + <code>AGENTS.md</code> (&lt;150 lines) with verified build, lint, and test commands.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. Scoped Remote MCP:</strong> <code>.vscode/mcp.json</code> points to <code>api.githubcopilot.com/mcp/</code> with OAuth 2.1, minimal <code>X-MCP-Toolsets</code>, and <code>X-MCP-Lockdown</code> on public repos.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. Warm Actions Sandbox:</strong> <code>.github/workflows/copilot-setup-steps.yml</code> runs cleanly on ephemeral runners with <code>contents: read</code> and pre-cached deps.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Ruleset PR Reviews:</strong> Branch ruleset enables automatic Copilot Code Review (Balanced/Max) alongside required human CODEOWNERS approval.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. Security Guardrails Active:</strong> Coding Agent firewall enabled, org Content Exclusions verified on <code>.env*</code>, and Push Protection + CodeQL enforced.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. Credit &amp; Model Governance:</strong> Team AI credit budgets configured with alert webhooks, model allowlists set, and audit logs streaming to SIEM.</div>
+    </div>
+  </div>
+
+  <div class="card-dark" style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <div class="card-title" style="margin-bottom:2px;">Ready to Ship Autonomously</div>
+      <div style="font-size:7.9pt; color:#cbd5e1;">Scope your instructions, wire zero-PAT GitHub MCP, and let <code>@copilot</code> turn clean backlog issues into verified PRs.</div>
+    </div>
+    <span class="hud-chip" style="background:#0284c7; color:#ffffff; padding:4px 10px; font-size:7.4pt;">Edition: Nov 2026</span>
+  </div>
+
+  <div class="page-footer">
+    <span>GitHub Copilot Agent Mode &amp; GitHub MCP &bull; Complete How-To Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

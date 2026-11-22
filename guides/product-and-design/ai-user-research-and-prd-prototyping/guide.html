@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI User Research &amp; PRD Prototyping: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI PRODUCT DISCOVERY &amp; DESIGN &bull; FIELD GUIDE</div>
+    <h1>AI User Research &amp; <span>PRD Prototyping</span></h1>
+    <p class="cover-sub">
+      Turn raw customer interviews, support tickets, and session telemetry into evidence-backed PRDs, assumption maps, and clickable prototypes in hours&mdash;without hallucinated insights or AI slop.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Quote-Anchored Synthesis</span>
+      <span class="cover-badge">5-Part Evidence PRDs</span>
+      <span class="cover-badge">Figma Make &amp; Claude Design</span>
+      <span class="cover-badge">v0.app &amp; Gemini Canvas</span>
+      <span class="cover-badge">Synthetic Pre-Testing</span>
+      <span class="cover-badge">PII-Safe Discovery Pipelines</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Isometric illustration of customer audio waveforms and speech nodes flowing through an emerald prism into structured wireframe blueprints and an interactive UI prototype" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Hallucination Synthesis</div>
+      <div class="cover-stat-desc">Anchor every theme to verbatim <code>[SRC-ID]</code> quotes, participant counts, and disconfirming counter-evidence before writing a single requirement.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Evidence-Backed 5-Part PRDs</div>
+      <div class="cover-stat-desc">Replace bloated 15-page AI-slop specs with crisp PRDs combining Problem Proof, Explicit Non-Goals, Edge-Case Flows, Metrics, and Prototype Scope.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">24-Hour Clickable Validation</div>
+      <div class="cover-stat-desc">Generate interactive prototypes in Figma Make, v0.app, Claude Design, or Gemini Canvas and validate risky assumptions with 5 real users in one day.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Discovery Mental Model</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">From Raw Customer Signal to Validated Prototype</h2>
+  <p class="page-lead">
+    Generative AI makes it effortless to produce a 10-page PRD and a glossy UI in five minutes&mdash;which is exactly why teams ship more <strong>AI slop</strong> than ever. High-performing product teams use AI to compress <em>synthesis and prototyping cycle time</em> from weeks to hours while keeping human judgment and verbatim customer proof in the driver&rsquo;s seat.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Discovery Loop &amp; Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Rapid Clickable Prototyping Studios</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Late-2026 Discovery Tool Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Synthetic Pre-Tests vs. Real Users</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Discovery &amp; PRD HUD</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Copy-Paste Discovery &amp; PRD Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Zero-Hallucination Synthesis Rules</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Privacy, PII Redaction &amp; Ethics</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. The 5-Part Evidence-Backed PRD</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Troubleshooting Clinic &amp; Checklist</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Cite, Scope, Prototype, Test</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>The 5-Stage Evidence-to-Prototype Discovery Loop</h3>
+  <p style="font-size:8.6pt;">
+    Every stage produces a concrete, verifiable artifact that constrains the next stage. Skipping Stage 2 produces invented problems; skipping Stage 5 ships polished UI that fails real workflows.
+  </p>
+
+  <div class="figure-box" style="background:#061c19; padding:10px 12px; border-color:#0f766e;">
+    <svg viewBox="0 0 700 188" width="100%" height="188" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="4" y="12" width="124" height="128" rx="8" fill="#0a2924" stroke="#34d399" stroke-width="1.5"/>
+      <text x="66" y="30" text-anchor="middle" fill="#6ee7b7" font-size="7.2" font-weight="700">1. RAW EVIDENCE</text>
+      <text x="66" y="45" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Capture Signal</text>
+      <rect x="12" y="55" width="108" height="34" rx="5" fill="#0f3730" stroke="#10b981" stroke-width="0.9"/>
+      <text x="66" y="70" text-anchor="middle" fill="#d1fae5" font-size="7.0" font-weight="700">Interviews &amp; Calls</text>
+      <text x="66" y="81" text-anchor="middle" fill="#94a3b8" font-size="6.4">Granola, Dovetail, Gong</text>
+      <rect x="12" y="96" width="108" height="36" rx="5" fill="#0f3730" stroke="#10b981" stroke-width="0.9"/>
+      <text x="66" y="111" text-anchor="middle" fill="#d1fae5" font-size="7.0" font-weight="700">Tickets &amp; Telemetry</text>
+      <text x="66" y="123" text-anchor="middle" fill="#94a3b8" font-size="6.4">Zendesk, PostHog, NPS</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M128 76 L142 76" stroke="#34d399" stroke-width="2"/>
+      <polygon points="140,71 148,76 140,81" fill="#34d399"/>
+
+      <!-- Stage 2 -->
+      <rect x="148" y="12" width="124" height="128" rx="8" fill="#0a2924" stroke="#2dd4bf" stroke-width="1.5"/>
+      <text x="210" y="30" text-anchor="middle" fill="#5eead4" font-size="7.2" font-weight="700">2. SYNTHESIS</text>
+      <text x="210" y="45" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Quote Clusters</text>
+      <rect x="156" y="55" width="108" height="34" rx="5" fill="#0d3236" stroke="#14b8a6" stroke-width="0.9"/>
+      <text x="210" y="70" text-anchor="middle" fill="#ccfbf1" font-size="7.0" font-weight="700">Verbatim Anchors</text>
+      <text x="210" y="81" text-anchor="middle" fill="#94a3b8" font-size="6.4">Exact [P04] + timestamp</text>
+      <rect x="156" y="96" width="108" height="36" rx="5" fill="#0d3236" stroke="#14b8a6" stroke-width="0.9"/>
+      <text x="210" y="111" text-anchor="middle" fill="#ccfbf1" font-size="7.0" font-weight="700">Counter-Evidence</text>
+      <text x="210" y="123" text-anchor="middle" fill="#94a3b8" font-size="6.4">Outliers &amp; N=1 flags</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M272 76 L286 76" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="284,71 292,76 284,81" fill="#2dd4bf"/>
+
+      <!-- Stage 3 -->
+      <rect x="292" y="12" width="124" height="128" rx="8" fill="#131c3b" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="354" y="30" text-anchor="middle" fill="#a5b4fc" font-size="7.2" font-weight="700">3. PRD SPEC</text>
+      <text x="354" y="45" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">5-Part Formula</text>
+      <rect x="300" y="55" width="108" height="34" rx="5" fill="#1e2952" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="354" y="70" text-anchor="middle" fill="#e0e7ff" font-size="7.0" font-weight="700">Proof + Non-Goals</text>
+      <text x="354" y="81" text-anchor="middle" fill="#94a3b8" font-size="6.4">Strict v1 boundary lines</text>
+      <rect x="300" y="96" width="108" height="36" rx="5" fill="#1e2952" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="354" y="111" text-anchor="middle" fill="#e0e7ff" font-size="7.0" font-weight="700">Flows &amp; Metrics</text>
+      <text x="354" y="123" text-anchor="middle" fill="#94a3b8" font-size="6.4">Edge states + guardrails</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M416 76 L430 76" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="428,71 436,76 428,81" fill="#818cf8"/>
+
+      <!-- Stage 4 -->
+      <rect x="436" y="12" width="124" height="128" rx="8" fill="#231c10" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="498" y="30" text-anchor="middle" fill="#fde68a" font-size="7.2" font-weight="700">4. PROTOTYPE</text>
+      <text x="498" y="45" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Clickable UI</text>
+      <rect x="444" y="55" width="108" height="34" rx="5" fill="#332712" stroke="#d97706" stroke-width="0.9"/>
+      <text x="498" y="70" text-anchor="middle" fill="#fef3c7" font-size="7.0" font-weight="700">Prompt-to-App</text>
+      <text x="498" y="81" text-anchor="middle" fill="#cbd5e1" font-size="6.4">Figma Make, v0, Claude</text>
+      <rect x="444" y="96" width="108" height="36" rx="5" fill="#332712" stroke="#d97706" stroke-width="0.9"/>
+      <text x="498" y="111" text-anchor="middle" fill="#fef3c7" font-size="7.0" font-weight="700">Real Mock Data</text>
+      <text x="498" y="123" text-anchor="middle" fill="#cbd5e1" font-size="6.4">Zero Lorem ipsum</text>
+
+      <!-- Arrow 4->5 -->
+      <path d="M560 76 L574 76" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="572,71 580,76 572,81" fill="#fbbf24"/>
+
+      <!-- Stage 5 -->
+      <rect x="580" y="12" width="116" height="128" rx="8" fill="#0a2924" stroke="#10b981" stroke-width="1.6"/>
+      <text x="638" y="30" text-anchor="middle" fill="#6ee7b7" font-size="7.2" font-weight="700">5. VALIDATION</text>
+      <text x="638" y="45" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">5-User Test</text>
+      <rect x="588" y="55" width="100" height="34" rx="5" fill="#0f3730" stroke="#34d399" stroke-width="0.9"/>
+      <text x="638" y="70" text-anchor="middle" fill="#d1fae5" font-size="7.0" font-weight="700">Synthetic Pre-Check</text>
+      <text x="638" y="81" text-anchor="middle" fill="#94a3b8" font-size="6.4">Catch copy &amp; UX bugs</text>
+      <rect x="588" y="96" width="100" height="36" rx="5" fill="#0f3730" stroke="#34d399" stroke-width="0.9"/>
+      <text x="638" y="111" text-anchor="middle" fill="#d1fae5" font-size="7.0" font-weight="700">Real Human Signal</text>
+      <text x="638" y="123" text-anchor="middle" fill="#94a3b8" font-size="6.4">Kill, pivot, or ship</text>
+
+      <!-- Feedback Loop Arrow -->
+      <path d="M638 140 L638 166 L66 166 L66 146" fill="none" stroke="#34d399" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <polygon points="61,148 66,140 71,148" fill="#34d399"/>
+      <rect x="220" y="156" width="260" height="19" rx="9" fill="#061c19" stroke="#10b981" stroke-width="1"/>
+      <text x="350" y="168.5" text-anchor="middle" fill="#a7f3d0" font-size="7.2" font-weight="700">CONTINUOUS LOOP: Session recordings feed back into Raw Evidence</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-top:6px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge emerald">A</span> What AI Should Automate</div>
+      <p style="font-size:8.35pt; margin-bottom:0;">
+        Cross-transcript quote extraction, support ticket tagging, edge-case enumeration, PRD structure scaffolding, realistic mock JSON generation, and turning approved specs into clickable browser prototypes for rapid testing.
+      </p>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">B</span> What Humans Must Own</div>
+      <p style="font-size:8.35pt; margin-bottom:0;">
+        Selecting which customer problem matters strategically, defining sharp <strong>Non-Goals</strong>, watching real users hesitate during live prototype tests, and making final Kill / Pivot / Build calls with engineering.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:8px;">
+    <div class="callout-title">The Anti-Slop Rule: Never Prompt a PRD from a One-Line Idea</div>
+    Prompting an LLM with <em>&ldquo;Write a PRD for a bulk CSV importer&rdquo;</em> produces plausible-sounding generic prose with zero customer truth. Always feed <strong>redacted transcripts + ticket exports + telemetry drop-off numbers</strong> first, then require verbatim citations for every requirement.
+  </div>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: DISCOVERY TOOL STACK & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Discovery Tool Stack &amp; Decision Matrix</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">The Late-2026 AI Product Discovery Stack</h2>
+  <p class="page-lead">
+    Modern discovery is no longer a single monolithic platform. High-velocity teams pair four specialized layers&mdash;<strong>Capture</strong>, <strong>Repository</strong>, <strong>Synthesis &amp; PRD</strong>, and <strong>Rapid Prototyping</strong>&mdash;so evidence flows cleanly from voice call to clickable UI without vendor lock-in.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:16%;">Layer</th>
+        <th style="width:21%;">Leading Tools (Nov 2026)</th>
+        <th style="width:31%;">Core Superpower</th>
+        <th style="width:32%;">When to Choose &amp; Watch-Outs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Transcript &amp; Signal Capture</strong></td>
+        <td><strong>Granola</strong>, Gong, Loom, Intercom / Zendesk CSV</td>
+        <td>Botless meeting notes that merge your live jottings with transcript context; zero awkward &ldquo;recording bot&rdquo; in calls.</td>
+        <td>Use <strong>Granola</strong> for fast PM discovery calls (note: it deletes raw audio post-transcription). Use <strong>Dovetail/Loom</strong> when video clips are needed.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Evidence Repository</strong></td>
+        <td><strong>Dovetail AI</strong>, Productboard, Notion AI</td>
+        <td>Persistent customer context layer with auto-tagging, highlight reels, MCP server hooks, and enterprise signal agents.</td>
+        <td>Choose <strong>Dovetail AI</strong> for multi-quarter research orgs. Small startups can start with a structured <strong>Notion</strong> database + CSV exports.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Grounded Synthesis</strong></td>
+        <td><strong>NotebookLM</strong> (Gemini Notebook), Claude Projects, ChatGPT Projects</td>
+        <td>Source-locked RAG synthesis with inline clickable citations (NotebookLM) or persistent custom taxonomy prompts (Projects).</td>
+        <td>Use <strong>NotebookLM</strong> when zero-hallucination citation lookup is paramount. Use <strong>Claude Projects</strong> for deep cross-document PRD reasoning.</td>
+      </tr>
+      <tr>
+        <td><strong>4. PRD Drafting &amp; Coaching</strong></td>
+        <td><strong>ChatPRD</strong>, Claude Projects, Linear Docs</td>
+        <td>Purpose-built PRD templates, automated stakeholder critique, acceptance criteria, and direct integrations to v0 &amp; Linear.</td>
+        <td>Pick <strong>ChatPRD</strong> to standardize PRD quality across a PM team. Always inject your own evidence pack&mdash;never draft from thin air.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Rapid Prototyping Studios</strong></td>
+        <td><strong>Figma Make</strong>, <strong>Claude Design</strong>, <strong>v0.app</strong>, <strong>Gemini Canvas</strong></td>
+        <td>Turns PRDs, sketches, or existing design libraries into clickable, stateful web/mobile prototypes in minutes.</td>
+        <td>Match tool to handoff: <strong>Figma Make</strong> for design-system teams, <strong>Claude Design</strong> for codebase-aware prototypes, <strong>v0.app</strong> for React/Git PRs.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Choosing Your Prototyping Engine by Team Context</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">1</span> Design-Led &amp; Brand-Strict Teams</div>
+      <p style="font-size:8.25pt; margin-bottom:4px;">
+        <strong>Primary Pick: Figma Make</strong> (inside Figma) or <strong>Claude Design</strong> (Anthropic Labs, Apr 2026).
+      </p>
+      <ul style="font-size:8.1pt; margin-bottom:0;">
+        <li><strong>Figma Make</strong> reads your existing Figma components and variables directly, letting PMs and designers turn frames into interactive apps.</li>
+        <li><strong>Claude Design</strong> inspects your repo to auto-build a brand-consistent design system and hands off cleanly to Claude Code.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge indigo">2</span> Engineering-Led &amp; Speed-First Teams</div>
+      <p style="font-size:8.25pt; margin-bottom:4px;">
+        <strong>Primary Pick: v0.app</strong> (Vercel) or <strong>Gemini Canvas</strong> (Google).
+      </p>
+      <ul style="font-size:8.1pt; margin-bottom:0;">
+        <li><strong>v0.app</strong> (rebranded from v0.dev in 2026) runs a full-stack sandbox runtime with Git branches, PR creation, and shadcn/ui components.</li>
+        <li><strong>Gemini Canvas</strong> excels at turning whiteboard sketches or NotebookLM briefs into instant shareable interactive previews.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout teal" style="margin-top:8px;">
+    <div class="callout-title">Minimum Viable Discovery Stack (Under \$50/seat/month)</div>
+    If you are a solo PM, founder, or 3-person squad, skip enterprise suites. Run <strong>Granola</strong> (capture) &rarr; <strong>NotebookLM</strong> (free source-grounded synthesis) &rarr; <strong>Claude Projects / ChatPRD</strong> (5-Part PRD) &rarr; <strong>Figma Make or v0.app</strong> (24-hour clickable prototype). You get 90% of enterprise discovery rigor at 10% of the overhead.
+  </div>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INTERFACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">Inside an Evidence-Backed Discovery &amp; PRD Studio</h2>
+  <p class="page-lead">
+    Whether you assemble this workspace in <strong>Dovetail + ChatPRD</strong> or <strong>NotebookLM + Claude Design</strong>, every trustworthy AI discovery environment exposes the same <strong>7 control surfaces</strong> to prevent hallucination and keep prototypes anchored to real user proof.
+  </p>
+
+  <!-- Annotated HUD Mockup -->
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="ui-dots"><span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span></div>
+        <span style="font-weight:700; color:#d1fae5; font-size:7.6pt;">Discovery Studio &bull; Project: Q4 Onboarding CSV Importer</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:7px;">
+        <span class="hud-chip" style="background:rgba(16,185,129,0.22); color:#6ee7b7; border:1px solid #059669;">
+          <span class="callout-pin">1</span> Corpus: 14 Calls + 82 Tickets
+        </span>
+        <span class="hud-chip" style="background:rgba(99,102,241,0.25); color:#c7d2fe; border:1px solid #6366f1;">
+          <span class="callout-pin">2</span> PII Redacted: ON
+        </span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.08fr 1.12fr 0.95fr; gap:8px; padding:9px 10px;">
+      <!-- Left Column: Evidence Clusters + Outliers -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card" style="border-color:#10b981;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#6ee7b7;">QUOTE-ANCHORED CLUSTERS</strong>
+            <span class="callout-pin">3</span>
+          </div>
+          <div style="background:#061c19; border-radius:4px; padding:4px 6px; margin-bottom:4px; border-left:2.5px solid #34d399;">
+            <div style="color:#ffffff; font-weight:700;">1. Silent Row Failures (9/14 calls)</div>
+            <div style="color:#94a3b8; font-size:6.4pt;">&ldquo;It said 400 rows failed but wouldn&rsquo;t tell me which column.&rdquo; <code>[P04 12:41]</code></div>
+          </div>
+          <div style="background:#061c19; border-radius:4px; padding:4px 6px; border-left:2.5px solid #818cf8;">
+            <div style="color:#ffffff; font-weight:700;">2. Date Format Mismatch (7/14 calls)</div>
+            <div style="color:#94a3b8; font-size:6.4pt;">&ldquo;UK dates DD/MM broke our whole CRM sync.&rdquo; <code>[P11 08:15]</code></div>
+          </div>
+        </div>
+
+        <div class="hud-card" style="border-color:#d97706;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#fde68a;">CONTRADICTION &amp; OUTLIER RADAR</strong>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="color:#cbd5e1; font-size:6.5pt;">
+            &bull; <strong>Disconfirming [P07]:</strong> Enterprise ops prefers SFTP over browser upload (<code>N=1</code> &rarr; move to Non-Goals).<br/>
+            &bull; <strong>Coverage Warning:</strong> Zero mobile-web interviews in corpus.
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Column: 5-Part PRD Composer -->
+      <div class="hud-card" style="border-color:#6366f1; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong style="color:#c7d2fe;">5-PART PRD COMPOSER</strong>
+          <span class="callout-pin">5</span>
+        </div>
+        <div style="background:#061c19; border-radius:4px; padding:5px 6px; font-size:6.6pt; color:#e2e8f0;">
+          <div style="color:#6ee7b7; font-weight:700;">1. Problem + Evidence</div>
+          41% of trial signups abandon CSV import on first error <code>[PostHog Q3]</code>; 9/14 users cite opaque row errors <code>[P04, P09, ZD-412]</code>.
+        </div>
+        <div style="background:#061c19; border-radius:4px; padding:5px 6px; font-size:6.6pt; color:#e2e8f0;">
+          <div style="color:#fda4af; font-weight:700;">2. Explicit Non-Goals (v1)</div>
+          No scheduled SFTP sync, no Excel macro parsing, no custom regex formulas.
+        </div>
+        <div style="background:#061c19; border-radius:4px; padding:5px 6px; font-size:6.6pt; color:#e2e8f0;">
+          <div style="color:#a5b4fc; font-weight:700;">3. Edge-Case Flow Spec</div>
+          Inline row-level error drawer + 1-click &ldquo;Auto-fix DD/MM dates&rdquo; + partial import commit.
+        </div>
+      </div>
+
+      <!-- Right Column: Assumption Risk + Prototype Handoff -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card" style="border-color:#0d9488;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#5eead4;">ASSUMPTION MAP</strong>
+            <span class="callout-pin">6</span>
+          </div>
+          <div style="font-size:6.5pt; color:#cbd5e1; line-height:1.38;">
+            <span style="color:#fbbf24; font-weight:700;">HIGH RISK:</span> Users trust AI auto-mapping of columns without manual preview.<br/>
+            <span style="color:#34d399; font-weight:700;">TEST PLAN:</span> 5-user clickable test on dry-run diff table.
+          </div>
+        </div>
+
+        <div class="hud-card" style="border-color:#f59e0b; background:#1c1910;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#fde68a;">PROTOTYPE HANDOFF</strong>
+            <span class="callout-pin">7</span>
+          </div>
+          <div style="font-size:6.45pt; color:#fef3c7; margin-bottom:5px;">
+            Export Sections 2, 3 &amp; 5 + 12 anonymized CSV rows to interactive studio:
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:4px;">
+            <span style="background:#059669; color:#fff; padding:2px 6px; border-radius:4px; font-weight:700; font-size:6.3pt;">Figma Make</span>
+            <span style="background:#4f46e5; color:#fff; padding:2px 6px; border-radius:4px; font-weight:700; font-size:6.3pt;">v0.app</span>
+            <span style="background:#d97706; color:#fff; padding:2px 6px; border-radius:4px; font-weight:700; font-size:6.3pt;">Claude Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Item Control Breakdown -->
+  <div class="grid-2" style="gap:8px 12px;">
+    <div style="font-size:8.2pt; line-height:1.38;">
+      <p style="margin-bottom:5px;"><span class="num-badge emerald">1</span> <strong>Source Scope Lock:</strong> Restricts the model strictly to uploaded transcripts, tickets, and analytics exports&mdash;blocking general web knowledge from inventing fake user needs.</p>
+      <p style="margin-bottom:5px;"><span class="num-badge indigo">2</span> <strong>PII Scrubber Toggle:</strong> Replaces customer names, emails, and company domains with pseudonyms (<code>P01&ndash;P14</code>, <code>[ACME_CO]</code>) before any prompt leaves your workspace.</p>
+      <p style="margin-bottom:5px;"><span class="num-badge teal">3</span> <strong>Quote-Anchored Clusters:</strong> Every theme must display frequency (<code>9/14 calls</code>) plus verbatim, timestamped quotes so stakeholders can audit claims in 3 seconds.</p>
+      <p style="margin-bottom:0;"><span class="num-badge amber">4</span> <strong>Contradiction &amp; Outlier Radar:</strong> Actively hunts for disconfirming quotes and sample blind spots so the LLM doesn&rsquo;t average away dissenting enterprise or edge-case users.</p>
+    </div>
+    <div style="font-size:8.2pt; line-height:1.38;">
+      <p style="margin-bottom:5px;"><span class="num-badge indigo">5</span> <strong>5-Part PRD Composer:</strong> Links each requirement directly to its upstream cluster ID and enforces an Explicit Non-Goals block to stop scope creep.</p>
+      <p style="margin-bottom:5px;"><span class="num-badge teal">6</span> <strong>Assumption Risk Map:</strong> Extracts the 2&ndash;3 riskiest leap-of-faith beliefs embedded in the PRD and assigns each a concrete validation method before engineering starts.</p>
+      <p style="margin-bottom:5px;"><span class="num-badge amber">7</span> <strong>One-Click Prototype Handoff:</strong> Packages flows, edge states, and realistic mock JSON into a clean prompt bundle for Figma Make, v0.app, Claude Design, or Gemini Canvas.</p>
+      <div class="callout" style="margin:4px 0 0 0; padding:6px 9px; font-size:8.0pt;">
+        <strong>Traceability Test:</strong> If a PRD bullet cannot trace back to Control <strong>3</strong> (verbatim proof) or Control <strong>6</strong> (tagged assumption), delete it.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: ZERO-HALLUCINATION SYNTHESIS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Zero-Hallucination Interview &amp; Ticket Synthesis</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">Quote-Anchored Synthesis: Eliminating Hallucinated Insights</h2>
+  <p class="page-lead">
+    LLMs are natural smoothers: when asked to &ldquo;summarize 15 interviews,&rdquo; they blend weak anecdotes into confident-sounding consensus. Enforce the <strong>3-Pass Quote-Anchored Protocol</strong> so every insight survives executive scrutiny.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_1.jpg" alt="Editorial isometric illustration of raw interview cards, audio strips, and support tickets organized by emerald light threads into three color-coded insight clusters with citation pins" />
+    <div class="figure-caption">
+      <strong>Evidence Integrity Pipeline:</strong> Raw transcripts, audio notes, and support tickets are extracted into atomic quote cards first, then clustered into Emerald (Validated Pain), Indigo (Workflow Friction), and Amber (Unproven Hypotheses) themes&mdash;never summarized directly in one shot.
+    </div>
+  </div>
+
+  <h3>The 3-Pass Zero-Hallucination Protocol</h3>
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge emerald">1</span> Atomic Extraction</div>
+      <p style="font-size:8.0pt; margin-bottom:0;">
+        Run one transcript or ticket batch at a time. Extract <strong>exact verbatim quotes</strong> tagged with <code>[P-ID | timestamp | segment]</code>. Ban paraphrasing inside quotation marks.
+      </p>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">2</span> Weighted Clustering</div>
+      <p style="font-size:8.0pt; margin-bottom:0;">
+        Group atomic quotes into themes and require <strong>unique participant count</strong> (<code>n/N</code>), not total mention count (so one vocal customer doesn&rsquo;t skew the roadmap).
+      </p>
+    </div>
+    <div class="card" style="background:#fffbeb; border-color:#fcd34d;">
+      <div class="card-title"><span class="num-badge amber">3</span> Adversarial Audit</div>
+      <p style="font-size:8.0pt; margin-bottom:0;">
+        Run a dedicated counter-evidence pass: ask the AI to list every quote that <em>contradicts</em> the top 3 themes and flag any claim backed by fewer than 3 independent users.
+      </p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <h3 style="margin-top:2px;">Strict Verbatim Citation Rules</h3>
+      <ul style="font-size:8.15pt; margin-bottom:0;">
+        <li><strong>The Rule of 3:</strong> Never promote a pain point to a P0 PRD requirement unless <code>&ge; 3</code> distinct participants or <code>&ge; 15</code> support tickets independently describe it.</li>
+        <li><strong>Tag N=1 Ideas Explicitly:</strong> Single-user feature requests get labeled <code>[N=1 Hypothesis]</code>&mdash;useful for ideation, never proof of market demand.</li>
+        <li><strong>Spot-Check 20% of Quotes:</strong> Use <code>Ctrl+F</code> in your source transcript or click NotebookLM&rsquo;s inline footnote to verify exact wording before sharing.</li>
+        <li><strong>Separate Behavior from Requests:</strong> Weight <em>past observed behavior</em> (&ldquo;I exported to Excel twice this week&rdquo;) 3&times; higher than hypothetical wishes (&ldquo;I&rsquo;d totally use an AI assistant&rdquo;).</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-top:2px;">Drop-In Anti-Hallucination Guardrail</h3>
+      <pre class="code-block" style="margin-bottom:0;"><code>SYSTEM GUARDRAIL — STRICT EVIDENCE MODE
+1. Use ONLY the attached transcripts/tickets.
+2. Every theme MUST include:
+   - Unique count: [n/N participants]
+   - 2–3 exact verbatim quotes with [ID|time]
+   - Severity: Blocker | Friction | Nice-to-have
+3. NEVER invent quotes, merge speakers, or
+   extrapolate percentages not in the text.
+4. Add a mandatory "Disconfirming Evidence &amp;
+   Gaps" section listing counter-examples.
+5. If evidence is insufficient, output:
+   [INSUFFICIENT DATA — RECRUIT MORE USERS].</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: 5-PART EVIDENCE-BACKED PRD FORMULA ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; The 5-Part Evidence-Backed PRD Formula</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">The 5-Part PRD Formula (Zero AI Slop)</h2>
+  <p class="page-lead">
+    Engineers ignore 12-page wall-of-text PRDs, and prototyping tools choke on vague prose. Compress every feature spec into a <strong>2-page, 5-part structure</strong> where every section maps directly to either customer proof, scope boundaries, or clickable UI states.
+  </p>
+
+  <!-- Color-Coded Live Mini-PRD Example -->
+  <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:10px 13px; margin-bottom:8px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; border-bottom:1px solid #e2e8f0; padding-bottom:5px;">
+      <strong style="font-size:9.3pt; color:#0f172a;">Annotated Mini-PRD: Self-Serve CSV Column Mapper &amp; Row Error Recovery</strong>
+      <span style="font-size:7.6pt; color:#64748b; font-weight:600;">Color-Coded 5-Part Anatomy</span>
+    </div>
+    <p style="font-size:8.35pt; line-height:1.68; margin-bottom:0;">
+      <span class="p-tag p-prob"><strong>[1. Problem + Evidence]</strong> 41% of self-serve trials abandon onboarding during CSV import (PostHog Q3 funnel). In 9/14 interviews and 34 Zendesk tickets, users hit generic &ldquo;Import Failed&rdquo; banners without seeing which rows broke: &ldquo;I spent 40 minutes guessing which date column failed&rdquo; [P04 12:41].</span>
+      <span class="p-tag p-nongoal"><strong>[2. Non-Goals]</strong> Out of scope for v1: automated SFTP/API syncs, multi-sheet .xlsx macro parsing, and custom regex transform scripts (defer to Q1 Enterprise).</span>
+      <span class="p-tag p-flow"><strong>[3. Flows &amp; Edge Cases]</strong> Upload &rarr; Auto-map header preview (confidence badges) &rarr; Inline error drawer filtering only invalid rows &rarr; 1-click &ldquo;Fix DD/MM dates&rdquo; + &ldquo;Import 982 valid rows &amp; download 18 error rows.&rdquo; Edge states: &gt;50k row limit warning, empty header row, duplicate email conflict.</span>
+      <span class="p-tag p-metric"><strong>[4. Metrics &amp; Guardrail]</strong> Primary: raise first-session CSV completion from 59% &rarr; 80% within 30 days. Guardrail: &lt;0.5% post-import rollback or support escalation rate.</span>
+      <span class="p-tag p-proto"><strong>[5. Prototype Scope]</strong> Build 3 interactive states (Mapping Table, Error Filter Drawer, Partial Commit Modal) using 12 realistic anonymized CRM rows; test 3 recovery tasks with 5 trial ops managers in 24h.</span>
+    </p>
+  </div>
+
+  <!-- 5-Part Anatomy Breakdown Table -->
+  <table class="clean-table" style="margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:23%;">PRD Section</th>
+        <th style="width:39%;">What Must Be Inside</th>
+        <th style="width:38%;">AI Slop Trap It Prevents</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="p-tag p-prob">1. Problem + Proof</span></td>
+        <td>Quantified funnel/ticket baseline + 2&ndash;3 verbatim <code>[SRC-ID]</code> quotes + target persona.</td>
+        <td>Prevents &ldquo;solution-in-search-of-a-problem&rdquo; PRDs invented from LLM generic assumptions.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-nongoal">2. Explicit Non-Goals</span></td>
+        <td>3&ndash;5 concrete features you are <em>deliberately excluding</em> from v1 (with brief rationale).</td>
+        <td>Stops prototyping AIs (v0 / Figma Make) and engineers from building unrequested settings panels.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-flow">3. Flows &amp; Edge Cases</span></td>
+        <td>Step-by-step happy path + empty, loading, permission, partial-failure, and undo states.</td>
+        <td>Eliminates &ldquo;happy-path-only&rdquo; specs that trigger 15 Slack questions during sprint planning.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-metric">4. Metrics &amp; Guardrails</span></td>
+        <td>1 primary behavior metric (with baseline &rarr; target) + 1 counter-metric guardrail.</td>
+        <td>Stops vanity metrics (&ldquo;increase engagement&rdquo;) and prevents shipping fast-but-broken shortcuts.</td>
+      </tr>
+      <tr>
+        <td><span class="p-tag p-proto">5. Prototype Scope</span></td>
+        <td>Exact screens to mock, realistic mock dataset, and 3 user-test tasks to validate assumptions.</td>
+        <td>Turns the PRD directly into a machine-readable brief for rapid clickable prototyping.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout indigo" style="margin-top:2px;">
+    <div class="callout-title">Pro Tip: Run an &ldquo;Adversarial Staff Engineer Review&rdquo; Before Sharing</div>
+    Paste your 5-Part PRD into Claude or ChatPRD and prompt: <em>&ldquo;Act as a skeptical Staff Engineer and UX Lead. Identify the 5 most ambiguous requirements, missing failure states, or unvalidated assumptions in this spec.&rdquo;</em> Fixing those 5 gaps takes 10 minutes and saves two days of sprint rework.
+  </div>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: RAPID CLICKABLE PROTOTYPING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Rapid Clickable Prototyping</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">PRD to Clickable Prototype in Under 60 Minutes</h2>
+  <p class="page-lead">
+    Static wireframes hide interaction friction. By feeding Sections 2, 3, and 5 of your PRD into a 2026 AI prototyping studio, you can put a <strong>stateful, clickable UI with realistic data</strong> in front of users within 24 hours&mdash;before writing production backend code.
+  </p>
+
+  <table class="clean-table" style="margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:18%;">Studio</th>
+        <th style="width:24%;">Best Input Modality</th>
+        <th style="width:28%;">Output &amp; Fidelity</th>
+        <th style="width:30%;">Ideal Discovery Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Figma Make</strong></td>
+        <td>Existing Figma frames, design library tokens + PRD prompt</td>
+        <td>Interactive web/mobile prototype inside Figma; publishable test URL</td>
+        <td>Extending an established product UI while staying 100% on-brand with your design system.</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Design</strong></td>
+        <td>PRD + repo/codebase context or brand style guide</td>
+        <td>Code-powered prototypes, decks &amp; one-pagers; handoff to Claude Code</td>
+        <td>Zero-to-one product flows, interactive data visualizations, and PM-to-eng code handoffs.</td>
+      </tr>
+      <tr>
+        <td><strong>v0.app</strong> (Vercel)</td>
+        <td>Structured PRD + GitHub repo import + shadcn/ui</td>
+        <td>Full-stack sandbox runtime with Git branches &amp; instant preview URLs</td>
+        <td>SaaS dashboards, tables, multi-step forms, and teams shipping Next.js/React PRs directly.</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini Canvas</strong></td>
+        <td>Whiteboard sketch photo, NotebookLM brief, or PRD text</td>
+        <td>Live editable HTML/React preview shareable via link or Google Sites</td>
+        <td>Ultra-fast workshop ideation, sketch-to-app validation, and stakeholder alignment demos.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The 24-Hour Prototype Sprint (4 Tight Steps)</h3>
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge emerald">1</span> Seed with Real Data, Never Lorem Ipsum</div>
+      <p style="font-size:8.05pt; margin-bottom:0;">
+        Paste 10&ndash;15 anonymized rows from real customer workflows (messy names, long SKUs, broken dates). Real data immediately exposes truncation bugs and cognitive overload that dummy text hides.
+      </p>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">2</span> Prompt One Core Flow + 2 Edge States</div>
+      <p style="font-size:8.05pt; margin-bottom:0;">
+        Don&rsquo;t generate an entire app. Build only the 2&ndash;3 screens tied to your riskiest assumption, plus one explicit error/empty state so users experience recovery&mdash;not just the happy path.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> Calibrate Fidelity to Decision Risk</div>
+      <p style="font-size:8.05pt; margin-bottom:0;">
+        Early concept test? Keep styling clean and neutral so users critique the <em>workflow</em>, not button colors. Pre-launch usability test? Match production tokens in Figma Make or Claude Design.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">4</span> Add a Reset &amp; Scenario Switcher</div>
+      <p style="font-size:8.05pt; margin-bottom:0;">
+        Include a tiny corner toggle (<code>Happy Path</code> | <code>Error State</code> | <code>Empty State</code>) in the prototype so moderators can jump straight to edge cases during 15-minute user tests.
+      </p>
+    </div>
+  </div>
+
+  <h3>Copy-Paste Prototype Generation Blueprint</h3>
+  <pre class="code-block" style="margin-bottom:0;"><code>Build a clickable interactive prototype for [FEATURE NAME] using clean, accessible UI.
+CONTEXT: Follow ONLY these PRD Flows &amp; Edge Cases: [PASTE SECTION 3].
+STRICT NON-GOALS: Do NOT add navigation tabs, auth screens, or settings for: [PASTE SECTION 2].
+REALISTIC MOCK DATA: Pre-populate the table with these 10 anonymized records: [PASTE JSON/CSV].
+INTERACTIVITY: All filters, inline error fixes, and confirmation modals must update client state.
+TESTING HUD: Add a subtle bottom-right "Demo State" switcher: [Default | 18 Row Errors | Empty].</code></pre>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: ASSUMPTION TESTING & VALIDATION ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Assumption Testing, Synthetic Pre-Tests &amp; Real Validation</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">Synthetic Pre-Tests vs. Real User Validation</h2>
+  <p class="page-lead">
+    In 2026, AI-generated &ldquo;synthetic users&rdquo; can simulate a usability walkthrough in 90 seconds&mdash;yet industry benchmarks show <strong>over 90% of researchers refuse to trust synthetic participants alone</strong> for product decisions. Use synthetic pre-tests as a fast <em>spellchecker</em>, then validate every high-stakes bet with real humans.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="Editorial illustration showing translucent holographic synthetic personas on the left pre-testing a glowing prototype while warm human silhouettes on the right provide real validation signals" />
+    <div class="figure-caption">
+      <strong>The Two-Gate Validation Model:</strong> Translucent synthetic personas (left) stress-test copy clarity, heuristic flow, and interview scripts in minutes; real target customers (right) deliver the behavioral proof required to commit engineering sprints.
+    </div>
+  </div>
+
+  <table class="clean-table" style="margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Validation Dimension</th>
+        <th style="width:38%;">Where Synthetic Pre-Tests Shine</th>
+        <th style="width:38%;">Where Real Humans Are Mandatory</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Copy &amp; IA Clarity</strong></td>
+        <td>Spot jargon, confusing button labels, and broken form hierarchy before burning real participant slots.</td>
+        <td>Confirming domain-specific mental models and industry terminology nuances.</td>
+      </tr>
+      <tr>
+        <td><strong>Interview Script Rehearsal</strong></td>
+        <td>Dry-run your 15-minute test guide to catch leading questions and awkward task transitions.</td>
+        <td>Uncovering unprompted workarounds, emotional frustration, and messy real-world context.</td>
+      </tr>
+      <tr>
+        <td><strong>Go / No-Go &amp; Pricing</strong></td>
+        <td><strong>Do NOT use.</strong> LLMs suffer from sycophancy (&ldquo;over-validation&rdquo;) and artificially polite enthusiasm.</td>
+        <td>Measuring true willingness-to-pay, switching friction, and actual task abandonment.</td>
+      </tr>
+      <tr>
+        <td><strong>Edge &amp; Diverse Segments</strong></td>
+        <td><strong>High bias risk.</strong> Persona prompts flatten variance and stereotype underrepresented populations.</td>
+        <td>Recruiting diverse roles, accessibility needs, and regional workflows directly.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge emerald">5</span> The 5-User 24-Hour Validation Protocol</div>
+      <ol style="font-size:8.05pt; margin-bottom:0; padding-left:16px;">
+        <li><strong>Recruit 5 target users</strong> (recent churned trials, support ticket filers, or User Interviews/Maze panel).</li>
+        <li><strong>Give 3 concrete tasks</strong> on your clickable URL&mdash;never demo the flow first; watch where they hesitate.</li>
+        <li><strong>Score on a Rainbow Sheet:</strong> <code>Pass</code>, <code>Pass w/ Friction</code>, or <code>Fail</code> per task.</li>
+        <li><strong>Decide immediately:</strong> &ge;4/5 clean passes &rarr; Linear Spec; &ge;2 fails &rarr; iterate prototype in 30 min &amp; re-test.</li>
+      </ol>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">!</span> Anti-Sycophancy Rule for Synthetic Audits</div>
+      <p style="font-size:8.05pt; margin-bottom:4px;">
+        If you run a synthetic pre-test on a prototype screenshot or PRD, <strong>never ask &ldquo;Would you use this?&rdquo;</strong> Instead, ground the prompt in your real customer transcripts and force adversarial critique:
+      </p>
+      <p style="font-size:7.85pt; font-family:'SF Mono',Menlo,monospace; background:#ffffff; padding:5px 7px; border-radius:5px; border:1px solid #c7d2fe; margin-bottom:0;">
+        &ldquo;List the top 5 reasons a busy Ops Manager would abandon this screen in under 20 seconds. Label output [SYNTHETIC PRE-TEST].&rdquo;
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; 5 Real-World Copy-Paste Discovery &amp; PRD Recipes</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">5 Copy-Paste Discovery &amp; PRD Prompt Blueprints</h2>
+  <p class="page-lead">
+    Drop these five battle-tested blueprints into <strong>NotebookLM</strong>, <strong>Claude Projects</strong>, <strong>ChatPRD</strong>, or <strong>v0.app / Figma Make</strong>. Each recipe enforces strict input grounding and structured output so you get usable artifacts on the first run.
+  </p>
+
+  <table class="clean-table" style="margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:6%;">#</th>
+        <th style="width:27%;">Recipe Name</th>
+        <th style="width:23%;">Best Tool</th>
+        <th style="width:44%;">Expected Output Artifact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>R1</strong></td>
+        <td><strong>Cross-Transcript Synthesizer</strong></td>
+        <td>NotebookLM / Claude</td>
+        <td>Frequency-ranked pain themes + verbatim <code>[P-ID]</code> quotes + disconfirming outliers</td>
+      </tr>
+      <tr>
+        <td><strong>R2</strong></td>
+        <td><strong>Ticket &amp; NPS Pain Quantifier</strong></td>
+        <td>Claude / ChatGPT Projects</td>
+        <td>Root-cause taxonomy table with ticket volume, revenue tier, and churn risk score</td>
+      </tr>
+      <tr>
+        <td><strong>R3</strong></td>
+        <td><strong>5-Part Evidence PRD Builder</strong></td>
+        <td>ChatPRD / Claude Projects</td>
+        <td>2-page spec linking verbatim proof, strict Non-Goals, edge states, and metrics</td>
+      </tr>
+      <tr>
+        <td><strong>R4</strong></td>
+        <td><strong>Riskiest Assumption Mapper</strong></td>
+        <td>Claude / ChatGPT</td>
+        <td>Desirability / Usability / Feasibility risk matrix + 24-hour test script</td>
+      </tr>
+      <tr>
+        <td><strong>R5</strong></td>
+        <td><strong>Prototype Spec + Mock JSON</strong></td>
+        <td>Figma Make / v0 / Claude Design</td>
+        <td>Stateful clickable UI with realistic anonymized records and error-state switcher</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:8px 10px;">
+    <div>
+      <h3 style="margin-top:0; font-size:9.6pt;"><span class="num-badge emerald" style="width:17px;height:17px;font-size:7pt;">R1</span> Cross-Transcript Theme &amp; Outlier Audit</h3>
+      <pre class="code-block" style="margin-bottom:6px;"><code>Analyze ONLY the attached [N] redacted transcripts.
+Output a Markdown table with: Theme | Unique Users
+(n/N) | Severity | 2 Verbatim Quotes [P-ID|time].
+Rules: No paraphrasing inside quotes. Exclude themes
+with n&lt;3 into a separate "N=1 Hypotheses" list.
+End with "Contradictions &amp; Sample Blind Spots."</code></pre>
+
+      <h3 style="margin-top:0; font-size:9.6pt;"><span class="num-badge indigo" style="width:17px;height:17px;font-size:7pt;">R2</span> Support Ticket &amp; NPS Pain Quantifier</h3>
+      <pre class="code-block" style="margin-bottom:6px;"><code>Given this redacted CSV of [N] Zendesk tickets and
+NPS comments, cluster by underlying workflow failure
+(not feature requests). Return top 6 failure modes:
+Failure | Ticket Count | % of Total | Top Segment |
+3 Verbatim Ticket IDs | Current User Workaround.</code></pre>
+
+      <h3 style="margin-top:0; font-size:9.6pt;"><span class="num-badge teal" style="width:17px;height:17px;font-size:7pt;">R3</span> 5-Part Evidence-Backed PRD Generator</h3>
+      <pre class="code-block" style="margin-bottom:0;"><code>Draft a strict 2-page PRD from the attached Synthesis
+Pack using ONLY these 5 sections:
+1. Problem + Verbatim Evidence (cite [P-ID] &amp; KPIs)
+2. Explicit Non-Goals (list 4 things excluded in v1)
+3. User Flows &amp; Edge Cases (empty/error/loading/undo)
+4. Success Metric (baseline-&gt;target) + 1 Guardrail
+5. Prototype Scope (3 screens + 3 user test tasks).
+Flag any unverified assumption with [ASSUMPTION].</code></pre>
+    </div>
+
+    <div>
+      <h3 style="margin-top:0; font-size:9.6pt;"><span class="num-badge amber" style="width:17px;height:17px;font-size:7pt;">R4</span> Riskiest Assumption &amp; Pre-Mortem Map</h3>
+      <pre class="code-block" style="margin-bottom:6px;"><code>Read this 5-Part PRD. Imagine this feature launched
+and failed to move the primary metric by 60 days.
+1. List the 5 most likely failure causes.
+2. Convert each into a testable assumption tagged:
+   [Desirability | Usability | Feasibility | Trust].
+3. Rank by (Impact x Uncertainty) and write a
+   15-minute clickable prototype test script for #1.</code></pre>
+
+      <h3 style="margin-top:0; font-size:9.6pt;"><span class="num-badge emerald" style="width:17px;height:17px;font-size:7pt;">R5</span> Prototype UI + Realistic Mock Data</h3>
+      <pre class="code-block" style="margin-bottom:6px;"><code>Generate an interactive prototype for PRD Section 5.
+Use clean SaaS styling (high contrast, 8px grid).
+Include 10 realistic anonymized domain rows (with 3
+intentional validation errors to test recovery).
+Add a compact corner toggle: [Happy | Error | Empty].
+Do NOT build screens listed in PRD Non-Goals.</code></pre>
+
+      <div class="callout amber" style="margin:0; padding:7px 10px; font-size:8.0pt;">
+        <div class="callout-title" style="font-size:8.6pt;">Chaining Tip: Keep Context Clean</div>
+        Run <strong>R1/R2</strong> in one thread, paste only the verified Markdown summary into a fresh thread for <strong>R3/R4</strong>, and paste only Sections 2, 3 &amp; 5 into <strong>R5</strong>. Clean handoffs prevent context drift.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: PRIVACY, PII REDACTION & ETHICS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Privacy, PII Redaction &amp; Research Ethics</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">PII Scrubbing, Consent &amp; Bias Governance</h2>
+  <p class="page-lead">
+    Customer interviews contain names, emails, revenue figures, and confidential workflows. Uploading raw transcripts into consumer AI tools violates enterprise trust, GDPR/CCPA obligations, and customer NDAs. Build a <strong>zero-leakage research hygiene protocol</strong> in 5 minutes.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge emerald">1</span> Pre-Ingestion PII Scrubbing</div>
+      <ul style="font-size:8.1pt; margin-bottom:0;">
+        <li><strong>Replace identities before upload:</strong> Swap names for <code>P01&ndash;P15</code> and companies for tier tags (<code>[ENT-FINTECH-04]</code>). Keep an offline mapping sheet only in restricted Drive/Notion.</li>
+        <li><strong>Strip ticket exports:</strong> Run a quick regex or spreadsheet formula to remove emails, phone numbers, IP addresses, API keys, and invoice IDs from Zendesk/Intercom CSVs.</li>
+        <li><strong>Verify Zero-Data-Retention (ZDR):</strong> Confirm your workspace uses Enterprise/Team plans (Claude Team/Enterprise, ChatGPT Enterprise, Google Workspace Gemini, Dovetail SOC 2) with <em>model training opted out</em>.</li>
+      </ul>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">2</span> Informed Consent &amp; Transparency</div>
+      <ul style="font-size:8.1pt; margin-bottom:0;">
+        <li><strong>Disclose AI tooling up front:</strong> State clearly at call start: <em>&ldquo;We use an AI notepad to capture notes so I can focus on you; no audio is stored and nothing trains public models. Is that okay?&rdquo;</em></li>
+        <li><strong>Honor opt-outs frictionlessly:</strong> Always keep a manual Markdown template ready if a regulated customer declines transcription.</li>
+        <li><strong>Minimize audio retention:</strong> Prefer ephemeral transcription tools (like Granola&rsquo;s no-audio-storage workflow) or set 30-day auto-delete policies in Dovetail/Gong for raw video files.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Local 10-Second PII Scrubber Before Uploading Transcripts</h3>
+  <pre class="code-block" style="margin-bottom:8px;"><code># Quick Python/CLI redaction pass for exported .txt/.csv transcripts before LLM synthesis
+import re, pathlib
+text = pathlib.Path("raw_tickets.csv").read_text()
+text = re.sub(r'[\w.+-]+@[\w-]+\.[\w.-]+', '[REDACTED_EMAIL]', text)
+text = re.sub(r'\b(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b', '[REDACTED_PHONE]', text)
+text = re.sub(r'\b(?:acct|cus|org)_[A-Za-z0-9]{6,}\b', '[REDACTED_ACCT_ID]', text)
+pathlib.Path("clean_tickets_for_ai.csv").write_text(text)</code></pre>
+
+  <h3>Preventing Confirmation Bias &amp; Research Laundering</h3>
+  <table class="clean-table" style="margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Ethical / Bias Risk</th>
+        <th style="width:36%;">How It Sneaks Into AI Discovery</th>
+        <th style="width:40%;">Mandatory Team Safeguard</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Leading Prompts</strong></td>
+        <td>Asking <em>&ldquo;Find quotes proving users want AI chat&rdquo;</em> causes the LLM to cherry-pick weak mentions.</td>
+        <td>Ask neutral, problem-first prompts: <em>&ldquo;What blocked users from completing X? Include counter-examples.&rdquo;</em></td>
+      </tr>
+      <tr>
+        <td><strong>Synthetic Laundering</strong></td>
+        <td>Dropping AI-persona feedback into exec decks disguised as real customer research.</td>
+        <td>Enforce mandatory provenance badges on every slide: <code>[HUMAN n=12]</code> vs. <code>[SYNTHETIC PRE-TEST]</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Recency &amp; Volume Skew</strong></td>
+        <td>One loud 60-minute call generates 40% of transcript tokens and dominates AI summaries.</td>
+        <td>Weight clusters strictly by <em>unique accounts affected</em>, never raw mention count.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout rose" style="margin-top:2px;">
+    <div class="callout-title">Hard Red Line: Never Upload Regulated Data to Consumer Free Tiers</div>
+    HIPAA PHI, PCI payment details, and unredacted customer PII must never enter personal free-tier chat accounts. When in doubt, redact locally first and verify your company&rsquo;s approved AI DPA list.
+  </div>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Pipeline</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Pipeline: Raw Call to Linear Engineering Spec</h2>
+  <p class="page-lead">
+    The highest leverage comes from connecting your tools into a repeatable <strong>under-12-hour discovery assembly line</strong>&mdash;so insights never rot in a transcript folder and engineers receive a validated spec paired with a clickable reference prototype.
+  </p>
+
+  <!-- Inline SVG Pipeline Diagram -->
+  <div class="figure-box" style="background:#061c19; padding:10px 12px; border-color:#0f766e; margin-bottom:8px;">
+    <svg viewBox="0 0 700 132" width="100%" height="132" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1 -->
+      <rect x="6" y="10" width="154" height="110" rx="8" fill="#0a2924" stroke="#34d399" stroke-width="1.5"/>
+      <text x="83" y="28" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">STAGE 1 &bull; CAPTURE</text>
+      <text x="83" y="45" text-anchor="middle" fill="#ffffff" font-size="9.3" font-weight="800">Granola / Dovetail</text>
+      <text x="83" y="63" text-anchor="middle" fill="#cbd5e1" font-size="6.8">&bull; 8&ndash;12 customer calls</text>
+      <text x="83" y="76" text-anchor="middle" fill="#cbd5e1" font-size="6.8">&bull; Redacted ticket CSV</text>
+      <rect x="22" y="89" width="122" height="22" rx="4" fill="#0f3d34" stroke="#10b981" stroke-width="0.9"/>
+      <text x="83" y="103" text-anchor="middle" fill="#a7f3d0" font-size="6.7" font-weight="700">Out: Clean .md + .csv</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M160 65 L178 65" stroke="#34d399" stroke-width="2"/>
+      <polygon points="176,60 184,65 176,70" fill="#34d399"/>
+
+      <!-- Box 2 -->
+      <rect x="184" y="10" width="154" height="110" rx="8" fill="#131c3b" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="261" y="28" text-anchor="middle" fill="#a5b4fc" font-size="7.3" font-weight="700">STAGE 2 &bull; SYNTHESIZE</text>
+      <text x="261" y="45" text-anchor="middle" fill="#ffffff" font-size="9.3" font-weight="800">NotebookLM / Notion</text>
+      <text x="261" y="63" text-anchor="middle" fill="#cbd5e1" font-size="6.8">&bull; Quote-anchored clusters</text>
+      <text x="261" y="76" text-anchor="middle" fill="#cbd5e1" font-size="6.8">&bull; ChatPRD 5-Part Spec</text>
+      <rect x="200" y="89" width="122" height="22" rx="4" fill="#1e2952" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="261" y="103" text-anchor="middle" fill="#e0e7ff" font-size="6.7" font-weight="700">Out: 2-Page Cited PRD</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M338 65 L356 65" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="354,60 362,65 354,70" fill="#818cf8"/>
+
+      <!-- Box 3 -->
+      <rect x="362" y="10" width="154" height="110" rx="8" fill="#231c10" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="439" y="28" text-anchor="middle" fill="#fde68a" font-size="7.3" font-weight="700">STAGE 3 &bull; PROTOTYPE</text>
+      <text x="439" y="45" text-anchor="middle" fill="#ffffff" font-size="9.3" font-weight="800">Figma Make / v0.app</text>
+      <text x="439" y="63" text-anchor="middle" fill="#cbd5e1" font-size="6.8">&bull; Interactive UI + mock data</text>
+      <text x="439" y="76" text-anchor="middle" fill="#cbd5e1" font-size="6.8">&bull; 5-User clickable validation</text>
+      <rect x="378" y="89" width="122" height="22" rx="4" fill="#362912" stroke="#d97706" stroke-width="0.9"/>
+      <text x="439" y="103" text-anchor="middle" fill="#fef3c7" font-size="6.7" font-weight="700">Out: Validated Test URL</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M516 65 L534 65" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="532,60 540,65 532,70" fill="#fbbf24"/>
+
+      <!-- Box 4 -->
+      <rect x="540" y="10" width="154" height="110" rx="8" fill="#0a2924" stroke="#2dd4bf" stroke-width="1.6"/>
+      <text x="617" y="28" text-anchor="middle" fill="#5eead4" font-size="7.3" font-weight="700">STAGE 4 &bull; SHIP SPEC</text>
+      <text x="617" y="45" text-anchor="middle" fill="#ffffff" font-size="9.3" font-weight="800">Linear Eng Epic</text>
+      <text x="617" y="63" text-anchor="middle" fill="#cbd5e1" font-size="6.8">&bull; Scoped tickets + AC</text>
+      <text x="617" y="76" text-anchor="middle" fill="#cbd5e1" font-size="6.8">&bull; Linked clips &amp; prototype</text>
+      <rect x="556" y="89" width="122" height="22" rx="4" fill="#0d3538" stroke="#14b8a6" stroke-width="0.9"/>
+      <text x="617" y="103" text-anchor="middle" fill="#ccfbf1" font-size="6.7" font-weight="700">Out: Build-Ready Sprint</text>
+    </svg>
+  </div>
+
+  <h3>Handoff Contract &amp; Time Budget Across the Squad</h3>
+  <table class="clean-table" style="margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:16%;">Transition</th>
+        <th style="width:15%;">Owner</th>
+        <th style="width:13%;">Time Box</th>
+        <th style="width:56%;">Exact Artifact Contract (No Missing Context)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Capture &rarr; Synthesis</strong></td>
+        <td>PM / UXR</td>
+        <td>45 min</td>
+        <td>Export redacted Granola/Dovetail notes as Markdown + support ticket CSV into a dedicated NotebookLM notebook or Claude Project.</td>
+      </tr>
+      <tr>
+        <td><strong>Synthesis &rarr; PRD</strong></td>
+        <td>PM</td>
+        <td>90 min</td>
+        <td>Promote only <code>n &ge; 3</code> verified themes into the 5-Part PRD in Notion/ChatPRD; attach verbatim quote table and adversarial critique fixes.</td>
+      </tr>
+      <tr>
+        <td><strong>PRD &rarr; Prototype</strong></td>
+        <td>Designer / PM</td>
+        <td>60 min</td>
+        <td>Feed PRD Sections 2, 3 &amp; 5 + anonymized mock JSON into Figma Make, Claude Design, or v0.app; wire up Happy, Error, and Empty states.</td>
+      </tr>
+      <tr>
+        <td><strong>Test &rarr; Linear Spec</strong></td>
+        <td>PM + Eng Lead</td>
+        <td>2 hours</td>
+        <td>After 5-user validation, sync final UI changes back into PRD, then auto-generate Linear issues with Given/When/Then acceptance criteria + prototype link.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge emerald">M</span> MCP &amp; Live Context Connectors</div>
+      <p style="font-size:8.05pt; margin-bottom:0;">
+        In late 2026, <strong>Dovetail, Notion, Figma, and Linear all expose MCP servers</strong>. Connect them to Claude or your coding agent so engineering can query the exact user quote behind any Linear ticket without hunting through Google Drive.
+      </p>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">S</span> Sync the PRD After Prototyping</div>
+      <p style="font-size:8.05pt; margin-bottom:0;">
+        Prototyping always reveals new edge cases. Before kicking off sprint planning, run a 5-minute <strong>Diff Sync</strong>: paste your final prototype flow back into ChatPRD/Claude to update Section 3 so the PRD stays the single source of truth.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Pre-Flight Checklist</span>
+    <span>AI User Research &amp; PRD Prototyping</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight</h2>
+  <p class="page-lead">
+    When AI discovery outputs feel generic, bloated, or disconnected from real users, diagnose the failure mode below and apply the instant fix before committing engineering hours.
+  </p>
+
+  <table class="clean-table" style="margin-bottom:9px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Failure Symptom</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:45%;">Instant Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Fabricated or Blended Quotes</strong></td>
+        <td>Summarized 15 transcripts in one prompt without citation constraints.</td>
+        <td>Switch to NotebookLM or 2-pass extraction; require exact <code>[P-ID|time]</code> tags and spot-check 20% via <code>Ctrl+F</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Bloated 12-Page &ldquo;AI Slop&rdquo; PRD</strong></td>
+        <td>Prompted from a vague idea with no length cap or Non-Goals block.</td>
+        <td>Enforce the 2-page 5-Part Formula (p. 6); delete any paragraph lacking a citation, flow state, or metric.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Generic, Off-Brand Prototype UI</strong></td>
+        <td>Generated UI without design tokens or real domain data.</td>
+        <td>Use Figma Make (existing library) or Claude Design (codebase tokens) + paste 10 anonymized real customer records.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Overly Enthusiastic Synthetic Feedback</strong></td>
+        <td>Asked AI personas leading validation questions (&ldquo;Do you like this?&rdquo;).</td>
+        <td>Switch to adversarial failure prompts; never use synthetic scores for go/no-go&mdash;run a 5-user real test.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Engineers Blocked by Missing Edge Cases</strong></td>
+        <td>Prototype and PRD only covered the ideal happy path.</td>
+        <td>Run the &ldquo;Staff Engineer Review&rdquo; prompt (p. 6) and require Empty, Loading, Error, and Permission states in Section 3.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Execs Mistake Prototype for Shipped Code</strong></td>
+        <td>High-fidelity v0/Figma Make demo looked production-ready.</td>
+        <td>Add a top amber banner (<code>PROTOTYPE &bull; MOCK DATA ONLY</code>) and state backend effort explicitly during demos.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Customer PII Leaked Into Shared Project</strong></td>
+        <td>Uploaded raw Zendesk CSV or unredacted Gong transcripts.</td>
+        <td>Delete the source immediately, run the 10-second regex scrubber (p. 10), and verify Enterprise ZDR settings.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist (Before Engineering Handoff)</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Evidence Verified:</strong> Every P0 requirement cites <code>&ge; 3</code> independent users or quantified ticket/funnel data, with 20% of quotes spot-checked.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>PII &amp; Consent Clean:</strong> All uploaded transcripts and CSVs are anonymized (<code>P01..PN</code>) and processed under Zero-Data-Retention plans.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Non-Goals Locked:</strong> Section 2 explicitly lists 3&ndash;5 excluded v1 features so design and engineering share identical scope boundaries.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Edge States Prototyped:</strong> Clickable prototype includes realistic mock data plus at least Empty, Error, and Partial-Failure states.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5 Real Humans Tested:</strong> Riskiest assumption passed a live 5-user validation test (synthetic pre-test findings clearly labeled separately).</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>PRD &harr; Linear Synced:</strong> Post-test UI pivots are reflected in the PRD, and Linear epics link directly to the prototype URL and highlight clips.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:8px;">
+    <div class="callout-title">Final Takeaway: Speed Is Only an Advantage When Direction Is Verified</div>
+    AI compresses synthesis and prototyping from three weeks to one afternoon. Spend the time you save talking to five more customers&mdash;that is the moat no prompt can fake.
+  </div>
+
+  <div class="page-footer">
+    <span>AI User Research &amp; PRD Prototyping &bull; Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Figma Make, Figma MCP &amp; Design-to-Code: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">PRODUCT &amp; DESIGN ENGINEERING &bull; FIELD GUIDE</div>
+    <h1>Figma Make, Figma MCP &amp;<br/><span>Design-to-Code</span></h1>
+    <p class="cover-sub">
+      Turn Figma frames, design tokens, and component libraries into production React and Tailwind code using Figma Make, the official Figma MCP server, Code Connect v2, and AI coding agents.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Figma Make &amp; Plan Mode</span>
+      <span class="cover-badge">Official Figma MCP Server</span>
+      <span class="cover-badge">Code Connect v2 Templates</span>
+      <span class="cover-badge">Variables &amp; Tailwind Tokens</span>
+      <span class="cover-badge">Auto-Layout Hygiene</span>
+      <span class="cover-badge">Claude Code &bull; Cursor &bull; Codex</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Isometric glowing UI design canvas transforming into modular glassmorphic code blocks and component cards in indigo, violet, and coral" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Structured Design Context</div>
+      <div class="cover-stat-desc">Stream exact node trees, bound variables, and screenshots via <code>get_design_context</code> instead of lossy PNG guesses.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Real Repo Components</div>
+      <div class="cover-stat-desc">Bind Figma components to production React imports and props with Code Connect v2 so agents stop inventing div soup.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Two-Way Canvas Loop</div>
+      <div class="cover-stat-desc">Prototype fast in Figma Make, ship clean PRs through MCP, and push live UI updates back to Figma with remote write tools.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">From Screenshot Handoff to Structured MCP Context</h2>
+  <p class="page-lead">
+    Pasting a Figma screenshot into an AI chat forces the model to guess spacing, hex values, and component boundaries. The modern 2026 design-to-code stack replaces visual guesswork with a <strong>deterministic protocol</strong>: Figma Variables define tokens, Code Connect maps components, and the official <strong>Figma MCP server</strong> streams structured specs straight into your coding agent.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model: Design-to-Code MCP Loop</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Frame Hygiene &amp; Auto-Layout for AI</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Setup, Plans &amp; Tool Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Real-World Copy-Paste Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated 7-Control Interface Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Governance, Permissions &amp; Drift</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Mastering Figma Make Prototypes</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Official Figma MCP Server Deep Dive</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight Check</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Design Tokens, Variables &amp; Code Connect</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Rule: Tokens + Auto-Layout + Verify</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>The 4-Stage Design-to-Code MCP Loop</h3>
+  <p style="font-size:8.6pt;">
+    Reliable production UI does not come from a single prompt. High-velocity product teams run a closed four-stage loop where Figma supplies structure and tokens, your repo supplies real components, and the coding agent verifies its own rendered output before opening a pull request:
+  </p>
+
+  <div class="figure-box" style="background:#0f1024; padding:9px 11px; border-color:#4338ca;">
+    <svg viewBox="0 0 700 186" width="100%" height="186" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="6" y="14" width="154" height="158" rx="9" fill="#171636" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="83" y="32" text-anchor="middle" fill="#a5b4fc" font-size="7.5" font-weight="700">1. DESIGN SOURCE</text>
+      <text x="83" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Frame &amp; Tokens</text>
+      <rect x="16" y="59" width="134" height="44" rx="5" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="83" y="75" text-anchor="middle" fill="#e0e7ff" font-size="7.3" font-weight="700">Auto-Layout Frames</text>
+      <text x="83" y="88" text-anchor="middle" fill="#94a3b8" font-size="6.8">Fill / Hug / Gap semantics</text>
+      <rect x="16" y="111" width="134" height="47" rx="5" fill="#1e1b4b" stroke="#818cf8" stroke-width="0.9"/>
+      <text x="83" y="128" text-anchor="middle" fill="#e0e7ff" font-size="7.3" font-weight="700">Bound Variables</text>
+      <text x="83" y="141" text-anchor="middle" fill="#94a3b8" font-size="6.8">Color, spacing &amp; radius tokens</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M160 93 L178 93" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="176,88 184,93 176,98" fill="#818cf8"/>
+
+      <!-- Stage 2 -->
+      <rect x="185" y="14" width="156" height="158" rx="9" fill="#171636" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="263" y="32" text-anchor="middle" fill="#ddd6fe" font-size="7.5" font-weight="700">2. MCP PROTOCOL</text>
+      <text x="263" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Structured Fetch</text>
+      <rect x="195" y="59" width="136" height="44" rx="5" fill="#241a4a" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="263" y="75" text-anchor="middle" fill="#ede9fe" font-size="7.3" font-weight="700">get_design_context</text>
+      <text x="263" y="88" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Node tree + Tailwind layout</text>
+      <rect x="195" y="111" width="136" height="47" rx="5" fill="#241a4a" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="263" y="128" text-anchor="middle" fill="#ede9fe" font-size="7.3" font-weight="700">get_variable_defs</text>
+      <text x="263" y="141" text-anchor="middle" fill="#cbd5e1" font-size="6.8">+ get_code_connect_map</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M341 93 L359 93" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="357,88 365,93 357,98" fill="#a78bfa"/>
+
+      <!-- Stage 3 -->
+      <rect x="366" y="14" width="156" height="158" rx="9" fill="#231433" stroke="#fb7185" stroke-width="1.6"/>
+      <text x="444" y="32" text-anchor="middle" fill="#fecdd3" font-size="7.5" font-weight="700">3. AGENT SYNTHESIS</text>
+      <text x="444" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Repo-Aware Code</text>
+      <rect x="376" y="59" width="136" height="44" rx="5" fill="#321632" stroke="#f43f5e" stroke-width="0.9"/>
+      <text x="444" y="75" text-anchor="middle" fill="#ffe4e6" font-size="7.3" font-weight="700">Code Connect Imports</text>
+      <text x="444" y="88" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Reuses real Button / Card</text>
+      <rect x="376" y="111" width="136" height="47" rx="5" fill="#321632" stroke="#fb7185" stroke-width="0.9"/>
+      <text x="444" y="128" text-anchor="middle" fill="#ffe4e6" font-size="7.3" font-weight="700">App State &amp; A11y</text>
+      <text x="444" y="141" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Hooks, ARIA &amp; keyboard nav</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M522 93 L540 93" stroke="#fb7185" stroke-width="2"/>
+      <polygon points="538,88 546,93 538,98" fill="#fb7185"/>
+
+      <!-- Stage 4 -->
+      <rect x="547" y="14" width="147" height="158" rx="9" fill="#0d2624" stroke="#34d399" stroke-width="1.6"/>
+      <text x="620" y="32" text-anchor="middle" fill="#6ee7b7" font-size="7.5" font-weight="700">4. VERIFY &amp; SYNC</text>
+      <text x="620" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Visual Diff &amp; PR</text>
+      <rect x="557" y="59" width="127" height="44" rx="5" fill="#113630" stroke="#10b981" stroke-width="0.9"/>
+      <text x="620" y="75" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">get_screenshot Diff</text>
+      <text x="620" y="88" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Compare Playwright vs Figma</text>
+      <rect x="557" y="111" width="127" height="47" rx="5" fill="#113630" stroke="#34d399" stroke-width="0.9"/>
+      <text x="620" y="128" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">PR &amp; Code-to-Canvas</text>
+      <text x="620" y="141" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Vercel preview + Figma sync</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title">What Figma MCP Generates Well</div>
+      <ul style="font-size:8.2pt; margin:0;">
+        <li>Flexbox/Grid layouts mapped 1:1 from Auto-Layout frames</li>
+        <li>Exact design-token CSS variables &amp; Tailwind utility classes</li>
+        <li>Real repo component imports when Code Connect v2 is published</li>
+      </ul>
+    </div>
+    <div class="card-coral">
+      <div class="card-title">What Engineers Still Own</div>
+      <ul style="font-size:8.2pt; margin:0;">
+        <li>Data fetching, optimistic updates, caching, and error boundaries</li>
+        <li>Complex state machines, form validation, and auth guards</li>
+        <li>WCAG 2.2 focus traps, screen-reader landmarks, and perf budgets</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:6px;">
+    <div class="callout-title">The Core Principle: Treat Figma as a Structured Spec, Not a Compiler</div>
+    The best 2026 teams do not expect one-click perfection from messy canvases. They combine <strong>Figma Make</strong> for rapid interactive exploration, <strong>Figma MCP + Code Connect</strong> for 85%-complete first passes inside their real repo, and automated visual diffs for final polish.
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: SETUP, PLANS & DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Setup, Plans &amp; Decision Matrix</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">Choosing the Right Surface: Make vs. MCP vs. Code Connect</h2>
+  <p class="page-lead">
+    Figma's late-2026 ecosystem spans four distinct design-to-code surfaces. Picking the wrong one wastes AI credits or produces throwaway code. Use the matrix below to match each tool to the exact stage of your product lifecycle.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:17%;">Surface</th>
+        <th style="width:24%;">Primary Job</th>
+        <th style="width:24%;">Best Used When</th>
+        <th style="width:18%;">Output Artifact</th>
+        <th style="width:17%;">Key Limit (2026)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Figma Make</strong></td>
+        <td>Prompt-to-interactive prototype &amp; mini web app inside Figma</td>
+        <td>Validating UX flows, stakeholder demos, micro-interactions, 0&rarr;1 ideas</td>
+        <td>Live interactive React/Tailwind preview in Figma</td>
+        <td>Seat-level AI credits; sandboxed from prod repo</td>
+      </tr>
+      <tr>
+        <td><strong>Figma MCP Server</strong></td>
+        <td>Streams frame geometry, tokens, screenshots &amp; mappings to agents</td>
+        <td>Building production screens directly inside your actual codebase</td>
+        <td>Structured MCP context consumed by coding agents</td>
+        <td>Read rate limits tied to Figma seat tier</td>
+      </tr>
+      <tr>
+        <td><strong>Code Connect v2</strong></td>
+        <td>Maps Figma component sets to real repo imports, props &amp; docs</td>
+        <td>You maintain a reusable UI library (shadcn/ui, Radix, internal DS)</td>
+        <td>Template mappings (<code>*.figma.ts</code>) or UI links</td>
+        <td>Org/Ent plan for CLI &amp; full DS scale</td>
+      </tr>
+      <tr>
+        <td><strong>Dev Mode</strong></td>
+        <td>Human inspection, version diffing, annotations &amp; local MCP toggle</td>
+        <td>Reviewing spacing/redlines, comparing frame diffs, pairing live</td>
+        <td>Inspect CSS/Tailwind, Ready-for-Dev status</td>
+        <td>Requires Dev or Full seat for full inspect</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2026 Figma Seat Tiers, AI Credits &amp; MCP Access</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Plan &amp; Seat</th>
+        <th style="width:16%;">Approx. Cost</th>
+        <th style="width:22%;">Figma Make Credits</th>
+        <th style="width:24%;">Official MCP Server Limits</th>
+        <th style="width:18%;">Code Connect</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Starter (Free)</strong></td>
+        <td>$0 / mo</td>
+        <td>150 AI credits/day (Community publish only)</td>
+        <td>Capped (~20 read calls/mo on free/View seats)</td>
+        <td>UI preview only</td>
+      </tr>
+      <tr>
+        <td><strong>Professional</strong><br/><span style="color:#64748b;font-size:7.3pt;">Full / Dev Seat</span></td>
+        <td>$16 Full<br/>$12&ndash;$15 Dev</td>
+        <td>Monthly seat credit pool + add-on packs</td>
+        <td>Standard per-minute API/MCP tier for daily dev</td>
+        <td>Code Connect UI + basic CLI</td>
+      </tr>
+      <tr>
+        <td><strong>Organization</strong><br/><span style="color:#64748b;font-size:7.3pt;">Full / Dev / Collab</span></td>
+        <td>$55 Full / $25 Dev / $5 Collab (annual)</td>
+        <td>Higher monthly pool + $0.03/credit PAYG</td>
+        <td>High per-minute tier; remote write tools (beta)</td>
+        <td>Full CLI + GitHub UI + DS analytics</td>
+      </tr>
+      <tr>
+        <td><strong>Enterprise</strong><br/><span style="color:#64748b;font-size:7.3pt;">Full / Dev / Collab</span></td>
+        <td>$90 Full / $35 Dev / $5 Collab (annual)</td>
+        <td>Enterprise credit pools + custom governance</td>
+        <td>Highest rate limits + SSO/SCIM + audit controls</td>
+        <td>Multi-library CLI + CI publishing</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Which Team Pattern Fits You?</div>
+      <ul style="font-size:8.1pt; margin:0;">
+        <li><strong>Solo / Early Startup:</strong> Prototype in <strong>Figma Make</strong>, then connect <strong>Remote MCP</strong> to Claude Code or Cursor to build against shadcn/ui.</li>
+        <li><strong>Scaling Product Team:</strong> Author <strong>Code Connect v2</strong> templates for your top 25 components so every MCP call emits real imports.</li>
+        <li><strong>Enterprise DS Team:</strong> Run <code>npx figma connect publish</code> in CI, enforce Variables-only tokens, and gate PRs with visual regression.</li>
+      </ul>
+    </div>
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge coral">2</span> 60-Second Quick-Start Checklist</div>
+      <ol style="font-size:8.1pt; margin:0;">
+        <li>Confirm your engineers have a <strong>Dev</strong> or <strong>Full</strong> seat (View seats hit the monthly MCP cap fast).</li>
+        <li>Install the official Figma plugin/MCP in your agent (<code>https://mcp.figma.com/mcp</code>).</li>
+        <li>Run OAuth sign-in in browser and verify with <code>whoami</code> or <code>#get_design_context</code>.</li>
+        <li>Optionally toggle <strong>Desktop MCP</strong> in Figma Dev Mode for selection-based pairing.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:6px;">
+    <div class="callout-title">Important 2026 Licensing Nuance: MCP Is Free, Seats Set the Ceiling</div>
+    Figma charges <strong>$0 extra</strong> to enable the official MCP server, and remote canvas-write tools (<code>use_figma</code>, <code>generate_figma_design</code>) are free during beta. However, read-tool ceilings strictly follow your Figma seat&mdash;putting an engineer on a free View seat will stall MCP mid-sprint.
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INTERFACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">7-Control Command Center: Figma + MCP + Coding Agent</h2>
+  <p class="page-lead">
+    When design-to-code works seamlessly, three panes stay in sync: the <strong>Figma Dev Mode canvas</strong> (left), the <strong>Inspect &amp; MCP Status panel</strong> (center), and your <strong>AI Coding Agent</strong> (right). Master these seven controls to eliminate manual copy-pasting.
+  </p>
+
+  <!-- Annotated Mock UI HUD -->
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#e0e7ff;">BillingUpgradeModal.fig &mdash; Dev Mode + Remote MCP Connected</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="hud-chip" style="background:#312e81; color:#c7d2fe; border:1px solid #6366f1;">Shift+D: Dev Mode <span class="callout-pin">1</span></span>
+        <span class="hud-chip" style="background:#064e3b; color:#a7f3d0; border:1px solid #10b981;">MCP: mcp.figma.com/mcp <span class="callout-pin">4</span></span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.05fr 0.95fr 1.15fr; gap:8px; padding:9px;">
+      <!-- Pane 1: Figma Canvas & Layers -->
+      <div class="hud-card" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #312e81; padding-bottom:4px;">
+          <strong style="color:#c7d2fe;">FIGMA LAYER TREE</strong>
+          <span class="callout-pin">2</span>
+        </div>
+        <div style="font-family:'SF Mono',monospace; font-size:6.5pt; color:#cbd5e1; line-height:1.48;">
+          <div style="color:#a5b4fc; font-weight:700;">&#9662; Frame: UpgradeDialog [Auto-Layout V]</div>
+          <div style="padding-left:10px;">&#9662; HeaderRow [H &bull; gap-12]</div>
+          <div style="padding-left:20px; color:#ddd6fe;">&#9670; Badge/Pro [Code Connect &#10003;]</div>
+          <div style="padding-left:10px;">&#9662; PlanGrid [Grid 2-col &bull; gap-16]</div>
+          <div style="padding-left:20px; color:#ddd6fe;">&#9670; PricingCard/Team</div>
+          <div style="padding-left:20px; color:#ddd6fe;">&#9670; PricingCard/Enterprise</div>
+          <div style="padding-left:10px;">&#9662; FooterActions [H &bull; justify-end]</div>
+          <div style="padding-left:20px; color:#fb7185;">&#9670; Button/Primary [variant="accent"]</div>
+        </div>
+        <div style="background:#0f1024; border:1px dashed #6366f1; border-radius:5px; padding:5px; margin-top:auto;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="color:#a5b4fc; font-weight:700;">Selected Node URL</span>
+            <span class="callout-pin">3</span>
+          </div>
+          <div style="font-family:'SF Mono',monospace; font-size:6.1pt; color:#94a3b8; margin-top:2px;">figma.com/design/x9K2.../Billing?node-id=412-88</div>
+        </div>
+      </div>
+
+      <!-- Pane 2: Dev Mode Inspect & Code Connect -->
+      <div class="hud-card" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #312e81; padding-bottom:4px;">
+          <strong style="color:#ddd6fe;">INSPECT &amp; CODE CONNECT</strong>
+          <span class="callout-pin">5</span>
+        </div>
+        <div style="background:#0f1024; border:1px solid #4338ca; border-radius:5px; padding:5px;">
+          <div style="color:#a5b4fc; font-weight:700; margin-bottom:2px;">Bound Variables (Tokens)</div>
+          <div style="font-family:'SF Mono',monospace; font-size:6.2pt; color:#e0e7ff;">
+            bg: var(--surface-elevated)<br/>
+            border: var(--border-subtle)<br/>
+            gap: var(--space-4) /* 16px */<br/>
+            radius: var(--radius-lg) /* 12px */
+          </div>
+        </div>
+        <div style="background:#1e1338; border:1px solid #7c3aed; border-radius:5px; padding:5px;">
+          <div style="color:#ddd6fe; font-weight:700; margin-bottom:2px;">Code Connect Snippet (React)</div>
+          <div style="font-family:'SF Mono',monospace; font-size:6.1pt; color:#f5f3ff;">
+            import { Button } from "@/ui/button";<br/>
+            &lt;Button variant="accent" size="md"&gt;<br/>
+            &nbsp;&nbsp;Upgrade Workspace<br/>
+            &lt;/Button&gt;
+          </div>
+        </div>
+        <div style="font-size:6.3pt; color:#94a3b8; margin-top:auto;">
+          Ready for Dev: <strong style="color:#34d399;">Approved v2.4</strong> &bull; 0 untokenized fills
+        </div>
+      </div>
+
+      <!-- Pane 3: AI Coding Agent (Claude Code / Cursor) -->
+      <div class="hud-card" style="display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #312e81; padding-bottom:4px;">
+          <strong style="color:#fecdd3;">AGENT MCP TOOL TRACE</strong>
+          <span class="callout-pin">6</span>
+        </div>
+        <div style="font-family:'SF Mono',monospace; font-size:6.2pt; color:#cbd5e1; line-height:1.45;">
+          <div style="color:#34d399;">&#10003; figma.get_metadata(node="412:88")</div>
+          <div style="color:#34d399;">&#10003; figma.get_design_context(node="412:88")</div>
+          <div style="color:#34d399;">&#10003; figma.get_variable_defs(node="412:88")</div>
+          <div style="color:#34d399;">&#10003; figma.get_code_connect_map()</div>
+          <div style="color:#fbbf24;">&#9889; Writing src/components/UpgradeDialog.tsx</div>
+        </div>
+        <div style="background:#0d2624; border:1px solid #10b981; border-radius:5px; padding:5px; margin-top:auto;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#6ee7b7;">Self-Verification Loop</strong>
+            <span class="callout-pin">7</span>
+          </div>
+          <div style="font-size:6.2pt; color:#d1fae5; margin-top:2px;">
+            Called <code>get_screenshot</code> &rarr; compared against Playwright render at 1280px &amp; 390px. Spacing delta &lt; 2px. Ready for PR.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control-by-Control Breakdown</h3>
+  <div class="grid-2" style="gap:7px 11px;">
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="callout-pin">1</span> Dev Mode Toggle (<code>Shift + D</code>)</div>
+      <p style="font-size:7.9pt; margin:0;">Switches Figma from authoring to inspection. Exposes Ready-for-Dev statuses, version diffs, and the Desktop MCP server toggle in the right sidebar.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="callout-pin">2</span> Semantic Auto-Layout Layer Tree</div>
+      <p style="font-size:7.9pt; margin:0;">Named containers (<code>HeaderRow</code>, <code>PlanGrid</code>) become clean semantic JSX. Generic <code>Frame 481</code> groups cause the agent to emit nested unnamed <code>&lt;div&gt;</code> wrappers.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="callout-pin">3</span> Copy Link to Selection (<code>Cmd/Ctrl + L</code>)</div>
+      <p style="font-size:7.9pt; margin:0;">Copies the exact <code>?node-id=412-88</code> URL. Paste this into Claude Code, Cursor, or Codex when using the Remote MCP server to scope extraction to one frame.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="callout-pin">4</span> MCP Transport Indicator</div>
+      <p style="font-size:7.9pt; margin:0;">Confirms whether your agent is hitting Hosted Remote (<code>mcp.figma.com/mcp</code>) or Local Desktop (<code>127.0.0.1:3845/mcp</code>). Avoid running both under the same alias.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="callout-pin">5</span> Bound Variables &amp; Code Connect Panel</div>
+      <p style="font-size:7.9pt; margin:0;">Displays live CSS variable bindings and published Code Connect snippets. If this panel shows raw hex values, fix variables before invoking your coding agent.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.7pt;"><span class="callout-pin">6</span> Agent Tool Call Trace</div>
+      <p style="font-size:7.9pt; margin:0;">Watch the agent call <code>get_metadata</code> first on large pages, then <code>get_design_context</code> and <code>get_variable_defs</code> on targeted sub-frames to conserve context tokens.</p>
+    </div>
+  </div>
+  <div class="callout emerald" style="margin-top:6px;">
+    <div class="callout-title"><span class="callout-pin" style="background:#059669;">7</span> Visual Self-Check Gate (<code>get_screenshot</code> + Headless Browser)</div>
+    Always instruct your agent to call <code>get_screenshot</code> and visually compare Figma's render against your local dev server via Playwright or Storybook. Catching a misaligned flex wrap or missing focus ring here takes 15 seconds instead of a 2-day design review cycle.
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: MASTERING FIGMA MAKE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Mastering Figma Make</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">Prototyping at Warp Speed with Figma Make</h2>
+  <p class="page-lead">
+    <strong>Figma Make</strong> turns natural-language prompts and existing Figma frames into functional, clickable React + Tailwind prototypes directly inside Figma. Used correctly, it replaces weeks of static noodle-wiring; used carelessly, it burns seat credits on unshippable sandboxes.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_1.jpg" alt="Interactive prototyping canvas with layered UI cards, glowing indigo and violet wireframes, snapping auto-layout guides, and coral AI spark nodes" />
+    <div class="figure-caption">
+      <strong>Figma Make Workflow:</strong> Anchor prompts to an existing Figma frame and component library, use <code>Plan Mode</code> to lock interaction states first, then iterate visually before graduating specs via Figma MCP.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Ground Make in Your Design System</div>
+      <ul style="font-size:8.1pt; margin:0;">
+        <li><strong>Attach a reference frame first:</strong> Never prompt from a blank canvas when you already have brand typography, radii, and surface variables.</li>
+        <li><strong>Use Plan Mode before generating:</strong> Let Make outline screens, state transitions, and mock data schemas so you approve architecture before spending generation credits.</li>
+        <li><strong>Point-and-edit targeting:</strong> Click a specific card or button in the preview and ask for scoped edits (<em>"Add keyboard arrow navigation to this tab list"</em>) instead of regenerating the full app.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge violet">2</span> High-Leverage Prompt Patterns</div>
+      <ul style="font-size:8.1pt; margin:0;">
+        <li><strong>Real edge-case states:</strong> Ask Make to include <code>empty</code>, <code>loading skeleton</code>, <code>error toast</code>, and <code>overflow-text</code> toggles in a top debug bar.</li>
+        <li><strong>Realistic domain fixtures:</strong> Paste 5 rows of anonymized JSON data so tables, charts, and truncation behave like production.</li>
+        <li><strong>Responsive breakpoints:</strong> Explicitly specify desktop (<code>1280px</code>) and mobile drawer (<code>390px</code>) behaviors in the first prompt.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The Make-to-Production Graduation Playbook</h3>
+  <table class="clean-table" style="margin-top:3px;">
+    <thead>
+      <tr>
+        <th style="width:18%;">Phase</th>
+        <th style="width:28%;">Where You Work</th>
+        <th style="width:54%;">Exact Action to Avoid Throwaway Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Explore</strong></td>
+        <td>Figma Make (Plan Mode)</td>
+        <td>Test 2&ndash;3 interaction models with PMs and customers using live clickable prototypes; discard weak flows in minutes.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Canonize</strong></td>
+        <td>Figma Design + Variables</td>
+        <td>Lock the winning flow into clean Auto-Layout frames bound to your team's Variables and library components.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Ship</strong></td>
+        <td>Figma MCP &rarr; Coding Agent</td>
+        <td>Do <em>not</em> copy-paste raw Make sandbox code into prod. Point Claude Code/Cursor at the canonical Figma URL + Code Connect so it writes repo-native TypeScript.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout coral" style="margin-top:4px;">
+    <div class="callout-title">Credit Discipline Tip (2026 Seat Limits)</div>
+    Because Figma Make enforces monthly seat-level AI credits (and Starter limits free users to 150 credits/day), reserve Make for <strong>interactive behavior and UX validation</strong>. Once a screen is approved, switch to <strong>Figma MCP</strong> inside your IDE&mdash;your coding agent's model subscription handles code generation without burning Figma AI credits.
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: OFFICIAL FIGMA MCP SERVER DEEP DIVE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Official Figma MCP Server Deep Dive</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">Mastering the Official Figma MCP Server</h2>
+  <p class="page-lead">
+    Figma's official MCP server exposes ~25+ structured tools (18 read + write beta tools) to AI coding clients. Understanding <strong>Remote vs. Desktop transport</strong> and structuring a <strong>5-part Design-to-Code prompt</strong> is what separates crisp PRs from generic CSS.
+  </p>
+
+  <h3>The 5-Part Design-to-Code MCP Prompt Anatomy</h3>
+  <div class="card" style="background:#f8fafc; border-color:#cbd5e1; padding:8px 11px; margin-bottom:6px;">
+    <div style="font-size:8.4pt; line-height:1.72;">
+      <span class="p-tag p-node">[1. Scoped Node URL] Implement https://figma.com/design/x9K2/App?node-id=412-88</span>
+      <span class="p-tag p-tokens">[2. Token Mandate] Call get_variable_defs and map every color/spacing value to our Tailwind v4 @theme tokens (zero raw hex)</span>
+      <span class="p-tag p-comp">[3. Component Reuse] Call get_code_connect_map and strictly import existing Button, Dialog, and Badge from @/components/ui</span>
+      <span class="p-tag p-stack">[4. Stack &amp; States] Output React 19 + TypeScript + Tailwind in src/features/billing/UpgradeDialog.tsx with loading &amp; error states</span>
+      <span class="p-tag p-verify">[5. Visual Verify] Call get_screenshot, render locally, and verify layout parity at 1280px and 390px before finishing.</span>
+    </div>
+  </div>
+
+  <h3>Remote Hosted vs. Local Desktop MCP Server</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:19%;">Dimension</th>
+        <th style="width:41%;">Remote MCP Server (Recommended)</th>
+        <th style="width:40%;">Desktop MCP Server (Local)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Endpoint URL</strong></td>
+        <td><code>https://mcp.figma.com/mcp</code> (Streamable HTTP)</td>
+        <td><code>http://127.0.0.1:3845/mcp</code> (Localhost HTTP)</td>
+      </tr>
+      <tr>
+        <td><strong>Auth &amp; Setup</strong></td>
+        <td>Browser OAuth via Figma plugin/client; no desktop app needed</td>
+        <td>Enable in Figma Desktop &rarr; Dev Mode &rarr; MCP server panel</td>
+      </tr>
+      <tr>
+        <td><strong>Selection Mode</strong></td>
+        <td>Paste a Figma frame/node URL in your prompt</td>
+        <td>Reads your <em>currently selected</em> frame live on canvas</td>
+      </tr>
+      <tr>
+        <td><strong>Write Tools</strong></td>
+        <td>Supports <code>use_figma</code>, <code>generate_figma_design</code>, <code>html_to_figma</code></td>
+        <td>Read-focused (canvas write tools are Remote-only)</td>
+      </tr>
+      <tr>
+        <td><strong>Best For</strong></td>
+        <td>Teams, cloud agents, CI workflows, Linux/remote VMs</td>
+        <td>Live designer-developer pairing on macOS/Windows</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Verified 2026 Client Configurations (Copy-Paste)</h3>
+  <div class="grid-2" style="gap:9px;">
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#312e81; margin-bottom:2px;">Claude Code &amp; Codex CLI (Remote Recommended)</div>
+      <pre class="code-block"><code># Claude Code (installs MCP + official Figma skills)
+claude plugin install figma@claude-plugins-official
+
+# Or add Remote MCP directly (user scope)
+claude mcp add --scope user --transport http \
+  figma https://mcp.figma.com/mcp
+
+# OpenAI Codex CLI
+codex mcp add figma --url https://mcp.figma.com/mcp</code></pre>
+    </div>
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#312e81; margin-bottom:2px;">Cursor / VS Code / Antigravity (<code>mcp.json</code>)</div>
+      <pre class="code-block"><code>{
+  "mcpServers": {
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
+    },
+    "figma-desktop": {
+      "url": "http://127.0.0.1:3845/mcp"
+    }
+  }
+}</code></pre>
+    </div>
+  </div>
+
+  <div class="callout violet" style="margin-top:2px;">
+    <div class="callout-title">Core Tool Reference: When Agents Call What</div>
+    <code>get_metadata</code> (cheap XML tree overview for huge files) &rarr; <code>get_design_context</code> (layout + React/Tailwind spec) &rarr; <code>get_variable_defs</code> (exact token definitions) &rarr; <code>get_code_connect_map</code> (real repo imports) &rarr; <code>get_screenshot</code> (visual ground truth) &rarr; <code>create_design_system_rules</code> (bootstraps <code>CLAUDE.md</code> / <code>.cursor/rules</code>).
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: DESIGN TOKENS, VARIABLES & CODE CONNECT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Design Tokens, Variables &amp; Code Connect</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">Bridging Variables &amp; Real Components with Code Connect v2</h2>
+  <p class="page-lead">
+    Without token alignment and Code Connect, Figma MCP emits raw Tailwind classes and custom <code>&lt;button&gt;</code> markup. Binding <strong>Figma Variables</strong> to CSS custom properties and publishing <strong>Code Connect v2 templates</strong> forces every coding agent to speak your exact design system.
+  </p>
+
+  <div class="grid-2">
+    <div>
+      <h3 style="margin-top:2px;">1. Two-Tier Figma Variables &rarr; Tailwind v4</h3>
+      <p style="font-size:8.2pt;">Structure Figma Variables into <strong>Primitives</strong> (<code>indigo-600</code>, <code>space-4</code>) and <strong>Semantic Tokens</strong> (<code>surface/elevated</code>, <code>text/muted</code>) with Light/Dark modes. Export to CSS so MCP maps names 1:1:</p>
+      <pre class="code-block"><code>/* src/styles/tokens.css (Tailwind v4 @theme) */
+@import "tailwindcss";
+
+@theme {
+  --color-surface-elevated: var(--ds-surface-elevated);
+  --color-brand-primary:    var(--ds-brand-primary);
+  --color-border-subtle:    var(--ds-border-subtle);
+  --radius-card:            0.75rem; /* 12px */
+  --spacing-card-pad:       1.25rem; /* 20px */
+}
+
+:root { --ds-surface-elevated: #ffffff; --ds-brand-primary: #4f46e5; }
+.dark { --ds-surface-elevated: #141526; --ds-brand-primary: #818cf8; }</code></pre>
+      <div class="card-tint" style="margin-top:5px;">
+        <div class="card-title" style="font-size:8.6pt;">Zero Hardcoded Hex Rule</div>
+        <p style="font-size:7.9pt; margin:0;">Run Figma's token audit before handoff. When every fill, stroke, radius, and gap is bound to a semantic Variable, <code>get_variable_defs</code> gives your agent exact token names instead of <code>bg-[#4F46E5]</code>.</p>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="margin-top:2px;">2. Code Connect v2 (Aug 2026 Template Standard)</h3>
+      <p style="font-size:8.2pt;">In August 2026, <code>@figma/code-connect@2.x</code> deprecated legacy framework-specific parsers. New repos use universal <strong>template files</strong> (<code>*.figma.ts</code>) or <strong>Code Connect UI</strong> inside Figma:</p>
+      <pre class="code-block"><code>// src/components/ui/Button.figma.ts (Code Connect v2)
+import figma from "@figma/code-connect";
+
+figma.connect(
+  "https://figma.com/design/DS123/Kit?node-id=12-40",
+  {
+    props: {
+      variant: figma.enum("Variant", {
+        Primary: "primary",
+        Ghost: "ghost",
+        Danger: "destructive",
+      }),
+      size: figma.enum("Size", { SM: "sm", MD: "md", LG: "lg" }),
+      label: figma.string("Label"),
+    },
+    example: ({ variant, size, label }) =&gt;
+      `import { Button } from "@/components/ui/button";\n` +
+      `&lt;Button variant="${variant}" size="${size}"&gt;${label}&lt;/Button&gt;`,
+  }
+);</code></pre>
+      <pre class="code-block" style="margin-top:4px;"><code># Interactive AI-assisted wizard &amp; CI publish
+npx figma connect            # fuzzy-matches repo components
+npx figma connect preview    # inspect rendered snippets locally
+npx figma connect publish    # push mappings to Dev Mode &amp; MCP</code></pre>
+    </div>
+  </div>
+
+  <h3>Code Connect UI vs. Code Connect CLI</h3>
+  <table class="clean-table" style="margin-top:3px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Method</th>
+        <th style="width:28%;">How It Works</th>
+        <th style="width:27%;">Best For</th>
+        <th style="width:25%;">AI Agent Benefit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Code Connect UI</strong></td>
+        <td>Link Figma components to GitHub repo paths directly in Figma's Inspect panel</td>
+        <td>Fast onboarding, designers adding AI usage notes without touching CLI</td>
+        <td>Exposes file paths &amp; custom AI instructions to MCP immediately</td>
+      </tr>
+      <tr>
+        <td><strong>Code Connect CLI v2</strong></td>
+        <td>Versioned <code>*.figma.ts</code> template files published via GitHub Actions on merge</td>
+        <td>Mature React/Tailwind, iOS, or Android libraries with strict prop contracts</td>
+        <td>Exact variant-to-prop rendering + zero drift on CI publish</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:4px;">
+    <div class="callout-title">80/20 Rollout Strategy: Map Only Your Top 20 Primitives First</div>
+    You do not need 100% library coverage to see massive MCP quality gains. Connecting <code>Button</code>, <code>Input</code>, <code>Select</code>, <code>Card</code>, <code>Dialog</code>, <code>Badge</code>, <code>Tabs</code>, and <code>Table</code> eliminates ~80% of duplicated component code across product PRs.
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: CLEAN FRAME HYGIENE & AUTO-LAYOUT FOR AI ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Clean Frame Hygiene &amp; Auto-Layout for AI</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">Frame Hygiene: How to Eliminate Div-Soup Output</h2>
+  <p class="page-lead">
+    Garbage in, <code>position: absolute</code> out. Figma MCP translates your literal node geometry into layout code. A five-minute Auto-Layout and layer-naming pass before handoff cuts agent cleanup time by 70%.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="Split comparison showing chaotic unaligned gray rectangles transforming through a glowing indigo prism into structured nested Auto-Layout frames with spacing guides" />
+    <div class="figure-caption">
+      <strong>Structural Fidelity = Code Quality:</strong> Unaligned groups force agents to emit fragile absolute pixel offsets; nested Auto-Layout frames map cleanly to <code>flex</code>, <code>grid</code>, and <code>gap-*</code>.
+    </div>
+  </div>
+
+  <h3>The 6 Deterministic Rules for AI-Ready Figma Frames</h3>
+  <div class="grid-2" style="gap:7px 11px; margin-top:3px;">
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">1</span> Auto-Layout Everywhere (Zero Loose Groups)</div>
+      <p style="font-size:7.9pt; margin:0;">Convert every <code>Group</code> into an Auto-Layout <code>Frame</code> (<code>Shift + A</code>). Use Horizontal/Vertical/Grid flows and explicit <code>Gap</code> values instead of manually nudged coordinates.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge violet">2</span> Explicit Fill / Hug / Fixed Resizing</div>
+      <p style="font-size:7.9pt; margin:0;">Set fluid containers to <strong>Fill container</strong> (<code>w-full flex-1</code>), badges/buttons to <strong>Hug contents</strong> (<code>w-fit</code>), and only icons or sidebars to <strong>Fixed</strong> pixel widths.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge coral">3</span> Semantic Layer Names = Clean JSX</div>
+      <p style="font-size:7.9pt; margin:0;">Name key containers by role: <code>NavHeader</code>, <code>MetricCard</code>, <code>ActionBar</code>. Agents use layer names to generate React component names, ARIA labels, and test IDs.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge amber">4</span> Flatten &amp; Componentize Icons</div>
+      <p style="font-size:7.9pt; margin:0;">Never leave multi-path vector icons ungrouped. Wrap each icon in a named component (<code>Icon/ArrowRight</code>) so MCP maps it to <code>lucide-react</code> instead of dumping 200 lines of inline SVG.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge emerald">5</span> Scope Extraction to Sub-Frames</div>
+      <p style="font-size:7.9pt; margin:0;">Passing an entire 14-section marketing page in one MCP call bloats context and degrades accuracy. Break work into section-level frames (Hero, PricingTable, Footer) and assemble sequentially.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge sky">6</span> Delete Hidden &amp; Scratch Layers</div>
+      <p style="font-size:7.9pt; margin:0;">Hidden layers (<code>opacity: 0</code> or toggled off) still appear in node metadata and confuse agents. Keep exploratory iterations on a separate <code>Scratch</code> page away from <code>Ready for Dev</code>.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:6px;">
+    <div class="callout-title">Before vs. After Hygiene Impact</div>
+    <strong>Messy Frame:</strong> <code>&lt;div className="relative w-[412px] h-[184px]"&gt;&lt;div className="absolute top-[23px] left-[19px] text-[#334155]"&gt;...</code><br/>
+    <strong>Clean Frame:</strong> <code>&lt;Card className="flex flex-col gap-4 p-5 bg-surface-elevated border-border-subtle"&gt;&lt;CardHeader&gt;...</code>
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; 5 Real-World Copy-Paste Recipes</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">5 Production-Tested Design-to-Code Recipes</h2>
+  <p class="page-lead">
+    Bookmark these five repeatable workflows. Each recipe pairs specific Figma MCP tool calls with repo constraints so Claude Code, Cursor, Codex, or Antigravity delivers reviewable diffs on the first pass.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:19%;">Recipe</th>
+        <th style="width:27%;">MCP Tools Triggered</th>
+        <th style="width:32%;">Core Goal</th>
+        <th style="width:22%;">Target Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Feature Screen Build</strong></td>
+        <td><code>get_metadata</code>, <code>get_design_context</code>, <code>get_code_connect_map</code></td>
+        <td>Implement a new multi-section view using existing UI primitives</td>
+        <td>Typed React page + Storybook story</td>
+      </tr>
+      <tr>
+        <td><strong>2. Token Sync PR</strong></td>
+        <td><code>get_variable_defs</code></td>
+        <td>Sync updated Figma brand colors/radii into Tailwind v4 <code>@theme</code></td>
+        <td><code>tokens.css</code> diff + dark mode parity</td>
+      </tr>
+      <tr>
+        <td><strong>3. Code-to-Canvas</strong></td>
+        <td><code>use_figma</code> / <code>html_to_figma</code> (Remote)</td>
+        <td>Push a refined coded UI back into Figma as editable frames</td>
+        <td>Synced Figma design frame</td>
+      </tr>
+      <tr>
+        <td><strong>4. Responsive Refactor</strong></td>
+        <td><code>get_design_context</code> (Desktop + Mobile URLs)</td>
+        <td>Reconcile desktop table &amp; mobile card-list breakpoints cleanly</td>
+        <td>Single responsive component</td>
+      </tr>
+      <tr>
+        <td><strong>5. DS Rules Bootstrap</strong></td>
+        <td><code>create_design_system_rules</code></td>
+        <td>Generate repo-wide agent rules from your Figma component kit</td>
+        <td><code>CLAUDE.md</code> / <code>.cursor/rules/figma.mdc</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Copy-Paste Prompts &amp; Repo Rules</h3>
+  <div class="grid-2" style="gap:9px;">
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#312e81; margin-bottom:2px;">Recipe 1: Scoped Feature Build (Claude Code / Cursor)</div>
+      <pre class="code-block"><code>Build the AnalyticsHeader from:
+https://figma.com/design/KEY/App?node-id=804-12
+
+1. Call get_design_context + get_variable_defs.
+2. Call get_code_connect_map and reuse components
+   from @/components/ui (do not recreate primitives).
+3. Use Tailwind v4 tokens from src/styles/tokens.css.
+4. Add unit test + call get_screenshot to verify
+   visual parity against localhost:3000.</code></pre>
+
+      <div style="font-size:8pt; font-weight:700; color:#312e81; margin:5px 0 2px 0;">Recipe 2: Automated Design Token Sync</div>
+      <pre class="code-block"><code>Run get_variable_defs on node-id=1-2 (Tokens page).
+Diff against src/styles/tokens.css.
+Update changed Light &amp; Dark CSS custom properties,
+preserve all Tailwind @theme aliases, and list any
+removed tokens still referenced in src/.</code></pre>
+    </div>
+
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#312e81; margin-bottom:2px;">Recipe 3: Code-to-Canvas Round-Trip (Remote MCP)</div>
+      <pre class="code-block"><code>Take the updated PricingTable in
+src/components/PricingTable.tsx (with the new
+Annual toggle we shipped in PR #418).
+Use the remote Figma MCP write tools (use_figma /
+html_to_figma) to create an editable frame in
+page "Synced From Prod" using our existing
+Variables and Auto-Layout conventions.</code></pre>
+
+      <div style="font-size:8pt; font-weight:700; color:#312e81; margin:5px 0 2px 0;">Recipe 5: Repo Rule (<code>.cursor/rules/figma-ds.mdc</code>)</div>
+      <pre class="code-block"><code>---
+description: Rules for all Figma MCP UI tasks
+globs: ["src/components/**/*.tsx", "src/app/**/*.tsx"]
+---
+- Always call get_variable_defs before writing CSS.
+- Never emit raw hex (#xxxxxx) or arbitrary px.
+- Prefer @/components/ui primitives over raw HTML.
+- Icons must import from lucide-react, never inline.
+- Verify output with Playwright vs get_screenshot.</code></pre>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:3px;">
+    <div class="callout-title">Pro Tip: Pair Recipe 5 with Official Figma Agent Skills</div>
+    Installing the official Figma plugin (<code>claude plugin install figma@claude-plugins-official</code> or <code>/add-plugin figma</code> in Cursor) bundles Figma's maintained skills for <code>use_figma</code> font loading, Auto-Layout ordering, and variable scoping&mdash;dramatically cutting write-tool errors.
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: GOVERNANCE, PERMISSIONS & DESIGN-SYSTEM DRIFT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Governance, Permissions &amp; Design-System Drift</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">Preventing Token Drift, Secret Leaks &amp; UI Decay</h2>
+  <p class="page-lead">
+    AI agents can generate five screens in an afternoon&mdash;which means they can also introduce five subtly different button paddings and hardcoded hex colors if you lack automated guardrails. Put these four governance controls in place before scaling across teams.
+  </p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Auth, Scopes &amp; Secret Hygiene</div>
+      <ul style="font-size:8.1pt; margin:0;">
+        <li><strong>Prefer OAuth over static PATs:</strong> Remote MCP (<code>https://mcp.figma.com/mcp</code>) uses browser OAuth tied to your org's SSO/SCIM&mdash;auto-revoking access when someone leaves.</li>
+        <li><strong>Least-privilege CI tokens:</strong> For headless <code>npx figma connect publish</code> in GitHub Actions, store a dedicated read/Code-Connect-scoped token in encrypted CI secrets, never in <code>.env</code> committed to git.</li>
+        <li><strong>Sandbox canvas writes:</strong> Restrict <code>use_figma</code> writes to a dedicated <code>AI-Synced</code> page or branch so agents never overwrite locked master design systems.</li>
+      </ul>
+    </div>
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge violet">2</span> Anti-Drift CI &amp; Lint Gates</div>
+      <ul style="font-size:8.1pt; margin:0;">
+        <li><strong>Ban raw hex &amp; arbitrary Tailwind values:</strong> Enable ESLint / Stylelint rules rejecting <code>bg-[#...]</code>, <code>p-[13px]</code>, or raw inline <code>style={{}}</code> in PRs.</li>
+        <li><strong>Code Connect CI sync:</strong> Run <code>npx figma connect publish --dry-run</code> on every design-system PR to catch broken component URLs or renamed props before merge.</li>
+        <li><strong>Visual regression on every PR:</strong> Pair Storybook + Chromatic or Playwright screenshot diffs to catch 2px regressions across Light/Dark and mobile viewports.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Design-to-Code Pull Request Review Gate</h3>
+  <table class="clean-table" style="margin-top:4px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Check Category</th>
+        <th style="width:36%;">Automated CI Check</th>
+        <th style="width:44%;">Human Reviewer Verification</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Token Integrity</strong></td>
+        <td>Lint blocks hardcoded hex colors &amp; non-scale spacing</td>
+        <td>Confirm Dark Mode &amp; high-contrast themes use semantic tokens</td>
+      </tr>
+      <tr>
+        <td><strong>Component Reuse</strong></td>
+        <td>Check imports against <code>@/components/ui</code> allowlist</td>
+        <td>Reject duplicate buttons, modals, or custom dropdown wrappers</td>
+      </tr>
+      <tr>
+        <td><strong>Accessibility</strong></td>
+        <td><code>axe-core</code> / Playwright a11y scan in Storybook CI</td>
+        <td>Tab through keyboard focus order, Esc-to-close, ARIA live regions</td>
+      </tr>
+      <tr>
+        <td><strong>Visual Parity</strong></td>
+        <td>Playwright / Chromatic snapshot diff vs. baseline</td>
+        <td>Side-by-side spot check against Figma frame + edge-case copy</td>
+      </tr>
+      <tr>
+        <td><strong>State Coverage</strong></td>
+        <td>Unit tests for loading, empty, and API error states</td>
+        <td>Verify optimistic UI, skeleton heights, and long-text truncation</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout coral" style="margin-top:5px;">
+    <div class="callout-title">Watch Out for Shadow Libraries &amp; Seat-Limit Bottlenecks</div>
+    When engineers run into Starter/View seat MCP limits (20 reads/mo), they often fall back to pasting screenshots or installing unvetted third-party MCP bridges that scrape files via personal tokens. Provision proper <strong>Dev seats</strong> and standardize on the official Remote MCP endpoint so security and rate-limit telemetry stay centralized.
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Pipeline</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Ship Loop: Figma &rarr; Linear &rarr; Agent &rarr; Vercel</h2>
+  <p class="page-lead">
+    Figma MCP reaches peak velocity when wired into your broader engineering loop. Here is how high-performing product teams connect design exploration, issue tracking, agentic implementation, and live preview URLs with zero status-meeting friction.
+  </p>
+
+  <div class="figure-box" style="background:#0f1024; padding:10px 12px; border-color:#4338ca;">
+    <svg viewBox="0 0 700 172" width="100%" height="172" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1: Figma -->
+      <rect x="6" y="16" width="154" height="140" rx="9" fill="#171636" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="83" y="34" text-anchor="middle" fill="#a5b4fc" font-size="7.3" font-weight="700">STAGE 1 &bull; DESIGN</text>
+      <text x="83" y="50" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Figma Make &amp; Kit</text>
+      <text x="83" y="69" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Prototype flow in Make</text>
+      <text x="83" y="83" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Bind semantic Variables</text>
+      <text x="83" y="97" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Mark Ready for Dev</text>
+      <rect x="20" y="114" width="126" height="28" rx="5" fill="#1e1b4b" stroke="#6366f1"/>
+      <text x="83" y="131" text-anchor="middle" fill="#e0e7ff" font-size="6.8" font-weight="700">Output: Node URL + Tokens</text>
+
+      <!-- Arrow -->
+      <path d="M160 86 L178 86" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="176,81 184,86 176,91" fill="#818cf8"/>
+
+      <!-- Box 2: Linear -->
+      <rect x="185" y="16" width="156" height="140" rx="9" fill="#171636" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="263" y="34" text-anchor="middle" fill="#ddd6fe" font-size="7.3" font-weight="700">STAGE 2 &bull; SPEC</text>
+      <text x="263" y="50" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Linear Issue</text>
+      <text x="263" y="69" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Embeds Figma Node URL</text>
+      <text x="263" y="83" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Lists API &amp; edge states</text>
+      <text x="263" y="97" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Acceptance criteria</text>
+      <rect x="199" y="114" width="128" height="28" rx="5" fill="#241a4a" stroke="#7c3aed"/>
+      <text x="263" y="131" text-anchor="middle" fill="#ede9fe" font-size="6.8" font-weight="700">Output: Scoped Ticket</text>
+
+      <!-- Arrow -->
+      <path d="M341 86 L359 86" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="357,81 365,86 357,91" fill="#a78bfa"/>
+
+      <!-- Box 3: Coding Agent -->
+      <rect x="366" y="16" width="156" height="140" rx="9" fill="#231433" stroke="#fb7185" stroke-width="1.5"/>
+      <text x="444" y="34" text-anchor="middle" fill="#fecdd3" font-size="7.3" font-weight="700">STAGE 3 &bull; BUILD</text>
+      <text x="444" y="50" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">MCP Coding Agent</text>
+      <text x="444" y="69" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Reads Linear + Figma MCP</text>
+      <text x="444" y="83" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Uses Code Connect UI kit</text>
+      <text x="444" y="97" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Self-checks screenshot</text>
+      <rect x="380" y="114" width="128" height="28" rx="5" fill="#321632" stroke="#f43f5e"/>
+      <text x="444" y="131" text-anchor="middle" fill="#ffe4e6" font-size="6.8" font-weight="700">Output: Draft GitHub PR</text>
+
+      <!-- Arrow -->
+      <path d="M522 86 L540 86" stroke="#fb7185" stroke-width="2"/>
+      <polygon points="538,81 546,86 538,91" fill="#fb7185"/>
+
+      <!-- Box 4: Vercel + Feedback -->
+      <rect x="547" y="16" width="147" height="140" rx="9" fill="#0d2624" stroke="#34d399" stroke-width="1.5"/>
+      <text x="620" y="34" text-anchor="middle" fill="#6ee7b7" font-size="7.3" font-weight="700">STAGE 4 &bull; SHIP</text>
+      <text x="620" y="50" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Vercel &amp; Sync</text>
+      <text x="620" y="69" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Live Preview URL + CI</text>
+      <text x="620" y="83" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Designer reviews live</text>
+      <text x="620" y="97" text-anchor="middle" fill="#cbd5e1" font-size="6.9">&bull; Sync tweaks to Figma</text>
+      <rect x="559" y="114" width="123" height="28" rx="5" fill="#113630" stroke="#10b981"/>
+      <text x="620" y="131" text-anchor="middle" fill="#d1fae5" font-size="6.8" font-weight="700">Output: Merged Prod UI</text>
+    </svg>
+  </div>
+
+  <h3>How Multi-MCP Orchestration Works in Practice</h3>
+  <div class="grid-3" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">1</span> Linear + Figma MCP</div>
+      <p style="font-size:7.9pt; margin:0;">Give your agent one command: <em>"Implement LIN-482."</em> It pulls acceptance criteria from Linear MCP, extracts the embedded Figma URL, fetches tokens via Figma MCP, and scaffolds the branch automatically.</p>
+    </div>
+    <div class="card-tint">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge violet">2</span> Playwright Visual Loop</div>
+      <p style="font-size:7.9pt; margin:0;">Instead of eyeballing layouts, pair Figma MCP with Playwright MCP. The agent renders the PR locally, screenshots <code>390px</code> and <code>1280px</code>, and diffs them against Figma's <code>get_screenshot</code>.</p>
+    </div>
+    <div class="card-coral">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge coral">3</span> Designer Live-PR Review</div>
+      <p style="font-size:7.9pt; margin:0;">Vercel posts a Preview URL on the PR. Designers test real hover states, keyboard nav, and responsive wrap in a real browser&mdash;then sync any final polish back to Figma via <code>use_figma</code>.</p>
+    </div>
+  </div>
+
+  <div class="card-dark" style="margin-top:8px;">
+    <div class="card-title" style="font-size:8.8pt;">One-Line Multi-MCP Orchestration Prompt</div>
+    <pre class="code-block" style="margin:3px 0 0 0; border-color:#6366f1;"><code>Fetch Linear issue LIN-482. Read the linked Figma node via Figma MCP (get_design_context, get_variable_defs, get_code_connect_map). Implement the UI in a new branch using @/components/ui, add Playwright tests at 1280px &amp; 390px, compare against get_screenshot, and open a draft PR with before/after screenshots.</code></pre>
+  </div>
+
+  <div class="callout" style="margin-top:6px;">
+    <div class="callout-title">Cultural Unlock: "No-Handoff" Live Pairing</div>
+    Because MCP compresses first-pass UI coding from hours to minutes, designers and engineers can pair on a single 20-minute call: tweak a spacing variable in Figma, re-run the agent, and review the live hot-reloaded component together before merging.
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Pre-Flight Checklist</span>
+    <span>Figma Make, Figma MCP &amp; Design-to-Code</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight</h2>
+  <p class="page-lead">
+    When an MCP call returns empty context, hardcoded colors, or missing write tools, the cause is almost always one of these seven misconfigurations. Diagnose in seconds, then run the 6-point pre-flight check before every sprint.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Symptom</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:45%;">Exact Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Agent outputs raw hex &amp; <code>p-[17px]</code></strong></td>
+        <td>Figma fills/gaps are unbound or agent skipped <code>get_variable_defs</code></td>
+        <td>Bind fills &amp; spacing to Figma Variables; add <em>"call get_variable_defs first"</em> to <code>CLAUDE.md</code> / <code>.cursor/rules</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Div soup &amp; <code>position: absolute</code></strong></td>
+        <td>Source frame uses loose Groups instead of nested Auto-Layout</td>
+        <td>Select containers in Figma, apply <code>Shift+A</code> (Auto-Layout), set Fill/Hug constraints, and re-extract.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Code Connect ignored by MCP</strong></td>
+        <td>Mappings unpublished, legacy v1 parser used, or wrong node URL</td>
+        <td>Upgrade to <code>@figma/code-connect@2.x</code> template files and run <code>npx figma connect publish</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. <code>use_figma</code> missing in tool list</strong></td>
+        <td>Connected to Desktop MCP instead of Remote MCP, or stale config</td>
+        <td>Switch endpoint to <code>https://mcp.figma.com/mcp</code>, reinstall official Figma plugin, and re-auth OAuth.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Rate limit / 429 error mid-sprint</strong></td>
+        <td>Engineer is on Starter or View/Collab seat (~20 read calls/mo)</td>
+        <td>Upgrade engineer to a <strong>Dev</strong> or <strong>Full</strong> seat and verify identity via MCP <code>whoami</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Context overflow on large page</strong></td>
+        <td>Whole-page URL passed directly to <code>get_design_context</code></td>
+        <td>Call <code>get_metadata</code> first, then extract one section node-ID at a time (Header, Grid, Modal).</td>
+      </tr>
+      <tr>
+        <td><strong>7. Inline 200-line SVGs for icons</strong></td>
+        <td>Icons are ungrouped vectors rather than named components</td>
+        <td>Wrap icons in named Figma components (<code>Icon/*</code>) and map to <code>lucide-react</code> in repo rules.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Design-to-Code Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Remote MCP Authenticated:</strong> Agent connected to <code>https://mcp.figma.com/mcp</code> on a Dev/Full seat; <code>whoami</code> succeeds.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Auto-Layout &amp; Naming Clean:</strong> Zero loose Groups, explicit Fill/Hug sizing, and semantic container names on the target frame.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Variables Bound 100%:</strong> Colors, spacing, and radii use semantic Figma Variables matching Tailwind v4 <code>@theme</code> tokens.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Core Primitives Connected:</strong> Top 20 UI components published via Code Connect v2 templates or Code Connect UI.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Repo Rules Committed:</strong> <code>CLAUDE.md</code> or <code>.cursor/rules</code> mandates component reuse, icon library imports, and zero raw hex.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Visual &amp; A11y Gate Wired:</strong> Agent verifies with <code>get_screenshot</code> + Playwright at <code>1280px</code>/<code>390px</code> and runs <code>axe-core</code> before PR.</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:8px;">
+    <div class="callout-title">Final Takeaway: Invest in the Bridge, Not Just the Prompt</div>
+    Teams that treat Figma Variables, Auto-Layout, and Code Connect v2 as shared engineering infrastructure turn Figma MCP into a compounding multiplier&mdash;shipping pixel-faithful, accessible React/Tailwind UI in a fraction of the time with zero design-system drift.
+  </div>
+
+  <div class="page-footer"><span>Figma Make, Figma MCP &amp; Design-to-Code &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>
