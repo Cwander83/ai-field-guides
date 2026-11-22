@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agent Auth, Identity &amp; Scoped Permissions: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AGENT SECURITY &amp; IDENTITY ARCHITECTURE &bull; FIELD GUIDE</div>
+    <h1>Agent Auth, Identity &amp; <span>Scoped</span> <em>Permissions</em></h1>
+    <p class="cover-sub">
+      Secure multi-tenant AI agents and MCP servers in production using OAuth 2.1 + PKCE, short-lived token brokering, least-privilege RBAC/ABAC scopes, human approval gates, and tamper-evident audit logs.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">OAuth 2.1 &amp; PKCE</span>
+      <span class="cover-badge">RFC 9728 &amp; CIMD</span>
+      <span class="cover-badge amber">Token Vaults &amp; OBO</span>
+      <span class="cover-badge amber">Least-Privilege Scopes</span>
+      <span class="cover-badge crimson">Confused Deputy Defense</span>
+      <span class="cover-badge crimson">Step-Up &amp; Audit Trails</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Isometric zero-trust AI agent identity and security vault hub with golden faceted key core, teal hexagonal shields, crimson perimeter boundaries, and isolated tenant nodes" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero Raw Secrets in Context</div>
+      <div class="cover-stat-desc">Keep OAuth refresh tokens and API keys inside server-side Token Vaults. Agents receive only short-lived, audience-bound credentials per tool call.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Dual-Identity Delegation</div>
+      <div class="cover-stat-desc">Bind every action to both the human principal (<code>sub</code>) and the acting agent (<code>act</code>) via RFC 8693 Token Exchange and strict RFC 8707 audience checks.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Blast-Radius Containment</div>
+      <div class="cover-stat-desc">Combine RBAC/ABAC scope ceilings, out-of-band human step-up approvals, Postgres RLS, and instant kill switches for SOC 2 &amp; EU AI Act readiness.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Zero-Trust Mental Model</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">Why Agent Auth Breaks Traditional API Keys</h2>
+  <p class="page-lead">
+    Traditional SaaS apps call APIs with deterministic code paths. Autonomous AI agents choose which tools to invoke at runtime, traverse multi-tenant data, and process untrusted external text. Handing an agent a static service key turns a single prompt injection into a full-tenant breach.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model: Zero-Trust Token Flow</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Defeating Confused Deputy &amp; Leaks</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Auth Pattern Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Auth &amp; MCP Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Identity &amp; Consent HUD</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Governance, Audit Trails &amp; Kill Switches</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. MCP OAuth 2.1 &amp; RFC 9728 Architecture</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Enterprise Auth Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. 5-Part Least-Privilege Policy Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Token Brokering &amp; Managed Vaults</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Rule: Scoped, Short-Lived, Auditable</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>The Production Agent Authorization Loop</h3>
+  <p style="font-size:8.5pt;">
+    In late-2026 production architectures, the LLM never touches credentials. Instead, an authenticated user grants narrow consent via OAuth 2.1, a server-side broker mints ephemeral audience-bound tokens, and every MCP server independently validates identity, scope, and tenant isolation before touching downstream APIs:
+  </p>
+
+  <div class="figure-box" style="background:#070d1e; padding:10px 10px; border-color:#1e3a5f;">
+    <svg viewBox="0 0 704 176" width="100%" height="176" xmlns="http://www.w3.org/2000/svg">
+      <!-- Node 1: User -->
+      <rect x="4" y="14" width="122" height="148" rx="8" fill="#0f1b38" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="65" y="31" text-anchor="middle" fill="#7dd3fc" font-size="7.1" font-weight="700">1. PRINCIPAL</text>
+      <text x="65" y="46" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Human User</text>
+      <rect x="12" y="56" width="106" height="42" rx="5" fill="#162447" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="65" y="72" text-anchor="middle" fill="#e0f2fe" font-size="7.1" font-weight="700">Authenticated Session</text>
+      <text x="65" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.5">SSO / Passkey / Org ID</text>
+      <rect x="12" y="106" width="106" height="44" rx="5" fill="#162447" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="65" y="122" text-anchor="middle" fill="#e0f2fe" font-size="7.1" font-weight="700">Prompt Intent</text>
+      <text x="65" y="135" text-anchor="middle" fill="#94a3b8" font-size="6.5">Bound to sub + tenant_id</text>
+
+      <!-- Arrow 1->2 -->
+      <path d="M126 88 L141 88" stroke="#38bdf8" stroke-width="1.8"/>
+      <polygon points="139,83.5 146,88 139,92.5" fill="#38bdf8"/>
+
+      <!-- Node 2: OAuth 2.1 Consent -->
+      <rect x="147" y="14" width="126" height="148" rx="8" fill="#0f1b38" stroke="#2dd4bf" stroke-width="1.5"/>
+      <text x="210" y="31" text-anchor="middle" fill="#5eead4" font-size="7.1" font-weight="700">2. AUTH SERVER</text>
+      <text x="210" y="46" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">OAuth 2.1 Consent</text>
+      <rect x="155" y="56" width="110" height="42" rx="5" fill="#112a38" stroke="#0d9488" stroke-width="0.9"/>
+      <text x="210" y="72" text-anchor="middle" fill="#ccfbf1" font-size="7.1" font-weight="700">PKCE (S256) + CIMD</text>
+      <text x="210" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.5">Verifies client &amp; redirect</text>
+      <rect x="155" y="106" width="110" height="44" rx="5" fill="#112a38" stroke="#14b8a6" stroke-width="0.9"/>
+      <text x="210" y="122" text-anchor="middle" fill="#ccfbf1" font-size="7.1" font-weight="700">Explicit Scope Grant</text>
+      <text x="210" y="135" text-anchor="middle" fill="#94a3b8" font-size="6.5">RFC 8707 resource=aud</text>
+
+      <!-- Arrow 2->3 -->
+      <path d="M273 88 L288 88" stroke="#2dd4bf" stroke-width="1.8"/>
+      <polygon points="286,83.5 293,88 286,92.5" fill="#2dd4bf"/>
+
+      <!-- Node 3: Scoped Token Broker -->
+      <rect x="294" y="14" width="128" height="148" rx="8" fill="#181c2e" stroke="#fbbf24" stroke-width="1.6"/>
+      <text x="358" y="31" text-anchor="middle" fill="#fde68a" font-size="7.1" font-weight="700">3. TOKEN VAULT</text>
+      <text x="358" y="46" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Scoped Broker</text>
+      <rect x="302" y="56" width="112" height="42" rx="5" fill="#27211d" stroke="#d97706" stroke-width="0.9"/>
+      <text x="358" y="72" text-anchor="middle" fill="#fef3c7" font-size="7.1" font-weight="700">Holds Refresh Tokens</text>
+      <text x="358" y="85" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Never enters LLM context</text>
+      <rect x="302" y="106" width="112" height="44" rx="5" fill="#27211d" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="358" y="122" text-anchor="middle" fill="#fef3c7" font-size="7.1" font-weight="700">RFC 8693 Exchange</text>
+      <text x="358" y="135" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Mints 5-15m sub+act JWT</text>
+
+      <!-- Arrow 3->4 -->
+      <path d="M422 88 L437 88" stroke="#fbbf24" stroke-width="1.8"/>
+      <polygon points="435,83.5 442,88 435,92.5" fill="#fbbf24"/>
+
+      <!-- Node 4: MCP Server -->
+      <rect x="443" y="14" width="126" height="148" rx="8" fill="#0f1b38" stroke="#fb7185" stroke-width="1.5"/>
+      <text x="506" y="31" text-anchor="middle" fill="#fecdd3" font-size="7.1" font-weight="700">4. RESOURCE SERVER</text>
+      <text x="506" y="46" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">MCP Server</text>
+      <rect x="451" y="56" width="110" height="42" rx="5" fill="#2a1426" stroke="#be123c" stroke-width="0.9"/>
+      <text x="506" y="72" text-anchor="middle" fill="#ffe4e6" font-size="7.1" font-weight="700">JWT &amp; Aud Guard</text>
+      <text x="506" y="85" text-anchor="middle" fill="#cbd5e1" font-size="6.5">No token passthrough</text>
+      <rect x="451" y="106" width="110" height="44" rx="5" fill="#2a1426" stroke="#e11d48" stroke-width="0.9"/>
+      <text x="506" y="122" text-anchor="middle" fill="#ffe4e6" font-size="7.1" font-weight="700">Policy + Step-Up</text>
+      <text x="506" y="135" text-anchor="middle" fill="#cbd5e1" font-size="6.5">HITL gate on writes</text>
+
+      <!-- Arrow 4->5 -->
+      <path d="M569 88 L584 88" stroke="#fb7185" stroke-width="1.8"/>
+      <polygon points="582,83.5 589,88 582,92.5" fill="#fb7185"/>
+
+      <!-- Node 5: Resource API -->
+      <rect x="590" y="14" width="110" height="148" rx="8" fill="#0f1b38" stroke="#14b8a6" stroke-width="1.5"/>
+      <text x="645" y="31" text-anchor="middle" fill="#5eead4" font-size="7.1" font-weight="700">5. DOWNSTREAM</text>
+      <text x="645" y="46" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Resource API</text>
+      <rect x="597" y="56" width="96" height="42" rx="5" fill="#112a38" stroke="#0d9488" stroke-width="0.9"/>
+      <text x="645" y="72" text-anchor="middle" fill="#ccfbf1" font-size="7.1" font-weight="700">Tenant RLS / API</text>
+      <text x="645" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.5">Row-level isolation</text>
+      <rect x="597" y="106" width="96" height="44" rx="5" fill="#112a38" stroke="#14b8a6" stroke-width="0.9"/>
+      <text x="645" y="122" text-anchor="middle" fill="#ccfbf1" font-size="7.1" font-weight="700">SIEM Audit Log</text>
+      <text x="645" y="135" text-anchor="middle" fill="#94a3b8" font-size="6.5">Hash-chained event</text>
+    </svg>
+  </div>
+
+  <div class="grid-3" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span>Identity != Authorization</div>
+      <p style="font-size:8pt; margin:0;">Knowing <em>who</em> the user is (OIDC) is only step one. Every tool call must check <em>what</em> this specific agent is allowed to do on <em>which</em> tenant record right now.</p>
+    </div>
+    <div class="card-amber">
+      <div class="card-title"><span class="num-badge amber">2</span>Ephemeral by Default</div>
+      <p style="font-size:8pt; margin:0;">Cap agent access tokens at <strong>5&ndash;15 minutes</strong>. Short TTLs neutralize stolen tokens and make policy changes or offboarding propagate almost instantly.</p>
+    </div>
+    <div class="card-crimson">
+      <div class="card-title"><span class="num-badge crimson">3</span>Trust Boundaries Hold</div>
+      <p style="font-size:8pt; margin:0;">Never accept <code>user_id</code> or <code>tenant_id</code> as LLM tool arguments. Derive identity strictly from cryptographically verified server-side JWT claims.</p>
+    </div>
+  </div>
+
+  <div class="callout navy" style="margin-top:6px;">
+    <div class="callout-title">The 2026 Industry Consensus: Governance at the Tool-Calling Layer</div>
+    Following MCP's move to the Linux Foundation's Agentic AI Foundation and the OWASP MCP Top 10, production security teams treat the <strong>MCP server boundary</strong>&mdash;not the prompt&mdash;as the primary enforcement point. Prompt instructions are advisory; OAuth 2.1 tokens, RBAC/ABAC policies, and database RLS are binding.
+  </div>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: AUTH PATTERN DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Auth Pattern Decision Matrix</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">Choosing the Right Agent Auth Architecture</h2>
+  <p class="page-lead">
+    No single OAuth flow fits every agent workload. Interactive chat copilots, multi-hop enterprise orchestrators, third-party SaaS connectors, and headless cron agents each demand a distinct credential pattern.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Auth Pattern</th>
+        <th style="width:12%;">Verdict</th>
+        <th style="width:24%;">Best-Fit Workload</th>
+        <th style="width:24%;">Identity &amp; Token Mechanics</th>
+        <th style="width:22%;">Primary Risk / Guardrail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Static API Keys</strong><br/>(Shared Env Secret)</td>
+        <td><span class="status-pill crimson">DON'T</span></td>
+        <td>Local single-user <code>stdio</code> dev prototypes only. Never multi-tenant prod.</td>
+        <td>Long-lived bearer string with broad org-wide admin rights; zero user attribution.</td>
+        <td>Total blast radius on leak; impossible per-user revocation or SOC 2 audit trail.</td>
+      </tr>
+      <tr>
+        <td><strong>OAuth 2.1 + PKCE</strong><br/>(Auth Code Flow)</td>
+        <td><span class="status-pill teal">DEFAULT</span></td>
+        <td>Interactive agents &amp; remote MCP servers acting for a live signed-in user.</td>
+        <td>RFC 9728 discovery + S256 PKCE + RFC 8707 <code>resource</code> binding to MCP server <code>aud</code>.</td>
+        <td>Must enforce exact <code>redirect_uri</code> &amp; per-client consent to block confused deputy.</td>
+      </tr>
+      <tr>
+        <td><strong>OBO Delegation</strong><br/>(RFC 8693 Exchange)</td>
+        <td><span class="status-pill navy">ENTERPRISE</span></td>
+        <td>Multi-hop agent &rarr; MCP server &rarr; internal microservices or sub-agents.</td>
+        <td>Exchanges upstream token for a narrower downstream JWT carrying <code>sub</code> (user) + <code>act</code> (agent).</td>
+        <td>Prevents token passthrough; enforce strict scope attenuation at every hop.</td>
+      </tr>
+      <tr>
+        <td><strong>Token Vaults</strong><br/>(Managed Broker)</td>
+        <td><span class="status-pill amber">SAAS TOOLS</span></td>
+        <td>Agents calling 3rd-party APIs (Gmail, Slack, GitHub, Linear, Salesforce).</td>
+        <td>Vault stores encrypted refresh tokens &amp; injects fresh short-lived access tokens at runtime.</td>
+        <td>Never return raw vault tokens to LLM; bind lookup strictly to verified session <code>sub</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Workload OIDC</strong><br/>(SPIFFE / M2M)</td>
+        <td><span class="status-pill teal">HEADLESS</span></td>
+        <td>Autonomous background agents (CI triage, nightly billing reconciliation).</td>
+        <td>Short-lived cryptographic workload JWT (AWS/GCP/Vercel OIDC or SPIFFE SVID), no user present.</td>
+        <td>Zero human session&mdash;require strict ABAC resource filters, spend caps, &amp; circuit breakers.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:5px 0 3.5px 0;">Fast Decision Heuristic: 4 Questions to Pick Your Stack</h3>
+  <div class="grid-2" style="gap:7px 10px;">
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge">Q1</span>Is a human user present at invocation?</div>
+      <p style="font-size:7.9pt; margin:0;"><strong>Yes &rarr;</strong> Use <strong>OAuth 2.1 + PKCE</strong> so permissions mirror the user's real RBAC role.<br/><strong>No (scheduled/webhook) &rarr;</strong> Use <strong>Service Workload OIDC</strong> with a dedicated non-human principal (e.g., <code>agent:nightly-triage</code>) and narrow read/write ceilings.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge amber">Q2</span>Does the agent call 3rd-party SaaS APIs?</div>
+      <p style="font-size:7.9pt; margin:0;"><strong>Yes &rarr;</strong> Never hand-roll encrypted refresh token tables. Use a managed <strong>Token Vault</strong> (Auth0 Token Vault, WorkOS, Vercel Connect) to handle OAuth consent, rotation, and revocation.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge navy">Q3</span>Does an MCP server call other internal APIs?</div>
+      <p style="font-size:7.9pt; margin:0;"><strong>Yes &rarr;</strong> Do <em>not</em> forward the client's bearer token. Perform <strong>RFC 8693 On-Behalf-Of Token Exchange</strong> to mint a downstream JWT scoped strictly to the target microservice.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge crimson">Q4</span>Can the tool mutate money, data, or prod?</div>
+      <p style="font-size:7.9pt; margin:0;"><strong>Yes &rarr;</strong> Standing OAuth tokens are insufficient. Layer <strong>Step-Up Human Approval</strong> (CIBA push, Slack/WebAuthn confirm) bound to the exact tool arguments hash.</p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin:5px 0 4px 0; padding:7px 10px;">
+    <div class="callout-title">Real-World Hybrid Pattern: Combine OAuth 2.1 Edge + Vault Downstream</div>
+    Most production AI apps use <strong>two layers</strong>: (1) Your app authenticates the user via OAuth 2.1 / OIDC to your remote MCP server, and (2) when a tool needs Slack or Linear, the MCP server asks a <strong>Token Vault</strong> for a 5-minute user-scoped downstream token. The LLM never sees either credential.
+  </div>
+
+  <div class="card-dark" style="margin-top:4px; padding:7.5px 10px;">
+    <div class="card-title" style="font-size:8.8pt;">Transport Rule from the MCP Specification (2026)</div>
+    <p style="font-size:7.9pt; color:#cbd5e1; margin:0;">
+      <strong>Streamable HTTP (Remote MCP):</strong> MUST implement OAuth 2.1 + RFC 9728 Protected Resource Metadata. &nbsp;&bull;&nbsp; <strong>Local <code>stdio</code> MCP:</strong> SHOULD NOT implement OAuth flows; read user-local credentials from environment variables or OS keychain instead.
+    </p>
+  </div>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INTERFACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">Inside an Agent Identity &amp; Scope Consent Console</h2>
+  <p class="page-lead">
+    Production agent platforms expose a dedicated security control plane where admins and end-users inspect active agent identities, narrow OAuth scopes, approve step-up requests, and pull instant kill switches.
+  </p>
+
+  <!-- 7-Control Mock HUD -->
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div style="display:flex; align-items:center; gap:9px;">
+        <div class="ui-dots"><span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span></div>
+        <span style="font-weight:700; color:#e2e8f0; font-size:7.6pt;">SentinelAuth &bull; Agent Identity &amp; MCP Governance Console</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:7px;">
+        <span class="hud-chip" style="background:#0f2937; color:#5eead4; border:1px solid #14b8a6;">Tenant: acme-prod-us1</span>
+        <span class="callout-pin">1</span>
+        <span class="hud-chip" style="background:#4c0519; color:#fecdd3; border:1px solid #e11d48;">REVOKE ALL SESSIONS</span>
+        <span class="callout-pin">7</span>
+      </div>
+    </div>
+
+    <div style="padding:8px 10px; display:grid; grid-template-columns: 1.05fr 1.25fr 1.15fr; gap:8px;">
+      <!-- Column 1: Agent Identity & OAuth Binding -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card" style="border-color:#0d9488;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#5eead4;">Active Principal Chain</strong>
+            <span class="callout-pin">2</span>
+          </div>
+          <div style="color:#cbd5e1;"><code>sub</code>: usr_94a2 (maya@acme.io)</div>
+          <div style="color:#cbd5e1;"><code>act</code>: agt_billing_v4 (MCP Client)</div>
+          <div style="color:#94a3b8; margin-top:2px;"><code>aud</code>: https://mcp.acme.io/billing</div>
+          <div style="margin-top:4px; display:flex; gap:4px; flex-wrap:wrap;">
+            <span class="hud-chip" style="background:#134e4a; color:#99f6e4;">PKCE S256</span>
+            <span class="hud-chip" style="background:#1e3a8a; color:#bfdbfe;">TTL: 08m 14s</span>
+          </div>
+        </div>
+
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#fde68a;">Token Vault Connections</strong>
+            <span class="callout-pin">3</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; color:#cbd5e1; margin-bottom:2px;">
+            <span>Stripe (OBO)</span><span style="color:#2dd4bf; font-weight:700;">Active &bull; Read</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; color:#cbd5e1; margin-bottom:2px;">
+            <span>Linear MCP</span><span style="color:#2dd4bf; font-weight:700;">Active &bull; Scoped</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; color:#94a3b8;">
+            <span>GitHub Prod</span><span style="color:#fb7185; font-weight:700;">Blocked by Policy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Scoped Permissions & Step-Up Gate -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card" style="border-color:#d97706;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#ffffff;">Granted Tool Scopes &amp; Ceilings</strong>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1e293b;">
+            <span><code>invoices:read</code></span><span style="color:#2dd4bf;">AUTO-ALLOW</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1e293b;">
+            <span><code>refunds:create</code> (&le;$250)</span><span style="color:#fbbf24;">STEP-UP HITL</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding:2px 0;">
+            <span><code>customers:export_pii</code></span><span style="color:#fb7185;">HARD DENY</span>
+          </div>
+        </div>
+
+        <div class="hud-card" style="background:#241222; border-color:#e11d48;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#fecdd3;">Pending Step-Up Approval</strong>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="color:#e2e8f0; margin-bottom:4px;">Tool: <code>stripe.issue_refund</code> &bull; Amt: <strong>$185.00</strong><br/>Target: <code>inv_8821</code> &bull; Hash: <code>9f4a...c21e</code></div>
+          <div style="display:flex; gap:6px;">
+            <span class="hud-chip" style="background:#0d9488; color:#ffffff;">Approve Once (WebAuthn)</span>
+            <span class="hud-chip" style="background:#be123c; color:#ffffff;">Deny &amp; Halt</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3: Live Audit Stream -->
+      <div class="hud-card" style="display:flex; flex-direction:column; justify-content:space-between; border-color:#38bdf8;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#7dd3fc;">Live Tamper-Evident Audit</strong>
+            <span class="callout-pin">6</span>
+          </div>
+          <div style="font-family:monospace; font-size:6.3pt; color:#cbd5e1; line-height:1.42;">
+            <div style="border-left:2px solid #2dd4bf; padding-left:5px; margin-bottom:4px;">
+              <span style="color:#5eead4;">14:02:11</span> ALLOW <code>invoices:read</code><br/>sub=usr_94a2 act=agt_bill rls=acme
+            </div>
+            <div style="border-left:2px solid #fbbf24; padding-left:5px; margin-bottom:4px;">
+              <span style="color:#fde68a;">14:02:18</span> CHALLENGE <code>refunds:create</code><br/>ciba_req=chk_771 waiting_human
+            </div>
+            <div style="border-left:2px solid #fb7185; padding-left:5px; margin-bottom:4px;">
+              <span style="color:#fda4af;">14:02:22</span> DENY <code>aud_mismatch</code><br/>blocked_passthrough &rarr; alert_siem
+            </div>
+            <div style="border-left:2px solid #38bdf8; padding-left:5px;">
+              <span style="color:#7dd3fc;">14:02:29</span> ROTATE <code>jti_44f9</code><br/>vault_exchange=ok ttl=600s
+            </div>
+          </div>
+        </div>
+        <div style="border-top:1px solid #1e3a5f; padding-top:3px; color:#94a3b8; font-size:6.2pt;">Chain SHA-256: <code>e3b0c442...98fc</code> &bull; SIEM Synced</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>7 Controls Every Production Agent Security Plane Needs</h3>
+  <div class="grid-2" style="gap:7px 11px;">
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge crimson">1</span>Tenant Isolation Context Pill</div>
+      <p style="font-size:7.8pt; margin:0;">Pins every policy view, token exchange, and audit filter to a verified <code>tenant_id</code> so operators and agents never cross workspace boundaries.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">2</span>Dual Principal Chain (<code>sub</code> + <code>act</code>)</div>
+      <p style="font-size:7.8pt; margin:0;">Displays both the delegating human and the specific agent version, plus RFC 8707 audience lock and remaining token TTL countdown.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge amber">3</span>Managed Token Vault Connectors</div>
+      <p style="font-size:7.8pt; margin:0;">Shows which third-party OAuth connections are active, read-only, or blocked&mdash;without ever exposing raw access or refresh secrets.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge amber">4</span>Scope Ceiling &amp; Policy Matrix</div>
+      <p style="font-size:7.8pt; margin:0;">Classifies every MCP tool into <strong>Auto-Allow</strong> (safe reads), <strong>Step-Up HITL</strong> (bounded writes), or <strong>Hard Deny</strong> (PII export / destructive ops).</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge crimson">5</span>Argument-Bound Step-Up Approval</div>
+      <p style="font-size:7.8pt; margin:0;">Locks human approval to a cryptographic hash of the exact tool arguments so a compromised agent cannot swap <code>$185</code> for <code>$18,500</code> post-approval.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge navy">6</span>Live Tamper-Evident Audit Stream</div>
+      <p style="font-size:7.8pt; margin:0;">Streams hash-chained allow/deny/challenge events directly to Datadog, Splunk, or SIEM with full <code>sub</code>, <code>act</code>, and <code>jti</code> correlation.</p>
+    </div>
+  </div>
+
+  <div class="callout crimson" style="margin-top:6px;">
+    <div class="callout-title"><span class="num-badge crimson" style="width:16px; height:16px; font-size:7pt; margin-right:5px;">7</span>Emergency Kill Switch (Revoke All Sessions)</div>
+    A single click must invalidate active refresh tokens, push revoked <code>jti</code> claims to edge caches, and trip the MCP gateway circuit breaker in under 2 seconds&mdash;halting runaway agent loops before damage compounds.
+  </div>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: MCP OAUTH 2.1 ARCHITECTURE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; MCP OAuth 2.1 Authorization Architecture</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">How Remote MCP Servers Enforce OAuth 2.1</h2>
+  <p class="page-lead">
+    The Model Context Protocol standardizes remote HTTP authentication on an <strong>OAuth 2.1 profile</strong>. The MCP server acts strictly as an <em>OAuth Resource Server</em>: it never handles passwords, never runs login UIs, and delegates token issuance to an external Authorization Server (AS).
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_1.jpg" alt="OAuth 2.1 cryptographic handshake with luminous teal lock prism, golden-amber key-exchange core, and isolated teal resource vaults" />
+    <div class="figure-caption">
+      <strong>Figure 5.1 &mdash; Cryptographic Handshake Boundary:</strong> Discovery via <code>RFC 9728</code>, PKCE + audience-bound issuance at the Authorization Server, and strict token validation at each isolated MCP Resource Server.
+    </div>
+  </div>
+
+  <h3>The 5-Step MCP Authorization Handshake (2026 Spec)</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:7%;">Step</th>
+        <th style="width:23%;">RFC / Mechanism</th>
+        <th style="width:70%;">Exact Production Behavior</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><strong>401 Challenge + RFC 9728</strong></td>
+        <td>Client calls <code>POST /mcp</code> without a token. Server replies <code>401 Unauthorized</code> with <code>WWW-Authenticate: Bearer resource_metadata="https://mcp.example.com/.well-known/oauth-protected-resource"</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><strong>Metadata Discovery</strong><br/>(RFC 9728 &amp; RFC 8414)</td>
+        <td>Client fetches Protected Resource Metadata to locate <code>authorization_servers</code> and supported scopes, then fetches AS metadata (<code>/.well-known/oauth-authorization-server</code>) to confirm <code>S256</code> PKCE support.</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><strong>Client Identity</strong><br/>(Pre-Reg, CIMD, or DCR)</td>
+        <td>Client identifies itself using pre-registration (internal apps), a <strong>Client ID Metadata Document (CIMD)</strong> hosted at an HTTPS URL matching <code>client_id</code>, or RFC 7591 Dynamic Client Registration (DCR).</td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><strong>PKCE + RFC 8707</strong><br/>Resource Indicator</td>
+        <td>User completes browser consent. Client sends <code>code_challenge</code> (S256) and <code>resource=https://mcp.example.com/mcp</code> so the AS locks the issued JWT's <code>aud</code> claim exclusively to that MCP server.</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><strong>Stateless JWT Verification</strong></td>
+        <td>MCP server verifies JWT signature via AS JWKS, checks <code>iss</code>, <code>exp</code>, exact <code>aud</code> match, and required tool <code>scope</code> before executing any <code>tools/call</code> handler.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title">CIMD vs. DCR: Why 2026 Favors CIMD</div>
+      <p style="font-size:7.9pt; margin:0;"><strong>Dynamic Client Registration (DCR)</strong> can pollute your IdP with thousands of anonymous client rows. <strong>CIMD</strong> lets an MCP client host a static JSON file at <code>https://app.co/oauth/client-metadata.json</code> as its <code>client_id</code>. Always guard CIMD fetches against SSRF and pin <code>redirect_uris</code>.</p>
+    </div>
+    <div class="card-crimson">
+      <div class="card-title">Mandatory Security Invariants</div>
+      <ul style="font-size:7.9pt; margin:0; padding-left:15px;">
+        <li><strong>PKCE S256 only</strong>&mdash;reject <code>plain</code> and un-PKCE'd flows.</li>
+        <li><strong>Strict <code>aud</code> match</strong>&mdash;reject tokens minted for other APIs.</li>
+        <li><strong>No wildcard redirects</strong>&mdash;exact scheme, host, and path.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: LEAST-PRIVILEGE SCOPES & POLICIES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Least-Privilege Scopes &amp; Policy Design</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">The 5-Part Agent Authorization Policy Anatomy</h2>
+  <p class="page-lead">
+    Coarse OAuth scopes like <code>crm:admin</code> or <code>read_write</code> give an agent keys to the kingdom. Production agent security pairs narrow OAuth scopes with a <strong>5-part runtime policy</strong> evaluated on every tool invocation.
+  </p>
+
+  <div class="card" style="background:#f8fafc; border:1.5px solid #0f1b38; padding:10px 12px; margin-bottom:8px;">
+    <div style="font-size:7.6pt; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#475569; margin-bottom:5px;">Color-Coded Runtime Policy Formula</div>
+    <p style="font-size:9pt; line-height:1.75; margin:0;">
+      Allow <span class="p-tag p-principal">1. Principal (sub=usr_94a2, act=agt_billing_v4, tenant=acme)</span> to execute <span class="p-tag p-action">2. Action (stripe.refund.create)</span> against <span class="p-tag p-resource">3. Resource (invoices where org_id == token.tenant_id AND status == 'paid')</span> subject to <span class="p-tag p-ceiling">4. Scope Ceiling (max $250/tx, 3/hr, TTL &le; 10m)</span> and require <span class="p-tag p-stepup">5. Step-Up Trigger (human WebAuthn/CIBA approval if amount &gt; $50)</span>.
+    </p>
+  </div>
+
+  <div class="grid-2" style="gap:8px 11px; margin-bottom:7px;">
+    <div class="card" style="border-left:3.5px solid #1e3a8a;">
+      <div class="card-title"><span class="p-tag p-principal" style="font-size:7.4pt;">1. PRINCIPAL</span> Dual Identity</div>
+      <p style="font-size:7.9pt; margin:0;">Bind policy to <em>both</em> the human (<code>sub</code>, org role) and the agent (<code>act</code>, model tier, client ID). A user's admin role should <strong>never</strong> automatically grant admin writes to an untrusted third-party agent.</p>
+    </div>
+    <div class="card" style="border-left:3.5px solid #0d9488;">
+      <div class="card-title"><span class="p-tag p-action" style="font-size:7.4pt;">2. ACTION</span> Verb-Level Tool Split</div>
+      <p style="font-size:7.9pt; margin:0;">Split MCP tools by risk class: <code>tickets:read</code>, <code>tickets:draft_reply</code>, and <code>tickets:send_external</code>. Never bundle read and destructive write capabilities inside one multipurpose tool.</p>
+    </div>
+    <div class="card" style="border-left:3.5px solid #475569;">
+      <div class="card-title"><span class="p-tag p-resource" style="font-size:7.4pt;">3. RESOURCE</span> Tenant &amp; Record Filter</div>
+      <p style="font-size:7.9pt; margin:0;">Enforce object-level checks (ABAC/ReBAC): the invoice, repo, or folder must belong to <code>jwt.tenant_id</code> and the user's explicit ACL group&mdash;verified server-side, never trusted from prompt text.</p>
+    </div>
+    <div class="card" style="border-left:3.5px solid #d97706;">
+      <div class="card-title"><span class="p-tag p-ceiling" style="font-size:7.4pt;">4. SCOPE CEILING</span> Hard Blast Radius</div>
+      <p style="font-size:7.9pt; margin:0;">Cap quantitative impact in code: maximum dollar amount, row count (<code>LIMIT 50</code>), rate limit per minute, and token lifetime (<code>exp - iat &le; 900s</code>). Ceilings stop prompt-injected loops cold.</p>
+    </div>
+  </div>
+
+  <div class="card-crimson" style="border-left:3.5px solid #be123c; margin-bottom:7px;">
+    <div class="card-title"><span class="p-tag p-stepup" style="font-size:7.4pt;">5. STEP-UP TRIGGER</span> Out-of-Band Human Approval Gate</div>
+    <p style="font-size:8pt; margin:0;">Any irreversible action&mdash;funds transfer, database deletion, permission grant, or external email/webhook&mdash;pauses execution and fires a signed approval challenge (WorkOS Step-Up, Auth0 CIBA, or Slack interactive card) bound to a SHA-256 hash of the exact tool parameters.</p>
+  </div>
+
+  <h3>RBAC vs. ABAC vs. ReBAC for Multi-Tenant Agents</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:16%;">Model</th>
+        <th style="width:28%;">What It Evaluates</th>
+        <th style="width:28%;">Best Agent Use Case</th>
+        <th style="width:28%;">Recommended Engine</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>RBAC</strong></td>
+        <td>Static org roles (<code>viewer</code>, <code>support</code>, <code>admin</code>) in JWT claims.</td>
+        <td>Tool allowlists &amp; coarse read vs. write tiering per agent persona.</td>
+        <td>IdP claims (Okta, WorkOS, Clerk, Auth0).</td>
+      </tr>
+      <tr>
+        <td><strong>ABAC</strong></td>
+        <td>Runtime attributes: <code>amount</code>, <code>env=prod</code>, <code>data_class=pii</code>, time.</td>
+        <td>Dynamic scope ceilings, spend limits, &amp; step-up triggers on tool args.</td>
+        <td>OPA (Rego), AWS Cedar, or TS policy guard.</td>
+      </tr>
+      <tr>
+        <td><strong>ReBAC</strong></td>
+        <td>Fine-grained object graph (User &rarr; Folder &rarr; Doc).</td>
+        <td>RAG &amp; MCP search across Google Drive, Notion, or multi-team repos.</td>
+        <td>OpenFGA, AuthZed (SpiceDB), WorkOS FGA.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: TOKEN BROKERING & VAULTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Token Brokering &amp; Managed Vaults</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">Token Vaults: Keeping Raw Credentials Out of LLM Context</h2>
+  <p class="page-lead">
+    The fastest way to leak customer OAuth tokens is passing them into agent state, tool outputs, or prompt memory. A <strong>Token Vault</strong> decouples credential storage from agent reasoning&mdash;storing encrypted refresh tokens centrally and injecting ephemeral access tokens only at the HTTP execution boundary.
+  </p>
+
+  <h3>Late-2026 Agent Token Vault &amp; Auth Platform Landscape</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:19%;">Platform</th>
+        <th style="width:26%;">Core Agent Capability</th>
+        <th style="width:28%;">MCP &amp; Delegation Support</th>
+        <th style="width:27%;">Best Fit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Auth0 for AI Agents</strong><br/>(Token Vault)</td>
+        <td>Encrypted 3rd-party OAuth storage (Google, Slack, GitHub), CIBA Async Auth, Agent as Principal.</td>
+        <td>GA Auth for MCP (OAuth 2.1 + CIMD + RFC 8693 OBO token exchange).</td>
+        <td>B2C/B2B SaaS needing turnkey 3rd-party vaults &amp; async push approvals.</td>
+      </tr>
+      <tr>
+        <td><strong>WorkOS</strong><br/>(AuthKit &amp; Agent Vault)</td>
+        <td>Enterprise SSO/SCIM, Step-Up Auth for agents, Fine-Grained Auth (FGA), &amp; Agent Vault.</td>
+        <td>Full OAuth 2.1 Authorization Server for remote MCP + signed-in browser sessions.</td>
+        <td>B2B enterprise apps selling into Okta/Entra ID customers with strict IT controls.</td>
+      </tr>
+      <tr>
+        <td><strong>Clerk</strong></td>
+        <td>Drop-in OAuth 2.1 consent UI, Org RBAC, session-bound JWTs, &amp; edge verification SDKs.</td>
+        <td>Native MCP OAuth provider &amp; <code>verifyToken</code> middleware for Next.js/Workers.</td>
+        <td>Product-led SaaS teams already on Clerk wanting rapid remote MCP auth.</td>
+      </tr>
+      <tr>
+        <td><strong>Stytch</strong><br/>(Connected Apps)</td>
+        <td>Drop-in OAuth 2.1 + Trusted Auth Tokens (layers onto any existing IdP/CIAM stack).</td>
+        <td>Full DCR &amp; CIMD support, org-level client allowlists, &amp; IT admin deduplication.</td>
+        <td>Teams with legacy/custom auth who want MCP OAuth without re-platforming.</td>
+      </tr>
+      <tr>
+        <td><strong>Vercel Connect</strong><br/>(<code>@vercel/connect</code>)</td>
+        <td>Managed OAuth/API credential broker for AI SDK; automatic OIDC &amp; proactive refresh.</td>
+        <td><code>connectAuthProvider</code> for <code>@ai-sdk/mcp</code> with <code>ConsentRequiredError</code> flow.</td>
+        <td>Next.js / Vercel AI SDK agents calling Linear, GitHub, &amp; remote MCP servers.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>4-Step Runtime Token Brokering Lifecycle</h3>
+  <div class="grid-2" style="gap:8px 11px; margin-bottom:7px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span>Derive Subject from Verified Session</div>
+      <p style="font-size:7.95pt; margin:0;">Extract <code>sub</code> and <code>tenant_id</code> from the authenticated HTTP session cookie or bearer JWT. Never read a user ID from the chat payload or LLM tool arguments.</p>
+    </div>
+    <div class="card-amber">
+      <div class="card-title"><span class="num-badge amber">2</span>Just-in-Time Vault Lookup</div>
+      <p style="font-size:7.95pt; margin:0;">Inside the server-side tool executor (not the LLM), request a token for <code>(sub, provider, required_scopes)</code>. If missing or revoked, throw a <code>ConsentRequiredError</code> and render an in-chat OAuth connect card.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge navy">3</span>Proactive Refresh &amp; Scope Narrowing</div>
+      <p style="font-size:7.95pt; margin:0;">The vault transparently rotates expiring tokens using its KMS-encrypted refresh token and returns a minimal, short-lived access token scoped only to the requested tool action.</p>
+    </div>
+    <div class="card-crimson">
+      <div class="card-title"><span class="num-badge crimson">4</span>Execute, Scrub &amp; Discard</div>
+      <p style="font-size:7.95pt; margin:0;">Inject the token into the outbound HTTPS <code>Authorization</code> header, execute the API call, scrub any auth headers or cookies from error traces, and discard the token from memory immediately.</p>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">Critical Rule: Never Hold a Streaming Request Open During OAuth Consent</div>
+    When a Token Vault signals missing user consent (e.g., Vercel Connect's <code>ConsentRequiredError</code>), terminate the current turn cleanly and return a structured consent URL to the UI. Once the user completes OAuth in the browser, start a fresh authenticated turn to resume the tool call.
+  </div>
+
+  <div class="card-dark" style="margin-top:5px;">
+    <div class="card-title" style="font-size:8.6pt;">Vault Storage Hygiene (If Self-Hosting)</div>
+    <p style="font-size:7.8pt; color:#cbd5e1; margin:0;">
+      Envelope-encrypt every refresh token with per-tenant KMS data keys (AES-256-GCM), enforce token rotation with reuse detection, log every vault read to SIEM, and never serialize credential objects into LangGraph/workflow checkpoints or Redis caches.
+    </p>
+  </div>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: DEFEATING CONFUSED DEPUTY & LEAKS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Threat Defense: Confused Deputy &amp; Tenant Leaks</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">Defeating Confused Deputy, Passthrough &amp; Cross-Tenant Leaks</h2>
+  <p class="page-lead">
+    The MCP Authorization Security Considerations highlight four high-severity failure modes that break multi-tenant isolation in real deployments. Every production MCP server must close all four.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="Crimson unauthorized attack beam shattering against a hexagonal teal and amber security shield while verified pathways enter hermetically sealed glass tenant chambers" />
+    <div class="figure-caption">
+      <strong>Figure 8.1 &mdash; Zero-Trust Perimeter Enforcement:</strong> Audience-bound validation, per-client consent binding, and database-level tenant isolation shatter confused deputy and cross-tenant exploits before they reach customer vaults.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:8px 10px; margin-top:4px;">
+    <div class="card" style="border-top:3px solid #be123c;">
+      <div class="card-title" style="color:#9f1239;">1. Confused Deputy on MCP Proxy</div>
+      <p style="font-size:7.75pt; margin:0 0 4px 0;"><strong>Attack:</strong> An MCP proxy uses a single static <code>client_id</code> to talk to an upstream IdP. A malicious agent crafts an auth link; because the victim already consented once, the upstream IdP silently issues a code to the attacker's redirect URI.</p>
+      <p style="font-size:7.75pt; margin:0; color:#0f766e;"><strong>Defense:</strong> Require explicit <strong>per-client consent</strong> on the proxy itself (bound via HttpOnly signed consent cookie + PKCE + <code>state</code>) before redirecting upstream, and forbid wildcard <code>redirect_uris</code>.</p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #d97706;">
+      <div class="card-title" style="color:#92400e;">2. Token Passthrough Anti-Pattern</div>
+      <p style="font-size:7.75pt; margin:0 0 4px 0;"><strong>Attack:</strong> An MCP server blindly forwards the client's bearer JWT to an upstream API. This bypasses downstream audience checks, breaks audit attribution, and lets a compromised tool replay the user's broad token elsewhere.</p>
+      <p style="font-size:7.75pt; margin:0; color:#0f766e;"><strong>Defense:</strong> Strictly forbidden by the MCP spec. Validate <code>aud == my_mcp_url</code> (RFC 8707) and use <strong>RFC 8693 OBO Token Exchange</strong> or a Token Vault to mint a separate downstream token.</p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #1e3a8a;">
+      <div class="card-title" style="color:#1e3a8a;">3. Cross-Tenant Context &amp; Cache Leak</div>
+      <p style="font-size:7.75pt; margin:0 0 4px 0;"><strong>Attack:</strong> A shared MCP connection pool, prompt cache, or vector index forgets to filter by tenant, or accepts <code>tenant_id</code> from an LLM tool argument&mdash;allowing prompt injection to query Tenant B's records.</p>
+      <p style="font-size:7.75pt; margin:0; color:#0f766e;"><strong>Defense:</strong> Strip <code>tenant_id</code> from tool schemas. Inject <code>SET LOCAL app.tenant_id = jwt.tenant_id</code> inside every Postgres transaction (RLS) and partition vector namespaces per tenant.</p>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0d9488;">
+      <div class="card-title" style="color:#115e59;">4. Tool Poisoning &amp; Shadow Escalation</div>
+      <p style="font-size:7.75pt; margin:0 0 4px 0;"><strong>Attack:</strong> Hidden instructions inside a 3rd-party MCP tool description or retrieved document coerce the LLM into invoking a high-privilege tool (e.g., reading SSH keys or exfiltrating CRM rows via webhook).</p>
+      <p style="font-size:7.75pt; margin:0; color:#0f766e;"><strong>Defense:</strong> Enforce a static <strong>per-agent tool allowlist</strong> at the gateway, pin tool schema hashes against rug-pulls, and require out-of-band Step-Up approval for any external egress or write.</p>
+    </div>
+  </div>
+
+  <div class="callout crimson" style="margin-top:6px;">
+    <div class="callout-title">Golden Defense-in-Depth Rule: Assume the LLM Is Compromisable</div>
+    Treat every tool call emitted by the model as <strong>untrusted user input</strong>. If an attacker takes full control of the LLM's reasoning via indirect prompt injection, your OAuth 2.1 audience lock, RBAC/ABAC scope ceiling, Step-Up gate, and Postgres RLS must still prevent unauthorized data access or mutation.
+  </div>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE AUTH & MIDDLEWARE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; 5 Real-World Copy-Paste Recipes</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">Production Auth &amp; MCP Middleware Snippets</h2>
+  <p class="page-lead" style="margin-bottom:6px; font-size:9pt;">
+    Drop these five battle-tested patterns into your TypeScript/Node.js MCP servers and Next.js agent routes to meet late-2026 OAuth 2.1, audience binding, and human-in-the-loop standards.
+  </p>
+
+  <table class="clean-table" style="font-size:7.6pt; margin:2px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:5%; padding:4px 7px;">#</th>
+        <th style="width:25%; padding:4px 7px;">Recipe</th>
+        <th style="width:37%; padding:4px 7px;">What It Solves</th>
+        <th style="width:33%; padding:4px 7px;">Key Standard / Primitive</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:3.5px 7px;"><strong>1</strong></td>
+        <td style="padding:3.5px 7px;"><strong>RFC 9728 PRM Endpoint</strong></td>
+        <td style="padding:3.5px 7px;">Zero-config OAuth discovery &amp; <code>401</code> challenge.</td>
+        <td style="padding:3.5px 7px;"><code>/.well-known/oauth-protected-resource</code></td>
+      </tr>
+      <tr>
+        <td style="padding:3.5px 7px;"><strong>2</strong></td>
+        <td style="padding:3.5px 7px;"><strong>JWT + Audience Guard</strong></td>
+        <td style="padding:3.5px 7px;">Verifies <code>iss</code>, <code>aud</code>, <code>exp</code>, &amp; tool <code>scope</code>.</td>
+        <td style="padding:3.5px 7px;"><code>jose</code> <code>jwtVerify()</code> + RFC 8707</td>
+      </tr>
+      <tr>
+        <td style="padding:3.5px 7px;"><strong>3</strong></td>
+        <td style="padding:3.5px 7px;"><strong>Step-Up Approval Gate</strong></td>
+        <td style="padding:3.5px 7px;">Pauses writes until human signs arg-hash.</td>
+        <td style="padding:3.5px 7px;">SHA-256 arg digest + CIBA / WebAuthn</td>
+      </tr>
+      <tr>
+        <td style="padding:3.5px 7px;"><strong>4</strong></td>
+        <td style="padding:3.5px 7px;"><strong>OBO Token Exchange</strong></td>
+        <td style="padding:3.5px 7px;">Replaces passthrough with scoped downstream JWT.</td>
+        <td style="padding:3.5px 7px;">RFC 8693 <code>grant-type:token-exchange</code></td>
+      </tr>
+      <tr>
+        <td style="padding:3.5px 7px;"><strong>5</strong></td>
+        <td style="padding:3.5px 7px;"><strong>Token Vault Boundary</strong></td>
+        <td style="padding:3.5px 7px;">Fetches SaaS tokens &amp; handles consent errors.</td>
+        <td style="padding:3.5px 7px;"><code>@vercel/connect</code> / Auth0 Token Vault</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:4px 0 2.5px 0; font-size:9.6pt;">Recipe 1: RFC 9728 Protected Resource Metadata &amp; 401 Challenge</h3>
+  <pre class="code-block" style="font-size:6.7pt; line-height:1.28; padding:5px 8px; margin:2px 0 4px 0;"><code><span class="code-cmt">// GET /.well-known/oauth-protected-resource  (Content-Type: application/json)</span>
+{ <span class="code-key">"resource"</span>: <span class="code-str">"https://mcp.acme.io/billing"</span>, <span class="code-key">"authorization_servers"</span>: [<span class="code-str">"https://auth.acme.io"</span>],
+  <span class="code-key">"scopes_supported"</span>: [<span class="code-str">"invoices:read"</span>, <span class="code-str">"refunds:create"</span>], <span class="code-key">"bearer_methods_supported"</span>: [<span class="code-str">"header"</span>] }
+<span class="code-cmt">// On missing/invalid token, return HTTP 401 with:</span>
+<span class="code-warn">WWW-Authenticate: Bearer resource_metadata="https://mcp.acme.io/.well-known/oauth-protected-resource"</span></code></pre>
+
+  <h3 style="margin:4px 0 2.5px 0; font-size:9.6pt;">Recipe 2: MCP Server JWT, Audience (<code>aud</code>) &amp; Scope Verification</h3>
+  <pre class="code-block" style="font-size:6.7pt; line-height:1.28; padding:5px 8px; margin:2px 0 4px 0;"><code><span class="code-key">import</span> { createRemoteJWKSet, jwtVerify } <span class="code-key">from</span> <span class="code-str">"jose"</span>;
+<span class="code-key">const</span> JWKS = createRemoteJWKSet(<span class="code-key">new</span> URL(<span class="code-str">"https://auth.acme.io/.well-known/jwks.json"</span>));
+<span class="code-key">export async function</span> verifyMcpToken(authHeader: string | undefined, requiredScope: string) {
+  <span class="code-key">const</span> token = authHeader?.replace(/^Bearer\s+/i, <span class="code-str">""</span>);
+  <span class="code-key">if</span> (!token) <span class="code-key">throw new</span> Error(<span class="code-str">"MISSING_BEARER_TOKEN"</span>);
+  <span class="code-key">const</span> { payload } = <span class="code-key">await</span> jwtVerify(token, JWKS, {
+    issuer: <span class="code-str">"https://auth.acme.io"</span>, audience: <span class="code-str">"https://mcp.acme.io/billing"</span>, clockTolerance: 5,
+  });
+  <span class="code-key">if</span> (!String(payload.scope ?? <span class="code-str">""</span>).split(<span class="code-str">" "</span>).includes(requiredScope)) <span class="code-key">throw new</span> Error(<span class="code-warn">"INSUFFICIENT_SCOPE"</span>);
+  <span class="code-key">return</span> { sub: String(payload.sub), act: (payload.act <span class="code-key">as</span> any)?.sub, tenantId: String(payload.tenant_id) };
+}</code></pre>
+
+  <h3 style="margin:4px 0 2.5px 0; font-size:9.6pt;">Recipe 3: Argument-Bound Step-Up Human Approval Middleware</h3>
+  <pre class="code-block" style="font-size:6.7pt; line-height:1.28; padding:5px 8px; margin:2px 0 4px 0;"><code><span class="code-key">import</span> { createHash } <span class="code-key">from</span> <span class="code-str">"crypto"</span>;
+<span class="code-key">export async function</span> requireStepUpApproval(ctx: { sub: string; tenantId: string }, tool: string, args: unknown) {
+  <span class="code-key">const</span> argsHash = createHash(<span class="code-str">"sha256"</span>).update(JSON.stringify(args)).digest(<span class="code-str">"hex"</span>);
+  <span class="code-key">const</span> apr = <span class="code-key">await</span> approvalsDb.findValid({ sub: ctx.sub, tenantId: ctx.tenantId, tool, argsHash });
+  <span class="code-key">if</span> (apr &amp;&amp; !apr.consumed) { <span class="code-key">await</span> approvalsDb.consumeOnce(apr.id); <span class="code-key">return</span> apr.id; }
+  <span class="code-key">const</span> ch = <span class="code-key">await</span> approvalsDb.createChallenge({ ...ctx, tool, argsHash, ttlSec: 300 });
+  <span class="code-key">return</span> { status: <span class="code-warn">"APPROVAL_REQUIRED"</span>, approvalUrl: ch.url, expiresIn: 300 };
+}</code></pre>
+
+  <div class="callout" style="margin:4px 0 0 0; padding:6px 10px; font-size:8.1pt;">
+    <div class="callout-title" style="font-size:8.4pt;">Pro Tip for Recipes 4 &amp; 5 (OBO + Token Vaults)</div>
+    When calling downstream APIs from an MCP handler, pass <code>grant_type=urn:ietf:params:oauth:grant-type:token-exchange</code> with <code>subject_token</code> + target <code>resource</code>, or call <code>connectAuthProvider</code> / Auth0 Token Vault with verified <code>ctx.sub</code>. Never forward the inbound <code>Authorization</code> header.
+  </div>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: ENTERPRISE GOVERNANCE & AUDIT TRAILS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Enterprise Governance, Audit Trails &amp; Kill Switches</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">Tamper-Evident Audit Logs &amp; Instant Kill Switches</h2>
+  <p class="page-lead">
+    When an enterprise CISO asks, <em>&ldquo;Which human authorized this agent to issue a refund at 2:14 AM, and how do we stop it in 2 seconds?&rdquo;</em>, your audit schema and revocation architecture must answer with cryptographic certainty.
+  </p>
+
+  <h3>Structured Dual-Identity Audit Event (Hash-Chained JSON)</h3>
+  <pre class="code-block"><code>{
+  <span class="code-key">"event_id"</span>: <span class="code-str">"evt_01JCY9M4K2..."</span>,          <span class="code-key">"timestamp"</span>: <span class="code-str">"2026-11-22T14:02:18.412Z"</span>,
+  <span class="code-key">"tenant_id"</span>: <span class="code-str">"acme-prod-us1"</span>,             <span class="code-key">"trace_id"</span>: <span class="code-str">"trc_88f1a2c90b"</span>,
+  <span class="code-key">"principal_sub"</span>: <span class="code-str">"usr_94a2"</span>,             <span class="code-key">"actor_agent_id"</span>: <span class="code-str">"agt_billing_v4"</span>,
+  <span class="code-key">"token_jti"</span>: <span class="code-str">"jti_44f9c120"</span>,             <span class="code-key">"mcp_tool"</span>: <span class="code-str">"stripe.issue_refund"</span>,
+  <span class="code-key">"args_sha256"</span>: <span class="code-str">"9f4a8b12...c21e"</span>,        <span class="code-key">"policy_decision"</span>: <span class="code-str">"ALLOW_WITH_STEP_UP"</span>,
+  <span class="code-key">"approval_id"</span>: <span class="code-str">"apr_7710_webauthn"</span>,      <span class="code-key">"prev_event_sha256"</span>: <span class="code-str">"e3b0c442...98fc"</span>
+}</code></pre>
+
+  <div class="grid-3" style="margin-top:4px; margin-bottom:7px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">T1</span>Tool Circuit Breaker</div>
+      <p style="font-size:7.8pt; margin:0;">Disable a single compromised or noisy MCP tool globally via feature flag in &lt;1s without disrupting read-only agent workflows.</p>
+    </div>
+    <div class="card-amber">
+      <div class="card-title"><span class="num-badge amber">T2</span>Session &amp; JTI Revoke</div>
+      <p style="font-size:7.8pt; margin:0;">Revoke a user's refresh token at the IdP + push active <code>jti</code> into a Redis/edge denylist so short-lived JWTs die immediately.</p>
+    </div>
+    <div class="card-crimson">
+      <div class="card-title"><span class="num-badge crimson">T3</span>Tenant Emergency Freeze</div>
+      <p style="font-size:7.8pt; margin:0;">One-click org-level kill switch halts all autonomous agent traffic and suspends Token Vault exchanges during an incident.</p>
+    </div>
+  </div>
+
+  <h3>Compliance Mapping: SOC 2, ISO 27001, NIST &amp; EU AI Act (2026)</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Framework</th>
+        <th style="width:36%;">Enterprise Auditor Requirement</th>
+        <th style="width:44%;">How This Agent Auth Architecture Satisfies It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>SOC 2 Type II</strong><br/>(CC6.1 / CC6.3)</td>
+        <td>Logical access controls, least-privilege provisioning, &amp; timely offboarding.</td>
+        <td>SCIM/SSO deprovisioning immediately invalidates OAuth refresh tokens; 10-min JWT TTL caps residual window.</td>
+      </tr>
+      <tr>
+        <td><strong>ISO/IEC 27001</strong><br/>(A.5.15 / A.8.15)</td>
+        <td>Unique actor attribution &amp; tamper-protected security event logging.</td>
+        <td>Every log carries <code>sub</code> + <code>act</code> + <code>args_sha256</code>, streamed to WORM/append-only SIEM storage with hash chaining.</td>
+      </tr>
+      <tr>
+        <td><strong>EU AI Act</strong><br/>(Art. 12 &amp; 14)</td>
+        <td>Automatic event logging &amp; effective human oversight for high-risk actions.</td>
+        <td>Mandatory Step-Up HITL approval gates on financial/legal mutations + immutable approval receipts linked to <code>trace_id</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>NIST AI Agent</strong><br/>Standards (2026)</td>
+        <td>Verifiable non-human identity, delegation chains, &amp; bounded autonomy.</td>
+        <td>RFC 8693 delegation tokens + explicit 5-part scope ceilings + centralized MCP gateway inventory.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout navy" style="margin-top:5px;">
+    <div class="callout-title">PII &amp; Secret Redaction Before SIEM Ingestion</div>
+    Never log raw tool payloads or bearer tokens into audit logs. Store a <strong>SHA-256 hash</strong> of the canonicalized arguments (<code>args_sha256</code>) alongside safe metadata (<code>amount</code>, <code>record_id</code>, <code>tool_name</code>) so auditors can prove integrity without turning your SIEM into a PII honey pot.
+  </div>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Enterprise Auth Pipeline</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Multi-Tenant Agent Security Pipeline</h2>
+  <p class="page-lead">
+    Real production reliability comes from wiring four specialized layers together so no single layer bears the full burden of security: Enterprise IdP &rarr; Token Vault &rarr; Remote MCP Gateway &rarr; Postgres RLS + SIEM.
+  </p>
+
+  <!-- Inline SVG End-to-End Architecture -->
+  <div class="figure-box" style="background:#070d1e; padding:10px 10px; border-color:#1e3a5f; margin-bottom:8px;">
+    <svg viewBox="0 0 704 198" width="100%" height="198" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top Row: 4 Primary Stages -->
+      <rect x="6" y="12" width="156" height="114" rx="8" fill="#0f1b38" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="84" y="29" text-anchor="middle" fill="#7dd3fc" font-size="7.2" font-weight="700">LAYER 1 &bull; IDENTITY</text>
+      <text x="84" y="45" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Okta / Entra ID</text>
+      <text x="84" y="63" text-anchor="middle" fill="#cbd5e1" font-size="7.1">SAML/OIDC SSO + SCIM</text>
+      <text x="84" y="77" text-anchor="middle" fill="#cbd5e1" font-size="7.1">MFA &amp; Org Group Claims</text>
+      <rect x="18" y="88" width="132" height="27" rx="4" fill="#162447" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="84" y="105" text-anchor="middle" fill="#e0f2fe" font-size="6.9" font-weight="700">Source of Truth for sub</text>
+
+      <path d="M162 69 L180 69" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="178,64 186,69 178,74" fill="#38bdf8"/>
+
+      <rect x="187" y="12" width="156" height="114" rx="8" fill="#181c2e" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="265" y="29" text-anchor="middle" fill="#fde68a" font-size="7.2" font-weight="700">LAYER 2 &bull; BROKER</text>
+      <text x="265" y="45" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">WorkOS / Auth0 Vault</text>
+      <text x="265" y="63" text-anchor="middle" fill="#cbd5e1" font-size="7.1">OAuth 2.1 AS + CIMD</text>
+      <text x="265" y="77" text-anchor="middle" fill="#cbd5e1" font-size="7.1">3rd-Party Refresh Vault</text>
+      <rect x="199" y="88" width="132" height="27" rx="4" fill="#27211d" stroke="#d97706" stroke-width="0.9"/>
+      <text x="265" y="105" text-anchor="middle" fill="#fef3c7" font-size="6.9" font-weight="700">Mints 10m OBO + aud JWT</text>
+
+      <path d="M343 69 L361 69" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="359,64 367,69 359,74" fill="#fbbf24"/>
+
+      <rect x="368" y="12" width="156" height="114" rx="8" fill="#0f1b38" stroke="#2dd4bf" stroke-width="1.5"/>
+      <text x="446" y="29" text-anchor="middle" fill="#5eead4" font-size="7.2" font-weight="700">LAYER 3 &bull; ENFORCE</text>
+      <text x="446" y="45" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Remote MCP Server</text>
+      <text x="446" y="63" text-anchor="middle" fill="#cbd5e1" font-size="7.1">JWKS + aud + Scope Check</text>
+      <text x="446" y="77" text-anchor="middle" fill="#cbd5e1" font-size="7.1">OPA/Cedar + Step-Up Gate</text>
+      <rect x="380" y="88" width="132" height="27" rx="4" fill="#112a38" stroke="#0d9488" stroke-width="0.9"/>
+      <text x="446" y="105" text-anchor="middle" fill="#ccfbf1" font-size="6.9" font-weight="700">Zero Passthrough Boundary</text>
+
+      <path d="M524 69 L542 69" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="540,64 548,69 540,74" fill="#2dd4bf"/>
+
+      <rect x="549" y="12" width="149" height="114" rx="8" fill="#0f1b38" stroke="#fb7185" stroke-width="1.5"/>
+      <text x="623" y="29" text-anchor="middle" fill="#fecdd3" font-size="7.2" font-weight="700">LAYER 4 &bull; DATA &amp; LOG</text>
+      <text x="623" y="45" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Postgres RLS + SIEM</text>
+      <text x="623" y="63" text-anchor="middle" fill="#cbd5e1" font-size="7.1">SET LOCAL app.tenant_id</text>
+      <text x="623" y="77" text-anchor="middle" fill="#cbd5e1" font-size="7.1">Append-Only Audit Sink</text>
+      <rect x="560" y="88" width="127" height="27" rx="4" fill="#2a1426" stroke="#be123c" stroke-width="0.9"/>
+      <text x="623" y="105" text-anchor="middle" fill="#ffe4e6" font-size="6.9" font-weight="700">Hard Tenant Isolation</text>
+
+      <!-- Bottom Feedback Bus: Revocation & Telemetry -->
+      <rect x="6" y="142" width="692" height="44" rx="7" fill="#111c36" stroke="#475569" stroke-width="1.1" stroke-dasharray="4 3"/>
+      <text x="352" y="160" text-anchor="middle" fill="#f8fafc" font-size="8" font-weight="700">CONTINUOUS CONTROL PLANE: JTI REVOCATION BUS &bull; ANOMALY DETECTION &bull; SCIM OFFBOARDING</text>
+      <text x="352" y="175" text-anchor="middle" fill="#94a3b8" font-size="7.1">Employee offboarded in Okta &rarr; SCIM webhook revokes Vault tokens &rarr; Edge JTI denylist blocks MCP in &lt;2s &rarr; SIEM records closure</text>
+    </svg>
+  </div>
+
+  <h3>Stage-by-Stage Latency &amp; Security Budget</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Pipeline Stage</th>
+        <th style="width:14%;">Added Latency</th>
+        <th style="width:32%;">Cryptographic / Policy Guarantee</th>
+        <th style="width:32%;">Failure Mode Behavior (Fail-Closed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. IdP SSO &amp; SCIM</strong></td>
+        <td>0ms (cached)</td>
+        <td>Enterprise MFA &amp; authoritative org membership.</td>
+        <td>SCIM delete event immediately suspends all agent grants.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Token Vault / AS</strong></td>
+        <td>15&ndash;45ms (cached)</td>
+        <td>KMS-encrypted refresh storage; RFC 8707 <code>aud</code> lock.</td>
+        <td>Returns <code>ConsentRequiredError</code>; never falls back to shared key.</td>
+      </tr>
+      <tr>
+        <td><strong>3. MCP Gateway</strong></td>
+        <td>3&ndash;8ms (local JWKS)</td>
+        <td>Stateless JWT verify + ABAC ceiling + tool allowlist.</td>
+        <td>Returns <code>401/403</code> with RFC 9728 metadata; logs deny event.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Postgres RLS + SIEM</strong></td>
+        <td>&lt;2ms (index)</td>
+        <td>Kernel-level row filtering even if app SQL has a bug.</td>
+        <td>Missing <code>app.tenant_id</code> session var returns 0 rows (default deny).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:5px;">
+    <div class="card-tint">
+      <div class="card-title">Postgres RLS Snippet for MCP Handlers</div>
+      <pre class="code-block" style="margin:3px 0 0 0;"><code><span class="code-key">CREATE POLICY</span> tenant_isolation <span class="code-key">ON</span> invoices
+  <span class="code-key">USING</span> (tenant_id = current_setting(<span class="code-str">'app.tenant_id'</span>, true));
+<span class="code-cmt">-- Inside every verified MCP DB transaction:</span>
+<span class="code-key">SET LOCAL</span> app.tenant_id = $1; <span class="code-cmt">-- from verified JWT only</span></code></pre>
+    </div>
+    <div class="card-amber">
+      <div class="card-title">Why This Stack Wins Enterprise Security Reviews</div>
+      <p style="font-size:7.95pt; margin:0;">You add under <strong>55ms</strong> of auth overhead per tool call while eliminating the top 4 reasons enterprise agent pilots stall in InfoSec review: shared credentials, missing user attribution, cross-tenant SQL risk, and unrevokable background sessions.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Production Pre-Flight</span>
+    <span>Agent Auth, Identity &amp; Scoped Permissions</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight</h2>
+  <p class="page-lead">
+    Most MCP and agent auth outages stem from seven predictable misconfigurations. Bookmark this clinic to diagnose <code>401</code> loops, audience rejections, and consent failures in minutes.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Symptom</th>
+        <th style="width:34%;">Root Cause</th>
+        <th style="width:42%;">Exact Production Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Infinite 401 Discovery Loop</strong></td>
+        <td>Missing <code>resource_metadata</code> param in <code>WWW-Authenticate</code> header or CORS blocked.</td>
+        <td>Return exact RFC 9728 URL in <code>401</code> header and enable <code>Access-Control-Allow-Origin</code> on <code>/.well-known/*</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. <code>aud</code> Claim Mismatch</strong></td>
+        <td>Trailing slash mismatch (<code>/mcp</code> vs <code>/mcp/</code>) or client omitted RFC 8707 <code>resource</code>.</td>
+        <td>Canonicalize the MCP server URI identically across PRM metadata, AS audience config, and <code>jwtVerify()</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3. CIMD Fetch Rejected</strong></td>
+        <td><code>client_id</code> URL lacks a path component or fails AS SSRF/private-IP blocklist.</td>
+        <td>Host CIMD JSON at a public HTTPS path (e.g., <code>/oauth/client-metadata.json</code>) matching <code>client_id</code> verbatim.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Mid-Run 401 After Revoke</strong></td>
+        <td>User revoked 3rd-party OAuth in Slack/Vercel while agent held a cached token.</td>
+        <td>Catch upstream <code>401</code> at tool boundary, evict vault cache, and return a clean re-consent link to the user.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Step-Up Approval Replay</strong></td>
+        <td>Approval token wasn't bound to arguments or wasn't marked single-use.</td>
+        <td>Hash canonical JSON args (<code>args_sha256</code>) into the approval record and atomically consume on first execution.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Cross-Tenant Empty / Leak</strong></td>
+        <td>Connection pool reused a previous request's Postgres <code>SET</code> session variable.</td>
+        <td>Always use <code>SET LOCAL app.tenant_id</code> inside an explicit <code>BEGIN ... COMMIT</code> transaction block.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Raw Token in LLM Trace</strong></td>
+        <td>Tool error serializer dumped full Axios/fetch request headers into tool output.</td>
+        <td>Strip <code>Authorization</code>, <code>Cookie</code>, and <code>x-api-key</code> headers in an outbound error interceptor before returning to LLM.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Production Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>OAuth 2.1 + RFC 9728 Live:</strong> Remote MCP returns valid PRM JSON, enforces <code>S256</code> PKCE, and rejects any JWT without exact <code>aud</code> match.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>Zero Token Passthrough:</strong> Verified that inbound client JWTs are never forwarded to upstream APIs; OBO exchange or Token Vault is used instead.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>Vault &amp; Context Isolation:</strong> Confirmed zero refresh tokens or API keys appear in LLM prompts, tool responses, or workflow checkpoints.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>Scope Ceilings &amp; Step-Up:</strong> Every mutating tool has hard rate/dollar caps and triggers argument-bound human approval above threshold.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>Multi-Tenant RLS Verified:</strong> Integration test proves an authenticated Tenant A agent receives 0 rows when prompted to fetch Tenant B IDs.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>Kill Switch &amp; SIEM Tested:</strong> Simulated session revocation halts active agent tool calls in &lt;2s and writes a hash-chained <code>sub+act</code> audit event.</div>
+    </div>
+  </div>
+
+  <div class="card-dark" style="margin-top:8px; display:flex; justify-content:space-between; align-items:center; gap:12px;">
+    <div>
+      <div class="card-title" style="margin-bottom:2px; color:#2dd4bf;">The Golden Rule of Production Agent Identity</div>
+      <p style="font-size:8pt; color:#cbd5e1; margin:0;">
+        Give every agent the <strong>smallest scope</strong>, for the <strong>shortest lifetime</strong>, bound to a <strong>verifiable human + agent identity chain</strong>&mdash;and assume the prompt layer can always be tricked.
+      </p>
+    </div>
+    <div style="text-align:right; flex-shrink:0;">
+      <span class="hud-chip" style="background:#134e4a; color:#99f6e4; border:1px solid #2dd4bf; font-size:7.3pt;">READY FOR PROD</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Agent Auth, Identity &amp; Scoped Permissions &bull; Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

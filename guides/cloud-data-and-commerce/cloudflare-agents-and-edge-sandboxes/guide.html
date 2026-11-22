@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cloudflare Agents, Workers AI &amp; Sandboxes: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">CLOUD DATA &amp; EDGE AI ARCHITECTURE &bull; FIELD GUIDE</div>
+    <h1>Cloudflare Agents, Workers AI &amp; <span>Sandboxes</span></h1>
+    <p class="cover-sub">
+      Deploy stateful, globally distributed AI agents on the Cloudflare edge using the Cloudflare Agents SDK, Durable Objects SQLite state, Workflows, AI Gateway, Workers AI, and Container Sandboxes.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Agents SDK &amp; Durable Objects</span>
+      <span class="cover-badge">Embedded SQLite &amp; WebSockets</span>
+      <span class="cover-badge">Remote MCP &amp; OAuth 2.1</span>
+      <span class="cover-badge">Sandbox SDK 1.0 &amp; Containers</span>
+      <span class="cover-badge">AI Gateway &amp; Workers AI</span>
+      <span class="cover-badge">Cloudflare Workflows</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Global edge computing network with luminous amber data streams connecting deep slate-indigo hexagonal edge nodes around a stylized globe" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Stateful Edge Agents</div>
+      <div class="cover-stat-desc">Every <code>Agent</code> runs as a globally addressable Durable Object with private SQLite storage, hibernatable WebSockets, and durable alarms.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Isolated Code Execution</div>
+      <div class="cover-stat-desc">Pair sub-millisecond Dynamic Workers with <code>ctx.container</code> &amp; Sandbox SDK 1.0 to run untrusted Node, Python, and shell workloads safely.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Unified AI Control Plane</div>
+      <div class="cover-stat-desc">Route across Workers AI and 24+ LLM providers through AI Gateway with free caching, rate limits, fallbacks, DLP, and Llama Guardrails.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Edge Agent Mental Model</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">The Stateful Edge Shift: One Durable Object Per Agent</h2>
+  <p class="page-lead">
+    Traditional stateless serverless functions forget everything between HTTP calls, forcing teams to stitch together Redis, Postgres, queues, and WebSocket brokers. Cloudflare&rsquo;s <strong>Agents SDK</strong> (<code>agents</code>) flips the model: each agent instance is a single-threaded <strong>Durable Object</strong> with its own embedded SQLite database, hibernatable WebSockets, and alarm scheduler running close to the user.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Foundations &amp; Edge Mental Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. AI Gateway, Workers AI &amp; Fallbacks</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Cloudflare AI Primitive Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Agent Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Wrangler &amp; Gateway HUD</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Zero-Trust Security &amp; Cost Controls</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Stateful Agents on Durable Objects</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Remote MCP Servers &amp; OAuth 2.1</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Containers &amp; Ephemeral Sandboxes</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Co-locate State &amp; Compute</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>End-to-End Request &amp; State Lifecycle at the Edge</h3>
+  <p style="font-size:8.6pt;">
+    When a user or webhook targets an agent by name (e.g., <code>tenant-42-analyst</code>), Cloudflare routes the request to that exact Durable Object anywhere on the network. The agent reads local SQLite in microseconds, calls models via AI Gateway, and spins up an isolated Container Sandbox only when untrusted code execution is required:
+  </p>
+
+  <div class="figure-box" style="background:#0b1120; padding:9px 11px; border-color:#312e81;">
+    <svg viewBox="0 0 700 182" width="100%" height="182" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: Edge Worker -->
+      <rect x="6" y="14" width="154" height="154" rx="9" fill="#131c31" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="83" y="31" text-anchor="middle" fill="#fdba74" font-size="7.5" font-weight="700">1. EDGE ROUTER</text>
+      <text x="83" y="47" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Edge Worker</text>
+      <rect x="16" y="58" width="134" height="44" rx="5" fill="#1e293b" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="83" y="74" text-anchor="middle" fill="#ffedd5" font-size="7.3" font-weight="700">Auth &amp; Routing</text>
+      <text x="83" y="87" text-anchor="middle" fill="#94a3b8" font-size="6.8">OAuth 2.1, WAF, Access</text>
+      <rect x="16" y="110" width="134" height="46" rx="5" fill="#1e293b" stroke="#f97316" stroke-width="0.9"/>
+      <text x="83" y="126" text-anchor="middle" fill="#ffedd5" font-size="7.3" font-weight="700">routeAgentRequest()</text>
+      <text x="83" y="139" text-anchor="middle" fill="#94a3b8" font-size="6.8">Maps ID &rarr; DO instance</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M160 91 L178 91" stroke="#fb923c" stroke-width="2"/>
+      <polygon points="176,86 184,91 176,96" fill="#fb923c"/>
+
+      <!-- Stage 2: Durable Object Agent + SQLite -->
+      <rect x="185" y="14" width="158" height="154" rx="9" fill="#171d3b" stroke="#f59e0b" stroke-width="1.6"/>
+      <text x="264" y="31" text-anchor="middle" fill="#fde68a" font-size="7.5" font-weight="700">2. STATEFUL CORE</text>
+      <text x="264" y="47" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">DO Agent + SQLite</text>
+      <rect x="195" y="58" width="138" height="44" rx="5" fill="#232046" stroke="#d97706" stroke-width="0.9"/>
+      <text x="264" y="74" text-anchor="middle" fill="#fef3c7" font-size="7.3" font-weight="700">this.sql &amp; this.setState</text>
+      <text x="264" y="87" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Co-located SQLite tables</text>
+      <rect x="195" y="110" width="138" height="46" rx="5" fill="#232046" stroke="#fbbf24" stroke-width="0.9"/>
+      <text x="264" y="126" text-anchor="middle" fill="#fef3c7" font-size="7.3" font-weight="700">Hibernatable WS &amp; Jobs</text>
+      <text x="264" y="139" text-anchor="middle" fill="#cbd5e1" font-size="6.8">schedule() &amp; runFiber()</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M343 91 L361 91" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="359,86 367,91 359,96" fill="#f59e0b"/>
+
+      <!-- Stage 3: AI Gateway -->
+      <rect x="368" y="14" width="154" height="154" rx="9" fill="#131c31" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="445" y="31" text-anchor="middle" fill="#c7d2fe" font-size="7.5" font-weight="700">3. MODEL CONTROL</text>
+      <text x="445" y="47" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">AI Gateway</text>
+      <rect x="378" y="58" width="134" height="44" rx="5" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="445" y="74" text-anchor="middle" fill="#e0e7ff" font-size="7.3" font-weight="700">Dynamic Routing</text>
+      <text x="445" y="87" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Workers AI + 24+ LLMs</text>
+      <rect x="378" y="110" width="134" height="46" rx="5" fill="#1e1b4b" stroke="#818cf8" stroke-width="0.9"/>
+      <text x="445" y="126" text-anchor="middle" fill="#e0e7ff" font-size="7.3" font-weight="700">Cache, DLP &amp; Guard</text>
+      <text x="445" y="139" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Rate limits &amp; Workers Logs</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M522 91 L540 91" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="538,86 546,91 538,96" fill="#818cf8"/>
+
+      <!-- Stage 4: Container Sandbox -->
+      <rect x="547" y="14" width="147" height="154" rx="9" fill="#131c31" stroke="#34d399" stroke-width="1.5"/>
+      <text x="620" y="31" text-anchor="middle" fill="#a7f3d0" font-size="7.5" font-weight="700">4. ISOLATED EXEC</text>
+      <text x="620" y="47" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Container Sandbox</text>
+      <rect x="557" y="58" width="127" height="44" rx="5" fill="#064e3b" stroke="#10b981" stroke-width="0.9"/>
+      <text x="620" y="74" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">ctx.container + SDK</text>
+      <text x="620" y="87" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Python, Node, Bash, Git</text>
+      <rect x="557" y="110" width="127" height="46" rx="5" fill="#064e3b" stroke="#34d399" stroke-width="0.9"/>
+      <text x="620" y="126" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">Snapshots &amp; Sleep</text>
+      <text x="620" y="139" text-anchor="middle" fill="#a7f3d0" font-size="6.8">6x faster starts, auto-idle</text>
+    </svg>
+  </div>
+
+  <div class="grid-3" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Zero-Cold-DB State</div>
+      <p style="font-size:8.1pt; margin:0;">SQLite runs inside the same process boundary as your Durable Object. Queries execute synchronously with zero network round-trips and survive evictions automatically.</p>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">2</span> Hibernation = $0 Idle</div>
+      <p style="font-size:8.1pt; margin:0;">Durable Objects hibernate open WebSockets and Workflows sleep on <code>step.waitForEvent()</code> without charging wall-clock compute while waiting for humans or webhooks.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Isolates First, Containers Next</div>
+      <p style="font-size:8.1pt; margin:0;">Run lightweight JS/TS agent logic in V8 isolates (or Dynamic Workers) in milliseconds, and attach a Linux container via <code>ctx.container</code> only when POSIX tools are needed.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:6px;">
+    <div class="callout-title">Why This Matters in Late 2026</div>
+    Durable Objects gained a Free tier (2025), Containers &amp; Sandbox SDK 1.0 reached GA and were rebuilt around native <code>ctx.container</code> (Sep 2026), and <code>@cloudflare/workers-oauth-provider</code> v1.x (Oct 2026) standardized OAuth 2.1 for remote MCP servers&mdash;making Cloudflare a complete single-vendor runtime for production AI agents.
+  </div>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: PRIMITIVE DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Architecture &amp; Primitive Selection</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">Cloudflare AI Primitive Decision Matrix</h2>
+  <p class="page-lead" style="margin-bottom:6px; font-size:9.1pt;">
+    Cloudflare&rsquo;s AI stack is modular: each primitive solves one durability, inference, retrieval, or isolation boundary cleanly. Use this matrix to map every agent workload to its exact primitive without overpaying for idle compute.
+  </p>
+
+  <table class="clean-table" style="font-size:7.65pt; margin:3px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:18%; padding:4.5px 7px;">Primitive</th>
+        <th style="width:24%; padding:4.5px 7px;">Best-Fit Workload</th>
+        <th style="width:23%; padding:4.5px 7px;">State &amp; Execution Model</th>
+        <th style="width:18%; padding:4.5px 7px;">Pricing &amp; Free Tier</th>
+        <th style="width:17%; padding:4.5px 7px;">Avoid Using For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Agents SDK</strong><br/><code>agents</code> + DO</td>
+        <td style="padding:4px 7px;">Per-user/room stateful agents, live chat, UI state sync, MCP servers, crons.</td>
+        <td style="padding:4px 7px;">Single-threaded DO; embedded SQLite, hibernatable WS, <code>schedule()</code>, <code>runFiber()</code>.</td>
+        <td style="padding:4px 7px;">DO Free tier; Paid bills requests + active duration + SQLite.</td>
+        <td style="padding:4px 7px;">Heavy video encoding or multi-GB ML training.</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Workflows</strong><br/><code>WorkflowEntrypoint</code></td>
+        <td style="padding:4px 7px;">Multi-step pipelines: doc ingest, fan-out, retries, multi-day human approvals.</td>
+        <td style="padding:4px 7px;">Step-checkpointed (<code>step.do</code>, <code>sleep</code>, <code>waitForEvent</code>); survives deploys.</td>
+        <td style="padding:4px 7px;">Active CPU only ($0 sleeping); Free ~3M req/mo.</td>
+        <td style="padding:4px 7px;">Sub-50ms live WS streaming to browsers.</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Workers AI</strong><br/><code>env.AI.run()</code></td>
+        <td style="padding:4px 7px;">Fast serverless open models (50+ LLMs, embeddings, vision, Llama Guard).</td>
+        <td style="padding:4px 7px;">Stateless GPU inference via binding, OpenAI REST, or AI Gateway.</td>
+        <td style="padding:4px 7px;"><strong>10k Neurons/day free</strong>; $0.011 / 1k Neurons paid.</td>
+        <td style="padding:4px 7px;">Frontier reasoning needing Claude/GPT/Gemini.</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>AI Gateway</strong><br/>Control Plane</td>
+        <td style="padding:4px 7px;">Proxy for Workers AI + 24+ LLMs: caching, fallbacks, rate limits, DLP.</td>
+        <td style="padding:4px 7px;">Universal OpenAI/Anthropic REST &amp; <code>dynamic/&lt;route&gt;</code>; zero-deploy swaps.</td>
+        <td style="padding:4px 7px;">Core routing/cache <strong>free</strong>; Unified Billing +5% credit fee.</td>
+        <td style="padding:4px 7px;">Custom stateful app logic (keep in Worker/DO).</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Vectorize &amp; AI Search</strong></td>
+        <td style="padding:4px 7px;"><strong>Vectorize:</strong> custom RAG. <strong>AI Search</strong> (ex-AutoRAG): managed R2 RAG + MCP.</td>
+        <td style="padding:4px 7px;">Global vector index or turnkey R2-to-index continuous re-indexing.</td>
+        <td style="padding:4px 7px;">Usage-based queried dimensions &amp; stored vectors.</td>
+        <td style="padding:4px 7px;">Transactional chat ledgers (use DO SQLite).</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Container Sandboxes</strong><br/><code>ctx.container</code></td>
+        <td style="padding:4px 7px;">Untrusted Python, Node, Bash, Git repos, compilers requiring full Linux.</td>
+        <td style="padding:4px 7px;">DO owns Linux container via <code>ctx.container</code>; runtime image, beta snapshots.</td>
+        <td style="padding:4px 7px;">Workers Paid; active vCPU, RAM, disk &amp; snapshots.</td>
+        <td style="padding:4px 7px;">Pure JS/TS transforms (use Dynamic Workers).</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Dynamic Workers</strong><br/>Isolates</td>
+        <td style="padding:4px 7px;">AI-generated JS/TS &ldquo;Code Mode&rdquo; tools with 100x faster cold starts.</td>
+        <td style="padding:4px 7px;">Ephemeral V8 isolates with strict capability bindings, zero host access.</td>
+        <td style="padding:4px 7px;">Workers compute pricing; ~ms startup overhead.</td>
+        <td style="padding:4px 7px;">Native C/Python binaries or apt packages.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:5px 0 3px 0;">Composition Patterns That Win in Production</h3>
+  <div class="grid-2" style="gap:9px;">
+    <div class="card-tint" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge">A</span> Interactive Agent + Background Workflow</div>
+      <p style="font-size:7.85pt; margin:0;">Keep the user&rsquo;s live WebSocket in an <strong>Agent DO</strong> for &lt;50ms streaming and state sync. Spawn a <strong>Workflow</strong> for multi-minute audits or retries and push updates back to the Agent via RPC.</p>
+    </div>
+    <div class="card-indigo" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge indigo">B</span> Agent DO + <code>ctx.container</code> Sandbox</div>
+      <p style="font-size:7.85pt; margin:0;">Your Agent DO holds conversation memory in SQLite and starts its attached Linux container via <code>this.ctx.container</code>, snapshotting disk state before sleeping to preserve Git checkouts.</p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:5px; padding:6.5px 10px; font-size:8.1pt;">
+    <div class="callout-title" style="font-size:8.4pt;">Migration Advisory (Dec 31, 2026 Cutoff)</div>
+    Rebuilt Containers (Sep 30, 2026) deliver 6x faster starts, runtime image selection, and beta filesystem snapshots natively on <code>this.ctx.container</code> + Sandbox SDK 1.0 utilities. Legacy <code>Container</code> / <code>Sandbox</code> classes receive updates only through <strong>Dec 31, 2026</strong>.
+  </div>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INTERFACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Developer HUD &amp; Observability</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">Annotated Workspace Tour: Wrangler Dev, DO SQLite &amp; AI Gateway</h2>
+  <p class="page-lead">
+    Developing edge agents locally mirrors production: <code>wrangler dev</code> runs your Worker, Durable Object SQLite database, and hibernatable WebSockets in Miniflare while forwarding model calls through your live AI Gateway for real-time cost, cache, and guardrail telemetry.
+  </p>
+
+  <!-- 7-Control Mock HUD -->
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#f8fafc;">Cloudflare Edge Agent Workbench &mdash; wrangler dev + DO Inspector + AI Gateway</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="hud-chip" style="background:rgba(249,115,22,0.22); color:#fdba74; border:1px solid #ea580c;">WRANGLER 4.x <span class="callout-pin" style="margin-left:3px;">1</span></span>
+        <span class="hud-chip" style="background:rgba(16,185,129,0.2); color:#6ee7b7; border:1px solid #059669;">WS HIBERNATION ON</span>
+      </div>
+    </div>
+
+    <div style="padding:8px 10px; display:grid; grid-template-columns: 1.08fr 0.92fr; gap:8px;">
+      <!-- Left Column: Wrangler Dev + SQLite Inspector -->
+      <div style="display:flex; flex-direction:column; gap:7px;">
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#fdba74;">LOCAL RUNTIME &amp; BINDINGS (Miniflare)</strong>
+            <span class="callout-pin">2</span>
+          </div>
+          <div style="font-family:monospace; color:#cbd5e1; font-size:6.55pt; line-height:1.38;">
+            <div>&gt; npx wrangler dev --port 8787</div>
+            <div style="color:#86efac;">&#10003; env.OPS_AGENT (DurableObject: OpsAgent [SQLite])</div>
+            <div style="color:#86efac;">&#10003; env.AI (Workers AI &rarr; gw/prod-agents)</div>
+            <div style="color:#93c5fd;">&#10003; env.SANDBOX_DO (Container: python-3.12-slim)</div>
+            <div style="color:#fde68a;">[ws] tenant-42 connected &bull; state synced (cf_agent_state)</div>
+          </div>
+        </div>
+
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#fde68a;">DURABLE OBJECT SQLITE INSPECTOR (tenant-42)</strong>
+            <span class="callout-pin">3</span>
+          </div>
+          <table style="width:100%; border-collapse:collapse; font-family:monospace; font-size:6.35pt; color:#e2e8f0;">
+            <tr style="border-bottom:1px solid #334155; color:#94a3b8;">
+              <th style="text-align:left; padding:2px;">table</th>
+              <th style="text-align:left; padding:2px;">rows</th>
+              <th style="text-align:left; padding:2px;">latest entry</th>
+            </tr>
+            <tr style="border-bottom:1px solid #1e293b;">
+              <td style="padding:2px; color:#fdba74;">cf_agents_state</td>
+              <td style="padding:2px;">1</td>
+              <td style="padding:2px;">{"status":"awaiting_approval"}</td>
+            </tr>
+            <tr style="border-bottom:1px solid #1e293b;">
+              <td style="padding:2px; color:#a5b4fc;">cf_agents_schedules</td>
+              <td style="padding:2px;">2</td>
+              <td style="padding:2px;">heartbeat_cron (next: 00:00Z)</td>
+            </tr>
+            <tr>
+              <td style="padding:2px; color:#6ee7b7;">tool_audit_log</td>
+              <td style="padding:2px;">48</td>
+              <td style="padding:2px;">sandbox.exec("pytest") &rarr; 0</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="hud-card" style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <strong style="color:#a5b4fc;">DURABLE ALARM &amp; FIBER QUEUE</strong>
+            <div style="color:#cbd5e1; font-size:6.45pt;">Next alarm: <code>in 14m 20s</code> &bull; Stashed fiber: <code>pr-review-88</code> (human-in-loop)</div>
+          </div>
+          <span class="callout-pin">4</span>
+        </div>
+      </div>
+
+      <!-- Right Column: AI Gateway Analytics & Controls -->
+      <div style="display:flex; flex-direction:column; gap:7px;">
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#fdba74;">AI GATEWAY ANALYTICS (gw/prod-agents)</strong>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:5px; text-align:center;">
+            <div style="background:#0f172a; border:1px solid #334155; border-radius:5px; padding:4px;">
+              <div style="color:#94a3b8; font-size:6pt;">CACHE HIT</div>
+              <div style="color:#34d399; font-weight:800; font-size:9pt;">38.4%</div>
+            </div>
+            <div style="background:#0f172a; border:1px solid #334155; border-radius:5px; padding:4px;">
+              <div style="color:#94a3b8; font-size:6pt;">P95 TTFT</div>
+              <div style="color:#fbbf24; font-weight:800; font-size:9pt;">310ms</div>
+            </div>
+            <div style="background:#0f172a; border:1px solid #334155; border-radius:5px; padding:4px;">
+              <div style="color:#94a3b8; font-size:6pt;">24H SPEND</div>
+              <div style="color:#fdba74; font-weight:800; font-size:9pt;">$14.22</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#c7d2fe;">DYNAMIC ROUTE: dynamic/agent-primary</strong>
+            <span class="callout-pin">6</span>
+          </div>
+          <div style="font-family:monospace; font-size:6.4pt; color:#cbd5e1; line-height:1.36;">
+            <div>1. Primary: <code>anthropic/claude-sonnet-4-5</code> (BYOK)</div>
+            <div>2. Fallback (429/5xx): <code>openai/gpt-5.2</code> (Unified)</div>
+            <div>3. Fast/Cheap: <code>workers-ai/@cf/meta/llama-3.3-70b</code></div>
+          </div>
+        </div>
+
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#fda4af;">GUARDRAILS, DLP &amp; WORKERS LOGS</strong>
+            <span class="callout-pin">7</span>
+          </div>
+          <div style="font-size:6.45pt; color:#cbd5e1; line-height:1.35;">
+            <span class="hud-chip" style="background:rgba(225,29,72,0.22); color:#fda4af; border:1px solid #e11d48; margin-right:4px;">DLP: PII REDACT</span>
+            <span class="hud-chip" style="background:rgba(79,70,229,0.25); color:#c7d2fe; border:1px solid #6366f1;">LLAMA GUARD: ON</span>
+            <div style="margin-top:3px; color:#94a3b8;">Rate limit: <code>60 req/min</code> per tenant &bull; Sink: Workers Logs + Logpush</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>7 Controls Every Edge Agent Engineer Must Master</h3>
+  <div class="grid-2" style="gap:8px 11px;">
+    <div style="display:flex; flex-direction:column; gap:5.5px; font-size:8.05pt;">
+      <div><span class="callout-pin" style="margin-right:5px;">1</span><strong>Wrangler CLI &amp; Typed Env:</strong> Run <code>npx wrangler types</code> after every <code>wrangler.jsonc</code> edit to regenerate strict TypeScript bindings for DOs, AI, R2, and Containers.</div>
+      <div><span class="callout-pin" style="margin-right:5px;">2</span><strong>Local Binding Simulator:</strong> <code>wrangler dev</code> boots real SQLite-backed Durable Objects locally, letting you test WebSockets, alarms, and RPC calls offline before deploying.</div>
+      <div><span class="callout-pin" style="margin-right:5px;">3</span><strong>Embedded SQLite Inspector:</strong> Inspect <code>cf_agents_state</code> (auto-managed by <code>setState</code>), <code>cf_agents_schedules</code>, and custom tables directly inside <code>.wrangler/state/v3/do</code>.</div>
+      <div><span class="callout-pin" style="margin-right:5px;">4</span><strong>Alarm &amp; Fiber Queue:</strong> Agents SDK multiplexes all scheduled jobs onto the DO&rsquo;s single hardware alarm and checkpoints paused <code>runFiber()</code> tasks so evictions never drop work.</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:5.5px; font-size:8.05pt;">
+      <div><span class="callout-pin" style="margin-right:5px;">5</span><strong>AI Gateway Telemetry:</strong> Track exact-match cache hit rate, time-to-first-token (TTFT), token counts, and real-time spend across every model provider from one pane.</div>
+      <div><span class="callout-pin" style="margin-right:5px;">6</span><strong>Dynamic Routing Rules:</strong> Swap primary models, shift traffic splits, or add 429/5xx fallbacks inside <code>dynamic/&lt;route&gt;</code> without redeploying your Worker code.</div>
+      <div><span class="callout-pin" style="margin-right:5px;">7</span><strong>Guardrails, DLP &amp; Workers Logs:</strong> Inspect prompts with free DLP scanning and Llama Guardrails, enforce per-tenant rate limits, and query full traces in Workers Logs.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: STATEFUL AGENTS ON DURABLE OBJECTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Stateful Agents on Durable Objects</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">Embedded SQLite, Hibernatable WebSockets &amp; Durable Scheduling</h2>
+  <p class="page-lead">
+    Subclassing <code>Agent&lt;Env, State&gt;</code> from the <code>agents</code> package turns a Cloudflare Durable Object into a persistent, real-time agent runtime with four built-in durability primitives&mdash;requiring zero external databases or message brokers.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" style="height:202px;" src="assets/showcase_1.jpg" alt="Cutaway architectural illustration of a stateful edge agent container with glowing amber SQLite plates, golden WebSocket streams, and a chronometer ring" />
+    <div class="figure-caption">
+      <strong>Anatomy of a Durable Agent:</strong> Embedded SQLite plates (<code>this.sql</code> &amp; <code>this.setState</code>) sit directly inside the isolate, surrounded by hibernatable WebSocket channels and a SQLite-backed cron/alarm scheduler.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Dual Persistence: <code>setState()</code> + <code>this.sql</code></div>
+      <p style="font-size:8pt; margin:0;">Call <code>this.setState(next)</code> to atomically write JSON state to <code>cf_agents_state</code> and broadcast a <code>cf_agent_state</code> sync frame to all connected React/JS clients. Use tagged-template <code>this.sql`...`</code> for relational audit logs, message histories, and tool ledgers.</p>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">2</span> Hibernatable WebSockets &amp; <code>useAgent</code></div>
+      <p style="font-size:8pt; margin:0;">WebSockets stay open at the Cloudflare edge even when the DO hibernates to zero memory. Store per-socket metadata with <code>connection.setState()</code>; the official React <code>useAgent()</code> hook auto-reconnects and syncs state bi-directionally.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> Durable Jobs: <code>this.schedule()</code></div>
+      <p style="font-size:8pt; margin:0;">Schedule delayed seconds (<code>60</code>), exact <code>Date</code> timestamps, or cron strings (<code>"0 * * * *"</code>). The SDK stores jobs in SQLite and multiplexes them onto the DO&rsquo;s single alarm so independent schedules never overwrite each other.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge slate">4</span> Long Tasks &amp; Human-in-the-Loop</div>
+      <p style="font-size:8pt; margin:0;">Wrap critical active work in <code>keepAliveWhile()</code> to prevent mid-call eviction, or use <code>runFiber()</code> + <code>stash()</code> to checkpoint long multi-turn runs and pause for human approval at $0 idle cost.</p>
+    </div>
+  </div>
+
+  <pre class="code-block"><code>import { Agent, routeAgentRequest } from "agents";
+
+interface OpsState { pendingApproval: string | null; runs: number; }
+
+export class OpsAgent extends Agent&lt;Env, OpsState&gt; {
+  initialState: OpsState = { pendingApproval: null, runs: 0 };
+
+  async onStart() {
+    this.sql`CREATE TABLE IF NOT EXISTS audit (id TEXT PRIMARY KEY, action TEXT, ts INTEGER)`;
+    await this.schedule("0 * * * *", "hourlyDigest", { channel: "ops" }); // SQLite-backed cron
+  }
+
+  async requestDeploy(releaseId: string) {
+    this.sql`INSERT INTO audit (id, action, ts) VALUES (${crypto.randomUUID()}, ${releaseId}, ${Date.now()})`;
+    this.setState({ ...this.state, pendingApproval: releaseId }); // Persists &amp; pushes over WS
+  }
+
+  async hourlyDigest(payload: { channel: string }) { /* wakes DO via alarm, runs, then hibernates */ }
+}
+
+export default { fetch: (req: Request, env: Env) =&gt; routeAgentRequest(req, env) };</code></pre>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: REMOTE MCP SERVERS WITH MCPAGENT & OAUTH ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Remote MCP Servers &amp; OAuth 2.1</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">Remote MCP Servers with <code>McpAgent</code> &amp; OAuth 2.1</h2>
+  <p class="page-lead">
+    Cloudflare is a primary edge host for remote <strong>Model Context Protocol (MCP)</strong> servers over Streamable HTTP (<code>/mcp</code>). By pairing a Durable Object MCP server with <code>@cloudflare/workers-oauth-provider</code> v1.x (MCP 2026-07-28 spec), any client&mdash;Claude, Cursor, Windsurf, or another Agent&mdash;can authenticate with GitHub, Google, or Cloudflare Access and call your tools globally.
+  </p>
+
+  <h3>Color-Coded 5-Part Remote MCP &amp; OAuth Anatomy</h3>
+  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:6px; font-size:7.6pt;">
+    <span class="p-tag p-bind">1. DO Binding &amp; Compat</span>
+    <span class="p-tag p-mig">2. SQLite Migration</span>
+    <span class="p-tag p-oauth">3. OAuth 2.1 &amp; MCP_RESOURCE</span>
+    <span class="p-tag p-mcp">4. McpAgent Tool Class</span>
+    <span class="p-tag p-route">5. Protected /mcp Route</span>
+  </div>
+
+  <div class="card" style="padding:8px 10px; font-family:'SF Mono',Menlo,Consolas,monospace; font-size:7.15pt; line-height:1.58; margin-bottom:7px;">
+    <div style="color:#64748b; font-weight:700; margin-bottom:2px;">// wrangler.jsonc</div>
+    <div>{ "name": "edge-mcp-server", "main": "src/index.ts", "compatibility_date": "2026-10-01",</div>
+    <div>&nbsp;&nbsp;<span class="p-tag p-bind">"compatibility_flags": ["nodejs_compat"], "durable_objects": { "bindings": [{ "name": "MY_MCP", "class_name": "EdgeMCP" }] }</span>,</div>
+    <div>&nbsp;&nbsp;<span class="p-tag p-mig">"migrations": [{ "tag": "v1", "new_sqlite_classes": ["EdgeMCP"] }]</span>,</div>
+    <div>&nbsp;&nbsp;<span class="p-tag p-oauth">"kv_namespaces": [{ "binding": "OAUTH_KV", "id": "&lt;kv-id&gt;" }], "vars": { "MCP_RESOURCE": "https://mcp.example.com/mcp" }</span> }</div>
+    <div style="color:#64748b; font-weight:700; margin:6px 0 2px 0;">// src/index.ts</div>
+    <div><span class="p-tag p-mcp">export class EdgeMCP extends McpAgent&lt;Env, State, AuthProps&gt; { server = new McpServer({ name: "ops", version: "1.0.0" });</span></div>
+    <div><span class="p-tag p-mcp">&nbsp;&nbsp;async init() { this.server.tool("deploy_status", { env: z.string() }, async ({ env }) =&gt; ({ content: [{ type: "text", text: `OK:${env}` }] })); } }</span></div>
+    <div><span class="p-tag p-route">export default new OAuthProvider({ apiRoute: "/mcp", apiHandler: EdgeMCP.serve("/mcp", { binding: "MY_MCP" }), defaultHandler: GitHubAuthHandler });</span></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Why <code>MCP_RESOURCE</code> &amp; Split Auth Matter</div>
+      <p style="font-size:8pt; margin:0;">In <code>@cloudflare/workers-oauth-provider</code> v1.x (Oct 2026), every issued OAuth 2.1 access token is cryptographically bound to the exact <code>MCP_RESOURCE</code> URL. For enterprise fleets, split <code>OAuthAuthorizationServer</code> and <code>OAuthResourceServer</code> into two Workers connected over a zero-latency Service Binding with step-up auth.</p>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">2</span> <code>McpAgent</code> vs. <code>createMcpHandler</code> &amp; RPC</div>
+      <p style="font-size:8pt; margin:0;">Use <code>McpAgent</code> (<code>agents/mcp</code>) when each MCP client session needs stateful SQLite memory inside a DO. For stateless tools or MCP SDK v2 migration, use <code>createMcpHandler</code> (<code>agents/mcp/server</code>). When an <code>Agent</code> and MCP server live in the same Worker, connect them via <code>RPCClientTransport</code> with zero HTTP overhead.</p>
+    </div>
+  </div>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Client / Tool</th>
+        <th style="width:42%;">Connection Command / Endpoint</th>
+        <th style="width:34%;">Auth &amp; Transport Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Code / Streamable HTTP</strong></td>
+        <td><code>claude mcp add --transport http ops https://mcp.example.com/mcp</code></td>
+        <td>Native Streamable HTTP + automatic browser OAuth 2.1 PKCE login flow.</td>
+      </tr>
+      <tr>
+        <td><strong>Stdio-Only Desktop Clients</strong></td>
+        <td><code>npx -y mcp-remote https://mcp.example.com/mcp</code></td>
+        <td>Bridges legacy stdio clients to your remote Cloudflare OAuth endpoint.</td>
+      </tr>
+      <tr>
+        <td><strong>Local Debugging</strong></td>
+        <td><code>npx @modelcontextprotocol/inspector</code> &rarr; <code>http://localhost:8787/mcp</code></td>
+        <td>Inspect tool schemas, test OAuth scopes, and tail logs with <code>wrangler tail</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout emerald" style="margin-top:4px;">
+    <div class="callout-title">Version Pinning Rule for <code>agents/mcp</code></div>
+    Pin <code>@modelcontextprotocol/sdk</code> and <code>@modelcontextprotocol/server</code> to the exact versions expected by your installed <code>agents</code> release (verify with <code>npm ls @modelcontextprotocol/sdk</code>) so TypeScript never sees two conflicting <code>McpServer</code> types.
+  </div>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: CONTAINERS & EPHEMERAL CODE SANDBOXES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Cloudflare Containers &amp; Ephemeral Sandboxes</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">Cloudflare Containers &amp; Ephemeral Code Sandboxes</h2>
+  <p class="page-lead">
+    When an AI agent writes Python data scripts, runs <code>npm test</code>, or edits a Git repository, you must never execute that untrusted code inside your application&rsquo;s memory space. Cloudflare&rsquo;s rebuilt <strong>Containers</strong> and <strong>Sandbox SDK 1.0</strong> (Sep 2026) let each Durable Object spawn, exec, snapshot, and sleep an isolated Linux workspace directly at the edge.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Native <code>this.ctx.container</code> Architecture</div>
+      <ul style="font-size:8pt; margin:0;">
+        <li><strong>6x Faster Agent Starts:</strong> Rebuilt container control plane boots on-demand Linux sandboxes directly from your Durable Object.</li>
+        <li><strong>Runtime Selection:</strong> Choose Docker image, instance size, and idle sleep policy dynamically in code per tenant or task.</li>
+        <li><strong>Beta Filesystem Snapshots:</strong> Snapshot disk state before sleeping so a coding agent resumes its exact repo checkout and build cache.</li>
+      </ul>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">2</span> Isolates First, Containers On Demand</div>
+      <ul style="font-size:8pt; margin:0;">
+        <li><strong>Dynamic Workers:</strong> For AI-generated JS/TS transforms and &ldquo;Code Mode&rdquo; tool calls, spawn ephemeral V8 isolates ~100x faster than Linux containers.</li>
+        <li><strong>Sandbox SDK 1.0:</strong> Utility helpers (command <code>exec</code>, file read/write, streaming stdout, preview ports) that work alongside <code>ctx.container</code>.</li>
+        <li><strong><code>@cloudflare/computer</code>:</strong> Higher-level workspace combining Dynamic Workers + Containers with a synchronized filesystem.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Safe Untrusted Execution Pattern Inside a Durable Object</h3>
+  <pre class="code-block"><code>import { Agent } from "agents";
+import { execInSandbox, writeFiles } from "@cloudflare/sandbox";
+
+export class CodeRunnerAgent extends Agent&lt;Env&gt; {
+  async runUserScript(pyCode: string) {
+    // 1. Start or wake the DO's dedicated Linux container with runtime image &amp; tight idle sleep
+    await this.ctx.container.start({
+      image: "registry.cloudflare.com/your-acct/py-sandbox:3.12",
+      instanceType: "lite",
+      sleepAfter: "5m",
+      enableInternet: false, // Block lateral/egress exfiltration by default
+    });
+    // 2. Write untrusted code &amp; execute with hard timeout; credentials stay in DO, never on disk
+    await writeFiles(this.ctx.container, [{ path: "/workspace/task.py", content: pyCode }]);
+    const res = await execInSandbox(this.ctx.container, "python3 /workspace/task.py", { timeoutMs: 15_000 });
+    return { exitCode: res.exitCode, stdout: res.stdout.slice(0, 8000), stderr: res.stderr.slice(0, 2000) };
+  }
+}</code></pre>
+
+  <h3>5 Non-Negotiable Sandbox Security &amp; Cost Rules</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Control</th>
+        <th style="width:44%;">Implementation Rule</th>
+        <th style="width:32%;">Threat / Failure Prevented</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>No Secrets on Disk</strong></td>
+        <td>Never write API keys or OAuth tokens into container env files or filesystem snapshots; proxy outbound API calls through the parent DO.</td>
+        <td>Prompt-injected code reading <code>/proc/self/environ</code> or leaking snapshot credentials.</td>
+      </tr>
+      <tr>
+        <td><strong>Default-Deny Egress</strong></td>
+        <td>Set <code>enableInternet: false</code> unless required, or route egress through a Worker allowlist proxy.</td>
+        <td>Data exfiltration, SSRF against internal endpoints, and crypto-mining abuse.</td>
+      </tr>
+      <tr>
+        <td><strong>Hard Exec Timeouts</strong></td>
+        <td>Enforce 10&ndash;30s command timeouts and truncate stdout/stderr before feeding output back to the LLM context.</td>
+        <td>Infinite loops burning vCPU and token-bombing your LLM bill.</td>
+      </tr>
+      <tr>
+        <td><strong>Per-Tenant Instance Caps</strong></td>
+        <td>Track active container leases in DO SQLite / KV and enforce a max concurrent sandbox count per organization.</td>
+        <td>Runaway parallel tool calls causing unexpected Workers Paid container spend.</td>
+      </tr>
+      <tr>
+        <td><strong>Aggressive Idle Sleep</strong></td>
+        <td>Set <code>sleepAfter</code> to <code>2m&ndash;5m</code> and snapshot only clean workspace directories (excluding <code>/tmp</code>).</td>
+        <td>Paying for idle Linux containers between sporadic user chat turns.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: AI GATEWAY, WORKERS AI & FALLBACKS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; AI Gateway, Workers AI &amp; Multi-Provider Routing</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">AI Gateway, Workers AI &amp; Multi-Provider Fallbacks</h2>
+  <p class="page-lead">
+    Hardcoding a single LLM vendor inside an edge agent invites 429 rate-limit outages and runaway token bills. Routing every model call through <strong>Cloudflare AI Gateway</strong> gives you free exact-match caching, dynamic fallbacks across 24+ providers plus <strong>Workers AI</strong>, DLP redaction, and Llama Guardrails without redeploying code.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="Editorial illustration of an AI traffic gateway prism splitting a warm amber beam into three shielded, cached model streams" />
+    <div class="figure-caption">
+      <strong>Single Control Plane:</strong> One universal endpoint routes through Guardrails, DLP, and edge caching before fanning out to Workers AI, Anthropic, OpenAI, or Google AI Studio with automatic fallback.
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Workers AI Edge Models</div>
+      <p style="font-size:7.9pt; margin:0;">Run 50+ open models (Llama 3.3, Qwen, Inkling 2, BGE embeddings, Whisper) via <code>env.AI.run()</code>. <strong>10,000 Neurons/day free</strong>; $0.011 per 1,000 Neurons paid&mdash;ideal for fast routing, summaries, and embeddings.</p>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">2</span> Dynamic Routes &amp; SDK</div>
+      <p style="font-size:7.9pt; margin:0;">Use <code>createAI()</code> from <code>agents/models/ai-sdk</code> or call <code>dynamic/&lt;route&gt;</code> via the OpenAI/Anthropic-compatible endpoint. Fail over from Claude &rarr; GPT &rarr; Workers AI on 429/5xx automatically.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">3</span> BYOK vs. Unified Billing</div>
+      <p style="font-size:7.9pt; margin:0;">Store provider keys securely in AI Gateway (BYOK, $0 markup) or opt into <strong>Unified Billing</strong> (one Cloudflare invoice; 0% token markup, 5% fee on credit purchases).</p>
+    </div>
+  </div>
+
+  <pre class="code-block"><code>// Calling a Dynamic Route via AI Gateway with exact-match cache TTL &amp; tenant metadata
+const res = await env.AI.gateway("prod-agents").run({
+  provider: "dynamic",
+  endpoint: "agent-primary", // Configured in dashboard: Claude Sonnet -&gt; GPT-5.2 -&gt; Workers AI
+  headers: {
+    "cf-aig-cache-ttl": "3600",                // Free exact-match edge cache for 1 hour
+    "cf-aig-metadata": JSON.stringify({ tenantId: this.name, workflow: "triage" }),
+  },
+  query: { messages, temperature: 0.2, max_tokens: 1024 },
+});</code></pre>
+
+  <div class="grid-2">
+    <div class="callout" style="margin:0;">
+      <div class="callout-title">Caching &amp; Cost Levers</div>
+      Set <code>cf-aig-cache-ttl</code> on deterministic classification, extraction, and RAG synthesis prompts. Combine with <code>cf-aig-skip-cache: true</code> on streaming creative turns so hit rates stay 30&ndash;55% without stale answers.
+    </div>
+    <div class="callout indigo" style="margin:0;">
+      <div class="callout-title">Guardrails, DLP &amp; Workers Logs</div>
+      AI Gateway DLP scanning is free (expanded with Zero Trust DLP); Guardrails runs Llama Guard on Workers AI (billed per Neuron). Gateways created on/after Sep 24, 2026 store traces in <strong>Workers Logs</strong>.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Blueprints &amp; Snippets</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World Copy-Paste Cloudflare Agent Recipes</h2>
+  <p class="page-lead" style="margin-bottom:5px; font-size:9pt;">
+    Every production edge agent combines two or three primitives. Pick a blueprint below, copy the verified snippet, run <code>npx wrangler types</code>, and ship with <code>npx wrangler deploy</code>.
+  </p>
+
+  <table class="clean-table" style="font-size:7.6pt; margin:3px 0 6px 0;">
+    <thead>
+      <tr>
+        <th style="width:22%; padding:4px 7px;">Recipe</th>
+        <th style="width:28%; padding:4px 7px;">Primitives Combined</th>
+        <th style="width:31%; padding:4px 7px;">Core Mechanism</th>
+        <th style="width:19%; padding:4px 7px;">Primary Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>1. Support Triage Agent</strong></td>
+        <td style="padding:3.8px 7px;"><code>Agent</code> DO + SQLite + AI Search + Gateway</td>
+        <td style="padding:3.8px 7px;">Streams answers over WS, queries R2 docs via AI Search, caches FAQs.</td>
+        <td style="padding:3.8px 7px;">&lt;400ms TTFT, 40%+ cache hit.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>2. Code Reviewer</strong></td>
+        <td style="padding:3.8px 7px;"><code>Agent</code> DO + <code>ctx.container</code> + Webhook</td>
+        <td style="padding:3.8px 7px;">Wakes on PR webhook, runs tests in Linux sandbox, posts diff notes.</td>
+        <td style="padding:3.8px 7px;">Zero-trust isolated tests.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>3. OAuth Enterprise MCP</strong></td>
+        <td style="padding:3.8px 7px;"><code>McpAgent</code> + <code>workers-oauth-provider</code></td>
+        <td style="padding:3.8px 7px;">Exposes internal tools over <code>/mcp</code> with GitHub/Access OAuth 2.1.</td>
+        <td style="padding:3.8px 7px;">Instant Claude/Cursor access.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>4. Human-in-Loop Flow</strong></td>
+        <td style="padding:3.8px 7px;"><code>WorkflowEntrypoint</code> + <code>waitForEvent</code></td>
+        <td style="padding:3.8px 7px;">Pauses refund/deploy pipeline until Slack/UI approval arrives ($0 idle).</td>
+        <td style="padding:3.8px 7px;">Crash-proof governance.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>5. Market Monitor</strong></td>
+        <td style="padding:3.8px 7px;"><code>Agent</code> DO + <code>schedule()</code> + Browser</td>
+        <td style="padding:3.8px 7px;">Cron alarm wakes DO hourly, scrapes pages, diffs in SQLite, alerts.</td>
+        <td style="padding:3.8px 7px;">Zero-server monitoring.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:4px 0 3px 0; font-size:9.8pt;">Recipe A: Durable Human-in-the-Loop Workflow (<code>src/approval-workflow.ts</code>)</h3>
+  <pre class="code-block" style="font-size:6.8pt; line-height:1.30; padding:5.5px 8.5px; margin:2px 0 5px 0;"><code>import { WorkflowEntrypoint, WorkflowEvent, WorkflowStep } from "cloudflare:workers";
+
+export class DeployApprovalWorkflow extends WorkflowEntrypoint&lt;Env, { releaseId: string; agentId: string }&gt; {
+  async run(event: WorkflowEvent&lt;{ releaseId: string; agentId: string }&gt;, step: WorkflowStep) {
+    const summary = await step.do("risk-brief", () =&gt;
+      this.env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", { prompt: `Risks for ${event.payload.releaseId}` })
+    );
+    // Sleeps at $0 compute cost until operator clicks Approve in the Agent UI
+    const decision = await step.waitForEvent&lt;{ approved: boolean }&gt;("human-approval", {
+      type: "deploy-decision", timeout: "24 hours",
+    });
+    if (decision.payload.approved) {
+      await step.do("notify-agent", async () =&gt; {
+        const stub = this.env.OPS_AGENT.get(this.env.OPS_AGENT.idFromName(event.payload.agentId));
+        await stub.fetch("https://agent/approved", { method: "POST", body: JSON.stringify(summary) });
+      });
+    }
+  }
+}</code></pre>
+
+  <div class="grid-2" style="gap:9px;">
+    <div>
+      <h3 style="margin:3px 0 3px 0; font-size:9.5pt;">Recipe B: React Client (<code>src/App.tsx</code>)</h3>
+      <pre class="code-block" style="font-size:6.6pt; line-height:1.30; padding:5.5px 8px; margin:0;"><code>import { useAgent } from "agents/react";
+import { useState } from "react";
+
+export function OpsConsole({ id }: { id: string }) {
+  const [st, setSt] = useState({ runs: 0 });
+  const agent = useAgent({
+    agent: "ops-agent", name: id,
+    onStateUpdate: (next) =&gt; setSt(next),
+  });
+  return (
+    &lt;button onClick={() =&gt;
+      agent.call("requestDeploy", ["v2.14"])
+    }&gt;Deploy ({st.runs})&lt;/button&gt;
+  );
+}</code></pre>
+    </div>
+    <div>
+      <h3 style="margin:3px 0 3px 0; font-size:9.5pt;">Recipe C: <code>wrangler.jsonc</code> Bindings</h3>
+      <pre class="code-block" style="font-size:6.6pt; line-height:1.30; padding:5.5px 8px; margin:0;"><code>{
+  "name": "edge-agent-platform",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "ai": { "binding": "AI" },
+  "durable_objects": { "bindings": [
+    { "name": "OPS_AGENT", "class_name": "OpsAgent" }
+  ]},
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["OpsAgent"] }
+  ],
+  "workflows": [{ "name": "deploy-approval",
+    "binding": "DEPLOY_WORKFLOW",
+    "class_name": "DeployApprovalWorkflow" }]
+}</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, ZERO-TRUST & COST CONTROLS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security, Zero-Trust Access &amp; Cost Controls</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">Security, Zero-Trust Access &amp; Edge Cost Controls</h2>
+  <p class="page-lead">
+    Autonomous agents hold tool credentials, execute code, and call metered LLMs. Securing them at the Cloudflare edge means enforcing identity before a Durable Object ever wakes, isolating every tenant&rsquo;s storage and sandbox, and bounding inference spend at the gateway.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Edge Auth &amp; Zero Trust Access</div>
+      <ul style="font-size:8pt; margin:0;">
+        <li><strong>Cloudflare Access:</strong> Gate internal admin UIs and <code>/agents/*</code> endpoints with SSO + JWT validation at the edge before invoking Workers.</li>
+        <li><strong>OAuth 2.1 for Remote MCP:</strong> Use <code>@cloudflare/workers-oauth-provider</code> with resource-bound tokens (<code>MCP_RESOURCE</code>) and short TTLs.</li>
+        <li><strong>WAF &amp; AI Crawl Control:</strong> Block unauthorized scrapers and automated abuse at L7 while allowing verified webhook/API signatures.</li>
+      </ul>
+    </div>
+    <div class="card-indigo">
+      <div class="card-title"><span class="num-badge indigo">2</span> Prompt &amp; Data Loss Prevention</div>
+      <ul style="font-size:8pt; margin:0;">
+        <li><strong>AI Gateway DLP:</strong> Scan outbound prompts and inbound completions for SSNs, API keys, and PCI patterns before data leaves Cloudflare.</li>
+        <li><strong>Llama Guardrails:</strong> Filter prompt-injection attempts and unsafe tool arguments inline on Workers AI.</li>
+        <li><strong>App-Layer Redaction:</strong> Strip sensitive PII before writing to <code>this.sql</code> or Workers Logs to satisfy SOC 2 / GDPR retention policies.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Defense-in-Depth &amp; Cost Governance Matrix</h3>
+  <table class="clean-table" style="margin-bottom:7px;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Risk Surface</th>
+        <th style="width:42%;">Cloudflare Edge Control</th>
+        <th style="width:36%;">Operational Budget / Metric Target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Cross-Tenant Data Leak</strong></td>
+        <td>Derive DO IDs strictly from verified JWT <code>sub</code>/<code>orgId</code> claims&mdash;never from raw client query params.</td>
+        <td>100% isolated SQLite file &amp; sandbox per tenant ID.</td>
+      </tr>
+      <tr>
+        <td><strong>Runaway LLM Loops</strong></td>
+        <td>Set AI Gateway rate limits (req/min + tokens/hr) and cap agent tool-call loops to <code>maxSteps &le; 12</code>.</td>
+        <td>Hard circuit breaker before $10/tenant/day spike.</td>
+      </tr>
+      <tr>
+        <td><strong>Sandbox Breakout / Leak</strong></td>
+        <td>Disable container internet by default; never store secrets on snapshot disks; enforce 15s <code>exec</code> timeouts.</td>
+        <td>Zero credentials inside container filesystem.</td>
+      </tr>
+      <tr>
+        <td><strong>Idle Compute Waste</strong></td>
+        <td>Use hibernatable WebSockets, <code>step.waitForEvent()</code> in Workflows, and <code>sleepAfter: "3m"</code> on Containers.</td>
+        <td>$0 idle compute while waiting for human input.</td>
+      </tr>
+      <tr>
+        <td><strong>Opaque Production Failures</strong></td>
+        <td>Enable Workers Logs (real-time structured JSON) + Logpush to R2/Datadog with <code>cf-aig-metadata</code> tags.</td>
+        <td>100% trace correlation from WS frame &rarr; LLM &rarr; Sandbox.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2">
+    <div class="callout amber" style="margin:0;">
+      <div class="callout-title">Tiered Model Routing Saves 60&ndash;75%</div>
+      Route intent classification, JSON extraction, and Guardrails to <strong>Workers AI</strong> ($0.011 / 1k Neurons after 10k free/day). Escalate only complex planning and final code synthesis through AI Gateway to frontier models.
+    </div>
+    <div class="callout rose" style="margin:0;">
+      <div class="callout-title">Never Trust Client-Supplied Agent Names</div>
+      If your Worker blindly calls <code>routeAgentRequest(req, env)</code> without verifying the caller&rsquo;s session token matches the requested agent name, any user can connect to another tenant&rsquo;s Durable Object WebSocket.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Pipeline</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Edge Agent Synergy Pipeline</h2>
+  <p class="page-lead">
+    Production AI applications rarely stop at a single chat box. Here is how a React/Next.js frontend, Cloudflare Agent Durable Object, AI Gateway, R2/Vectorize RAG layer, and Container Sandbox interlock into one globally distributed, low-latency pipeline.
+  </p>
+
+  <!-- Inline SVG Synergy Architecture -->
+  <div class="figure-box" style="background:#0b1120; padding:10px 11px; border-color:#312e81; margin-bottom:8px;">
+    <svg viewBox="0 0 700 228" width="100%" height="228" xmlns="http://www.w3.org/2000/svg">
+      <!-- Column 1: React/Next.js Client -->
+      <rect x="6" y="34" width="118" height="156" rx="9" fill="#131c31" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="65" y="52" text-anchor="middle" fill="#7dd3fc" font-size="7.2" font-weight="700">CLIENT LAYER</text>
+      <text x="65" y="68" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">React / Next.js</text>
+      <rect x="14" y="80" width="102" height="38" rx="5" fill="#1e293b" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="65" y="95" text-anchor="middle" fill="#e0f2fe" font-size="7" font-weight="700">useAgent() Hook</text>
+      <text x="65" y="108" text-anchor="middle" fill="#94a3b8" font-size="6.4">Live WS + Optimistic UI</text>
+      <rect x="14" y="126" width="102" height="52" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="65" y="142" text-anchor="middle" fill="#e0f2fe" font-size="7" font-weight="700">OAuth 2.1 / Access</text>
+      <text x="65" y="155" text-anchor="middle" fill="#94a3b8" font-size="6.4">Signed JWT session</text>
+      <text x="65" y="167" text-anchor="middle" fill="#94a3b8" font-size="6.4">&amp; HITL Approve clicks</text>
+
+      <!-- Arrow 1 -> 2 (Bidirectional WS) -->
+      <path d="M124 108 L148 108" stroke="#fb923c" stroke-width="2"/>
+      <polygon points="146,103 154,108 146,113" fill="#fb923c"/>
+      <polygon points="130,103 122,108 130,113" fill="#38bdf8"/>
+      <text x="138" y="99" text-anchor="middle" fill="#fdba74" font-size="6.3" font-weight="700">WSS</text>
+
+      <!-- Column 2: Cloudflare Agent DO -->
+      <rect x="155" y="18" width="166" height="190" rx="9" fill="#171d3b" stroke="#f97316" stroke-width="1.7"/>
+      <text x="238" y="35" text-anchor="middle" fill="#fdba74" font-size="7.3" font-weight="700">EDGE STATEFUL BRAIN</text>
+      <text x="238" y="51" text-anchor="middle" fill="#ffffff" font-size="9.6" font-weight="800">Cloudflare Agent DO</text>
+      <rect x="165" y="62" width="146" height="38" rx="5" fill="#232046" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="238" y="77" text-anchor="middle" fill="#ffedd5" font-size="7.1" font-weight="700">Embedded SQLite State</text>
+      <text x="238" y="90" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Messages, tool ledger, state</text>
+      <rect x="165" y="108" width="146" height="38" rx="5" fill="#232046" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="238" y="123" text-anchor="middle" fill="#fef3c7" font-size="7.1" font-weight="700">Workflows &amp; Schedules</text>
+      <text x="238" y="136" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Alarms, retries, runFiber()</text>
+      <rect x="165" y="154" width="146" height="42" rx="5" fill="#232046" stroke="#818cf8" stroke-width="0.9"/>
+      <text x="238" y="170" text-anchor="middle" fill="#e0e7ff" font-size="7.1" font-weight="700">MCP Client &amp; Server</text>
+      <text x="238" y="183" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Zero-HTTP RPC &amp; /mcp</text>
+
+      <!-- Arrow 2 -> 3 (AI Gateway) -->
+      <path d="M321 78 L352 78" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="350,73 358,78 350,83" fill="#818cf8"/>
+
+      <!-- Arrow 2 -> 4 (Bottom branch to R2/Vectorize & Sandbox) -->
+      <path d="M321 156 L352 156" stroke="#34d399" stroke-width="2"/>
+      <polygon points="350,151 358,156 350,161" fill="#34d399"/>
+
+      <!-- Column 3 Top: AI Gateway -->
+      <rect x="359" y="14" width="160" height="96" rx="9" fill="#131c31" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="439" y="30" text-anchor="middle" fill="#c7d2fe" font-size="7.2" font-weight="700">INFERENCE PLANE</text>
+      <text x="439" y="45" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">AI Gateway</text>
+      <rect x="369" y="54" width="140" height="46" rx="5" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="439" y="69" text-anchor="middle" fill="#e0e7ff" font-size="7" font-weight="700">Cache &bull; DLP &bull; Guard</text>
+      <text x="439" y="81" text-anchor="middle" fill="#cbd5e1" font-size="6.4">Dynamic Route Fallback</text>
+      <text x="439" y="92" text-anchor="middle" fill="#a5b4fc" font-size="6.3">Workers Logs + Billing</text>
+
+      <!-- Arrow AI Gateway -> Providers -->
+      <path d="M519 62 L542 62" stroke="#818cf8" stroke-width="2"/>
+      <polygon points="540,57 548,62 540,67" fill="#818cf8"/>
+
+      <!-- Column 4 Top: Models -->
+      <rect x="549" y="14" width="145" height="96" rx="9" fill="#131c31" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="621" y="30" text-anchor="middle" fill="#fde68a" font-size="7.2" font-weight="700">MODEL FLEET</text>
+      <text x="621" y="45" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">Workers AI &amp; LLMs</text>
+      <rect x="559" y="54" width="125" height="20" rx="4" fill="#232046" stroke="#f59e0b" stroke-width="0.8"/>
+      <text x="621" y="67" text-anchor="middle" fill="#fef3c7" font-size="6.6" font-weight="700">Workers AI (Llama / BGE)</text>
+      <rect x="559" y="79" width="125" height="20" rx="4" fill="#232046" stroke="#fb923c" stroke-width="0.8"/>
+      <text x="621" y="92" text-anchor="middle" fill="#ffedd5" font-size="6.6" font-weight="700">Claude / GPT / Gemini</text>
+
+      <!-- Column 3 Bottom: R2 + Vectorize / AI Search -->
+      <rect x="359" y="120" width="160" height="94" rx="9" fill="#131c31" stroke="#34d399" stroke-width="1.5"/>
+      <text x="439" y="136" text-anchor="middle" fill="#a7f3d0" font-size="7.2" font-weight="700">KNOWLEDGE &amp; ASSETS</text>
+      <text x="439" y="151" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="800">R2 + Vectorize</text>
+      <rect x="369" y="160" width="140" height="44" rx="5" fill="#064e3b" stroke="#10b981" stroke-width="0.9"/>
+      <text x="439" y="175" text-anchor="middle" fill="#d1fae5" font-size="7" font-weight="700">AI Search (Managed RAG)</text>
+      <text x="439" y="188" text-anchor="middle" fill="#a7f3d0" font-size="6.4">Continuous R2 indexing</text>
+      <text x="439" y="198" text-anchor="middle" fill="#a7f3d0" font-size="6.3">Artifacts &amp; PDF storage</text>
+
+      <!-- Arrow R2/Vectorize <-> Sandbox -->
+      <path d="M519 167 L542 167" stroke="#34d399" stroke-width="2"/>
+      <polygon points="540,162 548,167 540,172" fill="#34d399"/>
+
+      <!-- Column 4 Bottom: Container Sandbox -->
+      <rect x="549" y="120" width="145" height="94" rx="9" fill="#131c31" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="621" y="136" text-anchor="middle" fill="#fdba74" font-size="7.2" font-weight="700">CODE EXECUTION</text>
+      <text x="621" y="151" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="800">Container Sandbox</text>
+      <rect x="559" y="160" width="125" height="44" rx="5" fill="#1e293b" stroke="#ea580c" stroke-width="0.9"/>
+      <text x="621" y="175" text-anchor="middle" fill="#ffedd5" font-size="7" font-weight="700">ctx.container + SDK 1.0</text>
+      <text x="621" y="188" text-anchor="middle" fill="#cbd5e1" font-size="6.4">Node, Python, Git, Shell</text>
+      <text x="621" y="198" text-anchor="middle" fill="#fdba74" font-size="6.3">FS Snapshots &rarr; R2 outputs</text>
+    </svg>
+  </div>
+
+  <h3>5-Stage Operational Flow (From Click to Verified Output)</h3>
+  <div class="grid-2" style="gap:8px 11px; margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Zero-Hop Client Sync</div>
+      <p style="font-size:8pt; margin:0;">Next.js authenticates the user via OAuth 2.1 / Access and opens a persistent WebSocket to the tenant&rsquo;s <code>Agent</code> DO via <code>useAgent()</code>. Every state mutation pushes instantaneously to all open browser tabs.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Grounded Edge Retrieval</div>
+      <p style="font-size:8pt; margin:0;">Before calling a frontier model, the Agent queries recent turn context from local SQLite and fetches top-K domain passages from <strong>Vectorize</strong> or <strong>AI Search</strong> (backed by R2 buckets) in a single region.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge indigo">3</span> Guarded Multi-Model Inference</div>
+      <p style="font-size:8pt; margin:0;">The prompt passes through <strong>AI Gateway</strong> for DLP redaction, exact-match cache lookup, and dynamic routing&mdash;failing over seamlessly if the primary provider rate-limits.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">4</span> Sandboxed Execution &amp; Artifacts</div>
+      <p style="font-size:8pt; margin:0;">When the LLM emits a code or repo tool call, the DO wakes <code>this.ctx.container</code>, runs the script with a hard timeout, uploads generated charts/CSVs to <strong>R2</strong>, and returns a signed URL to the client.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:2px;">
+    <div class="callout-title">Stage 5: Durable Handoff &amp; Hibernation</div>
+    Once the turn completes, the Agent checkpoints its ledger in SQLite, schedules any follow-up check via <code>this.schedule()</code>, lets the Container Sandbox sleep after 3 minutes, and hibernates its own WebSocket&mdash;dropping steady-state cost to near zero until the next event arrives.
+  </div>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Launch Pre-Flight</span>
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic &amp; 6-Point Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Most Cloudflare Agents, MCP, and Sandbox deploy errors trace back to a handful of <code>wrangler.jsonc</code>, dependency-pinning, or hibernation gotchas. Diagnose them fast below, then run the 6-point checklist before shipping to production.
+  </p>
+
+  <h3>Top 7 Production &amp; Deploy Fixes</h3>
+  <table class="clean-table" style="margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:28%;">Symptom / Error</th>
+        <th style="width:34%;">Root Cause</th>
+        <th style="width:38%;">Verified Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>DO deploy fails on SQLite</strong><br/><code>new_sqlite_classes required</code></td>
+        <td>Class bound in <code>durable_objects.bindings</code> without a matching SQLite migration entry.</td>
+        <td>Add <code>"migrations": [{ "tag": "v1", "new_sqlite_classes": ["MyAgent"] }]</code> and match exported class name exactly.</td>
+      </tr>
+      <tr>
+        <td><strong><code>McpServer</code> not assignable</strong><br/>TypeScript build error</td>
+        <td>Two different versions of <code>@modelcontextprotocol/sdk</code> installed in <code>node_modules</code>.</td>
+        <td>Run <code>npm ls @modelcontextprotocol/sdk</code> and pin the exact version required by your <code>agents</code> release.</td>
+      </tr>
+      <tr>
+        <td><strong><code>Could not resolve "ai"</code></strong><br/>Bundler fails on MCP deploy</td>
+        <td><code>agents</code> dynamically imports Vercel&rsquo;s <code>ai</code> package on client paths even if unused.</td>
+        <td>Install <code>ai</code> in <code>dependencies</code> (<code>npm i ai</code>) and ensure <code>compatibility_flags: ["nodejs_compat"]</code> is set.</td>
+      </tr>
+      <tr>
+        <td><strong><code>Env</code> untyped / red squiggles</strong></td>
+        <td>Added a new DO, AI, KV, or Workflow binding in <code>wrangler.jsonc</code> without regenerating types.</td>
+        <td>Run <code>npx wrangler types</code> after every config edit (and in CI before <code>tsc --noEmit</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>State lost after WS idle</strong></td>
+        <td>Stored session variables on in-memory <code>this.foo</code> fields instead of SQLite/WebSocket state.</td>
+        <td>Persist shared state with <code>this.setState()</code> / <code>this.sql</code> and per-socket state via <code>connection.setState()</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>OAuth MCP 401 Invalid Token</strong></td>
+        <td><code>MCP_RESOURCE</code> in <code>wrangler.jsonc</code> still points to <code>localhost</code> instead of prod URL.</td>
+        <td>Set <code>MCP_RESOURCE</code> to the exact public <code>https://.../mcp</code> URL clients connect to; redeploy.</td>
+      </tr>
+      <tr>
+        <td><strong>No snapshots / slow container</strong></td>
+        <td>Still extending legacy <code>Container</code> or <code>Sandbox</code> wrapper classes (frozen Dec 31, 2026).</td>
+        <td>Migrate to native <code>this.ctx.container</code> with <code>durable_object</code> scheduling + Sandbox SDK 1.0 helpers.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Production Launch Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Tenant-Bound Routing:</strong> Edge Worker validates OAuth 2.1 / Access JWT and derives the Durable Object ID from verified claims&mdash;never raw URL params.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. SQLite Migrations &amp; Types:</strong> Every <code>Agent</code> and <code>McpAgent</code> is listed in <code>new_sqlite_classes</code>, <code>nodejs_compat</code> is enabled, and <code>wrangler types</code> passes cleanly.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. AI Gateway Guardrails:</strong> All model calls route via <code>dynamic/&lt;route&gt;</code> with a fallback provider, <code>cf-aig-cache-ttl</code>, rate limits, DLP, and Llama Guardrails enabled.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Hardened Sandboxes:</strong> Containers use native <code>ctx.container</code> with <code>enableInternet: false</code>, 15s <code>exec</code> timeouts, 3&ndash;5m idle sleep, and zero secrets on snapshot disks.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. Hibernation &amp; Loop Caps:</strong> Verified state survives DO eviction, Workflows sleep on <code>waitForEvent()</code>, and agent tool loops enforce a hard <code>maxSteps</code> ceiling.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. End-to-End Observability:</strong> Workers Logs active, <code>cf-aig-metadata</code> tagged with tenant &amp; workflow IDs, and <code>npx wrangler tail</code> smoke-tested on staging.</div>
+    </div>
+  </div>
+
+  <div class="callout indigo" style="margin-top:7px;">
+    <div class="callout-title">Ready to Deploy Your First Edge Agent?</div>
+    Scaffold in seconds with <code>npm create cloudflare@latest -- --template=cloudflare/agents-starter</code>, inspect SQLite locally with <code>npx wrangler dev</code>, and ship globally with <code>npx wrangler deploy</code>.
+  </div>
+
+  <div class="page-footer">
+    <span>Cloudflare Agents, Workers AI &amp; Sandboxes &bull; Field Guide</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

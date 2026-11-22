@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Supabase &amp; Postgres for AI Agents: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">CLOUD DATA &amp; AGENT BACKENDS &bull; FIELD GUIDE</div>
+    <h1>Supabase &amp; Postgres for <span>AI Agents</span></h1>
+    <p class="cover-sub">
+      Build secure, multi-tenant agent backends on Postgres using <code>pgvector</code> hybrid search, Row-Level Security (RLS) guardrails, Edge Functions, <code>pgmq</code> queues, Supabase MCP, and official <code>supabase/agent-skills</code>.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">pgvector + RRF Hybrid Search</span>
+      <span class="cover-badge">Bulletproof RLS Guardrails</span>
+      <span class="cover-badge">Supabase MCP Server</span>
+      <span class="cover-badge">supabase/agent-skills</span>
+      <span class="cover-badge">Edge Functions &amp; pgmq</span>
+      <span class="cover-badge">Branching &amp; Supavisor</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Isometric emerald Postgres cylinders and crystalline relational tables linked by cyan pipelines and geometric shields to autonomous AI agent nodes" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">One Unified Postgres Core</div>
+      <div class="cover-stat-desc">Run relational state, HNSW vector embeddings, full-text <code>tsvector</code> search, and <code>pgmq</code> job queues inside one transactional database.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero-Trust Tenant Isolation</div>
+      <div class="cover-stat-desc">Propagate end-user JWTs through every agent tool call so Postgres RLS enforces tenant boundaries&mdash;never leak <code>service_role</code> keys.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Safe Agentic Migrations</div>
+      <div class="cover-stat-desc">Pair read-only or branch-scoped Supabase MCP with <code>supabase/agent-skills</code> and ephemeral Preview Branches before merging to production.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Why Postgres + Supabase Wins for Production AI Agents</h2>
+  <p class="page-lead">
+    Early AI prototypes glued together a vector database, a Redis queue, a document store, and custom auth middleware&mdash;creating sync drift and multi-tenant data leaks. Modern agent backends consolidate memory, retrieval, permissions, and async execution onto a single <strong>PostgreSQL</strong> engine powered by Supabase.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model &amp; Request Flow</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Edge Functions, pgmq &amp; Realtime</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Primitive Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste SQL &amp; TS Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Studio &amp; MCP HUD</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Supavisor Pooling, Vault &amp; Ops</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Hybrid Search with pgvector</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Bulletproof RLS Guardrails</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Supabase MCP &amp; agent-skills</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: JWT In, RLS Enforced</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>The 4-Stage Multi-Tenant Agent Data Flow</h3>
+  <p style="font-size:8.6pt;">
+    When an agent executes a tool call on behalf of a user, security cannot rely on prompt instructions. Instead, the user&rsquo;s <strong>JWT</strong> travels from the client through your Edge Function or API route straight into Postgres, where <strong>Row-Level Security (RLS)</strong> filters both relational rows and <code>pgvector</code> embeddings before the LLM ever sees a single token.
+  </p>
+
+  <div class="figure-box" style="background:#071418; padding:9px 12px; border-color:#0f766e;">
+    <svg viewBox="0 0 700 182" width="100%" height="182" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1: AI Agent Runtime -->
+      <rect x="6" y="12" width="152" height="158" rx="9" fill="#0b1c20" stroke="#3ecf8e" stroke-width="1.5"/>
+      <text x="82" y="30" text-anchor="middle" fill="#6ee7b7" font-size="7.5" font-weight="700">1. AGENT RUNTIME</text>
+      <text x="82" y="46" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Tool Call + JWT</text>
+      <rect x="16" y="57" width="132" height="44" rx="5" fill="#0f2b27" stroke="#10b981" stroke-width="0.9"/>
+      <text x="82" y="73" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">User Auth Context</text>
+      <text x="82" y="86" text-anchor="middle" fill="#94a3b8" font-size="6.8">Bearer JWT (org_id, sub)</text>
+      <rect x="16" y="109" width="132" height="48" rx="5" fill="#0f2b27" stroke="#3ecf8e" stroke-width="0.9"/>
+      <text x="82" y="126" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">Structured Tool Args</text>
+      <text x="82" y="139" text-anchor="middle" fill="#94a3b8" font-size="6.8">Query text + metadata filter</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M158 91 L176 91" stroke="#3ecf8e" stroke-width="2"/>
+      <polygon points="174,86 182,91 174,96" fill="#3ecf8e"/>
+
+      <!-- Stage 2: RLS / JWT Gate -->
+      <rect x="183" y="12" width="156" height="158" rx="9" fill="#0b1c20" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="261" y="30" text-anchor="middle" fill="#fde68a" font-size="7.5" font-weight="700">2. ZERO-TRUST GATE</text>
+      <text x="261" y="46" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Supavisor + RLS</text>
+      <rect x="193" y="57" width="136" height="44" rx="5" fill="#1c2420" stroke="#d97706" stroke-width="0.9"/>
+      <text x="261" y="73" text-anchor="middle" fill="#fef3c7" font-size="7.3" font-weight="700">Transaction Pool (6543)</text>
+      <text x="261" y="86" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Sets request.jwt.claims</text>
+      <rect x="193" y="109" width="136" height="48" rx="5" fill="#1c2420" stroke="#fbbf24" stroke-width="0.9"/>
+      <text x="261" y="126" text-anchor="middle" fill="#fef3c7" font-size="7.3" font-weight="700">InitPlan RLS Filter</text>
+      <text x="261" y="139" text-anchor="middle" fill="#cbd5e1" font-size="6.8">(select auth.uid()) = owner</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M339 91 L357 91" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="355,86 363,91 355,96" fill="#fbbf24"/>
+
+      <!-- Stage 3: Postgres + pgvector -->
+      <rect x="364" y="12" width="158" height="158" rx="9" fill="#0b1c20" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="443" y="30" text-anchor="middle" fill="#7dd3fc" font-size="7.5" font-weight="700">3. POSTGRES ENGINE</text>
+      <text x="443" y="46" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">pgvector + FTS + SQL</text>
+      <rect x="374" y="57" width="138" height="44" rx="5" fill="#0d2536" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="443" y="73" text-anchor="middle" fill="#e0f2fe" font-size="7.3" font-weight="700">Hybrid HNSW + GIN</text>
+      <text x="443" y="86" text-anchor="middle" fill="#94a3b8" font-size="6.8">RRF merges semantic + BM25</text>
+      <rect x="374" y="109" width="138" height="48" rx="5" fill="#0d2536" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="443" y="126" text-anchor="middle" fill="#e0f2fe" font-size="7.3" font-weight="700">ACID Memory &amp; pgmq</text>
+      <text x="443" y="139" text-anchor="middle" fill="#94a3b8" font-size="6.8">Checkpoints + async queues</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M522 91 L540 91" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="538,86 546,91 538,96" fill="#38bdf8"/>
+
+      <!-- Stage 4: Edge Functions & Realtime -->
+      <rect x="547" y="12" width="147" height="158" rx="9" fill="#08241e" stroke="#34d399" stroke-width="1.6"/>
+      <text x="620" y="30" text-anchor="middle" fill="#6ee7b7" font-size="7.5" font-weight="700">4. EDGE &amp; STREAM</text>
+      <text x="620" y="46" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Functions &amp; Realtime</text>
+      <rect x="557" y="57" width="127" height="44" rx="5" fill="#0f332a" stroke="#10b981" stroke-width="0.9"/>
+      <text x="620" y="73" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">Deno Edge Workers</text>
+      <text x="620" y="86" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Embed, chunk &amp; orchestrate</text>
+      <rect x="557" y="109" width="127" height="48" rx="5" fill="#0f332a" stroke="#34d399" stroke-width="0.9"/>
+      <text x="620" y="126" text-anchor="middle" fill="#d1fae5" font-size="7.3" font-weight="700">Realtime Broadcast</text>
+      <text x="620" y="139" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Live progress &amp; token UI</text>
+    </svg>
+  </div>
+
+  <div class="callout" style="margin:4px 0 0 0;">
+    <div class="callout-title">Core Mental Model: Prompt Guardrails Are Advisory; Postgres RLS Is Cryptographic</div>
+    Even frontier reasoning models can be tricked by indirect prompt injection into requesting another tenant&rsquo;s records. By binding every agent query to a scoped user JWT (or narrow table-granted Postgres role) instead of a blanket <code>service_role</code> key, Postgres physically refuses to return unauthorized rows&mdash;even if the agent hallucinates a broad <code>WHERE</code> clause.
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: ARCHITECTURE & PRIMITIVE DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Architecture &amp; Primitive Selection</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Supabase Primitive Decision Matrix for AI Agent Workloads</h2>
+  <p class="page-lead">
+    Do not stuff long-running LLM loops into synchronous HTTP Edge Functions or rely on pure cosine similarity for SKU lookups. Pick the right Supabase primitive for each phase of your agent lifecycle.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Primitive</th>
+        <th style="width:24%;">Best-Fit Agent Workload</th>
+        <th style="width:22%;">Key 2026 Capability</th>
+        <th style="width:18%;">Security Boundary</th>
+        <th style="width:18%;">Anti-Pattern to Avoid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Postgres + RLS</strong><br/><code>public</code> / <code>app</code></td>
+        <td>Agent state, thread history, tool audit logs, multi-tenant records</td>
+        <td>InitPlan <code>(select auth.uid())</code>, partial B-Tree indexes, JSONB</td>
+        <td>Row-Level Security + <code>security invoker</code> views</td>
+        <td>Using <code>service_role</code> in user-facing agent APIs</td>
+      </tr>
+      <tr>
+        <td><strong>pgvector Hybrid</strong><br/><code>HNSW + tsvector</code></td>
+        <td>RAG knowledge bases, semantic + exact keyword &amp; ID lookup</td>
+        <td>pgvector 0.8+ iterative scans, <code>halfvec</code> quantization, RRF SQL</td>
+        <td>RLS filters vectors inside the same SQL transaction</td>
+        <td>Vector-only search without lexical fallback or filters</td>
+      </tr>
+      <tr>
+        <td><strong>Edge Functions</strong><br/><code>Deno Runtime</code></td>
+        <td>Auth-checked tool endpoints, webhooks, lightweight AI proxy calls</td>
+        <td>Globally distributed, low cold-start, native Supabase JWT client</td>
+        <td>Forward <code>Authorization</code> header to user-scoped client</td>
+        <td>Running 5-minute batch scrapes synchronously in HTTP</td>
+      </tr>
+      <tr>
+        <td><strong>Queues &amp; Cron</strong><br/><code>pgmq + pg_cron</code></td>
+        <td>Document chunking, bulk embeddings, retryable agent background jobs</td>
+        <td>Exactly-once visibility timeout, durable archive, Cron-triggered workers</td>
+        <td>Private schema + Vault secrets for <code>pg_net</code> calls</td>
+        <td>Fire-and-forget promises that die on function timeout</td>
+      </tr>
+      <tr>
+        <td><strong>Branching 2.0</strong><br/><code>Preview / Persist</code></td>
+        <td>Safe AI-authored schema migrations, RLS testing, PR previews</td>
+        <td>Data-less isolated clones with Edge Functions &amp; migration history</td>
+        <td>Isolated credentials; zero production PII by default</td>
+        <td>Letting coding agents run DDL directly on production</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>When to Use Single Postgres vs. Adding Specialized Extensions</h3>
+  <div class="grid-2">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Stay 100% Inside Supabase Postgres (0&ndash;50M Vectors)</div>
+      <ul style="font-size:8.2pt; margin-bottom:2px;">
+        <li><strong>Zero Sync Drift:</strong> Deleting a document immediately removes its chunks and embeddings via <code>ON DELETE CASCADE</code>.</li>
+        <li><strong>Filtered Recall Fixed:</strong> pgvector 0.8+ <code>hnsw.iterative_scan</code> keeps scanning the graph until <code>LIMIT k</code> rows pass your tenant RLS filter.</li>
+        <li><strong>Half the RAM:</strong> Storing OpenAI/Gemini embeddings as <code>halfvec(1536)</code> cuts index memory by 50% with negligible recall loss.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge cyan">2</span> Scale Up with pgvectorscale &amp; Partitioning (50M+)</div>
+      <ul style="font-size:8.2pt; margin-bottom:2px;">
+        <li><strong>Disk-Backed ANN:</strong> When HNSW graphs exceed instance RAM (HNSW uses ~2&ndash;3&times; raw vector bytes), evaluate DiskANN / <code>pgvectorscale</code> or binary quantization.</li>
+        <li><strong>Tenant Partitioning:</strong> Partition massive <code>document_chunks</code> tables by <code>org_id</code> or time range so each HNSW index stays hot in memory.</li>
+        <li><strong>Read Replicas:</strong> Route heavy analytical and RAG retrieval traffic to a dedicated read replica while writes hit primary.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:7px;">
+    <div class="callout-title">Latency Budget Rule of Thumb for Voice &amp; Interactive Agents</div>
+    Target <strong>&lt; 60 ms</strong> total database round-trip for agent RAG retrieval: ~5 ms Supavisor transaction checkout, ~15 ms indexed RLS + HNSW/GIN hybrid search, and ~20 ms network/serialization. If your RPC exceeds 150 ms, run <code>EXPLAIN (ANALYZE, BUFFERS)</code>&mdash;90% of slowdowns come from an unindexed RLS column or an unwrapped <code>auth.uid()</code> call.
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INTERFACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Command Center HUD: Supabase Studio, RLS Inspector &amp; MCP</h2>
+  <p class="page-lead">
+    Before giving an AI agent access to your database, master these seven high-leverage controls spanning Supabase Studio&rsquo;s SQL/RLS workspace, Security Advisors, and live Supabase MCP audit logs.
+  </p>
+
+  <!-- MOCK UI WINDOW -->
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#e2e8f0;">Supabase Studio &mdash; acme-agent-prod</span>
+        <span class="hud-chip" style="background:rgba(62,207,142,0.2); color:#6ee7b7; border:1px solid #10b981; margin-left:6px;">Branch: feat/rls-hybrid-rag</span>
+        <span class="callout-pin" style="margin-left:4px;">1</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:7px;">
+        <span class="hud-chip" style="background:rgba(56,189,248,0.18); color:#7dd3fc; border:1px solid #0284c7;">MCP: read_only=true</span>
+        <span class="callout-pin">2</span>
+        <span class="hud-chip" style="background:rgba(251,191,36,0.2); color:#fde68a; border:1px solid #d97706;">Advisors: 0 Errors</span>
+        <span class="callout-pin">3</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.15fr 0.85fr; gap:8px; padding:9px 10px;">
+      <!-- Left Pane: SQL & RLS Inspector -->
+      <div style="display:flex; flex-direction:column; gap:7px;">
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#6ee7b7;">SQL Editor &mdash; Impersonate Role: <code>authenticated</code> (org_9f2a)</strong>
+            <span class="callout-pin">4</span>
+          </div>
+          <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.6pt; color:#cbd5e1; background:#050e11; padding:5px 7px; border-radius:4px; border:1px solid #134e4a; line-height:1.38;">
+            <span style="color:#3ecf8e;">SELECT</span> id, title, rrf_score <span style="color:#3ecf8e;">FROM</span> hybrid_search(<span style="color:#fde68a;">'Q3 refund policy'</span>, $emb, 8);<br/>
+            <span style="color:#64748b;">-- Planning Time: 0.42 ms | Execution Time: 11.8 ms (HNSW + GIN + RLS InitPlan)</span>
+          </div>
+        </div>
+
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#7dd3fc;">RLS Policy Inspector &mdash; <code>public.document_chunks</code></strong>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px; font-size:6.5pt;">
+            <div style="background:#072520; border:1px solid #10b981; border-radius:4px; padding:4px 6px;">
+              <div style="color:#6ee7b7; font-weight:700;">SELECT &bull; TO authenticated</div>
+              <div style="color:#cbd5e1;"><code>org_id = (select private.current_org_id())</code></div>
+            </div>
+            <div style="background:#0d2536; border:1px solid #0284c7; border-radius:4px; padding:4px 6px;">
+              <div style="color:#7dd3fc; font-weight:700;">INSERT &bull; WITH CHECK</div>
+              <div style="color:#cbd5e1;"><code>owner_id = (select auth.uid())</code></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Pane: MCP Audit Logs & Pooler Health -->
+      <div style="display:flex; flex-direction:column; gap:7px;">
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#fde68a;">Supabase MCP Tool &amp; Query Logs (24h)</strong>
+            <span class="callout-pin">6</span>
+          </div>
+          <div style="font-family:'SF Mono',Menlo,monospace; font-size:6.3pt; color:#cbd5e1; line-height:1.42;">
+            <div><span style="color:#3ecf8e;">14:22:09</span> <code>get_advisors(security)</code> &rarr; 0 critical</div>
+            <div><span style="color:#38bdf8;">14:22:18</span> <code>apply_migration</code> &rarr; <span style="color:#fca5a5;">BLOCKED (read_only)</span></div>
+            <div><span style="color:#3ecf8e;">14:23:04</span> <code>create_branch</code> &rarr; <code>feat/rls-hybrid-rag</code></div>
+            <div><span style="color:#3ecf8e;">14:24:11</span> <code>generate_typescript_types</code> &rarr; 200 OK</div>
+          </div>
+        </div>
+
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#a7f3d0;">Supavisor Pooler &amp; pgmq Queue Depth</strong>
+            <span class="callout-pin">7</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:6.6pt; color:#cbd5e1;">
+            <span>Port 6543: <strong style="color:#3ecf8e;">18 / 200</strong> clients</span>
+            <span><code>embed_jobs</code>: <strong style="color:#38bdf8;">4 queued</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-CONTROL LEGEND -->
+  <div class="grid-2" style="gap:7px 11px; font-size:8.05pt;">
+    <div class="card" style="padding:7px 10px;">
+      <p style="margin-bottom:4px;"><span class="callout-pin" style="margin-right:4px;">1</span><strong>Branch Switcher:</strong> Isolates agent schema edits on a data-less Preview Branch before any migration touches production.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin" style="margin-right:4px;">2</span><strong>MCP Scope Badge:</strong> Confirms <code>project_ref</code> pinning and <code>read_only=true</code> so coding agents cannot mutate production tables.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin" style="margin-right:4px;">3</span><strong>Security &amp; Perf Advisors:</strong> Flags tables missing RLS, unindexed foreign keys, and <code>security definer</code> view leaks automatically.</p>
+      <p style="margin-bottom:0;"><span class="callout-pin" style="margin-right:4px;">4</span><strong>Role Impersonation Runner:</strong> Tests SQL/RPC queries as a specific <code>authenticated</code> user JWT rather than Postgres superuser.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <p style="margin-bottom:4px;"><span class="callout-pin" style="margin-right:4px;">5</span><strong>RLS Policy Inspector:</strong> Audits every command (<code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>) to verify explicit <code>TO authenticated</code> clauses.</p>
+      <p style="margin-bottom:4px;"><span class="callout-pin" style="margin-right:4px;">6</span><strong>MCP &amp; Edge Logs (<code>query_logs</code>):</strong> Lets you (or a debugging agent) run read-only SQL over 24 hours of Edge Function and Auth traces.</p>
+      <p style="margin-bottom:0;"><span class="callout-pin" style="margin-right:4px;">7</span><strong>Supavisor &amp; Queue Telemetry:</strong> Monitors Transaction Pooler saturation (port <code>6543</code>) and <code>pgmq</code> embedding worker backlogs.</p>
+    </div>
+  </div>
+
+  <div class="callout cyan" style="margin-top:7px;">
+    <div class="callout-title">Pro Workflow: Never Trust a Superuser SQL Test</div>
+    Queries executed as <code>postgres</code> in the SQL Editor bypass RLS completely. Always toggle <strong>Role Impersonation (#4)</strong> to a real test user&mdash;or wrap tests in <code>SET LOCAL role = authenticated; SET LOCAL request.jwt.claims = '...';</code>&mdash;before shipping an agent tool.
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: HYBRID VECTOR + FULL-TEXT SEARCH ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Hybrid Retrieval with pgvector</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Hybrid Vector + Full-Text Search with <code>pgvector</code> &amp; RRF</h2>
+  <p class="page-lead">
+    Pure semantic embeddings excel at conceptual intent (&ldquo;cancel my plan&rdquo;) but miss exact error codes, SKUs, and proper nouns (&ldquo;ERR_409_STRIPE&rdquo;). Combining <strong>HNSW vector search</strong> with Postgres <strong>GIN full-text search</strong> via <strong>Reciprocal Rank Fusion (RRF)</strong> delivers enterprise-grade RAG recall inside one SQL call.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_1.jpg" alt="Glowing emerald vector embedding lattice and cyan lexical search prisms converging into a golden-emerald fusion funnel" />
+    <div class="figure-caption">
+      <strong>Figure 5.1 &mdash; Dual-Stream Hybrid Retrieval:</strong> Semantic HNSW candidates (left) and lexical <code>tsvector</code> matches (right) are scored independently and merged via RRF: <code>score = 1/(k + rank_sem) + 1/(k + rank_fts)</code> with default smoothing constant <code>k = 60</code>.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px;">
+    <div>
+      <h3 style="margin-top:2px;">1. Schema, Halfvec &amp; Dual Indexes</h3>
+      <pre class="code-block"><code>CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE public.doc_chunks (
+  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  org_id uuid NOT NULL,
+  content text NOT NULL,
+  fts tsvector GENERATED ALWAYS AS
+    (to_tsvector('english', content)) STORED,
+  embedding halfvec(1536) NOT NULL
+);
+
+-- Fast ANN + Full-Text + Tenant Filter Indexes
+CREATE INDEX doc_chunks_hnsw_idx ON public.doc_chunks
+  USING hnsw (embedding halfvec_cosine_ops)
+  WITH (m = 16, ef_construction = 64);
+
+CREATE INDEX doc_chunks_fts_idx ON public.doc_chunks
+  USING gin (fts);
+
+CREATE INDEX doc_chunks_org_idx ON public.doc_chunks (org_id);</code></pre>
+    </div>
+
+    <div>
+      <h3 style="margin-top:2px;">2. RRF Hybrid Search RPC (RLS-Safe)</h3>
+      <pre class="code-block"><code>CREATE OR REPLACE FUNCTION public.hybrid_search(
+  query_text text, query_emb halfvec(1536),
+  match_count int DEFAULT 8, rrf_k int DEFAULT 60
+) RETURNS TABLE (id bigint, content text, score float)
+LANGUAGE sql STABLE SECURITY INVOKER AS $$
+WITH fts AS (
+  SELECT id, row_number() OVER (
+    ORDER BY ts_rank_cd(fts, websearch_to_tsquery(query_text)) DESC
+  ) AS rank_ix FROM public.doc_chunks
+  WHERE fts @@ websearch_to_tsquery('english', query_text)
+  LIMIT match_count * 2
+),
+sem AS (
+  SELECT id, row_number() OVER (
+    ORDER BY embedding &lt;=&gt; query_emb
+  ) AS rank_ix FROM public.doc_chunks
+  ORDER BY embedding &lt;=&gt; query_emb
+  LIMIT match_count * 2
+)
+SELECT d.id, d.content,
+  (COALESCE(1.0/(rrf_k + fts.rank_ix), 0.0) +
+   COALESCE(1.0/(rrf_k + sem.rank_ix), 0.0))::float AS score
+FROM fts FULL OUTER JOIN sem ON fts.id = sem.id
+JOIN public.doc_chunks d ON COALESCE(fts.id, sem.id) = d.id
+ORDER BY score DESC LIMIT match_count;
+$$;</code></pre>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:3px;">
+    <div class="callout-title">2026 pgvector Tuning: Iterative Scans Prevent Empty Filtered Results</div>
+    In older pgvector releases, filtering by <code>org_id</code> or RLS could return fewer than <code>LIMIT k</code> rows if top-k graph neighbors belonged to other tenants. On pgvector 0.8+, enable <code>SET LOCAL hnsw.iterative_scan = relaxed_order;</code> inside your search RPC so Postgres automatically expands the HNSW traversal until your tenant&rsquo;s quota is filled.
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: BULLETPROOF RLS GUARDRAILS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Multi-Tenant Security &amp; RLS</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Bulletproof Row-Level Security (RLS) Guardrails for AI Agents</h2>
+  <p class="page-lead">
+    Every table exposed to Supabase&rsquo;s Data API or queried by an agent must enforce RLS. A single missing policy or accidental <code>service_role</code> client in an agent tool turns a prompt injection into a cross-tenant data breach.
+  </p>
+
+  <h3>Anatomy of a Production-Grade, Fast RLS Policy (5 Parts)</h3>
+  <div class="card" style="padding:9px 11px; margin-bottom:7px; font-family:'SF Mono',Menlo,monospace; font-size:7.6pt; line-height:1.85; background:#f8fafc;">
+    CREATE POLICY "org_members_write_chunks" ON public.doc_chunks<br/>
+    <span class="p-tag rls-cmd">1. FOR INSERT</span>
+    <span class="p-tag rls-role">2. TO authenticated</span><br/>
+    <span class="p-tag rls-check">5. WITH CHECK (</span>
+      <span class="p-tag rls-uid">3. created_by = (SELECT auth.uid())</span>
+      AND
+      <span class="p-tag rls-tenant">4. org_id IN (SELECT org_id FROM private.user_orgs())</span>
+    <span class="p-tag rls-check">)</span>;
+  </div>
+
+  <div class="grid-3" style="margin-bottom:7px; font-size:7.8pt;">
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag rls-cmd" style="padding:0 5px;">1</span> Explicit Command</div>
+      Split <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> policies instead of <code>FOR ALL</code> so read-only agents cannot mutate rows.
+    </div>
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag rls-role" style="padding:0 5px;">2</span> Named Role Target</div>
+      Always specify <code>TO authenticated</code>. Unauthenticated <code>anon</code> requests short-circuit in &lt; 0.1 ms instead of scanning tables.
+    </div>
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag rls-uid" style="padding:0 5px;">3</span> InitPlan Wrapper</div>
+      Wrap <code>(SELECT auth.uid())</code> so Postgres caches the UUID once per query rather than re-evaluating per row (up to 20&times; faster).
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:7px; font-size:7.9pt;">
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.5pt;"><span class="p-tag rls-tenant" style="padding:0 5px;">4</span> Set-Based Tenant Lookup</div>
+      Compare <code>org_id IN (SELECT ...)</code> via a <code>SECURITY DEFINER</code> helper in a non-exposed <code>private</code> schema (with <code>SET search_path = ''</code>) to avoid recursive RLS joins.
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.5pt;"><span class="p-tag rls-check" style="padding:0 5px;">5</span> USING vs. WITH CHECK</div>
+      <code>USING</code> gates which existing rows an agent can read or target; <code>WITH CHECK</code> validates new/updated row payloads so an agent cannot forge another tenant&rsquo;s <code>org_id</code>.
+    </div>
+  </div>
+
+  <h3>JWT Propagation vs. <code>service_role</code> Danger</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Auth Pattern</th>
+        <th style="width:28%;">How It Works</th>
+        <th style="width:24%;">RLS Enforcement</th>
+        <th style="width:26%;">When to Use in Agent Systems</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>User JWT Forwarding</strong><br/><code>anon/publishable + Bearer</code></td>
+        <td>Pass user&rsquo;s <code>Authorization</code> header into <code>createClient()</code> inside Edge Function / API route</td>
+        <td><strong style="color:#059669;">100% Enforced</strong> (Postgres sees exact <code>auth.uid()</code> &amp; claims)</td>
+        <td><strong>Default for all user-facing agent tools</strong>, RAG search, and memory writes</td>
+      </tr>
+      <tr>
+        <td><strong>Scoped Custom Role</strong><br/><code>agent_reader</code></td>
+        <td>Dedicated Postgres role with explicit <code>GRANT SELECT</code> on specific views/columns only</td>
+        <td><strong style="color:#0284c7;">Table + Column Scoped</strong> (optionally + RLS)</td>
+        <td>Autonomous analytics / BI agents querying aggregated reporting views</td>
+      </tr>
+      <tr>
+        <td><strong><code>service_role</code> Key</strong><br/><code>bypassrls = true</code></td>
+        <td>Admin key that skips every RLS policy on every table in the database</td>
+        <td><strong style="color:#e11d48;">BYPASSED COMPLETELY</strong></td>
+        <td><strong>Background trusted workers only</strong> (e.g., <code>pgmq</code> embedder, Stripe webhooks)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout rose" style="margin-top:3px;">
+    <div class="callout-title">Critical Gotcha: Postgres Views Bypass RLS Unless Marked <code>security_invoker = true</code></div>
+    By default in Postgres, views execute with the permissions of the view creator (<code>postgres</code>), silently bypassing RLS! Always create agent-facing views with <code>CREATE VIEW v WITH (security_invoker = true) AS ...</code> and run Supabase Security Advisors on every PR.
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: SUPABASE MCP & AGENT-SKILLS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Supabase MCP &amp; Official Agent Skills</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Supabase MCP Server &amp; Official <code>supabase/agent-skills</code></h2>
+  <p class="page-lead">
+    Stop copy-pasting table schemas and slow query plans into chat. Pair Supabase&rsquo;s hosted <strong>Remote MCP Server</strong> (with OAuth and read-only guardrails) with the official <code>supabase/agent-skills</code> repository so coding agents write production-grade Postgres from the first prompt.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="card-dark">
+      <div class="card-title"><span class="num-badge">A</span> Hosted Remote MCP Config (Safe Dev)</div>
+      <p style="font-size:7.6pt; color:#cbd5e1; margin-bottom:5px;">
+        Pin <code>project_ref</code>, enable <code>read_only=true</code> for production debugging, and restrict <code>features</code> to only needed tool groups:
+      </p>
+      <pre class="code-block" style="margin:0; border-color:#3ecf8e; font-size:6.85pt;"><code>{
+  "mcpServers": {
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=YOUR_REF&amp;read_only=true&amp;features=database,docs,debugging"
+    }
+  }
+}</code></pre>
+    </div>
+
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge cyan">B</span> Install Official <code>supabase/agent-skills</code></div>
+      <p style="font-size:7.8pt; margin-bottom:5px;">
+        Equips Claude Code, Cursor, Codex, and Windsurf with Supabase&rsquo;s curated Postgres rules across 8 impact-ordered categories:
+      </p>
+      <pre class="code-block" style="margin:0 0 5px 0; font-size:6.85pt;"><code>npx skills add supabase/agent-skills \
+  --skill supabase-postgres-best-practices</code></pre>
+      <ul style="font-size:7.55pt; margin:0; padding-left:15px;">
+        <li><strong>Covers:</strong> Query perf, Supavisor connections, RLS security, schema design, locking, data access, monitoring &amp; <code>pgvector</code>/<code>pgmq</code>.</li>
+        <li><strong>Format:</strong> Flawed vs. corrected SQL + <code>EXPLAIN</code> proofs.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Safe Agentic Migration Workflow: Read-Only vs. Branch-Scoped MCP</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Environment</th>
+        <th style="width:26%;">Recommended MCP Mode</th>
+        <th style="width:28%;">Allowed Agent Actions</th>
+        <th style="width:26%;">Risk Mitigated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Production</strong><br/><code>main</code> project</td>
+        <td><code>read_only=true</code> + <code>features=debugging,docs</code> (or no MCP)</td>
+        <td>Run <code>query_logs</code> (24h window), inspect <code>get_advisors</code>, analyze slow queries</td>
+        <td>Blocks destructive DDL, rogue writes, and data tampering</td>
+      </tr>
+      <tr>
+        <td><strong>Preview Branch</strong><br/><code>feat/*</code> PR clone</td>
+        <td>Branch-scoped MCP (<code>project_ref=branch_ref</code>)</td>
+        <td><code>apply_migration</code>, create RLS policies, deploy Edge Functions, regenerate TS types</td>
+        <td>Data-less clone prevents PII exfiltration while testing real SQL</td>
+      </tr>
+      <tr>
+        <td><strong>Runtime End-User Agent</strong></td>
+        <td><strong>PostgREST / User-JWT API</strong> (NOT Management MCP)</td>
+        <td>Execute approved RPCs and RLS-filtered queries as authenticated user</td>
+        <td>Prevents prompt-injected agents from reading cross-tenant tables</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="callout amber" style="margin:0;">
+      <div class="callout-title">What <code>read_only=true</code> Does NOT Stop</div>
+      Read-only MCP runs SQL as a read-only Postgres user&mdash;closing write attacks&mdash;but the agent can still <em>read</em> sensitive tables and echo PII into chat or external tools. Never point Management MCP at a database containing regulated PII unless strictly necessary; use data-less branches or table-scoped roles.
+    </div>
+    <div class="callout" style="margin:0;">
+      <div class="callout-title">High-Leverage Prompt Pairings</div>
+      <ul style="font-size:7.75pt; margin:2px 0 0 0; padding-left:15px;">
+        <li>&ldquo;Run security advisors and write a migration fixing every table missing RLS.&rdquo;</li>
+        <li>&ldquo;Check the last hour of Edge Function logs and trace why <code>embed-worker</code> timed out.&rdquo;</li>
+        <li>&ldquo;Apply migration to branch, then regenerate <code>database.types.ts</code>.&rdquo;</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: EDGE FUNCTIONS, PGMQ & REALTIME ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Async Ingestion, Queues &amp; Realtime</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Edge Functions, <code>pgmq</code> Queues &amp; Realtime Agent Streams</h2>
+  <p class="page-lead">
+    Keep HTTP request paths fast and resilient. Offload document parsing, chunking, and embedding API calls to <strong>Supabase Queues (<code>pgmq</code>)</strong> triggered by <strong><code>pg_cron</code></strong>, and stream live agent progress back to the browser over <strong>Supabase Realtime</strong>.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="Glowing emerald queue blocks flowing through translucent edge function prisms into a radiating realtime broadcast hub" />
+    <div class="figure-caption">
+      <strong>Figure 8.1 &mdash; Durable Async Agent Pipeline:</strong> Uploads enqueue a job in <code>pgmq</code> inside the same Postgres transaction &rarr; <code>pg_cron</code> invokes a Deno Edge Function worker &rarr; worker embeds chunks into <code>pgvector</code> &rarr; Realtime broadcasts completion to subscribed clients.
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:10px;">
+    <div>
+      <h3 style="margin-top:2px;">1. Enqueue &amp; Schedule Worker via <code>pgmq</code> + <code>pg_cron</code></h3>
+      <pre class="code-block"><code>-- 1. Create durable queue in Postgres
+SELECT pgmq.create('embed_jobs');
+
+-- 2. Trigger enqueues job atomically on doc insert
+CREATE OR REPLACE FUNCTION private.enqueue_embed()
+RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER AS $$
+BEGIN
+  PERFORM pgmq.send('embed_jobs',
+    jsonb_build_object('doc_id', NEW.id, 'org_id', NEW.org_id));
+  RETURN NEW;
+END; $$;
+
+-- 3. Poll every 10s via pg_cron + pg_net + Vault secret
+SELECT cron.schedule('drain-embed-jobs', '10 seconds', $$
+  SELECT net.http_post(
+    url := 'https://&lt;ref&gt;.supabase.co/functions/v1/embed-worker',
+    headers := jsonb_build_object(
+      'Authorization', 'Bearer ' ||
+      (SELECT decrypted_secret FROM vault.decrypted_secrets
+       WHERE name = 'worker_secret')
+    )
+  );
+$$);</code></pre>
+    </div>
+
+    <div>
+      <h3 style="margin-top:2px;">2. Deno Edge Worker + Realtime Broadcast</h3>
+      <pre class="code-block"><code>// supabase/functions/embed-worker/index.ts
+const { data: jobs } = await admin.schema('pgmq')
+  .rpc('read', { queue_name: 'embed_jobs', vt: 60, qty: 10 });
+
+for (const job of jobs ?? []) {
+  const { doc_id, org_id } = job.message;
+  const vec = await embedText(await fetchDoc(doc_id));
+  await admin.from('doc_chunks').upsert({
+    doc_id, org_id, embedding: vec
+  });
+  // Archive completed message for audit trail
+  await admin.schema('pgmq').rpc('archive', {
+    queue_name: 'embed_jobs', msg_id: job.msg_id
+  });
+  // Push live status to tenant UI without polling
+  await admin.channel(`org:${org_id}:agents`).send({
+    type: 'broadcast', event: 'doc_indexed',
+    payload: { doc_id, status: 'ready' }
+  });
+}</code></pre>
+    </div>
+  </div>
+
+  <div class="callout cyan" style="margin-top:3px;">
+    <div class="callout-title">Why <code>pgmq</code> Beats External Queues for Agent Backends</div>
+    Because <code>pgmq</code> lives inside Postgres, you get the <strong>Transactional Outbox pattern for free</strong>: inserting a document and enqueuing its embedding job commit atomically. If a worker crashes mid-LLM call, the <code>vt: 60</code> visibility timeout automatically makes the message visible again for retry&mdash;zero lost jobs, zero Redis ops.
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Copy-Paste Recipes</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">5 Real-World SQL, RLS &amp; Edge Function Recipes</h2>
+  <p class="page-lead">
+    Battle-tested building blocks you can drop directly into your migrations and Edge Functions to cover agent memory, multi-tenant isolation, semantic caching, and token-budget auditing.
+  </p>
+
+  <table class="clean-table" style="margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Recipe</th>
+        <th style="width:30%;">Problem Solved</th>
+        <th style="width:24%;">Postgres Primitive</th>
+        <th style="width:22%;">Target Latency / Benefit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. User-Scoped Edge Client</strong></td>
+        <td>Prevent RLS bypass in agent tool endpoints</td>
+        <td>JWT Header Forwarding</td>
+        <td>Zero cross-tenant leakage</td>
+      </tr>
+      <tr>
+        <td><strong>2. Semantic Prompt Cache</strong></td>
+        <td>Avoid paying for repeated identical LLM queries</td>
+        <td><code>halfvec</code> + cosine &lt; 0.06</td>
+        <td>&lt; 25 ms cache hit; 40&ndash;70% savings</td>
+      </tr>
+      <tr>
+        <td><strong>3. Thread Memory + TTL</strong></td>
+        <td>Store resumable agent checkpoints cleanly</td>
+        <td>JSONB + <code>pg_cron</code> sweep</td>
+        <td>Bounded table bloat</td>
+      </tr>
+      <tr>
+        <td><strong>4. Per-Tenant Token Ledger</strong></td>
+        <td>Enforce monthly LLM spend limits atomically</td>
+        <td><code>INSERT ... ON CONFLICT</code></td>
+        <td>Race-free quota enforcement</td>
+      </tr>
+      <tr>
+        <td><strong>5. Safe RLS Unit Test</strong></td>
+        <td>Verify tenant isolation in CI before deploy</td>
+        <td><code>SET LOCAL role</code> + claims</td>
+        <td>Catches regressions on PR</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:9px;">
+    <div>
+      <div style="font-weight:700; font-size:8.3pt; color:#065f46; margin-bottom:2px;">Recipe 1 &mdash; User-Scoped Edge Function Client (TypeScript)</div>
+      <pre class="code-block" style="margin-bottom:5px;"><code>import { createClient } from 'jsr:@supabase/supabase-js@2';
+
+export function getUserClient(req: Request) {
+  const auth = req.headers.get('Authorization') ?? '';
+  return createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_ANON_KEY')!,
+    { global: { headers: { Authorization: auth } } }
+  );
+} // All .rpc() &amp; .from() calls now obey Postgres RLS!</code></pre>
+
+      <div style="font-weight:700; font-size:8.3pt; color:#065f46; margin-bottom:2px;">Recipe 2 &mdash; Tenant-Scoped Semantic Cache Lookup (SQL)</div>
+      <pre class="code-block" style="margin-bottom:5px;"><code>SELECT response_text FROM public.llm_cache
+WHERE org_id = (SELECT private.current_org_id())
+  AND created_at &gt; now() - interval '24 hours'
+  AND (prompt_emb &lt;=&gt; $1::halfvec(1536)) &lt; 0.06
+ORDER BY prompt_emb &lt;=&gt; $1::halfvec(1536) LIMIT 1;</code></pre>
+
+      <div style="font-weight:700; font-size:8.3pt; color:#065f46; margin-bottom:2px;">Recipe 3 &mdash; Nightly Checkpoint Cleanup via <code>pg_cron</code></div>
+      <pre class="code-block" style="margin-bottom:0;"><code>SELECT cron.schedule('prune-old-checkpoints', '0 3 * * *', $$
+  DELETE FROM public.agent_checkpoints
+  WHERE updated_at &lt; now() - interval '30 days';
+$$);</code></pre>
+    </div>
+
+    <div>
+      <div style="font-weight:700; font-size:8.3pt; color:#065f46; margin-bottom:2px;">Recipe 4 &mdash; Atomic Per-Tenant Token Quota Guard (SQL)</div>
+      <pre class="code-block" style="margin-bottom:5px;"><code>CREATE OR REPLACE FUNCTION private.consume_tokens(
+  p_org uuid, p_tokens int, p_limit int
+) RETURNS boolean LANGUAGE plpgsql AS $$
+DECLARE v_used int;
+BEGIN
+  INSERT INTO private.token_usage (org_id, month, tokens)
+  VALUES (p_org, date_trunc('month', now())::date, p_tokens)
+  ON CONFLICT (org_id, month)
+  DO UPDATE SET tokens = token_usage.tokens + EXCLUDED.tokens
+  WHERE token_usage.tokens + EXCLUDED.tokens &lt;= p_limit
+  RETURNING tokens INTO v_used;
+  RETURN v_used IS NOT NULL;
+END; $$;</code></pre>
+
+      <div style="font-weight:700; font-size:8.3pt; color:#065f46; margin-bottom:2px;">Recipe 5 &mdash; Automated RLS Isolation Assertion (pgTAP / SQL)</div>
+      <pre class="code-block" style="margin-bottom:0;"><code>BEGIN;
+SET LOCAL role = authenticated;
+SET LOCAL request.jwt.claims = '{"sub":"user-A","org_id":"org-A"}';
+-- Must return 0 rows belonging to org-B:
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM public.doc_chunks WHERE org_id = 'org-B')
+  THEN RAISE EXCEPTION 'RLS BREACH: Cross-tenant read detected!';
+  END IF;
+END $$;
+ROLLBACK;</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, POOLING & PRODUCTION OPS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security, Pooling &amp; Production Ops</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Supavisor Pooling, Vault Secrets &amp; Production Ops</h2>
+  <p class="page-lead">
+    Autonomous agents generate bursty, high-concurrency database traffic. Without proper connection pooling, secret hygiene, and least-privilege roles, a viral agent launch will exhaust <code>max_connections</code> in seconds.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:8px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Supavisor Transaction Mode (Port <code>6543</code>)</div>
+      <ul style="font-size:8pt; margin-bottom:2px;">
+        <li><strong>Default for Serverless &amp; Agents:</strong> Port <code>6543</code> borrows a Postgres backend only for the duration of a single transaction, multiplexing thousands of agent workers over a small pool.</li>
+        <li><strong>Disable Prepared Statements:</strong> Set <code>prepare: false</code> (postgres.js / Drizzle) or <code>pgbouncer=true</code> (Prisma) because transaction pooling rotates backend connections.</li>
+        <li><strong>Reserve Port <code>5432</code>:</strong> Use Session Mode / Direct connection only for DDL migrations, <code>pg_dump</code>, or long-lived <code>LISTEN/NOTIFY</code> workers.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num-badge cyan">2</span> Supabase Vault for Agent &amp; Cron Secrets</div>
+      <ul style="font-size:8pt; margin-bottom:2px;">
+        <li><strong>Encrypted at Rest:</strong> Store LLM API keys, webhook tokens, and internal worker secrets in <code>vault.secrets</code> (encrypted via libsodium).</li>
+        <li><strong>Zero Hardcoded Tokens in SQL:</strong> <code>pg_cron</code> and <code>pg_net</code> read secrets at runtime via <code>vault.decrypted_secrets</code> instead of embedding plaintext keys in migration files.</li>
+        <li><strong>Lock Down Access:</strong> Never expose <code>vault</code> via PostgREST schemas; restrict reads strictly to <code>SECURITY DEFINER</code> functions.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Production Defense-in-Depth Matrix</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Operational Layer</th>
+        <th style="width:36%;">Hardening Standard</th>
+        <th style="width:42%;">Verification Command / Check</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Read-Only Agent Role</strong></td>
+        <td>Create a dedicated role (<code>ai_analyst</code>) with <code>statement_timeout = '5s'</code> and <code>GRANT SELECT</code> on curated views only.</td>
+        <td><code>ALTER ROLE ai_analyst SET statement_timeout = '5s';</code><br/><code>ALTER ROLE ai_analyst SET default_transaction_read_only = on;</code></td>
+      </tr>
+      <tr>
+        <td><strong>Schema Exposure</strong></td>
+        <td>Keep internal queues, helper functions, and token ledgers in a <code>private</code> schema excluded from PostgREST API settings.</td>
+        <td>Dashboard &rarr; API Settings &rarr; Exposed schemas = <code>public</code> only</td>
+      </tr>
+      <tr>
+        <td><strong>Point-in-Time Recovery</strong></td>
+        <td>Enable PITR on production projects so an accidental bulk agent <code>UPDATE</code> or bad migration can rewind to the exact second.</td>
+        <td>Verify daily backups + PITR WAL archiving status in Dashboard &rarr; Backups</td>
+      </tr>
+      <tr>
+        <td><strong>Index &amp; Bloat Hygiene</strong></td>
+        <td>Monitor <code>pg_stat_statements</code> weekly; tune <code>autovacuum</code> on high-churn <code>agent_checkpoints</code> and <code>pgmq</code> tables.</td>
+        <td>Run Supabase Performance Advisor + <code>SELECT * FROM pg_stat_user_tables;</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="margin-top:5px;">
+    <div class="callout-title">Prevent Runaway Agent Loops with Database-Level Guardrails</div>
+    Application-level rate limits can be bypassed by retries or concurrent workers. Pair <strong><code>statement_timeout</code></strong> (preventing runaway full-table vector scans) with an atomic <strong>per-tenant token ledger</strong> (Recipe 4) and Supavisor pool limits so one misbehaving agent session can never starve other tenants.
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; End-to-End Agentic Workflow</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: From Coding Agent to Production Postgres</h2>
+  <p class="page-lead">
+    The fastest AI engineering teams combine <strong><code>supabase/agent-skills</code></strong>, <strong>Preview Branches</strong>, and the <strong>Vercel AI SDK</strong> into a deterministic loop where every schema change is tested, typed, and RLS-verified before it ever reaches production.
+  </p>
+
+  <div class="figure-box" style="background:#071418; padding:10px 12px; border-color:#0f766e; margin-bottom:8px;">
+    <svg viewBox="0 0 700 156" width="100%" height="156" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1 -->
+      <rect x="6" y="14" width="152" height="128" rx="8" fill="#0b1c20" stroke="#3ecf8e" stroke-width="1.5"/>
+      <text x="82" y="33" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">STEP 1 &bull; AUTHOR</text>
+      <text x="82" y="49" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Coding Agent + Skills</text>
+      <text x="82" y="69" text-anchor="middle" fill="#cbd5e1" font-size="7.1">Claude Code / Cursor loads</text>
+      <text x="82" y="81" text-anchor="middle" fill="#a7f3d0" font-size="7.1" font-weight="700">supabase/agent-skills</text>
+      <text x="82" y="99" text-anchor="middle" fill="#94a3b8" font-size="6.8">Writes SQL migration, HNSW</text>
+      <text x="82" y="111" text-anchor="middle" fill="#94a3b8" font-size="6.8">index &amp; InitPlan RLS policies</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M158 78 L177 78" stroke="#3ecf8e" stroke-width="2"/>
+      <polygon points="175,73 183,78 175,83" fill="#3ecf8e"/>
+
+      <!-- Box 2 -->
+      <rect x="184" y="14" width="155" height="128" rx="8" fill="#0b1c20" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="261" y="33" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">STEP 2 &bull; ISOLATE</text>
+      <text x="261" y="49" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Preview Branch + MCP</text>
+      <text x="261" y="69" text-anchor="middle" fill="#cbd5e1" font-size="7.1">PR spins up data-less clone</text>
+      <text x="261" y="81" text-anchor="middle" fill="#7dd3fc" font-size="7.1" font-weight="700">supabase/migrations/*.sql</text>
+      <text x="261" y="99" text-anchor="middle" fill="#94a3b8" font-size="6.8">Runs Security Advisors &amp;</text>
+      <text x="261" y="111" text-anchor="middle" fill="#94a3b8" font-size="6.8">pgTAP RLS isolation tests</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M339 78 L358 78" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="356,73 364,78 356,83" fill="#38bdf8"/>
+
+      <!-- Box 3 -->
+      <rect x="365" y="14" width="155" height="128" rx="8" fill="#0b1c20" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="442" y="33" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">STEP 3 &bull; INTEGRATE</text>
+      <text x="442" y="49" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Vercel AI SDK + Types</text>
+      <text x="442" y="69" text-anchor="middle" fill="#cbd5e1" font-size="7.1">Auto-generated TS schema</text>
+      <text x="442" y="81" text-anchor="middle" fill="#fde68a" font-size="7.1" font-weight="700">streamText() + tool()</text>
+      <text x="442" y="99" text-anchor="middle" fill="#94a3b8" font-size="6.8">Forwards user JWT cookie</text>
+      <text x="442" y="111" text-anchor="middle" fill="#94a3b8" font-size="6.8">into Supabase RPC tools</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M520 78 L539 78" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="537,73 545,78 537,83" fill="#fbbf24"/>
+
+      <!-- Box 4 -->
+      <rect x="546" y="14" width="148" height="128" rx="8" fill="#08241e" stroke="#34d399" stroke-width="1.6"/>
+      <text x="620" y="33" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">STEP 4 &bull; SHIP</text>
+      <text x="620" y="49" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Production Postgres</text>
+      <text x="620" y="69" text-anchor="middle" fill="#d1fae5" font-size="7.1">PR merge promotes SQL</text>
+      <text x="620" y="81" text-anchor="middle" fill="#6ee7b7" font-size="7.1" font-weight="700">Supavisor + PITR Active</text>
+      <text x="620" y="99" text-anchor="middle" fill="#a7f3d0" font-size="6.8">Ephemeral branch auto-deleted</text>
+      <text x="620" y="111" text-anchor="middle" fill="#a7f3d0" font-size="6.8">MCP stays read_only=true</text>
+    </svg>
+  </div>
+
+  <h3>Connecting Vercel AI SDK Tools to User-Scoped Supabase RPCs</h3>
+  <pre class="code-block" style="margin-bottom:8px;"><code>// app/api/agent/route.ts &mdash; Next.js + Vercel AI SDK + Supabase SSR
+import { streamText, tool } from 'ai';
+import { z } from 'zod';
+import { createServerClient } from '@/lib/supabase/server';
+
+export async function POST(req: Request) {
+  const supabase = await createServerClient(); // Reads user session JWT from cookies
+  const { messages } = await req.json();
+
+  return streamText({
+    model: 'anthropic/claude-sonnet-4.5',
+    messages,
+    tools: {
+      searchKnowledgeBase: tool({
+        description: 'Hybrid semantic + keyword search over tenant documents',
+        inputSchema: z.object({ query: z.string().min(2) }),
+        execute: async ({ query }) =&gt; {
+          const emb = await embedQuery(query);
+          // Executes under user JWT -> RLS automatically enforces org_id isolation
+          const { data, error } = await supabase.rpc('hybrid_search', {
+            query_text: query, query_emb: emb, match_count: 6
+          });
+          if (error) throw error;
+          return data;
+        },
+      }),
+    },
+  }).toUIMessageStreamResponse();
+}</code></pre>
+
+  <div class="grid-2">
+    <div class="card-tint" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;">Zero-Drift Type Safety</div>
+      <p style="font-size:7.9pt; margin:0;">
+        After your agent applies a migration to the Preview Branch, run <code>supabase gen types typescript --linked &gt; lib/database.types.ts</code> (or invoke MCP&rsquo;s <code>generate_typescript_types</code>) so your AI SDK tool inputs and RPC return types stay 100% compiler-checked.
+      </p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.8pt;">Vercel + Supabase Branch Pairing</div>
+      <p style="font-size:7.9pt; margin:0;">
+        With the official Supabase&ndash;Vercel integration, every GitHub PR automatically injects the Preview Branch&rsquo;s <code>SUPABASE_URL</code> and keys into Vercel&rsquo;s preview deployment&mdash;letting QA test full agent chat flows against isolated schema changes.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Launch Checklist</span>
+    <span>Supabase &amp; Postgres for AI Agents</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Bookmark this diagnostic table for the seven most common failure modes in Postgres-backed AI agents, then sign off on all six pre-flight checks before opening production traffic.
+  </p>
+
+  <table class="clean-table" style="margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:25%;">Symptom / Error</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:44%;">Exact Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Agent RPC returns <code>[]</code></strong></td>
+        <td>RLS enabled on table, but no <code>SELECT</code> policy or missing <code>Authorization</code> header.</td>
+        <td>Forward user JWT into <code>createClient()</code> and verify explicit <code>FOR SELECT TO authenticated</code> policy.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Filtered RAG returns &lt; k rows</strong></td>
+        <td>HNSW top-k candidates belonged to other tenants before RLS filtered them out.</td>
+        <td>Enable <code>SET LOCAL hnsw.iterative_scan = relaxed_order;</code> inside your pgvector 0.8+ search RPC.</td>
+      </tr>
+      <tr>
+        <td><strong>3. <code>prepared statement already exists</code></strong></td>
+        <td>ORM/driver using prepared statements over Supavisor Transaction Mode (port <code>6543</code>).</td>
+        <td>Set <code>prepare: false</code> (Drizzle/postgres.js) or <code>?pgbouncer=true</code> (Prisma) on port <code>6543</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. RLS query takes 200ms+</strong></td>
+        <td>Unwrapped <code>auth.uid()</code> re-runs per row, or missing index on <code>org_id</code>/<code>user_id</code>.</td>
+        <td>Wrap as <code>(SELECT auth.uid())</code> for InitPlan caching and add a B-Tree index on the RLS filter column.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Cross-tenant leak in View</strong></td>
+        <td>Postgres views default to creator privileges (<code>postgres</code>), bypassing caller RLS.</td>
+        <td>Recreate with <code>CREATE VIEW ... WITH (security_invoker = true)</code> and re-run Security Advisors.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Edge Function 504 timeout</strong></td>
+        <td>Synchronous chunking/embedding loop exceeded HTTP request timeout.</td>
+        <td>Return <code>202 Accepted</code> immediately; enqueue job in <code>pgmq</code> and drain asynchronously via <code>pg_cron</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. <code>max_connections</code> exhausted</strong></td>
+        <td>Serverless agent workers connecting directly to port <code>5432</code> instead of pooler.</td>
+        <td>Switch app runtime to Supavisor Transaction Pooler (port <code>6543</code>); keep <code>5432</code> for migrations only.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Production Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>1. Zero Advisor Errors:</strong> Supabase Security &amp; Performance Advisors report 0 tables missing RLS, 0 exposed <code>security definer</code> views, and all RLS filter columns indexed.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>2. Zero <code>service_role</code> in Agent Routes:</strong> Every user-facing Edge Function and AI SDK tool forwards the user JWT; <code>service_role</code> lives strictly in private background workers.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>3. Hybrid Search Benchmarked:</strong> <code>hybrid_search</code> uses <code>halfvec</code> HNSW + GIN <code>tsvector</code> + iterative scan, tested under <code>EXPLAIN (ANALYZE, BUFFERS)</code> at &lt; 60 ms p95.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>4. MCP &amp; Branching Locked Down:</strong> Production MCP pinned to <code>read_only=true</code> (or disabled); all agent migrations validated on ephemeral Preview Branches first.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>5. Supavisor &amp; Vault Configured:</strong> Runtime traffic routes through port <code>6543</code> with prepared statements disabled; <code>pg_cron</code> / <code>pg_net</code> tokens stored in <code>vault.secrets</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>6. Quotas, Timeouts &amp; PITR Active:</strong> Read-only agent roles enforce <code>statement_timeout</code>, atomic token ledgers cap spend, and Point-in-Time Recovery is enabled.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:8px;">
+    <div class="callout-title">Final Takeaway: Build on Bedrock, Not Glue</div>
+    When your AI agent&rsquo;s relational state, hybrid vector index, job queues, and cryptographic tenant guardrails all live inside one Supabase Postgres engine, you eliminate an entire class of distributed bugs&mdash;letting your team ship smarter, safer agents in a fraction of the time.
+  </div>
+
+  <div class="page-footer"><span>Supabase &amp; Postgres for AI Agents &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

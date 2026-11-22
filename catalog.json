@@ -54,6 +54,11 @@
       "id": "product-and-design",
       "title": "AI Product, Design & Team Workspaces",
       "description": "Publication-grade 12-page visual handbooks for AI-native product, design, and engineering teams\u2014covering Figma Make & Figma MCP design-to-code, Notion 3.3+ Custom Agents & 160+ MCP connectors, Linear Agents & issue-to-PR loops, evidence-backed AI user research & PRD prototyping, and GitHub Copilot Agent Mode & GitHub MCP."
+    },
+    {
+      "id": "cloud-data-and-commerce",
+      "title": "AI Backends, Databases & Agent Commerce",
+      "description": "Publication-grade 12-page visual handbooks for production AI infrastructure\u2014covering Supabase Postgres, pgvector & RLS guardrails, Cloudflare Agents SDK, Durable Objects & Container Sandboxes, Stripe Agent Toolkit & usage-based metering, OAuth 2.1/MCP agent identity, and DuckDB & MotherDuck SQL analytics agents."
     }
   ],
   "guides": [
@@ -1449,6 +1454,91 @@
         "Copilot Agent",
         "GitHub MCP",
         "PR Reviews"
+      ]
+    },
+    {
+      "id": "cloud-data-and-commerce/supabase-and-postgres-for-ai-agents",
+      "category": "cloud-data-and-commerce",
+      "title": "Supabase & Postgres for AI Agents",
+      "subtitle": "Build secure, multi-tenant agent backends on Postgres using pgvector hybrid search, Row-Level Security (RLS) guardrails, Edge Functions, Supabase MCP, and official supabase/agent-skills.",
+      "pdf": "guides/cloud-data-and-commerce/supabase-and-postgres-for-ai-agents/Supabase_and_Postgres_for_AI_Agents_Complete_How_To_Guide.pdf",
+      "cover": "guides/cloud-data-and-commerce/supabase-and-postgres-for-ai-agents/cover.png",
+      "source_dir": "guides/cloud-data-and-commerce/supabase-and-postgres-for-ai-agents",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "Supabase",
+        "pgvector & RLS",
+        "Edge Functions"
+      ]
+    },
+    {
+      "id": "cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes",
+      "category": "cloud-data-and-commerce",
+      "title": "Cloudflare Agents, Workers AI & Sandboxes",
+      "subtitle": "Deploy stateful, globally distributed AI agents on the Cloudflare edge using the Cloudflare Agents SDK, Durable Objects SQLite state, Workflows, AI Gateway, Workers AI, and Container Sandboxes.",
+      "pdf": "guides/cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes/Cloudflare_Agents_and_Edge_Sandboxes_Complete_How_To_Guide.pdf",
+      "cover": "guides/cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes/cover.png",
+      "source_dir": "guides/cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "Cloudflare Agents",
+        "Durable Objects",
+        "Edge Sandboxes"
+      ]
+    },
+    {
+      "id": "cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce",
+      "category": "cloud-data-and-commerce",
+      "title": "Stripe Agent Toolkit & Agentic Commerce",
+      "subtitle": "Wire safe payments, usage-based token metering, virtual issuing cards, and human-approved billing actions into AI agents using Stripe Agent Toolkit, Stripe MCP, and Agentic Commerce protocols.",
+      "pdf": "guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce/Stripe_Agent_Toolkit_and_Agentic_Commerce_Complete_How_To_Guide.pdf",
+      "cover": "guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce/cover.png",
+      "source_dir": "guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "Stripe MCP",
+        "Usage Metering",
+        "Agentic Payments"
+      ]
+    },
+    {
+      "id": "cloud-data-and-commerce/agent-auth-identity-and-permissions",
+      "category": "cloud-data-and-commerce",
+      "title": "Agent Auth, Identity & Scoped Permissions",
+      "subtitle": "Secure multi-tenant AI agents and MCP servers in production using OAuth 2.1 + PKCE, short-lived token brokering, least-privilege RBAC/ABAC scopes, human approval gates, and tamper-evident audit logs.",
+      "pdf": "guides/cloud-data-and-commerce/agent-auth-identity-and-permissions/Agent_Auth_Identity_and_Permissions_Complete_How_To_Guide.pdf",
+      "cover": "guides/cloud-data-and-commerce/agent-auth-identity-and-permissions/cover.png",
+      "source_dir": "guides/cloud-data-and-commerce/agent-auth-identity-and-permissions",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "OAuth 2.1 & MCP",
+        "RBAC & Scopes",
+        "Audit Trails"
+      ]
+    },
+    {
+      "id": "cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents",
+      "category": "cloud-data-and-commerce",
+      "title": "AI Data Analysis, DuckDB & SQL Agents",
+      "subtitle": "Turn raw CSVs, Parquet data lakes, and SQL warehouses into verified, zero-hallucination analytics using DuckDB, MotherDuck, semantic metric layers, DuckDB MCP, and read-only SQL agent loops.",
+      "pdf": "guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents/AI_Data_Analysis_DuckDB_and_SQL_Agents_Complete_How_To_Guide.pdf",
+      "cover": "guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents/cover.png",
+      "source_dir": "guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "DuckDB & SQL",
+        "Natural-Language BI",
+        "Verified Analytics"
       ]
     }
   ]

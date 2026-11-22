@@ -4,12 +4,12 @@
 
 Every handbook in this repository is authored as a self-contained **12-page visual handbook**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
-> **Read Online at [twelve-pages.com](https://twelve-pages.com)** — Browse all 82 handbooks in a clean, mobile-friendly web reader or download any 12-page magazine PDF in one click.
+> **Read Online at [twelve-pages.com](https://twelve-pages.com)** — Browse all 87 handbooks in a clean, mobile-friendly web reader or download any 12-page magazine PDF in one click.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-82%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-984%20Pages-059669?style=for-the-badge)
-![Ecosystems](https://img.shields.io/badge/Scope-11%20Ecosystems-7c3aed?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-87%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-1044%20Pages-059669?style=for-the-badge)
+![Ecosystems](https://img.shields.io/badge/Scope-12%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
 
@@ -20,7 +20,7 @@ Every handbook in this repository is authored as a self-contained **12-page visu
 Click any cover card or **Read / Download PDF** link below to view the full handbook directly in GitHub or download a local copy.
 
 <!-- CATALOG:START -->
-**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems) &bull; [AI Music, Cinema & Presentation Studios](#ai-music-cinema--presentation-studios) &bull; [AI Search Visibility, Agentic Web & Workflows](#ai-search-visibility-agentic-web--workflows) &bull; [Open Harnesses, AI Terminals & Local Models](#open-harnesses-ai-terminals--local-models) &bull; [AI Desktop, OS Power Workflows & Personal Ops](#ai-desktop-os-power-workflows--personal-ops) &bull; [AI Product, Design & Team Workspaces](#ai-product-design--team-workspaces)
+**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems) &bull; [AI Music, Cinema & Presentation Studios](#ai-music-cinema--presentation-studios) &bull; [AI Search Visibility, Agentic Web & Workflows](#ai-search-visibility-agentic-web--workflows) &bull; [Open Harnesses, AI Terminals & Local Models](#open-harnesses-ai-terminals--local-models) &bull; [AI Desktop, OS Power Workflows & Personal Ops](#ai-desktop-os-power-workflows--personal-ops) &bull; [AI Product, Design & Team Workspaces](#ai-product-design--team-workspaces) &bull; [AI Backends, Databases & Agent Commerce](#ai-backends-databases--agent-commerce)
 
 ### Google AI & Creative Studios
 Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, Google ADK & Agent2Agent (A2A) protocol, Antigravity 2.0 customizations & swarms, Gemini 3.8 Live & Omni 1.2 Flash voice/video pipelines, agentic Firebase & Android CLI workflows, and autonomous browser agents.
@@ -834,6 +834,59 @@ Publication-grade 12-page visual handbooks for AI-native product, design, and en
   </tr>
 </table>
 
+### AI Backends, Databases & Agent Commerce
+Publication-grade 12-page visual handbooks for production AI infrastructure—covering Supabase Postgres, pgvector & RLS guardrails, Cloudflare Agents SDK, Durable Objects & Container Sandboxes, Stripe Agent Toolkit & usage-based metering, OAuth 2.1/MCP agent identity, and DuckDB & MotherDuck SQL analytics agents.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/cloud-data-and-commerce/supabase-and-postgres-for-ai-agents/Supabase_and_Postgres_for_AI_Agents_Complete_How_To_Guide.pdf"><img src="guides/cloud-data-and-commerce/supabase-and-postgres-for-ai-agents/cover.png" alt="Supabase &amp; Postgres for AI Agents Cover" width="100%" /></a>
+      <h3><a href="guides/cloud-data-and-commerce/supabase-and-postgres-for-ai-agents/Supabase_and_Postgres_for_AI_Agents_Complete_How_To_Guide.pdf">Supabase &amp; Postgres for AI Agents</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Build secure, multi-tenant agent backends on Postgres using pgvector hybrid search, Row-Level Security (RLS) guardrails, Edge Functions, Supabase MCP, and official supabase/agent-skills.</p>
+      <p><code>Supabase</code> &middot; <code>pgvector &amp; RLS</code> &middot; <code>Edge Functions</code></p>
+      <p><a href="guides/cloud-data-and-commerce/supabase-and-postgres-for-ai-agents/Supabase_and_Postgres_for_AI_Agents_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/cloud-data-and-commerce/supabase-and-postgres-for-ai-agents">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes/Cloudflare_Agents_and_Edge_Sandboxes_Complete_How_To_Guide.pdf"><img src="guides/cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes/cover.png" alt="Cloudflare Agents, Workers AI &amp; Sandboxes Cover" width="100%" /></a>
+      <h3><a href="guides/cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes/Cloudflare_Agents_and_Edge_Sandboxes_Complete_How_To_Guide.pdf">Cloudflare Agents, Workers AI &amp; Sandboxes</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Deploy stateful, globally distributed AI agents on the Cloudflare edge using the Cloudflare Agents SDK, Durable Objects SQLite state, Workflows, AI Gateway, Workers AI, and Container Sandboxes.</p>
+      <p><code>Cloudflare Agents</code> &middot; <code>Durable Objects</code> &middot; <code>Edge Sandboxes</code></p>
+      <p><a href="guides/cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes/Cloudflare_Agents_and_Edge_Sandboxes_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce/Stripe_Agent_Toolkit_and_Agentic_Commerce_Complete_How_To_Guide.pdf"><img src="guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce/cover.png" alt="Stripe Agent Toolkit &amp; Agentic Commerce Cover" width="100%" /></a>
+      <h3><a href="guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce/Stripe_Agent_Toolkit_and_Agentic_Commerce_Complete_How_To_Guide.pdf">Stripe Agent Toolkit &amp; Agentic Commerce</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Wire safe payments, usage-based token metering, virtual issuing cards, and human-approved billing actions into AI agents using Stripe Agent Toolkit, Stripe MCP, and Agentic Commerce protocols.</p>
+      <p><code>Stripe MCP</code> &middot; <code>Usage Metering</code> &middot; <code>Agentic Payments</code></p>
+      <p><a href="guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce/Stripe_Agent_Toolkit_and_Agentic_Commerce_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/cloud-data-and-commerce/agent-auth-identity-and-permissions/Agent_Auth_Identity_and_Permissions_Complete_How_To_Guide.pdf"><img src="guides/cloud-data-and-commerce/agent-auth-identity-and-permissions/cover.png" alt="Agent Auth, Identity &amp; Scoped Permissions Cover" width="100%" /></a>
+      <h3><a href="guides/cloud-data-and-commerce/agent-auth-identity-and-permissions/Agent_Auth_Identity_and_Permissions_Complete_How_To_Guide.pdf">Agent Auth, Identity &amp; Scoped Permissions</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Secure multi-tenant AI agents and MCP servers in production using OAuth 2.1 + PKCE, short-lived token brokering, least-privilege RBAC/ABAC scopes, human approval gates, and tamper-evident audit logs.</p>
+      <p><code>OAuth 2.1 &amp; MCP</code> &middot; <code>RBAC &amp; Scopes</code> &middot; <code>Audit Trails</code></p>
+      <p><a href="guides/cloud-data-and-commerce/agent-auth-identity-and-permissions/Agent_Auth_Identity_and_Permissions_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/cloud-data-and-commerce/agent-auth-identity-and-permissions">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents/AI_Data_Analysis_DuckDB_and_SQL_Agents_Complete_How_To_Guide.pdf"><img src="guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents/cover.png" alt="AI Data Analysis, DuckDB &amp; SQL Agents Cover" width="100%" /></a>
+      <h3><a href="guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents/AI_Data_Analysis_DuckDB_and_SQL_Agents_Complete_How_To_Guide.pdf">AI Data Analysis, DuckDB &amp; SQL Agents</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Turn raw CSVs, Parquet data lakes, and SQL warehouses into verified, zero-hallucination analytics using DuckDB, MotherDuck, semantic metric layers, DuckDB MCP, and read-only SQL agent loops.</p>
+      <p><code>DuckDB &amp; SQL</code> &middot; <code>Natural-Language BI</code> &middot; <code>Verified Analytics</code></p>
+      <p><a href="guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents/AI_Data_Analysis_DuckDB_and_SQL_Agents_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top"></td>
+  </tr>
+</table>
+
 ### Quick-Reference Index
 | Guide | Ecosystem | Version | Updated | Pages | Direct Links |
 | :--- | :--- | :---: | :---: | :---: | :--- |
@@ -919,6 +972,11 @@ Publication-grade 12-page visual handbooks for AI-native product, design, and en
 | **Linear Agents & Issue-to-PR Loops** — Automate issue triage, Figma-to-spec drafting, and scoped issue-to-PR delegation using Linear Agents, Linear MCP, Triage Intelligence, and connected coding agents (Claude Code, Codex, Cursor, Devin). | AI Product, Design & Team Workspaces | `v1.0` | `2026-11` | 12 | [PDF](guides/product-and-design/linear-agents-and-issue-to-pr/Linear_Agents_and_Issue_to_PR_Complete_How_To_Guide.pdf) &middot; [Source](guides/product-and-design/linear-agents-and-issue-to-pr) |
 | **AI User Research & PRD Prototyping** — Turn raw customer interviews, support tickets, and session telemetry into evidence-backed PRDs, assumption maps, and clickable prototypes in hours—without hallucinated insights or AI slop. | AI Product, Design & Team Workspaces | `v1.0` | `2026-11` | 12 | [PDF](guides/product-and-design/ai-user-research-and-prd-prototyping/AI_User_Research_and_PRD_Prototyping_Complete_How_To_Guide.pdf) &middot; [Source](guides/product-and-design/ai-user-research-and-prd-prototyping) |
 | **GitHub Copilot Agent Mode & GitHub MCP** — Orchestrate autonomous coding inside VS Code, delegate GitHub Issues to Copilot Coding Agent, automate PR code reviews, and wire the official GitHub MCP Server with repo-wide custom instructions. | AI Product, Design & Team Workspaces | `v1.0` | `2026-11` | 12 | [PDF](guides/product-and-design/github-copilot-agent-mode-and-mcp/GitHub_Copilot_Agent_Mode_and_MCP_Complete_How_To_Guide.pdf) &middot; [Source](guides/product-and-design/github-copilot-agent-mode-and-mcp) |
+| **Supabase & Postgres for AI Agents** — Build secure, multi-tenant agent backends on Postgres using pgvector hybrid search, Row-Level Security (RLS) guardrails, Edge Functions, Supabase MCP, and official supabase/agent-skills. | AI Backends, Databases & Agent Commerce | `v1.0` | `2026-11` | 12 | [PDF](guides/cloud-data-and-commerce/supabase-and-postgres-for-ai-agents/Supabase_and_Postgres_for_AI_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/cloud-data-and-commerce/supabase-and-postgres-for-ai-agents) |
+| **Cloudflare Agents, Workers AI & Sandboxes** — Deploy stateful, globally distributed AI agents on the Cloudflare edge using the Cloudflare Agents SDK, Durable Objects SQLite state, Workflows, AI Gateway, Workers AI, and Container Sandboxes. | AI Backends, Databases & Agent Commerce | `v1.0` | `2026-11` | 12 | [PDF](guides/cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes/Cloudflare_Agents_and_Edge_Sandboxes_Complete_How_To_Guide.pdf) &middot; [Source](guides/cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes) |
+| **Stripe Agent Toolkit & Agentic Commerce** — Wire safe payments, usage-based token metering, virtual issuing cards, and human-approved billing actions into AI agents using Stripe Agent Toolkit, Stripe MCP, and Agentic Commerce protocols. | AI Backends, Databases & Agent Commerce | `v1.0` | `2026-11` | 12 | [PDF](guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce/Stripe_Agent_Toolkit_and_Agentic_Commerce_Complete_How_To_Guide.pdf) &middot; [Source](guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce) |
+| **Agent Auth, Identity & Scoped Permissions** — Secure multi-tenant AI agents and MCP servers in production using OAuth 2.1 + PKCE, short-lived token brokering, least-privilege RBAC/ABAC scopes, human approval gates, and tamper-evident audit logs. | AI Backends, Databases & Agent Commerce | `v1.0` | `2026-11` | 12 | [PDF](guides/cloud-data-and-commerce/agent-auth-identity-and-permissions/Agent_Auth_Identity_and_Permissions_Complete_How_To_Guide.pdf) &middot; [Source](guides/cloud-data-and-commerce/agent-auth-identity-and-permissions) |
+| **AI Data Analysis, DuckDB & SQL Agents** — Turn raw CSVs, Parquet data lakes, and SQL warehouses into verified, zero-hallucination analytics using DuckDB, MotherDuck, semantic metric layers, DuckDB MCP, and read-only SQL agent loops. | AI Backends, Databases & Agent Commerce | `v1.0` | `2026-11` | 12 | [PDF](guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents/AI_Data_Analysis_DuckDB_and_SQL_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents) |
 <!-- CATALOG:END -->
 
 ---

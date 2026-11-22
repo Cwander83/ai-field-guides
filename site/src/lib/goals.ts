@@ -43,6 +43,7 @@ export const ECOSYSTEM_SHORT_NAMES: Record<string, string> = {
   'open-harnesses': 'Terminal & Local AI',
   'desktop-and-os': 'Desktop & Personal Ops',
   'product-and-design': 'Product & Design Teams',
+  'cloud-data-and-commerce': 'Backends, Data & Commerce',
 };
 
 export const ECOSYSTEM_PLAIN_SUMMARIES: Record<string, string> = {
@@ -68,6 +69,8 @@ export const ECOSYSTEM_PLAIN_SUMMARIES: Record<string, string> = {
     'Tame overflowing email inboxes, protect calendar focus time, tidy cluttered folders, and connect everyday desktop apps with visual AI workflows on Mac or Windows.',
   'product-and-design':
     'Connect design systems, team wikis, issue trackers, user research, and code review into one AI-powered loop using Figma Make & MCP, Notion Custom Agents, Linear Agents, and GitHub Copilot.',
+  'cloud-data-and-commerce':
+    'Power production AI agents with Postgres and pgvector, global Cloudflare Durable Objects and Sandboxes, Stripe metering and payments, OAuth 2.1 identity, and DuckDB SQL analytics.',
 };
 
 export const START_HERE_PATHS: Array<{
@@ -179,6 +182,7 @@ export function classifyGoals(guide: GuideGoalInput): GoalId[] {
     cat === 'vercel' ||
     cat === 'agent-engineering' ||
     cat === 'open-harnesses' ||
+    cat === 'cloud-data-and-commerce' ||
     id.includes('agent-ready-websites-and-webmcp') ||
     /\b(codex|claude-code|antigravity|firebase|android-cli|ai-studio|google-opal|managed-agents|agents-api|claude-security|claude-skills|graphify|google-stitch|gemini-live|realtime-voice|project-mariner)\b/.test(
       id,

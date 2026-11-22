@@ -10,6 +10,11 @@ const SITE_DIR = path.resolve(__dirname, '..');
 const REPO_ROOT = path.resolve(SITE_DIR, '..');
 
 const FEATURED_NEW_IDS = new Set([
+  'cloud-data-and-commerce/supabase-and-postgres-for-ai-agents',
+  'cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes',
+  'cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce',
+  'cloud-data-and-commerce/agent-auth-identity-and-permissions',
+  'cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents',
   'product-and-design/figma-make-and-mcp-design-to-code',
   'product-and-design/notion-custom-agents-and-mcp-hubs',
   'product-and-design/linear-agents-and-issue-to-pr',
