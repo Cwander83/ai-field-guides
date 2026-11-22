@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP — Complete Field Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI ENGINEERING ARCHITECTURE &bull; OPEN STANDARDS FIELD GUIDE</div>
+    <h1>Cross-IDE <span>Portability</span>:<br/>AGENTS.md, <em>SKILL.md</em> &amp; MCP</h1>
+    <p class="cover-sub">
+      Write repo instructions, portable <code>SKILL.md</code> playbooks, and MCP server configs once so every developer on your team gets identical agent behavior across Cursor, Claude Code, Codex, Copilot, Windsurf/Devin, OpenCode, and Antigravity.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">AGENTS.md (AAIF Standard)</span>
+      <span class="cover-badge">SKILL.md Progressive Disclosure</span>
+      <span class="cover-badge">Shared .mcp.json &amp; HTTP MCP</span>
+      <span class="cover-badge">7-IDE Compatibility Matrix</span>
+      <span class="cover-badge">Zero-Drift CI Linters</span>
+      <span class="cover-badge">Skill Supply-Chain Security</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Glowing central blueprint prism radiating emerald and sapphire pathways into seven synchronized modular developer workstations" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">One Canonical Repo Truth</div>
+      <div class="cover-stat-desc">Maintain a single root <code>AGENTS.md</code> and nested package overrides, backed by thin shims so zero rules are ever duplicated.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">On-Demand SKILL.md Packs</div>
+      <div class="cover-stat-desc">Package repeatable workflows into AAIF-governed <code>.agents/skills/</code> folders with YAML triggers, scripts, and references.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Secret-Free Shared MCP</div>
+      <div class="cover-stat-desc">Unify local <code>stdio</code> and remote Streamable HTTP MCP servers via env-var expansion, OAuth 2.1, and automated client sync.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Mental Model</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">Write Once, Run Identically Across Every AI Coding Harness</h2>
+  <p class="page-lead">
+    Modern engineering teams rarely standardize on a single AI IDE: backend engineers run <strong>Claude Code</strong> or <strong>Codex CLI</strong> in the terminal, frontend teams use <strong>Cursor</strong> or <strong>Windsurf/Devin</strong>, enterprise squads run <strong>GitHub Copilot</strong>, and open-source or Gemini-native builders use <strong>OpenCode</strong> and <strong>Antigravity</strong>. Under the Linux Foundation&rsquo;s <strong>Agentic AI Foundation (AAIF)</strong>, three open standards&mdash;<code>AGENTS.md</code>, <code>SKILL.md</code>, and <strong>MCP</strong>&mdash;now eliminate vendor lock-in.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Single Repo Truth &amp; 3-Layer Model</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Drift Prevention, Budgets &amp; CI Linters</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. 7-Tool Compatibility &amp; Path Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Portability Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated Monorepo Layout HUD</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Governance &amp; Skill Supply-Chain Safety</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Hierarchical AGENTS.md &amp; Thin Shims</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool CI-to-IDE Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. 5-Part SKILL.md Disclosure Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic (Top 7 Fixes)</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Shared MCP &amp; Env Secret Hygiene</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>12. 6-Point Pre-Flight Portability Check</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>Architecture: Single Repo Truth Fanning Out to 7 IDEs &amp; Harnesses</h3>
+  <div class="figure-box" style="background:#0b1324; padding:8px 10px; border-color:#1e3a5f;">
+    <svg viewBox="0 0 700 208" width="100%" height="208" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: Single Repo Truth -->
+      <rect x="8" y="10" width="212" height="188" rx="10" fill="#101c34" stroke="#38bdf8" stroke-width="1.6"/>
+      <text x="114" y="29" text-anchor="middle" fill="#7dd3fc" font-size="8" font-weight="800">SINGLE REPO TRUTH (GIT)</text>
+
+      <rect x="20" y="40" width="188" height="44" rx="6" fill="#13294b" stroke="#38bdf8" stroke-width="1"/>
+      <text x="114" y="57" text-anchor="middle" fill="#ffffff" font-size="8.6" font-weight="800">1. AGENTS.md</text>
+      <text x="114" y="71" text-anchor="middle" fill="#cbd5e1" font-size="7">Ambient rules, build cmds, invariants</text>
+
+      <rect x="20" y="92" width="188" height="44" rx="6" fill="#0d2b26" stroke="#34d399" stroke-width="1"/>
+      <text x="114" y="109" text-anchor="middle" fill="#ffffff" font-size="8.6" font-weight="800">2. .agents/skills/*/SKILL.md</text>
+      <text x="114" y="123" text-anchor="middle" fill="#a7f3d0" font-size="7">On-demand playbooks + scripts/refs</text>
+
+      <rect x="20" y="144" width="188" height="44" rx="6" fill="#2d1c14" stroke="#fb923c" stroke-width="1"/>
+      <text x="114" y="161" text-anchor="middle" fill="#ffffff" font-size="8.6" font-weight="800">3. .mcp.json (Secret-Free)</text>
+      <text x="114" y="175" text-anchor="middle" fill="#fed7aa" font-size="7">Live tools: stdio + Streamable HTTP</text>
+
+      <!-- Middle: Thin Shims / CI Sync Hub -->
+      <rect x="258" y="48" width="128" height="112" rx="10" fill="#132340" stroke="#34d399" stroke-width="1.5"/>
+      <text x="322" y="69" text-anchor="middle" fill="#34d399" font-size="7.6" font-weight="800">PORTABILITY LAYER</text>
+      <text x="322" y="88" text-anchor="middle" fill="#ffffff" font-size="8.3" font-weight="700">Symlinks &amp; Shims</text>
+      <text x="322" y="103" text-anchor="middle" fill="#cbd5e1" font-size="6.9">CLAUDE.md &rarr; AGENTS.md</text>
+      <text x="322" y="116" text-anchor="middle" fill="#cbd5e1" font-size="6.9">.cursor/rules/*.mdc</text>
+      <text x="322" y="129" text-anchor="middle" fill="#cbd5e1" font-size="6.9">CI Schema &amp; Drift Gate</text>
+      <text x="322" y="144" text-anchor="middle" fill="#fb923c" font-size="6.9" font-weight="700">Zero Duplicated Prose</text>
+
+      <!-- Arrows Left -> Middle -->
+      <path d="M220 62 L254 88" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+      <path d="M220 114 L254 104" stroke="#34d399" stroke-width="1.8" fill="none"/>
+      <path d="M220 166 L254 124" stroke="#fb923c" stroke-width="1.8" fill="none"/>
+      <polygon points="251,100 258,104 251,108" fill="#34d399"/>
+
+      <!-- Fan-out lines Middle -> 7 IDEs -->
+      <path d="M386 104 C412 104, 412 22, 444 22" stroke="#38bdf8" stroke-width="1.3" fill="none"/>
+      <path d="M386 104 C412 104, 412 50, 444 50" stroke="#34d399" stroke-width="1.3" fill="none"/>
+      <path d="M386 104 C412 104, 412 78, 444 78" stroke="#38bdf8" stroke-width="1.3" fill="none"/>
+      <path d="M386 104 L444 104" stroke="#fb923c" stroke-width="1.3" fill="none"/>
+      <path d="M386 104 C412 104, 412 132, 444 132" stroke="#34d399" stroke-width="1.3" fill="none"/>
+      <path d="M386 104 C412 104, 412 160, 444 160" stroke="#38bdf8" stroke-width="1.3" fill="none"/>
+      <path d="M386 104 C412 104, 412 188, 444 188" stroke="#fb923c" stroke-width="1.3" fill="none"/>
+
+      <!-- Right: 7 IDEs / Harnesses -->
+      <rect x="446" y="10" width="244" height="23" rx="5" fill="#101c34" stroke="#38bdf8" stroke-width="1"/>
+      <text x="456" y="25" fill="#ffffff" font-size="8" font-weight="700">Cursor</text>
+      <text x="682" y="25" text-anchor="end" fill="#7dd3fc" font-size="6.9">AGENTS.md + .agents/skills + .cursor/mcp.json</text>
+
+      <rect x="446" y="38" width="244" height="23" rx="5" fill="#101c34" stroke="#34d399" stroke-width="1"/>
+      <text x="456" y="53" fill="#ffffff" font-size="8" font-weight="700">Claude Code</text>
+      <text x="682" y="53" text-anchor="end" fill="#6ee7b7" font-size="6.9">CLAUDE.md shim + .agents/skills + .mcp.json</text>
+
+      <rect x="446" y="66" width="244" height="23" rx="5" fill="#101c34" stroke="#38bdf8" stroke-width="1"/>
+      <text x="456" y="81" fill="#ffffff" font-size="8" font-weight="700">GitHub Copilot</text>
+      <text x="682" y="81" text-anchor="end" fill="#7dd3fc" font-size="6.9">AGENTS.md + .agents/skills + .mcp.json</text>
+
+      <rect x="446" y="94" width="244" height="23" rx="5" fill="#101c34" stroke="#fb923c" stroke-width="1"/>
+      <text x="456" y="109" fill="#ffffff" font-size="8" font-weight="700">Codex CLI / Cloud</text>
+      <text x="682" y="109" text-anchor="end" fill="#fdba74" font-size="6.9">AGENTS.md + .agents/skills + config.toml</text>
+
+      <rect x="446" y="122" width="244" height="23" rx="5" fill="#101c34" stroke="#34d399" stroke-width="1"/>
+      <text x="456" y="137" fill="#ffffff" font-size="8" font-weight="700">Windsurf / Devin</text>
+      <text x="682" y="137" text-anchor="end" fill="#6ee7b7" font-size="6.9">AGENTS.md + .agents/skills + mcp_config.json</text>
+
+      <rect x="446" y="150" width="244" height="23" rx="5" fill="#101c34" stroke="#38bdf8" stroke-width="1"/>
+      <text x="456" y="165" fill="#ffffff" font-size="8" font-weight="700">OpenCode</text>
+      <text x="682" y="165" text-anchor="end" fill="#7dd3fc" font-size="6.9">AGENTS.md + .agents/skills + opencode.json</text>
+
+      <rect x="446" y="178" width="244" height="23" rx="5" fill="#101c34" stroke="#fb923c" stroke-width="1"/>
+      <text x="456" y="193" fill="#ffffff" font-size="8" font-weight="700">Antigravity</text>
+      <text x="682" y="193" text-anchor="end" fill="#fdba74" font-size="6.9">AGENTS.md + .agents/skills + .mcp.json</text>
+    </svg>
+  </div>
+
+  <div class="grid-3" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Ambient Context</div>
+      <p style="font-size:8.1pt; margin:0;"><strong><code>AGENTS.md</code></strong> is always loaded into session context. Keep it lean (500&ndash;2,000 tokens): repo map, build/test commands, non-negotiable invariants.</p>
+    </div>
+    <div class="card-emerald">
+      <div class="card-title"><span class="num-badge emerald">2</span> On-Demand Playbooks</div>
+      <p style="font-size:8.1pt; margin:0;"><strong><code>SKILL.md</code></strong> (donated to AAIF Oct 2026) loads only YAML metadata at boot. Multi-step procedures, scripts, and references load only when matched.</p>
+    </div>
+    <div class="card-coral">
+      <div class="card-title"><span class="num-badge coral">3</span> Live Tool Connectivity</div>
+      <p style="font-size:8.1pt; margin:0;"><strong>MCP</strong> connects agents to live databases, issue trackers, and docs. Commit a secret-free <code>.mcp.json</code> and inject tokens via env vars or OAuth 2.1.</p>
+    </div>
+  </div>
+
+  <div class="callout slate" style="margin-top:7px;">
+    <div class="callout-title">Why the 3-Layer Split Matters in Late 2026</div>
+    By late 2026, all three standards live under the Linux Foundation&rsquo;s <strong>Agentic AI Foundation (AAIF)</strong>, backed by OpenAI, Anthropic, Google, Microsoft, Block, and Cloudflare. Separating <em>always-on rules</em> (<code>AGENTS.md</code>) from <em>lazy-loaded procedures</em> (<code>SKILL.md</code>) and <em>live APIs</em> (MCP) cuts baseline prompt bloat by 60&ndash;80% while guaranteeing uniform behavior across every developer&rsquo;s chosen IDE.
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: CROSS-TOOL COMPATIBILITY MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Cross-Tool Compatibility Matrix</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">Exact File Paths, Precedence &amp; Quirks Across 7 AI Harnesses</h2>
+  <p class="page-lead">
+    Every major coding agent now supports <code>AGENTS.md</code> and the open <code>SKILL.md</code> format, but each harness still has distinct <strong>precedence rules</strong>, <strong>scoped-rule syntax</strong>, and <strong>MCP config keys</strong>. Use this verified late-2026 reference matrix before designing your repo&rsquo;s portability layer.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:14%;">Tool / Harness</th>
+        <th style="width:28%;">Instructions &amp; Precedence</th>
+        <th style="width:24%;">SKILL.md Discovery Paths</th>
+        <th style="width:34%;">MCP Config Path &amp; Key Quirks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Code</strong><br/><span class="status-pill st-shim">Thin Shim</span></td>
+        <td>1. <code>CLAUDE.md</code> (highest)<br/>2. <code>AGENTS.md</code> (native in v2.1.277+ if no <code>CLAUDE.md</code>)<br/>3. <code>.claude/rules/*.md</code> (<code>paths:</code>)</td>
+        <td><code>.claude/skills/</code><br/><code>.agents/skills/</code><br/><code>~/.claude/skills/</code> (global)</td>
+        <td>Root <code>.mcp.json</code> (key: <code>mcpServers</code>, supports <code>${VAR}</code> &amp; <code>${VAR:-default}</code>). Also reads user <code>~/.claude.json</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Cursor</strong><br/><span class="status-pill st-native">Native</span></td>
+        <td>1. <code>.cursor/rules/*.mdc</code> (glob/always)<br/>2. <code>AGENTS.md</code> (root &amp; nested)<br/><em>Legacy <code>.cursorrules</code> deprecated</em></td>
+        <td><code>.agents/skills/</code><br/><code>.cursor/skills/</code><br/><code>.claude/skills/</code> (compat)</td>
+        <td><code>.cursor/mcp.json</code> (key: <code>mcpServers</code>, <code>url</code> for remote HTTP). Symlink or sync directly from root <code>.mcp.json</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>GitHub Copilot</strong><br/><span class="status-pill st-native">Native</span></td>
+        <td>1. <code>.github/copilot-instructions.md</code><br/>2. <code>AGENTS.md</code> (root &amp; nested)<br/>3. <code>.github/instructions/*.instructions.md</code> (<code>applyTo:</code>)</td>
+        <td><code>.agents/skills/</code><br/><code>.github/skills/</code><br/><code>.claude/skills/</code> (compat)</td>
+        <td>Root <code>.mcp.json</code> (<code>mcpServers</code>, Nov 2026 Copilot/VS Code) or <code>.vscode/mcp.json</code> (key: <code>servers</code> + <code>${input:...}</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Codex CLI &amp; Cloud</strong><br/><span class="status-pill st-native">Native</span></td>
+        <td>1. <code>AGENTS.override.md</code> (local)<br/>2. <code>AGENTS.md</code> (root &rarr; nested dir chain, deepest wins)</td>
+        <td><code>.agents/skills/</code><br/><code>.codex/skills/</code><br/><code>~/.agents/skills/</code></td>
+        <td><code>.codex/config.toml</code> (TOML <code>[mcp_servers.&lt;name&gt;]</code> tables). Generate from canonical <code>.mcp.json</code> via sync script.</td>
+      </tr>
+      <tr>
+        <td><strong>Windsurf / Devin</strong><br/><span class="status-pill st-native">Native</span></td>
+        <td>1. <code>AGENTS.md</code> (Devin Local &amp; Windsurf)<br/>2. <code>.windsurf/rules/*.md</code><br/><em>Legacy <code>.windsurfrules</code> deprecated</em></td>
+        <td><code>.agents/skills/</code><br/><code>.windsurf/skills/</code><br/>Devin CLI skill loader</td>
+        <td><code>~/.codeium/windsurf/mcp_config.json</code> (<code>mcpServers</code>, uses <strong><code>serverUrl</code></strong> instead of <code>url</code> for remote HTTP).</td>
+      </tr>
+      <tr>
+        <td><strong>OpenCode</strong><br/><span class="status-pill st-native">Native</span></td>
+        <td>1. <code>AGENTS.md</code> (primary)<br/>2. <code>CLAUDE.md</code> (automatic fallback if <code>AGENTS.md</code> absent)</td>
+        <td><code>.agents/skills/</code><br/><code>.opencode/skills/</code><br/><code>~/.config/opencode/skills/</code></td>
+        <td>Root <code>opencode.json</code> (key: <code>mcp</code>, uses <code>type: "local" | "remote"</code> and <code>command: [...]</code> array). Sync from <code>.mcp.json</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Antigravity</strong><br/><span class="status-pill st-native">Native</span></td>
+        <td>1. <code>AGENTS.md</code> (workspace)<br/>2. <code>.agents/rules/</code> (glob/always)<br/>3. <code>~/.gemini/GEMINI.md</code> (global)</td>
+        <td><code>.agents/skills/</code> (workspace)<br/><code>~/.agent/skills/</code> (global)</td>
+        <td>Root <code>.mcp.json</code> / Antigravity MCP config (key: <code>mcpServers</code>, native stdio &amp; Streamable HTTP + OAuth).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">!</span> The Universal Convergence Path</div>
+      <p style="font-size:8.1pt; margin-bottom:4px;">Notice the clear convergence across all seven harnesses in late 2026:</p>
+      <ul style="font-size:8pt; margin:0;">
+        <li><strong>Instructions:</strong> <code>AGENTS.md</code> at root + nested package dirs.</li>
+        <li><strong>Skills:</strong> <code>.agents/skills/&lt;skill-name&gt;/SKILL.md</code> is now read natively by all 7 tools (zero symlink needed for skills!).</li>
+        <li><strong>MCP:</strong> Root <code>.mcp.json</code> with <code>mcpServers</code> is the de facto canonical source, with thin generated targets only for TOML/schema outliers (Codex, OpenCode, Windsurf).</li>
+      </ul>
+    </div>
+    <div class="card-coral">
+      <div class="card-title"><span class="num-badge coral">?</span> Precedence Gotchas to Watch</div>
+      <ul style="font-size:8pt; margin:0;">
+        <li><strong>Claude Code shadow:</strong> If a stale <code>CLAUDE.md</code> exists alongside <code>AGENTS.md</code>, Claude Code prioritizes <code>CLAUDE.md</code>. Fix: replace <code>CLAUDE.md</code> with a 1-line <code>@AGENTS.md</code> import or symlink.</li>
+        <li><strong>Copilot double-loading:</strong> If both <code>.github/copilot-instructions.md</code> and <code>AGENTS.md</code> contain full rules, Copilot injects both and wastes context.</li>
+        <li><strong>Windsurf <code>serverUrl</code>:</strong> Copying a remote MCP block with <code>"url"</code> into Windsurf silently fails unless mapped to <code>"serverUrl"</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:6px;">
+    <div class="callout-title">Rule of Thumb: Canonical Standards First, Adapter Shims Second</div>
+    Never author business logic or coding standards inside tool-specific directories (<code>.cursor/rules/</code>, <code>.windsurf/rules/</code>, <code>.github/copilot-instructions.md</code>). Keep 100% of team knowledge in <code>AGENTS.md</code>, <code>.agents/skills/</code>, and <code>.mcp.json</code>, and treat tool-specific files strictly as thin pointers or CI-generated projections.
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED REPOSITORY LAYOUT TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Repository Layout Tour</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">Inside a Multi-Agent-Ready Monorepo (7-Control HUD)</h2>
+  <p class="page-lead">
+    A portable repository looks boring on purpose. Every harness finds its expected entry point immediately, while human maintainers only ever edit three canonical locations. Explore the 7-pin layout below to see how symlinks and thin wrappers bridge all seven IDEs.
+  </p>
+
+  <div class="ui-window">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#e2e8f0; font-size:7.6pt;">acme-platform/ &mdash; Multi-Agent Monorepo Layout</span>
+      </div>
+      <div style="display:flex; gap:5px;">
+        <span class="hud-chip" style="background:rgba(56,189,248,0.2); color:#7dd3fc; border:1px solid #38bdf8;">AAIF Compliant</span>
+        <span class="hud-chip" style="background:rgba(52,211,153,0.2); color:#6ee7b7; border:1px solid #34d399;">7 IDEs Synced</span>
+        <span class="hud-chip" style="background:rgba(251,146,60,0.2); color:#fdba74; border:1px solid #fb923c;">Zero Secrets</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.25fr 1fr; gap:10px; padding:10px 12px;">
+      <!-- Left: Monorepo Tree -->
+      <div style="font-family:'SF Mono',Menlo,Consolas,monospace; font-size:7.2pt; line-height:1.52; color:#cbd5e1; background:#070d1a; border:1px solid #1e3a5f; border-radius:7px; padding:8px 10px;">
+        <div style="color:#94a3b8; font-weight:700; margin-bottom:2px;">acme-platform/</div>
+        <div>&#9500;&#9472;&#9472; <strong style="color:#38bdf8;">AGENTS.md</strong> <span class="callout-pin">1</span> <span style="color:#64748b;"># Root source (&lt;1.5k tok)</span></div>
+        <div>&#9500;&#9472;&#9472; <strong style="color:#a7f3d0;">CLAUDE.md</strong> <span class="callout-pin">2</span> <span style="color:#64748b;"># 1-line @AGENTS.md shim</span></div>
+        <div>&#9500;&#9472;&#9472; <strong style="color:#fb923c;">.mcp.json</strong> <span class="callout-pin">3</span> <span style="color:#64748b;"># Canonical MCP (env vars)</span></div>
+        <div>&#9500;&#9472;&#9472; <strong style="color:#34d399;">.agents/</strong></div>
+        <div>&#9474;   &#9492;&#9472;&#9472; <strong style="color:#34d399;">skills/</strong> <span class="callout-pin">4</span></div>
+        <div>&#9474;       &#9500;&#9472;&#9472; db-migration/</div>
+        <div>&#9474;       &#9474;   &#9500;&#9472;&#9472; SKILL.md</div>
+        <div>&#9474;       &#9474;   &#9500;&#9472;&#9472; scripts/verify_sql.py</div>
+        <div>&#9474;       &#9474;   &#9492;&#9472;&#9472; references/schema.md</div>
+        <div>&#9474;       &#9492;&#9472;&#9472; release-notes/SKILL.md</div>
+        <div>&#9500;&#9472;&#9472; <strong style="color:#93c5fd;">.cursor/</strong> <span class="callout-pin">5</span></div>
+        <div>&#9474;   &#9500;&#9472;&#9472; mcp.json <span style="color:#64748b;">&rarr; ../.mcp.json</span></div>
+        <div>&#9474;   &#9492;&#9472;&#9472; rules/ui-tokens.mdc <span style="color:#64748b;"># Glob only</span></div>
+        <div>&#9500;&#9472;&#9472; <strong style="color:#93c5fd;">.github/</strong></div>
+        <div>&#9474;   &#9500;&#9472;&#9472; CODEOWNERS <span class="callout-pin">6</span></div>
+        <div>&#9474;   &#9492;&#9472;&#9472; workflows/agent-lint.yml</div>
+        <div>&#9500;&#9472;&#9472; <strong style="color:#e2e8f0;">packages/</strong></div>
+        <div>&#9474;   &#9500;&#9472;&#9472; api/<strong style="color:#38bdf8;">AGENTS.md</strong> <span class="callout-pin">7</span> <span style="color:#64748b;"># Go/SQL delta</span></div>
+        <div>&#9474;   &#9492;&#9472;&#9472; web/<strong style="color:#38bdf8;">AGENTS.md</strong> <span style="color:#64748b;"># React/a11y delta</span></div>
+        <div>&#9492;&#9472;&#9472; scripts/sync-mcp-clients.mjs</div>
+      </div>
+
+      <!-- Right: Symlink & Thin-Wrapper Map -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card">
+          <div style="color:#38bdf8; font-weight:700; margin-bottom:2px;">SYMLINK VS. THIN-SHIM MATRIX</div>
+          <div>&bull; <strong>Windows-safe?</strong> Use 1-line text shims (<code>@AGENTS.md</code>) instead of OS symlinks if any contributor develops on Windows without Developer Mode.</div>
+          <div>&bull; <strong>macOS / Linux?</strong> Git symlinks (<code>ln -s AGENTS.md CLAUDE.md</code>) work cleanly across CI and containers.</div>
+        </div>
+        <div class="hud-card">
+          <div style="color:#34d399; font-weight:700; margin-bottom:2px;">GENERATED CLIENT PROJECTIONS (.gitignore or CI)</div>
+          <div><code>.mcp.json</code> &rarr; <code>.cursor/mcp.json</code> (symlink)</div>
+          <div><code>.mcp.json</code> &rarr; <code>.codex/config.toml</code> (script)</div>
+          <div><code>.mcp.json</code> &rarr; <code>opencode.json</code> (script)</div>
+          <div><code>.mcp.json</code> &rarr; <code>mcp_config.json</code> (<code>url&rarr;serverUrl</code>)</div>
+        </div>
+        <div class="hud-card">
+          <div style="color:#fb923c; font-weight:700; margin-bottom:2px;">NEVER COMMIT THESE FILES</div>
+          <div>&bull; <code>AGENTS.override.md</code> &amp; <code>CLAUDE.local.md</code></div>
+          <div>&bull; <code>.env</code>, <code>.mcp.local.json</code>, OAuth token caches</div>
+          <div>&bull; Unpinned third-party skill binaries</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control-by-Control Breakdown (Pins 1&ndash;7)</h3>
+  <div class="grid-2" style="gap:7px 11px;">
+    <div style="font-size:8pt; line-height:1.38;">
+      <p><span class="callout-pin">1</span> <strong>Root <code>AGENTS.md</code>:</strong> Canonical architecture map, exact test/lint commands, branch naming, and repo-wide invariants. Read natively by all 7 harnesses.</p>
+      <p><span class="callout-pin">2</span> <strong>Thin <code>CLAUDE.md</code> Shim:</strong> Contains only <code>@AGENTS.md</code> (Claude Code native file import). Guarantees older/enterprise Claude Code builds never miss root rules.</p>
+      <p><span class="callout-pin">3</span> <strong>Canonical <code>.mcp.json</code>:</strong> Declares shared team MCP servers with <code>${ENV_VAR}</code> placeholders and remote Streamable HTTP URLs. Zero plaintext API keys.</p>
+      <p style="margin-bottom:0;"><span class="callout-pin">4</span> <strong><code>.agents/skills/</code> Vault:</strong> AAIF-standard directory auto-discovered by Claude Code, Cursor, Copilot, Codex, Windsurf/Devin, OpenCode, and Antigravity.</p>
+    </div>
+    <div style="font-size:8pt; line-height:1.38;">
+      <p><span class="callout-pin">5</span> <strong>Glob-Only IDE Extensions:</strong> Keep <code>.cursor/rules/*.mdc</code> or <code>.claude/rules/*.md</code> strictly for file-pattern-triggered micro-rules that cannot be expressed by directory nesting.</p>
+      <p><span class="callout-pin">6</span> <strong><code>CODEOWNERS</code> &amp; CI Gate:</strong> Route edits to <code>AGENTS.md</code>, <code>.agents/skills/</code>, and <code>.mcp.json</code> through Staff/Security review and run automated token + schema linters.</p>
+      <p style="margin-bottom:0;"><span class="callout-pin">7</span> <strong>Nested Package <code>AGENTS.md</code>:</strong> Sub-directory deltas (e.g., <code>packages/api/AGENTS.md</code>) load <em>only</em> when an agent edits files inside that package, keeping root context small.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: MASTERING AGENTS.MD ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Mastering AGENTS.md &amp; Monorepo Context</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">Hierarchical <code>AGENTS.md</code> &amp; Thin-Shim Patterns</h2>
+  <p class="page-lead">
+    Think of <code>README.md</code> as onboarding for humans and <code>AGENTS.md</code> as an executable contract for machines. In a monorepo, stuffing every framework quirk into the root file degrades agent accuracy. Instead, pair a lean root contract with <strong>directory-scoped child <code>AGENTS.md</code> files</strong>.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_1.jpg" alt="Isometric hierarchical architecture showing a glowing slate-blue root foundation branching via emerald and sapphire conduits into modular glass package nodes" />
+    <div class="figure-caption">
+      <strong>Hierarchical Inheritance:</strong> Root <code>AGENTS.md</code> defines universal invariants; child files in <code>packages/api/</code> or <code>apps/web/</code> add local commands and overrides only when the agent enters that subtree.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">A</span> The 6 Mandatory Root Sections</div>
+      <ol style="font-size:8pt; margin:0;">
+        <li><strong>Repo Map (5&ndash;8 lines):</strong> Top-level directories and what owns what.</li>
+        <li><strong>Exact Commands:</strong> Copy-pasteable <code>install</code>, <code>typecheck</code>, <code>test</code>, and <code>lint</code> commands (prefer single-file test flags).</li>
+        <li><strong>Architecture Invariants:</strong> Hard boundaries (e.g., &ldquo;Never import <code>db/</code> from <code>ui/</code>&rdquo;).</li>
+        <li><strong>Code &amp; Style Rules:</strong> Only rules your linter <em>cannot</em> enforce automatically.</li>
+        <li><strong>PR &amp; Verification Gate:</strong> Exact checks the agent must pass before finishing.</li>
+        <li><strong>Pointer Index:</strong> Links to <code>.agents/skills/</code> and deep docs (never inline them).</li>
+      </ol>
+    </div>
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge emerald">B</span> Nested Monorepo Overrides</div>
+      <p style="font-size:8pt; margin-bottom:4px;">When an agent opens <code>packages/payments/ledger.ts</code>, harnesses walk upward from the file to the repo root, merging context with <strong>nearest-file precedence</strong>:</p>
+      <pre class="code-block" style="margin:2px 0 4px 0;"><code># packages/payments/AGENTS.md (Delta Only)
+## Local Commands
+- Test single file: `pnpm --filter payments test &lt;file&gt;`
+## Non-Negotiable Rules
+- Use integer cents (`bigint`); NEVER use JS `number` floats.
+- All ledger mutations require an idempotency key header.</code></pre>
+      <p style="font-size:7.8pt; margin:0; color:#334155;">Result: Frontend engineers editing <code>apps/web/</code> never pay the token cost of payments rules.</p>
+    </div>
+  </div>
+
+  <h3>Thin-Shim Blueprint (Zero Duplication Across Legacy &amp; Enterprise Clients)</h3>
+  <div class="grid-3">
+    <div class="card-dark" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.3pt;">Claude Code (<code>CLAUDE.md</code>)</div>
+      <pre class="code-block" style="border:none; padding:2px 0; margin:0; font-size:7pt;"><code>@AGENTS.md
+# Claude-specific hooks only:
+# Run `/compact` after 40 turns.</code></pre>
+    </div>
+    <div class="card-dark" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.3pt;">Copilot (<code>.github/copilot-instructions.md</code>)</div>
+      <pre class="code-block" style="border:none; padding:2px 0; margin:0; font-size:7pt;"><code>Read and strictly follow the root
+`AGENTS.md` and nearest nested
+`AGENTS.md` for all repo rules.</code></pre>
+    </div>
+    <div class="card-dark" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.3pt;">Cursor (<code>.cursor/rules/sql.mdc</code>)</div>
+      <pre class="code-block" style="border:none; padding:2px 0; margin:0; font-size:7pt;"><code>---
+globs: ["**/*.sql"]
+---
+Follow `packages/db/AGENTS.md`.</code></pre>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:6px;">
+    <div class="callout-title">Executable Specs Beat Wishlists</div>
+    Replace vague prose (&ldquo;Write clean, well-tested TypeScript&rdquo;) with deterministic commands (&ldquo;Run <code>pnpm vitest run path/to/test.ts</code> and <code>pnpm tsc --noEmit</code>; zero warnings allowed&rdquo;). Agents verify concrete commands 3&ndash;4&times; more reliably than stylistic adjectives.
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: SKILL.MD PROGRESSIVE DISCLOSURE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; The Open SKILL.md Standard</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">The <code>SKILL.md</code> Progressive-Disclosure Formula</h2>
+  <p class="page-lead">
+    Donated to the Linux Foundation&rsquo;s AAIF in October 2026 and supported by 70+ platforms (Claude Code, Codex, Cursor, Copilot, Windsurf/Devin, OpenCode, Antigravity), <strong>Agent Skills</strong> solve context bloat via <strong>3-tier progressive disclosure</strong>: agents see only a 2-line YAML summary at boot, loading full instructions and helper scripts only when a task matches.
+  </p>
+
+  <h3>Color-Coded 5-Part <code>SKILL.md</code> Anatomy</h3>
+  <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:9px 11px; font-family:'SF Mono',Menlo,Consolas,monospace; font-size:7.3pt; line-height:1.68;">
+    <div><span class="p-tag p-yaml">---</span></div>
+    <div><span class="p-tag p-yaml">name: safe-db-migration</span></div>
+    <div><span class="p-tag p-yaml">description: Generate and verify zero-downtime Postgres migrations. Use whenever creating, altering, or rolling back SQL schema files in packages/db/migrations/.</span></div>
+    <div><span class="p-tag p-yaml">---</span></div>
+    <div style="margin-top:4px;"><span class="p-tag p-steps"># Workflow: Zero-Downtime Migration</span></div>
+    <div><span class="p-tag p-steps">1. Inspect `packages/db/schema.sql` and draft an expand-and-contract migration file.</span></div>
+    <div><span class="p-tag p-steps">2. Generate both `up.sql` and reversible `down.sql` with timestamp prefix.</span></div>
+    <div style="margin-top:4px;"><span class="p-tag p-scr">3. Execute `python3 scripts/check_locks.py &lt;migration.sql&gt;` to verify zero table-locking DDL.</span></div>
+    <div style="margin-top:4px;"><span class="p-tag p-ref">4. Consult `references/postgres-lock-matrix.md` before adding NOT NULL or concurrent indexes.</span></div>
+    <div style="margin-top:4px;"><span class="p-tag p-guard">## Guardrails: NEVER run `DROP COLUMN` in the same PR as app code removal. Stop and ask for human approval if estimated lock time &gt; 200ms.</span></div>
+  </div>
+
+  <div class="grid-3" style="margin-top:6px;">
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag p-yaml">1. YAML Trigger</span></div>
+      <p style="font-size:7.8pt; margin:0;">Only <code>name</code> (lowercase kebab-case) and <code>description</code> are universally portable. Write <strong>trigger-rich descriptions</strong> naming exact file paths and intents.</p>
+    </div>
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag p-steps">2. Workflow Steps</span></div>
+      <p style="font-size:7.8pt; margin:0;">Numbered, imperative steps (&lt;300 lines). Each step produces a verifiable artifact or state transition before moving to the next.</p>
+    </div>
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag p-scr">3. scripts/</span></div>
+      <p style="font-size:7.8pt; margin:0;">Deterministic Python/Bash/Node validators bundled inside the skill folder. Offload brittle regex/schema checks from the LLM to code.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:6px;">
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag p-ref">4. references/</span></div>
+      <p style="font-size:7.8pt; margin:0;">Deep domain docs, API schemas, or checklists kept in sibling markdown files. Loaded <em>only</em> when the agent reaches that step&mdash;never bloating the core prompt.</p>
+    </div>
+    <div class="card" style="padding:7px 9px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag p-guard">5. Guardrails &amp; Stop Conditions</span></div>
+      <p style="font-size:7.8pt; margin:0;">Explicit &ldquo;NEVER&rdquo; rules and human-in-the-loop escalation triggers. Prevents autonomous agents from executing destructive commands.</p>
+    </div>
+  </div>
+
+  <h3>3-Tier Progressive Disclosure &amp; Portability Rules</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Loading Tier</th>
+        <th style="width:27%;">What Loads Into Context</th>
+        <th style="width:19%;">Token Cost</th>
+        <th style="width:36%;">Cross-IDE Portability Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tier 1: Boot</strong></td>
+        <td>YAML <code>name</code> + <code>description</code></td>
+        <td>~30&ndash;60 tok / skill</td>
+        <td>Always visible in system prompt. Keep <code>description</code> under 250 chars for clean matching.</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 2: Trigger</strong></td>
+        <td>Full <code>SKILL.md</code> body</td>
+        <td>~400&ndash;1,800 tok</td>
+        <td>Triggered by intent match or explicit <code>/skill-name</code>. Avoid tool-only frontmatter like <code>context: fork</code> unless optional.</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 3: Execution</strong></td>
+        <td><code>scripts/</code>, <code>references/</code>, <code>assets/</code></td>
+        <td>0 tok until read/run</td>
+        <td>Use relative paths from the skill folder. Scripts must use standard runtimes (<code>python3</code>, <code>node</code>, <code>bash</code>).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout coral" style="margin-top:3px;">
+    <div class="callout-title">Portability Trap: Tool-Specific Frontmatter Extensions</div>
+    Claude Code supports optional fields like <code>allowed-tools</code>, <code>model</code>, and <code>context: fork</code>, while Codex CLI ignores unknown keys and does not load legacy plugin commands. Stick to <code>name</code> and <code>description</code> for core behavior, and treat vendor extensions strictly as progressive enhancements.
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: SHARED MCP & SECRET HYGIENE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Shared MCP Server Configuration</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">Shared MCP Configs, Streamable HTTP &amp; Secret Hygiene</h2>
+  <p class="page-lead">
+    The Model Context Protocol (MCP) gives every IDE identical live access to GitHub, Postgres, Linear, Sentry, and internal docs. The #1 cross-IDE friction point in 2026 is not MCP itself&mdash;it is <strong>divergent client config schemas</strong> and <strong>hardcoded API tokens</strong> accidentally pushed to git.
+  </p>
+
+  <div class="grid-2">
+    <div>
+      <h3>Canonical Secret-Free <code>.mcp.json</code></h3>
+      <pre class="code-block"><code>{
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_MCP_TOKEN}"
+      }
+    },
+    "postgres-ro": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres@0.6.2"],
+      "env": {
+        "POSTGRES_URL": "${DEV_PG_READONLY_URL}"
+      }
+    },
+    "context-docs": {
+      "type": "http",
+      "url": "https://mcp.internal.acme.dev/v1"
+    }
+  }
+}</code></pre>
+    </div>
+    <div>
+      <h3>Local <code>stdio</code> vs. Remote Streamable HTTP</h3>
+      <table class="clean-table" style="margin-top:3px;">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Local <code>stdio</code></th>
+            <th>Streamable HTTP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Auth Model</strong></td>
+            <td>Local env vars / CLI creds</td>
+            <td>OAuth 2.1 / SSO + Bearer</td>
+          </tr>
+          <tr>
+            <td><strong>Onboarding</strong></td>
+            <td>Needs Node/Python/Docker</td>
+            <td>Zero local install (URL only)</td>
+          </tr>
+          <tr>
+            <td><strong>Audit &amp; RBAC</strong></td>
+            <td>Per-laptop; hard to revoke</td>
+            <td>Central gateway &amp; logs</td>
+          </tr>
+          <tr>
+            <td><strong>Best For</strong></td>
+            <td>Local DBs, filesystem, git</td>
+            <td>Jira, GitHub, Sentry, prod docs</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout emerald" style="margin-top:4px; padding:6.5px 9px;">
+        <div class="callout-title">2026 Shift: Remote Streamable HTTP + OAuth 2.1</div>
+        Prefer hosted <strong>Streamable HTTP</strong> MCP servers over local <code>stdio</code> wrappers for SaaS tools. Developers authenticate via browser OAuth 2.1&mdash;meaning zero static API tokens ever touch laptops or config files.
+      </div>
+    </div>
+  </div>
+
+  <h3>Bridging Client Schema Differences Without Manual Duplication</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Client</th>
+        <th style="width:24%;">Config File</th>
+        <th style="width:16%;">Root Key</th>
+        <th style="width:42%;">Schema Delta &amp; Sync Strategy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Code / Antigravity</strong></td>
+        <td><code>.mcp.json</code></td>
+        <td><code>mcpServers</code></td>
+        <td>Canonical source! Native <code>${VAR}</code> and <code>${VAR:-fallback}</code> expansion.</td>
+      </tr>
+      <tr>
+        <td><strong>Cursor</strong></td>
+        <td><code>.cursor/mcp.json</code></td>
+        <td><code>mcpServers</code></td>
+        <td>Symlink directly to <code>../.mcp.json</code> (identical JSON schema).</td>
+      </tr>
+      <tr>
+        <td><strong>VS Code / Copilot</strong></td>
+        <td><code>.mcp.json</code> or <code>.vscode/mcp.json</code></td>
+        <td><code>mcpServers</code> / <code>servers</code></td>
+        <td>Late-2026 Copilot reads root <code>.mcp.json</code>; use <code>.vscode/mcp.json</code> only if you need interactive <code>${input:token}</code> prompts.</td>
+      </tr>
+      <tr>
+        <td><strong>Codex CLI</strong></td>
+        <td><code>.codex/config.toml</code></td>
+        <td><code>[mcp_servers.*]</code></td>
+        <td>Run <code>pnpm mcp:sync</code> to emit TOML from <code>.mcp.json</code> (auto-checked in CI).</td>
+      </tr>
+      <tr>
+        <td><strong>Windsurf / OpenCode</strong></td>
+        <td><code>mcp_config.json</code> / <code>opencode.json</code></td>
+        <td><code>mcpServers</code> / <code>mcp</code></td>
+        <td>Sync script maps <code>url &rarr; serverUrl</code> (Windsurf) and <code>type: "remote"</code> (OpenCode).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-coral" style="padding:7.5px 10px;">
+      <div class="card-title"><span class="num-badge coral">!</span> 4 Rules of MCP Secret Hygiene</div>
+      <ul style="font-size:7.9pt; margin:0;">
+        <li><strong>Zero hardcoded keys:</strong> Commit <code>.env.example</code> with blank vars; load real values via <code>direnv</code>, 1Password CLI, or OAuth 2.1.</li>
+        <li><strong>Pin versions:</strong> Always pin <code>npx -y pkg@x.y.z</code> or Docker digests to block supply-chain hijacks.</li>
+        <li><strong>Read-only by default:</strong> Bind dev MCP DB credentials to a read-only Postgres role.</li>
+        <li><strong>Pre-commit secret scan:</strong> Run <code>gitleaks</code> on <code>.mcp.json</code> and all generated client configs.</li>
+      </ul>
+    </div>
+    <div class="card-tint" style="padding:7.5px 10px;">
+      <div class="card-title"><span class="num-badge">i</span> Watch the Tool-Count Ceiling</div>
+      <p style="font-size:7.9pt; margin-bottom:4px;">Connecting 10+ MCP servers can inject 150&ndash;300 tool schemas into every turn, degrading tool selection accuracy and hitting client caps (e.g., VS Code&rsquo;s 128-tool limit).</p>
+      <p style="font-size:7.9pt; margin:0;"><strong>Fix:</strong> Cap workspace <code>.mcp.json</code> at <strong>3&ndash;5 high-signal servers</strong> (or use an MCP gateway/router that filters toolsets per role).</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: PREVENTING DRIFT, BLOAT & CONFLICTS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Preventing Drift, Bloat &amp; Conflicting Rules</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">Stopping Instruction Drift &amp; Context Bloat With CI Linters</h2>
+  <p class="page-lead">
+    Instruction files decay faster than code. Every time an engineer patches a bug by appending &ldquo;NEVER do X&rdquo; to <code>CLAUDE.md</code> without updating <code>AGENTS.md</code>, or dumps a 4,000-token style guide into the root prompt, agent compliance drops sharply. Treat agent instructions like production code: <strong>budget them, lint them, and prune them in CI</strong>.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="Precision optical calibration prism and metallic architectural gate refining tangled ribbons into three parallel glowing emerald, sapphire, and coral streams" />
+    <div class="figure-caption">
+      <strong>Continuous Calibration:</strong> Automated CI gates filter ad-hoc developer notes into lean <code>AGENTS.md</code> contracts, modular <code>SKILL.md</code> playbooks, and schema-verified MCP configs.
+    </div>
+  </div>
+
+  <h3>Context Token Budgets (Empirical Sweet Spots)</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Artifact</th>
+        <th style="width:18%;">Target Budget</th>
+        <th style="width:18%;">CI Hard Cap</th>
+        <th style="width:40%;">Overflow Action (When Cap Is Hit)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Root <code>AGENTS.md</code></strong></td>
+        <td>500&ndash;1,500 tok</td>
+        <td>2,000 tok (~150 lines)</td>
+        <td>Move step-by-step workflows to <code>.agents/skills/</code>; move pkg rules to nested <code>AGENTS.md</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Nested <code>AGENTS.md</code></strong></td>
+        <td>150&ndash;500 tok</td>
+        <td>800 tok (~60 lines)</td>
+        <td>Delete rules already enforced by ESLint/Ruff/Go vet; link to <code>docs/</code>.</td>
+      </tr>
+      <tr>
+        <td><strong><code>SKILL.md</code> Frontmatter</strong></td>
+        <td>25&ndash;50 tok</td>
+        <td>75 tok (&le;250 chars)</td>
+        <td>Tighten <code>description</code> to crisp trigger verbs + exact target paths.</td>
+      </tr>
+      <tr>
+        <td><strong><code>SKILL.md</code> Body</strong></td>
+        <td>400&ndash;1,200 tok</td>
+        <td>2,500 tok (~300 lines)</td>
+        <td>Extract reference tables into <code>references/</code> and validators into <code>scripts/</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge rose">&times;</span> Top 4 Drift Anti-Patterns</div>
+      <ul style="font-size:7.95pt; margin:0;">
+        <li><strong>Copy-Paste Syncing:</strong> Duplicating prose across <code>AGENTS.md</code>, <code>CLAUDE.md</code>, and <code>.cursor/rules/</code> guarantees divergence within 2 weeks.</li>
+        <li><strong>Linter Duplication:</strong> Listing Prettier/ESLint formatting rules in Markdown wastes tokens and triggers contradictions.</li>
+        <li><strong>Stale Commands:</strong> Leaving old <code>npm run test:old</code> commands causes every agent to burn 3+ turns failing before guessing.</li>
+        <li><strong>Tombstone Accumulation:</strong> Never deleting rules for deprecated frameworks creates contradictory instructions.</li>
+      </ul>
+    </div>
+    <div class="card-emerald">
+      <div class="card-title"><span class="num-badge emerald">&check;</span> 5 Automated CI Lint Checks</div>
+      <ol style="font-size:7.95pt; margin:0;">
+        <li><strong>Token Cap Check:</strong> Fail PR if root <code>AGENTS.md</code> exceeds 2,000 tokens or 150 lines.</li>
+        <li><strong>Shim Integrity:</strong> Assert <code>CLAUDE.md</code> is either a symlink or &le;5 lines containing <code>@AGENTS.md</code>.</li>
+        <li><strong>SKILL.md Schema:</strong> Validate YAML frontmatter (<code>name</code> matches folder, <code>description</code> present, no unreferenced scripts).</li>
+        <li><strong>Dead Path Check:</strong> Verify every backticked path/script mentioned in <code>AGENTS.md</code> exists in git.</li>
+        <li><strong>MCP Sync &amp; Secret Check:</strong> Assert generated configs match <code>.mcp.json</code> and contain zero raw tokens.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE PORTABILITY RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; 5 Real-World Copy-Paste Recipes</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">5 Copy-Paste Portability Recipes Ready for Production</h2>
+  <p class="page-lead">
+    Drop these five battle-tested templates directly into any repository to achieve immediate cross-IDE parity across Cursor, Claude Code, Codex, Copilot, Windsurf/Devin, OpenCode, and Antigravity.
+  </p>
+
+  <table class="clean-table" style="margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:6%;">#</th>
+        <th style="width:28%;">Recipe</th>
+        <th style="width:30%;">File Path</th>
+        <th style="width:36%;">Problem Solved</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>Lean Root Contract</td><td><code>AGENTS.md</code></td><td>Gives all 7 harnesses identical build, test, and boundary rules.</td></tr>
+      <tr><td><strong>2</strong></td><td>Zero-Drift Claude Shim</td><td><code>CLAUDE.md</code></td><td>Prevents Claude Code from shadowing or missing <code>AGENTS.md</code>.</td></tr>
+      <tr><td><strong>3</strong></td><td>Portable PR Review Skill</td><td><code>.agents/skills/pr-review/SKILL.md</code></td><td>On-demand security &amp; diff review playbook with deterministic script.</td></tr>
+      <tr><td><strong>4</strong></td><td>Client MCP Sync Script</td><td><code>scripts/sync-mcp.mjs</code></td><td>Generates Codex TOML &amp; Windsurf <code>serverUrl</code> from <code>.mcp.json</code>.</td></tr>
+      <tr><td><strong>5</strong></td><td>GitHub Actions Lint Gate</td><td><code>.github/workflows/agent-lint.yml</code></td><td>Blocks bloated rules, broken YAML, or unpinned MCP servers in PRs.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:9px;">
+    <div>
+      <div style="font-weight:700; font-size:8.2pt; color:#0f172a; margin-bottom:1px;">Recipe 1: Lean Root <code>AGENTS.md</code></div>
+      <pre class="code-block"><code># AGENTS.md — Acme Platform
+## Repo Map
+- `apps/web/`: Next.js 16 frontend (pnpm)
+- `packages/api/`: Go 1.24 REST/gRPC services
+- `packages/db/`: SQL migrations (see local AGENTS.md)
+
+## Verification Commands (Run Before Finishing)
+- Typecheck: `pnpm -r typecheck`
+- Fast unit test: `pnpm --filter &lt;pkg&gt; test &lt;file&gt;`
+- Go check: `cd packages/api &amp;&amp; go test ./...`
+
+## Hard Invariants
+- Never commit secrets or edit `.env*` files.
+- Never bypass ESLint/golangci-lint with ignore comments.
+- Use `.agents/skills/` for migrations &amp; release notes.</code></pre>
+
+      <div style="font-weight:700; font-size:8.2pt; color:#0f172a; margin-bottom:1px;">Recipe 2: Thin <code>CLAUDE.md</code> Shim</div>
+      <pre class="code-block"><code>@AGENTS.md
+
+&lt;!-- Keep all shared rules in AGENTS.md.
+     Only Claude-specific local hooks belong below. --&gt;</code></pre>
+
+      <div style="font-weight:700; font-size:8.2pt; color:#0f172a; margin-bottom:1px;">Recipe 3: Portable <code>SKILL.md</code></div>
+      <pre class="code-block"><code>---
+name: pr-readiness-check
+description: Audit staged diffs for security leaks, missing tests, and breaking API changes before opening a PR.
+---
+# PR Readiness Check
+1. Run `git diff --staged --stat` to list touched packages.
+2. Execute `python3 scripts/scan_diff.py` for secret/TODO checks.
+3. Verify each modified module has a passing targeted test.
+4. Summarize risks in 3 bullets; NEVER auto-push to `main`.</code></pre>
+    </div>
+
+    <div>
+      <div style="font-weight:700; font-size:8.2pt; color:#0f172a; margin-bottom:1px;">Recipe 4: <code>scripts/sync-mcp.mjs</code> (Excerpt)</div>
+      <pre class="code-block"><code>import fs from "node:fs";
+const cfg = JSON.parse(fs.readFileSync(".mcp.json", "utf8"));
+// 1. Emit Codex .codex/config.toml
+const toml = Object.entries(cfg.mcpServers).map(([k, v]) =&gt; {
+  const lines = [`[mcp_servers.${k}]`];
+  if (v.url) lines.push(`url = "${v.url}"`);
+  if (v.command) lines.push(`command = "${v.command}"`);
+  if (v.args) lines.push(`args = ${JSON.stringify(v.args)}`);
+  return lines.join("\n");
+}).join("\n\n");
+fs.mkdirSync(".codex", { recursive: true });
+fs.writeFileSync(".codex/config.toml", toml + "\n");</code></pre>
+
+      <div style="font-weight:700; font-size:8.2pt; color:#0f172a; margin-bottom:1px;">Recipe 5: <code>.github/workflows/agent-lint.yml</code></div>
+      <pre class="code-block"><code>name: Agent Portability Lint
+on: [pull_request]
+jobs:
+  lint-agent-config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enforce AGENTS.md line cap (&lt;=150)
+        run: test "$(wc -l &lt; AGENTS.md)" -le 150
+      - name: Verify CLAUDE.md thin shim
+        run: grep -q "@AGENTS.md" CLAUDE.md &amp;&amp; test "$(wc -l &lt; CLAUDE.md)" -le 8
+      - name: Validate SKILL.md YAML frontmatter
+        run: |
+          python3 -c '
+          import glob, yaml
+          for f in glob.glob(".agents/skills/*/SKILL.md"):
+            fm = yaml.safe_load(open(f).read().split("---")[1])
+            assert fm.get("name") and len(fm.get("description","")) &lt;= 250, f
+          '
+      - name: Check MCP sync &amp; no raw secrets
+        run: |
+          node scripts/sync-mcp.mjs &amp;&amp; git diff --exit-code .codex/config.toml
+          ! grep -E "(sk-|ghp_|xoxb-)" .mcp.json</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: GOVERNANCE & SUPPLY-CHAIN SAFETY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Governance &amp; Skill Supply-Chain Safety</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">Securing <code>AGENTS.md</code>, Third-Party Skills &amp; MCP Tools</h2>
+  <p class="page-lead">
+    Because every AI coding agent treats <code>AGENTS.md</code> and <code>SKILL.md</code> as trusted system instructions&mdash;and executes bundled <code>scripts/</code> with developer privileges&mdash;agent configs are now a <strong>Tier-1 supply-chain attack surface</strong>. A single poisoned community skill can exfiltrate <code>~/.ssh</code> or <code>.env</code> secrets across all seven IDEs simultaneously.
+  </p>
+
+  <div class="grid-3">
+    <div class="card-coral">
+      <div class="card-title"><span class="num-badge rose">1</span> Indirect Prompt Injection</div>
+      <p style="font-size:8pt; margin:0;">Hidden Unicode (zero-width chars), HTML comments, or obfuscated base64 strings inside third-party <code>SKILL.md</code> or <code>references/</code> files can instruct agents to curl secrets to attacker domains.</p>
+    </div>
+    <div class="card-coral">
+      <div class="card-title"><span class="num-badge coral">2</span> Rug-Pull Skill Scripts</div>
+      <p style="font-size:8pt; margin:0;">Installing unpinned skills via <code>git pull</code> or floating <code>npx -y pkg@latest</code> lets a compromised upstream maintainer inject malicious shell payloads overnight.</p>
+    </div>
+    <div class="card-coral">
+      <div class="card-title"><span class="num-badge slate">3</span> Over-Privileged MCP</div>
+      <p style="font-size:8pt; margin:0;">Granting write/admin tokens to MCP servers (or combining untrusted web-fetch MCP with local shell execution) creates a lethal &ldquo;confused deputy&rdquo; exfiltration path.</p>
+    </div>
+  </div>
+
+  <h3>Mandatory Team Governance Controls</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Control Layer</th>
+        <th style="width:38%;">Implementation Standard</th>
+        <th style="width:40%;">Verification Mechanism</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>CODEOWNERS</code> Review</strong></td>
+        <td>Require Staff Engineer + AppSec approval on <code>AGENTS.md</code>, <code>.agents/skills/**</code>, and <code>.mcp.json</code>.</td>
+        <td>GitHub Branch Protection &ldquo;Require review from Code Owners&rdquo; enforced on <code>main</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Vendor &amp; Pin Skills</strong></td>
+        <td>Copy audited third-party skills into your repo&rsquo;s <code>.agents/skills/</code> (or internal private registry) pinned to a commit SHA.</td>
+        <td>CI rejects dynamic runtime skill fetchers and logs SHA provenance in <code>SKILL_LOCK.json</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Static Injection Scan</strong></td>
+        <td>Reject invisible Unicode (<code>U+200B..U+200F</code>, bidi overrides), base64 blobs, and unapproved egress domains in Markdown/scripts.</td>
+        <td>Pre-commit &amp; CI regex/AST scanner across all <code>*.md</code> and <code>.agents/skills/*/scripts/*</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Least-Privilege Tools</strong></td>
+        <td>Scope MCP credentials to read-only or staging; restrict destructive shell commands via harness allowlists/sandboxes.</td>
+        <td>Quarterly token audit + OAuth 2.1 short-lived tokens via central MCP gateway.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-dark">
+      <div class="card-title"><code>.github/CODEOWNERS</code> Rule Block</div>
+      <pre class="code-block" style="border:none; padding:2px 0; margin:0; font-size:7.2pt;"><code># Agent instructions &amp; executable skills require dual review
+/AGENTS.md                  @org/platform-eng @org/appsec
+/**/AGENTS.md               @org/platform-eng
+/CLAUDE.md                  @org/platform-eng
+/.mcp.json                  @org/platform-eng @org/appsec
+/.agents/skills/            @org/platform-eng @org/appsec
+/.cursor/rules/             @org/platform-eng</code></pre>
+    </div>
+    <div class="card-emerald">
+      <div class="card-title"><span class="num-badge emerald">&check;</span> 5-Minute Third-Party Skill Audit</div>
+      <ol style="font-size:7.9pt; margin:0;">
+        <li>Read <em>every line</em> of <code>SKILL.md</code> and <code>references/</code> in raw text (inspect for HTML comments or hidden Unicode).</li>
+        <li>Inspect all files in <code>scripts/</code> for network calls (<code>curl</code>, <code>fetch</code>, <code>requests</code>) and env access (<code>os.environ</code>).</li>
+        <li>Check whether the skill requests disabling safety hooks or auto-approving shell commands.</li>
+        <li>Test the skill inside a disposable sandbox container with dummy credentials before merging.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="callout rose" style="margin-top:6px;">
+    <div class="callout-title">Security Golden Rule: Treat <code>SKILL.md</code> as Executable Code</div>
+    Never merge a community skill PR the way you merge documentation. A malicious instruction in Markdown can hijack an autonomous agent just as effectively as a malicious line of Python.
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Pipeline</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">One Git Commit &rarr; CI Gate &rarr; Identical Behavior in 7 IDEs</h2>
+  <p class="page-lead">
+    When <code>AGENTS.md</code>, <code>.agents/skills/</code>, and <code>.mcp.json</code> flow through a single Git + CI pipeline, onboarding a new engineer or rolling out a new architectural rule takes <strong>one pull request</strong>&mdash;and instantly upgrades every local IDE and cloud coding agent simultaneously.
+  </p>
+
+  <div class="figure-box" style="background:#0b1324; padding:9px 10px; border-color:#1e3a5f;">
+    <svg viewBox="0 0 700 176" width="100%" height="176" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="6" y="14" width="154" height="148" rx="9" fill="#101c34" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="83" y="32" text-anchor="middle" fill="#7dd3fc" font-size="7.5" font-weight="800">1. AUTHOR ONCE</text>
+      <text x="83" y="47" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Single Git PR</text>
+      <rect x="16" y="58" width="134" height="40" rx="5" fill="#13294b" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="83" y="74" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">Edit Canonical Files</text>
+      <text x="83" y="87" text-anchor="middle" fill="#94a3b8" font-size="6.7">AGENTS.md / SKILL.md</text>
+      <rect x="16" y="106" width="134" height="44" rx="5" fill="#13294b" stroke="#34d399" stroke-width="0.9"/>
+      <text x="83" y="122" text-anchor="middle" fill="#a7f3d0" font-size="7.2" font-weight="700">CODEOWNERS Gate</text>
+      <text x="83" y="135" text-anchor="middle" fill="#94a3b8" font-size="6.7">Platform + AppSec review</text>
+
+      <path d="M160 88 L178 88" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="176,83 184,88 176,93" fill="#38bdf8"/>
+
+      <!-- Stage 2 -->
+      <rect x="185" y="14" width="156" height="148" rx="9" fill="#101c34" stroke="#34d399" stroke-width="1.5"/>
+      <text x="263" y="32" text-anchor="middle" fill="#6ee7b7" font-size="7.5" font-weight="800">2. CI VALIDATION</text>
+      <text x="263" y="47" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Automated Lint</text>
+      <rect x="195" y="58" width="136" height="40" rx="5" fill="#0d2b26" stroke="#34d399" stroke-width="0.9"/>
+      <text x="263" y="74" text-anchor="middle" fill="#d1fae5" font-size="7.2" font-weight="700">Budget &amp; Schema</text>
+      <text x="263" y="87" text-anchor="middle" fill="#94a3b8" font-size="6.7">&le;2k tok, valid YAML, paths</text>
+      <rect x="195" y="106" width="136" height="44" rx="5" fill="#0d2b26" stroke="#fb923c" stroke-width="0.9"/>
+      <text x="263" y="122" text-anchor="middle" fill="#fed7aa" font-size="7.2" font-weight="700">Security &amp; Sync</text>
+      <text x="263" y="135" text-anchor="middle" fill="#94a3b8" font-size="6.7">Zero secrets, TOML parity</text>
+
+      <path d="M341 88 L359 88" stroke="#34d399" stroke-width="2"/>
+      <polygon points="357,83 365,88 357,93" fill="#34d399"/>
+
+      <!-- Stage 3 -->
+      <rect x="366" y="14" width="156" height="148" rx="9" fill="#101c34" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="444" y="32" text-anchor="middle" fill="#fdba74" font-size="7.5" font-weight="800">3. GIT PULL / CLONE</text>
+      <text x="444" y="47" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Zero-Touch Sync</text>
+      <rect x="376" y="58" width="136" height="40" rx="5" fill="#2d1c14" stroke="#fb923c" stroke-width="0.9"/>
+      <text x="444" y="74" text-anchor="middle" fill="#ffedd5" font-size="7.2" font-weight="700">Local Dev IDEs</text>
+      <text x="444" y="87" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Auto-loads on next session</text>
+      <rect x="376" y="106" width="136" height="44" rx="5" fill="#2d1c14" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="444" y="122" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">Cloud Agents</text>
+      <text x="444" y="135" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Copilot, Codex, Devin, Jules</text>
+
+      <path d="M522 88 L540 88" stroke="#fb923c" stroke-width="2"/>
+      <polygon points="538,83 546,88 538,93" fill="#fb923c"/>
+
+      <!-- Stage 4 -->
+      <rect x="547" y="14" width="147" height="148" rx="9" fill="#0d2b26" stroke="#34d399" stroke-width="1.6"/>
+      <text x="620" y="32" text-anchor="middle" fill="#6ee7b7" font-size="7.5" font-weight="800">4. IDENTICAL OUTPUT</text>
+      <text x="620" y="47" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">7-IDE Parity</text>
+      <text x="620" y="69" text-anchor="middle" fill="#d1fae5" font-size="7.4" font-weight="700">&bull; Cursor &amp; Windsurf</text>
+      <text x="620" y="85" text-anchor="middle" fill="#d1fae5" font-size="7.4" font-weight="700">&bull; Claude Code</text>
+      <text x="620" y="101" text-anchor="middle" fill="#d1fae5" font-size="7.4" font-weight="700">&bull; GitHub Copilot</text>
+      <text x="620" y="117" text-anchor="middle" fill="#d1fae5" font-size="7.4" font-weight="700">&bull; Codex CLI / Cloud</text>
+      <text x="620" y="133" text-anchor="middle" fill="#d1fae5" font-size="7.4" font-weight="700">&bull; OpenCode &amp; Antigravity</text>
+      <text x="620" y="151" text-anchor="middle" fill="#7dd3fc" font-size="6.9" font-weight="700">Same tests, style &amp; tools</text>
+    </svg>
+  </div>
+
+  <h3>4-Week Team Migration Playbook (From Fragmented Rules to AAIF Parity)</h3>
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">W1</span> Audit &amp; Consolidate</div>
+      <p style="font-size:8pt; margin:0;">Inventory every <code>.cursorrules</code>, <code>CLAUDE.md</code>, <code>.windsurfrules</code>, and wiki doc. Distill only verified commands and invariants into a root <code>AGENTS.md</code> under 1,500 tokens. Replace old files with thin shims.</p>
+    </div>
+    <div class="card-emerald">
+      <div class="card-title"><span class="num-badge emerald">W2</span> Extract Top 3 Workflows to Skills</div>
+      <p style="font-size:8pt; margin:0;">Move verbose procedures (DB migrations, PR review, service scaffolding) out of <code>AGENTS.md</code> into <code>.agents/skills/*/SKILL.md</code> with deterministic Python/Node validation scripts.</p>
+    </div>
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge sky">W3</span> Unify MCP &amp; Kill Plaintext Keys</div>
+      <p style="font-size:8pt; margin:0;">Create canonical <code>.mcp.json</code> with Streamable HTTP + OAuth 2.1 for SaaS tools and <code>${VAR}</code> for local stdio servers. Wire up <code>scripts/sync-mcp.mjs</code> and symlink <code>.cursor/mcp.json</code>.</p>
+    </div>
+    <div class="card-coral">
+      <div class="card-title"><span class="num-badge coral">W4</span> Enforce CI Gates &amp; Run Parity Eval</div>
+      <p style="font-size:8pt; margin:0;">Enable <code>agent-lint.yml</code> and <code>CODEOWNERS</code>. Run one identical benchmark ticket across two different team IDEs (e.g., Cursor + Claude Code) and verify both run the exact same test command and pass CI.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:7px;">
+    <div class="callout-title">Bonus Win: Cloud Coding Agents Get Upgraded for Free</div>
+    Autonomous background agents&mdash;GitHub Copilot Coding Agent, OpenAI Codex Cloud, Devin, and Google Jules&mdash;all clone your repository and read root/nested <code>AGENTS.md</code> plus <code>.agents/skills/</code> automatically. Local portability directly doubles your cloud-agent PR acceptance rate.
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Pre-Flight Checklist</span>
+    <span>Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight Check</h2>
+  <p class="page-lead">
+    When an agent ignores a rule, misses a skill, or fails to boot an MCP server, the cause is almost always one of these seven deterministic configuration bugs.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:5%;">#</th>
+        <th style="width:27%;">Symptom</th>
+        <th style="width:28%;">Root Cause</th>
+        <th style="width:40%;">Exact Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td>Claude Code ignores <code>AGENTS.md</code></td>
+        <td>Older build (&lt;v2.1.277), disabled plugin, or stale <code>CLAUDE.md</code> shadowing it.</td>
+        <td>Keep a 1-line <code>CLAUDE.md</code> containing <code>@AGENTS.md</code> and verify <em>Project instructions</em> in <code>/config</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><code>SKILL.md</code> never auto-triggers</td>
+        <td>Vague <code>description</code> in YAML frontmatter or folder name mismatch.</td>
+        <td>Match folder name to YAML <code>name</code>; add explicit trigger verbs &amp; target paths in <code>description</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td>Windows dev sees broken symlink</td>
+        <td>Git symlinks checked out as plain text files without Windows Developer Mode.</td>
+        <td>Replace symlinks with 1-line text shims (<code>@AGENTS.md</code>) or run <code>scripts/sync-mcp.mjs</code> via <code>postinstall</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td>Windsurf remote MCP silently fails</td>
+        <td>Config uses <code>"url"</code> instead of Windsurf&rsquo;s <code>"serverUrl"</code> key.</td>
+        <td>Map <code>url &rarr; serverUrl</code> in your MCP sync script when emitting Windsurf&rsquo;s <code>mcp_config.json</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td>Agent hallucinates old commands</td>
+        <td>Root <code>AGENTS.md</code> exceeds 2,500 tokens or retains outdated scripts.</td>
+        <td>Prune root <code>AGENTS.md</code> under 1,500 tokens and add a CI dead-command check.</td>
+      </tr>
+      <tr>
+        <td><strong>6</strong></td>
+        <td>MCP tool calls degrade or hit cap</td>
+        <td>10+ servers enabled globally, injecting 150+ schemas (hits VS Code 128 cap).</td>
+        <td>Trim workspace <code>.mcp.json</code> to 3&ndash;5 core servers or route through a scoped MCP gateway.</td>
+      </tr>
+      <tr>
+        <td><strong>7</strong></td>
+        <td>Agent violates nested package rule</td>
+        <td>Rule lives only in root <code>.cursor/rules/</code> instead of package <code>AGENTS.md</code>.</td>
+        <td>Move package-specific invariants to <code>packages/&lt;pkg&gt;/AGENTS.md</code> so all 7 harnesses inherit them.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Cross-IDE Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>1. Lean Canonical <code>AGENTS.md</code>:</strong> Under 1,500 tokens at repo root, with exact single-file test/lint commands and nested package deltas.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>2. Zero-Duplication Shims:</strong> <code>CLAUDE.md</code> imports <code>@AGENTS.md</code>; legacy <code>.cursorrules</code> and <code>.windsurfrules</code> deleted.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>3. AAIF <code>.agents/skills/</code> Layout:</strong> Repeatable workflows packaged with crisp YAML triggers, <code>scripts/</code>, and <code>references/</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>4. Secret-Free <code>.mcp.json</code>:</strong> Pinned package versions, Streamable HTTP + OAuth 2.1 where available, <code>${ENV_VAR}</code> placeholders only.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>5. CI Lint &amp; <code>CODEOWNERS</code> Active:</strong> Token caps, YAML validation, MCP client sync, and secret scanning block broken PRs automatically.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>6. Two-IDE Smoke Test Passed:</strong> Same feature prompt verified in at least two distinct harnesses (e.g., Cursor + Claude Code or Codex).</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:8px;">
+    <div class="callout-title">Final Takeaway: Invest in Portable Repo Architecture, Not IDE Lock-In</div>
+    Models and editors will keep leapfrogging every quarter. Teams that encode their engineering judgment in AAIF open standards&mdash;<code>AGENTS.md</code>, <code>SKILL.md</code>, and secret-free MCP&mdash;can adopt tomorrow&rsquo;s best coding harness in five minutes without rewriting a single rule.
+  </div>
+
+  <div class="page-footer">
+    <span>Cross-IDE Portability Field Guide &bull; Nov 2026 Edition</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

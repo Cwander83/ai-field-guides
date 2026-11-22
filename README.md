@@ -4,12 +4,12 @@
 
 Every handbook in this repository is authored as a self-contained **12-page visual handbook**—complete with custom editorial illustrations, annotated UI tours, vector architecture diagrams, color-coded prompt formulas, real-world recipes, and troubleshooting cheat sheets—alongside its editable HTML/CSS source so any guide can be updated in seconds as tools evolve.
 
-> **Read Online at [twelve-pages.com](https://twelve-pages.com)** — Browse all 87 handbooks in a clean, mobile-friendly web reader or download any 12-page magazine PDF in one click.
+> **Read Online at [twelve-pages.com](https://twelve-pages.com)** — Browse all 91 handbooks in a clean, mobile-friendly web reader or download any 12-page magazine PDF in one click.
 
 <!-- STATS:START -->
-![Library Size](https://img.shields.io/badge/Library-87%20Guides-2563eb?style=for-the-badge)
-![Illustrated Pages](https://img.shields.io/badge/Total-1044%20Pages-059669?style=for-the-badge)
-![Ecosystems](https://img.shields.io/badge/Scope-12%20Ecosystems-7c3aed?style=for-the-badge)
+![Library Size](https://img.shields.io/badge/Library-91%20Guides-2563eb?style=for-the-badge)
+![Illustrated Pages](https://img.shields.io/badge/Total-1092%20Pages-059669?style=for-the-badge)
+![Ecosystems](https://img.shields.io/badge/Scope-13%20Ecosystems-7c3aed?style=for-the-badge)
 ![Format](https://img.shields.io/badge/Format-PDF%20%2B%20HTML%2FCSS-ea580c?style=for-the-badge)
 <!-- STATS:END -->
 
@@ -20,7 +20,7 @@ Every handbook in this repository is authored as a self-contained **12-page visu
 Click any cover card or **Read / Download PDF** link below to view the full handbook directly in GitHub or download a local copy.
 
 <!-- CATALOG:START -->
-**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems) &bull; [AI Music, Cinema & Presentation Studios](#ai-music-cinema--presentation-studios) &bull; [AI Search Visibility, Agentic Web & Workflows](#ai-search-visibility-agentic-web--workflows) &bull; [Open Harnesses, AI Terminals & Local Models](#open-harnesses-ai-terminals--local-models) &bull; [AI Desktop, OS Power Workflows & Personal Ops](#ai-desktop-os-power-workflows--personal-ops) &bull; [AI Product, Design & Team Workspaces](#ai-product-design--team-workspaces) &bull; [AI Backends, Databases & Agent Commerce](#ai-backends-databases--agent-commerce)
+**Jump to Ecosystem:** [Google AI & Creative Studios](#google-ai--creative-studios) &bull; [Anthropic Claude & Workspace Studios](#anthropic-claude--workspace-studios) &bull; [OpenAI Codex, Agents & Realtime Studios](#openai-codex-agents--realtime-studios) &bull; [Vercel & Full-Stack AI Applications](#vercel--full-stack-ai-applications) &bull; [AI Agent Engineering & Architecture](#ai-agent-engineering--architecture) &bull; [Obsidian & AI Knowledge Systems](#obsidian--ai-knowledge-systems) &bull; [AI Music, Cinema & Presentation Studios](#ai-music-cinema--presentation-studios) &bull; [AI Search Visibility, Agentic Web & Workflows](#ai-search-visibility-agentic-web--workflows) &bull; [Open Harnesses, AI Terminals & Local Models](#open-harnesses-ai-terminals--local-models) &bull; [AI Desktop, OS Power Workflows & Personal Ops](#ai-desktop-os-power-workflows--personal-ops) &bull; [AI Product, Design & Team Workspaces](#ai-product-design--team-workspaces) &bull; [AI Backends, Databases & Agent Commerce](#ai-backends-databases--agent-commerce) &bull; [AI Code Editors & Agentic IDEs](#ai-code-editors--agentic-ides)
 
 ### Google AI & Creative Studios
 Publication-grade 12-page visual handbooks covering Google AI Ultra's creative studios, Google ADK & Agent2Agent (A2A) protocol, Antigravity 2.0 customizations & swarms, Gemini 3.8 Live & Omni 1.2 Flash voice/video pipelines, agentic Firebase & Android CLI workflows, and autonomous browser agents.
@@ -887,6 +887,48 @@ Publication-grade 12-page visual handbooks for production AI infrastructure—co
   </tr>
 </table>
 
+### AI Code Editors & Agentic IDEs
+Publication-grade 12-page visual handbooks for modern AI-first code editors and cross-IDE portability—covering Cursor Composer, Rules, Cloud Agents & Bugbot, Windsurf / Devin Desktop Cascade flows, Cline, Roo Code & Kilo Code open-source VS Code agents, and portable AGENTS.md, SKILL.md & shared MCP setups.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/ai-ides/cursor-mastery-composer-rules-and-agents/Cursor_Mastery_Composer_Rules_and_Agents_Complete_How_To_Guide.pdf"><img src="guides/ai-ides/cursor-mastery-composer-rules-and-agents/cover.png" alt="Cursor Mastery: Composer, Rules &amp; Background Agents Cover" width="100%" /></a>
+      <h3><a href="guides/ai-ides/cursor-mastery-composer-rules-and-agents/Cursor_Mastery_Composer_Rules_and_Agents_Complete_How_To_Guide.pdf">Cursor Mastery: Composer, Rules &amp; Background Agents</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Ship faster in Cursor with Agent/Composer workflows, scoped .cursor/rules/ &amp; AGENTS.md, Cloud/Background Agents, Bugbot PR reviews, MCP servers, and multi-model cost control.</p>
+      <p><code>Cursor IDE</code> &middot; <code>Cloud Agents</code> &middot; <code>Rules &amp; Bugbot</code></p>
+      <p><a href="guides/ai-ides/cursor-mastery-composer-rules-and-agents/Cursor_Mastery_Composer_Rules_and_Agents_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/ai-ides/cursor-mastery-composer-rules-and-agents">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/ai-ides/windsurf-and-devin-desktop-flows/Windsurf_and_Devin_Desktop_Flows_Complete_How_To_Guide.pdf"><img src="guides/ai-ides/windsurf-and-devin-desktop-flows/cover.png" alt="Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks Cover" width="100%" /></a>
+      <h3><a href="guides/ai-ides/windsurf-and-devin-desktop-flows/Windsurf_and_Devin_Desktop_Flows_Complete_How_To_Guide.pdf">Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Master flow-state agentic coding in Windsurf and Devin Desktop—combining Cascade multi-file edits, Memories &amp; Rules, live Previews, MCP integrations, and cloud-to-desktop Devin handoffs.</p>
+      <p><code>Windsurf / Devin</code> &middot; <code>Cascade Flows</code> &middot; <code>Autonomous Tasks</code></p>
+      <p><a href="guides/ai-ides/windsurf-and-devin-desktop-flows/Windsurf_and_Devin_Desktop_Flows_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/ai-ides/windsurf-and-devin-desktop-flows">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="guides/ai-ides/cline-roo-code-and-open-vscode-agents/Cline_Roo_Code_and_Open_VS_Code_Agents_Complete_How_To_Guide.pdf"><img src="guides/ai-ides/cline-roo-code-and-open-vscode-agents/cover.png" alt="Cline, Roo Code &amp; Open-Source VS Code Agents Cover" width="100%" /></a>
+      <h3><a href="guides/ai-ides/cline-roo-code-and-open-vscode-agents/Cline_Roo_Code_and_Open_VS_Code_Agents_Complete_How_To_Guide.pdf">Cline, Roo Code &amp; Open-Source VS Code Agents</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Run transparent, BYOK, and local-model coding agents inside standard VS Code using Cline, Roo Code custom modes &amp; Boomerang orchestration, Kilo Code, checkpoints, and MCP tools—with zero vendor lock-in.</p>
+      <p><code>Cline &amp; Roo Code</code> &middot; <code>BYOK &amp; Local LLM</code> &middot; <code>Custom Modes</code></p>
+      <p><a href="guides/ai-ides/cline-roo-code-and-open-vscode-agents/Cline_Roo_Code_and_Open_VS_Code_Agents_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/ai-ides/cline-roo-code-and-open-vscode-agents">&#128736; Editable Source</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="guides/ai-ides/cross-ide-agents-md-skills-and-mcp/Cross_IDE_AGENTS_md_SKILL_md_and_MCP_Complete_How_To_Guide.pdf"><img src="guides/ai-ides/cross-ide-agents-md-skills-and-mcp/cover.png" alt="Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP Cover" width="100%" /></a>
+      <h3><a href="guides/ai-ides/cross-ide-agents-md-skills-and-mcp/Cross_IDE_AGENTS_md_SKILL_md_and_MCP_Complete_How_To_Guide.pdf">Cross-IDE Portability: AGENTS.md, SKILL.md &amp; Shared MCP</a></h3>
+      <p><sub><strong>v1.0</strong> &bull; Updated <code>2026-11</code> &bull; 12 Pages</sub></p>
+      <p>Write repo instructions, portable SKILL.md playbooks, and MCP server configs once so every developer on your team gets identical agent behavior across Cursor, Claude Code, Codex, Copilot, Windsurf, OpenCode, and Antigravity.</p>
+      <p><code>AGENTS.md</code> &middot; <code>SKILL.md</code> &middot; <code>Shared MCP</code></p>
+      <p><a href="guides/ai-ides/cross-ide-agents-md-skills-and-mcp/Cross_IDE_AGENTS_md_SKILL_md_and_MCP_Complete_How_To_Guide.pdf"><strong>&#128214; Read / Download PDF</strong></a> &nbsp;|&nbsp; <a href="guides/ai-ides/cross-ide-agents-md-skills-and-mcp">&#128736; Editable Source</a></p>
+    </td>
+  </tr>
+</table>
+
 ### Quick-Reference Index
 | Guide | Ecosystem | Version | Updated | Pages | Direct Links |
 | :--- | :--- | :---: | :---: | :---: | :--- |
@@ -977,6 +1019,10 @@ Publication-grade 12-page visual handbooks for production AI infrastructure—co
 | **Stripe Agent Toolkit & Agentic Commerce** — Wire safe payments, usage-based token metering, virtual issuing cards, and human-approved billing actions into AI agents using Stripe Agent Toolkit, Stripe MCP, and Agentic Commerce protocols. | AI Backends, Databases & Agent Commerce | `v1.0` | `2026-11` | 12 | [PDF](guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce/Stripe_Agent_Toolkit_and_Agentic_Commerce_Complete_How_To_Guide.pdf) &middot; [Source](guides/cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce) |
 | **Agent Auth, Identity & Scoped Permissions** — Secure multi-tenant AI agents and MCP servers in production using OAuth 2.1 + PKCE, short-lived token brokering, least-privilege RBAC/ABAC scopes, human approval gates, and tamper-evident audit logs. | AI Backends, Databases & Agent Commerce | `v1.0` | `2026-11` | 12 | [PDF](guides/cloud-data-and-commerce/agent-auth-identity-and-permissions/Agent_Auth_Identity_and_Permissions_Complete_How_To_Guide.pdf) &middot; [Source](guides/cloud-data-and-commerce/agent-auth-identity-and-permissions) |
 | **AI Data Analysis, DuckDB & SQL Agents** — Turn raw CSVs, Parquet data lakes, and SQL warehouses into verified, zero-hallucination analytics using DuckDB, MotherDuck, semantic metric layers, DuckDB MCP, and read-only SQL agent loops. | AI Backends, Databases & Agent Commerce | `v1.0` | `2026-11` | 12 | [PDF](guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents/AI_Data_Analysis_DuckDB_and_SQL_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/cloud-data-and-commerce/ai-data-analysis-duckdb-and-sql-agents) |
+| **Cursor Mastery: Composer, Rules & Background Agents** — Ship faster in Cursor with Agent/Composer workflows, scoped .cursor/rules/ & AGENTS.md, Cloud/Background Agents, Bugbot PR reviews, MCP servers, and multi-model cost control. | AI Code Editors & Agentic IDEs | `v1.0` | `2026-11` | 12 | [PDF](guides/ai-ides/cursor-mastery-composer-rules-and-agents/Cursor_Mastery_Composer_Rules_and_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/ai-ides/cursor-mastery-composer-rules-and-agents) |
+| **Windsurf & Devin Desktop: Cascade & Autonomous Tasks** — Master flow-state agentic coding in Windsurf and Devin Desktop—combining Cascade multi-file edits, Memories & Rules, live Previews, MCP integrations, and cloud-to-desktop Devin handoffs. | AI Code Editors & Agentic IDEs | `v1.0` | `2026-11` | 12 | [PDF](guides/ai-ides/windsurf-and-devin-desktop-flows/Windsurf_and_Devin_Desktop_Flows_Complete_How_To_Guide.pdf) &middot; [Source](guides/ai-ides/windsurf-and-devin-desktop-flows) |
+| **Cline, Roo Code & Open-Source VS Code Agents** — Run transparent, BYOK, and local-model coding agents inside standard VS Code using Cline, Roo Code custom modes & Boomerang orchestration, Kilo Code, checkpoints, and MCP tools—with zero vendor lock-in. | AI Code Editors & Agentic IDEs | `v1.0` | `2026-11` | 12 | [PDF](guides/ai-ides/cline-roo-code-and-open-vscode-agents/Cline_Roo_Code_and_Open_VS_Code_Agents_Complete_How_To_Guide.pdf) &middot; [Source](guides/ai-ides/cline-roo-code-and-open-vscode-agents) |
+| **Cross-IDE Portability: AGENTS.md, SKILL.md & Shared MCP** — Write repo instructions, portable SKILL.md playbooks, and MCP server configs once so every developer on your team gets identical agent behavior across Cursor, Claude Code, Codex, Copilot, Windsurf, OpenCode, and Antigravity. | AI Code Editors & Agentic IDEs | `v1.0` | `2026-11` | 12 | [PDF](guides/ai-ides/cross-ide-agents-md-skills-and-mcp/Cross_IDE_AGENTS_md_SKILL_md_and_MCP_Complete_How_To_Guide.pdf) &middot; [Source](guides/ai-ides/cross-ide-agents-md-skills-and-mcp) |
 <!-- CATALOG:END -->
 
 ---

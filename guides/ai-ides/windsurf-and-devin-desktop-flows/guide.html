@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks — Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI IDES &amp; AGENTIC WORKFLOWS &bull; FIELD GUIDE</div>
+    <h1>Windsurf &amp; Devin Desktop: <span>Cascade &amp; Autonomous Tasks</span></h1>
+    <p class="cover-sub">
+      Master flow-state agentic coding in Windsurf and Devin Desktop&mdash;combining Cascade &amp; Devin Local multi-file edits, Memories &amp; Rules, live Previews, MCP integrations, and cloud-to-desktop Devin handoffs.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Cascade &amp; Devin Local</span>
+      <span class="cover-badge">Agent Command Center</span>
+      <span class="cover-badge">Rules, Memories &amp; AGENTS.md</span>
+      <span class="cover-badge">Live Previews &amp; Click-to-Edit</span>
+      <span class="cover-badge">MCP Servers (100-Tool Cap)</span>
+      <span class="cover-badge">Local-to-Cloud Devin Handoffs</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Minimalist 3D isometric illustration of an AI-native IDE connected via glowing cyan and emerald ribbons to a live browser viewport prism and a cloud compute node" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Stay in Agentic Flow</div>
+      <div class="cover-stat-desc">Unify real-time cursor, terminal, and file-graph awareness across <code>Cascade</code> and the Rust-powered <code>Devin Local</code> harness.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Codify Team Standards</div>
+      <div class="cover-stat-desc">Combine scoped <code>.devin/rules/</code> &amp; <code>.windsurf/rules/</code>, slash-invoked Workflows, <code>AGENTS.md</code>, and auto-saved Memories.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Scale Local to Cloud</div>
+      <div class="cover-stat-desc">Dispatch backlog tickets to parallel Devin Cloud sessions, then pull draft PRs into Devin Desktop for interactive Live Preview polish.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Flow Architecture</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">From Windsurf Editor to Devin Desktop: The Flow Mental Model</h2>
+  <p class="page-lead">
+    Following Cognition AI&rsquo;s July 2025 acquisition of Windsurf and the <strong>June 2, 2026 rebrand to Devin Desktop</strong>, Windsurf&rsquo;s signature real-time <strong>Flows</strong> architecture merged with Devin&rsquo;s autonomous cloud engineering engine. Today, one workspace orchestrates local keystroke-speed edits and parallel cloud PR agents side by side.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Flow Architecture &amp; Rebrand Map</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Live Previews, Click-to-Edit &amp; MCP</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>2. Mode &amp; Pricing Decision Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. Local-to-Cloud Devin Handoffs</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>3. Annotated 7-Control IDE HUD Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. 5 Copy-Paste Rules &amp; Workflow Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>4. Cascade, Planning &amp; Multi-File Loops</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Security, ZDR &amp; Team Governance</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>5. Rules, Memories &amp; Workflows Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Cross-Tool Ticket-to-Merge Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>6. Agent Command Center &amp; Spaces</strong></span><span class="toc-pg">p. 4, 8</span></div>
+    <div class="toc-item"><span><strong>12. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+  </div>
+
+  <h3>The 4-Stage End-to-End Agentic Flow Loop</h3>
+  <p style="font-size:8.5pt;">
+    Unlike chat sidebars that force you to manually paste files and stack traces, Windsurf / Devin Desktop maintains a live <strong>Flow state</strong> linking your editor buffer, terminal exit codes, browser DOM, and remote cloud sessions:
+  </p>
+
+  <div class="figure-box" style="background:#04131a; padding:8px 11px; border-color:#0e7490;">
+    <svg viewBox="0 0 700 176" width="100%" height="176" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="6" y="12" width="154" height="152" rx="9" fill="#081e29" stroke="#22d3ee" stroke-width="1.5"/>
+      <text x="83" y="30" text-anchor="middle" fill="#67e8f9" font-size="7.4" font-weight="700">1. FLOW AWARENESS</text>
+      <text x="83" y="45" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Implicit Context</text>
+      <rect x="16" y="56" width="134" height="43" rx="5" fill="#0b2a38" stroke="#0891b2" stroke-width="0.9"/>
+      <text x="83" y="72" text-anchor="middle" fill="#cffafe" font-size="7.2" font-weight="700">Edits, Cursor &amp; Diffs</text>
+      <text x="83" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.7">Tracks manual changes live</text>
+      <rect x="16" y="107" width="134" height="46" rx="5" fill="#0b2a38" stroke="#06b6d4" stroke-width="0.9"/>
+      <text x="83" y="124" text-anchor="middle" fill="#cffafe" font-size="7.2" font-weight="700">Rules + Memories</text>
+      <text x="83" y="137" text-anchor="middle" fill="#94a3b8" font-size="6.7">AGENTS.md &amp; repo index</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M160 88 L178 88" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="176,83 184,88 176,93" fill="#22d3ee"/>
+
+      <!-- Stage 2 -->
+      <rect x="185" y="12" width="156" height="152" rx="9" fill="#081e29" stroke="#34d399" stroke-width="1.5"/>
+      <text x="263" y="30" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">2. LOCAL AGENT LOOP</text>
+      <text x="263" y="45" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Cascade / Devin Local</text>
+      <rect x="195" y="56" width="136" height="43" rx="5" fill="#082e2a" stroke="#059669" stroke-width="0.9"/>
+      <text x="263" y="72" text-anchor="middle" fill="#d1fae5" font-size="7.2" font-weight="700">Plan &amp; Multi-File Write</text>
+      <text x="263" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.7">SWE-2 / Claude / GPT-5</text>
+      <rect x="195" y="107" width="136" height="46" rx="5" fill="#082e2a" stroke="#10b981" stroke-width="0.9"/>
+      <text x="263" y="124" text-anchor="middle" fill="#d1fae5" font-size="7.2" font-weight="700">Terminal &amp; MCP Tools</text>
+      <text x="263" y="137" text-anchor="middle" fill="#94a3b8" font-size="6.7">Runs tests &amp; reads errors</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M341 88 L359 88" stroke="#34d399" stroke-width="2"/>
+      <polygon points="357,83 365,88 357,93" fill="#34d399"/>
+
+      <!-- Stage 3 -->
+      <rect x="366" y="12" width="156" height="152" rx="9" fill="#081e29" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="444" y="30" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">3. VISUAL VERIFY</text>
+      <text x="444" y="45" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Live Preview Loop</text>
+      <rect x="376" y="56" width="136" height="43" rx="5" fill="#0b263d" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="444" y="72" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">Click-to-Edit DOM</text>
+      <text x="444" y="85" text-anchor="middle" fill="#94a3b8" font-size="6.7">Send nodes &amp; CSS to agent</text>
+      <rect x="376" y="107" width="136" height="46" rx="5" fill="#0b263d" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="444" y="124" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">Console &amp; Net Capture</text>
+      <text x="444" y="137" text-anchor="middle" fill="#94a3b8" font-size="6.7">Auto-routes runtime errors</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M522 88 L540 88" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="538,83 546,88 538,93" fill="#38bdf8"/>
+
+      <!-- Stage 4 -->
+      <rect x="547" y="12" width="147" height="152" rx="9" fill="#0a2430" stroke="#fbbf24" stroke-width="1.6"/>
+      <text x="620" y="30" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">4. CLOUD SCALE</text>
+      <text x="620" y="45" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Devin Cloud Handoff</text>
+      <rect x="557" y="56" width="127" height="43" rx="5" fill="#182736" stroke="#d97706" stroke-width="0.9"/>
+      <text x="620" y="72" text-anchor="middle" fill="#fef3c7" font-size="7.2" font-weight="700">Parallel Sandboxes</text>
+      <text x="620" y="85" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Async PRs &amp; migrations</text>
+      <rect x="557" y="107" width="127" height="46" rx="5" fill="#182736" stroke="#fbbf24" stroke-width="0.9"/>
+      <text x="620" y="124" text-anchor="middle" fill="#fef3c7" font-size="7.2" font-weight="700">Command Center</text>
+      <text x="620" y="137" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Spaces track PRs &amp; diffs</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> What Changed in Late 2026</div>
+      <ul style="font-size:8.2pt; margin-bottom:0;">
+        <li><strong>Rebrand (June 2, 2026):</strong> Windsurf Editor became <strong>Devin Desktop</strong>; <code>windsurf.com</code> redirects to <code>devin.ai/desktop</code>.</li>
+        <li><strong>Devin Local (July 1, 2026):</strong> Rewritten in Rust (~30% more token-efficient), now the default local agent alongside legacy <code>Cascade</code>.</li>
+        <li><strong>Agent Client Protocol (ACP):</strong> Run Claude Agent, Codex, or OpenCode inside the same Command Center Spaces.</li>
+      </ul>
+    </div>
+    <div class="card-emerald">
+      <div class="card-title"><span class="num-badge emerald">2</span> Backward Compatibility Guarantee</div>
+      <ul style="font-size:8.2pt; margin-bottom:0;">
+        <li><strong>Rules &amp; Workflows:</strong> <code>.devin/rules/</code> takes precedence, while <code>.windsurf/rules/</code>, <code>.windsurfrules</code>, and <code>AGENTS.md</code> still load seamlessly.</li>
+        <li><strong>Ignore Files:</strong> <code>.devinignore</code>, <code>.windsurfignore</code>, and <code>.codeiumignore</code> are all honored during indexing.</li>
+        <li><strong>Unified Quotas:</strong> One subscription covers Devin Desktop, Devin CLI, and Devin Cloud sessions.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout slate" style="margin-top:7px;">
+    <div class="callout-title">Core Principle: Match Latency to Autonomy</div>
+    Keep tight visual, architectural, and exploratory work inside your local editor loop (Supercomplete &rarr; Cascade / Devin Local &rarr; Live Preview), and offload well-specified, multi-hour, or parallelizable tickets to Devin Cloud.
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: MODE & CAPABILITY DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Mode &amp; Capability Decision Matrix</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">Choosing the Right Agent Mode &amp; Plan Tier</h2>
+  <p class="page-lead">
+    Burning frontier reasoning quota on boilerplate completions slows you down, while relying on Tab autocomplete for a 14-file schema migration invites regressions. Use this matrix to pick the optimal execution surface every time.
+  </p>
+
+  <table class="clean-table" style="font-size:7.85pt; margin:3px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:17%; padding:4.5px 7px;">Mode / Surface</th>
+        <th style="width:20%; padding:4.5px 7px;">Execution Scope</th>
+        <th style="width:22%; padding:4.5px 7px;">Best-Fit Engineering Tasks</th>
+        <th style="width:19%; padding:4.5px 7px;">Context &amp; Tools</th>
+        <th style="width:22%; padding:4.5px 7px;">Quota &amp; Latency Profile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Supercomplete / Tab</strong><br><code>Tab</code> &bull; <code>Cmd+I</code></td>
+        <td style="padding:4px 7px;">Single cursor, next-edit jump, or inline selection diff</td>
+        <td style="padding:4px 7px;">Writing functions, type signatures, test cases, repetitive edits</td>
+        <td style="padding:4px 7px;">Open tabs, recent keystrokes, local AST, clipboard</td>
+        <td style="padding:4px 7px;"><strong>Unlimited</strong> on all plans (incl. Free); sub-200ms latency</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Cascade Chat / Ask</strong><br>Read-only Q&amp;A</td>
+        <td style="padding:4px 7px;">Zero file mutations; explains code, traces bugs, drafts specs</td>
+        <td style="padding:4px 7px;">Onboarding to unfamiliar services, root-cause tracing, PR Q&amp;A</td>
+        <td style="padding:4px 7px;">Indexed repo, <code>@file</code>, <code>@symbol</code>, terminal, MCP reads</td>
+        <td style="padding:4px 7px;">Low quota draw; ideal with fast native <code>SWE-2</code></td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Cascade Write / Devin Local</strong><br>Default Agent</td>
+        <td style="padding:4px 7px;">Multi-file edits, shell commands, test loops, Live Preview</td>
+        <td style="padding:4px 7px;">Feature builds, refactors (2&ndash;25 files), click-to-edit UI, CI fixes</td>
+        <td style="padding:4px 7px;">Full Flow state, terminal stderr, Rules, Memories, MCP</td>
+        <td style="padding:4px 7px;">Draws daily/weekly quota; Devin Local (Rust) saves ~30%</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Planning Mode</strong><br>Plan &rarr; Approve</td>
+        <td style="padding:4px 7px;">Generates persistent Markdown blueprint before writing code</td>
+        <td style="padding:4px 7px;">Cross-cutting architecture, DB migrations, auth rewrites</td>
+        <td style="padding:4px 7px;">Deep repo search + human checkpoint before mutations</td>
+        <td style="padding:4px 7px;">Higher upfront reasoning; prevents costly rework loops</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Devin Autonomous Cloud</strong><br>Async Sandbox</td>
+        <td style="padding:4px 7px;">Isolated cloud VM, git branches, CI runs, draft PRs in parallel</td>
+        <td style="padding:4px 7px;">Backlog triage, dependency upgrades, test sprints, Linear tickets</td>
+        <td style="padding:4px 7px;">Repo clone, Devin Secrets, Playbooks, GitHub/Linear</td>
+        <td style="padding:4px 7px;">Runs unattended (10+ concurrent); billed from shared quota</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:5px 0 3px 0;">Late-2026 Plans, Quotas &amp; Model Economics (As of Nov 2026)</h3>
+  <p style="font-size:8.05pt; margin-bottom:4px;">
+    In March&ndash;April 2026, Cognition retired legacy monthly prompt credits and $2.25 ACU packs on self-serve tiers in favor of <strong>daily &amp; weekly refreshing quotas</strong> shared across Devin Desktop, Devin CLI, and Devin Cloud, with optional overages billed at raw API token rates.
+  </p>
+
+  <table class="clean-table" style="font-size:7.85pt; margin:3px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:13%; padding:4.5px 7px;">Plan Tier</th>
+        <th style="width:17%; padding:4.5px 7px;">Published Price</th>
+        <th style="width:28%; padding:4.5px 7px;">Included Agent &amp; Editor Quotas</th>
+        <th style="width:22%; padding:4.5px 7px;">Model Access</th>
+        <th style="width:20%; padding:4.5px 7px;">Governance &amp; ZDR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Free</strong></td>
+        <td style="padding:4px 7px;"><strong>$0 / mo</strong> (1 user)</td>
+        <td style="padding:4px 7px;">Unlimited Tab &amp; inline edits; light daily agent quota</td>
+        <td style="padding:4px 7px;">Limited base models (SWE-1 Lite / entry)</td>
+        <td style="padding:4px 7px;">No ZDR opt-out; may train models</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Pro</strong></td>
+        <td style="padding:4px 7px;"><strong>$20 / mo</strong> (1 user)</td>
+        <td style="padding:4px 7px;">Standard daily/weekly quota (Desktop, CLI, Cloud); API overages</td>
+        <td style="padding:4px 7px;">Frontier (Claude, GPT-5, Gemini) + <code>SWE-2</code></td>
+        <td style="padding:4px 7px;">Opt-in ZDR from profile settings</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Max</strong></td>
+        <td style="padding:4px 7px;"><strong>$200 / mo</strong> (1 user)</td>
+        <td style="padding:4px 7px;">Heavy daily/weekly quotas &amp; higher concurrent cloud sessions</td>
+        <td style="padding:4px 7px;">Full frontier + high-reasoning + <code>SWE-2</code></td>
+        <td style="padding:4px 7px;">Opt-in ZDR; priority routing</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Teams</strong></td>
+        <td style="padding:4px 7px;"><strong>$80/mo</strong> + $40/seat</td>
+        <td style="padding:4px 7px;">Up to 100&ndash;200 users; shared credit pool &amp; team Spaces</td>
+        <td style="padding:4px 7px;">Full frontier + <code>SWE-2</code>; admin allowlists</td>
+        <td style="padding:4px 7px;"><strong>ZDR default ON</strong>; central billing</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Enterprise</strong></td>
+        <td style="padding:4px 7px;"><strong>Custom</strong> (Unlim.)</td>
+        <td style="padding:4px 7px;">Unlimited concurrent agents; custom ACU or token contracts</td>
+        <td style="padding:4px 7px;">Custom routing, VPC / AWS GovCloud</td>
+        <td style="padding:4px 7px;">SOC 2 Type II, SSO/SCIM, org locks</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:3px;">
+    <div class="callout emerald" style="margin:0; padding:6.5px 9px; font-size:8.1pt;">
+      <div class="callout-title" style="font-size:8.4pt;">Model Routing Shortcut (Cut Quota Burn 50%)</div>
+      Default everyday refactors and tests to Cognition&rsquo;s native <strong>SWE-2</strong>. Switch to frontier reasoning models only for Planning Mode or gnarly concurrency bugs.
+    </div>
+    <div class="callout amber" style="margin:0; padding:6.5px 9px; font-size:8.1pt;">
+      <div class="callout-title" style="font-size:8.4pt;">When to Toggle Planning Mode First</div>
+      If a task touches <strong>&gt;5 files</strong>, modifies a DB schema, or changes public API contracts, toggle <strong>Planning Mode</strong> first to approve the checklist before editing disk.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INTERFACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">7-Control Command HUD: Cascade, Live Preview &amp; Spaces</h2>
+  <p class="page-lead">
+    Devin Desktop elevates the classic Windsurf editor into a unified <strong>Agent Command Center</strong>. Master these seven high-leverage controls to move seamlessly between multi-agent Spaces, local code diffs, DOM previews, and persistent Memories.
+  </p>
+
+  <!-- MOCK UI WINDOW -->
+  <div class="ui-window">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; font-weight:700; color:#e2e8f0;">Devin Desktop (Windsurf) &mdash; Space: Checkout v3 Refactor</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="hud-chip" style="background:#0e7490; color:#cffafe;"><span class="callout-pin" style="width:14px;height:14px;font-size:6.5pt;">1</span> Command Center</span>
+        <span class="hud-chip" style="background:#065f46; color:#d1fae5;">SWE-2 &bull; ZDR Active</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.05fr 1.45fr 1.35fr; gap:8px; padding:8px;">
+      <!-- LEFT COL: SPACES & SESSIONS -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card" style="border-color:#22d3ee;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#67e8f9;">SPACES &amp; AGENTS</strong>
+            <span class="callout-pin">1</span>
+          </div>
+          <div style="background:#0c2d3d; padding:3.5px 6px; border-radius:4px; margin-bottom:3px; border-left:2px solid #22d3ee;">
+            <strong style="color:#fff;">Local:</strong> Devin Local (Rust)<br>
+            <span style="color:#94a3b8;">feat/stripe-webhooks &bull; 4 diffs</span>
+          </div>
+          <div style="background:#092626; padding:3.5px 6px; border-radius:4px; margin-bottom:3px; border-left:2px solid #34d399;">
+            <strong style="color:#fff;">Cloud:</strong> Devin #418 (PR #902)<br>
+            <span style="color:#6ee7b7;">CI green &bull; Ready to pull</span>
+          </div>
+          <div style="background:#091d2b; padding:3.5px 6px; border-radius:4px; border-left:2px solid #94a3b8;">
+            <strong style="color:#cbd5e1;">ACP:</strong> Claude Agent<br>
+            <span style="color:#94a3b8;">Idle &bull; Security audit</span>
+          </div>
+        </div>
+
+        <div class="hud-card" style="border-color:#a78bfa;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#c4b5fd;">MEMORIES &amp; RULES</strong>
+            <span class="callout-pin">6</span>
+          </div>
+          <div style="color:#cbd5e1; margin-bottom:2px;">&bull; <code>.devin/rules/api.md</code> <span style="color:#34d399;">[glob]</span></div>
+          <div style="color:#cbd5e1; margin-bottom:2px;">&bull; <code>AGENTS.md</code> <span style="color:#67e8f9;">[always]</span></div>
+          <div style="color:#94a3b8;">&bull; Memory: &ldquo;Use Zod v4 schemas &amp; pnpm vitest&rdquo;</div>
+        </div>
+
+        <div class="hud-card" style="border-color:#fbbf24;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <strong style="color:#fde68a;">MCP SERVERS (18/100)</strong>
+            <span class="callout-pin">7</span>
+          </div>
+          <div style="color:#cbd5e1;">&#9679; Postgres RO &nbsp; &#9679; Linear &nbsp; &#9679; GitHub</div>
+          <div style="color:#94a3b8; font-size:6.3pt;">Approval gate: Prompt before write</div>
+        </div>
+      </div>
+
+      <!-- MIDDLE COL: EDITOR & LIVE PREVIEW -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card" style="flex:1;">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #155e75; padding-bottom:3px; margin-bottom:4px;">
+            <span style="color:#67e8f9; font-weight:700;">CheckoutForm.tsx</span>
+            <span><span class="hud-chip" style="background:#065f46;color:#d1fae5;">Accept All</span> <span class="callout-pin">2</span></span>
+          </div>
+          <div style="font-family:monospace; font-size:6.4pt; line-height:1.35;">
+            <div style="color:#94a3b8;">14 &nbsp; const { mutate } = useCreateIntent();</div>
+            <div style="background:rgba(239,68,68,0.18); color:#fca5a5;">15 - &lt;button className=&quot;btn-old&quot;&gt;Pay&lt;/button&gt;</div>
+            <div style="background:rgba(16,185,129,0.20); color:#6ee7b7;">16 + &lt;Button loading={isPending} intent=&quot;primary&quot;&gt;</div>
+            <div style="background:rgba(16,185,129,0.20); color:#6ee7b7;">17 + &nbsp; Complete Order ({formatUSD(total)})</div>
+            <div style="background:rgba(16,185,129,0.20); color:#6ee7b7;">18 + &lt;/Button&gt;</div>
+          </div>
+        </div>
+
+        <div class="hud-card" style="border-color:#38bdf8;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#7dd3fc;">LIVE PREVIEW &bull; localhost:3000/checkout</strong>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="background:#0c263d; border:1px dashed #38bdf8; border-radius:5px; padding:5px 7px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="color:#fff; font-weight:700;">&lt;Button.checkout-cta&gt; Selected</div>
+              <div style="color:#7dd3fc; font-size:6.3pt;">Click-to-Edit &rarr; Injected DOM + 0 console errors</div>
+            </div>
+            <span class="hud-chip" style="background:#0284c7; color:#fff;">Send to Agent</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COL: CASCADE / DEVIN LOCAL PANEL -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card" style="flex:1; border-color:#34d399; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #155e75; padding-bottom:3px; margin-bottom:4px;">
+              <strong style="color:#6ee7b7;">CASCADE / DEVIN LOCAL</strong>
+              <span class="callout-pin">3</span>
+            </div>
+            <div style="background:#072c2a; border-radius:4px; padding:4px 6px; margin-bottom:4px;">
+              <strong style="color:#6ee7b7;">Plan (3/4 steps done):</strong><br>
+              <span style="color:#cbd5e1;">&#10003; Add idempotency key to webhook<br>&#10003; Update CheckoutForm loading state<br>&#9654; Run <code>pnpm test:checkout</code></span>
+            </div>
+            <div style="background:#0b2230; border-radius:4px; padding:4px 6px; margin-bottom:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#fde68a;">Terminal Checkpoint</strong>
+                <span class="callout-pin">4</span>
+              </div>
+              <code style="font-size:6.2pt;">pnpm vitest run src/checkout</code>
+              <div style="color:#6ee7b7; font-size:6.2pt; margin-top:2px;">14 passed (0 failed) &bull; Auto-verified</div>
+            </div>
+          </div>
+          <div style="background:#061822; border:1px solid #0891b2; border-radius:5px; padding:4px 6px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="color:#94a3b8; font-size:6.4pt;"><code>/ship-pr</code> &nbsp; <code>@api.md</code> &nbsp; [Plan &#10003;]</span>
+            <span class="hud-chip" style="background:#0891b2; color:#fff;">Send to Cloud &rarr;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Control-by-Control Breakdown</h3>
+  <div class="grid-2" style="margin-top:3px; font-size:8.1pt;">
+    <div style="display:flex; flex-direction:column; gap:5px;">
+      <div class="card" style="padding:6.5px 9px;">
+        <strong><span class="callout-pin">1</span> Agent Command Center &amp; Spaces:</strong> Kanban board grouping local sessions, Devin Cloud PRs, git worktrees, and third-party ACP agents (Claude Agent, Codex) by feature.
+      </div>
+      <div class="card" style="padding:6.5px 9px;">
+        <strong><span class="callout-pin">2</span> Inline Diff &amp; Hunk Review Bar:</strong> Review multi-file hunks individually or accept all; manual edits you type here immediately update Flow Awareness without re-prompting.
+      </div>
+      <div class="card" style="padding:6.5px 9px;">
+        <strong><span class="callout-pin">3</span> Cascade / Devin Local Panel + Mode Switch:</strong> Toggle Write vs. Chat vs. Planning Mode, invoke <code>/workflows</code>, attach <code>@files</code> or rules, and escalate any thread to Devin Cloud.
+      </div>
+      <div class="card" style="padding:6.5px 9px;">
+        <strong><span class="callout-pin">4</span> Terminal Execution Checkpoint:</strong> Agent runs tests, linters, and builds inside a sandboxed shell, automatically ingesting stack traces until green.
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:5px;">
+      <div class="card" style="padding:6.5px 9px;">
+        <strong><span class="callout-pin">5</span> Live Browser Preview &amp; Click-to-Edit:</strong> Embedded webview (or Chromium proxy) lets you click any DOM node or console error and inject its exact selector and styles into context.
+      </div>
+      <div class="card" style="padding:6.5px 9px;">
+        <strong><span class="callout-pin">6</span> Memories &amp; Rules Inspector:</strong> Inspect active <code>.devin/rules/</code>, <code>.windsurf/rules/</code>, <code>AGENTS.md</code>, and auto-generated Memories; prune stale facts in one click.
+      </div>
+      <div class="card" style="padding:6.5px 9px;">
+        <strong><span class="callout-pin">7</span> MCP Server &amp; Tool Budget Meter:</strong> Displays connected MCP servers against the <strong>100 active tools cap</strong> and enforces per-tool approval prompts for write actions.
+      </div>
+      <div class="callout emerald" style="margin:0; padding:6.5px 9px; font-size:7.9pt;">
+        <strong>Pro Tip &mdash; Parallel Worktrees:</strong> Open two Spaces on separate git worktrees so Devin Local builds a frontend flow while a second local agent refactors backend tests with zero branch collisions.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: CASCADE DEEP DIVE & MULTI-FILE REFACTORS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Cascade Deep Dive &amp; Multi-File Refactors</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">Mastering Flow Awareness, Planning &amp; Terminal Loops</h2>
+  <p class="page-lead">
+    The secret behind Windsurf&rsquo;s Cascade&mdash;and its Rust-rewritten successor <strong>Devin Local</strong>&mdash;is <em>bidirectional Flow state</em>: the agent watches your manual edits, open buffers, and terminal output in real time, then closes the loop by running verification commands automatically.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_1.jpg" alt="Interconnected translucent glass code panes arranged in a flowing wave with cyan and emerald light threads syncing a terminal prism and syntax tree graph" />
+    <div class="figure-caption">
+      <strong>Multi-File Orchestration:</strong> Cascade / Devin Local indexes your repository AST, tracks real-time human edits, plans coordinated diffs across layers, and loops against live compiler &amp; test-runner output until checks pass.
+    </div>
+  </div>
+
+  <h3>The 3-Step High-Precision Multi-File Refactor Protocol</h3>
+  <div class="grid-3" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Anchor &amp; Plan</div>
+      <p style="font-size:8pt; margin-bottom:0;">
+        Enable <strong>Planning Mode</strong> and tag only the entry-point symbols (<code>@CheckoutRouter</code>, <code>@OrderSchema</code>). Let the agent map all downstream callers and produce a step-by-step checklist before mutating disk.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">2</span> Scoped Diffs</div>
+      <p style="font-size:8pt; margin-bottom:0;">
+        Approve the plan and let Devin Local apply atomic hunks across types, services, and UI components. If you hand-edit a naming convention mid-flight, Flow Awareness automatically adapts subsequent files.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">3</span> Terminal Verify</div>
+      <p style="font-size:8pt; margin-bottom:0;">
+        End every prompt with an explicit verification gate (e.g., <em>&ldquo;Run <code>pnpm typecheck &amp;&amp; pnpm vitest run</code> and fix any regressions&rdquo;</em>). The agent reads stderr directly and self-corrects without copy-pasting.
+      </p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card-tint">
+      <div class="card-title">Cascade (Legacy) vs. Devin Local (Rust)</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>~30% Higher Token Efficiency:</strong> Devin Local&rsquo;s Rust harness streams targeted symbol slices instead of re-sending full file buffers on each turn.</li>
+        <li><strong>Shared CLI &amp; Desktop Harness:</strong> Start a local session in Devin Desktop and resume the exact same session in <code>devin</code> CLI over SSH or tmux.</li>
+        <li><strong>Revert Checkpoints:</strong> Every agent step creates an instant rollback snapshot so you can undo a misguided 12-file attempt cleanly.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Context Hygiene Rules for Big Repos</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Start Fresh Per Feature:</strong> Long 40-turn threads dilute attention and inflate API overages; start a new session once a PR merges.</li>
+        <li><strong>Pin Verification Commands:</strong> Put exact test/lint commands in <code>AGENTS.md</code> so the agent never guesses <code>npm</code> vs. <code>pnpm</code>.</li>
+        <li><strong>Use <code>@mention</code> Sparingly:</strong> Mentioning 15 whole files wastes quota; let semantic search + AST indexing pull only relevant functions.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:6px;">
+    <div class="callout-title">Anti-Pattern to Avoid: The &ldquo;Vague Fix&rdquo; Loop</div>
+    Never prompt <em>&ldquo;Fix the broken checkout.&rdquo;</em> Instead, trigger the failing test or reproduce the error in the integrated terminal first&mdash;Flow Awareness captures the exact stack trace, exit code, and offending line so Cascade fixes root causes in 1 turn instead of 5.
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: RULES, MEMORIES & WORKFLOWS ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Rules, Memories &amp; Workflows Anatomy</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">The 5-Part Customization Blueprint: Rules, Memories &amp; <code>AGENTS.md</code></h2>
+  <p class="page-lead">
+    Repeating your architecture standards every morning wastes quota and invites drift. Devin Desktop / Windsurf layers five distinct customization mechanisms&mdash;each with clear precedence, activation triggers, and hard character caps.
+  </p>
+
+  <!-- COLOR-CODED ANATOMY BOX -->
+  <div class="card" style="background:#ffffff; border:1.5px solid #0e7490; padding:9px 11px; margin-bottom:7px;">
+    <div style="font-size:8pt; font-weight:700; color:#0e7490; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:5px;">
+      Color-Coded Blueprint &mdash; <code>.devin/rules/api-layer.md</code> (or <code>.windsurf/rules/api-layer.md</code>) + <code>AGENTS.md</code>
+    </div>
+    <div style="font-size:8.35pt; line-height:1.68; font-family:'SF Mono', Menlo, Consolas, monospace;">
+      <span class="p-tag p-trig">--- trigger: glob | globs: ["src/api/**/*.ts"] | description: API error &amp; validation rules ---</span><br>
+      <span class="p-tag p-arch">Architecture (AGENTS.md / Rules): Use Zod v4 for all request schemas; return Result&lt;T, AppError&gt; instead of throwing across service boundaries.</span><br>
+      <span class="p-tag p-mem">Auto-Memory (Local Inspector): Repo uses pnpm 9, Node 22, and Postgres 16 via Docker Compose port 5439.</span><br>
+      <span class="p-tag p-flow">Workflow (.devin/workflows/new-endpoint.md): Invoked via /new-endpoint &rarr; scaffold route, Zod schema, unit test, run pnpm vitest.</span><br>
+      <span class="p-tag p-guard">Guardrail (Hard Cap &amp; Scope): Keep each workspace rule &le; 12,000 chars (global &le; 6,000 chars); never auto-run destructive DB migrations.</span>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:7px; font-size:7.3pt;">
+      <span class="p-tag p-trig">1. Frontmatter Trigger</span>
+      <span class="p-tag p-arch">2. Durable Team Rules</span>
+      <span class="p-tag p-mem">3. Persistent Memories</span>
+      <span class="p-tag p-flow">4. Slash Workflows</span>
+      <span class="p-tag p-guard">5. Caps &amp; Guardrails</span>
+    </div>
+  </div>
+
+  <h3>Directory Precedence &amp; Character Limits (Late 2026)</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Mechanism &amp; Path</th>
+        <th style="width:16%;">Scope &amp; Git</th>
+        <th style="width:24%;">Activation Trigger</th>
+        <th style="width:15%;">Hard Limit</th>
+        <th style="width:21%;">Best Used For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Directory Rules</strong><br><code>.devin/rules/*.md</code><br><code>.windsurf/rules/*.md</code></td>
+        <td>Workspace (committed to git)</td>
+        <td><code>always_on</code>, <code>glob</code>, <code>model_decision</code>, or <code>manual</code> (<code>@rule</code>)</td>
+        <td><strong>12,000 chars</strong> per rule file</td>
+        <td>Domain conventions (API, React, SQL, testing) scoped by folder</td>
+      </tr>
+      <tr>
+        <td><strong>Cross-Agent Spec</strong><br><code>AGENTS.md</code> (root / subdirs)</td>
+        <td>Repo-wide (universal standard)</td>
+        <td>Auto-loaded when working inside root or matching subdirectory</td>
+        <td>Keep concise (&lt;4,000 chars)</td>
+        <td>Build/test commands &amp; architecture shared with Codex / Claude</td>
+      </tr>
+      <tr>
+        <td><strong>Global Rules</strong><br><code>global_rules.md</code></td>
+        <td>User-local (all repos)</td>
+        <td>Always applied to every local session across workspaces</td>
+        <td><strong>6,000 chars</strong> total</td>
+        <td>Personal tone, TypeScript preferences, commit style</td>
+      </tr>
+      <tr>
+        <td><strong>Workflows</strong><br><code>.devin/workflows/*.md</code><br><code>.windsurf/workflows/*.md</code></td>
+        <td>Workspace (committed to git)</td>
+        <td>Explicit slash invocation (e.g., <code>/ship-pr</code>, <code>/audit-sql</code>)</td>
+        <td>Multi-step Markdown SOP</td>
+        <td>Repeatable multi-step checklists, release prep, migrations</td>
+      </tr>
+      <tr>
+        <td><strong>Memories</strong><br>Local Inspector DB</td>
+        <td>Local per workspace</td>
+        <td>Auto-saved by Cascade / Devin Local or pinned by user</td>
+        <td>Auto-pruned; audit weekly</td>
+        <td>Ephemeral quirks, local ports, env hints learned during debugging</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:3px;">
+    <div class="card-tint">
+      <div class="card-title">Choosing the Right Rule Trigger</div>
+      <ul style="font-size:7.95pt; margin-bottom:0;">
+        <li><code>always_on</code>: Use sparingly (max 1&ndash;2 core files) so you don&rsquo;t bloat every prompt&rsquo;s system context.</li>
+        <li><code>glob</code>: Gold standard&mdash;attach <code>["src/db/**/*.sql"]</code> only when touching SQL files.</li>
+        <li><code>model_decision</code>: Write a razor-sharp 1-line <code>description</code> so the router activates it reliably.</li>
+        <li><code>manual</code>: Reserve for heavy migration or security-audit playbooks invoked via <code>@rule-name</code>.</li>
+      </ul>
+    </div>
+    <div class="card-emerald">
+      <div class="card-title">Migrating from Legacy <code>.windsurfrules</code></div>
+      <ul style="font-size:7.95pt; margin-bottom:0;">
+        <li>Legacy root <code>.windsurfrules</code> still loads, but splitting it into scoped <code>.devin/rules/*.md</code> files cuts irrelevant token overhead.</li>
+        <li><strong>Precedence:</strong> When both <code>.devin/rules/</code> and <code>.windsurf/rules/</code> exist, <code>.devin/rules/</code> wins.</li>
+        <li><strong>Cursor Import:</strong> Devin Desktop natively imports <code>.cursor/rules/*.mdc</code> into <code>.devin/rules/</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: LIVE BROWSER PREVIEWS, CLICK-TO-EDIT & MCP ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Live Previews, Click-to-Edit &amp; MCP Servers</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">Visual DOM Iteration &amp; External Tooling via MCP</h2>
+  <p class="page-lead">
+    Stop describing CSS bugs in paragraphs or switching between six dashboards. <strong>Live Previews</strong> wire your running web app directly into Cascade / Devin Local, while <strong>Model Context Protocol (MCP)</strong> servers connect databases, issue trackers, and observability logs.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:4px;">
+    <div class="card-tint" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge">1</span> Live Browser Previews &amp; Click-to-Edit</div>
+      <ol style="font-size:7.85pt; margin:2px 0 3px 0;">
+        <li><strong>Launch Preview:</strong> Click the Web icon in the agent toolbar or prompt <em>&ldquo;Start dev server and open Preview.&rdquo;</em> Opens an IDE webview tab or instrumented Chrome/Arc window.</li>
+        <li><strong>Click-to-Edit DOM:</strong> Select any button, card, or modal to inject its exact DOM node, computed CSS, and component path directly into your prompt.</li>
+        <li><strong>Auto-Capture Errors:</strong> Console exceptions, hydration mismatches, and failed <code>fetch()</code> calls stream straight to Cascade / Devin Local with one click.</li>
+      </ol>
+      <p style="font-size:7.6pt; color:#0f766e; margin-bottom:0;">
+        <strong>One-Click Deploys:</strong> Push prototypes to shareable staging URLs directly from the toolbar.
+      </p>
+    </div>
+
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title"><span class="num-badge emerald">2</span> MCP Server Architecture &amp; Tool Budget</div>
+      <ul style="font-size:7.85pt; margin:2px 0 0 0;">
+        <li><strong>Global Config:</strong> <code>~/.config/devin/mcp_config.json</code> (Windows: <code>%APPDATA%\devin\mcp_config.json</code>).</li>
+        <li><strong>Project Config:</strong> <code>.devin/mcp_config.json</code> in repo root for team-shared tools (Devin Local reads both).</li>
+        <li><strong>100 Active Tools Cap:</strong> Hard cap of <strong>100 active MCP tools</strong>. Disable unused tools per server in the MCP panel to preserve context budget and routing accuracy.</li>
+        <li><strong>Approval Gate by Default:</strong> Devin Local prompts for human approval before executing any MCP tool call unless allowlisted.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:5px 0 3px 0;">Production-Ready <code>mcp_config.json</code> Example (Read-Only DB + Linear + GitHub)</h3>
+  <pre class="code-block" style="font-size:6.95pt; line-height:1.3; padding:5.5px 9px; margin:2px 0 5px 0;"><code>{
+  "mcpServers": {
+    "linear": {
+      "command": "npx", "args": ["-y", "@linear/mcp-server"],
+      "env": { "LINEAR_API_KEY": "${env:LINEAR_API_KEY}" }
+    },
+    "postgres-readonly": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "${env:READONLY_DB_URL}"]
+    },
+    "github": {
+      "serverUrl": "https://api.githubcopilot.com/mcp/",
+      "headers": { "Authorization": "Bearer ${env:GITHUB_PAT}" }
+    }
+  }
+}</code></pre>
+
+  <h3 style="margin:5px 0 3px 0;">High-Leverage MCP Servers for Full-Stack Teams</h3>
+  <table class="clean-table" style="font-size:7.85pt; margin:2px 0 5px 0;">
+    <thead>
+      <tr>
+        <th style="width:18%; padding:4.5px 7px;">MCP Server</th>
+        <th style="width:15%; padding:4.5px 7px;">Transport</th>
+        <th style="width:35%; padding:4.5px 7px;">What Cascade / Devin Local Can Do</th>
+        <th style="width:32%; padding:4.5px 7px;">Recommended Guardrail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Linear / Jira</strong></td>
+        <td style="padding:4px 7px;">STDIO / HTTP</td>
+        <td style="padding:4px 7px;">Read acceptance criteria, link branches, post PR comments</td>
+        <td style="padding:4px 7px;">Allowlist reads; require approval on writes</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Postgres / Supabase</strong></td>
+        <td style="padding:4px 7px;">STDIO</td>
+        <td style="padding:4px 7px;">Inspect live schemas, explain slow queries, verify seed data</td>
+        <td style="padding:4px 7px;">Use a <strong>read-only</strong> role; no prod write creds</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Playwright / Browser</strong></td>
+        <td style="padding:4px 7px;">STDIO</td>
+        <td style="padding:4px 7px;">Run headless E2E flows, capture screenshots, assert a11y</td>
+        <td style="padding:4px 7px;">Restrict to <code>localhost</code> and staging</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 7px;"><strong>Sentry / Datadog</strong></td>
+        <td style="padding:4px 7px;">Remote HTTP</td>
+        <td style="padding:4px 7px;">Pull live stack traces, breadcrumbs, and release diffs</td>
+        <td style="padding:4px 7px;">Scope token to read-only project issues</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout rose" style="margin-top:3px; padding:6.5px 10px; font-size:8.1pt;">
+    <div class="callout-title" style="font-size:8.4pt;">Security Note: Never Hardcode Secrets in <code>.devin/mcp_config.json</code></div>
+    Always reference environment variables (<code>${env:VAR_NAME}</code>) or your OS keychain, and keep personal tokens in global <code>~/.config/devin/mcp_config.json</code> rather than committing them to git.
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: LOCAL-TO-CLOUD HANDOFFS WITH DEVIN ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Local-to-Cloud Handoffs with Devin</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">Local Cascade vs. Autonomous Devin Cloud Sessions</h2>
+  <p class="page-lead">
+    The biggest productivity unlock in Devin Desktop is knowing <strong>where</strong> a task should run. Keep high-touch architectural and visual work local in Cascade / Devin Local, and dispatch bounded, verifiable work to parallel <strong>Devin Cloud</strong> sandboxes inside the same Command Center Space.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="Minimalist 3D illustration of a dark desktop workstation sending glowing cyan and emerald data streams across an arched light bridge to crystalline autonomous cloud agent pods" />
+    <div class="figure-caption">
+      <strong>Seamless Continuity:</strong> Escalate any local Planning Mode spec to Devin Cloud with one click, or pull a Devin Cloud draft PR directly into your local Devin Desktop worktree for final Live Preview inspection.
+    </div>
+  </div>
+
+  <h3>Local vs. Cloud Delegation Matrix</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Task Dimension</th>
+        <th style="width:40%;">Keep Local (Cascade / Devin Local)</th>
+        <th style="width:40%;">Delegate to Devin Cloud (Autonomous)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Spec Clarity</strong></td>
+        <td>Exploratory, ambiguous UX, or evolving product architecture requiring rapid back-and-forth</td>
+        <td>Clear acceptance criteria, reproducible bug report, or well-defined migration playbook</td>
+      </tr>
+      <tr>
+        <td><strong>Verification Signal</strong></td>
+        <td>Needs human visual eye in Live Preview, local hardware/GPU, or private VPN services</td>
+        <td>Machine-verifiable via unit/E2E tests, TypeScript compiler, linters, or CI checks</td>
+      </tr>
+      <tr>
+        <td><strong>Parallelism</strong></td>
+        <td>1&ndash;2 active local worktrees competing for your laptop CPU/RAM and attention</td>
+        <td>3&ndash;10+ concurrent cloud sandboxes clearing backlog bugs, upgrades, or test debt overnight</td>
+      </tr>
+      <tr>
+        <td><strong>Ideal Examples</strong></td>
+        <td>Designing a new dashboard layout, debugging a tricky race condition, live Click-to-Edit polish</td>
+        <td>Upgrading React 18&rarr;19, adding 40 API integration tests, fixing 6 Sentry errors into draft PRs</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Desktop &rarr; Cloud Escalation Flow</div>
+      <ol style="font-size:8pt; margin-bottom:0;">
+        <li>Draft and approve a spec in local <strong>Planning Mode</strong> while context is fresh.</li>
+        <li>Click <strong>Send to Cloud</strong> in the Agent Command Center to spawn an isolated Devin Cloud VM on a new git branch.</li>
+        <li>Continue coding on your primary feature locally while Devin Cloud implements, runs CI, and opens a draft PR.</li>
+      </ol>
+    </div>
+    <div class="card-emerald">
+      <div class="card-title"><span class="num-badge emerald">2</span> Cloud &rarr; Desktop Pull-Down Flow</div>
+      <ol style="font-size:8pt; margin-bottom:0;">
+        <li>Watch the Devin Cloud card move to <em>Ready for Review</em> inside your Command Center Space.</li>
+        <li>Click <strong>Open in Local Worktree</strong> to check out the branch instantly without stashing your current local work.</li>
+        <li>Launch Live Preview, apply final Click-to-Edit tweaks in Devin Local, and push to merge.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="callout slate" style="margin-top:6px;">
+    <div class="callout-title">Rule of Thumb: The &ldquo;20-Minute Spec Test&rdquo;</div>
+    If you can write a crisp 5-bullet acceptance spec + an exact test command in under 2 minutes, and the work takes &gt;20 minutes to execute, <strong>delegate it to Devin Cloud</strong>.
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 REAL-WORLD COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; 5 Copy-Paste Rules, Workflows &amp; Prompts</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">5 Production-Ready Recipes to Drop Into Your Repo Today</h2>
+  <p class="page-lead">
+    Copy these battle-tested configurations directly into <code>.devin/</code> (or <code>.windsurf/</code>), <code>AGENTS.md</code>, and your Cascade / Devin Local prompt box to eliminate repetitive guidance and standardize every PR.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:6%;">#</th>
+        <th style="width:22%;">Recipe Name</th>
+        <th style="width:24%;">File / Invocation</th>
+        <th style="width:48%;">Outcome &amp; When to Trigger</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><strong>Scoped API Rule</strong></td>
+        <td><code>.devin/rules/api.md</code></td>
+        <td>Auto-enforces Zod validation &amp; typed <code>Result</code> errors on all API routes</td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><strong><code>/ship-pr</code> Workflow</strong></td>
+        <td><code>.devin/workflows/ship-pr.md</code></td>
+        <td>Runs typecheck, tests, diff audit, and drafts a structured PR description</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><strong>Universal <code>AGENTS.md</code></strong></td>
+        <td><code>AGENTS.md</code> (repo root)</td>
+        <td>Single source of truth for Devin Desktop, Devin Cloud, CLI &amp; ACP agents</td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><strong>Click-to-Edit UI Fix</strong></td>
+        <td>Live Preview + Cascade</td>
+        <td>Fixes responsive/a11y regressions in 1 turn using selected DOM context</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><strong>Cloud Migration Brief</strong></td>
+        <td>Command Center &rarr; Cloud</td>
+        <td>Dispatches a bounded, test-verified refactor to an async Devin Cloud VM</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#0e7490; margin-bottom:2px;">Recipe 1 &mdash; <code>.devin/rules/api.md</code> (Glob Rule)</div>
+      <pre class="code-block" style="margin-bottom:6px;"><code>---
+trigger: glob
+globs: ["src/api/**/*.ts", "src/routes/**/*.ts"]
+description: Typed API handler &amp; Zod conventions
+---
+- Validate req.body &amp; params with Zod v4 schemas.
+- Return `Result&lt;T, ApiError&gt;`; never throw raw strings.
+- Never log PII, auth headers, or raw payment tokens.
+- Add a Vitest integration test for every new route.</code></pre>
+
+      <div style="font-size:8pt; font-weight:700; color:#0e7490; margin-bottom:2px;">Recipe 2 &mdash; <code>.devin/workflows/ship-pr.md</code> (<code>/ship-pr</code>)</div>
+      <pre class="code-block" style="margin-bottom:6px;"><code># /ship-pr — Pre-Merge Verification Workflow
+1. Run `git status` and review all staged/unstaged diffs.
+2. Execute `pnpm typecheck &amp;&amp; pnpm lint &amp;&amp; pnpm test`.
+3. If any check fails, fix root cause and re-run until green.
+4. Scan diff for leftover `console.log` or hardcoded secrets.
+5. Output a concise PR summary: What, Why, Verification, Risk.</code></pre>
+
+      <div style="font-size:8pt; font-weight:700; color:#0e7490; margin-bottom:2px;">Recipe 4 &mdash; Live Preview Click-to-Edit Prompt</div>
+      <pre class="code-block" style="margin-bottom:0;"><code>[Selected DOM: &lt;div.pricing-grid&gt; + &lt;button.cta-pro&gt;]
+Fix mobile overflow at 375px viewport: stack cards to 1 col,
+ensure 44px min tap target on CTA, preserve WCAG AA contrast.
+Verify in Live Preview with 0 console or hydration errors.</code></pre>
+    </div>
+
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#059669; margin-bottom:2px;">Recipe 3 &mdash; Root <code>AGENTS.md</code> (Cross-Agent Spec)</div>
+      <pre class="code-block" style="margin-bottom:6px;"><code># Repository Engineering Guide (AGENTS.md)
+## Commands
+- Install: `pnpm install --frozen-lockfile`
+- Dev: `pnpm dev` (port 3000) | Test: `pnpm vitest run`
+- Typecheck &amp; Lint: `pnpm typecheck &amp;&amp; pnpm biome check .`
+
+## Architecture &amp; Guardrails
+- Stack: Next.js 16 App Router, TypeScript strict, Drizzle ORM.
+- Never edit `src/db/migrations/` manually; use `pnpm db:gen`.
+- All new features require unit tests + updated Zod schemas.</code></pre>
+
+      <div style="font-size:8pt; font-weight:700; color:#059669; margin-bottom:2px;">Recipe 5 &mdash; Devin Cloud Autonomous Handoff Prompt</div>
+      <pre class="code-block" style="margin-bottom:6px;"><code>Goal: Migrate all `moment` calls in `src/billing/` to `date-fns` v4.
+Constraints:
+- Preserve exact UTC ISO-8601 output and timezone formatting.
+- Remove `moment` from package.json only if zero imports remain.
+Verification:
+- Run `pnpm typecheck &amp;&amp; pnpm vitest run src/billing`.
+- Open a Draft PR with before/after bundle-size delta.</code></pre>
+
+      <div class="callout emerald" style="margin:0; font-size:7.9pt;">
+        <div class="callout-title">Workflow Chaining Tip</div>
+        You can call one workflow inside another (e.g., end <code>/new-endpoint</code> by instructing the agent to run <code>/ship-pr</code>) to guarantee every scaffolded feature passes CI before you even review the diff.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, ZDR & TEAM GOVERNANCE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security, Zero Data Retention &amp; Governance</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">Enterprise Hardening: ZDR, Command Allowlists &amp; Secrets Hygiene</h2>
+  <p class="page-lead">
+    An agentic IDE reads untrusted files, executes shell commands, and invokes external MCP servers with your developer credentials. Pair Cognition&rsquo;s built-in Zero Data Retention (ZDR) with defense-in-depth workspace guardrails.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Zero Data Retention (ZDR) &amp; Training Controls</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Teams &amp; Enterprise:</strong> ZDR is <strong>enabled by default</strong>; customer code is never saved persistently to disk or used to train foundation models without written consent.</li>
+        <li><strong>Pro &amp; Max:</strong> Individuals must explicitly toggle ZDR / training opt-out in account profile settings.</li>
+        <li><strong>Free Plan Warning:</strong> Free tier has no ZDR opt-out&mdash;never open proprietary or regulated repositories on Free accounts.</li>
+        <li><strong>Compliance Posture:</strong> SOC 2 Type II certified; federal deployments run on AWS GovCloud with mandatory ZDR.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge rose">2</span> Ignore Files &amp; Real Secrets Isolation</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Multi-File Enforcement:</strong> Indexing skips <code>.gitignore</code>, <code>node_modules</code>, and paths listed in <code>.devinignore</code>, <code>.windsurfignore</code>, or <code>.codeiumignore</code>.</li>
+        <li><strong>Don&rsquo;t Rely on Ignore Alone:</strong> Ignore rules govern indexing/viewing&mdash;terminal output or prompt injection can still expose local <code>.env</code> files.</li>
+        <li><strong>Best Practice:</strong> Keep production secrets out of the workspace; inject at runtime via 1Password/Vault or <strong>Devin Settings &rarr; Secrets</strong> for cloud sessions.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>5-Layer Defense-in-Depth Governance Checklist</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Attack Surface</th>
+        <th style="width:36%;">Real-World Risk (2025&ndash;2026 Lessons)</th>
+        <th style="width:44%;">Mandatory Team Control</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Auto-Execution / Turbo Mode</strong></td>
+        <td>Prompt injection in cloned repos or PR comments can trigger destructive shell commands</td>
+        <td>Disable blanket Turbo mode; allowlist safe read/test commands (<code>pnpm test</code>, <code>git diff</code>) and require approval for <code>curl</code>, <code>rm</code>, or deploys</td>
+      </tr>
+      <tr>
+        <td><strong>MCP Server Permissions</strong></td>
+        <td>Unvetted STDIO servers or local config tampering can exfiltrate tokens outside IDE logs</td>
+        <td>Keep Devin Local&rsquo;s default MCP approval prompt ON; enforce an org-level MCP server allowlist; bind DB MCPs to read-only roles</td>
+      </tr>
+      <tr>
+        <td><strong>Open VSX Extensions</strong></td>
+        <td>Supply-chain malware (e.g., 2026 GlassWorm Open VSX campaign) runs with full dev privileges</td>
+        <td>Enforce an enterprise extension allowlist; pin verified publishers and audit installed extensions quarterly</td>
+      </tr>
+      <tr>
+        <td><strong>Generated Code &amp; Deps</strong></td>
+        <td>Hallucinated packages (slopsquatting) or subtle auth/SQLi flaws introduced in multi-file diffs</td>
+        <td>Enforce GitHub branch protections + automated SAST/SCA (Semgrep, Snyk, CodeQL) on every Devin &amp; local PR</td>
+      </tr>
+      <tr>
+        <td><strong>Quota &amp; Overage Metering</strong></td>
+        <td>Runaway frontier reasoning loops or bloated context windows trigger unexpected API-rate overages</td>
+        <td>Default everyday tasks to <code>SWE-2</code>; set monthly Team spend caps; monitor usage telemetry in Devin Admin</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div>
+      <div style="font-size:8pt; font-weight:700; color:#0e7490; margin-bottom:2px;">Starter <code>.devinignore</code> (Mirror to <code>.windsurfignore</code>)</div>
+      <pre class="code-block" style="margin-bottom:0;"><code># Secrets &amp; credentials
+.env*
+*.pem
+*.key
+secrets/
+# Heavy build artifacts &amp; fixtures
+dist/
+coverage/
+test-fixtures/large-dumps/</code></pre>
+    </div>
+    <div class="callout amber" style="margin:0; display:flex; flex-direction:column; justify-content:center;">
+      <div class="callout-title">Admin Tip: Policy-Enforced Allowlists</div>
+      Local allowlists inside a developer&rsquo;s user config can be weakened accidentally. On Teams &amp; Enterprise plans, deploy system-level Rules, MCP allowlists, and Auto-Execution ceilings from the <strong>Devin Admin Console</strong> so policies apply uniformly across every laptop and cloud sandbox.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Pipeline</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">The Ticket-to-Merge Pipeline: Linear &rarr; Devin Cloud &rarr; Cascade &rarr; Ship</h2>
+  <p class="page-lead">
+    High-velocity engineering teams stop treating cloud agents and desktop IDEs as separate worlds. Wire Linear/Slack, Devin Cloud, Devin Desktop (Cascade / Devin Local), Live Preview, and GitHub CI into one continuous shipping conveyor belt.
+  </p>
+
+  <!-- END-TO-END SVG PIPELINE -->
+  <div class="figure-box" style="background:#04131a; padding:10px 10px; border-color:#0e7490;">
+    <svg viewBox="0 0 700 164" width="100%" height="164" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box 1 -->
+      <rect x="6" y="14" width="124" height="136" rx="8" fill="#081e29" stroke="#22d3ee" stroke-width="1.4"/>
+      <text x="68" y="32" text-anchor="middle" fill="#67e8f9" font-size="7" font-weight="700">STAGE 1</text>
+      <text x="68" y="47" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">Linear / Slack</text>
+      <text x="68" y="64" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Label: @devin</text>
+      <rect x="14" y="76" width="108" height="62" rx="5" fill="#0b2a38" stroke="#0891b2" stroke-width="0.8"/>
+      <text x="68" y="92" text-anchor="middle" fill="#cffafe" font-size="6.8" font-weight="700">Structured Brief</text>
+      <text x="68" y="106" text-anchor="middle" fill="#94a3b8" font-size="6.4">Acceptance criteria,</text>
+      <text x="68" y="118" text-anchor="middle" fill="#94a3b8" font-size="6.4">repro steps &amp; target</text>
+      <text x="68" y="130" text-anchor="middle" fill="#94a3b8" font-size="6.4">test suite command</text>
+
+      <path d="M130 82 L144 82" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="142,77 149,82 142,87" fill="#22d3ee"/>
+
+      <!-- Box 2 -->
+      <rect x="150" y="14" width="124" height="136" rx="8" fill="#081e29" stroke="#34d399" stroke-width="1.4"/>
+      <text x="212" y="32" text-anchor="middle" fill="#6ee7b7" font-size="7" font-weight="700">STAGE 2</text>
+      <text x="212" y="47" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">Devin Cloud</text>
+      <text x="212" y="64" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Async Sandbox PR</text>
+      <rect x="158" y="76" width="108" height="62" rx="5" fill="#082e2a" stroke="#059669" stroke-width="0.8"/>
+      <text x="212" y="92" text-anchor="middle" fill="#d1fae5" font-size="6.8" font-weight="700">80% First Draft</text>
+      <text x="212" y="106" text-anchor="middle" fill="#94a3b8" font-size="6.4">Scaffolds code, runs</text>
+      <text x="212" y="118" text-anchor="middle" fill="#94a3b8" font-size="6.4">unit tests, opens</text>
+      <text x="212" y="130" text-anchor="middle" fill="#94a3b8" font-size="6.4">Draft PR in Space</text>
+
+      <path d="M274 82 L288 82" stroke="#34d399" stroke-width="2"/>
+      <polygon points="286,77 293,82 286,87" fill="#34d399"/>
+
+      <!-- Box 3 -->
+      <rect x="294" y="14" width="124" height="136" rx="8" fill="#081e29" stroke="#38bdf8" stroke-width="1.4"/>
+      <text x="356" y="32" text-anchor="middle" fill="#7dd3fc" font-size="7" font-weight="700">STAGE 3</text>
+      <text x="356" y="47" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">Cascade Local</text>
+      <text x="356" y="64" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Worktree Polish</text>
+      <rect x="302" y="76" width="108" height="62" rx="5" fill="#0b263d" stroke="#0284c7" stroke-width="0.8"/>
+      <text x="356" y="92" text-anchor="middle" fill="#e0f2fe" font-size="6.8" font-weight="700">Human + Agent</text>
+      <text x="356" y="106" text-anchor="middle" fill="#94a3b8" font-size="6.4">Refines edge cases,</text>
+      <text x="356" y="118" text-anchor="middle" fill="#94a3b8" font-size="6.4">naming &amp; patterns</text>
+      <text x="356" y="130" text-anchor="middle" fill="#94a3b8" font-size="6.4">via Devin Local</text>
+
+      <path d="M418 82 L432 82" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="430,77 437,82 430,87" fill="#38bdf8"/>
+
+      <!-- Box 4 -->
+      <rect x="438" y="14" width="124" height="136" rx="8" fill="#081e29" stroke="#a78bfa" stroke-width="1.4"/>
+      <text x="500" y="32" text-anchor="middle" fill="#c4b5fd" font-size="7" font-weight="700">STAGE 4</text>
+      <text x="500" y="47" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">Live Preview</text>
+      <text x="500" y="64" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Visual Sign-Off</text>
+      <rect x="446" y="76" width="108" height="62" rx="5" fill="#1b1a38" stroke="#7c3aed" stroke-width="0.8"/>
+      <text x="500" y="92" text-anchor="middle" fill="#ede9fe" font-size="6.8" font-weight="700">Click-to-Edit UX</text>
+      <text x="500" y="106" text-anchor="middle" fill="#94a3b8" font-size="6.4">Verifies layout, a11y,</text>
+      <text x="500" y="118" text-anchor="middle" fill="#94a3b8" font-size="6.4">0 console errors &amp;</text>
+      <text x="500" y="130" text-anchor="middle" fill="#94a3b8" font-size="6.4">runs /ship-pr</text>
+
+      <path d="M562 82 L576 82" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="574,77 581,82 574,87" fill="#a78bfa"/>
+
+      <!-- Box 5 -->
+      <rect x="582" y="14" width="112" height="136" rx="8" fill="#0a2430" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="638" y="32" text-anchor="middle" fill="#fde68a" font-size="7" font-weight="700">STAGE 5</text>
+      <text x="638" y="47" text-anchor="middle" fill="#ffffff" font-size="8.8" font-weight="800">CI &amp; Merge</text>
+      <text x="638" y="64" text-anchor="middle" fill="#cbd5e1" font-size="6.8">GitHub Protected</text>
+      <rect x="590" y="76" width="96" height="62" rx="5" fill="#182736" stroke="#d97706" stroke-width="0.8"/>
+      <text x="638" y="92" text-anchor="middle" fill="#fef3c7" font-size="6.8" font-weight="700">Ship &amp; Learn</text>
+      <text x="638" y="106" text-anchor="middle" fill="#cbd5e1" font-size="6.4">SAST/CI green,</text>
+      <text x="638" y="118" text-anchor="middle" fill="#cbd5e1" font-size="6.4">peer review &amp;</text>
+      <text x="638" y="130" text-anchor="middle" fill="#cbd5e1" font-size="6.4">rule feedback</text>
+    </svg>
+  </div>
+
+  <h3>Stage-by-Stage Operator Playbook</h3>
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Triggering Clean Cloud Runs (Stages 1&ndash;2)</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Tag <code>@devin</code> in Linear or Slack</strong> only when the ticket has a concrete repro or acceptance checklist.</li>
+        <li><strong>Share <code>AGENTS.md</code> &amp; Rules:</strong> Because Devin Cloud reads the exact same <code>.devin/rules/</code> and <code>AGENTS.md</code> as Devin Desktop, its draft PR already matches your stack conventions.</li>
+        <li><strong>Parallelize Routine Work:</strong> Queue 3&ndash;5 independent bugs or API endpoints at the start of your morning standup; let Devin Cloud draft them while you focus on deep architecture.</li>
+      </ul>
+    </div>
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge emerald">2</span> Local Polish &amp; Compounding Rules (Stages 3&ndash;5)</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Pull Into a Worktree:</strong> Open the cloud PR in Devin Desktop without disrupting your main branch; review hunks and run Live Preview for UI flows.</li>
+        <li><strong>Invoke <code>/ship-pr</code>:</strong> Standardize typecheck, lint, test, and PR summary generation before requesting human peer review.</li>
+        <li><strong>Compound Every Review Comment:</strong> Whenever a human reviewer catches a recurring pattern, spend 30 seconds adding 1 bullet to <code>.devin/rules/</code> so neither Cascade nor Devin Cloud repeats the mistake.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-dark" style="margin-top:7px;">
+    <div class="card-title" style="color:#67e8f9;">Weekly Team Rhythm: The 10-Minute &ldquo;Rule &amp; Memory Gardening&rdquo; Ritual</div>
+    <p style="font-size:8.1pt; color:#cbd5e1; margin-bottom:0;">
+      Every Friday, have one engineer prune outdated local Memories, promote high-value debugging discoveries into git-committed <code>.devin/rules/*.md</code> files, and archive unused MCP servers. Teams that garden their rules weekly cut agent rework turns by <strong>40%+</strong> and keep daily quota burn predictable.
+    </p>
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Pre-Flight Checklist</span>
+    <span>Windsurf &amp; Devin Desktop</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    When an agentic loop stalls, ignores a rule, or burns quota too fast, diagnose the exact root cause in seconds with this field-tested clinic&mdash;then run the 6-point pre-flight check on every new workspace.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:5%;">#</th>
+        <th style="width:24%;">Symptom</th>
+        <th style="width:31%;">Root Cause</th>
+        <th style="width:40%;">Instant Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><strong>Rule file silently ignored</strong></td>
+        <td>File exceeded 12,000-char workspace cap, invalid YAML frontmatter, or glob mismatch</td>
+        <td>Trim under 12k chars, verify <code>trigger: glob</code> syntax, and confirm active badge in the Rules Inspector</td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><strong>MCP tools missing or failing</strong></td>
+        <td>Exceeded the 100 active tools cap, invalid JSON, or missing env var in <code>mcp_config.json</code></td>
+        <td>Disable unused tools in MCP panel to stay &lt;100; validate JSON and export env vars before launching IDE</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><strong>Agent loops on same test error</strong></td>
+        <td>Stale conversation context or missing runtime detail (e.g., wrong Node/DB port)</td>
+        <td>Revert checkpoint, start a fresh session, run failing test in terminal once so Flow captures exact stderr</td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><strong>Rapid daily quota exhaustion</strong></td>
+        <td>Defaulting routine edits to frontier high-reasoning models or 40+ turn monolithic chats</td>
+        <td>Switch everyday tasks to <code>SWE-2</code>, use Devin Local (Rust) for ~30% token savings, start fresh per PR</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><strong>Live Preview Click-to-Edit won&rsquo;t attach</strong></td>
+        <td>Dev server running on blocked port, non-Chromium browser, or HTTPS mixed-content block</td>
+        <td>Launch Preview from Cascade toolbar (IDE webview or Chrome/Arc proxy) and verify <code>localhost</code> port</td>
+      </tr>
+      <tr>
+        <td><strong>6</strong></td>
+        <td><strong>Wrong conventions across files</strong></td>
+        <td>Stale auto-generated Memory contradicting newer <code>.devin/rules/</code> or <code>AGENTS.md</code></td>
+        <td>Open Memories Inspector, delete conflicting local memories, and codify the canonical rule in git</td>
+      </tr>
+      <tr>
+        <td><strong>7</strong></td>
+        <td><strong>Devin Cloud PR diverges from local</strong></td>
+        <td>Cloud sandbox lacked env setup, build script, or clear acceptance criteria</td>
+        <td>Add exact install/test commands to root <code>AGENTS.md</code> and store required keys in Devin Settings Secrets</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Workspace Pre-Flight Checklist</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>1. Root <code>AGENTS.md</code> Committed:</strong> Lists exact package manager, dev port, typecheck, lint, and test commands for local &amp; cloud agents.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>2. Scoped <code>.devin/rules/</code> Active:</strong> Core rules split by <code>glob</code> trigger (each &le;12k chars); legacy <code>.windsurfrules</code> retired or synced.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>3. ZDR &amp; Ignore Files Verified:</strong> Zero Data Retention confirmed in profile/org admin; <code>.devinignore</code> &amp; <code>.windsurfignore</code> exclude secrets &amp; dumps.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>4. Safe Execution &amp; MCP Caps Set:</strong> Turbo mode capped; MCP active tools &lt;100; DB MCPs scoped read-only with write-approval prompts ON.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>5. <code>/ship-pr</code> Workflow Ready:</strong> Reusable workflow in <code>.devin/workflows/</code> enforces green CI checks and diff hygiene before every PR.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>6. Model Routing Tuned:</strong> Everyday local loops default to <code>SWE-2</code> on Devin Local; Planning Mode &amp; Devin Cloud reserved for heavy lifts.</div>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:7px;">
+    <div class="callout-title">Final Takeaway: Flow Locally, Scale Autonomously</div>
+    Windsurf&rsquo;s evolution into Devin Desktop gives you the best of both worlds: sub-second local flow with Cascade / Devin Local &amp; Live Previews, backed by parallel Devin Cloud engineers sharing the exact same rules, workflows, and verification gates.
+  </div>
+
+  <div class="page-footer">
+    <span>Windsurf &amp; Devin Desktop: Cascade &amp; Autonomous Tasks</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

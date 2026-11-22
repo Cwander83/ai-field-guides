@@ -10,6 +10,10 @@ const SITE_DIR = path.resolve(__dirname, '..');
 const REPO_ROOT = path.resolve(SITE_DIR, '..');
 
 const FEATURED_NEW_IDS = new Set([
+  'ai-ides/cursor-mastery-composer-rules-and-agents',
+  'ai-ides/windsurf-and-devin-desktop-flows',
+  'ai-ides/cline-roo-code-and-open-vscode-agents',
+  'ai-ides/cross-ide-agents-md-skills-and-mcp',
   'cloud-data-and-commerce/supabase-and-postgres-for-ai-agents',
   'cloud-data-and-commerce/cloudflare-agents-and-edge-sandboxes',
   'cloud-data-and-commerce/stripe-agent-toolkit-and-agentic-commerce',

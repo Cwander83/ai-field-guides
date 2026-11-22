@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cline, Roo Code &amp; Open-Source VS Code Agents: The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI IDEs &amp; OPEN-SOURCE AGENTS &bull; FIELD GUIDE</div>
+    <h1>Cline, Roo Code &amp; <span>Open VS Code Agents</span></h1>
+    <p class="cover-sub">
+      Run transparent, BYOK, and local-model coding agents inside standard VS Code using Cline, Roo Code custom modes &amp; Boomerang orchestration, Kilo Code, checkpoints, and MCP tools&mdash;with zero vendor lock-in.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Plan / Act Dual-Model</span>
+      <span class="cover-badge">Custom Modes &amp; .roomodes</span>
+      <span class="cover-badge">Boomerang Sub-Tasks</span>
+      <span class="cover-badge">BYOK &amp; Local Ollama</span>
+      <span class="cover-badge">Shadow Git Checkpoints</span>
+      <span class="cover-badge">MCP &amp; Browser Use</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Isometric 3D technical illustration of a modular open-source VS Code coding agent with glowing violet, magenta, amber, and teal data pipelines connecting orchestration nodes, checkpoint branches, and local compute cubes" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Zero Vendor Lock-In</div>
+      <div class="cover-stat-desc">Keep standard VS Code and your extensions. Route every turn via OpenRouter, Bedrock, Vertex AI, or local Ollama with raw API pricing.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Isolated Orchestration</div>
+      <div class="cover-stat-desc">Split reasoning from execution using Cline <code>Plan/Act</code> or Roo/Kilo <code>Orchestrator</code> Boomerang sub-tasks with clean context windows.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Reversible Autonomy</div>
+      <div class="cover-stat-desc">Every file edit and shell command lands inside a Shadow Git checkpoint with one-click diffing, headless browser checks, and hard cost caps.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Agent Architecture</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">Transparent, BYOK Autonomy Inside Standard VS Code</h2>
+  <p class="page-lead">
+    Proprietary AI IDE forks bundle hidden prompts, opaque credit meters, and fixed model menus. <strong>Open-source VS Code agents</strong>&mdash;led by Cline, the Roo Code custom-mode architecture, and its OpenCode-powered successor Kilo Code&mdash;keep you inside stock VS Code while exposing every token, diff, tool call, and API dollar in real time.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model &amp; Agent Loop</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Checkpoints, Browser &amp; MCP</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Open VS Code Agent Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Config Recipes</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated 7-Control Sidebar HUD</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Guardrails, Ignore &amp; Cost Caps</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Plan/Act &amp; Boomerang Sub-Tasks</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. 5-Part .roomodes &amp; Rules Anatomy</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. BYOK &amp; Local Model Routing</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Golden Rule: Inspect, Cap, Rollback</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>The Open-Source VS Code Agent Execution Loop</h3>
+  <p style="font-size:8.6pt;">
+    Whether you run Cline's <code>Plan/Act</code> split or Roo/Kilo's <code>Orchestrator</code> mode, every autonomous task flows through four transparent, user-controlled layers with zero hidden cloud proxy required:
+  </p>
+
+  <div class="figure-box" style="background:#120b24; padding:9px 11px; border-color:#5b21b6;">
+    <svg viewBox="0 0 700 182" width="100%" height="182" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="6" y="12" width="154" height="158" rx="9" fill="#1b1136" stroke="#c084fc" stroke-width="1.5"/>
+      <text x="83" y="30" text-anchor="middle" fill="#e9d5ff" font-size="7.4" font-weight="700">1. INTENT &amp; MODES</text>
+      <text x="83" y="46" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Plan / Orchestrator</text>
+      <rect x="16" y="57" width="134" height="44" rx="5" fill="#27174d" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="83" y="73" text-anchor="middle" fill="#f5d0fe" font-size="7.3" font-weight="700">Scoped System Rules</text>
+      <text x="83" y="86" text-anchor="middle" fill="#cbd5e1" font-size="6.8">.clinerules/ &amp; .roo/rules/</text>
+      <rect x="16" y="109" width="134" height="48" rx="5" fill="#27174d" stroke="#c026d3" stroke-width="0.9"/>
+      <text x="83" y="126" text-anchor="middle" fill="#f5d0fe" font-size="7.3" font-weight="700">Tool &amp; Regex Bounds</text>
+      <text x="83" y="139" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Read-only Plan or fileRegex</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <path d="M160 91 L178 91" stroke="#c084fc" stroke-width="2"/>
+      <polygon points="176,86 184,91 176,96" fill="#c084fc"/>
+
+      <!-- Stage 2 -->
+      <rect x="185" y="12" width="156" height="158" rx="9" fill="#1b1136" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="263" y="30" text-anchor="middle" fill="#fde68a" font-size="7.4" font-weight="700">2. BYOK / LOCAL LLM</text>
+      <text x="263" y="46" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Dual-Model Router</text>
+      <rect x="195" y="57" width="136" height="44" rx="5" fill="#2a1d14" stroke="#d97706" stroke-width="0.9"/>
+      <text x="263" y="73" text-anchor="middle" fill="#fef3c7" font-size="7.3" font-weight="700">Frontier Planners</text>
+      <text x="263" y="86" text-anchor="middle" fill="#cbd5e1" font-size="6.8">OpenRouter, Bedrock, Vertex</text>
+      <rect x="195" y="109" width="136" height="48" rx="5" fill="#2a1d14" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="263" y="126" text-anchor="middle" fill="#fef3c7" font-size="7.3" font-weight="700">Fast / Local Coders</text>
+      <text x="263" y="139" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Ollama, LM Studio + Caching</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <path d="M341 91 L359 91" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="357,86 365,91 357,96" fill="#fbbf24"/>
+
+      <!-- Stage 3 -->
+      <rect x="366" y="12" width="156" height="158" rx="9" fill="#10252a" stroke="#2dd4bf" stroke-width="1.6"/>
+      <text x="444" y="30" text-anchor="middle" fill="#99f6e4" font-size="7.4" font-weight="700">3. GATED EXECUTION</text>
+      <text x="444" y="46" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Workspace &amp; MCP</text>
+      <rect x="376" y="57" width="136" height="44" rx="5" fill="#0d3133" stroke="#0d9488" stroke-width="0.9"/>
+      <text x="444" y="73" text-anchor="middle" fill="#ccfbf1" font-size="7.3" font-weight="700">Diffs &amp; Shell Allowlist</text>
+      <text x="444" y="86" text-anchor="middle" fill="#cbd5e1" font-size="6.8">Auto-approve + Cost Ceiling</text>
+      <rect x="376" y="109" width="136" height="48" rx="5" fill="#0d3133" stroke="#14b8a6" stroke-width="0.9"/>
+      <text x="444" y="126" text-anchor="middle" fill="#ccfbf1" font-size="7.3" font-weight="700">MCP &amp; Headless Browser</text>
+      <text x="444" y="139" text-anchor="middle" fill="#cbd5e1" font-size="6.8">DBs, Docs, DOM, Console logs</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <path d="M522 91 L540 91" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="538,86 546,91 538,96" fill="#2dd4bf"/>
+
+      <!-- Stage 4 -->
+      <rect x="547" y="12" width="147" height="158" rx="9" fill="#221133" stroke="#e879f9" stroke-width="1.6"/>
+      <text x="620" y="30" text-anchor="middle" fill="#f5d0fe" font-size="7.4" font-weight="700">4. SAFETY &amp; VERIFY</text>
+      <text x="620" y="46" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Shadow Checkpoints</text>
+      <rect x="557" y="57" width="127" height="44" rx="5" fill="#32164a" stroke="#c026d3" stroke-width="0.9"/>
+      <text x="620" y="73" text-anchor="middle" fill="#fae8ff" font-size="7.3" font-weight="700">Per-Tool Git Snapshot</text>
+      <text x="620" y="86" text-anchor="middle" fill="#e2e8f0" font-size="6.8">Main repo stays 100% clean</text>
+      <rect x="557" y="109" width="127" height="48" rx="5" fill="#32164a" stroke="#e879f9" stroke-width="0.9"/>
+      <text x="620" y="126" text-anchor="middle" fill="#fae8ff" font-size="7.3" font-weight="700">1-Click Time Travel</text>
+      <text x="620" y="139" text-anchor="middle" fill="#e2e8f0" font-size="6.8">Compare, Restore Files/Task</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">A</span> Why Open VS Code Agents Win</div>
+      <p style="font-size:8.25pt; margin:0;">You retain native VS Code Remote-SSH, Dev Containers, and enterprise compliance. API keys stay in VS Code Secret Storage, traffic hits your chosen VPC endpoint (Bedrock/Vertex) or local GPU, and every prompt-cache hit is visible down to <code>$0.001</code>.</p>
+    </div>
+    <div class="card-teal">
+      <div class="card-title"><span class="num-badge teal">B</span> The Context-Budget Discipline</div>
+      <p style="font-size:8.25pt; margin:0;">Agent quality degrades sharply once a single thread crosses ~45% context fill. Open agents counter this with <code>/deep-planning</code>, <strong>Intelligent Context Condensation</strong>, and Boomerang sub-tasks that discard scratchpad noise and return only distilled summaries.</p>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 2 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 3: DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Ecosystem &amp; Tool Selection</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">Open VS Code Agent Decision Matrix (Late 2026)</h2>
+  <p class="page-lead">
+    Cline, Roo Code, and Kilo Code share a common open-source lineage, while Continue anchors inline autocomplete. Understanding their late-2026 architecture and maintenance status prevents choosing a stalled workflow.
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:15%;">Extension</th>
+        <th style="width:17%;">2026 Status &amp; Engine</th>
+        <th style="width:23%;">Orchestration &amp; Modes</th>
+        <th style="width:22%;">Cost Control &amp; BYOK</th>
+        <th style="width:23%;">Best-Fit Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Cline</strong><br/><code>saoudrizwan.claude-dev</code></td>
+        <td><strong>Active (v4 + SDK)</strong><br/>Apache-2.0 original; 11M+ devs; VS Code, CLI &amp; Desktop beta.</td>
+        <td>Explicit <strong>Plan / Act</strong> split with separate models per mode, <code>/deep-planning</code>, Shadow Git Checkpoints, Browser Use &amp; MCP Marketplace.</td>
+        <td>100% BYOK (OpenRouter, Bedrock, Vertex, Ollama, LM Studio) + live token/cache meter &amp; max-request limits.</td>
+        <td><strong>Default primary agent</strong> for transparent human-in-the-loop coding, enterprise VPCs, and MCP workflows.</td>
+      </tr>
+      <tr>
+        <td><strong>Roo Code</strong><br/><code>rooveterinaryinc.roo-cline</code></td>
+        <td><strong>Sunset May 2026</strong><br/>Commercial project ended; open-source forks &amp; <code>.roomodes</code> spec live on.</td>
+        <td>Pioneered <strong>Custom Modes</strong> (Architect, Code, Ask, Debug, Orchestrator), <strong>Boomerang sub-tasks</strong>, <code>fileRegex</code> locks &amp; Context Condensation.</td>
+        <td>Per-mode API profiles (e.g., Frontier Architect + local Ollama Coder) + per-task dollar &amp; request caps.</td>
+        <td><strong>Reference pattern</strong> for multi-mode specs; existing teams migrate <code>.roomodes</code> to Kilo Code or community forks.</td>
+      </tr>
+      <tr>
+        <td><strong>Kilo Code</strong><br/><code>kilocode.kilo-code</code></td>
+        <td><strong>Active (v7 OpenCode)</strong><br/>Former Roo fork rebuilt on OpenCode engine (GA Apr 2026); IDE + CLI + Cloud.</td>
+        <td>Full Custom Modes &amp; Orchestrator parity with Roo Code, 15&ndash;30 min <code>.roomodes</code> migration, JetBrains &amp; cloud sessions.</td>
+        <td>500+ models at zero markup, full BYOK &amp; local Ollama support, granular auto-approve &amp; budget alerts.</td>
+        <td><strong>Best drop-in successor</strong> for teams wanting Roo-style custom modes, Boomerang flows &amp; active updates.</td>
+      </tr>
+      <tr>
+        <td><strong>Continue</strong><br/><code>continue.continue</code></td>
+        <td><strong>Acquired by Cursor</strong><br/>Open-source VS Code &amp; JetBrains extension; light local-model footprint.</td>
+        <td>Inline Tab autocomplete, Chat, Edit &amp; basic Agent mode; shines with small 7B&ndash;14B local FIM models via <code>config.yaml</code>.</td>
+        <td>Zero-cost local Ollama / LM Studio FIM completions + BYOK chat; minimal token overhead per keystroke.</td>
+        <td><strong>Companion Tab engine</strong> installed alongside Cline or Kilo Code (which focus on multi-file tasks, not FIM).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The 2026 Family Tree &amp; Recommended Pairing Strategy</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Solo &amp; Enterprise Standard</div>
+      <p style="font-size:8.1pt; margin:0;">Install <strong>Cline v4</strong> for structured Plan/Act tasks, strict approval gates, and AWS Bedrock / Vertex AI compliance. Pair with local <strong>Continue</strong> (Qwen2.5-Coder 7B FIM) for instant zero-cost Tab autocomplete.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge magenta">2</span> Multi-Mode Power User</div>
+      <p style="font-size:8.1pt; margin:0;">Run <strong>Kilo Code v7</strong> (or a maintained Roo fork) when your repo relies on <code>.roomodes</code>, <code>fileRegex</code> edit locks, and Boomerang Orchestrator delegation across Architect, Code, Test, and Docs personas.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> 100% Air-Gapped Local</div>
+      <p style="font-size:8.1pt; margin:0;">Use <strong>Cline</strong> or <strong>Kilo Code</strong> pointed at local <strong>Ollama / LM Studio</strong> running a &ge;22B&ndash;32B tool-calling coder (e.g., Qwen3-Coder 30B-A3B or Devstral) with telemetry off and browser tools disabled.</p>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:8px;">
+    <div class="callout-title">Migrating Legacy Roo Code Repos in Late 2026</div>
+    If your team still uses Roo Code's <code>.roomodes</code> and <code>.roo/rules/</code> directories, you do not lose your investment: <strong>Kilo Code v7</strong> natively imports Roo custom modes, <code>fileRegex</code> guards, and MCP server JSON configs in under 30 minutes, while <strong>Cline</strong> reads shared Markdown instructions via <code>.clinerules/</code> with minimal syntax changes.
+  </div>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 3 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INTERFACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">The 7-Control Open Agent Sidebar HUD</h2>
+  <p class="page-lead">
+    Master these seven live controls in the Cline / Roo / Kilo VS Code sidebar to monitor token burn, enforce least-privilege approvals, inspect Shadow Git diffs, and steer multi-step runs without babysitting every click.
+  </p>
+
+  <!-- MOCK UI WINDOW -->
+  <div class="ui-window">
+    <div class="ui-topbar">
+      <div style="display:flex; align-items:center; gap:9px;">
+        <div class="ui-dots"><span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span></div>
+        <strong style="color:#e9d5ff; font-size:7.8pt;">VS CODE &bull; CLINE / ROO AGENT SIDEBAR</strong>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="hud-chip" style="background:rgba(124,58,237,0.3); color:#e9d5ff; border:1px solid #a855f7;">Task #482</span>
+        <span class="hud-chip" style="background:rgba(13,148,136,0.28); color:#99f6e4; border:1px solid #2dd4bf;">MCP: 3 Active</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.08fr 0.92fr; gap:9px; padding:9px 11px;">
+      <!-- Left: Agent Sidebar -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <!-- Control 1: Token & Cost Meter -->
+        <div class="hud-card" style="border-color:#7c3aed;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#e9d5ff; font-weight:700;"><span class="callout-pin">1</span> Live Context &amp; Cost Meter</span>
+            <span style="color:#fbbf24; font-weight:700;">$0.14 / $1.00 cap</span>
+          </div>
+          <div style="background:#26174a; height:6px; border-radius:99px; overflow:hidden; margin-bottom:3px;">
+            <div style="width:36%; height:100%; background:linear-gradient(90deg,#2dd4bf,#a855f7);"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; color:#cbd5e1; font-size:6.4pt;">
+            <span>Context: 72k / 200k (36%)</span>
+            <span>Cache Hit: 84% (&minus;$0.41 saved)</span>
+          </div>
+        </div>
+
+        <!-- Control 2: Mode / Plan-Act Switcher -->
+        <div class="hud-card" style="border-color:#c026d3; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span class="callout-pin">2</span> <strong style="color:#f5d0fe;">Mode &amp; Profile:</strong>
+            <span class="hud-chip" style="background:#581c87; color:#f5d0fe; margin-left:4px;">Plan (Sonnet 4.6)</span>
+            <span class="hud-chip" style="background:#0f766e; color:#ccfbf1; margin-left:2px;">Act (Qwen3-Coder)</span>
+          </div>
+          <span style="color:#94a3b8; font-size:6.3pt;">&#9662; Orchestrator</span>
+        </div>
+
+        <!-- Control 3: Checkpoint Timeline Banner -->
+        <div class="hud-card" style="border-color:#2dd4bf;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="color:#99f6e4; font-weight:700;"><span class="callout-pin">3</span> Checkpoint #4 &bull; Shadow Git</span>
+            <div style="display:flex; gap:4px;">
+              <span class="hud-chip" style="background:#134e4a; color:#99f6e4; border:1px solid #2dd4bf;">Compare</span>
+              <span class="hud-chip" style="background:#3b1d6a; color:#e9d5ff; border:1px solid #a855f7;">Restore &#8634;</span>
+            </div>
+          </div>
+          <div style="color:#cbd5e1; font-size:6.4pt; margin-top:2px;">Snapshot after <code>src/auth/jwt.ts</code> edit &bull; Main git tree untouched</div>
+        </div>
+
+        <!-- Control 4: Auto-Approve Strip -->
+        <div class="hud-card" style="border-color:#d97706;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <span style="color:#fde68a; font-weight:700;"><span class="callout-pin">4</span> Auto-Approve Toggles</span>
+            <span style="color:#fca5a5; font-size:6.3pt;">Max Req: 15</span>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:4px;">
+            <span class="hud-chip" style="background:#065f46; color:#a7f3d0;">&#10003; Read</span>
+            <span class="hud-chip" style="background:#065f46; color:#a7f3d0;">&#10003; Safe Cmds</span>
+            <span class="hud-chip" style="background:#7f1d1d; color:#fecaca;">&#10007; Edit Files</span>
+            <span class="hud-chip" style="background:#7f1d1d; color:#fecaca;">&#10007; Browser</span>
+          </div>
+        </div>
+
+        <!-- Control 5: Prompt Input + @Mentions -->
+        <div class="hud-card" style="border-color:#6366f1;">
+          <div style="color:#e2e8f0; font-size:6.7pt; margin-bottom:3px;">
+            <span class="callout-pin">5</span> <code>@file:src/api.ts</code> <code>@problems</code> <code>@git-changes</code> Refactor token refresh &amp; add Vitest coverage...
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; color:#94a3b8; font-size:6.3pt;">
+            <span>Rules active: <code>.clinerules/01-ts.md</code></span>
+            <span class="hud-chip" style="background:#7c3aed; color:#ffffff;">Send &#9166;</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Diff Editor & MCP/Terminal Drawer -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <!-- Control 6: Live Streaming Diff -->
+        <div class="hud-card" style="border-color:#0d9488; flex:1;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="color:#5eead4; font-weight:700;"><span class="callout-pin">6</span> Streaming Diff &amp; Approval Gate</span>
+            <span style="color:#cbd5e1; font-size:6.3pt;">src/auth/jwt.ts</span>
+          </div>
+          <div style="font-family:monospace; font-size:6.3pt; line-height:1.42; background:#090614; padding:5px 6px; border-radius:4px;">
+            <div style="color:#94a3b8;"> 14  export function verifyToken(raw: string) {</div>
+            <div style="background:rgba(225,29,72,0.22); color:#fda4af;">-15    return jwt.verify(raw, process.env.SECRET!);</div>
+            <div style="background:rgba(13,148,136,0.24); color:#5eead4;">+15    return jwt.verify(raw, getSigningKey(), {</div>
+            <div style="background:rgba(13,148,136,0.24); color:#5eead4;">+16      algorithms: ["RS256"], clockTolerance: 5</div>
+            <div style="background:rgba(13,148,136,0.24); color:#5eead4;">+17    });</div>
+            <div style="color:#94a3b8;"> 18  }</div>
+          </div>
+          <div style="display:flex; gap:5px; margin-top:5px;">
+            <span class="hud-chip" style="background:#0d9488; color:#ffffff;">Approve Edit</span>
+            <span class="hud-chip" style="background:#334155; color:#f8fafc;">Reject + Feedback</span>
+          </div>
+        </div>
+
+        <!-- Control 7: Terminal & MCP Drawer -->
+        <div class="hud-card" style="border-color:#e879f9;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#f5d0fe; font-weight:700;"><span class="callout-pin">7</span> Shell Integration &amp; MCP Drawer</span>
+            <span style="color:#5eead4; font-size:6.3pt;">Exit 0 (1.8s)</span>
+          </div>
+          <div style="font-family:monospace; font-size:6.3pt; color:#cbd5e1; background:#090614; padding:4px 6px; border-radius:4px;">
+            $ pnpm vitest run src/auth/jwt.test.ts<br/>
+            <span style="color:#5eead4;">&#10003; 14 passed (14)</span> &bull; MCP: <code>postgres-ro</code> queried schema
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-CONTROL BREAKDOWN -->
+  <div class="grid-2" style="margin-top:8px; gap:8px 11px;">
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">1</span> Live Token, Cache &amp; Dollar Meter</div>
+      <p style="font-size:7.9pt; margin:0;">Tracks input/output tokens, prompt-cache savings, and cumulative task spend. Trigger Context Condensation or start a fresh Boomerang task before the bar crosses 60%.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge magenta">2</span> Plan / Act &amp; Custom Mode Switcher</div>
+      <p style="font-size:7.9pt; margin:0;">Swaps both system prompt and API provider profile in one click&mdash;e.g., Frontier reasoning in <code>Plan/Architect</code>, cheap/local models in <code>Act/Code</code>.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge teal">3</span> Shadow Git Checkpoint Strip</div>
+      <p style="font-size:7.9pt; margin:0;">Commits workspace state to an isolated shadow repo after every tool call. Click <strong>Compare</strong> to view VS Code's multi-file diff or <strong>Restore</strong> to rewind files and/or chat.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge amber">4</span> Granular Auto-Approve &amp; Max Requests</div>
+      <p style="font-size:7.9pt; margin:0;">Separately gates workspace reads, file edits, safe vs. arbitrary shell commands, MCP calls, and browser actions. Set <code>Max Requests</code> to pause runaway loops.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge indigo">5</span> Deterministic <code>@</code> Context Mentions</div>
+      <p style="font-size:7.9pt; margin:0;">Pin exact files (<code>@file</code>), VS Code diagnostics (<code>@problems</code>), terminal output (<code>@terminal</code>), or uncommitted diffs (<code>@git-changes</code>) instead of letting the agent grep blindly.</p>
+    </div>
+    <div class="card" style="padding:7px 10px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge teal">6</span>&thinsp;<span class="num-badge magenta">7</span> Diff Gate, Shell &amp; MCP Telemetry</div>
+      <p style="font-size:7.9pt; margin:0;">Every patch streams into VS Code's native diff viewer before disk write, while VS Code Shell Integration captures exit codes and MCP server payloads automatically.</p>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 4 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 5: PLAN/ACT, CUSTOM MODES & BOOMERANG ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Orchestration &amp; Context Isolation</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">Plan/Act, Custom Modes &amp; Boomerang Sub-Tasks</h2>
+  <p class="page-lead">
+    Single-thread agents fail on large refactors because planning chatter, test logs, and failed diffs pollute one overflowing context window. Open VS Code agents solve this with two complementary patterns: <strong>Plan/Act</strong> and <strong>Boomerang Orchestration</strong>.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_1.jpg" alt="Isometric illustration of Boomerang orchestration dispatching arcs from a central violet hub to isolated amber Architect, teal Code, and magenta Debug glass chambers" />
+    <div class="figure-caption">
+      <strong>Boomerang Delegation:</strong> The central <code>Orchestrator</code> pauses the parent thread, spawns an isolated child task in a specialized mode (Architect, Code, or Debug), and receives only a compact completion summary back&mdash;keeping parent context clean.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Cline's Plan / Act Split (+ <code>/deep-planning</code>)</div>
+      <ul style="font-size:8.1pt; margin:3px 0 0 0;">
+        <li><strong>Plan Mode (Read-Only):</strong> Agent inspects files, traces symbols, and writes an explicit markdown blueprint. Zero file edits or shell mutations allowed.</li>
+        <li><strong>Act Mode (Execution):</strong> Flip the toggle once the plan is approved; Cline executes step-by-step using a faster/cheaper coding model if dual-model routing is enabled.</li>
+        <li><strong>Best for:</strong> 1&ndash;15 file features, bug fixes, and interactive architecture reviews where you stay in one thread.</li>
+      </ul>
+    </div>
+    <div class="card-teal">
+      <div class="card-title"><span class="num-badge teal">2</span> Roo / Kilo Boomerang Sub-Tasks</div>
+      <ul style="font-size:8.1pt; margin:3px 0 0 0;">
+        <li><strong>Orchestrator Mode:</strong> Decomposes epics into sequential child tasks using the <code>new_task</code> tool.</li>
+        <li><strong>Fresh Context Windows:</strong> Each child (<code>architect</code> &rarr; <code>code</code> &rarr; <code>debug</code>) starts at 0% context fill with mode-specific rules and its own API profile.</li>
+        <li><strong>Distilled Handoff:</strong> When the child calls <code>attempt_completion</code>, only its concise summary boomerangs back to the parent Orchestrator.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The 5 Built-In Custom Modes &amp; Handoff Chain</h3>
+  <table class="clean-table" style="margin-bottom:0;">
+    <thead>
+      <tr>
+        <th style="width:16%;">Mode Slug</th>
+        <th style="width:24%;">Allowed Tool Groups</th>
+        <th style="width:28%;">Ideal Model Tier</th>
+        <th style="width:32%;">When to Dispatch via Boomerang</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>orchestrator</code></td>
+        <td>Task delegation only (no direct edits)</td>
+        <td>Frontier Planner (Claude / GPT-5 / Gemini Pro)</td>
+        <td>Multi-module epics requiring 3+ isolated implementation and verification phases.</td>
+      </tr>
+      <tr>
+        <td><code>architect</code></td>
+        <td><code>read</code>, <code>edit</code> (<code>\.md$</code> only), <code>mcp</code></td>
+        <td>High-reasoning model w/ extended thinking</td>
+        <td>Drafting RFCs, migration checklists, and API contracts before touching source code.</td>
+      </tr>
+      <tr>
+        <td><code>code</code></td>
+        <td><code>read</code>, <code>edit</code>, <code>command</code>, <code>mcp</code></td>
+        <td>Fast coder (Sonnet, DeepSeek, Qwen3-Coder)</td>
+        <td>Implementing one bounded spec module + unit tests inside a clean context window.</td>
+      </tr>
+      <tr>
+        <td><code>debug</code></td>
+        <td><code>read</code>, <code>edit</code>, <code>command</code>, <code>browser</code></td>
+        <td>High-reasoning + log/stacktrace specialist</td>
+        <td>Reproducing flaky tests, reading headless browser console errors, and isolating root causes.</td>
+      </tr>
+      <tr>
+        <td><code>ask</code></td>
+        <td><code>read</code>, <code>mcp</code> (strictly read-only)</td>
+        <td>Fast/local model (Ollama / Flash / Mini)</td>
+        <td>Onboarding Q&amp;A, tracing call graphs, and explaining legacy code with zero mutation risk.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 5 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 6: CUSTOM MODE & RULES ANATOMY ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Custom Modes &amp; Rules Engineering</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">5-Part Anatomy of <code>.roomodes</code> &amp; <code>.clinerules/</code></h2>
+  <p class="page-lead">
+    Commit mode definitions and rules straight into Git so every teammate's VS Code agent inherits identical architectural guardrails, file-edit boundaries, and style conventions automatically.
+  </p>
+
+  <div class="card" style="padding:10px 12px; border-color:#c4b5fd; background:#fcfbff;">
+    <div class="card-title" style="margin-bottom:6px;">Color-Coded <code>.roomodes</code> Specification (Project Root &bull; Validated JSON/YAML Tuple Format)</div>
+    <div style="font-family:'SF Mono',Menlo,Consolas,monospace; font-size:7.6pt; line-height:1.85; color:#1e293b;">
+      customModes:<br/>
+      &nbsp;&nbsp;- <span class="p-tag p-slug">slug: "test-writer" &nbsp;|&nbsp; name: "QA Test Engineer"</span><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="p-tag p-role">roleDefinition: "You write deterministic Vitest &amp; Playwright tests with zero flaky sleeps."</span><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;groups:<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="p-tag p-grp">"read"</span> &nbsp; - <span class="p-tag p-grp">"command"</span> &nbsp; - <span class="p-tag p-grp">"mcp"</span><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [ <span class="p-tag p-grp">"edit"</span>, { <span class="p-tag p-regex">fileRegex: "\\.(test|spec)\\.(ts|tsx)$", description: "Test files only"</span> } ]<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="p-tag p-rule">customInstructions: "Run pnpm test:unit after every edit; never modify src/ production files."</span>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:8px;">
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag p-slug" style="font-size:7pt;">1</span> Slug &amp; Name</div>
+      <p style="font-size:7.8pt; margin:0;">Kebab-case <code>slug</code> binds the mode to its rule folder (<code>.roo/rules-test-writer/</code>) and lets Orchestrator dispatch it by exact identifier.</p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag p-role" style="font-size:7pt;">2</span> Role Definition</div>
+      <p style="font-size:7.8pt; margin:0;">Replaces the base persona prompt. Keep it crisp (&le;2 sentences) so you do not waste system tokens on every turn.</p>
+    </div>
+    <div class="card" style="padding:7.5px 9.5px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag p-grp" style="font-size:7pt;">3</span> Tool Groups</div>
+      <p style="font-size:7.8pt; margin:0;">Grants only the minimum capability tuple from <code>read</code>, <code>edit</code>, <code>command</code>, <code>browser</code>, and <code>mcp</code>.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:7px;">
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag p-regex" style="font-size:7pt;">4</span> Tuple <code>fileRegex</code> Write Lock</div>
+      <p style="font-size:7.9pt; margin:0;">Enforces hard filesystem sandboxing at the tool layer. If a QA or Docs mode attempts to edit <code>src/billing.ts</code>, the extension blocks the write before touching disk&mdash;even if the LLM hallucinates.</p>
+    </div>
+    <div class="card" style="padding:7.5px 10px;">
+      <div class="card-title" style="font-size:8.4pt;"><span class="p-tag p-rule" style="font-size:7pt;">5</span> Mode &amp; Workspace Rules</div>
+      <p style="font-size:7.9pt; margin:0;">Appends project-specific build commands, linting contracts, and verification loops. Keep under ~1,200 tokens total so prompt caching stays hot.</p>
+    </div>
+  </div>
+
+  <h3>Directory Precedence: <code>.clinerules/</code> vs. <code>.roo/rules/</code></h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:24%;">Rule Location</th>
+        <th style="width:18%;">Agent</th>
+        <th style="width:22%;">Load Order &amp; Scope</th>
+        <th style="width:36%;">Best Practice</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>.clinerules/*.md</code></td>
+        <td>Cline</td>
+        <td>Workspace alphabetical; toggleable per file in UI</td>
+        <td>Split into numbered files: <code>01-architecture.md</code>, <code>02-testing.md</code>, <code>03-security.md</code>.</td>
+      </tr>
+      <tr>
+        <td><code>~/.roo/rules/</code></td>
+        <td>Roo / Kilo</td>
+        <td>Global user defaults across all repositories</td>
+        <td>Store personal preferences (concise diffs, commit style, preferred package manager).</td>
+      </tr>
+      <tr>
+        <td><code>.roo/rules/</code></td>
+        <td>Roo / Kilo</td>
+        <td>Workspace-wide; overrides global rules</td>
+        <td>Repo invariants: TypeScript strictness, monorepo filter flags, forbidden libraries.</td>
+      </tr>
+      <tr>
+        <td><code>.roo/rules-{slug}/</code></td>
+        <td>Roo / Kilo</td>
+        <td>Mode-specific; loaded only when <code>slug</code> is active</td>
+        <td>Load heavy domain checklists (e.g., SQL migration safety) only when needed to save tokens.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout teal" style="margin-top:2px;">
+    <div class="callout-title">Cross-Agent Rule Portability Tip</div>
+    Store your core repository engineering standards in a single canonical <code>AGENTS.md</code> or <code>docs/agent-rules.md</code> file, then symlink or reference it from both <code>.clinerules/00-core.md</code> and <code>.roo/rules/00-core.md</code> so Cline, Kilo Code, and CLI agents never drift out of sync.
+  </div>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 7: BYOK & LOCAL MODEL ROUTING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; BYOK &amp; Local Model Economics</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">BYOK Multi-Provider &amp; Local Model Routing</h2>
+  <p class="page-lead">
+    Paying frontier reasoning rates for boilerplate edits burns budgets fast. Open VS Code agents let you assign a <strong>Frontier Planner</strong> to Plan/Architect mode and a <strong>Fast API or Local Ollama Coder</strong> to Act/Code mode&mdash;cutting daily spend by 60&ndash;85% while keeping architectural rigor intact.
+  </p>
+
+  <h3>Provider Routing Matrix</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:18%;">Provider</th>
+        <th style="width:23%;">Strengths &amp; Compliance</th>
+        <th style="width:23%;">Prompt Caching &amp; Cost</th>
+        <th style="width:36%;">Recommended Role in VS Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>OpenRouter</strong></td>
+        <td>Single API key for 300+ models; automatic fallback routing &amp; zero-data-retention (ZDR) filter.</td>
+        <td>Passes through Anthropic/DeepSeek/Gemini caching; pay exact provider rates + small routing fee.</td>
+        <td>Best all-in-one BYOK hub for switching between Claude, GPT-5, Gemini, and open-weight coders.</td>
+      </tr>
+      <tr>
+        <td><strong>AWS Bedrock &amp; Vertex AI</strong></td>
+        <td>IAM / ADC auth, VPC private endpoints, SOC2/HIPAA/BAA, zero training on prompts.</td>
+        <td>Native prompt caching on Claude &amp; Gemini; billed directly to existing cloud commit.</td>
+        <td>Enterprise default for regulated codebases; configure via AWS Profile or <code>gcloud</code> credentials.</td>
+      </tr>
+      <tr>
+        <td><strong>Ollama / LM Studio</strong></td>
+        <td>100% offline local inference on Apple Silicon (M3/M4 Max) or RTX 4090/5090 GPUs.</td>
+        <td><strong>$0.00 marginal token cost</strong>; KV-cache reuse across consecutive turns.</td>
+        <td>Private Act/Code execution, Ask mode Q&amp;A, and offline travel coding with 22B&ndash;70B tool-calling models.</td>
+      </tr>
+      <tr>
+        <td><strong>Direct Anthropic / OpenAI / DeepSeek</strong></td>
+        <td>Lowest latency, earliest access to new thinking budgets &amp; native structured tool calls.</td>
+        <td>Up to <strong>90% discount</strong> on cached system prompts &amp; repo context reads.</td>
+        <td>High-precision Plan/Architect &amp; Debug modes where 1-shot accuracy beats cheaper retries.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The Dual-Model Playbook (How to Cut Agent Spend by ~75%)</h3>
+  <div class="grid-2">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Tiered Mode Assignment</div>
+      <ul style="font-size:8.1pt; margin:3px 0 0 0;">
+        <li><strong>Plan / Architect / Debug:</strong> Frontier model (e.g., Claude Sonnet/Opus, GPT-5, Gemini Pro) to analyze architecture, catch edge cases, and write crisp diffs.</li>
+        <li><strong>Act / Code / Test-Writer:</strong> High-throughput value coder (DeepSeek-V3/R1, Qwen3-Coder via OpenRouter, or local Ollama <code>qwen3-coder:30b</code>).</li>
+        <li><strong>Ask / Commit / Docs:</strong> Ultra-fast mini/flash or local 14B model.</li>
+      </ul>
+    </div>
+    <div class="card-dark">
+      <div class="card-title"><span class="num-badge amber">2</span> Local Ollama Setup for Reliable Tool Calls</div>
+      <pre class="code-block" style="margin:3px 0 0 0; border-color:#7c3aed; font-size:7pt;"><code># 1. Pull a tool-calling coder (&gt;=22B recommended)
+ollama pull qwen3-coder:30b
+
+# 2. Override default 4k context (CRITICAL for agents!)
+OLLAMA_CONTEXT_LENGTH=32768 OLLAMA_FLASH_ATTENTION=1 \
+  OLLAMA_KV_CACHE_TYPE=q8_0 ollama serve
+
+# 3. In Cline/Kilo Provider Settings:
+# Provider: Ollama | Base URL: http://localhost:11434
+# Context Window: 32768 | Diff Strategy: Search/Replace</code></pre>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:7px;">
+    <div class="callout-title">Prompt Caching Golden Rule: Never Churn System Prompts Mid-Task</div>
+    Anthropic, Gemini, and DeepSeek prompt caches drop to 0% hit rate whenever the prefix changes. Avoid toggling MCP servers or editing <code>.clinerules/</code> mid-conversation, and keep active MCP tool schemas lean (&le;25 tools total) so your static prefix stays cached for 5&ndash;60 minutes at a 75&ndash;90% input discount.
+  </div>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 7 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 8: CHECKPOINTS, BROWSER USE & MCP ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Checkpoints, Browser Use &amp; MCP</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">Shadow Checkpoints, Headless Browser &amp; MCP Tools</h2>
+  <p class="page-lead">
+    Three open-agent superpowers turn VS Code into a self-verifying engineering loop: <strong>Shadow Git Checkpoints</strong> for fearless rollback, <strong>Headless Browser Use</strong> for visual/DOM QA, and <strong>Model Context Protocol (MCP)</strong> for live external tools.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="Isometric illustration of a reversible violet and teal checkpoint timeline rail connected to a frosted-glass browser verification sandbox with three glowing MCP cables" />
+    <div class="figure-caption">
+      <strong>Reversible Closed-Loop Verification:</strong> Shadow Git captures every intermediate state in VS Code global storage while the agent inspects live DOM renders and queries MCP servers&mdash;letting you branch or rewind without touching your real Git history.
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Shadow Git Checkpoints</div>
+      <p style="font-size:7.95pt; margin:0 0 4px 0;">Stored inside VS Code's global storage (separate from your repo's <code>.git</code>). Every tool execution creates an atomic snapshot.</p>
+      <ul style="font-size:7.75pt; margin:0; padding-left:15px;">
+        <li><strong>Compare:</strong> Multi-file VS Code diff vs. workspace.</li>
+        <li><strong>Restore Files &amp; Task:</strong> Full rewind to retry cleanly.</li>
+        <li><strong>Restore Task Only:</strong> Keep code, rephrase prompt.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">2</span> Headless Browser Use</div>
+      <p style="font-size:7.95pt; margin:0 0 4px 0;">Launches local Chromium to load <code>localhost:3000</code>, click UI flows, capture screenshots, and stream console/network errors back to the agent.</p>
+      <ul style="font-size:7.75pt; margin:0; padding-left:15px;">
+        <li>Catches CSS regressions &amp; hydration errors automatically.</li>
+        <li>Restrict to <code>localhost</code> / staging to block prompt injection.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> MCP Marketplace &amp; Servers</div>
+      <p style="font-size:7.95pt; margin:0 0 4px 0;">Connects stdio or Streamable HTTP/SSE servers directly to Cline, Roo, or Kilo&mdash;giving the agent structured tools instead of brittle bash scraping.</p>
+      <ul style="font-size:7.75pt; margin:0; padding-left:15px;">
+        <li><strong>High-ROI Servers:</strong> Context7 docs, GitHub, Postgres (RO), Sentry, Playwright.</li>
+        <li>Disable unused servers per workspace to save context tokens.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout magenta" style="margin-top:7px;">
+    <div class="callout-title">Monorepo Performance Tip: Exclude Build Artifacts from Shadow Git</div>
+    In giant monorepos (50k+ files), Shadow Git checkpoint initialization can slow down or time out if untracked build directories are scanned. Ensure <code>node_modules/</code>, <code>dist/</code>, <code>.next/</code>, and <code>target/</code> are in <code>.gitignore</code>, or disable Checkpoints in Feature Settings and rely on lightweight <code>git stash</code> / worktrees for multi-gigabyte repos.
+  </div>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 8 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; Production Copy-Paste Recipes</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">5 Battle-Tested <code>.roomodes</code>, <code>.clinerules</code> &amp; MCP Recipes</h2>
+  <p class="page-lead">
+    Drop these verified, minimal configurations straight into your repository root to unlock file-locked custom modes, strict coding standards, and read-only MCP database/docs tooling on day one.
+  </p>
+
+  <table class="clean-table" style="margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:22%;">Recipe</th>
+        <th style="width:26%;">Target File Path</th>
+        <th style="width:52%;">What It Enforces</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Docs-Only Architect</strong></td>
+        <td><code>.roomodes</code></td>
+        <td>Blocks all source code edits via <code>fileRegex: "\\.md$"</code> so planning never mutates <code>src/</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Strict TS + Test Gate</strong></td>
+        <td><code>.clinerules/01-stack.md</code></td>
+        <td>Forces strict TypeScript, zero <code>any</code>, and mandatory <code>pnpm test</code> before task completion.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Boomerang Epic Prompt</strong></td>
+        <td>Orchestrator chat input</td>
+        <td>Splits a feature into Architect &rarr; Code &rarr; QA sub-tasks with clean context handoffs.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Read-Only MCP Stack</strong></td>
+        <td><code>cline_mcp_settings.json</code></td>
+        <td>Wires Context7 live docs + read-only Postgres with auto-approved read tools only.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Secret &amp; Artifact Shield</strong></td>
+        <td><code>.clineignore</code> / <code>.rooignore</code></td>
+        <td>Hides <code>.env*</code>, PEM keys, lockfiles, and build folders from context indexing.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:9px;">
+    <div>
+      <h3 style="margin-top:2px;">Recipe 1 &amp; 2: <code>.roomodes</code> + <code>.clinerules/01-stack.md</code></h3>
+      <pre class="code-block"><code># .roomodes (Roo Code / Kilo Code)
+customModes:
+  - slug: spec-architect
+    name: "Spec Architect"
+    roleDefinition: "Draft concise RFCs and file plans."
+    groups:
+      - read
+      - - edit
+        - fileRegex: "\\.md$"
+          description: "Markdown specs only"
+    customInstructions: "List exact files &amp; test cases."</code></pre>
+      <pre class="code-block"><code># .clinerules/01-stack.md
+- Runtime: Node 22, TypeScript 5.8 (strict, zero `any`).
+- Package manager: `pnpm` only (never run `npm install`).
+- Verification: Before `attempt_completion`, run:
+  `pnpm typecheck &amp;&amp; pnpm vitest run &lt;touched-tests&gt;`.
+- Diffs: Keep functions &lt;50 lines; never touch `.env*`.</code></pre>
+    </div>
+
+    <div>
+      <h3 style="margin-top:2px;">Recipe 4 &amp; 5: MCP Settings + Ignore Shield</h3>
+      <pre class="code-block"><code>// cline_mcp_settings.json (or .roo/mcp.json)
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "autoApprove": ["resolve-library-id", "get-library-docs"]
+    },
+    "postgres-ro": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres",
+               "postgresql://ro_user@localhost:5432/app"]
+    }
+  }
+}</code></pre>
+      <pre class="code-block"><code># .clineignore / .rooignore
+.env*
+**/*.pem
+**/*.key
+dist/
+coverage/
+pnpm-lock.yaml</code></pre>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:2px;">
+    <div class="callout-title">Recipe 3 &bull; Copy-Paste Boomerang Orchestrator Starter Prompt</div>
+    <code>"In Orchestrator mode, break OAuth2 PKCE login into 3 sequential subtasks: (1) dispatch spec-architect to write docs/pkce-plan.md; (2) dispatch code to implement src/auth/pkce.ts strictly per the plan; (3) dispatch test-writer to add Vitest + Playwright tests and confirm exit 0. Return a final diff summary."</code>
+  </div>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 9 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 10: SECURITY, GUARDRAILS & COST CAPS ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Security, Guardrails &amp; Cost Governance</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">Auto-Approve Guardrails, Secrets &amp; Hard Cost Caps</h2>
+  <p class="page-lead">
+    An autonomous VS Code agent runs with your local OS user permissions. Treat it like a fast junior contractor: grant read-only velocity by default, sandbox mutations, and cap every task's blast radius and dollar spend.
+  </p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge">1</span> Recommended Auto-Approve Baseline</div>
+      <table class="clean-table" style="margin:4px 0 0 0; font-size:7.8pt;">
+        <thead>
+          <tr><th>Action Category</th><th>Workstation</th><th>Dev Container / VM</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Read workspace files</td><td><strong>Auto</strong></td><td><strong>Auto</strong></td></tr>
+          <tr><td>Read outside workspace</td><td>Prompt</td><td>Prompt</td></tr>
+          <tr><td>Edit workspace files</td><td>Prompt (or Auto + Checkpoints)</td><td><strong>Auto</strong></td></tr>
+          <tr><td>Execute safe commands</td><td>Allowlist only</td><td><strong>Auto</strong></td></tr>
+          <tr><td>Execute arbitrary shell</td><td><strong>NEVER Auto</strong></td><td>Prompt / Allowlist</td></tr>
+          <tr><td>Headless Browser / MCP write</td><td>Prompt</td><td>Localhost only</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge magenta">2</span> Safe Shell Command Allowlist</div>
+      <p style="font-size:8pt; margin-bottom:4px;">Whitelist deterministic, non-destructive verification commands so the agent can iterate on tests without triggering destructive shell calls:</p>
+      <pre class="code-block" style="margin:2px 0 5px 0; font-size:7pt;"><code># Safe Auto-Approve Prefixes (Roo / Kilo / Cline)
+pnpm test, pnpm vitest, pnpm typecheck, pnpm lint
+pytest, go test, cargo test, git status, git diff
+
+# Always Denied / Prompt-Required
+rm -rf, curl | sh, git push --force, chmod, sudo</code></pre>
+      <p style="font-size:7.8pt; margin:0; color:#475569;"><strong>Note:</strong> In Cline, updating <code>Max Requests</code> applies cleanly on the <em>next</em> task&mdash;close and reopen the task if you tighten limits mid-session.</p>
+    </div>
+  </div>
+
+  <h3>Four Hard Defense-in-Depth Layers</h3>
+  <div class="grid-2" style="gap:9px;">
+    <div class="card-teal">
+      <div class="card-title"><span class="num-badge teal">3</span> Secret Hygiene &amp; Hook-Level Blocking</div>
+      <p style="font-size:8pt; margin:0;">Store API keys exclusively in <strong>VS Code Secret Storage</strong> (never commit keys to <code>.vscode/settings.json</code>). Use <code>.clineignore</code> / <code>.rooignore</code> for context filtering, and pair with pre-tool-call hooks or Dev Container bind-mount exclusions to hard-block reads of <code>~/.ssh</code>, <code>~/.aws</code>, and <code>.env.production</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">4</span> Per-Task Dollar &amp; Request Ceilings</div>
+      <p style="font-size:8pt; margin:0;">Set two safety valves: (a) <strong>IDE-side</strong> Max Auto-Approved Requests (15&ndash;25) and Max Cost per Task ($1.00&ndash;$2.50); and (b) <strong>Provider-side</strong> hard monthly key limits in OpenRouter, Anthropic, or AWS Budgets so a stuck retry loop can never burn an uncapped card.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge rose">5</span> Browser &amp; MCP Prompt-Injection Defense</div>
+      <p style="font-size:8pt; margin:0;">Any third-party web page or untrusted GitHub issue fetched via Browser Use or MCP can embed hidden instructions. Disable Browser Use on sensitive repos, restrict MCP database credentials to <code>READ ONLY</code> roles, and require manual approval for every external write tool.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge indigo">6</span> Zero-Telemetry &amp; ZDR Verification</div>
+      <p style="font-size:8pt; margin:0;">Disable extension telemetry in VS Code settings, toggle <strong>Zero Data Retention (ZDR)</strong> in OpenRouter provider routing (or route via Bedrock/Vertex VPC), and audit open-source extension updates before auto-updating in regulated environments.</p>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 10 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; End-to-End Engineering Workflow</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">Cross-Tool Synergy: Local + Cloud Agent Pipeline</h2>
+  <p class="page-lead">
+    Combine local Ollama speed, OpenRouter frontier reasoning, Roo/Kilo Orchestration (or Cline Plan/Act), MCP live docs, and Shadow Git Checkpoints into a repeatable four-stage feature delivery pipeline inside standard VS Code.
+  </p>
+
+  <div class="figure-box" style="background:#120b24; padding:10px 11px; border-color:#5b21b6;">
+    <svg viewBox="0 0 700 164" width="100%" height="164" xmlns="http://www.w3.org/2000/svg">
+      <!-- Phase 1 -->
+      <rect x="6" y="12" width="154" height="140" rx="9" fill="#1b1136" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="83" y="30" text-anchor="middle" fill="#fde68a" font-size="7.3" font-weight="700">PHASE 1 &bull; SPEC</text>
+      <text x="83" y="46" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">OpenRouter Planner</text>
+      <rect x="16" y="57" width="134" height="36" rx="5" fill="#2a1d14" stroke="#d97706" stroke-width="0.9"/>
+      <text x="83" y="72" text-anchor="middle" fill="#fef3c7" font-size="7.1" font-weight="700">Plan / Spec-Architect</text>
+      <text x="83" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Context7 MCP pulls live docs</text>
+      <rect x="16" y="100" width="134" height="40" rx="5" fill="#2a1d14" stroke="#f59e0b" stroke-width="0.9"/>
+      <text x="83" y="116" text-anchor="middle" fill="#fef3c7" font-size="7.1" font-weight="700">Output: plan.md</text>
+      <text x="83" y="129" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Zero src/ edits; human sign-off</text>
+
+      <path d="M160 82 L178 82" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="176,77 184,82 176,87" fill="#fbbf24"/>
+
+      <!-- Phase 2 -->
+      <rect x="185" y="12" width="156" height="140" rx="9" fill="#1b1136" stroke="#c084fc" stroke-width="1.5"/>
+      <text x="263" y="30" text-anchor="middle" fill="#e9d5ff" font-size="7.3" font-weight="700">PHASE 2 &bull; BUILD</text>
+      <text x="263" y="46" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Boomerang / Act</text>
+      <rect x="195" y="57" width="136" height="36" rx="5" fill="#27174d" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="263" y="72" text-anchor="middle" fill="#f5d0fe" font-size="7.1" font-weight="700">Ollama / Value Coder</text>
+      <text x="263" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Isolated child context window</text>
+      <rect x="195" y="100" width="136" height="40" rx="5" fill="#27174d" stroke="#c026d3" stroke-width="0.9"/>
+      <text x="263" y="116" text-anchor="middle" fill="#f5d0fe" font-size="7.1" font-weight="700">Continue FIM Assist</text>
+      <text x="263" y="129" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Instant local Tab tweaks inline</text>
+
+      <path d="M341 82 L359 82" stroke="#c084fc" stroke-width="2"/>
+      <polygon points="357,77 365,82 357,87" fill="#c084fc"/>
+
+      <!-- Phase 3 -->
+      <rect x="366" y="12" width="156" height="140" rx="9" fill="#10252a" stroke="#2dd4bf" stroke-width="1.6"/>
+      <text x="444" y="30" text-anchor="middle" fill="#99f6e4" font-size="7.3" font-weight="700">PHASE 3 &bull; VERIFY</text>
+      <text x="444" y="46" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">MCP &amp; Browser QA</text>
+      <rect x="376" y="57" width="136" height="36" rx="5" fill="#0d3133" stroke="#0d9488" stroke-width="0.9"/>
+      <text x="444" y="72" text-anchor="middle" fill="#ccfbf1" font-size="7.1" font-weight="700">Test-Writer + Shell</text>
+      <text x="444" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Vitest + typecheck exit 0</text>
+      <rect x="376" y="100" width="136" height="40" rx="5" fill="#0d3133" stroke="#14b8a6" stroke-width="0.9"/>
+      <text x="444" y="116" text-anchor="middle" fill="#ccfbf1" font-size="7.1" font-weight="700">Headless Browser Check</text>
+      <text x="444" y="129" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Visual render + 0 console errs</text>
+
+      <path d="M522 82 L540 82" stroke="#2dd4bf" stroke-width="2"/>
+      <polygon points="538,77 546,82 538,87" fill="#2dd4bf"/>
+
+      <!-- Phase 4 -->
+      <rect x="547" y="12" width="147" height="140" rx="9" fill="#221133" stroke="#e879f9" stroke-width="1.6"/>
+      <text x="620" y="30" text-anchor="middle" fill="#f5d0fe" font-size="7.3" font-weight="700">PHASE 4 &bull; SHIP</text>
+      <text x="620" y="46" text-anchor="middle" fill="#ffffff" font-size="9.2" font-weight="800">Checkpoint &rarr; PR</text>
+      <rect x="557" y="57" width="127" height="36" rx="5" fill="#32164a" stroke="#c026d3" stroke-width="0.9"/>
+      <text x="620" y="72" text-anchor="middle" fill="#fae8ff" font-size="7.1" font-weight="700">Compare Diff Audit</text>
+      <text x="620" y="84" text-anchor="middle" fill="#e2e8f0" font-size="6.5">Rewind any stray file edits</text>
+      <rect x="557" y="100" width="127" height="40" rx="5" fill="#32164a" stroke="#e879f9" stroke-width="0.9"/>
+      <text x="620" y="116" text-anchor="middle" fill="#fae8ff" font-size="7.1" font-weight="700">GitHub MCP / gh PR</text>
+      <text x="620" y="129" text-anchor="middle" fill="#e2e8f0" font-size="6.5">Clean commit + test evidence</text>
+    </svg>
+  </div>
+
+  <h3>Concrete 15-Minute Feature Runbook</h3>
+  <div class="grid-2" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge amber">1</span> Ground &amp; Plan (~$0.05)</div>
+      <p style="font-size:8.05pt; margin:0 0 5px 0;">Start in <strong>Plan</strong> or <strong>Spec-Architect</strong> mode with a Frontier model. Mention <code>@file</code> for the 2&ndash;3 entry points and ask Context7 MCP for current framework APIs. Approve the written plan before any source edit occurs.</p>
+      <div class="card-title"><span class="num-badge">2</span> Execute in Clean Sub-Tasks (~$0.04 or $0 Local)</div>
+      <p style="font-size:8.05pt; margin:0;">Switch to <strong>Act</strong> (or let <strong>Orchestrator</strong> boomerang to <code>code</code>) using a fast OpenRouter coder or local Ollama <code>qwen3-coder:30b</code>. Keep Shadow Checkpoints active so every file batch is reversible.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge teal">3</span> Closed-Loop Test &amp; DOM Check (~$0.03)</div>
+      <p style="font-size:8.05pt; margin:0 0 5px 0;">Dispatch <code>test-writer</code> (locked via <code>fileRegex</code> to <code>*.test.ts</code>) to run allowlisted <code>pnpm vitest</code> and, for UI routes, let Headless Browser verify zero console errors on <code>localhost</code>.</p>
+      <div class="card-title"><span class="num-badge magenta">4</span> Audit, Squash &amp; Open PR</div>
+      <p style="font-size:8.05pt; margin:0;">Click <strong>Compare</strong> on the final Shadow Checkpoint to review every line in VS Code's native diff viewer. Stage only intentional hunks, commit cleanly, and push your PR with zero vendor metadata attached.</p>
+    </div>
+  </div>
+
+  <div class="callout teal" style="margin-top:7px;">
+    <div class="callout-title">Real-World Economics: Flat $200/mo Subscription vs. Tiered Open BYOK</div>
+    A typical 40-turn feature built via tiered BYOK (Frontier Plan + Value/Local Act + 80% prompt caching) averages <strong>$0.12&ndash;$0.35 per feature</strong>&mdash;roughly $15&ndash;$40/month for heavy daily engineering, with full model choice and zero rate-limit lockouts.
+  </div>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 11 of 12</span></div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING & PRE-FLIGHT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Pre-Flight</span>
+    <span>Cline, Roo Code &amp; Open VS Code Agents</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight</h2>
+  <p class="page-lead">
+    Diagnose the seven most common open-agent failure modes in seconds, then run the 6-point pre-flight checklist before handing any multi-file refactor to an autonomous VS Code agent.
+  </p>
+
+  <table class="clean-table" style="margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Symptom</th>
+        <th style="width:30%;">Root Cause</th>
+        <th style="width:46%;">Exact Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Diff / Search-Replace Loops</strong></td>
+        <td>Model hallucinates stale line numbers or small local model (&lt;22B) botches patch formatting.</td>
+        <td>Switch to <code>Search/Replace</code> diff strategy, upgrade local coder to &ge;30B, or restore last Checkpoint and re-pin <code>@file</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Ollama Cuts Off / Forgets Rules</strong></td>
+        <td>Ollama defaults to a 4,096-token context window, truncating system prompts and tool schemas.</td>
+        <td>Set <code>OLLAMA_CONTEXT_LENGTH=32768</code> (or Modelfile <code>num_ctx 32768</code>) and match Context Window in extension settings.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Runaway Token / Dollar Burn</strong></td>
+        <td>Unbounded single thread &gt;100k tokens with repeated failed test retries and cold prompt cache.</td>
+        <td>Trigger Context Condensation or Boomerang a fresh subtask; cap <code>Max Requests = 15</code> and set a provider key limit.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Shadow Git Hangs / <code>.git_disabled</code></strong></td>
+        <td>Massive untracked artifacts (<code>node_modules</code>, <code>target/</code>) choke Shadow Git snapshot init.</td>
+        <td>Add build folders to <code>.gitignore</code>; if stuck, disable Checkpoints in Feature Settings and rename <code>.git_disabled</code> back to <code>.git</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. <code>.roomodes</code> Schema Error</strong></td>
+        <td>Using legacy <code>allowedPaths</code> array instead of the tuple <code>["edit", { fileRegex }]</code> syntax.</td>
+        <td>Use the exact tuple format shown on Page 6 and ensure <code>slug</code> is kebab-case with <code>roleDefinition &ge; 10</code> chars.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Shell Output Invisible to Agent</strong></td>
+        <td>VS Code Terminal Shell Integration is disabled or broken by custom Zsh/Fish prompt themes.</td>
+        <td>Enable <code>terminal.integrated.shellIntegration.enabled</code> and add a minimal fallback prompt when <code>$TERM_PROGRAM == "vscode"</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>7. MCP Server Fails or Bloats Context</strong></td>
+        <td>Missing <code>npx</code> PATH in GUI VS Code, or 50+ MCP tools eating 15k tokens on every turn.</td>
+        <td>Use absolute Node binary paths in <code>mcp_settings.json</code> and toggle off unused MCP servers per workspace.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Autonomous Runs</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Clean Git Working Tree:</strong> Commit or stash WIP changes so Shadow Checkpoints and <code>git diff</code> stay crystal clear.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Dual-Model Profile Active:</strong> Confirm Frontier model is bound to <code>Plan/Architect</code> and Value/Local model to <code>Act/Code</code>.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Ignore &amp; Secret Shield Verified:</strong> <code>.clineignore</code> / <code>.rooignore</code> blocks <code>.env*</code>, keys, and lockfiles; API keys live in VS Code Secret Storage.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Auto-Approve &amp; Cost Caps Set:</strong> Arbitrary shell &amp; external writes require prompt; <code>Max Requests</code> (&le;20) and provider budget caps are active.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Lean Rules &amp; MCP Footprint:</strong> Workspace rules under ~1,200 tokens and only 2&ndash;4 task-relevant MCP servers enabled to maximize prompt caching.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&#10003;</span>
+      <div><strong>Deterministic Verification Command:</strong> Your prompt or rules name the exact test/typecheck command the agent must pass before completion.</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Cline, Roo Code &amp; Open-Source VS Code Agents &bull; Complete How-To Guide</span><span class="page-num">Page 12 of 12</span></div>
+</section>
+
+</body>
+</html>

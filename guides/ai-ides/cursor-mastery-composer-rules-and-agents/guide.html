@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cursor Mastery: Composer, Rules &amp; Background Agents — The Complete How-To Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand-pill">AI IDES &amp; AGENTIC WORKFLOWS &bull; FIELD GUIDE</div>
+    <h1>Cursor Mastery: <span>Composer, Rules &amp; Background Agents</span></h1>
+    <p class="cover-sub">
+      Ship faster in Cursor with Agent/Composer workflows, scoped <code>.cursor/rules/</code> &amp; <code>AGENTS.md</code>, Cloud (Background) Agents, parallel Git worktrees, Bugbot PR reviews, MCP servers, and multi-model cost control.
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">Agent &amp; Composer 2.5</span>
+      <span class="cover-badge">.cursor/rules/*.mdc</span>
+      <span class="cover-badge">Cloud Agents &amp; Worktrees</span>
+      <span class="cover-badge">Bugbot PR Review</span>
+      <span class="cover-badge">.cursor/mcp.json</span>
+      <span class="cover-badge">Privacy &amp; Cost Control</span>
+    </div>
+  </div>
+
+  <div class="cover-hero-wrap">
+    <img src="assets/hero_cover.jpg" alt="Isometric futuristic software engineering command center with glowing electric blue and violet geometric code diff pathways converging on a central prism" />
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="cover-stat-title">Agent-First Execution</div>
+      <div class="cover-stat-desc">Move cleanly from Tab autocomplete to Plan Mode, Composer multi-file edits, parallel Git worktrees, and async Cloud Agents.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Deterministic Context</div>
+      <div class="cover-stat-desc">Scope <code>.cursor/rules/*.mdc</code> by glob, keep <code>AGENTS.md</code> portable across IDEs, and wire live Figma, Linear, and Supabase MCPs.</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-title">Enterprise Guardrails</div>
+      <div class="cover-stat-desc">Enforce Privacy Mode, <code>.cursorignore</code>, Bugbot PR gates, sandboxed CLI allowlists, and weekly pool vs. API spend budgets.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: FOUNDATIONS & MENTAL MODEL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">01 &bull; Foundations &amp; Agent-First Mental Model</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">The Cursor Autonomy Ladder: From Keystrokes to Cloud Agents</h2>
+  <p class="page-lead">
+    Modern Cursor (v2.x&ndash;3.x) is no longer just an autocomplete editor&mdash;it is an <strong>agent-first development environment</strong> with a dedicated Agents Window, Composer 2.5 fast reasoning, local Git worktree parallelism, remote Cloud Agents, and automated Bugbot PR reviews. Mastery means matching each task to the lowest-friction autonomy rung.
+  </p>
+
+  <h3>Quick Navigation</h3>
+  <div class="toc-list">
+    <div class="toc-item"><span><strong>1. Mental Model: The 5-Rung Autonomy Ladder</strong></span><span class="toc-pg">p. 2</span></div>
+    <div class="toc-item"><span><strong>7. Bugbot PR Reviews &amp; .cursor/mcp.json</strong></span><span class="toc-pg">p. 8</span></div>
+    <div class="toc-item"><span><strong>2. Mode, Model &amp; Late-2026 Plan Matrix</strong></span><span class="toc-pg">p. 3</span></div>
+    <div class="toc-item"><span><strong>8. 5 Copy-Paste Rules, Prompts &amp; MCPs</strong></span><span class="toc-pg">p. 9</span></div>
+    <div class="toc-item"><span><strong>3. Annotated 7-Control Agent HUD Tour</strong></span><span class="toc-pg">p. 4</span></div>
+    <div class="toc-item"><span><strong>9. Privacy Mode, Governance &amp; Spend</strong></span><span class="toc-pg">p. 10</span></div>
+    <div class="toc-item"><span><strong>4. Scoped .mdc Rules, AGENTS.md &amp; Context</strong></span><span class="toc-pg">p. 5</span></div>
+    <div class="toc-item"><span><strong>10. Cross-Tool Synergy Pipeline</strong></span><span class="toc-pg">p. 11</span></div>
+    <div class="toc-item"><span><strong>5. Anatomy of a High-Precision Rule &amp; Prompt</strong></span><span class="toc-pg">p. 6</span></div>
+    <div class="toc-item"><span><strong>11. Troubleshooting Clinic &amp; Pre-Flight</strong></span><span class="toc-pg">p. 12</span></div>
+    <div class="toc-item"><span><strong>6. Cloud Agents, Worktrees &amp; Cursor CLI</strong></span><span class="toc-pg">p. 7</span></div>
+    <div class="toc-item"><span><strong>Core Rule: Plan First, Scope Tight, Verify</strong></span><span class="toc-pg">All</span></div>
+  </div>
+
+  <h3>The 5-Rung Cursor Execution Pipeline</h3>
+  <p style="font-size:8.5pt;">
+    High-velocity engineers escalate up the ladder only when scope demands it&mdash;avoiding slow agent loops for single-line edits and avoiding manual edits for multi-file refactors or repetitive bug fixes:
+  </p>
+
+  <div class="figure-box" style="background:#0b1020; padding:9px 10px; border-color:#3730a3;">
+    <svg viewBox="0 0 700 170" width="100%" height="170" xmlns="http://www.w3.org/2000/svg">
+      <!-- Rung 1: Tab -->
+      <rect x="4" y="12" width="124" height="146" rx="8" fill="#111830" stroke="#38bdf8" stroke-width="1.4"/>
+      <text x="66" y="29" text-anchor="middle" fill="#7dd3fc" font-size="7.2" font-weight="700">RUNG 1 &bull; MS</text>
+      <text x="66" y="45" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Tab Autocomplete</text>
+      <rect x="13" y="55" width="106" height="42" rx="5" fill="#172344" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="66" y="71" text-anchor="middle" fill="#e0f2fe" font-size="7.1" font-weight="700">Next-Edit Predict</text>
+      <text x="66" y="84" text-anchor="middle" fill="#94a3b8" font-size="6.5">Multi-line cursor jumps</text>
+      <rect x="13" y="104" width="106" height="44" rx="5" fill="#172344" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="66" y="120" text-anchor="middle" fill="#e0f2fe" font-size="7.1" font-weight="700">Best For</text>
+      <text x="66" y="133" text-anchor="middle" fill="#94a3b8" font-size="6.5">Flow-state boilerplate</text>
+
+      <path d="M128 85 L142 85" stroke="#38bdf8" stroke-width="1.8"/>
+      <polygon points="140,81 147,85 140,89" fill="#38bdf8"/>
+
+      <!-- Rung 2: Inline Cmd+K -->
+      <rect x="148" y="12" width="124" height="146" rx="8" fill="#111830" stroke="#60a5fa" stroke-width="1.4"/>
+      <text x="210" y="29" text-anchor="middle" fill="#93c5fd" font-size="7.2" font-weight="700">RUNG 2 &bull; SECS</text>
+      <text x="210" y="45" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Inline Cmd+K</text>
+      <rect x="157" y="55" width="106" height="42" rx="5" fill="#172344" stroke="#2563eb" stroke-width="0.9"/>
+      <text x="210" y="71" text-anchor="middle" fill="#dbeafe" font-size="7.1" font-weight="700">Surgical Diffs</text>
+      <text x="210" y="84" text-anchor="middle" fill="#94a3b8" font-size="6.5">Selected block / terminal</text>
+      <rect x="157" y="104" width="106" height="44" rx="5" fill="#172344" stroke="#60a5fa" stroke-width="0.9"/>
+      <text x="210" y="120" text-anchor="middle" fill="#dbeafe" font-size="7.1" font-weight="700">Best For</text>
+      <text x="210" y="133" text-anchor="middle" fill="#94a3b8" font-size="6.5">Regex, types, local fixes</text>
+
+      <path d="M272 85 L286 85" stroke="#60a5fa" stroke-width="1.8"/>
+      <polygon points="284,81 291,85 284,89" fill="#60a5fa"/>
+
+      <!-- Rung 3: Agent / Composer -->
+      <rect x="292" y="12" width="128" height="146" rx="8" fill="#151b3d" stroke="#818cf8" stroke-width="1.6"/>
+      <text x="356" y="29" text-anchor="middle" fill="#c7d2fe" font-size="7.2" font-weight="700">RUNG 3 &bull; MINS</text>
+      <text x="356" y="45" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Agent / Composer</text>
+      <rect x="301" y="55" width="110" height="42" rx="5" fill="#1e2654" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="356" y="71" text-anchor="middle" fill="#e0e7ff" font-size="7.1" font-weight="700">Multi-File + Tools</text>
+      <text x="356" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Plan, edit, run tests, MCP</text>
+      <rect x="301" y="104" width="110" height="44" rx="5" fill="#1e2654" stroke="#818cf8" stroke-width="0.9"/>
+      <text x="356" y="120" text-anchor="middle" fill="#e0e7ff" font-size="7.1" font-weight="700">Best For</text>
+      <text x="356" y="133" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Features &amp; worktrees</text>
+
+      <path d="M420 85 L434 85" stroke="#a78bfa" stroke-width="1.8"/>
+      <polygon points="432,81 439,85 432,89" fill="#a78bfa"/>
+
+      <!-- Rung 4: Cloud Agents -->
+      <rect x="440" y="12" width="124" height="146" rx="8" fill="#18173a" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="502" y="29" text-anchor="middle" fill="#ddd6fe" font-size="7.2" font-weight="700">RUNG 4 &bull; ASYNC</text>
+      <text x="502" y="45" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Cloud Agents</text>
+      <rect x="449" y="55" width="106" height="42" rx="5" fill="#252052" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="502" y="71" text-anchor="middle" fill="#ede9fe" font-size="7.1" font-weight="700">Remote Isolated VM</text>
+      <text x="502" y="84" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Multi-repo, Slack/Linear</text>
+      <rect x="449" y="104" width="106" height="44" rx="5" fill="#252052" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="502" y="120" text-anchor="middle" fill="#ede9fe" font-size="7.1" font-weight="700">Best For</text>
+      <text x="502" y="133" text-anchor="middle" fill="#cbd5e1" font-size="6.5">Parallel PRs &amp; backlog</text>
+
+      <path d="M564 85 L578 85" stroke="#34d399" stroke-width="1.8"/>
+      <polygon points="576,81 583,85 576,89" fill="#34d399"/>
+
+      <!-- Rung 5: Bugbot -->
+      <rect x="584" y="12" width="112" height="146" rx="8" fill="#0d2228" stroke="#34d399" stroke-width="1.4"/>
+      <text x="640" y="29" text-anchor="middle" fill="#6ee7b7" font-size="7.2" font-weight="700">RUNG 5 &bull; GATE</text>
+      <text x="640" y="45" text-anchor="middle" fill="#ffffff" font-size="9.4" font-weight="800">Bugbot Review</text>
+      <rect x="593" y="55" width="94" height="42" rx="5" fill="#123036" stroke="#10b981" stroke-width="0.9"/>
+      <text x="640" y="71" text-anchor="middle" fill="#d1fae5" font-size="7.1" font-weight="700">PR Audit (~90s)</text>
+      <text x="640" y="84" text-anchor="middle" fill="#94a3b8" font-size="6.5">BUGBOT.md + Autofix</text>
+      <rect x="593" y="104" width="94" height="44" rx="5" fill="#123036" stroke="#34d399" stroke-width="0.9"/>
+      <text x="640" y="120" text-anchor="middle" fill="#d1fae5" font-size="7.1" font-weight="700">Best For</text>
+      <text x="640" y="133" text-anchor="middle" fill="#94a3b8" font-size="6.5">Logic &amp; security bugs</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="margin-top:5px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Why the Agent Harness Matters</div>
+      <p style="font-size:8.3pt; margin-bottom:0;">Cursor's agent harness combines three pillars: <strong>Instructions</strong> (<code>.cursor/rules/</code>, <code>AGENTS.md</code>), <strong>Tools</strong> (terminal, semantic search, browser, MCP), and <strong>Verification</strong> (tests, linters, Bugbot). Weak results almost always stem from missing rules or missing test loops&mdash;not a weak model.</p>
+    </div>
+    <div class="card-violet">
+      <div class="card-title"><span class="num-badge violet">2</span> Local vs. Cloud Agents (2026 Shift)</div>
+      <p style="font-size:8.3pt; margin-bottom:0;">Background Agents were renamed <strong>Cloud Agents</strong> and run in isolated remote VMs with full dev environments and multi-repo support. Keep interactive design work local (IDE + Git worktrees) and offload well-scoped bug fixes, test suites, and migrations to Cloud Agents.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:6px;">
+    <div class="callout-title">The 80/20 Rule of Cursor Mastery</div>
+    Start complex tasks in <strong>Plan Mode</strong> (<code>Shift+Tab</code>) so the agent clarifies edge cases and writes a markdown plan before touching code. Execute inside a <strong>Git worktree</strong> or <strong>Cloud Agent</strong>, verify with automated tests, and let <strong>Bugbot</strong> audit every PR before human review.
+  </div>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 2 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: MODE, MODEL & PLAN DECISION MATRIX ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">02 &bull; Mode, Model &amp; Plan Decision Matrix</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">Choosing the Right Mode, Model &amp; Late-2026 Plan</h2>
+  <p class="page-lead" style="margin-bottom:6px;">
+    Sending every prompt to a heavy reasoning model burns budget and slows iteration. Match Cursor's seven execution surfaces to the right model tier and late-2026 billing pool.
+  </p>
+
+  <h3 style="margin-top:4px;">Cursor Execution Modes Comparison</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:15%; padding:4px 7px;">Mode</th>
+        <th style="width:15%; padding:4px 7px;">Trigger</th>
+        <th style="width:26%; padding:4px 7px;">Capabilities &amp; Tools</th>
+        <th style="width:24%; padding:4px 7px;">Ideal Use Cases</th>
+        <th style="width:20%; padding:4px 7px;">Best Model</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Tab</strong></td>
+        <td style="padding:3.8px 7px;"><code>Tab</code> / <code>Esc</code></td>
+        <td style="padding:3.8px 7px;">Multi-line completion, next-edit jump, auto-imports.</td>
+        <td style="padding:3.8px 7px;">Active typing &amp; boilerplate in flow state.</td>
+        <td style="padding:3.8px 7px;">Cursor Tab (fast)</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Inline Edit</strong></td>
+        <td style="padding:3.8px 7px;"><code>Cmd+K</code></td>
+        <td style="padding:3.8px 7px;">Targeted diff on highlighted code or terminal prompt.</td>
+        <td style="padding:3.8px 7px;">Single-function edits, regex, SQL, types.</td>
+        <td style="padding:3.8px 7px;">Composer 2.5</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Ask</strong></td>
+        <td style="padding:3.8px 7px;"><code>Shift+Tab</code></td>
+        <td style="padding:3.8px 7px;">Read-only Q&amp;A with <code>@Codebase</code>, <code>@Docs</code>, <code>@Git</code>.</td>
+        <td style="padding:3.8px 7px;">Architecture discovery &amp; call-graph tracing.</td>
+        <td style="padding:3.8px 7px;">Composer 2.5 / Sonnet</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Plan</strong></td>
+        <td style="padding:3.8px 7px;"><code>Shift+Tab</code></td>
+        <td style="padding:3.8px 7px;">Clarifies edge cases &amp; writes editable plan before coding.</td>
+        <td style="padding:3.8px 7px;">Multi-file features, migrations, refactors.</td>
+        <td style="padding:3.8px 7px;">Frontier reasoning</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Agent / Composer</strong></td>
+        <td style="padding:3.8px 7px;"><code>Cmd+I</code></td>
+        <td style="padding:3.8px 7px;">Autonomous loop: multi-file edits, terminal, browser, MCP.</td>
+        <td style="padding:3.8px 7px;">End-to-end features &amp; test-driven bug fixes.</td>
+        <td style="padding:3.8px 7px;">Composer 2.5 / Router</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Cloud Agents</strong></td>
+        <td style="padding:3.8px 7px;"><code>&amp;</code> / Web / Slack</td>
+        <td style="padding:3.8px 7px;">Async remote isolated VM; multi-repo builds &amp; PRs.</td>
+        <td style="padding:3.8px 7px;">Backlog tickets, parallel runs, cross-repo PRs.</td>
+        <td style="padding:3.8px 7px;">Composer 2.5 / Frontier</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Bugbot</strong></td>
+        <td style="padding:3.8px 7px;">Auto / <code>bugbot run</code></td>
+        <td style="padding:3.8px 7px;">Automated PR audit via <code>.cursor/BUGBOT.md</code> + Autofix.</td>
+        <td style="padding:3.8px 7px;">Catching logic, race &amp; auth bugs pre-merge.</td>
+        <td style="padding:3.8px 7px;">Composer 2.5 (~90s)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:4px;">Late-2026 Cursor Plans &amp; Multi-Model Billing Reality (Nov 2026)</h3>
+  <table class="clean-table" style="font-size:7.65pt; margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:17%; padding:4px 7px;">Plan Tier</th>
+        <th style="width:18%; padding:4px 7px;">Price (Nov 2026)</th>
+        <th style="width:34%; padding:4px 7px;">Included Usage &amp; Features</th>
+        <th style="width:31%; padding:4px 7px;">Best Fit &amp; Cost Strategy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Free / Plus</strong></td>
+        <td style="padding:3.8px 7px;">$0 / $8 mo</td>
+        <td style="padding:3.8px 7px;">Limited AI (Free) or shared weekly pool (Plus) for Tab &amp; Agent.</td>
+        <td style="padding:3.8px 7px;">Evaluation, hobby repos, light Tab &amp; <code>Cmd+K</code>.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Premium</strong></td>
+        <td style="padding:3.8px 7px;">$30 / mo</td>
+        <td style="padding:3.8px 7px;">Weekly pool for Cursor models (Composer 2.5), Cloud Agents &amp; Automations.</td>
+        <td style="padding:3.8px 7px;">Daily solo devs running Composer 2.5 primarily.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Super / Ultra</strong></td>
+        <td style="padding:3.8px 7px;">$100 / $200 mo</td>
+        <td style="padding:3.8px 7px;">Expanded weekly pools for parallel worktrees, multi-agents &amp; Cloud Agents.</td>
+        <td style="padding:3.8px 7px;">Power users running concurrent agents &amp; Automations.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Teams / Enterprise</strong></td>
+        <td style="padding:3.8px 7px;">$30&ndash;$200/seat &bull; Custom</td>
+        <td style="padding:3.8px 7px;">Org Privacy Mode, Team Rules/MCPs, Cursor Router, SSO/SCIM, spend caps.</td>
+        <td style="padding:3.8px 7px;">Orgs requiring ZDR governance, audit logs &amp; Bugbot.</td>
+      </tr>
+      <tr>
+        <td style="padding:3.8px 7px;"><strong>Legacy Plans</strong></td>
+        <td style="padding:3.8px 7px;">Pro $20 &bull; Pro+ $60 &bull; Teams $40/$120</td>
+        <td style="padding:3.8px 7px;">Grandfathered monthly credit budgets for existing legacy subscribers only.</td>
+        <td style="padding:3.8px 7px;">Benchmark weekly Composer pool before switching.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber" style="padding:6.5px 10px; margin:4px 0; font-size:8.1pt;">
+    <div class="callout-title" style="font-size:8.5pt;">Critical Late-2026 Billing Shift: Weekly Cursor Pools vs. Third-Party API Metering</div>
+    On Cursor's late-2026 subscription family (sold alongside The X Subscription), paid tiers include a <strong>weekly usage pool</strong> for Cursor's native models (Composer 2.5 &amp; Cursor Router), whereas third-party frontier models (<strong>Claude, GPT, Gemini</strong>) are billed separately at API list prices from the first request. Use <strong>Composer 2.5</strong> for 85% of implementation loops and reserve third-party reasoning models strictly for <strong>Plan Mode</strong> and hard root-cause debugging.
+  </div>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 3 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: ANNOTATED INTERFACE TOUR ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">03 &bull; Annotated Interface Tour</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">7-Control HUD of the Cursor Agent Panel</h2>
+  <p class="page-lead">
+    Master these seven controls inside Cursor's Agents Window &amp; Composer panel to keep context razor-sharp, run isolated worktrees safely, and roll back bad edits in one click.
+  </p>
+
+  <!-- Mock UI Window -->
+  <div class="ui-window" style="margin-bottom:8px;">
+    <div class="ui-topbar">
+      <div class="ui-dots">
+        <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+        <span style="margin-left:8px; color:#cbd5e1; font-weight:700; font-size:7.6pt;">Cursor 3.x &mdash; Agents Window &bull; repo: acme-billing-api</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span class="hud-chip" style="background:#1e293b; color:#93c5fd; border:1px solid #3b82f6;">Worktree: feat/webhooks <span class="callout-pin" style="margin-left:3px;">4</span></span>
+        <span class="hud-chip" style="background:#1e1b4b; color:#c7d2fe; border:1px solid #6366f1;">Privacy: ZDR ON</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.05fr 1.25fr; gap:8px; padding:9px 10px;">
+      <!-- Left: Agent Chat & Prompt Composer -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card" style="border-color:#4f46e5;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="color:#a5b4fc; font-weight:700;">Active Rules &amp; Context Pills</span>
+            <span class="callout-pin">2</span>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:4px;">
+            <span class="hud-chip" style="background:#312e81; color:#e0e7ff;">@stripe-webhooks.mdc</span>
+            <span class="hud-chip" style="background:#1e3a5f; color:#bae6fd;">@src/billing/webhook.ts</span>
+            <span class="hud-chip" style="background:#2e1065; color:#ddd6fe;">@Docs: Stripe v17</span>
+            <span class="hud-chip" style="background:#14532d; color:#bbf7d0;">MCP: Linear, Supabase</span>
+          </div>
+        </div>
+
+        <div class="hud-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#6ee7b7; font-weight:700;">Checkpoint #3 &bull; Tests Passed (14/14)</span>
+            <span class="hud-chip" style="background:#064e3b; color:#a7f3d0; border:1px solid #10b981;">Restore <span class="callout-pin" style="margin-left:3px;">7</span></span>
+          </div>
+          <div style="color:#cbd5e1;">
+            Implemented idempotent webhook handler + Vitest suite. Ran <code>pnpm test webhook</code> (sandboxed) &mdash; 0 failures.
+          </div>
+        </div>
+
+        <!-- Prompt Input Box -->
+        <div class="hud-card" style="background:#0d1326; border-color:#6366f1; padding:6px 8px;">
+          <div style="color:#e2e8f0; margin-bottom:5px;">
+            &ldquo;Add exponential backoff retry for <code>invoice.payment_failed</code> using our queue helper and verify with Vitest.&rdquo;
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #1e293b; padding-top:5px;">
+            <div style="display:flex; gap:5px; align-items:center;">
+              <span class="hud-chip" style="background:#4f46e5; color:#fff;">Agent <span class="callout-pin" style="margin-left:2px;">1</span></span>
+              <span class="hud-chip" style="background:#1e293b; color:#cbd5e1;">Composer 2.5 <span class="callout-pin" style="margin-left:2px;">3</span></span>
+            </div>
+            <div style="display:flex; gap:5px; align-items:center;">
+              <span class="hud-chip" style="background:#3b0764; color:#e9d5ff; border:1px solid #7c3aed;">&amp; Cloud</span>
+              <span class="hud-chip" style="background:#2563eb; color:#fff;">Send &crarr;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Diff Review & Terminal Sandbox -->
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="hud-card" style="flex:1;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; border-bottom:1px solid #1e293b; padding-bottom:4px;">
+            <span style="color:#93c5fd; font-weight:700;">Diff Review: src/billing/webhook.ts (+24 / -6)</span>
+            <div style="display:flex; gap:4px; align-items:center;">
+              <span class="hud-chip" style="background:#065f46; color:#a7f3d0;">Keep All</span>
+              <span class="hud-chip" style="background:#7f1d1d; color:#fecaca;">Reject</span>
+              <span class="callout-pin">6</span>
+            </div>
+          </div>
+          <div style="font-family:monospace; font-size:6.6pt; line-height:1.42; color:#cbd5e1;">
+            <div style="background:rgba(239,68,68,0.16); color:#fca5a5; padding:1px 4px;">- await processEvent(event);</div>
+            <div style="background:rgba(16,185,129,0.16); color:#6ee7b7; padding:1px 4px;">+ const seen = await redis.set(`evt:${event.id}`, '1', 'NX', 'EX', 86400);</div>
+            <div style="background:rgba(16,185,129,0.16); color:#6ee7b7; padding:1px 4px;">+ if (!seen) return res.status(200).json({ deduped: true });</div>
+            <div style="background:rgba(16,185,129,0.16); color:#6ee7b7; padding:1px 4px;">+ await enqueueWithBackoff(event, { maxAttempts: 5 });</div>
+          </div>
+        </div>
+
+        <div class="hud-card" style="border-color:#0284c7;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+            <span style="color:#7dd3fc; font-weight:700;">Sandboxed Tool &amp; Terminal Runner</span>
+            <span class="callout-pin">5</span>
+          </div>
+          <div style="font-family:monospace; font-size:6.5pt; color:#a5f3fc;">
+            $ pnpm vitest run src/billing/webhook.test.ts &nbsp;<span style="color:#34d399;">&check; allowlisted (sandbox: ON)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Control Legend -->
+  <div class="grid-2" style="gap:7px 10px;">
+    <div class="card" style="padding:6.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">1</span> Mode Switcher (Agent / Plan / Ask)</div>
+      <p style="font-size:7.9pt; margin:0;">Cycle modes via <code>Shift+Tab</code>. Start complex features in <strong>Plan</strong> to review steps before file writes; switch to <strong>Agent</strong> to execute; use <strong>Ask</strong> for zero-risk Q&amp;A.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge blue">2</span> Context Pills &amp; Active Rules Bar</div>
+      <p style="font-size:7.9pt; margin:0;">Shows every attached <code>@File</code>, <code>@Docs</code>, MCP server, and auto-triggered <code>.mdc</code> rule. Remove stale pills before follow-ups to prevent context dilution.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge violet">3</span> Model Selector &amp; Cursor Router</div>
+      <p style="font-size:7.9pt; margin:0;">Pin <strong>Composer 2.5</strong> for fast weekly-pool edits, <strong>Cursor Router</strong> for automatic task-based selection, or a frontier third-party model for tough debugging.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge sky">4</span> Worktree &amp; Cloud Agent Toggle</div>
+      <p style="font-size:7.9pt; margin:0;">Select <strong>Worktree</strong> to isolate changes on a fresh branch without touching your active checkout, or prefix your prompt with <code>&amp;</code> to offload to a remote Cloud Agent.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge emerald">5</span> Sandboxed Terminal &amp; MCP Approvals</div>
+      <p style="font-size:7.9pt; margin:0;">Auto-run read-only test/lint commands inside the OS sandbox while requiring explicit click approval for destructive shell calls or write-enabled MCP tools.</p>
+    </div>
+    <div class="card" style="padding:6.5px 9px;">
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge amber">6</span> Multi-File Diff Review Bar</div>
+      <p style="font-size:7.9pt; margin:0;">Step through changes hunk-by-hunk across all edited files. Accept clean logic, reject speculative refactors, and keep PR diffs minimal.</p>
+    </div>
+  </div>
+
+  <div class="card-tint" style="margin-top:7px; padding:6.5px 10px;">
+    <div class="card-title" style="font-size:8.6pt;"><span class="num-badge rose">7</span> Checkpoints (Instant State Time-Travel)</div>
+    <p style="font-size:7.9pt; margin:0;">Every Agent turn creates a snapshot before writing files. If an iteration veers off course, click <strong>Restore Checkpoint</strong> instead of arguing with the model for three more turns&mdash;tighten the prompt and re-run cleanly from the known-good state.</p>
+  </div>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 4 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: SCOPED RULES & CONTEXT ENGINEERING ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">04 &bull; Scoped Rules &amp; Context Engineering</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">Scoped <code>.cursor/rules/*.mdc</code>, <code>AGENTS.md</code> &amp; Context Hygiene</h2>
+  <p class="page-lead">
+    The biggest mistake teams make in Cursor is dumping 1,500 lines of guidelines into a single global rule. Scoped <code>.mdc</code> files inject only the rules relevant to the files being edited, keeping the context window crisp and adherence high.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_1.jpg" alt="Modular layered crystalline rule cards channeling electric blue and violet light streams into a central AI coding engine prism" style="height:200px;" />
+    <div class="figure-caption"><strong>Layered Context Architecture:</strong> Team Rules &rarr; Project <code>AGENTS.md</code> &rarr; Glob-Scoped <code>.cursor/rules/*.mdc</code> &rarr; On-demand <code>@Docs</code> &amp; MCP tools, filtered by <code>.cursorignore</code>.</div>
+  </div>
+
+  <h3>The 4 Activation Modes of <code>.cursor/rules/*.mdc</code></h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Activation Mode</th>
+        <th style="width:28%;">YAML Frontmatter Config</th>
+        <th style="width:26%;">When Cursor Injects It</th>
+        <th style="width:26%;">Best Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Always Apply</strong></td>
+        <td><code>alwaysApply: true</code></td>
+        <td>Every Agent &amp; Inline Edit turn in the repo.</td>
+        <td>Short (&lt;40 lines) stack invariants, package manager, error style.</td>
+      </tr>
+      <tr>
+        <td><strong>Apply to Specific Files</strong></td>
+        <td><code>globs: ["src/api/**/*.ts"]</code><br/><code>alwaysApply: false</code></td>
+        <td>Automatically when matching files are open or referenced.</td>
+        <td>API validation, React component conventions, SQL migration rules.</td>
+      </tr>
+      <tr>
+        <td><strong>Apply Intelligently</strong></td>
+        <td><code>description: "Use when..."</code><br/><code>alwaysApply: false</code></td>
+        <td>Agent decides based on task intent matching <code>description</code>.</td>
+        <td>Workflows like "writing Playwright E2E tests" or "creating PRs".</td>
+      </tr>
+      <tr>
+        <td><strong>Apply Manually</strong></td>
+        <td>No <code>globs</code>, no <code>description</code>, <code>alwaysApply: false</code></td>
+        <td>Only when explicitly invoked via <code>@rule-name</code> in chat.</td>
+        <td>Heavy checklists, release runbooks, or security audit templates.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-3" style="margin-top:4px;">
+    <div class="card">
+      <div class="card-title" style="font-size:8.6pt;"><code>AGENTS.md</code> Standard</div>
+      <p style="font-size:7.8pt; margin:0;">Cross-IDE Markdown file at repo root (or subdirectories) read by Cursor, Claude Code, and Codex. Store universal build/test commands and repo map here; put Cursor-specific globs in <code>.cursor/rules/</code>.</p>
+    </div>
+    <div class="card-tint">
+      <div class="card-title" style="font-size:8.6pt;"><code>@Docs</code> &amp; <code>@Codebase</code></div>
+      <p style="font-size:7.8pt; margin:0;">Index third-party API docs once in Settings &rarr; Indexing &amp; Docs, then cite <code>@Docs</code> so agents stop hallucinating outdated SDK signatures. Use <code>@Git</code> to diff against <code>main</code>.</p>
+    </div>
+    <div class="card-violet">
+      <div class="card-title" style="font-size:8.6pt;"><code>.cursorignore</code> Shield</div>
+      <p style="font-size:7.8pt; margin:0;">Uses <code>.gitignore</code> syntax to block <code>.env*</code>, keys, generated artifacts, and vendor bundles from Tab, Agent, and indexing&mdash;improving both security and retrieval signal.</p>
+    </div>
+  </div>
+
+  <div class="callout emerald" style="margin-top:6px;">
+    <div class="callout-title">Rule Precedence &amp; Size Budget</div>
+    Cursor merges rules in order: <strong>Team Rules (Admin) &rarr; Project <code>.cursor/rules/*.mdc</code> &amp; <code>AGENTS.md</code> &rarr; User Rules</strong>. Keep each <code>.mdc</code> file under <strong>80&ndash;120 lines</strong> and link to one canonical reference file instead of pasting huge boilerplate.
+  </div>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 5 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: ANATOMY OF A HIGH-PRECISION RULE & PROMPT ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">05 &bull; Anatomy of a High-Precision Rule &amp; Prompt</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">Anatomy of a High-Precision <code>.mdc</code> Rule &amp; Agent Prompt</h2>
+  <p class="page-lead">
+    Vague rules like &ldquo;write clean TypeScript&rdquo; waste tokens and get ignored. High-precision rules and prompts follow a five-part contract: <strong>Scope, Role, Hard Invariants, Concrete Anchor, and Verification Gate</strong>.
+  </p>
+
+  <h3>Part A: Color-Coded 5-Part <code>.cursor/rules/api-handlers.mdc</code> Blueprint</h3>
+  <div class="card" style="padding:9px 11px; margin-bottom:7px; font-size:8.1pt; line-height:1.62;">
+    <div style="margin-bottom:5px;">
+      <span class="p-tag p-front">1. Frontmatter Scope</span> &nbsp;<code>---</code><br/>
+      <span class="p-tag p-front">description: "Enforce Zod validation, typed errors, and auth guards on Next.js API routes"</span><br/>
+      <span class="p-tag p-front">globs: ["src/app/api/**/*.ts"] &bull; alwaysApply: false</span> &nbsp;<code>---</code>
+    </div>
+    <div style="margin-bottom:5px;">
+      <span class="p-tag p-role">2. Role &amp; Boundary</span> &nbsp;You are modifying production HTTP route handlers. Keep handlers thin: parse input, check session, delegate business logic to <code>src/services/</code>.
+    </div>
+    <div style="margin-bottom:5px;">
+      <span class="p-tag p-inv">3. Hard Invariants (NEVER / ALWAYS)</span> &nbsp;ALWAYS validate request bodies with <code>zod</code> before DB calls. NEVER return raw Prisma errors or stack traces. ALWAYS wrap mutations in <code>withAuth()</code> and return <code>{ data, error }</code> envelope.
+    </div>
+    <div style="margin-bottom:5px;">
+      <span class="p-tag p-ex">4. Canonical Code Anchor</span> &nbsp;Mirror the exact error mapping and status codes in <code>@src/app/api/invoices/route.ts</code> (lines 12&ndash;48). Do not invent new response helpers.
+    </div>
+    <div>
+      <span class="p-tag p-verify">5. Verification Gate</span> &nbsp;After editing any route, run <code>pnpm vitest run src/app/api</code> and <code>pnpm tsc --noEmit</code>. Fix all failures before summarizing.
+    </div>
+  </div>
+
+  <h3>Part B: The 5-Part High-Precision Agent Prompt Formula</h3>
+  <div class="card-tint" style="padding:9px 11px; margin-bottom:7px; font-size:8.2pt; line-height:1.62;">
+    <span class="p-tag p-role">[1. Outcome]</span> Add rate-limited webhook retry handling for <code>invoice.payment_failed</code>.
+    <span class="p-tag p-front">[2. Explicit @Context]</span> Reference <code>@src/billing/webhook.ts</code>, <code>@src/lib/queue.ts</code>, and <code>@Docs: Stripe v17</code>.
+    <span class="p-tag p-inv">[3. Constraints]</span> Keep idempotency keys in Redis (24h TTL); do not modify DB schema or touch unrelated billing routes.
+    <span class="p-tag p-ex">[4. Plan Gate]</span> First enter Plan Mode: list the exact files you will edit and edge cases for duplicate deliveries. Wait for approval.
+    <span class="p-tag p-verify">[5. Definition of Done]</span> Add unit tests covering 1st success, duplicate event skip, and 5th-attempt dead-letter queue; run <code>pnpm test billing</code> until green.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">&check;</span> High-Signal Patterns (Do This)</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Point to 1 real file</strong> (<code>@src/services/orders.ts</code>) instead of writing 60 lines of abstract prose.</li>
+        <li><strong>State negative constraints</strong> (&ldquo;Do NOT add new npm packages&rdquo;) to curb over-engineering.</li>
+        <li><strong>Start fresh chats per task</strong> (<code>Cmd+N</code>) once a feature merges so old diffs don't pollute context.</li>
+        <li><strong>Include a runnable verifier</strong> (unit test, typecheck, curl, or Playwright script) in every task.</li>
+      </ul>
+    </div>
+    <div class="card" style="background:#fff1f2; border-color:#fecdd3;">
+      <div class="card-title"><span class="num-badge rose">&times;</span> Context Anti-Patterns (Avoid)</div>
+      <ul style="font-size:8pt; margin-bottom:0;">
+        <li><strong>Mega-rules (&gt;300 lines)</strong> set to <code>alwaysApply: true</code>&mdash;models silently drop middle instructions.</li>
+        <li><strong>Pasting entire stack traces + 15 files</strong> when only 2 files matter&mdash;hurts retrieval precision.</li>
+        <li><strong>Skipping Plan Mode</strong> on cross-cutting refactors, causing 4&ndash;5 expensive retry loops.</li>
+        <li><strong>Asking &ldquo;fix it&rdquo;</strong> without pasting the failing test output or expected invariant.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout violet" style="margin-top:6px;">
+    <div class="callout-title">Pro Tip: Auto-Generate Rules from PR Review Feedback</div>
+    Whenever a human reviewer or Bugbot catches a recurring mistake, run one Agent prompt: <em>&ldquo;Turn this PR comment into a concise, glob-scoped <code>.cursor/rules/</code> file under 40 lines.&rdquo;</em> Your repo gets smarter every sprint.
+  </div>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 6 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: BACKGROUND AGENTS, WORKTREES & CURSOR CLI ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">06 &bull; Cloud Agents, Parallel Worktrees &amp; Cursor CLI</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">Scaling Out: Cloud Agents, Git Worktrees &amp; Cursor CLI</h2>
+  <p class="page-lead">
+    Single-threaded prompting caps your throughput at one task at a time. Combine <strong>local Git worktrees</strong>, remote <strong>Cloud Agents</strong> (formerly Background Agents), and headless <strong>Cursor CLI</strong> to run 3&ndash;6 engineering streams in parallel.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> Parallel Local Git Worktrees</div>
+      <p style="font-size:8pt; margin-bottom:4px;">Cursor creates isolated Git worktrees per Agent chat (via the Worktree picker or <code>/worktree</code>) so multiple agents edit, build, and run tests simultaneously without branch collisions.</p>
+      <pre class="code-block" style="margin-bottom:2px;"><code>// .cursor/worktrees.json
+{
+  "setup-worktree": [
+    "cp $ROOT_WORKTREE_PATH/.env.local .env.local",
+    "pnpm install --frozen-lockfile"
+  ]
+}</code></pre>
+      <p style="font-size:7.6pt; color:#475569; margin:0;"><strong>Best-of-N pattern:</strong> Launch 2&ndash;3 worktree agents on the same hard refactor (e.g., Composer 2.5 + Claude) and merge the cleanest diff.</p>
+    </div>
+
+    <div class="card-violet">
+      <div class="card-title"><span class="num-badge violet">2</span> Cloud Agents (Async Remote VMs)</div>
+      <p style="font-size:8pt; margin-bottom:4px;">Each Cloud Agent boots an isolated cloud VM, clones your repo (or <strong>multi-repo</strong> frontend + backend + shared libs), installs dependencies, runs tests, and opens a GitHub PR&mdash;even after you close your laptop.</p>
+      <ul style="font-size:7.8pt; margin-bottom:0;">
+        <li><strong>Handoff from IDE/CLI:</strong> Prefix any prompt with <code>&amp;</code> to push the session to a Cloud Agent.</li>
+        <li><strong>Multi-surface triggers:</strong> Launch from Cursor Web, iOS voice chat, Slack <code>@Cursor</code>, or Linear/GitHub issues.</li>
+        <li><strong>Ideal tasks:</strong> Test coverage gaps, dependency upgrades, lint/type migrations, well-specified bug tickets.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Cursor CLI (<code>agent</code> / <code>cursor-agent</code>): Terminal &amp; CI Automation</h3>
+  <p style="font-size:8.2pt; margin-bottom:4px;">
+    Cursor CLI runs the exact same agent harness, rules, and MCP config from any terminal, SSH box, or GitHub Actions runner:
+  </p>
+
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:36%;">CLI Command</th>
+        <th style="width:34%;">Behavior</th>
+        <th style="width:30%;">Production Workflow</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>agent</code> / <code>agent "refactor auth"</code></td>
+        <td>Starts interactive terminal session; <code>Shift+Tab</code> cycles Agent/Plan/Ask.</td>
+        <td>SSH remote boxes, tmux panes, fast keyboard-only coding.</td>
+      </tr>
+      <tr>
+        <td><code>agent --worktree "add caching"</code></td>
+        <td>Spins up an isolated Git worktree and runs setup from <code>worktrees.json</code>.</td>
+        <td>Parallel local branches without disturbing your current IDE state.</td>
+      </tr>
+      <tr>
+        <td><code>agent -p "prompt" --model composer-2.5 --output-format text</code></td>
+        <td>Headless non-interactive run returning clean stdout for piping.</td>
+        <td>GitHub Actions docs-sync, release notes, automated triage scripts.</td>
+      </tr>
+      <tr>
+        <td><code>agent --mode=ask -p "audit diff"</code></td>
+        <td>Strictly read-only exploration with zero file modification rights.</td>
+        <td>CI security checks, PR summaries, architecture Q&amp;A bots.</td>
+      </tr>
+      <tr>
+        <td><code>agent --sandbox enabled</code></td>
+        <td>Restricts shell execution to workspace sandbox; <code>/sandbox</code> sets network.</td>
+        <td>Safe autonomous runs in untrusted branches or CI pipelines.</td>
+      </tr>
+      <tr>
+        <td><code>agent ls</code> / <code>agent --resume="id"</code></td>
+        <td>Lists or resumes prior CLI sessions; <code>/open</code> opens repo in Cursor IDE.</td>
+        <td>Start in terminal, hand off to IDE for visual diff review.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout sky">
+    <div class="callout-title">Decision Rule: Local Worktree vs. Cloud Agent vs. Cursor CLI</div>
+    Use <strong>Local Worktrees</strong> when you need rapid visual review, local Docker DBs, or browser preview. Use <strong>Cloud Agents</strong> when tasks take 10&ndash;45 minutes or span multiple repos asynchronously. Use <strong>Cursor CLI (<code>-p</code>)</strong> when triggering deterministic agent steps inside GitHub Actions or shell scripts.
+  </div>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 7 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: BUGBOT PR REVIEWS & MCP.JSON ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">07 &bull; Bugbot PR Reviews &amp; MCP Tool Wiring</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">Bugbot Automated PR Reviews &amp; <code>.cursor/mcp.json</code> Wiring</h2>
+  <p class="page-lead">
+    Shipping faster with agents increases PR volume. Pair <strong>Bugbot</strong> (automated PR bug &amp; security auditing) with <strong>Model Context Protocol (MCP)</strong> servers so Cursor reads live specs, issues, schemas, and PR checks directly.
+  </p>
+
+  <div class="figure-box">
+    <img class="showcase-img" src="assets/showcase_2.jpg" alt="Four obsidian and glass modules connected by electric blue and violet fiber-optic conduits to a central faceted crystal prism core" style="height:190px;" />
+    <div class="figure-caption"><strong>Live Tool Fabric:</strong> Cursor connects to Figma, Linear, Supabase, and GitHub via <code>.cursor/mcp.json</code> (stdio &amp; Streamable HTTP), while Bugbot guards every PR before merge.</div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">B</span> Bugbot PR Review Engine</div>
+      <ul style="font-size:7.85pt; margin-bottom:0;">
+        <li><strong>Fast Composer 2.5 engine:</strong> Reviews PRs in ~90 seconds on average, flagging logic bugs, null dereferences, race conditions, and auth flaws.</li>
+        <li><strong>Separate rules file:</strong> Bugbot reads <code>.cursor/BUGBOT.md</code> (and Automation rules)&mdash;it does <em>not</em> read <code>.cursor/rules/*.mdc</code>.</li>
+        <li><strong>Manual trigger &amp; Autofix:</strong> Comment <code>cursor review</code> or <code>bugbot run</code> on any PR; click <strong>Fix in Cursor</strong> or Autofix to patch inline.</li>
+        <li><strong>Noise control:</strong> Document intentional patterns in <code>BUGBOT.md</code> so Bugbot stays high-signal and reviewers never scroll past it.</li>
+      </ul>
+    </div>
+
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">M</span> <code>.cursor/mcp.json</code> Architecture</div>
+      <ul style="font-size:7.85pt; margin-bottom:0;">
+        <li><strong>Project vs. Global:</strong> Commit <code>.cursor/mcp.json</code> for team-shared tools; keep personal tokens in <code>~/.cursor/mcp.json</code> or env vars.</li>
+        <li><strong>Two transports:</strong> <code>stdio</code> (local child process via <code>command</code> + <code>args</code>) and <code>Streamable HTTP</code> / SSE (remote <code>url</code> + OAuth).</li>
+        <li><strong>Team MCPs:</strong> Enterprise/Teams admins can distribute vetted MCP servers centrally via Settings &rarr; Tools &amp; MCP.</li>
+        <li><strong>Least privilege:</strong> Start every new MCP server in read-only mode and require explicit tool-call approval for write mutations.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>High-Leverage MCP Stack for Engineering Teams</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:16%;">MCP Server</th>
+        <th style="width:17%;">Transport</th>
+        <th style="width:35%;">What Cursor Agent Can Do Live</th>
+        <th style="width:32%;">Recommended Guardrail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Figma MCP</strong></td>
+        <td>Streamable HTTP</td>
+        <td>Inspect design tokens, spacing, frames, and component props directly from Figma URLs.</td>
+        <td>Read-only by default; pair with design-system <code>.mdc</code> rule.</td>
+      </tr>
+      <tr>
+        <td><strong>Linear MCP</strong></td>
+        <td>Streamable HTTP</td>
+        <td>Read issue acceptance criteria, link PR branches, update status on completion.</td>
+        <td>Allow reads automatically; require approval for status/comment writes.</td>
+      </tr>
+      <tr>
+        <td><strong>Supabase / Postgres</strong></td>
+        <td>stdio or HTTP</td>
+        <td>Inspect live dev schema, verify migrations, explain slow SQL queries.</td>
+        <td><strong>Never</strong> connect production write creds; use read-only dev/staging DSN.</td>
+      </tr>
+      <tr>
+        <td><strong>GitHub MCP</strong></td>
+        <td>Streamable HTTP</td>
+        <td>Fetch PR comments, CI failure logs, issue threads, and release diffs.</td>
+        <td>Scope PAT/OAuth to repo; block force-push or merge tools in Agent.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 8 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: 5 COPY-PASTE RECIPES ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">08 &bull; 5 Real-World Copy-Paste Recipes</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">5 Production Copy-Paste Rules, MCPs &amp; Prompt Recipes</h2>
+  <p class="page-lead">
+    Drop these five battle-tested configurations straight into your repository to standardize Agent output, wire MCP tools cleanly, and automate PR quality gates.
+  </p>
+
+  <table class="clean-table" style="margin-bottom:6px;">
+    <thead>
+      <tr>
+        <th style="width:6%;">#</th>
+        <th style="width:24%;">Recipe</th>
+        <th style="width:28%;">Target File / Surface</th>
+        <th style="width:42%;">Operational Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>Scoped UI Component Rule</td><td><code>.cursor/rules/ui-components.mdc</code></td><td>Enforces design tokens, accessibility, and zero inline styles on React files.</td></tr>
+      <tr><td><strong>2</strong></td><td>Cross-IDE <code>AGENTS.md</code></td><td><code>/AGENTS.md</code></td><td>Shared build, lint, and test contract for Cursor, CLI, and Cloud Agents.</td></tr>
+      <tr><td><strong>3</strong></td><td>Multi-Server MCP Config</td><td><code>.cursor/mcp.json</code></td><td>Connects Linear, Figma, and read-only Postgres via HTTP &amp; stdio.</td></tr>
+      <tr><td><strong>4</strong></td><td>High-Signal Bugbot Spec</td><td><code>.cursor/BUGBOT.md</code></td><td>Focuses PR reviews on auth, N+1 queries, and idempotency; cuts noise.</td></tr>
+      <tr><td><strong>5</strong></td><td>TDD Cloud Agent Prompt</td><td>Agent / <code>&amp;</code> Cloud Handoff</td><td>Forces failing test first, minimal fix, and green CI verification.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="gap:8px;">
+    <div>
+      <div style="font-weight:700; font-size:8.1pt; color:#3730a3; margin-bottom:2px;">Recipe 1 &bull; .cursor/rules/ui-components.mdc</div>
+      <pre class="code-block"><code>---
+description: "React UI component &amp; Tailwind token standards"
+globs: ["src/components/**/*.tsx"]
+alwaysApply: false
+---
+- Use semantic tokens from `@src/styles/tokens.css`; never raw hex.
+- Every interactive control needs keyboard focus + `aria-label`.
+- Mirror `@src/components/ui/Button.tsx` for variant props.
+- Verify with `pnpm typecheck &amp;&amp; pnpm test:ui`.</code></pre>
+
+      <div style="font-weight:700; font-size:8.1pt; color:#3730a3; margin-bottom:2px;">Recipe 2 &bull; /AGENTS.md (Cross-IDE Root Contract)</div>
+      <pre class="code-block"><code># Repo Agent Contract
+- Package manager: `pnpm` only (never `npm` or `yarn`).
+- Commands: `pnpm dev`, `pnpm test`, `pnpm lint`, `pnpm typecheck`.
+- Architecture: HTTP routes in `src/app/api/`, logic in `src/services/`.
+- Before finishing: run `pnpm typecheck &amp;&amp; pnpm test` and report output.</code></pre>
+
+      <div style="font-weight:700; font-size:8.1pt; color:#3730a3; margin-bottom:2px;">Recipe 5 &bull; TDD Cloud Agent Prompt (Prefix with &amp;)</div>
+      <pre class="code-block" style="margin-bottom:0;"><code>&amp; Pick up Linear issue ENG-412. First write a failing Vitest test
+reproducing the expired-token refresh race in @src/auth/session.ts.
+Implement the minimal lock fix without adding packages. Run
+`pnpm test auth &amp;&amp; pnpm typecheck`, then open a draft PR.</code></pre>
+    </div>
+
+    <div>
+      <div style="font-weight:700; font-size:8.1pt; color:#3730a3; margin-bottom:2px;">Recipe 3 &bull; .cursor/mcp.json (HTTP + stdio)</div>
+      <pre class="code-block"><code>{
+  "mcpServers": {
+    "linear": {
+      "url": "https://mcp.linear.app/mcp"
+    },
+    "figma": {
+      "url": "https://mcp.figma.com/mcp"
+    },
+    "postgres-dev": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_URL": "${env:DEV_READONLY_DB_URL}"
+      }
+    }
+  }
+}</code></pre>
+
+      <div style="font-weight:700; font-size:8.1pt; color:#3730a3; margin-bottom:2px;">Recipe 4 &bull; .cursor/BUGBOT.md (PR Audit Rules)</div>
+      <pre class="code-block" style="margin-bottom:0;"><code># Bugbot PR Review Policy
+Prioritize ONLY high-confidence bugs:
+1. Missing `withAuth()` or tenantId filter on DB queries.
+2. Unbounded loops, N+1 queries, or missing webhook idempotency.
+3. Breaking changes to exported API response schemas.
+Ignore: formatting, comment wording, and test fixture verbosity.</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 9 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: PRIVACY MODE, GOVERNANCE & SPEND CONTROL ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">09 &bull; Privacy Mode, Governance &amp; Spend Control</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">Privacy Mode, Team Security Hardening &amp; Spend Control</h2>
+  <p class="page-lead">
+    Enterprise adoption succeeds when security and finance teams have verifiable controls. Understand exactly what Cursor's Privacy Mode guarantees, where retention exceptions exist, and how to cap multi-model spend.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:6px;">
+    <div class="card-tint">
+      <div class="card-title"><span class="num-badge">1</span> What Privacy Mode Guarantees</div>
+      <ul style="font-size:7.9pt; margin-bottom:0;">
+        <li><strong>No model training:</strong> Prompts, diffs, and codebase snippets are never used to train Cursor or third-party foundation models.</li>
+        <li><strong>Zero Data Retention (ZDR):</strong> Cursor maintains ZDR agreements with supported Cursor-routed inference providers.</li>
+        <li><strong>Org enforcement:</strong> Teams &amp; Enterprise admins lock Privacy Mode ON org-wide so individual seats cannot disable it.</li>
+      </ul>
+    </div>
+    <div class="card" style="background:#fffbeb; border-color:#fde68a;">
+      <div class="card-title"><span class="num-badge amber">!</span> What Privacy Mode Does NOT Do</div>
+      <ul style="font-size:7.9pt; margin-bottom:0;">
+        <li><strong>Not local inference:</strong> Prompts and relevant code context still traverse Cursor servers to model providers over TLS.</li>
+        <li><strong>Cloud Agent retention:</strong> Cloud Agent transcripts persist by default and VM snapshots expire after 30 days of inactivity.</li>
+        <li><strong>Exceptions:</strong> Non-ZDR models (opt-in) and BYOK provider keys follow the external provider's own retention terms.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Defense-in-Depth Governance Controls</h3>
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th style="width:22%;">Control Layer</th>
+        <th style="width:36%;">Exact Configuration</th>
+        <th style="width:42%;">Risk Mitigated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Secret Exclusion</strong></td>
+        <td>Commit <code>.cursorignore</code> blocking <code>.env*</code>, <code>*.pem</code>, <code>secrets/</code>, <code>terraform.tfstate</code>.</td>
+        <td>Prevents API keys and PII fixtures from entering Tab, Agent, or codebase embeddings.</td>
+      </tr>
+      <tr>
+        <td><strong>Command Sandboxing</strong></td>
+        <td>Enable OS sandbox (<code>--sandbox enabled</code>); allowlist only <code>pnpm test</code>, <code>vitest</code>, <code>tsc</code>, <code>eslint</code>.</td>
+        <td>Blocks runaway shell commands, accidental <code>rm -rf</code>, or unauthorized network exfiltration.</td>
+      </tr>
+      <tr>
+        <td><strong>MCP Approval Gates</strong></td>
+        <td>Restrict Team MCPs to vetted servers; require click confirmation on all write/delete tools.</td>
+        <td>Stops prompt-injection attacks via external GitHub issues or tickets from mutating prod systems.</td>
+      </tr>
+      <tr>
+        <td><strong>Spend &amp; Pool Caps</strong></td>
+        <td>Set per-seat monthly third-party API caps; route routine loops to Cursor weekly pool (Composer 2.5).</td>
+        <td>Prevents unexpected API overages when engineers leave frontier reasoning models selected all day.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Multi-Model Cost Control Playbook (Cut Spend 40&ndash;65%)</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title" style="font-size:8.4pt;">1. Default to Composer 2.5</div>
+      <p style="font-size:7.75pt; margin:0;">Draws from your included weekly Cursor pool at 4&times; faster speed. Switch to third-party Claude/GPT/Gemini only for Plan Mode or thorny root-cause bugs.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.4pt;">2. Reset Chats Per Task</div>
+      <p style="font-size:7.75pt; margin:0;">Long 40-turn threads resend tens of thousands of stale tokens on every message. Open a new chat (<code>Cmd+N</code>) for each sub-task or PR.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size:8.4pt;">3. Trim Global Rules</div>
+      <p style="font-size:7.75pt; margin:0;">Move framework guidelines out of <code>alwaysApply: true</code> into glob-scoped <code>.mdc</code> files so backend edits never pay for frontend prompt tokens.</p>
+    </div>
+  </div>
+
+  <div class="callout rose" style="margin-top:6px;">
+    <div class="callout-title">Security Rule of Thumb for Regulated Repos (SOC 2 / HIPAA / GDPR)</div>
+    Pair <strong>Admin-Enforced Privacy Mode</strong> + <strong><code>.cursorignore</code></strong> + <strong>Disabled Non-ZDR Models</strong> + <strong>Read-Only Dev MCPs</strong>. Review Cloud Agent transcript retention policy with Legal before enabling Cloud Agents on regulated repositories.
+  </div>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 10 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CROSS-TOOL SYNERGY PIPELINE ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">10 &bull; Cross-Tool Synergy Pipeline</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">End-to-End Shipping Pipeline: Spec to Production</h2>
+  <p class="page-lead">
+    Cursor delivers compounding leverage when wired into your full delivery loop&mdash;pulling design and issue truth via MCP, executing in parallel worktrees or Cloud Agents, auditing with Bugbot, and verifying in CI.
+  </p>
+
+  <!-- Inline SVG Pipeline Diagram -->
+  <div class="figure-box" style="background:#0b1020; padding:10px 10px; border-color:#3730a3; margin-bottom:8px;">
+    <svg viewBox="0 0 700 185" width="100%" height="185" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stage 1 -->
+      <rect x="6" y="14" width="154" height="156" rx="9" fill="#111830" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="83" y="32" text-anchor="middle" fill="#7dd3fc" font-size="7.4" font-weight="700">PHASE 1 &bull; INGEST</text>
+      <text x="83" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Figma &amp; Linear MCP</text>
+      <rect x="16" y="59" width="134" height="44" rx="5" fill="#172344" stroke="#0284c7" stroke-width="0.9"/>
+      <text x="83" y="75" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">Live Ticket &amp; Specs</text>
+      <text x="83" y="88" text-anchor="middle" fill="#94a3b8" font-size="6.7">Zero manual copy-paste</text>
+      <rect x="16" y="111" width="134" height="47" rx="5" fill="#172344" stroke="#38bdf8" stroke-width="0.9"/>
+      <text x="83" y="128" text-anchor="middle" fill="#e0f2fe" font-size="7.2" font-weight="700">Plan Mode Gate</text>
+      <text x="83" y="141" text-anchor="middle" fill="#94a3b8" font-size="6.7">Clarify edge cases first</text>
+
+      <path d="M160 92 L178 92" stroke="#38bdf8" stroke-width="2"/>
+      <polygon points="176,87 184,92 176,97" fill="#38bdf8"/>
+
+      <!-- Stage 2 -->
+      <rect x="185" y="14" width="156" height="156" rx="9" fill="#151b3d" stroke="#818cf8" stroke-width="1.6"/>
+      <text x="263" y="32" text-anchor="middle" fill="#c7d2fe" font-size="7.4" font-weight="700">PHASE 2 &bull; BUILD</text>
+      <text x="263" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Agent + Worktrees</text>
+      <rect x="195" y="59" width="136" height="44" rx="5" fill="#1e2654" stroke="#6366f1" stroke-width="0.9"/>
+      <text x="263" y="75" text-anchor="middle" fill="#e0e7ff" font-size="7.2" font-weight="700">Scoped .mdc Rules</text>
+      <text x="263" y="88" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Composer 2.5 + Sandbox</text>
+      <rect x="195" y="111" width="136" height="47" rx="5" fill="#1e2654" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="263" y="128" text-anchor="middle" fill="#ede9fe" font-size="7.2" font-weight="700">Parallel Streams</text>
+      <text x="263" y="141" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Local worktree + &amp; Cloud</text>
+
+      <path d="M341 92 L359 92" stroke="#a78bfa" stroke-width="2"/>
+      <polygon points="357,87 365,92 357,97" fill="#a78bfa"/>
+
+      <!-- Stage 3 -->
+      <rect x="366" y="14" width="156" height="156" rx="9" fill="#18173a" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="444" y="32" text-anchor="middle" fill="#ddd6fe" font-size="7.4" font-weight="700">PHASE 3 &bull; AUDIT</text>
+      <text x="444" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">Bugbot PR Review</text>
+      <rect x="376" y="59" width="136" height="44" rx="5" fill="#252052" stroke="#7c3aed" stroke-width="0.9"/>
+      <text x="444" y="75" text-anchor="middle" fill="#ede9fe" font-size="7.2" font-weight="700">BUGBOT.md Policy</text>
+      <text x="444" y="88" text-anchor="middle" fill="#cbd5e1" font-size="6.7">~90s logic &amp; security pass</text>
+      <rect x="376" y="111" width="136" height="47" rx="5" fill="#252052" stroke="#a78bfa" stroke-width="0.9"/>
+      <text x="444" y="128" text-anchor="middle" fill="#ede9fe" font-size="7.2" font-weight="700">1-Click Autofix</text>
+      <text x="444" y="141" text-anchor="middle" fill="#cbd5e1" font-size="6.7">Patch before human review</text>
+
+      <path d="M522 92 L540 92" stroke="#34d399" stroke-width="2"/>
+      <polygon points="538,87 546,92 538,97" fill="#34d399"/>
+
+      <!-- Stage 4 -->
+      <rect x="547" y="14" width="147" height="156" rx="9" fill="#0d2228" stroke="#34d399" stroke-width="1.5"/>
+      <text x="620" y="32" text-anchor="middle" fill="#6ee7b7" font-size="7.4" font-weight="700">PHASE 4 &bull; SHIP</text>
+      <text x="620" y="48" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800">CI &amp; Prod Deploy</text>
+      <rect x="557" y="59" width="127" height="44" rx="5" fill="#123036" stroke="#10b981" stroke-width="0.9"/>
+      <text x="620" y="75" text-anchor="middle" fill="#d1fae5" font-size="7.2" font-weight="700">Cursor CLI in CI</text>
+      <text x="620" y="88" text-anchor="middle" fill="#94a3b8" font-size="6.7">Docs sync &amp; changelog</text>
+      <rect x="557" y="111" width="127" height="47" rx="5" fill="#123036" stroke="#34d399" stroke-width="0.9"/>
+      <text x="620" y="128" text-anchor="middle" fill="#d1fae5" font-size="7.2" font-weight="700">Rule Feedback Loop</text>
+      <text x="620" y="141" text-anchor="middle" fill="#94a3b8" font-size="6.7">Update .mdc from retro</text>
+    </svg>
+  </div>
+
+  <div class="grid-2" style="gap:9px;">
+    <div class="card">
+      <div class="card-title"><span class="num-badge sky">1</span> Phase 1: Zero-Drift Spec Ingestion</div>
+      <p style="font-size:8pt; margin:0;">Pull Linear ticket acceptance criteria and Figma frames directly via MCP in <strong>Plan Mode</strong>. Have the agent map exact files, API contracts, and test cases before writing a single line of code.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge">2</span> Phase 2: Parallel Multi-Stream Build</div>
+      <p style="font-size:8pt; margin:0;">Run UI implementation in Worktree A, backend migration + tests in Worktree B, and offload E2E test authoring to a remote <strong>Cloud Agent</strong> (<code>&amp;</code>). Keep each diff scoped to one reviewable PR.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge violet">3</span> Phase 3: Automated Bugbot Gate</div>
+      <p style="font-size:8pt; margin:0;">Open draft PRs and let <strong>Bugbot</strong> run first. Resolve all high-severity Bugbot findings via Autofix before pinging human teammates&mdash;cutting human review cycles in half.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num-badge emerald">4</span> Phase 4: CI Automation &amp; Compounding Rules</div>
+      <p style="font-size:8pt; margin:0;">Trigger headless <code>agent -p</code> in GitHub Actions to keep OpenAPI docs and changelogs synced on merge. Feed any escaped production bugs back into <code>.cursor/rules/</code> and <code>BUGBOT.md</code>.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:8px;">
+    <div class="callout-title">Compounding Team Velocity Metric</div>
+    Track <strong>PR Cycle Time</strong>, <strong>Bugbot Catch Rate</strong>, and <strong>First-Pass CI Green Rate</strong> weekly. Teams that maintain crisp <code>.cursor/rules/</code> and <code>AGENTS.md</code> see agents pass CI on the first push instead of burning 4&ndash;5 review rounds.
+  </div>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 11 of 12</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: TROUBLESHOOTING CLINIC & PRE-FLIGHT CHECKLIST ==================== -->
+<section class="page">
+  <div class="page-header">
+    <span class="section-tag">11 &bull; Troubleshooting Clinic &amp; Pre-Flight Checklist</span>
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+  </div>
+
+  <h2 class="page-title">Troubleshooting Clinic (Top 7 Fixes) &amp; Pre-Flight Checklist</h2>
+  <p class="page-lead">
+    Diagnose the seven most common Cursor workflow failures in seconds, then run the 6-point pre-flight checklist before shipping any agent-authored PR.
+  </p>
+
+  <h3>Top 7 Cursor Failure Modes &amp; Fast Fixes</h3>
+  <table class="clean-table" style="margin-bottom:8px;">
+    <thead>
+      <tr>
+        <th style="width:24%;">Symptom</th>
+        <th style="width:33%;">Root Cause</th>
+        <th style="width:43%;">Fast Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Agent ignores project rules</strong></td>
+        <td><code>.mdc</code> file is &gt;250 lines, lacks matching <code>globs</code>, or uses vague prose without examples.</td>
+        <td>Split into &lt;80-line glob-scoped <code>.mdc</code> files; point to 1 canonical file via <code>@path</code>; verify pill appears in HUD.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Bugbot ignores <code>.cursor/rules/</code></strong></td>
+        <td>Bugbot is a separate system that reads <code>.cursor/BUGBOT.md</code>, not IDE <code>.mdc</code> rules.</td>
+        <td>Create <code>.cursor/BUGBOT.md</code> with high-signal PR bug rules and trigger re-run via <code>bugbot run</code> comment.</td>
+      </tr>
+      <tr>
+        <td><strong>3. All MCP servers vanish</strong></td>
+        <td>A single malformed entry or bad transport field in <code>.cursor/mcp.json</code> drops the entire file.</td>
+        <td>Validate JSON syntax, isolate the failing server, and check Settings &rarr; Tools &amp; MCP logs for OAuth/stdio errors.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Worktree fails to build/test</strong></td>
+        <td>New Git worktree lacks gitignored <code>.env.local</code> or <code>node_modules</code>.</td>
+        <td>Add <code>.cursor/worktrees.json</code> with <code>setup-worktree</code> commands copying <code>.env.local</code> and running <code>pnpm install</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Context drift &amp; hallucinated APIs</strong></td>
+        <td>40-turn mega-chat full of stale diffs, or outdated SDK knowledge in base weights.</td>
+        <td>Start a fresh chat (<code>Cmd+N</code>), attach only target files + <code>@Docs</code>, and restore Checkpoints instead of arguing.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Unexpected API bill spike</strong></td>
+        <td>Third-party frontier model left selected for routine edits instead of weekly Composer pool.</td>
+        <td>Default to <strong>Composer 2.5</strong> / Cursor Router; reserve Claude/GPT/Gemini for Plan Mode; set org spend caps.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Secrets appear in AI context</strong></td>
+        <td><code>.env</code> or key files weren't excluded from indexing and Agent file-read tools.</td>
+        <td>Add secret globs to <code>.cursorignore</code>, rotate exposed keys, and verify <code>@</code> mentions can no longer read them.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-Point Pre-Flight Checklist Before Every Agent PR</h3>
+  <div class="check-grid">
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>1. Privacy &amp; <code>.cursorignore</code> Verified:</strong> Privacy Mode is ON (org-locked for teams) and <code>.env*</code>, keys, and PII fixtures are blocked.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>2. Scoped Rules &amp; <code>AGENTS.md</code> Active:</strong> Relevant <code>.cursor/rules/*.mdc</code> pills loaded cleanly with zero bloated global mega-prompts.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>3. Plan Approved Before Edits:</strong> Multi-file changes passed a Plan Mode review and executed in a clean branch or isolated Git worktree.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>4. Diff Reviewed Hunk-by-Hunk:</strong> Zero unintended refactors, stray console logs, or unrequested dependency additions in the diff bar.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>5. Automated Tests &amp; Typecheck Green:</strong> Unit/integration tests, linter, and <code>tsc --noEmit</code> passed inside the sandboxed runner.</div>
+    </div>
+    <div class="check-item">
+      <span class="check-box">&check;</span>
+      <div><strong>6. Bugbot PR Audit Clean:</strong> Bugbot completed its ~90s review against <code>.cursor/BUGBOT.md</code> with all high-severity findings resolved.</div>
+    </div>
+  </div>
+
+  <div class="card-dark" style="margin-top:8px; padding:8.5px 12px; display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <div class="card-title" style="margin-bottom:2px; font-size:9pt;">Cursor Mastery Golden Principle</div>
+      <div style="font-size:7.9pt; color:#cbd5e1;">Treat Cursor like a fast, literal engineering team: <strong>give clear scoped rules, isolate work in worktrees, verify with tests, and gate every PR with Bugbot.</strong></div>
+    </div>
+    <span class="hud-chip" style="background:#4f46e5; color:#ffffff; padding:5px 10px; font-size:7.5pt; white-space:nowrap;">Edition: Nov 2026</span>
+  </div>
+
+  <div class="page-footer">
+    <span>Cursor Mastery: Composer, Rules &amp; Background Agents</span>
+    <span class="page-num">Page 12 of 12</span>
+  </div>
+</section>
+
+</body>
+</html>

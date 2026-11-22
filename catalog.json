@@ -59,6 +59,11 @@
       "id": "cloud-data-and-commerce",
       "title": "AI Backends, Databases & Agent Commerce",
       "description": "Publication-grade 12-page visual handbooks for production AI infrastructure\u2014covering Supabase Postgres, pgvector & RLS guardrails, Cloudflare Agents SDK, Durable Objects & Container Sandboxes, Stripe Agent Toolkit & usage-based metering, OAuth 2.1/MCP agent identity, and DuckDB & MotherDuck SQL analytics agents."
+    },
+    {
+      "id": "ai-ides",
+      "title": "AI Code Editors & Agentic IDEs",
+      "description": "Publication-grade 12-page visual handbooks for modern AI-first code editors and cross-IDE portability\u2014covering Cursor Composer, Rules, Cloud Agents & Bugbot, Windsurf / Devin Desktop Cascade flows, Cline, Roo Code & Kilo Code open-source VS Code agents, and portable AGENTS.md, SKILL.md & shared MCP setups."
     }
   ],
   "guides": [
@@ -1539,6 +1544,74 @@
         "DuckDB & SQL",
         "Natural-Language BI",
         "Verified Analytics"
+      ]
+    },
+    {
+      "id": "ai-ides/cursor-mastery-composer-rules-and-agents",
+      "category": "ai-ides",
+      "title": "Cursor Mastery: Composer, Rules & Background Agents",
+      "subtitle": "Ship faster in Cursor with Agent/Composer workflows, scoped .cursor/rules/ & AGENTS.md, Cloud/Background Agents, Bugbot PR reviews, MCP servers, and multi-model cost control.",
+      "pdf": "guides/ai-ides/cursor-mastery-composer-rules-and-agents/Cursor_Mastery_Composer_Rules_and_Agents_Complete_How_To_Guide.pdf",
+      "cover": "guides/ai-ides/cursor-mastery-composer-rules-and-agents/cover.png",
+      "source_dir": "guides/ai-ides/cursor-mastery-composer-rules-and-agents",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "Cursor IDE",
+        "Cloud Agents",
+        "Rules & Bugbot"
+      ]
+    },
+    {
+      "id": "ai-ides/windsurf-and-devin-desktop-flows",
+      "category": "ai-ides",
+      "title": "Windsurf & Devin Desktop: Cascade & Autonomous Tasks",
+      "subtitle": "Master flow-state agentic coding in Windsurf and Devin Desktop\u2014combining Cascade multi-file edits, Memories & Rules, live Previews, MCP integrations, and cloud-to-desktop Devin handoffs.",
+      "pdf": "guides/ai-ides/windsurf-and-devin-desktop-flows/Windsurf_and_Devin_Desktop_Flows_Complete_How_To_Guide.pdf",
+      "cover": "guides/ai-ides/windsurf-and-devin-desktop-flows/cover.png",
+      "source_dir": "guides/ai-ides/windsurf-and-devin-desktop-flows",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "Windsurf / Devin",
+        "Cascade Flows",
+        "Autonomous Tasks"
+      ]
+    },
+    {
+      "id": "ai-ides/cline-roo-code-and-open-vscode-agents",
+      "category": "ai-ides",
+      "title": "Cline, Roo Code & Open-Source VS Code Agents",
+      "subtitle": "Run transparent, BYOK, and local-model coding agents inside standard VS Code using Cline, Roo Code custom modes & Boomerang orchestration, Kilo Code, checkpoints, and MCP tools\u2014with zero vendor lock-in.",
+      "pdf": "guides/ai-ides/cline-roo-code-and-open-vscode-agents/Cline_Roo_Code_and_Open_VS_Code_Agents_Complete_How_To_Guide.pdf",
+      "cover": "guides/ai-ides/cline-roo-code-and-open-vscode-agents/cover.png",
+      "source_dir": "guides/ai-ides/cline-roo-code-and-open-vscode-agents",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "Cline & Roo Code",
+        "BYOK & Local LLM",
+        "Custom Modes"
+      ]
+    },
+    {
+      "id": "ai-ides/cross-ide-agents-md-skills-and-mcp",
+      "category": "ai-ides",
+      "title": "Cross-IDE Portability: AGENTS.md, SKILL.md & Shared MCP",
+      "subtitle": "Write repo instructions, portable SKILL.md playbooks, and MCP server configs once so every developer on your team gets identical agent behavior across Cursor, Claude Code, Codex, Copilot, Windsurf, OpenCode, and Antigravity.",
+      "pdf": "guides/ai-ides/cross-ide-agents-md-skills-and-mcp/Cross_IDE_AGENTS_md_SKILL_md_and_MCP_Complete_How_To_Guide.pdf",
+      "cover": "guides/ai-ides/cross-ide-agents-md-skills-and-mcp/cover.png",
+      "source_dir": "guides/ai-ides/cross-ide-agents-md-skills-and-mcp",
+      "pages": 12,
+      "version": "1.0",
+      "updated": "2026-11",
+      "tags": [
+        "AGENTS.md",
+        "SKILL.md",
+        "Shared MCP"
       ]
     }
   ]
