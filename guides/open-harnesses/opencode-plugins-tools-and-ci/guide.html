@@ -408,12 +408,12 @@ export default Plugin.define({
   <h3>Key Tool Naming, Override &amp; Context Rules</h3>
   <div class="grid-3" style="font-size:8pt;">
     <div class="card">
-      <div class="card-title"><span class="num-badge">1</span> Namespaces &amp; Code Mode</div>
-      Call <code>ed.namespace(...)</code> and set <code>options: { namespace, codemode: true }</code> so large internal toolkits collapse cleanly under OpenCode v2&rsquo;s Code Mode.
+      <div class="card-title"><span class="num-badge">1</span> Namespaces &amp; Code Mode (<code>v2.4+</code>)</div>
+      Call <code>ed.namespace(...)</code> and pass <code>options: { namespace, codemode: { description, input, output } }</code> (or <code>true</code>) to customize Code Mode schemas.
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge amber">2</span> Rich V2 Context</div>
-      <code>setup(ctx)</code> exposes <code>ctx.location.directory</code>; each <code>execute(input, toolCtx)</code> receives <code>toolCtx.sessionID</code>, <code>toolCtx.progress()</code>, and cooperative <code>toolCtx.signal</code>.
+      <div class="card-title"><span class="num-badge amber">2</span> Rich Context &amp; Cache Entries</div>
+      <code>setup(ctx)</code> exposes <code>ctx.location.directory</code> and cache-safe <code>ctx.session.instructions.entry.put()</code>; <code>execute</code> receives <code>toolCtx.signal</code>.
     </div>
     <div class="card">
       <div class="card-title"><span class="num-badge rose">3</span> Transform Built-Ins</div>
@@ -564,7 +564,7 @@ opencode mcp auth sentry
 # Inspect verbose transport / OAuth logs on failure
 opencode --log-level debug --print-logs mcp list</code></pre>
       <p style="font-size:7.9pt; color:#475569; margin:3px 0 0 0;">
-        <strong>Token-Saving Pattern:</strong> V2 enables <code>codemode: true</code> on MCP servers by default to keep schemas lean, while per-agent <code>permissions</code> expose <code>playwright_*</code> tools solely to <code>qa-browser</code>!
+        <strong>Token &amp; Process Savings:</strong> V2 enables <code>codemode: true</code> by default, supports <strong>Shared MCP Connection Pooling</strong> across projects (<code>v2.2.6+</code>), and scopes <code>playwright_*</code> tools per agent!
       </p>
     </div>
   </div>
@@ -677,14 +677,14 @@ jobs:
         <td>Skips MCP/LSP cold-start boot times by reusing the warm <code>opencode serve</code> process.</td>
       </tr>
       <tr>
-        <td><strong>4. Headless Non-Interactive CI Run (<code>--auto</code>)</strong></td>
-        <td><code>opencode run --auto --archived --format json -m anthropic/claude-sonnet-4-6 "Fix failing test and summarize"</code></td>
-        <td>Auto-approves non-denied permissions, hides run from session history, and emits structured JSON.</td>
+        <td><strong>4. Isolated Worktree &amp; Archived CI Run</strong></td>
+        <td><code>opencode run -w fix-tests --auto --archived --format json -m anthropic/claude-sonnet-4-6 "Fix failing test"</code></td>
+        <td>Runs inside a fresh Git worktree (<code>-w</code>), hides from inbox (<code>--archived</code>), and emits JSON.</td>
       </tr>
       <tr>
-        <td><strong>5. Browser &amp; Mobile Access via <code>opencode pair</code></strong></td>
+        <td><strong>5. Pairing, Schedules &amp; Desktop Browser</strong></td>
         <td><code>OPENCODE_PASSWORD=secret opencode serve --hostname 0.0.0.0 --port 4096</code><br/><code>opencode pair --url https://devbox.tailnet:4096</code></td>
-        <td>Generates a short-lived single-use pairing URL so you can steer sessions safely from a browser.</td>
+        <td>Mints a single-use pairing URL, coordinates <code>experimental.schedules</code>, and pairs with the <code>v2.4+</code> Desktop Browser.</td>
       </tr>
     </tbody>
   </table>

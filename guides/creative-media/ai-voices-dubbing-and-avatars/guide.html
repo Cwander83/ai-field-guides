@@ -199,15 +199,15 @@
     </thead>
     <tbody>
       <tr>
-        <td><strong>ElevenLabs</strong><br/><code>eleven_v3</code> / <code>v4</code> / Flash</td>
-        <td>Free ($0) &bull; Starter ($6, IVC + Dub Studio) &bull; Creator ($22, PVC) &bull; Pro ($99, <code>44.1kHz</code> PCM) &bull; Scale ($299) &bull; Biz ($990). API: ~$0.08/1K (v3/v4), ~$0.04/1K (Flash).</td>
-        <td>Professional Voice Cloning, Voice Design v3, Audio Tags (<code>[laughs]</code>), W3C <code>.pls</code> IPA lexicons, Multi-Cast Studio, ~75ms Flash latency.</td>
-        <td>Studio audiobooks, podcast synthesis, brand-locked voiceovers, and real-time voice agent pipelines.</td>
+        <td><strong>ElevenLabs</strong><br/><code>eleven_v3</code> / <code>v4</code> / Scribe v3</td>
+        <td>Free ($0) &bull; Starter ($6) &bull; Creator ($22, PVC) &bull; Pro ($99, <code>44.1kHz</code> PCM) &bull; Scale ($299). TTS ~$0.08/1K; <strong>Scribe v3 STT</strong> $0.20/hr batch ($0.22/hr live).</td>
+        <td>PVC, Voice Design v3, Audio Tags, W3C <code>.pls</code> IPA, <strong>Scribe v3 / Live</strong>, <strong>ElevenAgents Tools as Code</strong> (<code>v2.79+</code>), and <strong>39 Hosted MCP tools</strong>.</td>
+        <td>Studio audiobooks, podcast synthesis, brand-locked voiceovers, and MCP/code-managed voice agents.</td>
       </tr>
       <tr>
-        <td><strong>HeyGen Studio</strong><br/>Digital Twin &amp; Avatar IV</td>
+        <td><strong>HeyGen Studio</strong><br/>Digital Twin &amp; Avatar IV/V</td>
         <td>Free ($0) &bull; Creator ($29, 600 cr, 1080p) &bull; Pro ($49+, 4K) &bull; Biz ($149+, 5 twins, SCORM). Avatar IV: ~16 cr/m (Photo) or ~31 cr/m (Video).</td>
-        <td>Digital Twin likenesses, Avatar IV photo-to-video emotion &amp; gestures, multi-scene slide studio, and LMS/SCORM export.</td>
+        <td>Digital Twins, <strong>Avatar IV &amp; V</strong>, <strong>Video Agent with HyperFrames</strong> (30m videos, 30s video-ref), <strong>HeyGen Voice PVC</strong>, and SCORM export.</td>
         <td>Founder updates, sales outreach, course lessons, and talking-head explainers from script or WAV.</td>
       </tr>
       <tr>
@@ -787,7 +787,7 @@ curl -sS -X POST "https://api.elevenlabs.io/v1/text-to-speech/$ELEVEN_PVC_ID?out
       <ul style="font-size:7.85pt; margin:4px 0 0 0;">
         <li><strong>C2PA Content Credentials:</strong> Cryptographically signed metadata manifests travel with exported assets, recording the generating tool, edit chain, and publisher.</li>
         <li><strong>Imperceptible Watermarking (SynthID):</strong> Invisible audio watermarks survive MP3/AAC compression and social re-encoding without audible distortion.</li>
-        <li><strong>Public AI Speech Classifier:</strong> ElevenLabs provides a verification classifier allowing moderators and partners to audit whether an audio clip originated from its platform.</li>
+        <li><strong>Content Provenance Watermark API:</strong> Call <code>POST /v1/content-provenance/watermark</code> to verify audio clips&mdash;returning <code>is_detected</code>, product, model, <code>generated_at</code>, and <code>unique_id</code> without exposing prompt or account PII.</li>
       </ul>
     </div>
   </div>

@@ -519,20 +519,20 @@ export function middleware(req: NextRequest) {
 
   <h2 class="page-title">Browser WebMCP: Turning Pages into Native Agent Tools</h2>
   <p class="page-lead">
-    Developed in the W3C Web Machine Learning Community Group and available behind <code>chrome://flags/#enable-webmcp-testing</code> in Chrome 146+, WebMCP lets websites publish structured tools directly inside the user&rsquo;s browser session.
+    Developed in the W3C Web Machine Learning Community Group (behind <code>chrome://flags/#enable-webmcp-testing</code> or <code>--enable-features=WebMCP</code> in Chrome 146&ndash;156+), WebMCP lets websites publish structured tools directly inside the user&rsquo;s browser session.
   </p>
 
   <div class="grid-2" style="margin-bottom: 6px;">
     <div class="card">
-      <div class="card-title"><span class="num-badge">1</span> Declarative HTML Form Attributes</div>
+      <div class="card-title"><span class="num-badge">1</span> Declarative HTML Forms (Chrome 156 Notes)</div>
       <p style="font-size:8pt; margin:0;">
-        Turn standard forms into typed tools with zero JavaScript boilerplate using <code>toolname</code>, <code>tooldescription</code>, optional <code>toolautosubmit</code>, and <code>toolparamdescription</code> on fields. The browser converts HTML constraints (<code>required</code>, <code>type="date"</code>, <code>&lt;select&gt;</code>) into JSON Schema and sets <code>e.agentInvoked</code> on submit.
+        Chrome 156 supports <code>toolname</code>, <code>tooldescription</code>, <code>toolautosubmit</code>, and <code>toolparamdescription</code> on forms (setting <code>e.agentInvoked</code> on submit). Note: the W3C Draft CG Report removed Declarative forms in Oct 2026, and forms without <code>toolautosubmit</code> wait for a human click (always set a call timeout).
       </p>
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge teal">2</span> Imperative <code>modelContext</code> API</div>
+      <div class="card-title"><span class="num-badge teal">2</span> Imperative <code>document.modelContext</code> &amp; Polyfill</div>
       <p style="font-size:8pt; margin:0;">
-        Register dynamic JavaScript tools with <code>document.modelContext.registerTool()</code> (Chrome 146 early previews used <code>navigator.modelContext</code>). Manage SPA view changes cleanly with <code>unregisterTool()</code>, <code>provideContext()</code>, and <code>clearContext()</code>, and label safe reads via <code>annotations: { readOnlyHint: true }</code>.
+        Register dynamic tools via <code>document.modelContext.registerTool()</code> (legacy <code>navigator.modelContext</code> fails in Chrome 156+). Load the official Nov 2026 <strong>W3C WebMCP polyfill</strong> so registration code runs across all browsers and in-site assistants.
       </p>
     </div>
   </div>
@@ -563,7 +563,7 @@ export function middleware(req: NextRequest) {
 &lt;/script&gt;</code></pre>
 
   <h3>Pattern B: Imperative Read-Only Lookup via <code>document.modelContext.registerTool</code></h3>
-  <pre><code>const mc = document.modelContext ?? navigator.modelContext;
+  <pre><code>const mc = document.modelContext; // Chrome 156+ standard (or W3C WebMCP polyfill)
 if (mc) {
   mc.registerTool({
     name: 'search_docs',
@@ -890,9 +890,9 @@ node -e "const r=JSON.parse(process.argv[1]); if (r.score !== null &amp;&amp; r.
       </p>
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge teal">2</span> Markdown Context + WebMCP Execution</div>
+      <div class="card-title"><span class="num-badge teal">2</span> Playwright MCP <code>v0.0.84+</code> &amp; <code>webmcp_&lt;tool&gt;</code></div>
       <p style="font-size:8.1pt; margin:0;">
-        First, agents read pricing, return policies, and API guides cleanly through <code>/llms.txt</code> and <code>Accept: text/markdown</code>. Once the user visits the interactive page in Chrome or Edge, WebMCP takes over to invoke search filters, cart updates, and gated checkouts without fragile DOM clicking.
+        Agents read docs via <code>/llms.txt</code> and <code>Accept: text/markdown</code> first. When connected through Microsoft&rsquo;s <strong>Playwright MCP (<code>v0.0.84+</code>)</strong> (with <code>--enable-features=WebMCP</code> or <code>--cdp-endpoint</code>), every WebMCP tool on the open page auto-exposes to Claude Code and Cursor as <code>webmcp_&lt;tool&gt;</code>!
       </p>
     </div>
   </div>
@@ -965,9 +965,9 @@ node -e "const r=JSON.parse(process.argv[1]); if (r.score !== null &amp;&amp; r.
         <td>Enable SSR or static prerendering (SSG) for core content routes.</td>
       </tr>
       <tr>
-        <td><strong><code>modelContext</code> is undefined</strong></td>
-        <td>Missing Chrome flag or HTTPS</td>
-        <td>Enable <code>#enable-webmcp-testing</code>, serve over HTTPS, and check <code>document.modelContext ?? navigator.modelContext</code>.</td>
+        <td><strong><code>modelContext</code> fails in Chrome 156</strong></td>
+        <td>Legacy <code>navigator.modelContext</code> or missing flag</td>
+        <td>Use <code>document.modelContext</code> (or the official W3C WebMCP polyfill) and enable <code>--enable-features=WebMCP</code>.</td>
       </tr>
       <tr>
         <td><strong><code>429 rate_limit_exceeded</code></strong></td>

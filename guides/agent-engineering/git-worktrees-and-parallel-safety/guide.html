@@ -737,13 +737,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><strong>Claude Code</strong><br/><span style="color:#64748b;font-size:7.5pt;">Anthropic CLI &amp; IDE</span></td>
+        <td><strong>Claude Code (<code>v2.1.330+</code>)</strong><br/><span style="color:#64748b;font-size:7.5pt;">Anthropic CLI &amp; IDE</span></td>
         <td>
           <code>claude --worktree feat-auth</code> (<code style="white-space:nowrap;">-w</code>)<br/>
-          <code>claude -w feat-auth --tmux</code><br/>
+          <code>.worktreeinclude</code> (auto-copy env/fixtures)<br/>
           In-session tool: <code>EnterWorktree</code>
         </td>
-        <td>Creates isolated worktrees under <code>.claude/worktrees/</code>; supports <code>WorktreeCreate</code> / <code>PreToolUse</code> / <code>Stop</code> hooks in committed <code>.claude/settings.json</code> + macOS Seatbelt / Linux bubblewrap <code>/sandbox</code>.</td>
+        <td>Creates worktrees under <code>.claude/worktrees/</code> (with <code>v2.1.330+</code> auto-cleanup &amp; concurrent settings write safety), <code>.worktreeinclude</code> for gitignored files, and <code>WorktreeCreate</code> / <code>PreToolUse</code> hooks.</td>
       </tr>
       <tr>
         <td><strong>Google Antigravity</strong><br/><span style="color:#64748b;font-size:7.5pt;">App, IDE &amp; <code>agy</code> CLI</span></td>
@@ -771,13 +771,13 @@
         <td>Automates dependency install &amp; <code>.env</code> copy per spawned worktree. Commit <code>.cursor/permissions.json</code> with strict <strong>Allowlist</strong> mode (prefix-matched; deny wins).</td>
       </tr>
       <tr>
-        <td><strong>Codex CLI &amp; aider</strong><br/><span style="color:#64748b;font-size:7.5pt;">Terminal Agents</span></td>
+        <td><strong>Codex, OpenCode &amp; aider</strong><br/><span style="color:#64748b;font-size:7.5pt;">Terminal &amp; Parallel Code CLI</span></td>
         <td>
-          Pair w/ <code>wt-spawn.sh</code>, then launch:<br/>
+          <code>opencode run -w &lt;name&gt;</code> (<code>v2.2.6+</code>)<br/>
           <code>codex --sandbox workspace-write</code><br/>
           <code>aider --git-commit-verify --auto-test</code>
         </td>
-        <td>Codex's <code>workspace-write</code> keeps <code>.git</code> <strong>read-only</strong> at the OS kernel level! In aider, <strong>always pass <code>--git-commit-verify</code></strong> (its default skips <code>pre-commit</code> hooks).</td>
+        <td>OpenCode <code>-w</code> and <strong>Parallel Code CLI</strong> spawn per-agent worktrees directly; Codex <code>workspace-write</code> keeps <code>.git</code> read-only at the OS kernel level; aider requires <code>--git-commit-verify</code>.</td>
       </tr>
     </tbody>
   </table>
