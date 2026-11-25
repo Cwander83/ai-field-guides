@@ -183,9 +183,9 @@
     <div class="card">
       <div class="card-title"><span class="num-badge">A</span> Browser Extension &amp; Interpreter AI</div>
       <ul style="font-size: 8.4pt;">
-        <li><strong>Obsidian Web Clipper:</strong> Install the official extension for Chrome, Safari, Firefox, or Arc. Set default save folder to <code>_inbox/</code>.</li>
+        <li><strong>Obsidian Web Clipper (<code>v1.7.1+</code>):</strong> Install the official extension for Chrome, Safari, Firefox, or Arc. Set default save folder to <code>_inbox/</code>.</li>
         <li><strong>Local Privacy Tier (Ollama):</strong> Run <code>ollama pull qwen3</code> or <code>gemma3</code> on your laptop. Enable <code>OLLAMA_ORIGINS=*</code> so the browser extension can talk to <code>http://localhost:11434</code>.</li>
-        <li><strong>Cloud Reasoning Tier:</strong> Add an Anthropic, Gemini, or OpenAI API key inside Web Clipper Settings &rarr; Interpreter for dense research synthesis or long transcripts.</li>
+        <li><strong>Multi-Provider Cloud Tier:</strong> Configure flexible multi-provider storage (<code>v1.7.1+</code>) for Anthropic, Gemini, or OpenAI API keys in Settings &rarr; Interpreter.</li>
       </ul>
     </div>
     <div class="card">
@@ -661,8 +661,8 @@ whisper-cli -m ggml-large-v3-turbo.bin \
       </tr>
       <tr>
         <td><strong>4. Voice Memo Folder Watcher</strong><br /><span style="color: #64748b;">Trigger:</span> New <code>.wav</code> in <code>_inbox/audio</code></td>
-        <td><code>whisper-cli -m ggml-base.en.bin -f "$f" -otxt &amp;&amp; obsidian append path="_inbox/Voice_Log.md" content="$(cat "$f.txt")"</code></td>
-        <td>Appends offline transcript straight into daily or rolling <code>_inbox/Voice_Log.md</code></td>
+        <td><code>whisper-cli -m ggml-base.en.bin -f "$f" -otxt &amp;&amp; obsidian append path="_inbox/Voice_Log.md" heading="Voice Captures" content="$(cat "$f.txt")"</code></td>
+        <td>Appends offline transcript under target heading in <code>_inbox/Voice_Log.md</code></td>
       </tr>
       <tr>
         <td><strong>5. Batch PDF Distiller</strong><br /><span style="color: #64748b;">Trigger:</span> Folder of research PDFs</td>
@@ -674,8 +674,8 @@ whisper-cli -m ggml-large-v3-turbo.bin \
 
   <div class="grid-2" style="margin-top: 6px;">
     <div class="card-dark">
-      <div class="card-title">Recipe #4 Pro Tip: Atomic Notes vs Rolling Log</div>
-      <p style="font-size: 8.2pt; color: #cbd5e1;">Use <code>obsidian append</code> when capturing quick 20-second walking thoughts into one daily log. Switch to <code>obsidian create</code> with a dated filename whenever a recording exceeds three minutes so each meeting gets its own searchable Base row.</p>
+      <div class="card-title">Recipe #4 Pro Tip: Heading-Targeted Append (Obsidian 1.15+)</div>
+      <p style="font-size: 8.2pt; color: #cbd5e1;">Use <code>obsidian append heading="Voice Captures"</code> (added in Obsidian <code>1.15.0</code>) to slot 20-second walking thoughts under a specific section of your daily log. Switch to <code>obsidian create</code> whenever a recording exceeds three minutes.</p>
     </div>
     <div class="card">
       <div class="card-title"><span class="num-badge amber">!</span> Token Budget Guardrail</div>
@@ -702,14 +702,14 @@ whisper-cli -m ggml-large-v3-turbo.bin \
   <div class="grid-2" style="margin-bottom: 8px;">
     <div class="card">
       <div class="card-title"><span class="num-badge">1</span> iOS Shortcuts &amp; Android Share Sheet</div>
-      <p style="font-size: 8.2pt;">Use the native <code>obsidian://new</code> URI scheme to create formatted <code>_inbox/</code> notes from any mobile app without waiting for desktop sync.</p>
+      <p style="font-size: 8.2pt;">Use native <code>obsidian://new</code> (or <code>append</code> / <code>prepend</code> with <code>1.15.0+</code> <code>heading=</code> &amp; <code>spacing=</code> parameters) to capture from any mobile app.</p>
       <pre class="code-block"><code>obsidian://new?vault=Knowledge&amp;file=_inbox%2F2026-11-12-clip&amp;content=---%0Astatus%3A%20inbox%0Auntrusted_clip%3A%20true%0A---%0A%0A%5BSource%5D(https%3A%2F%2Fexample.com)</code></pre>
       <p style="font-size: 8pt; color: #475569;"><strong>Watch Length:</strong> Always URL-encode spaces and newlines, and keep URI payloads under ~8 KB so iOS does not truncate long articles.</p>
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge amber">2</span> Obsidian CLI &amp; Local REST Hooks</div>
-      <p style="font-size: 8.2pt;">On desktop, trigger post-capture enrichment via the Obsidian CLI or the Local REST API plugin on <code>127.0.0.1:27123</code>.</p>
-      <pre class="code-block"><code># Append mobile or CLI capture safely to _inbox/
+      <div class="card-title"><span class="num-badge amber">2</span> Obsidian 1.15 CLI &amp; Local REST Hooks</div>
+      <p style="font-size: 8.2pt;">Enable the built-in CLI in <code>Settings &rarr; General &rarr; Command line interface</code> (using named <code>key=value</code> args + <code>heading=</code> targets) or use Local REST API on <code>127.0.0.1:27123</code>.</p>
+      <pre class="code-block"><code># Create or append under a target heading via Obsidian 1.15.0+ CLI
 obsidian create \
   path="_inbox/2026-11-12-api-note.md" \
   content="---\nstatus: inbox\nuntrusted_clip: true\n---\n\nCaptured draft."</code></pre>

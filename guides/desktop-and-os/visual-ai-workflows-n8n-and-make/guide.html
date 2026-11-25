@@ -453,11 +453,11 @@ Output a concise plain-text decision summary; downstream formatting handles JSON
 
   <div class="grid-2" style="gap:10px; margin-bottom:6px;">
     <div class="card-tint" style="padding:7.5px 10px; border-top:3px solid #ea580c;">
-      <div class="card-title" style="font-size:8.7pt; color:#9a3412;">MCP Client Tool vs. MCP Server Trigger</div>
+      <div class="card-title" style="font-size:8.7pt; color:#9a3412;">Instance MCP vs. Trigger &amp; Make MCP</div>
       <ul style="font-size:7.55pt; margin:3px 0 0 0; padding-left:16px;">
-        <li><strong>MCP Client Tool (Outbound):</strong> Plugs into the AI Agent&rsquo;s Tool dock via <strong>Streamable HTTP</strong> or <strong>SSE</strong>, letting workflows discover external tools behind allowlists.</li>
-        <li><strong>MCP Server Trigger (Inbound):</strong> Turns n8n into an MCP server endpoint so Claude or Cursor invokes vetted Postgres, Jira, or Slack sub-tools safely.</li>
-        <li><strong>Make MCP Server:</strong> Exposes active Make scenarios set to <em>on demand</em> with <code>Return Output</code> as standardized MCP toolboxes over stateless HTTP.</li>
+        <li><strong>n8n Instance MCP vs. Trigger:</strong> Instance-level MCP lets Claude/Cursor build &amp; update n8n workflows and read Agent session logs; node-level <strong>MCP Server Trigger</strong> exposes vetted workflow tools.</li>
+        <li><strong>MCP Client Tool (Outbound):</strong> Connects n8n AI Agents (with CIMD OAuth &amp; connection-leak guards in <code>2.49+</code>) to external Streamable HTTP/SSE MCP servers.</li>
+        <li><strong>Make MCP Client &amp; Server:</strong> Expose <em>on-demand</em> scenarios via <strong>Make MCP Server</strong>, or attach external MCP servers directly inside <strong>Make AI Agents (New)</strong>.</li>
       </ul>
     </div>
     <div class="card" style="padding:7.5px 10px; border-top:3px solid #7e22ce;">
@@ -521,8 +521,8 @@ services:
 # Scale horizontally: docker compose up -d --scale n8n-worker=3</code></pre>
 
   <div class="callout plum" style="margin:2px 0 0 0; padding:6px 10px; font-size:7.85pt;">
-    <div class="callout-title">Self-Hosting Non-Negotiables: Identical Encryption Key &amp; Task Runners</div>
-    Never run Queue Mode on SQLite&mdash;concurrent worker writes will lock the database. Keep <code>N8N_ENCRYPTION_KEY</code> identical across <code>n8n</code> and every <code>n8n-worker</code> container so workers decrypt credentials cleanly, and note that n8n 2.x enables isolated Code task runners by default (making legacy <code>N8N_RUNNERS_ENABLED</code> optional).
+    <div class="callout-title">n8n 2.49 &rarr; 3.0 Migration Report &amp; Encryption Keys</div>
+    Keep <code>N8N_ENCRYPTION_KEY</code> identical across <code>n8n</code> and all <code>n8n-worker</code> containers. Note that n8n <code>1.x</code> reaches EOL on <strong>Dec 31, 2026</strong> and <strong>n8n 3.0&ndash;3.3</strong> (Docker-only self-hosting; removes legacy AI Agent v1 modes) ships GA in early Dec 2026&mdash;audit <code>Settings &rarr; Migration Report</code> on <code>2.47+ / 2.49</code> before upgrading.
   </div>
 
   <div class="page-footer"><span>Visual AI Workflows with n8n &amp; Make &bull; Complete How-To Guide</span><span class="page-num">Page 6 of 12</span></div>
@@ -542,9 +542,9 @@ services:
 
   <div class="grid-3" style="gap:9px; margin-bottom:7px;">
     <div class="card" style="padding:7.5px 9.5px; border-top:3px solid #7e22ce;">
-      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge plum">1</span> Scenarios as Agent Tools</div>
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge plum">1</span> Scenarios &amp; MCP as Agent Tools</div>
       <p style="font-size:7.65pt; margin:0;">
-        Bundle multi-app scenarios as tools inside <strong>Make AI Agents</strong>. Define strict input schemas (Name, Type, Description), set schedule to <em>on demand</em>, and finish with a <code>Return Output</code> module.
+        Wire <em>on-demand</em> Scenarios (with strict input schemas and <code>Return Output</code>) plus external <strong>MCP Server tools</strong> directly into <strong>Make AI Agents (New)</strong> within the same run.
       </p>
     </div>
     <div class="card" style="padding:7.5px 9.5px; border-top:3px solid #ea580c;">
@@ -586,7 +586,7 @@ services:
       <tr>
         <td><strong>Make AI Agent + Return</strong></td>
         <td>Token-tiered or BYOK</td>
-        <td>Reasons across scenario tools and Data Store context dynamically.</td>
+        <td>Reasons across scenario tools, external MCP servers &amp; Data Stores.</td>
         <td><code>Return Output</code> halts its route immediately; keep prompts narrow and bounded.</td>
       </tr>
       <tr>
@@ -613,15 +613,15 @@ services:
 
   <div class="grid-2" style="gap:10px; margin:5px 0 5px 0;">
     <div class="card" style="padding:7.5px 10px; border-top:3px solid #ea580c;">
-      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">4</span> Built-In Make AI Provider vs. BYOK</div>
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge">4</span> Make AI Provider, BYOK &amp; Maia Credits</div>
       <p style="font-size:7.65pt; margin:0;">
-        Make&rsquo;s built-in AI Provider bills credits dynamically by model tier and separate input/output token rates&mdash;heavy reasoning models drain pools quickly. On paid tiers, connect your own OpenAI or Anthropic key (<strong>BYOK</strong>) so Make charges a flat base credit while tokens bill directly at provider rates.
+        Make&rsquo;s AI Provider bills 1 credit/op plus dynamic token credits (and <strong>Maia</strong> in-builder replies draw ~140&ndash;160 credits after your 70-message trial). On paid plans, use <strong>BYOK</strong> (OpenAI/Anthropic) so Make charges only base operations.
       </p>
     </div>
     <div class="card" style="padding:7.5px 10px; border-top:3px solid #7e22ce;">
-      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge plum">5</span> Make MCP Toolbox Best Practices</div>
+      <div class="card-title" style="font-size:8.6pt;"><span class="num-badge plum">5</span> Native Functions &amp; Disconnected Testing</div>
       <p style="font-size:7.65pt; margin:0;">
-        When publishing scenarios to external clients through <strong>Make MCP Server</strong>, expose focused single-purpose tools with strict parameter descriptions, disable open-ended catch-all inputs, and turn on Scenario <em>Incomplete Executions</em> so transient downstream API failures recover safely.
+        Use Make&rsquo;s built-in <code>arrayDiff</code>, <code>arrayIntersect</code>, <code>set</code>, and <code>escapeJSON</code> functions to clean JSON payloads at zero module cost, and test individual modules while disconnected before wiring full scenario routes.
       </p>
     </div>
   </div>

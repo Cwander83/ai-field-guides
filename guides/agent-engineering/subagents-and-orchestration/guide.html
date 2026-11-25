@@ -582,10 +582,10 @@ proven. Read full changed files
   <h3>Clean-Slate Subagent vs. Context Fork (<code>/subtask</code> &bull; <code>fork</code>)</h3>
   <div class="grid-2" style="margin-bottom:8px;">
     <div class="card" style="padding:9px 11px;">
-      <div class="card-title"><span class="num-badge cyan">A</span> Clean-Slate Subagent (Default)</div>
+      <div class="card-title"><span class="num-badge cyan">A</span> Clean-Slate Subagent (Default &amp; Background)</div>
       <ul style="font-size:8.2pt; margin:4px 0 0 0; padding-left:16px;">
-        <li><strong>Sees at startup:</strong> Its own Markdown prompt, the coordinator's briefing, repo <code>CLAUDE.md</code> / <code>AGENTS.md</code>, git status snapshot, and preloaded <code>skills</code>.</li>
-        <li><strong>Watch out:</strong> Built-in lightweight scouts (like <code>Explore</code>) skip <code>CLAUDE.md</code> to save tokens—restate critical folder exclusions directly in your prompt!</li>
+        <li><strong>Sees at startup:</strong> Its own Markdown prompt, coordinator briefing, repo <code>CLAUDE.md</code> / <code>AGENTS.md</code>, git status, and preloaded <code>skills</code> (plus <strong>Skills over MCP</strong> in public beta).</li>
+        <li><strong>v2.1.198+ Watchout:</strong> Main-thread subagents now run in the background by default, and built-in <code>Explore</code> inherits the parent model (override with <code>.claude/agents/Explore.md</code> pinned to <code>model: haiku</code>).</li>
       </ul>
     </div>
     <div class="card" style="padding:9px 11px;">
@@ -931,8 +931,8 @@ exit 0</code></pre>
   <h3>6 Token &amp; Cost Guardrails That Prevent Multi-Agent Bill Shock</h3>
   <div class="grid-2" style="gap:9px 12px;">
     <div class="card" style="padding:8.5px 11px;">
-      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Tier Models by Judgment Needed</div>
-      <p style="font-size:8.1pt; margin:0;">Keep <code>opus</code> / <code>gemini-pro</code> on your coordinator, pin <code>haiku</code> / <code>flash</code> on file scouts, and use <code>sonnet</code> on builders. Set <code>CLAUDE_CODE_SUBAGENT_MODEL</code> as a safe floor.</p>
+      <div class="card-title" style="font-size:9.1pt;"><span class="num-badge">1</span> Tier Models &amp; Effort by Judgment</div>
+      <p style="font-size:8.1pt; margin:0;">Keep <code>opus</code> / <code>gemini-pro</code> on your coordinator, pin <code>haiku</code> / <code>flash</code> on file scouts, and set <code>CLAUDE_CODE_SUBAGENT_MODEL</code> plus <code>CLAUDE_CODE_SUBAGENT_EFFORT</code> as safe cost floors.</p>
     </div>
     <div class="card" style="padding:8.5px 11px;">
       <div class="card-title" style="font-size:9.1pt;"><span class="num-badge cyan">2</span> Cap Fan-Out Width at 3&ndash;5 Workers</div>
@@ -1008,8 +1008,8 @@ exit 0</code></pre>
         <td>Waiting on an interactive tool approval prompt surfaced in your main window—or folder trust wasn't accepted for project hooks. Answer the prompt or use <code>acceptEdits</code> / <code>dontAsk</code>.</td>
       </tr>
       <tr>
-        <td><strong>Built-in <code>Explore</code> scout ignored my <code>CLAUDE.md</code> rules</strong></td>
-        <td>By design, lightweight built-in Explore/Plan scouts skip <code>CLAUDE.md</code> to save startup tokens. Put critical constraints (like <em>"ignore <code>vendor/</code>"</em>) directly in the delegation prompt—or use your own custom scout!</td>
+        <td><strong>Built-in <code>Explore</code> ignores <code>CLAUDE.md</code> or uses Opus</strong></td>
+        <td><code>Explore</code> skips <code>CLAUDE.md</code> and (since <code>v2.1.198</code>) inherits the parent model. Override with a custom <code>.claude/agents/Explore.md</code> pinned to <code>model: haiku</code> (or set <code>CLAUDE_CODE_DISABLE_EXPLORE_PLAN_AGENTS=1</code>).</td>
       </tr>
     </tbody>
   </table>
