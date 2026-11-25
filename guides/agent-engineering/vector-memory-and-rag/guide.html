@@ -192,16 +192,16 @@
     </thead>
     <tbody>
       <tr>
-        <td><strong>Chroma</strong><br/><span style="color:#0891b2; font-weight:700;">Default Start</span></td>
-        <td>Embedded Python lib (<code>./memory_db</code>) or Cloud</td>
+        <td><strong>Chroma (OSS)</strong><br/><span style="color:#0891b2; font-weight:700;">Default Local</span></td>
+        <td>Embedded Python (<code>./memory_db</code>) or self-hosted VM (<code>v1.5.9+</code>)</td>
         <td>Personal vaults &amp; local agent memory up to ~100K+ chunks, zero ops</td>
-        <td>3 lines to first query; disable usage stats via <code>anonymized_telemetry=False</code>. Single-writer focus.</td>
+        <td><strong>Note:</strong> Chroma Cloud shuts down Dec 7/22, 2026 (joined Replit); Apache 2.0 OSS continues locally.</td>
       </tr>
       <tr>
-        <td><strong><code>pgvector</code></strong><br/><span style="color:#64748b;">Postgres 13+</span></td>
-        <td><code>CREATE EXTENSION vector;</code> in PostgreSQL</td>
-        <td>Teams already on Postgres needing ACID joins, backups &amp; Row-Level Security</td>
-        <td>You manage Postgres &amp; HNSW indexes; vectors &gt;2,000 dims (3072d) need <code>halfvec</code> casting.</td>
+        <td><strong><code>pgvector</code></strong><br/><span style="color:#64748b;">Postgres 13&ndash;19</span></td>
+        <td><code>CREATE EXTENSION vector;</code> (<code>v0.8.7+</code>)</td>
+        <td>Teams on Postgres needing ACID joins, backups &amp; Row-Level Security</td>
+        <td>Upgrade to <code>0.8.7+</code> (fixes <code>CVE-2026-103484</code>); vectors &gt;2,000 dims need <code>halfvec</code> casting.</td>
       </tr>
       <tr>
         <td><strong>Qdrant</strong><br/><span style="color:#64748b;">Local / Server</span></td>
@@ -821,9 +821,9 @@ def hybrid_search(query: str, embed_fn, k=6, leg=20):
       </tr>
       <tr>
         <td><strong>4. Multi-Tenant Postgres <code>pgvector</code> w/ RLS</strong></td>
-        <td>PostgreSQL 17 + <code>pgvector</code> 0.8 HNSW + <code>text-embedding-3-large</code> (<code>halfvec</code>)</td>
+        <td>PostgreSQL 17&ndash;19 + <code>pgvector</code> 0.8.7 HNSW + <code>text-embedding-3-large</code> (<code>halfvec</code>)</td>
         <td><code>chunks</code> table joined to <code>documents</code> with <code>tenant_id UUID NOT NULL</code></td>
-        <td>Enforce <code>ENABLE ROW LEVEL SECURITY</code> on <code>tenant_id = current_setting('app.tenant_id')::uuid</code> + iterative HNSW scans so tenants never leak chunks.</td>
+        <td>Enforce <code>ENABLE ROW LEVEL SECURITY</code> on <code>tenant_id</code> + iterative HNSW scans (export Chroma Cloud via <code>include=["embeddings",...]</code> before Dec 22).</td>
       </tr>
       <tr>
         <td><strong>5. 100% Air-Gapped Laptop Vault</strong></td>
