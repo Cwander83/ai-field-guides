@@ -166,7 +166,7 @@
       <div class="card-title" style="font-size:9.1pt;"><span class="num-badge lime">2</span> Granola Plan Tiers &amp; Workspace Rules</div>
       <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
         <li><strong>Basic ($0):</strong> Bot-free capture, unlimited daily transcripts, shared folders, custom templates, and Slack sharing&mdash;but note view is capped at a <strong>rolling 30-day window</strong> (older notes lock until upgrade).</li>
-        <li><strong>Business ($14/user/mo):</strong> Unlimited meeting history, advanced AI thinking models, custom dictionaries, Notion, HubSpot, Attio, Affinity, Zapier, and <strong>Public API + Webhooks</strong>.</li>
+        <li><strong>Business ($14/user/mo):</strong> Unlimited meeting history, explicit <strong>AI thinking model picker</strong>, built-in desktop <strong>voice dictation</strong>, custom dictionaries, Notion, HubSpot, Attio, Affinity, Zapier, and <strong>Public API + Webhooks</strong>.</li>
         <li><strong>Enterprise ($35+/user/mo):</strong> SSO (typically 50+ seats), SCIM, HIPAA BAA (desktop), audit logs, org-wide auto-deletion retention, and default <strong>zero model training</strong>.</li>
         <li><strong>Seat Rule:</strong> Team workspaces cannot mix free and paid seats; qualifying startups and students can claim 12 months of Business free.</li>
       </ul>
@@ -588,8 +588,8 @@
   <pre class="code-block"><code># Connect Granola's official hosted MCP server (Streamable HTTP + OAuth 2.0) to Claude Code or Cursor:
 claude mcp add granola --transport http https://mcp.granola.ai/mcp
 
-# Available MCP tools exposed to your AI coding or writing assistant:
-list_meetings(folder, date_range)  |  get_meetings(ids)  |  get_meeting_transcript(id)  |  query_granola_meetings(question)</code></pre>
+# 5 native MCP tools exposed to your AI coding or writing assistant (including search_meetings):
+list_meetings(folder, date_range) | search_meetings(query) | get_meetings(ids) | get_meeting_transcript(id) | query_granola_meetings(question)</code></pre>
 
   <div class="callout sky" style="margin:2px 0 0 0; padding:7px 11px; font-size:8.1pt;">
     <div class="callout-title">Folder Hygiene Tip: Keep One Topic Per Folder</div>

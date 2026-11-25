@@ -197,25 +197,25 @@
         <td>End-to-end vision parsing replaces multi-step OCR chaining; heavier VRAM footprint.</td>
       </tr>
       <tr>
-        <td><strong>Crawl4AI (CSS)</strong><br/><span style="font-size:7.1pt; color:#64748b;">JsonCssExtraction</span></td>
+        <td><strong>Crawl4AI (CSS)</strong><br/><span style="font-size:7.1pt; color:#64748b;">v0.9.5 JsonCssExtraction</span></td>
         <td>Repeated catalog cards, docs, tables, SPAs</td>
-        <td>Local Playwright; zero LLM token cost</td>
+        <td>Local Playwright or Crawl4AI Cloud; 0 LLM tokens</td>
         <td>Structured JSON + <code>fit_markdown</code></td>
         <td>Blazing fast and deterministic once CSS or XPath selectors are mapped.</td>
       </tr>
       <tr>
-        <td><strong>Crawl4AI (LLM)</strong><br/><span style="font-size:7.1pt; color:#64748b;">LLMExtractionStrategy</span></td>
+        <td><strong>Crawl4AI (LLM)</strong><br/><span style="font-size:7.1pt; color:#64748b;">v0.9.5 + Docker API</span></td>
         <td>Irregular layouts, articles, mixed prose pages</td>
         <td>Local Playwright + LLM API tokens</td>
         <td>Pydantic JSON + pruned Markdown</td>
-        <td>Handles changing DOM shapes flexibly; costs tokens per page unless pruned first.</td>
+        <td>Handles changing DOM shapes flexibly; hardened v0.9+ Docker API &amp; <code>CacheMode</code> enum.</td>
       </tr>
       <tr>
-        <td><strong>Firecrawl v2 Cloud</strong><br/><span style="font-size:7.1pt; color:#64748b;">API + firecrawl-mcp</span></td>
-        <td>Hard-to-scrape sites, sitemaps, live monitors</td>
-        <td>Managed SaaS credits; 2-day cache saves hits</td>
-        <td>Markdown, v2 JSON, screenshots, diffs</td>
-        <td>Built-in proxies, anti-bot retries, browser actions, and zero infra setup.</td>
+        <td><strong>Firecrawl v2 Cloud</strong><br/><span style="font-size:7.1pt; color:#64748b;">5 Endpoints + Alexandria</span></td>
+        <td>Hard-to-scrape sites, sitemaps, 550+ data providers</td>
+        <td>Managed credits (1/scrape, 2/search); 2-day cache</td>
+        <td>Markdown, JSON, Alexandria records, Interact</td>
+        <td>Scrape, Crawl, Map, Search, Interact persistent logins, and Alexandria Research Index.</td>
       </tr>
       <tr>
         <td><strong>Firecrawl Self-Host</strong><br/><span style="font-size:7.1pt; color:#64748b;">Docker Compose</span></td>
@@ -230,12 +230,12 @@
   <h3>Quick Installation &amp; Runtime Sizing</h3>
   <div class="grid-2" style="margin-bottom: 6px;">
     <div class="card">
-      <div class="card-title"><span class="num-badge">1</span><span>Local Python Stack (Docling + Crawl4AI)</span></div>
+      <div class="card-title"><span class="num-badge">1</span><span>Local Python Stack (Docling + Crawl4AI v0.9.5)</span></div>
       <p style="font-size:8.1pt; margin:0 0 4px 0;">
-        Install both open-source toolkits in a Python 3.10+ virtual environment and initialize Playwright browser binaries in one step:
+        Install both open-source toolkits in Python 3.10+ (or deploy the hardened Crawl4AI v0.9+ Docker API / Crawl4AI Cloud) and initialize Playwright binaries:
       </p>
       <p style="font-size:7.9pt; margin:0 0 4px 0;">
-        <code>pip install docling crawl4ai pydantic</code><br/>
+        <code>pip install docling "crawl4ai&gt;=0.9.5" pydantic</code><br/>
         <code>crawl4ai-setup</code>
       </p>
       <p style="font-size:7.8pt; color:#475569; margin:0;">
@@ -243,16 +243,16 @@
       </p>
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge teal">2</span><span>Firecrawl v2 SDK &amp; MCP Server</span></div>
+      <div class="card-title"><span class="num-badge teal">2</span><span>Firecrawl v2 SDK, Alexandria &amp; MCP Server</span></div>
       <p style="font-size:8.1pt; margin:0 0 4px 0;">
-        Connect agents or batch scripts to Firecrawl using the official v2 Python SDK or drop-in Model Context Protocol server:
+        Connect agents to Firecrawl&rsquo;s 5 endpoints and <strong>Firecrawl Alexandria</strong> (550+ official data providers &amp; 3M+ arXiv/GitHub Research Index) via the SDK or <code>@firecrawl/firecrawl-mcp-server</code>:
       </p>
       <p style="font-size:7.9pt; margin:0 0 4px 0;">
         <code>pip install firecrawl</code><br/>
         <code>FIRECRAWL_API_KEY=fc-... npx -y firecrawl-mcp</code>
       </p>
       <p style="font-size:7.8pt; color:#475569; margin:0;">
-        <strong>Quota tip:</strong> Firecrawl v2 caches scrapes for 2 days by default (<code>maxAge</code>), returning cached semantic index snapshots without burning fresh browser time.
+        <strong>Credit math:</strong> Scrape/Crawl/Map cost <code>1 credit</code> (<code>5</code> with JSON mode), Search costs <code>2 credits/10 results</code>, and Interact browser sessions cost <code>2&ndash;3</code> (coded) or <code>7&ndash;8 credits</code> (AI).
       </p>
     </div>
   </div>
@@ -521,9 +521,9 @@ async def scrape_catalog():
     <span>AI Document &amp; Web Scraping Pipelines</span>
   </div>
 
-  <h2 class="page-title">Firecrawl v2: Mapping, Structured <code>/extract</code> &amp; Change Tracking</h2>
+  <h2 class="page-title">Firecrawl v2: Alexandria, <code>/interact</code> &amp; Change Tracking</h2>
   <p class="page-lead">
-    Firecrawl v2 provides managed browser infrastructure, fast sitemap URL discovery, schema-guided JSON extraction, interactive page actions, and persistent change diffs over a clean REST and Python SDK.
+    Firecrawl v2 unites 5 core endpoints (<strong>Scrape</strong>, <strong>Crawl</strong>, <strong>Map</strong>, <strong>Search</strong>, and <strong>Interact</strong> persistent browser profiles) with <strong>Firecrawl Alexandria</strong> (550+ official data providers, 75M+ records, and 3M+ arXiv/GitHub Research Index) behind one API key.
   </p>
 
   <div class="figure-box" style="margin-bottom: 6px;">
@@ -535,12 +535,12 @@ async def scrape_catalog():
 
   <div class="grid-3" style="margin-bottom: 6px;">
     <div class="card">
-      <div class="card-title"><span class="num-badge">1</span><span>Fast <code>/map</code> &amp; Smart <code>/crawl</code></span></div>
-      <p style="font-size:7.9pt; margin:0;">Inventory thousands of URLs via <code>firecrawl.map()</code> before scraping, then scope recursive crawls with <code>includePaths</code> or natural-language prompts previewed via <code>/crawl-params-preview</code>.</p>
+      <div class="card-title"><span class="num-badge">1</span><span><code>/map</code>, <code>/search</code> &amp; Alexandria</span></div>
+      <p style="font-size:7.9pt; margin:0;">Inventory URLs via <code>/map</code> (1 credit), query live web results via <code>/search</code> (2 credits/10 results), or query 550+ official datasets and 4M+ podcast/paper records via <strong>Alexandria</strong>.</p>
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge teal">2</span><span>JSON Mode, <code>/extract</code> &amp; Actions</span></div>
-      <p style="font-size:7.9pt; margin:0;">Pass <code>{"type": "json", "schema": ...}</code> inside <code>formats</code> for single URLs (or <code>/extract</code> for wildcard domains), paired with pre-scrape <code>actions</code> like <code>click</code>, <code>write</code>, and <code>wait</code>.</p>
+      <div class="card-title"><span class="num-badge teal">2</span><span>JSON Mode, <code>/extract</code> &amp; <code>/interact</code></span></div>
+      <p style="font-size:7.9pt; margin:0;">Extract typed schemas via <code>formats</code> (5 credits), or run multi-step browser flows with <strong>Interact</strong> persistent login/localStorage profiles (2&ndash;3 credits coded; 7&ndash;8 AI-prompted).</p>
     </div>
     <div class="card">
       <div class="card-title"><span class="num-badge amber">3</span><span><code>changeTracking</code> &amp; Webhooks</span></div>

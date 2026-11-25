@@ -187,11 +187,11 @@
         <td>Air-gapped proprietary repos, custom Python hotkeys, privacy-critical Macs.</td>
       </tr>
       <tr>
-        <td><strong>Handy (<code>cjpais/Handy</code>)</strong></td>
-        <td>100% Local Tauri v2 + Rust</td>
+        <td><strong>Handy &amp; FluidVoice</strong></td>
+        <td>100% Local Desktop OSS</td>
         <td><code>200ms &ndash; 500ms</code><br/>Free / MIT OSS</td>
-        <td>GGUF Whisper &amp; Parakeet V3 + optional Ollama post-processing</td>
-        <td>Cross-platform (macOS, Windows, Linux) offline push-to-talk with Silero VAD.</td>
+        <td>Handy (Tauri/Rust cross-OS) &amp; FluidVoice (macOS Apple Silicon + file ASR)</td>
+        <td>Cross-platform (Handy) or native macOS offline push-to-talk with Silero VAD.</td>
       </tr>
       <tr>
         <td><strong>Superwhisper</strong></td>
@@ -201,18 +201,18 @@
         <td>Agents auditing past dictations to auto-patch misheard repo terms.</td>
       </tr>
       <tr>
-        <td><strong>Wispr Flow</strong></td>
+        <td><strong>Wispr Flow &amp; Granola</strong></td>
         <td>Cloud TLS 1.2+ Stream</td>
-        <td><code>150ms &ndash; 350ms</code><br/>Basic / Pro $12&ndash;15</td>
-        <td>Active IDE buffer context + voice file tagging + snippet triggers</td>
+        <td><code>150ms &ndash; 350ms</code><br/>2k words free / $12&ndash;15</td>
+        <td>Wispr IDE buffer context + file tagging; Granola built-in desktop dictation</td>
         <td>Multi-device speed, Cursor/VS Code symbol awareness, zero local GPU setup.</td>
       </tr>
       <tr>
         <td><strong>Claude Code <code>/voice</code> &amp; Codex <code>F8</code></strong></td>
         <td>Native Agent CLI Built-In</td>
         <td><code>250ms &ndash; 500ms</code><br/>Included in Plan</td>
-        <td>Claude primes on repo + Git branch; Codex uses F8 two-way voice</td>
-        <td>Zero-install terminal sessions (requires local mic; not plain remote SSH).</td>
+        <td><code>/voice</code> Hold Space or tap mode (dictation-only; pair <code>VoiceMode</code> MCP for TTS)</td>
+        <td>Zero-install CLI (Cowork supports dictation only; Enterprise Admin org toggle).</td>
       </tr>
       <tr>
         <td><strong>Talon + Cursorless</strong></td>
@@ -241,8 +241,8 @@
   </div>
 
   <div class="callout sky" style="margin: 2px 0;">
-    <div class="callout-title">Choosing Between Push-to-Talk (PTT) and Continuous VAD</div>
-    For coding prompts, <strong>Push-to-Talk</strong> (hold <code>Fn</code>, Left Option, or Spacebar in <code>/voice</code>) wins on predictability: you never leak off-hand remarks or coughs into an active agent terminal. Reserve continuous <strong>Silero VAD</strong> for full-duplex conversational modes, walking capture memos, or hands-free RSI setups paired with a hardware mute switch.
+    <div class="callout-title">Choosing Between Push-to-Talk (PTT), Tap Mode &amp; Continuous VAD</div>
+    For coding prompts, <strong>Push-to-Talk</strong> (hold <code>Fn</code>, Left Option, or <strong>Hold Space</strong> / <strong>tap mode</strong> in Claude Code <code>/voice</code>) wins on predictability: you never leak off-hand remarks into an active terminal. Note that <code>/voice</code> and Claude Cowork provide speech-to-text dictation into the prompt; pair a community MCP server like <code>VoiceMode</code> or Codex <code>F8</code> when you want spoken audio replies.
   </div>
 
   <div class="page-footer">

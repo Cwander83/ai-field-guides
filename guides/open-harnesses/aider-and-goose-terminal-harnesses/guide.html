@@ -161,8 +161,8 @@
       <ul style="font-size:7.9pt; margin:3px 0 0 0; padding-left:16px;">
         <li><strong>Aider via uv (Recommended):</strong> Run <code>uv tool install aider-chat</code> (or <code>python -m pip install aider-install &amp;&amp; aider-install</code>) inside an initialized Git repo.</li>
         <li><strong>Aider Model Prefixes:</strong> Set API keys in environment or <code>.env</code>, then launch with <code>anthropic/...</code>, <code>openai/...</code>, <code>gemini/...</code>, or local <code>ollama_chat/...</code>.</li>
-        <li><strong>Goose CLI (AAIF / Block):</strong> Run <code>curl -fsSL https://github.com/aaif-goose/goose/releases/download/stable/download_cli.sh | bash</code> or <code>brew install block-goose-cli</code>, then run <code>goose configure</code>.</li>
-        <li><strong>Goose Desktop &amp; Web:</strong> Pair the terminal CLI with Goose Desktop (macOS/Windows) or <code>goose web</code> for visual recipe forms and clickable <code>activities</code>.</li>
+        <li><strong>Goose CLI v1.60.1 (AAIF / Block):</strong> Run <code>curl -fsSL https://github.com/aaif-goose/goose/releases/download/stable/download_cli.sh | bash</code> or <code>brew install block-goose-cli</code>, then run <code>goose configure</code> across <strong>85+ LLM providers</strong>.</li>
+        <li><strong>Goose Desktop, Web &amp; 2.0 Beta:</strong> Install Desktop via <code>brew install --cask block-goose</code> (or launch <code>goose web</code> / preview <strong>Goose 2.0 beta</strong>) for visual recipe forms, interactive <strong>MCP Apps</strong> UIs, and clickable <code>activities</code>.</li>
       </ul>
     </div>
     <div class="card" style="padding:8.5px 11px; border-top:3px solid #0284c7;">
@@ -545,20 +545,20 @@ test-cmd: pytest -q</code></pre>
 
   <h2 class="page-title">Block Goose: CLI, Desktop &amp; Native MCP Extensions</h2>
   <p class="page-lead" style="margin-bottom:8px;">
-    Originally open-sourced by Block and now stewarded under the Linux Foundation&rsquo;s Agentic AI Foundation (AAIF), <strong>Goose</strong> treats every capability as a standard Model Context Protocol (MCP) extension&mdash;giving you the exact same tools in CLI, Web, and Desktop.
+    Originally open-sourced by Block and permanently hosted at <code>github.com/aaif-goose/goose</code> under the Linux Foundation&rsquo;s Agentic AI Foundation (AAIF), <strong>Goose</strong> (<code>v1.60.1</code> stable + <code>2.0 beta</code>) treats every capability as a standard MCP extension or interactive <strong>MCP App</strong> across CLI, Web, and Desktop.
   </p>
 
   <div class="grid-3" style="margin-bottom:8px; gap:9px;">
     <div class="card" style="border-top:3px solid #0d9488; padding:8px 10px;">
       <div class="card-title" style="font-size:8.7pt;"><span class="num-badge">1</span> CLI, Web &amp; Desktop</div>
       <p style="font-size:7.75pt; margin:0;">
-        Start interactive terminal coding via <code>goose session</code>, run headless jobs via <code>goose run</code>, launch a browser UI with <code>goose web</code>, or use <strong>Goose Desktop</strong> for visual extensions and clickable recipe <code>activities</code>.
+        Start interactive terminal coding via <code>goose session</code>, run headless jobs via <code>goose run</code>, launch <code>goose web</code>, or use <strong>Goose Desktop</strong> (<code>brew install --cask block-goose</code>) for visual extensions and clickable recipe <code>activities</code>.
       </p>
     </div>
     <div class="card" style="border-top:3px solid #0284c7; padding:8px 10px;">
-      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge sky">2</span> Native MCP Extensions</div>
+      <div class="card-title" style="font-size:8.7pt;"><span class="num-badge sky">2</span> MCP &amp; Interactive MCP Apps</div>
       <p style="font-size:7.75pt; margin:0;">
-        Goose ships built-in MCP extensions&mdash;including <code>developer</code>, <code>computercontroller</code>, and <code>memory</code>&mdash;and lets you wire any stdio or HTTP MCP server via <code>goose configure</code> or <code>goose mcp &lt;name&gt;</code>.
+        Goose ships built-in MCP extensions (<code>developer</code>, <code>computercontroller</code>, <code>memory</code>), renders interactive <strong>MCP Apps</strong> tool UIs directly in Desktop, and connects any stdio/HTTP server via <code>goose configure</code>.
       </p>
     </div>
     <div class="card" style="border-top:3px solid #1e3a8a; padding:8px 10px;">
@@ -643,7 +643,7 @@ goose session --with-builtin "developer,memory" --with-extension "uvx mcp-server
   </p>
 
   <div class="figure-box">
-    <img src="assets/showcase_2.jpg" style="width:100%; height:236px; object-fit:cover; object-position:center; display:block;" alt="Minimalist 3D Nordic navy editorial visual of a frosted-teal blueprint prism splitting work across three guarded modular worker pods into a unified archive crystal" />
+    <img src="assets/showcase_2.jpg" style="width:100%; height:218px; object-fit:cover; object-position:center; display:block;" alt="Minimalist 3D Nordic navy editorial visual of a frosted-teal blueprint prism splitting work across three guarded modular worker pods into a unified archive crystal" />
     <div class="figure-caption">
       <strong>Composable Isolation:</strong> A parent YAML Recipe delegates independent scans to isolated <code>sub_recipes</code> so worker sub-sessions never bloat the parent context window, then merges verified results safely.
     </div>
