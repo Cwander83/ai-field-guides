@@ -221,9 +221,9 @@
       <tr>
         <td><strong>Claude Cowork &amp; Gemini CLI</strong></td>
         <td>macOS &amp; Windows Desktop / CLI</td>
-        <td>Approval-gated dry run / <code>--approval-mode plan --sandbox</code>.</td>
-        <td>Semantic PDF/screenshot reading &amp; smart categorization.</td>
-        <td>Taming messy <code>Downloads/</code> &amp; naming ambiguous docs.</td>
+        <td>Approval-gated dry run + Scheduled Tasks / <code>--approval-mode plan --sandbox</code>.</td>
+        <td>Semantic PDF/screenshot reading &amp; smart categorization (Cowork runs on Anthropic servers).</td>
+        <td>Taming messy <code>Downloads/</code> &amp; naming non-PII docs.</td>
       </tr>
     </tbody>
   </table>
@@ -768,10 +768,10 @@ stage duplicates and installers &gt;30 days old into _quarantine_30d/2026-11-17/
       </ul>
     </div>
     <div class="card" style="padding:9px 11px; border-top:3px solid #e11d48;">
-      <div class="card-title" style="font-size:9pt; color:#9f1239;"><span class="num-badge rose">2</span> Sensitive PDF &amp; Metadata Privacy</div>
+      <div class="card-title" style="font-size:9pt; color:#9f1239;"><span class="num-badge rose">2</span> Sensitive PDF &amp; Cloud Processing Privacy</div>
       <ul style="font-size:7.85pt; margin:3px 0 0 0; padding-left:16px;">
-        <li><strong>Keep PII Local First:</strong> Never upload unredacted tax forms, bank statements, passports, or medical records to consumer AI chats with training enabled.</li>
-        <li><strong>Local OCR + Local Vision:</strong> Use offline <code>ocrmypdf</code>, Hazel 6, or a local Ollama model for sensitive receipts, reserving cloud prompts for zero-retention/enterprise plans.</li>
+        <li><strong>Cowork Cloud Reality (Oct 2026+):</strong> Cowork tasks now execute on Anthropic's servers (reaching local folders via Desktop) and untrusted PDFs can carry prompt injection—never feed unredacted tax, bank, or medical files to cloud consumer chats.</li>
+        <li><strong>Local OCR + Local Vision:</strong> Use offline <code>ocrmypdf</code>, Hazel 6, or a local Ollama model for sensitive receipts, reserving cloud prompts for non-PII or enterprise ZDR plans.</li>
         <li><strong>Strip GPS Before Sharing:</strong> Before archiving or sharing phone photos, strip EXIF location coordinates using macOS Preview/Shortcuts or PowerShell/ExifTool.</li>
       </ul>
     </div>
@@ -936,9 +936,9 @@ for row in reversed(list(csv.DictReader(open("_quarantine_30d/rollback_manifest.
       </p>
     </div>
     <div class="card" style="padding:8.5px 11px;">
-      <div class="card-title" style="font-size:9pt;"><span class="num-badge cedar">2</span> Run Friday Dry-Run AI Triage</div>
+      <div class="card-title" style="font-size:9pt;"><span class="num-badge cedar">2</span> Run or Schedule Friday Dry-Run AI Triage</div>
       <p style="font-size:8pt; margin:0;">
-        Once a week, aim <strong>Claude Cowork</strong> or <strong>Gemini CLI</strong> (<code>--approval-mode plan</code>) at remaining mystery PDFs in <code>Downloads/</code>, approve the manifest, and rename receipts cleanly.
+        Set a recurring Friday <strong>Scheduled Task</strong> in Claude Cowork (or run <strong>Gemini CLI</strong> with <code>--approval-mode plan</code>) on <code>Downloads/</code>, approve the manifest, and rename receipts cleanly.
       </p>
     </div>
     <div class="card" style="padding:8.5px 11px;">

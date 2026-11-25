@@ -184,11 +184,11 @@ codex --version</code></pre>
     </div>
 
     <div class="card" style="border-top:3px solid #0d9488;">
-      <div class="card-title"><span class="num-badge teal">2</span> <code>GPT-6.1 Sol</code> Speed &amp; Context Tiers</div>
+      <div class="card-title"><span class="num-badge teal">2</span> <code>GPT-6.1 / 6.2 Sol</code> &amp; <code>Astra</code> Tiers</div>
       <ul style="font-size:7.95pt; margin:3px 0 0 0;">
-        <li><strong>500k Default (1.05M Max):</strong> Defaults to a 500k context window in Codex (expandable to 1.05M tokens) to hold full modules and test suites.</li>
+        <li><strong>500k Default (1.05M Max):</strong> <code>gpt-6.1-sol</code> ($2/$10 per 1M API tokens; $0.10 cached) &amp; <strong>GPT-6.2 Sol/Astra</strong> (Nov 17, 2026) hold full modules; Free/Go desktop uses <code>gpt-6-luna</code>.</li>
         <li><strong>High-Velocity Reasoning:</strong> Tuned specifically for terminal tool calls, patch synthesis, and fast edit-compile-test feedback loops.</li>
-        <li><strong>Adaptive Effort Profiles:</strong> Switch between rapid interactive edits locally and deep multi-step planning in Cloud runs via <code>/model</code>.</li>
+        <li><strong>Adaptive Effort &amp; Worktrees:</strong> Switch models via <code>/model</code>, manage parallel Git worktrees natively in CLI (<code>0.171+</code>), or use the Codex view inside the unified <strong>ChatGPT Desktop app</strong>.</li>
       </ul>
     </div>
   </div>
@@ -546,7 +546,8 @@ codex --sandbox workspace-write --ask-for-approval on-request
 /diff       # Inspect colorized git diff of every edit Codex made so far
 /review     # Run a dedicated second-pass bug &amp; regression check on uncommitted changes
 /compact    # Summarize older turns while preserving key file paths and decisions
-/resume     # Reopen a previous terminal session with full conversation state</code></pre>
+/resume     # Reopen a previous terminal session or parallel Git worktree with full state
+/import     # Import instructions, skills, plugins &amp; recent chats from Claude Code, Cowork, or Cursor</code></pre>
 
   <div class="grid-3" style="margin-top:4px; margin-bottom:6px;">
     <div class="card-mint" style="padding:7.5px 9px;">
@@ -870,9 +871,9 @@ codex cloud diff &lt;task-id&gt; &amp;&amp; codex cloud apply &lt;task-id&gt;  #
     </thead>
     <tbody>
       <tr>
-        <td><strong>1. TOML syntax error on CLI launch</strong></td>
-        <td>Unquoted inline tables, stray commas, or duplicate keys in <code>~/.codex/config.toml</code>.</td>
-        <td>Validate TOML with <code>python3 -c &quot;import tomllib; tomllib.load(open(&apos;...&apos;,&apos;rb&apos;))&quot;</code>; quote string values and remove trailing commas.</td>
+        <td><strong>1. TOML syntax or <code>wire_api = &quot;chat&quot;</code> error on launch</strong></td>
+        <td>Malformed <code>~/.codex/config.toml</code> or custom provider set to legacy Chat Completions (<code>wire_api = &quot;chat&quot;</code>).</td>
+        <td>Validate with <code>python3 -c &quot;import tomllib; tomllib.load(open(&apos;...&apos;,&apos;rb&apos;))&quot;</code> and point custom providers to a <strong>Responses API</strong> endpoint (Chat Completions-only is unsupported).</td>
       </tr>
       <tr>
         <td><strong>2. Sandbox permission denied on write or install</strong></td>

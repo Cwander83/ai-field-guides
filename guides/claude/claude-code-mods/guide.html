@@ -183,7 +183,7 @@
     <div class="card-warm" style="border-top:3px solid #c2410c;">
       <div class="card-title"><span class="num-badge">1</span> Runtime Prerequisites</div>
       <ul style="font-size:8.1pt; margin:3px 0 0 0;">
-        <li><strong>Claude Code <code>v2.1.287+</code>:</strong> Minimum release supporting in-process hook <code>&quot;modules&quot;</code>, the <code>$</code> Mods API, and <code>ui.render</code> across CLI and Desktop.</li>
+        <li><strong>Version Floors:</strong> CLI <code>v2.1.287+</code>, Desktop Code tab <code>v2.1.286+</code>, or VS Code extension <code>v2.1.299+</code> (in the VS Code chat panel, hooks run but <code>ui.render</code> requires the terminal/Desktop tab or <code>v2.1.299+</code>).</li>
         <li><strong>Zero Build Chain Needed:</strong> Native <code>.ts</code> and <code>.js</code> ES modules load directly without Webpack, Vite, or <code>node_modules</code>.</li>
         <li><strong>Built-In Validator:</strong> Run <code>claude plugin validate ./my-mod</code> to trigger static capability scanning before enabling any mod.</li>
       </ul>
@@ -597,8 +597,8 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
       </tr>
       <tr>
         <td><strong>2. Personal Daily Mod</strong></td>
-        <td><code>~/.claude/plugins/&lt;name&gt;/</code></td>
-        <td>Validated once with <code>claude plugin validate</code>; loads automatically across all your local repositories after <code>sec-default</code>.</td>
+        <td><code>~/.claude/plugins/&lt;name&gt;/</code> (or <code>--plugin-dir</code>)</td>
+        <td>Validated with <code>claude plugin validate</code>; loads across local repos via <code>/plugin</code> or ad-hoc with <code>claude --plugin-dir ./my-mod</code>.</td>
       </tr>
       <tr>
         <td><strong>3. Shared Repo Mod</strong></td>
@@ -760,7 +760,7 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
     <div class="card-dark">
       <div class="card-title">&#128737; Why Slot #1 Belongs to <code>sec-default</code></div>
       <p style="font-size:7.95pt; color:#e7e5e4; margin:0 0 5px 0;">
-        In middleware queues, <strong>whoever registers first owns the outermost gate</strong>. On Team and Enterprise environments (or wherever managed settings exist), Anthropic&rsquo;s built-in <code>cc-plugin-sec-default@builtin</code> mod is pinned to <strong>Slot #1</strong> ahead of every plugin and session <code>dev-mod</code>:
+        Claude Code ships 4 built-in open-source mods (<code>sec-default</code>, <code>diff</code>, <code>telemetry</code>, <code>agents-md</code>). On Team/Enterprise environments, <code>cc-plugin-sec-default@builtin</code> is pinned to <strong>Slot #1</strong> ahead of every plugin and session <code>dev-mod</code>:
       </p>
       <ul style="font-size:7.8pt; color:#fed7aa; margin:0;">
         <li>Prevents user mods from reading or stripping managed system prompts and org <code>CLAUDE.md</code> policies.</li>
@@ -769,14 +769,14 @@ claude plugin validate ./my-guardrail-mod            # Audits $ API usage, block
       </ul>
     </div>
     <div class="card">
-      <div class="card-title"><span class="num-badge espresso">!</span> Deterministic 4-Tier Load Order</div>
+      <div class="card-title"><span class="num-badge espresso">!</span> 4-Tier Load Order &amp; Kill Switches</div>
       <ol style="font-size:7.95pt; margin:3px 0 0 0;">
         <li><strong><code>sec-default</code> (Built-In Org Guard):</strong> Immutable Slot #1 baseline when managed policies are active.</li>
         <li><strong>Enterprise Managed Mods:</strong> Organization-distributed compliance, redaction, and logging mods.</li>
         <li><strong>Installed User &amp; Repo Mods:</strong> Validated plugins in <code>~/.claude/plugins/</code> and trusted repo bundles.</li>
         <li><strong>Live Session <code>dev-mods</code>:</strong> Ephemeral scratchpad mods in <code>~/.claude/dev-mods/&lt;session-id&gt;/</code>.</li>
       </ol>
-      <p style="font-size:7.75pt; color:#57534e; margin:5px 0 0 0;">Earlier mods inspect inputs first and inspect returned outputs last.</p>
+      <p style="font-size:7.75pt; color:#57534e; margin:5px 0 0 0;">Bypass all mods for one session with <code>claude --safe-mode</code> (or set <code>&quot;disableAllHooks&quot;: true</code> in <code>~/.claude/settings.json</code>).</p>
     </div>
   </div>
 
